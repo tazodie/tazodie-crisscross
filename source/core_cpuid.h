@@ -51,64 +51,6 @@ public:
 	~Feature(){};
 };
 
-/*
-struct Features {
-	//EDX register
-	int FPU;
-	int VME;
-	int DE;
-	int PSE;
-	int TSC;
-	int MSR;
-	int PAE;
-	int MCE;
-	int CX8;
-	int APIC;
-	int SEP;
-	int MTRR;
-	int PGE;
-	int MCA;
-	int CMOV;
-	int PAT;
-	int PSE36;
-	int PSNUM;
-	int CLFLUSH;
-	int DTS;
-	int ACPI;
-	int MMX;
-	int FXSR;
-	int SSE;
-	int SSE2;
-	int SS;
-	int HTT;
-	int TM1;
-	int IA64;
-	int PBE;
-
-	// ECX register
-	int SSE3;
-	int LAHF;
-	int DS_CPL;
-	int MONITOR;
-	int EIST;
-	int TM2;
-	int CID;
-	int SYSCALL;
-	int CX16;
-	int XTPR;
-	int XD;
-	int EM64T;
-
-	// AMD EDX 8000_0001
-	int NX;
-	int MMXEXT;
-	int FFXSR;
-	int RDTSCP;
-	int LM;
-	int _3DNOWEXT;
-	int _3DNOW;
-};*/
-
 class Processor {
 public:
 	char *Manufacturer;
