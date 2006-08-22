@@ -56,7 +56,8 @@
 #	define TARGET_DEBUG
 #endif
 
-#ifdef _LINUX
+/* We assume that __GNUC__ means Linux, but this will be corrected below if it really isn't. */
+#ifdef __GNUC__
 #	define TARGET_OS_LINUX
 #	undef TARGET_OS_WINDOWS
 #	undef TARGET_OS_MACOSX
@@ -84,6 +85,14 @@
 #if defined ( TARGET_DEBUG ) && defined ( TARGET_OS_WINDOWS ) && _MSC_VER >= 1300
 #	define ENABLE_SYMBOL_ENGINE
 #endif
+
+#if defined ( __ppc__ ) || defined ( __ppc64__ )
+#	if defined ( __ppc64__ )
+#	define TARGET_CPU_PPC 64
+#	else
+#	define TARGET_CPU_PPC 32
+#	endif
+#endif 
 
 #if defined ( TARGET_OS_WINDOWS )
 #	if defined ( DETECT_MEMORY_LEAKS )
