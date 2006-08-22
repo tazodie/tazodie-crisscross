@@ -74,8 +74,10 @@ void CoreConsole::SetColour ( short _flags )
 	/* TODO: Linux and Mac OS X ports of this function. */
 #if defined ( TARGET_OS_WINDOWS )
 	HANDLE hConsole = GetStdHandle ( STD_OUTPUT_HANDLE );
-	SetConsoleTextAttribute ( hConsole, 0 );
-	SetConsoleTextAttribute ( hConsole, _flags );
+	if ( _flags == 0 )
+		SetConsoleTextAttribute ( hConsole, FG_GRAY );
+	else
+		SetConsoleTextAttribute ( hConsole, _flags );
 #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX )
 	// Reset colours to defaults.
 	char temp[4]; char codes[16];
