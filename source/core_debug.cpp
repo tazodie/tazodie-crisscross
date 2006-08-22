@@ -170,6 +170,7 @@ unsigned *GetRetAddress ( unsigned *_ebp )
 
 void PrintStackTrace ( CoreIO *_outputBuffer )
 {
+#ifndef TARGET_OS_MACOSX	
 #ifdef ENABLE_SYMBOL_ENGINE
 
     CONTEXT context = {CONTEXT_FULL};
@@ -222,6 +223,7 @@ void PrintStackTrace ( CoreIO *_outputBuffer )
     
     }
 #endif
+#endif // TARGET_OS_MACOSX
 }
 
 void GenerateBlackBox( char *_msg )
