@@ -1,0 +1,151 @@
+/*
+ *
+ *                                   C R I S S C R O S S
+ *                          A multi purpose cross platform library.
+ *                              formerly Codename "Technetium"
+ *                             project started August 14, 2006
+ *
+ * Copyright (c) 2006, Steven Noonan <steven@uplinklabs.net> and Rudolf Olah <omouse@gmail.com>.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are
+ * permitted provided that the following conditions are met:
+ *
+ *     * Redistributions of source code must retain the above copyright notice, this list
+ *       of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright notice, this
+ *       list of conditions and the following disclaimer in the documentation and/or other
+ *       materials provided with the distribution.
+ *     * Neither the name of Uplink Laboratories nor the names of its contributors may be
+ *       used to endorse or promote products derived from this software without specific
+ *       prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+ * SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
+ * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ */
+
+#ifndef __included_universal_include_h
+#define __included_universal_include_h
+
+#define APP_CODENAME    "Technetium"
+#define APP_VERSION     "private-0.3.0"
+
+#define ENABLE_CPUID
+#define DETECT_MEMORY_LEAKS
+
+// ============================================================================
+// Dont edit anything below this line   
+// ============================================================================
+
+#define MAX_PROCESSORS 4
+
+#ifdef WIN32
+#	define TARGET_OS_WINDOWS
+#	define _CRT_SECURE_NO_DEPRECATE
+#endif
+
+#ifdef _DEBUG
+#	define TARGET_DEBUG
+#endif
+
+#ifdef _LINUX
+#	define TARGET_OS_LINUX
+#	undef TARGET_OS_WINDOWS
+#	undef TARGET_OS_MACOSX
+#	undef DETECT_MEMORY_LEAKS
+#endif
+
+#ifdef __APPLE__
+#	define TARGET_OS_MACOSX
+#	undef TARGET_OS_LINUX
+#	undef TARGET_OS_WINDOWS
+#	undef ENABLE_CPUID
+#	undef DETECT_MEMORY_LEAKS
+#endif
+
+#if !defined(TARGET_OS_WINDOWS) \
+ && !defined(TARGET_OS_LINUX) \
+ && !defined (TARGET_OS_MACOSX)
+#error No target selected.
+#endif
+
+#ifdef TARGET_RELEASE
+
+#endif
+
+#if defined ( TARGET_DEBUG ) && defined ( TARGET_OS_WINDOWS ) && _MSC_VER >= 1300
+#	define ENABLE_SYMBOL_ENGINE
+#endif
+
+#if defined ( TARGET_OS_WINDOWS )
+#	if defined ( DETECT_MEMORY_LEAKS )
+#		define _CRTDBG_MAP_ALLOC
+#	endif
+#	define TARGET_CPU_X86
+#	include <io.h>
+#	include <fcntl.h>
+#	include <windows.h>
+#	include <dbghelp.h>
+#	include <process.h>
+#else
+#	undef ENABLE_SYMBOL_ENGINE
+#endif
+
+#ifdef TARGET_CPU_X86
+#	define ENABLE_CPUID
+#endif
+
+#if defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX )
+#	include <pthread.h>
+#	include <sys/types.h>
+#endif
+
+#include <assert.h>
+#include <math.h>
+#include <memory.h>
+#include <stdarg.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#if _MSC_VER < 1300 && defined ( TARGET_OS_WINDOWS )
+#	include <xstring>
+typedef long intptr_t;
+#endif
+#include <iostream>
+#include <fstream>
+#include <sstream>
+
+#if defined ( TARGET_OS_WINDOWS )
+#	if defined ( DETECT_MEMORY_LEAKS )
+#		ifndef _DBG_NEW
+#			include <crtdbg.h>
+			inline void* __operator_new(size_t __n) { 
+     			return ::operator new(__n,_NORMAL_BLOCK,__FILE__,__LINE__);
+			}
+			inline void* _cdecl operator new(size_t __n,const char* __fname,int __line) {
+			     return ::operator new(__n,_NORMAL_BLOCK,__fname,__line);
+			}
+			inline void _cdecl operator delete(void* __p,const char*,int) { 
+     			::operator delete(__p); 
+			}
+#			define _DBG_NEW new(__FILE__,__LINE__)
+#			define new _DBG_NEW
+#		endif
+#		undef THIS_FILE
+		static char THIS_FILE[] = __FILE__;
+#	endif
+#	include "win32_pthread_emulate.h"
+#endif
+
+extern int RunApplication ( int argc, char **argv );
+
+#endif
