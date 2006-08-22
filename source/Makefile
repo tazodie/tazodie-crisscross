@@ -1,4 +1,6 @@
 OBJDIR = obj/linux
+OUTDIR = ..
+OUTBIN = crisscross-test
 
 SOURCES = \
 core_debug.cpp \
@@ -19,8 +21,7 @@ OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)
 CXX = g++
 CC = gcc
 LINK = $(CXX)
-LIBTOOL = libtool
-CXXFLAGS = -I. -D_LINUX -O2 -g
+CXXFLAGS = -I. -O2 -g
 NM = nm
 STRIP = :
 
@@ -32,15 +33,15 @@ clean:
 	rm -rf obj
 	rm -rf .depend
 	rm -rf .libs
-	rm -f technetium
-	rm -f technetium.map
+	rm -f $(OUTDIR)/$(OUTBIN)
+	rm -f $(OUTDIR)/$(OUTBIN).map
 	rm -f $(PCH)
 
 binary: $(OBJECTS)
 	@echo -n "Linking... "
-	@$(LIBTOOL) --mode=link --quiet $(LINK) $+ -lpthread -lstdc++ -o technetium
-	@$(NM) technetium > technetium.map
-	@$(STRIP) technetium
+	@$(LINK) $+ -lpthread -lstdc++ -o $(OUTDIR)/$(OUTBIN)
+	@$(NM) $(OUTDIR)/$(OUTBIN) > $(OUTDIR)/$(OUTBIN).map
+	@$(STRIP) $(OUTDIR)/$(OUTBIN)
 	@echo done.
 
 $(PCH): universal_include.h

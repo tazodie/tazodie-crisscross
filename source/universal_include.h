@@ -56,8 +56,7 @@
 #	define TARGET_DEBUG
 #endif
 
-/* We assume that __GNUC__ means Linux, but this will be corrected below if it really isn't. */
-#ifdef __GNUC__
+#ifdef __linux__
 #	define TARGET_OS_LINUX
 #	undef TARGET_OS_WINDOWS
 #	undef TARGET_OS_MACOSX
@@ -92,7 +91,15 @@
 #	else
 #	define TARGET_CPU_PPC 32
 #	endif
-#endif 
+#endif
+
+#if defined ( __i386__ )
+#	define TARGET_CPU_X86
+#endif
+
+#if defined ( __x86_64__ )
+#	define TARGET_CPU_X64
+#endif
 
 #if defined ( TARGET_OS_WINDOWS )
 #	if defined ( DETECT_MEMORY_LEAKS )
