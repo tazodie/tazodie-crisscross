@@ -18,7 +18,7 @@ OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)
 
 CXX = g++
 CC = gcc
-LINK = $(CC)
+LINK = $(CXX)
 LIBTOOL = libtool
 CXXFLAGS = -I. -D_LINUX -O2 -g
 NM = nm
