@@ -44,37 +44,24 @@ template <class T>
 DArray <T> :: DArray ()
 {
 
-#ifdef USE_STACK
     empty_nodes = new DStack();
 	empty_nodes->push ( -1 );
-#endif
-#ifdef SPECIAL_DEFAULT_CONSTRUCTOR
-    stepsize = 32;
-#else
-	stepsize = 1;
-#endif
-#ifdef KEEP_COUNT
-	count = 0;
-#endif
-    arraysize = 0;
+    m_stepSize = -1;
+    m_arraySize = 0;
     array = NULL;
     shadow = NULL;
 
 }
 
 template <class T>
-DArray <T> :: DArray ( int newstepsize )
+DArray <T> :: DArray ( int _newStepSize )
 {
 
-#ifdef USE_STACK
-    empty_nodes = new DStack(newstepsize + 1);
+    empty_nodes = new DStack(_newStepSize + 1);
 	empty_nodes->push ( -1 );
-#endif
-#ifdef KEEP_COUNT
-	count = 0;
-#endif
-    stepsize = newstepsize;
-    arraysize = 0;
+
+    m_stepSize = _newStepSize;
+    m_arraySize = 0;
     array = NULL;
     shadow = NULL;
 
@@ -85,9 +72,7 @@ DArray <T> :: ~DArray ()
 {
 
     Empty ();
-#ifdef USE_STACK
 	delete empty_nodes;
-#endif
 
 }
 
@@ -95,27 +80,26 @@ template <class T>
 void DArray <T> :: SetSize ( int newsize )
 {
 
-	if ( newsize > arraysize ) {
+	if ( newsize > m_arraySize ) {
 
-		int oldarraysize = arraysize;
+		int oldarraysize = m_arraySize;
 
-		arraysize = newsize;
-		T *temparray = new T [ arraysize ];
-		char *tempshadow = new char [ arraysize ];
+		m_arraySize = newsize;
+		T *temparray = new T [ m_arraySize ];
+		char *tempshadow = new char [ m_arraySize ];
 
 		if (array && temparray)
 		{
 			memcpy ( &temparray[0], &array[0], sizeof(temparray[0]) * oldarraysize );
 			memcpy ( &tempshadow[0], &shadow[0], sizeof(tempshadow[0]) * oldarraysize );
 		}
-		memset ( &temparray[oldarraysize], 0, sizeof (temparray[0]) * (arraysize - oldarraysize) );
-		memset ( &tempshadow[oldarraysize], 0, sizeof (tempshadow[0]) * (arraysize - oldarraysize) );
-#ifdef USE_STACK
-		for (int i = oldarraysize + 1; i < arraysize; i++ )
+		memset ( &temparray[oldarraysize], 0, sizeof (temparray[0]) * (m_arraySize - oldarraysize) );
+		memset ( &tempshadow[oldarraysize], 0, sizeof (tempshadow[0]) * (m_arraySize - oldarraysize) );
+
+		for (int i = oldarraysize + 1; i < m_arraySize; i++ )
 		{
 			empty_nodes->push ( i );
 		}
-#endif
 
 		if ( array ) delete [] array;
 		if ( shadow ) delete [] shadow;
@@ -124,26 +108,25 @@ void DArray <T> :: SetSize ( int newsize )
 		shadow = tempshadow;
 
 	}
-	else if ( newsize < arraysize ) {
+	else if ( newsize < m_arraySize ) {
 
-		arraysize = newsize;
-		T *temparray = new T [arraysize];
-		char *tempshadow = new char [arraysize];
+		m_arraySize = newsize;
+		T *temparray = new T [m_arraySize];
+		char *tempshadow = new char [m_arraySize];
 
 		if (array && temparray)
 		{
-			memcpy ( &temparray[0], &array[0], sizeof(temparray[0]) * arraysize );
-			memcpy ( &tempshadow[0], &shadow[0], sizeof(tempshadow[0]) * arraysize );
+			memcpy ( &temparray[0], &array[0], sizeof(temparray[0]) * m_arraySize );
+			memcpy ( &tempshadow[0], &shadow[0], sizeof(tempshadow[0]) * m_arraySize );
 		}
 
 		// We need to find nodes that are out of the range and eliminate them.
 		// At the same time, find any in-use nodes and remove them from the empty_nodes stack.
-#ifdef USE_STACK
 		DStack *temp_stack = new DStack();
 		temp_stack->push(-1);
 		int _item = 0;
 		while ( (_item = empty_nodes->pop()) > 0 )
-			if ( _item < arraysize )
+			if ( _item < m_arraySize )
 				if ( shadow[_item] == 0 )
 					temp_stack->push(_item); // Node is deemed valid.
 
@@ -153,13 +136,6 @@ void DArray <T> :: SetSize ( int newsize )
 			empty_nodes->push ( _item );
 
 		delete temp_stack;
-#endif
-#ifdef KEEP_COUNT
-		count = 0; // we're recounting, since we've lost some nodes.
-		for ( int i = 0; i < arraysize; i++ )
-			if ( shadow[i] == 1 )
-				count++;
-#endif
 
 		if ( array ) delete [] array;
 		if ( shadow ) delete [] shadow;
@@ -168,7 +144,7 @@ void DArray <T> :: SetSize ( int newsize )
 		shadow = tempshadow;
 
 	}
-	else if ( newsize == arraysize ) {
+	else if ( newsize == m_arraySize ) {
 
 		// Do nothing
 
@@ -177,17 +153,38 @@ void DArray <T> :: SetSize ( int newsize )
 }
 
 template <class T>
-void DArray <T> :: SetStepSize ( int newstepsize )
+void DArray<T>::Grow()
+{
+	if (m_stepSize == -1)
+	{
+		// Double array size
+		if (m_arraySize == 0)
+		{
+			SetSize(1);
+		}
+		else
+		{
+			SetSize( m_arraySize * 2 );
+		}
+	}
+	else
+	{
+		// Increase array size by fixed amount
+		SetSize( m_arraySize + m_stepSize );
+	}
+}
+
+template <class T>
+void DArray <T> :: SetStepSize ( int _stepSize )
 {
 
-	stepsize = newstepsize;
+	m_stepSize = _stepSize;
 
 }
 
 template <class T>
 int DArray <T> :: PutData ( const T &newdata )
 {
-#ifdef USE_STACK
 	int freespace = 0;
 
 	while ( (freespace = empty_nodes->pop()) != -1 ) {
@@ -196,33 +193,14 @@ int DArray <T> :: PutData ( const T &newdata )
 				break;					// Found one!
 	}
 
-#else
-    int freespace = -1;					// Find a free space
-    
-    for ( int a = 0; a < arraysize; ++a ) {
-		if ( shadow ) {
-			if ( shadow [a] == 0 ) {
-				freespace = a;
-				break;
-			}
-		}
-    }
-#endif
-
     if ( freespace == -1 ) {			// Must resize the array
-#ifdef USE_STACK
 		empty_nodes->push ( -1 );		// since we just lost our -1, we need to re-add.
-#endif
-		freespace = arraysize;
-		SetSize ( arraysize + stepsize );
-		
+		freespace = m_arraySize;
+		Grow();
     }
 
     array [freespace] = newdata;
-#ifdef KEEP_COUNT
-	if ( shadow [freespace] != 1 )		// If the item's already in use, no reason to add one to 'count'.
-		count++;
-#endif
+
     shadow [freespace] = 1;
 	
 	return freespace;
@@ -233,13 +211,9 @@ template <class T>
 void DArray <T> :: PutData ( const T &newdata, int index )
 {
 
-    assert ( index < arraysize && index >= 0 );       
+    CoreAssert ( index < m_arraySize && index >= 0 );       
 
     array [index] = newdata;
-#ifdef KEEP_COUNT
-	if ( shadow [index] != 1 )		// If the item's already in use, no reason to add one to 'count'.
-		count++;
-#endif
 
     shadow [index] = 1;
 }
@@ -256,15 +230,11 @@ void DArray <T> :: Empty ()
     
     array = NULL;
     shadow = NULL;
-#ifdef KEEP_COUNT
-	count = 0;
-#endif
-#ifdef USE_STACK
+
 	empty_nodes->empty();
 	empty_nodes->push ( -1 );
-#endif
 
-    arraysize = 0;
+    m_arraySize = 0;
 
 }
 
@@ -273,7 +243,7 @@ T DArray <T> :: GetData ( int index )
 {
 
 	CoreAssert ( shadow[index] != 0 );
-    CoreAssert ( index < arraysize && index >= 0 );
+    CoreAssert ( index < m_arraySize && index >= 0 );
 
     return array [index];
 
@@ -284,7 +254,7 @@ T& DArray <T> :: operator [] (int index)
 {
 
 	CoreAssert ( shadow[index] != 0 );
-    CoreAssert ( index < arraysize && index >= 0 );
+    CoreAssert ( index < m_arraySize && index >= 0 );
 
     return array [index];
 }
@@ -295,7 +265,7 @@ void DArray <T> :: ChangeData ( const T &newdata, int index )
 {
 
 	CoreAssert ( shadow[index] != 0 );
-	CoreAssert ( index < arraysize && index >= 0 );
+	CoreAssert ( index < m_arraySize && index >= 0 );
 
     PutData ( newdata, index );
     shadow [index] = 1;
@@ -307,15 +277,9 @@ void DArray <T> :: RemoveData ( int index )
 {
 
 	CoreAssert ( shadow[index] != 0 );
-	CoreAssert ( index < arraysize && index >= 0 );
+	CoreAssert ( index < m_arraySize && index >= 0 );
 
-#ifdef KEEP_COUNT
-	count--;
-#endif
-
-#ifdef USE_STACK
 	empty_nodes->push ( index );
-#endif
 
     shadow [index] = 0;
 
@@ -327,7 +291,7 @@ int DArray <T> :: NumUsed ()
 
     int count = 0;
 
-    for ( int a = 0; a < arraysize; ++a )
+    for ( int a = 0; a < m_arraySize; ++a )
 		if ( shadow [a] == 1 )
 			++count;
     return count;
@@ -337,19 +301,14 @@ int DArray <T> :: NumUsed ()
 template <class T>
 int DArray <T> :: Size (bool guarantee_actual)
 {
-#ifdef KEEP_COUNT
-	if ( guarantee_actual ) return arraysize;
-	return (stepsize > 1) ? count : arraysize; // Only need to correct the error generated by larger-than-1 step sizes.
-#else
-	return arraysize;
-#endif
+	return m_arraySize;
 }
 
 template <class T>
 bool DArray <T> :: ValidIndex ( int index )
 {
 
-    if (index >= arraysize || index < 0 )
+    if (index >= m_arraySize || index < 0 )
 		return false;
 
     if (!shadow [index])
@@ -363,7 +322,7 @@ template <class T>
 int DArray <T> :: FindData ( const T &newdata )
 {
 
-    for ( int a = 0; a < arraysize; ++a )
+    for ( int a = 0; a < m_arraySize; ++a )
 		if ( shadow [a] )
 		    if ( array [a] == newdata )
 				return a;

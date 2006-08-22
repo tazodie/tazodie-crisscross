@@ -39,38 +39,29 @@
 #include "darray.h"
 #include "dstack.h"
 
-#define USE_STACK
-
 template <class T>
 class DArray
 {
 
 private:
-#ifdef USE_STACK
 	DStack	*empty_nodes;
-#endif
-#ifdef KEEP_COUNT
-	int		count;
-#endif
 
 protected:
     
-    int stepsize;
-    int arraysize;
+    int m_stepSize;
+    int m_arraySize;
 
     T *array;
     char *shadow;				 //0=not used, 1=used
     
 public:
 
-#ifndef SPECIAL_DEFAULT_CONSTRUCTOR
-    _DS_DEPRECATE_SLOW
-#endif
 	DArray ();							// using the default constructor defeats the 
 										// purpose of the stack. use the other one any time possible.
     DArray ( int newstepsize );
     ~DArray ();
 
+	void Grow ();
     void SetSize ( int newsize );
 	void SetStepSize ( int newstepsize );
 
@@ -89,10 +80,6 @@ public:
     void Empty ();				 // Resets the array to empty    
     
     T& operator [] (int index);
-
-	typedef int ( * Sorter ) ( const T *data1, const T *data2 );
-
-	void Sort ( Sorter comp );
 
 };
 
