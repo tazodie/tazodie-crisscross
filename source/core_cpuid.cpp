@@ -38,8 +38,6 @@
 
 #ifndef TARGET_OS_WINDOWS
 #include <sys/types.h>
-#include <sys/sysinfo.h>
-#include <sys/mman.h>
 #include <unistd.h>
 #include <sched.h>
 #include <ctype.h>
