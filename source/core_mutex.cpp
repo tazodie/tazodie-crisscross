@@ -33,12 +33,14 @@
  */
 
 #include "universal_include.h"
+#include "core_debug.h"
 #include "core_mutex.h"
 
 CoreMutex::CoreMutex (  ):
 m_mutexLocked ( false )
 {
 	m_threadQueue = new LList < pthread_t >;
+	CoreAssert ( m_threadQueue );
 }
 
 CoreMutex::~CoreMutex (  )
@@ -100,6 +102,7 @@ CoreMutex::WaitForUnlock (  )
 {
 	pthread_t thisThread = pthread_self (  );
 
+	CoreAssert ( m_threadQueue );
 	if ( m_threadQueue->Size (  ) == 0 && m_mutexLocked == false )
 		return;
 	m_threadQueue->PutDataAtEnd ( thisThread );

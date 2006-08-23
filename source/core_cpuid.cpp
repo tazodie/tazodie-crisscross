@@ -121,22 +121,31 @@ call_cpuid ( unsigned int op, unsigned int *_eax, unsigned int *_ebx,
 	/* TODO: This ASM block shouldn't be this large, but using "mov [_eax], eax" doesn't seem to work... Fix this. */
 	__asm
 	{
-		mov eax, op cpuid
-#        if 1
-		 
-			mov edi,[_eax]
-			mov[edi], eax
-			mov edi,[_ebx]
-			mov[edi], ebx
-			mov edi,[_ecx] mov[edi], ecx mov edi,[_edx] mov[edi], edx
-#        else
-		  mov[_eax], eax mov[_ebx], ebx mov[_ecx], ecx mov[_edx], edx
-#        endif
+		mov eax, op;
+		cpuid;
+#if 1
+		mov edi,[_eax];
+		mov[edi], eax;
+		mov edi,[_ebx];
+		mov[edi], ebx;
+		mov edi,[_ecx];
+		mov[edi], ecx;
+		mov edi,[_edx];
+		mov[edi], edx;
+#else
+		mov[_eax], eax;
+		mov[_ebx], ebx;
+		mov[_ecx], ecx;
+		mov[_edx], edx;
+#endif
 	}
 #    else
-  __asm__ ( "cpuid": "=a" ( *_eax ), "=b" ( *_ebx ), "=c" ( *_ecx ), "=d" ( *_edx ):"0" ( op ),
-			  "c"
-			  ( 0 ) );
+  __asm__ ( "cpuid"
+			: "=a" ( *_eax ),
+			  "=b" ( *_ebx ),
+			  "=c" ( *_ecx ),
+			  "=d" ( *_edx )
+			: "0" ( op ), "c" ( 0 ) );
 #    endif
 }
 

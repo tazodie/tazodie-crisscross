@@ -54,13 +54,14 @@ CoreIO::~CoreIO (  )
 	delete[]m_lineEnding;
 	m_lineEnding = NULL;
 	delete m_ioMutex;
-
 	m_ioMutex = NULL;
 }
 
 bool
 CoreIO::EndOfFile (  )
 {
+	CoreAssert ( this );
+
 	if ( !m_fileBuffer )
 		return true;
 	return ( feof ( m_fileBuffer ) != 0 );
@@ -69,6 +70,8 @@ CoreIO::EndOfFile (  )
 void
 CoreIO::Flush (  )
 {
+	CoreAssert ( this );
+
 	m_ioMutex->Lock (  );
 	fflush ( m_fileBuffer );
 	m_ioMutex->Unlock (  );
@@ -77,6 +80,8 @@ CoreIO::Flush (  )
 int
 CoreIO::Forward ( int _position )
 {
+	CoreAssert ( this );
+
 	int res = Seek ( _position, SEEK_CUR );
 
 	return ( res == 0 );
@@ -85,6 +90,8 @@ CoreIO::Forward ( int _position )
 unsigned long
 CoreIO::Length (  )
 {
+	CoreAssert ( this );
+
 	m_ioMutex->Lock (  );
 	fpos_t lastpos;
 
@@ -109,6 +116,8 @@ CoreIO::Length (  )
 char
 CoreIO::Read (  )
 {
+	CoreAssert ( this );
+
 	char retval;
 
 	m_ioMutex->Lock (  );
@@ -121,6 +130,8 @@ size_t
 CoreIO::Read ( char *_buffer, int _bufferLength, int _bufferIndex,
 			   int _count )
 {
+	CoreAssert ( this );
+
 	size_t retval;
 
 	CoreAssert ( _buffer != NULL );
@@ -136,6 +147,8 @@ CoreIO::Read ( char *_buffer, int _bufferLength, int _bufferIndex,
 const char *
 CoreIO::ReadLine (  )
 {
+	CoreAssert ( this );
+
 	m_ioMutex->Lock (  );
 	char c = getc ( m_fileBuffer );
 
@@ -164,6 +177,8 @@ CoreIO::ReadLine (  )
 int
 CoreIO::Seek ( int _position, int _origin )
 {
+	CoreAssert ( this );
+
 	m_ioMutex->Lock (  );
 	int res = fseek ( m_fileBuffer, _position, _origin );
 
@@ -174,6 +189,8 @@ CoreIO::Seek ( int _position, int _origin )
 int
 CoreIO::Seek ( int _position )
 {
+	CoreAssert ( this );
+
 	int res = Seek ( _position, SEEK_SET );
 
 	return ( res == 0 );
@@ -182,6 +199,8 @@ CoreIO::Seek ( int _position )
 void
 CoreIO::SetLineEndings ( LineEndingType _ending )
 {
+	CoreAssert ( this );
+
 	delete[]m_lineEnding;
 	switch ( _ending )
 	{
@@ -208,45 +227,41 @@ CoreIO::SetLineEndings ( LineEndingType _ending )
 void
 CoreIO::WriteLine ( const char *_format, ... )
 {
+	CoreAssert ( this );
+
 	if ( _format == NULL )
 		return;
 
 	m_ioMutex->Lock (  );
-	char *format_buffer = NULL;
 	va_list args;
 
 	va_start ( args, _format );
 
 	CoreAssert ( _format != NULL );
 
-	// Add our newline character to the format string
-	format_buffer = new char[strlen ( _format ) + 2];
-
-	CoreAssert ( format_buffer != NULL );
-
-	strcpy ( format_buffer, _format );
-	strcat ( format_buffer, "\n" );
-
 	// Print out the string
-	vfprintf ( m_fileBuffer, format_buffer, args );
+	vfprintf ( m_fileBuffer, _format, args );
+	fprintf ( m_fileBuffer, m_lineEnding );
 
 	va_end ( args );
 
-	delete[]format_buffer;
 	m_ioMutex->Unlock (  );
 }
 
 void
 CoreIO::WriteLine (  )
 {
+	CoreAssert ( this );
+
 	m_ioMutex->Lock (  );
-	fprintf ( m_fileBuffer, "\n" );
+	fprintf ( m_fileBuffer, m_lineEnding );
 	m_ioMutex->Unlock (  );
 }
 
 void
 CoreIO::Write ( const char *_format, ... )
 {
+	CoreAssert ( this );
 
 	if ( _format == NULL )
 		return;

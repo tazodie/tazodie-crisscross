@@ -160,11 +160,8 @@ defined ( __powerpc64__ )
 #    include <string.h>
 	
 #    if _MSC_VER < 1300 && defined ( TARGET_OS_WINDOWS )
-#        	include <xstring>
-	 typedef long
-		 intptr_t;
-
-
+#       include <xstring>
+		typedef long intptr_t;
 #    endif
 #    include <iostream>
 #    include <fstream>

@@ -52,8 +52,7 @@ RunApplication ( int argc, char **argv )
 	cpuid->Go (  );
 	console->WriteLine ( "There are %d processors in the system.",
 						 cpuid->GetCPUCount (  ) );
-	CoreIO *io = NULL;
-	io->WriteLine();
+
 	for ( int i = 0; i < MAX_PROCESSORS; i++ )
 	{
 		if ( cpuid->proc[i]->Manufacturer != NULL )

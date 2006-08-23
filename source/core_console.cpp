@@ -39,6 +39,7 @@
 CoreConsole::CoreConsole (  ):
 CoreIO ( stdout )
 {
+	SetLineEndings ( CoreIO::LF );
 #ifdef TARGET_OS_WINDOWS
 	if ( AllocConsole (  ) == TRUE )
 	{
@@ -78,6 +79,8 @@ CoreConsole::~CoreConsole (  )
 void
 CoreConsole::SetColour ( short _flags )
 {
+	CoreAssert ( this );
+
 	/* TODO: Linux and Mac OS X ports of this function. */
 #if defined ( TARGET_OS_WINDOWS )
 	HANDLE hConsole = GetStdHandle ( STD_OUTPUT_HANDLE );
@@ -143,6 +146,8 @@ CoreConsole::SetColour ( short _flags )
 void
 CoreConsole::Clear (  )
 {
+	CoreAssert ( this );
+
 	/* TODO: Linux and Mac OS X ports of this function. */
 #if defined ( TARGET_OS_WINDOWS )
 	COORD coordScreen = { 0, 0 };

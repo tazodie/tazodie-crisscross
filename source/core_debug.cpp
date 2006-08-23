@@ -179,8 +179,10 @@ GetRetAddress ( const unsigned *_ebp )
 
 	__asm
 	{
-		mov eax,[_ebp] mov eax, ss:[eax + 4];
-	mov[retAddr], eax}
+		mov eax,[_ebp];
+		mov eax, ss:[eax + 4];
+		mov[retAddr], eax;
+	}
 
 	return retAddr;
 #else
@@ -198,13 +200,13 @@ PrintStackTrace ( CoreIO * _outputBuffer )
 
 	CONTEXT context = { CONTEXT_FULL };
 	::GetThreadContext ( GetCurrentThread (  ), &context );
-	_asm call $ + 5
-		_asm pop eax
-		_asm mov context.Eip, eax
-		_asm mov eax, esp
-		_asm mov context.Esp, eax
-		_asm mov context.Ebp, ebp
-		SymbolEngine::instance (  ).StackTrace ( &context, _outputBuffer );
+	_asm call $ + 5;
+	_asm pop eax;
+	_asm mov context.Eip, eax;
+	_asm mov eax, esp;
+	_asm mov context.Esp, eax;
+	_asm mov context.Ebp, ebp;
+	SymbolEngine::instance (  ).StackTrace ( &context, _outputBuffer );
 
 #    else
 
@@ -216,7 +218,8 @@ PrintStackTrace ( CoreIO * _outputBuffer )
 	{
 	mov[framePtr], ebp}
 #        else
-  asm ( "movl %%ebp, %0;":"=r" ( framePtr ) );
+	asm ( "movl %%ebp, %0;"
+		: "=r" ( framePtr ) );
 #        endif
 	while ( framePtr )
 	{
@@ -290,7 +293,6 @@ Assert ( bool _condition, const char *_testcase, const char *_file,
 		GenerateBlackBox ( buffer );
 //#ifndef _DEBUG
 		throw new AssertionFailureException ( _file, _line );
-
 //#else
 //      _ASSERT ( _condition );
 //#endif
