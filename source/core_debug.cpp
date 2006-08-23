@@ -152,7 +152,7 @@ void SymbolEngine::StackTrace( PCONTEXT _pContext, CoreIO *_outputBuffer )
 
 unsigned *GetRetAddress ( unsigned *_ebp )
 {
-#ifdef WIN32
+#ifdef TARGET_OS_WINDOWS
 	unsigned *retAddr;
 
 	__asm {
@@ -170,7 +170,7 @@ unsigned *GetRetAddress ( unsigned *_ebp )
 
 void PrintStackTrace ( CoreIO *_outputBuffer )
 {
-#ifndef TARGET_OS_MACOSX	
+#ifndef TARGET_CPU_PPC
 #ifdef ENABLE_SYMBOL_ENGINE
 
     CONTEXT context = {CONTEXT_FULL};
