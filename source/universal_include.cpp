@@ -264,7 +264,8 @@ int main ( int argc, char **argv )
 	g_stdout = new CoreIO ( stdout );
 #ifdef ENABLE_CREDITS
 	g_stdout->WriteLine ( "Powered by CrissCross, http://www.uplinklabs.net/crisscross/" );
-	g_stdout->WriteLine ( "(c) 2006 by Steven Noonan <steven@uplinklabs.net> and Rudolf Olah <omouse@gmail.com>" );
+	g_stdout->WriteLine ( "(c) 2006 by Steven Noonan <steven@uplinklabs.net>" );
+	g_stdout->WriteLine ( "        and Rudolf Olah   <omouse@gmail.com>" );
 	g_stdout->WriteLine ();
 #endif
 	try {
