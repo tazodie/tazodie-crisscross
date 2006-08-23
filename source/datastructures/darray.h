@@ -30,80 +30,59 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- */  
-	
+ */
+
 #ifndef __included_darray_h
 #    define __included_darray_h
-	
+
 #    include "core_deprecate.h"
 #    include "darray.h"
 #    include "dstack.h"
-	
-template < class T > 
-class DArray 
+
+template < class T > class DArray
 {
-  
 
-private:
-DStack * empty_nodes;
-  
+  private:
+	DStack * empty_nodes;
 
-protected:
+  protected:
 
-int m_stepSize;
-	
-int m_arraySize;
+	int m_stepSize;
+	int m_arraySize;
 
-	
+	T *array;
+	char *shadow;				//0=not used, 1=used
 
-T * array;
-	
-char *shadow;				//0=not used, 1=used
+  public:
 
-  
-public:
-
-DArray (  );		// using the default constructor defeats the 
+	DArray (  );				// using the default constructor defeats the 
 	// purpose of the stack. use the other one any time possible.
 	DArray ( int newstepsize );
 
-	
-~DArray (  );
-	
+	~DArray (  );
 
-void Grow (  );
-	
-void SetSize ( int newsize );
-	
-void SetStepSize ( int newstepsize );
-	
+	void Grow (  );
+	void SetSize ( int newsize );
+	void SetStepSize ( int newstepsize );
 
-int PutData ( const T & newdata );	// Returns index used
+	int PutData ( const T & newdata );	// Returns index used
 	void PutData ( const T & newdata, int index );
-	
-T GetData ( int index );
-	
-void ChangeData ( const T & newdata, int index );
-	
-void RemoveData ( int index );
-	
-int FindData ( const T & data );	// -1 means 'not found'
-	
-int NumUsed (  );			// Returns the number of used entries
+	T GetData ( int index );
+	void ChangeData ( const T & newdata, int index );
+	void RemoveData ( int index );
+	int FindData ( const T & data );	// -1 means 'not found'
+
+	int NumUsed (  );			// Returns the number of used entries
 	int Size ( bool guarantee_actual = false );	// Returns the total size of the array
-	
-bool ValidIndex ( int index );	// Returns true if the index contains used data
-	
-void Empty (  );			// Resets the array to empty    
 
-	
-T & operator []( int index );
+	bool ValidIndex ( int index );	// Returns true if the index contains used data
 
+	void Empty (  );			// Resets the array to empty    
+
+	T & operator []( int index );
 
 };
 
-
-
 #    include "darray.cpp"
-	
+
 #endif

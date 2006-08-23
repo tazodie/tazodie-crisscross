@@ -30,42 +30,27 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- */  
-	
+ */
+
 #ifndef __included_dstack_h
 #    define __included_dstack_h
-	
-class DStack 
+
+class DStack
 {
-  
-private:
-int step_;
-	
-int *bottom_;
-	
-int *top_;
-	
-int size_;
-	
-int origsize_;
-  
+  private:
+	int step_;
+	int *bottom_;
+	int *top_;
+	int size_;
+	int origsize_;
 
-public:
-DStack ( int size = 32 );
-	
-void push ( int val );
-	
-int num_items (  ) const;
-	
-int pop (  );
-	
-void empty (  );
-
-	
-~DStack (  );
-
+  public:
+	  DStack ( int size = 32 );
+	void push ( int val );
+	int num_items (  ) const;
+	int pop (  );
+	void empty (  );
+	 ~DStack (  );
 };
-
-
 
 #endif

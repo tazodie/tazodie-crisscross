@@ -30,94 +30,66 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- */  
-	
+ */
+
 #ifndef __included_llist_h
 #    define __included_llist_h
-	
-template < class T > 
-class LListItem 
+
+template < class T > class LListItem
 {
-  
-protected: 
-public:
-T m_data;
-	
-LListItem * m_next;
-	
-LListItem * m_previous;
-	
+  protected:
+  public:
+	T m_data;
+	LListItem *m_next;
+	LListItem *m_previous;
 
-LListItem (  );
-	
-~LListItem (  );
-
+	LListItem (  );
+	~LListItem (  );
 };
 
 
-
-
-template < class T > 
-class LList 
+template < class T > class LList
 {
-  
-protected:
-LListItem < T > *m_first;
-								// Pointer to first node
+  protected:
+	LListItem < T > *m_first;	// Pointer to first node
 	LListItem < T > *m_last;	// Pointer to last node
-	
-mutable LListItem < T > *m_previous;	// Used to get quick access
+
+	mutable LListItem < T > *m_previous;	// Used to get quick access
 	mutable int m_previousIndex;	// for sequential reads (common)
-	
-int m_numItems;
-  
 
-protected:
-inline LListItem < T > *GetItem ( int index ) const;
+	int m_numItems;
 
-  
+  protected:
+	inline LListItem < T > *GetItem ( int index ) const;
 
-public:
-LList (  );
-	
-LList ( const LList < T > & );
+  public:
+	LList (  );
+	LList ( const LList < T > & );
 
-	
-~LList (  );
-	
+	~LList (  );
 
-LList & operator = ( const LList < T > & );
-	
+	LList & operator = ( const LList < T > & );
 
-inline void PutData ( const T & newdata );	// Adds in data at the end  
+	inline void PutData ( const T & newdata );	// Adds in data at the end  
 	void PutDataAtEnd ( const T & newdata );
-	
-void PutDataAtStart ( const T & newdata );
-	
-void PutDataAtIndex ( const T & newdata, int index );
-	
+	void PutDataAtStart ( const T & newdata );
+	void PutDataAtIndex ( const T & newdata, int index );
 
-inline T GetData ( int index ) const;	// slow unless sequential
+	inline T GetData ( int index ) const;	// slow unless sequential
 	inline T *GetPointer ( int index ) const;	// slow unless sequential
 	void RemoveData ( int index );	// slow unless sequential
 	inline void RemoveDataAtEnd (  );
-	
-int FindData ( const T & data );	// -1 means 'not found'
-	
-inline int Size (  ) const;	// Returns the total size of the array
-	inline bool ValidIndex ( int index ) const;
-	
+	int FindData ( const T & data );	// -1 means 'not found'
 
-void Empty (  );			// Resets the array to empty    
+	inline int Size (  ) const;	// Returns the total size of the array
+	inline bool ValidIndex ( int index ) const;
+
+	void Empty (  );			// Resets the array to empty    
 	void EmptyAndDelete (  );	// As above, deletes all data as well
 
-	
-inline T operator []( int index );
-
+	inline T operator [] ( int index );
 };
 
-
-
 #    include "llist.cpp"
-	
+
 #endif
