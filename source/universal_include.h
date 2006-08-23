@@ -47,23 +47,63 @@
 
 #define MAX_PROCESSORS 4
 
-#ifdef WIN32
+#if defined ( _ARCH_PPC ) || defined ( __ppc__ ) || \
+	defined ( __ppc64__ ) || defined ( __PPC ) || \
+	defined ( powerpc )   || defined ( __PPC__ ) || \
+	defined ( __powerpc64__ ) || defined ( __powerpc64 )
+#	if defined ( __ppc64__ ) || defined ( __powerpc64__ ) || defined ( __powerpc64 )
+#	define TARGET_CPU_PPC 64
+#	else
+#	define TARGET_CPU_PPC 32
+#	endif
+#endif
+
+#if defined ( __i386__ ) || defined ( __i386 ) || \
+	defined ( i386 )
+#	define TARGET_CPU_X86
+#endif
+
+#if defined ( __alpha ) || defined ( __alpha__ )
+#	define TARGET_CPU_ALPHA
+#endif
+
+#if defined ( __x86_64__ ) || defined ( __x86_64 ) || \
+	defined ( __amd64 )    || defined ( __amd64__ )
+#	define TARGET_CPU_X64
+#endif
+
+#if defined ( WIN32 ) || defined ( WIN64 )
+#	if defined ( WIN32 )
+#		define TARGET_CPU_X86
+#	elif defined ( WIN64 )
+#		define TARGET_CPU_X64
+#	endif
 #	define TARGET_OS_WINDOWS
 #	define _CRT_SECURE_NO_DEPRECATE
 #endif
+
 
 #ifdef _DEBUG
 #	define TARGET_DEBUG
 #endif
 
-#ifdef __linux__
+#if defined ( __linux__ ) || defined ( linux ) || \
+	defined ( __linux ) || defined ( __gnu_linux__ )
 #	define TARGET_OS_LINUX
 #	undef TARGET_OS_WINDOWS
 #	undef TARGET_OS_MACOSX
 #	undef DETECT_MEMORY_LEAKS
 #endif
 
-#ifdef __APPLE__
+#if defined (__FreeBSD__)
+#	define TARGET_OS_FREEBSD
+#endif
+
+#if defined (__OpenBSD__)
+#	define TARGET_OS_OPENBSD
+#endif
+
+#if defined (__APPLE__) || defined (__MACH__)
 #	define TARGET_OS_MACOSX
 #	undef TARGET_OS_LINUX
 #	undef TARGET_OS_WINDOWS
@@ -74,7 +114,7 @@
 #if !defined(TARGET_OS_WINDOWS) \
  && !defined(TARGET_OS_LINUX) \
  && !defined (TARGET_OS_MACOSX)
-#error No target selected.
+#error Compiling on an unsupported target. Cannot continue.
 #endif
 
 #ifdef TARGET_RELEASE
@@ -85,27 +125,10 @@
 #	define ENABLE_SYMBOL_ENGINE
 #endif
 
-#if defined ( __ppc__ ) || defined ( __ppc64__ )
-#	if defined ( __ppc64__ )
-#	define TARGET_CPU_PPC 64
-#	else
-#	define TARGET_CPU_PPC 32
-#	endif
-#endif
-
-#if defined ( __i386__ )
-#	define TARGET_CPU_X86
-#endif
-
-#if defined ( __x86_64__ )
-#	define TARGET_CPU_X64
-#endif
-
 #if defined ( TARGET_OS_WINDOWS )
 #	if defined ( DETECT_MEMORY_LEAKS )
 #		define _CRTDBG_MAP_ALLOC
 #	endif
-#	define TARGET_CPU_X86
 #	include <io.h>
 #	include <fcntl.h>
 #	include <windows.h>
@@ -113,10 +136,6 @@
 #	include <process.h>
 #else
 #	undef ENABLE_SYMBOL_ENGINE
-#endif
-
-#ifdef TARGET_CPU_X86
-#	define ENABLE_CPUID
 #endif
 
 #if defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX )
