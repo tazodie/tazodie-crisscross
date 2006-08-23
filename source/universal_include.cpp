@@ -235,7 +235,7 @@ void AppPrintMemoryLeaks( char *_filename )
     //
     // Delete the temporary file
 
-#ifdef WIN32
+#ifdef TARGET_OS_WINDOWS
     DeleteFile( tmpFilename );
 #else
 	unlink( tmpFilename );
@@ -262,6 +262,11 @@ int main ( int argc, char **argv )
 #endif
 	g_stderr = new CoreIO ( stderr );
 	g_stdout = new CoreIO ( stdout );
+#ifdef ENABLE_CREDITS
+	g_stdout->WriteLine ( "Powered by CrissCross, http://www.uplinklabs.net/crisscross/" );
+	g_stdout->WriteLine ( "(c) 2006 by Steven Noonan <steven@uplinklabs.net> and Rudolf Olah <omouse@gmail.com>" );
+	g_stdout->WriteLine ();
+#endif
 	try {
 #if 0
 		retval = RunApplication ( 0, NULL );

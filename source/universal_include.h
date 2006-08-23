@@ -39,6 +39,12 @@
 #define APP_VERSION     "private-0.3.0"
 
 #define ENABLE_CPUID
+
+//NOTE: By disabling this line, you will not be in compliance with article 2
+//		of the BSD License. If you disable this line, you must display the
+//		copyright notice in the program elsewhere.
+#define ENABLE_CREDITS
+
 #define DETECT_MEMORY_LEAKS
 
 // ============================================================================
