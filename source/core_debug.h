@@ -33,9 +33,9 @@
  */
 
 #ifndef __included_core_debug_h
-#define __included_core_debug_h
+#    define __included_core_debug_h
 
-#include "core_io.h"
+#    include "core_io.h"
 
 //! An assertion function.
 /*!
@@ -49,7 +49,8 @@
 	\param _line The line in _file that _testcase is in.
 	\sa CoreAssert
 */
-void			Assert ( bool _condition, const char *_testcase, const char *_file, int _line );
+void Assert ( bool _condition, const char *_testcase, const char *_file,
+			  int _line );
 
 //! Creates a debug log on application failure.
 /*!
@@ -58,13 +59,13 @@ void			Assert ( bool _condition, const char *_testcase, const char *_file, int _
 		For internal use only.
 	</div>
 */
-void			GenerateBlackBox ( const char *_msg );
+void GenerateBlackBox ( const char *_msg );
 
 //! Prints a stack trace to _outputBuffer.
 /*!
 	\param _outputBuffer The CoreIO output buffer to write to.
 */
-void			PrintStackTrace	( CoreIO *_outputBuffer );
+void PrintStackTrace ( CoreIO * _outputBuffer );
 
 //! An assertion macro.
 /*!
@@ -72,7 +73,7 @@ void			PrintStackTrace	( CoreIO *_outputBuffer );
 	\param x The condition to validate.
 	\sa Assert
 */
-#define CoreAssert(x)       Assert((x), #x, __FILE__, __LINE__ )
+#    define CoreAssert(x)       Assert((x), #x, __FILE__, __LINE__ )
 
 extern CoreIO *g_stderr;
 extern CoreIO *g_stdout;

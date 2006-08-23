@@ -33,87 +33,87 @@
  */
 
 #ifndef __included_core_system_h
-#define __included_core_system_h
+#    define __included_core_system_h
 
-#include "core_cpuid.h"
+#    include "core_cpuid.h"
 
-#if defined ( TARGET_OS_WINDOWS )
-#	include <windows.h>
-#elif defined ( TARGET_OS_MACOSX )
-#	include <CoreServices/CoreServices.h>
-#	include <mach/mach.h>
-#	include <mach/mach_time.h>
-#elif defined ( TARGET_OS_LINUX )
-#	include <sys/time.h>
-#	include <sched.h>
-#	include <time.h>
-#endif
+#    if defined ( TARGET_OS_WINDOWS )
+#        	include <windows.h>
+#    elif defined ( TARGET_OS_MACOSX )
+#        	include <CoreServices/CoreServices.h>
+#        	include <mach/mach.h>
+#        	include <mach/mach_time.h>
+#    elif defined ( TARGET_OS_LINUX )
+#        	include <sys/time.h>
+#        	include <sched.h>
+#        	include <time.h>
+#    endif
 
 //! Class for platform-specific API calls.
 class CoreSystem
 {
-protected:
-#if defined ( TARGET_OS_WINDOWS )
+  protected:
+#    if defined ( TARGET_OS_WINDOWS )
 
 	//! The result of QueryPerformanceFrequency(). (Windows only)
-	double			m_tickInterval;
+	double m_tickInterval;
 
-#elif defined ( TARGET_OS_MACOSX )
+#    elif defined ( TARGET_OS_MACOSX )
 
 	//! The time index at which the timer started. ( Mac OS X only)
-	uint64_t		m_start;
+	  uint64_t m_start;
 
 	//! The time base information. (Mac OS X only)
-	mach_timebase_info_data_t 		m_timebase;
+	mach_timebase_info_data_t m_timebase;
 
-#elif defined ( TARGET_OS_LINUX )
+#    elif defined ( TARGET_OS_LINUX )
 
 	//! The time index at which the timer started. (Linux only)
-	timeval			m_start;
+	  timeval m_start;
 
-#endif
-public:
+#    endif
+  public:
 	//! The constructor.
-	CoreSystem		();
+	  CoreSystem (  );
 
 	//! The destructor.
-	~CoreSystem		();
+	 ~CoreSystem (  );
 
 	//! (Re)initializes the timer. Automatically called in CoreSystem::CoreSystem().
 	/*!
-		Resets the start time to zero.
-	*/
-	void			InitTimer ();
+	   Resets the start time to zero.
+	 */
+	void InitTimer (  );
 
 	//! Sleeps the current thread for a specified time.
 	/*!
-		\param _msec Time to sleep for, in milliseconds.
-	*/
-	void			ThreadSleep ( int _msec );
+	   \param _msec Time to sleep for, in milliseconds.
+	 */
+	void ThreadSleep ( int _msec );
 
-#if defined ( TARGET_OS_WINDOWS )
+#    if defined ( TARGET_OS_WINDOWS )
 	//! Waits for the specified thread to finish executing.
 	/*!
-		\param _thread Thread to wait for.
-		\param _timeout The maximum wait time. (currently ignored)
-		\return Always zero, until _timeout is implemented.
-	*/
-	int				WaitForThread ( HANDLE _thread, DWORD _timeout );
-#elif defined ( TARGET_OS_LINUX )
+	   \param _thread Thread to wait for.
+	   \param _timeout The maximum wait time. (currently ignored)
+	   \return Always zero, until _timeout is implemented.
+	 */
+	int WaitForThread ( HANDLE _thread, DWORD _timeout );
+#    elif defined ( TARGET_OS_LINUX )
 	//! Waits for the specified thread to finish executing.
 	/*!
-		\param _thread Thread to wait for.
-		\param _timeout The maximum wait time. (currently ignored)
-		\return Always zero, until _timeout is implemented.
-	*/
-	int				WaitForThread ( pthread_t _thread, int _timeout );
-#endif
+	   \param _thread Thread to wait for.
+	   \param _timeout The maximum wait time. (currently ignored)
+	   \return Always zero, until _timeout is implemented.
+	 */
+	int WaitForThread ( pthread_t _thread, int _timeout );
+#    endif
 
 	//! Queries the high resolution timer.
 	/*!
-		\return The number of seconds that the high resolution timer is currently at.
-	*/
-	double			GetHighResTime ();
+	   \return The number of seconds that the high resolution timer is currently at.
+	 */
+	double GetHighResTime (  );
 };
 
 #endif

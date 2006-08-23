@@ -30,57 +30,114 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- */
-
+ */  
+	
 #include "universal_include.h"
-
+	
 #include "core_console.h"
 #include "core_cpuid.h"
-
-int RunApplication ( int argc, char **argv )
+	
+int
+RunApplication ( int argc, char **argv ) 
 {
-	CoreConsole *console = new CoreConsole();
-	CoreCPUID *cpuid = new CoreCPUID();
-	console->SetColour ( console->FG_RED | console->FG_INTENSITY );
-	console->WriteLine ( "======================" );
-	console->WriteLine ( "= CPU IDENTIFICATION =" );
-	console->WriteLine ( "======================" );
-	console->SetColour ( 0 );
-	console->WriteLine ();
-	cpuid->Go();
-	console->WriteLine ( "There are %d processors in the system.", cpuid->GetCPUCount() );
-	for ( int i = 0; i < MAX_PROCESSORS; i++ )
+	
+CoreConsole * console = new CoreConsole (  );
+	
+CoreCPUID * cpuid = new CoreCPUID (  );
+	
+console->SetColour ( console->FG_RED | console->FG_INTENSITY );
+	
+console->WriteLine ( "======================" );
+	
+console->WriteLine ( "= CPU IDENTIFICATION =" );
+	
+console->WriteLine ( "======================" );
+	
+console->SetColour ( 0 );
+	
+console->WriteLine (  );
+	
+cpuid->Go (  );
+	
+console->WriteLine ( "There are %d processors in the system.",
+						  cpuid->GetCPUCount (  ) );
+	
+for ( int i = 0; i < MAX_PROCESSORS; i++ )
+		
 	{
-		if ( cpuid->proc[i]->Manufacturer != NULL )
+		
+if ( cpuid->proc[i]->Manufacturer != NULL )
+			
 		{
-			console->WriteLine ( "CPU[%d] Manufacturer: %s", i, cpuid->proc[i]->Manufacturer );
-			console->WriteLine ( "CPU[%d] Name: %s", i, cpuid->proc[i]->ProcessorName );
-			console->WriteLine ( "CPU[%d] Family: %d, Model: %d, Stepping: %d", i,
-				cpuid->proc[i]->Family, cpuid->proc[i]->Model, cpuid->proc[i]->Stepping );
-			if ( cpuid->proc[i]->caches.Size() > 0 )
+			
+console->WriteLine ( "CPU[%d] Manufacturer: %s", i,
+								  cpuid->proc[i]->Manufacturer );
+			
+console->WriteLine ( "CPU[%d] Name: %s", i,
+								  cpuid->proc[i]->ProcessorName );
+			
+console->
+				WriteLine ( "CPU[%d] Family: %d, Model: %d, Stepping: %d", i,
+							
+cpuid->proc[i]->Family, cpuid->proc[i]->Model,
+							cpuid->proc[i]->Stepping );
+			
+if ( cpuid->proc[i]->caches.Size (  ) > 0 )
+				
 			{
-				console->WriteLine ( "CPU[%d] Caches:", i );
-				for ( int j = 0; j < cpuid->proc[i]->caches.Size(); j++ )
+				
+console->WriteLine ( "CPU[%d] Caches:", i );
+				
+for ( int j = 0; j < cpuid->proc[i]->caches.Size (  ); j++ )
+					
 				{
-					if ( cpuid->proc[i]->caches.ValidIndex(j) )
-						console->Write ( "  %s", cpuid->proc[i]->caches.GetData(j) );
-				}
-				console->WriteLine ();
-			}
-			console->Write ( "CPU[%d] Features: ", i );
-			RedBlackTree<Feature *, char *>::nodeType *node = cpuid->proc[i]->features.rootNode;
-			node->beenThere = RedBlackTree<Feature *, char *>::NODE_ITSELF_VISITED;
-			while ( cpuid->proc[i]->features.ValidNode ( node ) )
-			{
-				if ( node->data->Enabled )
-					console->Write ( "%s ", node->id );
-				cpuid->proc[i]->features.getNext ( &node );
-			}
-			console->WriteLine();
-			console->WriteLine();
-		}
-	}
-	delete cpuid;
-	delete console;
-	return 0;
+					
+if ( cpuid->proc[i]->caches.ValidIndex ( j ) )
+						
+console->Write ( "  %s",
+										  cpuid->proc[i]->caches.
+										  GetData ( j ) );
+				
 }
+				
+console->WriteLine (  );
+			
+}
+			
+console->Write ( "CPU[%d] Features: ", i );
+			
+RedBlackTree < Feature *, char *>::nodeType * node =
+				cpuid->proc[i]->features.rootNode;
+			
+node->beenThere =
+				RedBlackTree < Feature *, char *>::NODE_ITSELF_VISITED;
+			
+while ( cpuid->proc[i]->features.ValidNode ( node ) )
+				
+			{
+				
+if ( node->data->Enabled )
+					
+console->Write ( "%s ", node->id );
+				
+cpuid->proc[i]->features.getNext ( &node );
+			
+}
+			
+console->WriteLine (  );
+			
+console->WriteLine (  );
+		
+}
+	
+}
+	
+delete cpuid;
+	
+delete console;
+	
+return 0;
+
+}
+
+

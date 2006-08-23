@@ -30,35 +30,43 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- */
-
+ */  
+	
 #ifndef __included_textreader_h
-#define __included_textreader_h
-
+#    define __included_textreader_h
+	
 //! The text file input class.
 /*!
 	Inherits CoreIO, so functions like CoreIO::Read and CoreIO::ReadLine are accessible to the programmer.
-*/
-class TextReader : public CoreIO
+*/ 
+class TextReader:public CoreIO 
 {
+  
 protected:
-	//! The path to the file being read.
-	const char		*m_filePath;
+		//! The path to the file being read.
+	const char *m_filePath;
+
+  
 
 public:
-	//! The constructor.
-	/*!
-		Creates an instance of CoreIO with read access to the file specified in _file.
-		\param _file The path to the file being read.
-	*/
-	TextReader		( const char *_file );
+		//! The constructor.
+		/*!
+		   Creates an instance of CoreIO with read access to the file specified in _file.
+		   \param _file The path to the file being read.
+		 */ 
+		TextReader ( const char *_file );
 
-	//! The destructor
-	/*!
-		Closes the file and deallocates memory used by TextReader.
-	*/
-	~TextReader		();
+	
+
+		//! The destructor
+		/*!
+		   Closes the file and deallocates memory used by TextReader.
+		 */ 
+		~TextReader (  );
+
 
 };
+
+
 
 #endif

@@ -33,9 +33,9 @@
  */
 
 #ifndef __included_core_mutex_h
-#define __included_core_mutex_h
+#    define __included_core_mutex_h
 
-#include "datastructures/llist.h"
+#    include "datastructures/llist.h"
 
 //! The safe threading mutex class.
 /*!
@@ -43,55 +43,55 @@
 */
 class CoreMutex
 {
-protected:
+  protected:
 	//! The currently active thread.
 	/*!
-		The thread currently permitted to execute between CoreMutex::Lock() and CoreMutex::Unlock()
-	*/
-	pthread_t	m_currentThread;
+	   The thread currently permitted to execute between CoreMutex::Lock() and CoreMutex::Unlock()
+	 */
+	pthread_t m_currentThread;
 
 	//! The queue of threads waiting for access.
 	/*!
-		A linked list of threads waiting for access to objects locked by the mutex.
-	*/
-	LList <pthread_t> *m_threadQueue;
+	   A linked list of threads waiting for access to objects locked by the mutex.
+	 */
+	LList < pthread_t > *m_threadQueue;
 
 	//! Indicates whether the mutex is locked or not.
-	bool			m_mutexLocked;
-public:
+	bool m_mutexLocked;
+  public:
 
 	//! The constructor.
-	CoreMutex		();
+	  CoreMutex (  );
 
 	//! The destructor.
-	~CoreMutex		();
+	 ~CoreMutex (  );
 
 	//! Determines whether the mutex is locked or not.
 	/*!
-		\return Indicates the state of the mutex lock.
-	*/
-	bool			IsLocked();
+	   \return Indicates the state of the mutex lock.
+	 */
+	bool IsLocked (  );
 
 	//! Locks the mutex.
-	void			Lock ();
+	void Lock (  );
 
 	//! Unlocks the mutex.
-	void			Unlock ();
-protected:
+	void Unlock (  );
+  protected:
 
 
 	//! Sleeps the current thread for a specified time.
 	/*!
-		\param _msec Time to sleep for, in milliseconds.
-		\sa CoreSystem::ThreadSleep
-	*/
-	void			ThreadSleep ( int _msec );
+	   \param _msec Time to sleep for, in milliseconds.
+	   \sa CoreSystem::ThreadSleep
+	 */
+	void ThreadSleep ( int _msec );
 
 	//! Sleeps until the mutex is unlocked.
 	/*!
-		Waits for the mutex to unlock or switch to allow the pending thread.
-	*/
-	void			WaitForUnlock ();
+	   Waits for the mutex to unlock or switch to allow the pending thread.
+	 */
+	void WaitForUnlock (  );
 };
 
 #endif

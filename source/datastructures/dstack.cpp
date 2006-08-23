@@ -30,52 +30,91 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- */
-
+ */  
+	
 #include "universal_include.h"
 #include "dstack.h"
-
-DStack::DStack(int N)
+	
+DStack::DStack ( int N ) 
 {
-	step_ = 32;
-	bottom_ = new int[N];
-	top_ = bottom_;
-	size_ = origsize_ = N;
-}
+	
+step_ = 32;
+	
+bottom_ = new int[N];
 
-void DStack::push(int val) {
-	if ( num_items() == size_ )			// the stack is full. need more space!
+	
+top_ = bottom_;
+	
+size_ = origsize_ = N;
+
+} 
+
+void
+DStack::push ( int val )
+{
+	
+if ( num_items (  ) == size_ )	// the stack is full. need more space!
 	{
-		int *newstack_ = new int[size_ + step_];
-		memcpy ( newstack_, bottom_, sizeof(int) * size_ );
-		delete [] bottom_;
-		bottom_ = newstack_;
-		top_ = bottom_ + size_;
-		size_ += step_;
-	}
-    *top_ = val;
-    top_++;
+		
+int *newstack_ = new int[size_ + step_];
+		
+memcpy ( newstack_, bottom_, sizeof ( int ) * size_ );
+		
+delete[]bottom_;
+		
+bottom_ = newstack_;
+		
+top_ = bottom_ + size_;
+		
+size_ += step_;
+	
 }
+	
+*top_ = val;
+	
+top_++;
 
-int DStack::num_items() const
+} 
+
+int
+
+DStack::num_items (  ) const const 
 {
-	return (int)(top_ - bottom_ );
-}
+	
+return ( int ) ( top_ - bottom_ );
 
-int DStack::pop()
+} 
+
+int
+
+DStack::pop (  ) 
 {
-	top_--;
-	return *top_;
+	
+top_--;
+	
+return *top_;
+
 }
 
-void DStack::empty()
+
+void
+DStack::empty (  ) 
 {
-	delete [] bottom_;
-	bottom_ = new int[origsize_];
-	top_ = bottom_;
-	size_ = origsize_;
-}
+	
+delete[]bottom_;
+	
+bottom_ = new int[origsize_];
 
-DStack::~DStack() {
-	delete [] bottom_;
-}
+	
+top_ = bottom_;
+	
+size_ = origsize_;
+
+} 
+
+DStack::~DStack (  )
+{
+	
+delete[]bottom_;
+
+} 

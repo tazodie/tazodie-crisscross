@@ -33,79 +33,80 @@
  */
 
 #ifndef __included_core_console_h
-#define __included_core_console_h
+#    define __included_core_console_h
 
-#include "core_io.h"
+#    include "core_io.h"
 
 //! The core console input/output class.
-class CoreConsole : public CoreIO
+class CoreConsole:public CoreIO
 {
-public:
-	
+  public:
+
 	//! Flags used for describing console colour output.
-	typedef enum {
-		FG_BLUE = 0x0001,										/*!< Blue Foreground */
-		FG_GREEN = 0x0002,										/*!< Green Foreground */
-		FG_RED = 0x0004,										/*!< Red Foreground */
-		FG_INTENSITY = 0x0008,									/*!< Foreground intensity (makes the foreground colour a shade brighter) */
-		BG_BLUE = 0x0010,										/*!< Blue Background */
-		BG_GREEN = 0x0020,										/*!< Green Background */
-		BG_RED = 0x0040,										/*!< Red Background */
-		BG_INTENSITY = 0x0080,									/*!< Background intensity (makes the foreground colour a shade brighter) */
-#if defined ( TARGET_OS_WINDOWS )
-		FG_BROWN = 0x0000,										/*!< Nothing (on Windows) */
-		FG_MAGENTA = 0x0000,									/*!< Nothing (on Windows) */
-		FG_CYAN = 0x0000,										/*!< Nothing (on Windows) */
-		BG_BROWN = 0x0000,										/*!< Nothing (on Windows) */
-		BG_MAGENTA = 0x0000,									/*!< Nothing (on Windows) */
-		BG_CYAN = 0x0000,										/*!< Nothing (on Windows) */
-		FG_GRAY = FG_BLUE | FG_GREEN | FG_RED,					/*!< Gray Foreground */
+	typedef enum
+	{
+		FG_BLUE = 0x0001,		/*!< Blue Foreground */
+		FG_GREEN = 0x0002,		/*!< Green Foreground */
+		FG_RED = 0x0004,		/*!< Red Foreground */
+		FG_INTENSITY = 0x0008,	/*!< Foreground intensity (makes the foreground colour a shade brighter) */
+		BG_BLUE = 0x0010,		/*!< Blue Background */
+		BG_GREEN = 0x0020,		/*!< Green Background */
+		BG_RED = 0x0040,		/*!< Red Background */
+		BG_INTENSITY = 0x0080,	/*!< Background intensity (makes the foreground colour a shade brighter) */
+#    if defined ( TARGET_OS_WINDOWS )
+		FG_BROWN = 0x0000,		/*!< Nothing (on Windows) */
+		FG_MAGENTA = 0x0000,	/*!< Nothing (on Windows) */
+		FG_CYAN = 0x0000,		/*!< Nothing (on Windows) */
+		BG_BROWN = 0x0000,		/*!< Nothing (on Windows) */
+		BG_MAGENTA = 0x0000,	/*!< Nothing (on Windows) */
+		BG_CYAN = 0x0000,		/*!< Nothing (on Windows) */
+		FG_GRAY = FG_BLUE | FG_GREEN | FG_RED,	/*!< Gray Foreground */
 		FG_WHITE = FG_BLUE | FG_GREEN | FG_RED | FG_INTENSITY,	/*!< White Foreground */
-		BG_GRAY = BG_BLUE | BG_GREEN | BG_RED,					/*!< Gray Background */
+		BG_GRAY = BG_BLUE | BG_GREEN | BG_RED,	/*!< Gray Background */
 		BG_WHITE = BG_BLUE | BG_GREEN | BG_RED | BG_INTENSITY	/*!< White Background */
-#else
-		FG_BROWN = 0x0100,										/*!< Brown Foreground (Linux / Mac OS X) */
-		FG_MAGENTA = 0x0200,									/*!< Magenta Foreground (Linux / Mac OS X) */
-		FG_CYAN = 0x0400,										/*!< Cyan Foreground (Linux / Mac OS X) */
-		BG_BROWN = 0x0800,										/*!< Brown Background (Linux / Mac OS X) */
-		BG_MAGENTA = 0x1000,									/*!< Magenta Background (Linux / Mac OS X) */
-		BG_CYAN = 0x2000,										/*!< Cyan Background (Linux / Mac OS X) */
-		FG_GRAY = 0x4000,										/*!< Gray Foreground */
-		FG_WHITE = 0x8000,										/*!< White Foreground */
-		BG_GRAY = 0x10000,										/*!< Gray Background */
-		BG_WHITE = 0x20000										/*!< White Background */
-#endif
+#    else
+		FG_BROWN = 0x0100,		/*!< Brown Foreground (Linux / Mac OS X) */
+		FG_MAGENTA = 0x0200,	/*!< Magenta Foreground (Linux / Mac OS X) */
+		FG_CYAN = 0x0400,		/*!< Cyan Foreground (Linux / Mac OS X) */
+		BG_BROWN = 0x0800,		/*!< Brown Background (Linux / Mac OS X) */
+		BG_MAGENTA = 0x1000,	/*!< Magenta Background (Linux / Mac OS X) */
+		BG_CYAN = 0x2000,		/*!< Cyan Background (Linux / Mac OS X) */
+		FG_GRAY = 0x4000,		/*!< Gray Foreground */
+		FG_WHITE = 0x8000,		/*!< White Foreground */
+		BG_GRAY = 0x10000,		/*!< Gray Background */
+		BG_WHITE = 0x20000		/*!< White Background */
+#    endif
 	} ColourTypes;
 
-public:
-	
+  public:
+
 	//! The default constructor.
 	/*! Allocates a new console (in Windows) for stdout and stderr output. */
-	CoreConsole		();
+	  CoreConsole (  );
 
 	//! The alternate constructor
 	/*!
-		Does not allocate a new console, and instead uses the specified FILE * for output.
-		\param _outputBuffer The destination buffer for CoreConsole output.
-		\sa CoreConsole()
-	*/
-	CoreConsole		( FILE *_outputBuffer );
+	   Does not allocate a new console, and instead uses the specified FILE * for output.
+	   \param _outputBuffer The destination buffer for CoreConsole output.
+	   \sa CoreConsole()
+	 */
+	  CoreConsole ( FILE * _outputBuffer );
 
 	//! The destructor.
-	~CoreConsole	();
+	 ~CoreConsole (  );
 
 	//! Sets the console output colour.
 	/*!
-		Sets the console output colour using the flags specified in _flags.
-		\param _flags A bitmask created by OR-ing CoreConsole::ColourTypes flags.
-	*/
-	void			SetColour ( short _flags );
+	   Sets the console output colour using the flags specified in _flags.
+	   \param _flags A bitmask created by OR-ing CoreConsole::ColourTypes flags.
+	 */
+	void SetColour ( short _flags );
 
 	//! Clears the console.
 	/*!
-		Clears the console output (similar to commands 'cls' on Windows and 'clear' on Linux).
-	*/
-	void			Clear ();
+	   Clears the console output (similar to commands 'cls' on Windows and 'clear' on Linux).
+	 */
+	void Clear (  );
 };
 
 #endif

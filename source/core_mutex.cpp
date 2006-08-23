@@ -35,31 +35,35 @@
 #include "universal_include.h"
 #include "core_mutex.h"
 
-CoreMutex::CoreMutex () :
-	m_mutexLocked ( false )
+CoreMutex::CoreMutex (  ):
+m_mutexLocked ( false )
 {
-	m_threadQueue = new LList<pthread_t>;
+	m_threadQueue = new LList < pthread_t >;
 }
 
-CoreMutex::~CoreMutex()
+CoreMutex::~CoreMutex (  )
 {
 	delete m_threadQueue;
+
 	m_threadQueue = NULL;
 }
 
-bool CoreMutex::IsLocked()
+bool
+CoreMutex::IsLocked (  )
 {
 	return m_mutexLocked;
 }
 
-void CoreMutex::Lock()
+void
+CoreMutex::Lock (  )
 {
-	WaitForUnlock();
-	m_currentThread = pthread_self();
+	WaitForUnlock (  );
+	m_currentThread = pthread_self (  );
 	m_mutexLocked = true;
 }
 
-void CoreMutex::ThreadSleep ( int _msec )
+void
+CoreMutex::ThreadSleep ( int _msec )
 {
 	/* TODO: Linux and Mac OS X ports of this function. */
 	/* NOTE: Linux uses usleep, which is slightly different. */
@@ -67,6 +71,7 @@ void CoreMutex::ThreadSleep ( int _msec )
 	Sleep ( _msec );
 #elif defined ( TARGET_OS_LINUX )
 	unsigned sleep_time = _msec * 1000;
+
 	while ( sleep_time > 1000000 )
 	{
 		usleep ( 1000000 );
@@ -76,22 +81,26 @@ void CoreMutex::ThreadSleep ( int _msec )
 #endif
 }
 
-void CoreMutex::Unlock()
+void
+CoreMutex::Unlock (  )
 {
 	pthread_t tempThread = 0;
-	if ( m_threadQueue->Size() > 0 )
+
+	if ( m_threadQueue->Size (  ) > 0 )
 	{
-		tempThread = m_threadQueue->GetData(0);
-		m_threadQueue->RemoveData(0);
+		tempThread = m_threadQueue->GetData ( 0 );
+		m_threadQueue->RemoveData ( 0 );
 		m_currentThread = tempThread;
 	}
 	m_mutexLocked = false;
 }
 
-void CoreMutex::WaitForUnlock()
+void
+CoreMutex::WaitForUnlock (  )
 {
-	pthread_t thisThread = pthread_self();
-	if ( m_threadQueue->Size() == 0 && m_mutexLocked == false )
+	pthread_t thisThread = pthread_self (  );
+
+	if ( m_threadQueue->Size (  ) == 0 && m_mutexLocked == false )
 		return;
 	m_threadQueue->PutDataAtEnd ( thisThread );
 	while ( true )

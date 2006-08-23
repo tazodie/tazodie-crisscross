@@ -30,28 +30,40 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- */
-
+ */  
+	
 #include "universal_include.h"
 #include "core_debug.h"
 #include "textreader.h"
 
 TextReader::TextReader ( const char *_file ):
-	CoreIO ( NULL )
+CoreIO ( NULL ) 
 {
-	size_t _filePathLength = 0;
-	CoreAssert ( _file != NULL );
-	CoreAssert ( (_filePathLength = strlen ( _file )) > 1 );
+	
+size_t _filePathLength = 0;
+	
+CoreAssert ( _file != NULL );
+	
+CoreAssert ( ( _filePathLength = strlen ( _file ) ) > 1 );
+	
 
-	m_filePath = new char[_filePathLength + 1];
-	strcpy ( (char *)m_filePath, _file );
-	m_fileBuffer = fopen ( m_filePath, "rt" );
+m_filePath = new char[_filePathLength + 1];
 
-	CoreAssert ( m_fileBuffer != NULL );
-}
+	
+strcpy ( ( char * ) m_filePath, _file );
+	
+m_fileBuffer = fopen ( m_filePath, "rt" );
+	
 
-TextReader::~TextReader()
+CoreAssert ( m_fileBuffer != NULL );
+
+} 
+
+TextReader::~TextReader (  ) 
 {
-	fclose ( m_fileBuffer );
-	delete [] m_filePath;
-}
+	
+fclose ( m_fileBuffer );
+	
+delete[]m_filePath;
+
+} 

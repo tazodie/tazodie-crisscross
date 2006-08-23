@@ -38,10 +38,9 @@
 #include "core_io.h"
 #include "core_system.h"
 
-CoreIO::CoreIO ( FILE *_fileBuffer ) :
-	m_lineEnding ( NULL ),
-	m_fileBuffer ( _fileBuffer ),
-	m_ioMutex ( new CoreMutex() )
+CoreIO::CoreIO ( FILE * _fileBuffer ):
+m_lineEnding ( NULL ),
+m_fileBuffer ( _fileBuffer ), m_ioMutex ( new CoreMutex (  ) )
 {
 #if defined ( TARGET_OS_WINDOWS )
 	SetLineEndings ( CRLF );
@@ -50,79 +49,94 @@ CoreIO::CoreIO ( FILE *_fileBuffer ) :
 #endif
 }
 
-CoreIO::~CoreIO()
+CoreIO::~CoreIO (  )
 {
-	delete [] m_lineEnding;
+	delete[]m_lineEnding;
 	m_lineEnding = NULL;
 	delete m_ioMutex;
+
 	m_ioMutex = NULL;
 }
 
-bool CoreIO::EndOfFile ()
+bool
+CoreIO::EndOfFile (  )
 {
 	if ( !m_fileBuffer )
 		return true;
 	return ( feof ( m_fileBuffer ) != 0 );
 }
 
-void CoreIO::Flush ()
+void
+CoreIO::Flush (  )
 {
-	m_ioMutex->Lock();
+	m_ioMutex->Lock (  );
 	fflush ( m_fileBuffer );
-	m_ioMutex->Unlock();
+	m_ioMutex->Unlock (  );
 }
 
-int CoreIO::Forward ( int _position )
+int
+CoreIO::Forward ( int _position )
 {
 	int res = Seek ( _position, SEEK_CUR );
-	return (res == 0);
+
+	return ( res == 0 );
 }
 
-unsigned long CoreIO::Length ()
+unsigned long
+CoreIO::Length (  )
 {
-	m_ioMutex->Lock();
+	m_ioMutex->Lock (  );
 	fpos_t lastpos;
+
 	fgetpos ( m_fileBuffer, &lastpos );
 
 	fseek ( m_fileBuffer, 0, SEEK_END );
 
 	fpos_t endpos;
+
 	fgetpos ( m_fileBuffer, &endpos );
 
 	fsetpos ( m_fileBuffer, &lastpos );
 
-	m_ioMutex->Unlock();
+	m_ioMutex->Unlock (  );
 #if defined (TARGET_OS_WINDOWS) || defined (TARGET_OS_MACOSX) || defined (TARGET_OS_FREEBSD)
-	return (unsigned long)endpos;
+	return ( unsigned long ) endpos;
 #elif defined (TARGET_OS_LINUX)
-	return (unsigned long)endpos.__pos;
+	return ( unsigned long ) endpos.__pos;
 #endif
 }
 
-char CoreIO::Read ()
+char
+CoreIO::Read (  )
 {
 	char retval;
-	m_ioMutex->Lock();
-	retval = (char)fgetc ( m_fileBuffer );
-	m_ioMutex->Unlock();
+
+	m_ioMutex->Lock (  );
+	retval = ( char ) fgetc ( m_fileBuffer );
+	m_ioMutex->Unlock (  );
 	return retval;
 }
 
-size_t CoreIO::Read ( char *_buffer, int _bufferLength, int _bufferIndex, int _count )
+size_t
+CoreIO::Read ( char *_buffer, int _bufferLength, int _bufferIndex,
+			   int _count )
 {
 	size_t retval;
+
 	CoreAssert ( _buffer != NULL );
 	CoreAssert ( _bufferLength - _bufferIndex < _count );
-	CoreAssert ( _bufferIndex > 0 ); CoreAssert ( _count > 0 );
-	m_ioMutex->Lock();
+	CoreAssert ( _bufferIndex > 0 );
+	CoreAssert ( _count > 0 );
+	m_ioMutex->Lock (  );
 	retval = fread ( &_buffer[_bufferIndex], 1, _count, m_fileBuffer );
-	m_ioMutex->Unlock();
+	m_ioMutex->Unlock (  );
 	return retval;
 }
 
-const char *CoreIO::ReadLine ()
+const char *
+CoreIO::ReadLine (  )
 {
-	m_ioMutex->Lock();
+	m_ioMutex->Lock (  );
 	char c = getc ( m_fileBuffer );
 
 	if ( c == EOF )
@@ -138,43 +152,52 @@ const char *CoreIO::ReadLine ()
 		c = getc ( m_fileBuffer );
 	}
 
-	size_t len = buffer.length();
+	size_t len = buffer.length (  );
+
 	if ( len && buffer[len - 1] == '\r' )
 		buffer.resize ( len - 1 );
 
-	m_ioMutex->Unlock();
-	return buffer.c_str();
+	m_ioMutex->Unlock (  );
+	return buffer.c_str (  );
 }
 
-int CoreIO::Seek ( int _position, int _origin )
+int
+CoreIO::Seek ( int _position, int _origin )
 {
-	m_ioMutex->Lock();
+	m_ioMutex->Lock (  );
 	int res = fseek ( m_fileBuffer, _position, _origin );
-	m_ioMutex->Unlock();
+
+	m_ioMutex->Unlock (  );
 	return res;
 }
 
-int CoreIO::Seek ( int _position )
+int
+CoreIO::Seek ( int _position )
 {
 	int res = Seek ( _position, SEEK_SET );
-	return (res == 0);
+
+	return ( res == 0 );
 }
 
-void CoreIO::SetLineEndings ( LineEndingType _ending )
+void
+CoreIO::SetLineEndings ( LineEndingType _ending )
 {
-	delete [] m_lineEnding;
+	delete[]m_lineEnding;
 	switch ( _ending )
 	{
 	case CR:
 		m_lineEnding = new char[2];
+
 		sprintf ( m_lineEnding, "\r" );
 		break;
 	case LF:
 		m_lineEnding = new char[2];
+
 		sprintf ( m_lineEnding, "\n" );
 		break;
 	case CRLF:
 		m_lineEnding = new char[3];
+
 		sprintf ( m_lineEnding, "\r\n" );
 		break;
 	default:
@@ -182,20 +205,23 @@ void CoreIO::SetLineEndings ( LineEndingType _ending )
 	}
 }
 
-void CoreIO::WriteLine ( const char *_format, ... )
+void
+CoreIO::WriteLine ( const char *_format, ... )
 {
 	if ( _format == NULL )
 		return;
 
-	m_ioMutex->Lock();
+	m_ioMutex->Lock (  );
 	char *format_buffer = NULL;
 	va_list args;
+
 	va_start ( args, _format );
 
 	CoreAssert ( _format != NULL );
 
 	// Add our newline character to the format string
-	format_buffer = new char[strlen(_format) + 2];
+	format_buffer = new char[strlen ( _format ) + 2];
+
 	CoreAssert ( format_buffer != NULL );
 
 	strcpy ( format_buffer, _format );
@@ -206,30 +232,33 @@ void CoreIO::WriteLine ( const char *_format, ... )
 
 	va_end ( args );
 
-	delete [] format_buffer;
-	m_ioMutex->Unlock();
+	delete[]format_buffer;
+	m_ioMutex->Unlock (  );
 }
 
-void CoreIO::WriteLine ()
+void
+CoreIO::WriteLine (  )
 {
-	m_ioMutex->Lock();
+	m_ioMutex->Lock (  );
 	fprintf ( m_fileBuffer, "\n" );
-	m_ioMutex->Unlock();
+	m_ioMutex->Unlock (  );
 }
 
-void CoreIO::Write ( const char *_format, ... )
+void
+CoreIO::Write ( const char *_format, ... )
 {
 
 	if ( _format == NULL )
 		return;
-	m_ioMutex->Lock();
+	m_ioMutex->Lock (  );
 
 	va_list args;
+
 	va_start ( args, _format );
 
 	// Print out the string
 	vfprintf ( m_fileBuffer, _format, args );
 
 	va_end ( args );
-	m_ioMutex->Unlock();
+	m_ioMutex->Unlock (  );
 }

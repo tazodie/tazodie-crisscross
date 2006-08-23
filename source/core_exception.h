@@ -33,9 +33,9 @@
  */
 
 #ifndef __included_core_exception_h
-#define __included_core_exception_h
+#    define __included_core_exception_h
 
-#include "core_debug.h"
+#    include "core_debug.h"
 
 //! The core exception class.
 /*!
@@ -49,60 +49,72 @@ class CoreException
 
 	//! The line in CoreException::m_file at which the exception was thrown.
 	int m_line;
-public:
+  public:
 
 	//! The constructor.
 	/*!
-		\param _file The file in which the exception was thrown. (usually specified with __FILE__ by a macro)
-		\param _line The line in _file at which the exception was thrown. (usually specified with __LINE__ by a macro)
-	*/
-	CoreException ( const char *_file, int _line ) :
-	  m_file ( _file ), m_line ( _line )
-	  {
-		  g_stderr->WriteLine ( "=== STACK TRACE ===\n" );
-		  PrintStackTrace ( g_stderr );
-	  };
+	   \param _file The file in which the exception was thrown. (usually specified with __FILE__ by a macro)
+	   \param _line The line in _file at which the exception was thrown. (usually specified with __LINE__ by a macro)
+	 */
+	  CoreException ( const char *_file, int _line ):m_file ( _file ),
+		m_line ( _line )
+	{
+		g_stderr->WriteLine ( "=== STACK TRACE ===\n" );
+		PrintStackTrace ( g_stderr );
+	};
 
 	//! The destructor.
-	virtual ~CoreException() {};
+	virtual ~ CoreException (  )
+	{
+	};
 
 	//! Returns the file in which the exception was thrown.
 	/*!
-		\return CoreException::m_file
-	*/
-	const char *ShowFile() { return m_file; };
+	   \return CoreException::m_file
+	 */
+	const char *ShowFile (  )
+	{
+		return m_file;
+	};
 
 	//! Returns the line in CoreException::m_file at which the exception was thrown.
-	int	ShowLine () { return m_line; };
+	int ShowLine (  )
+	{
+		return m_line;
+	};
 
 	//! Returns the exception description.
 	/*!
-		Should be replaced in any classes inheriting CoreException to properly
-		describe the exception conditions.
-		\return Exception description ("A core exception has occurred.")
-	*/
-	virtual const char *ShowReason() const {
+	   Should be replaced in any classes inheriting CoreException to properly
+	   describe the exception conditions.
+	   \return Exception description ("A core exception has occurred.")
+	 */
+	virtual const char *ShowReason (  ) const
+	{
 		return "A core exception has occurred.";
 	};
 };
 
 //! The assertion failure exception.
-class AssertionFailureException : public CoreException
+class AssertionFailureException:public CoreException
 {
-public:
+  public:
 	//! The constructor.
 	/*!
-		\param _file The file in which the exception was thrown. (usually specified with __FILE__ by a macro)
-		\param _line The line in _file at which the exception was thrown. (usually specified with __LINE__ by a macro)
-	*/
-	AssertionFailureException ( const char *_file, int _line )
-		: CoreException ( _file, _line ) {};
+	   \param _file The file in which the exception was thrown. (usually specified with __FILE__ by a macro)
+	   \param _line The line in _file at which the exception was thrown. (usually specified with __LINE__ by a macro)
+	 */
+	AssertionFailureException ( const char *_file,
+								int _line ):CoreException ( _file, _line )
+	{
+	};
 
 	//! Returns the exception description.
 	/*!
-		\return Exception description ("Assertion failure.")
-	*/
-	const char *ShowReason() const {
+	   \return Exception description ("Assertion failure.")
+	 */
+	const char *ShowReason (  ) const
+	{
 		return "Assertion failure.";
 	};
 };

@@ -30,35 +30,43 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- */
-
+ */  
+	
 #ifndef __included_textwriter_h
-#define __included_textwriter_h
-
+#    define __included_textwriter_h
+	
 //! The text file output class.
 /*!
 	Inherits CoreIO, so functions like CoreIO::Write and CoreIO::WriteLine are accessible to the programmer.
-*/
-class TextWriter : public CoreIO
+*/ 
+class TextWriter:public CoreIO 
 {
+  
 protected:
-	//! The path to the file being written.	
-	const char		*m_filePath;
+		//! The path to the file being written. 
+	const char *m_filePath;
+
+  
 
 public:
-	//! The constructor.
-	/*!
-		Creates an instance of CoreIO with write access to the file specified in _file.
-		\param _file The path to the file being read.
-	*/
-	TextWriter		( const char *_file );
+		//! The constructor.
+		/*!
+		   Creates an instance of CoreIO with write access to the file specified in _file.
+		   \param _file The path to the file being read.
+		 */ 
+		TextWriter ( const char *_file );
 
-	//! The destructor
-	/*!
-		Flushes the output buffer, closes the file, and deallocates memory used by TextWriter.
-	*/
-	~TextWriter		();
+	
+
+		//! The destructor
+		/*!
+		   Flushes the output buffer, closes the file, and deallocates memory used by TextWriter.
+		 */ 
+		~TextWriter (  );
+
 
 };
+
+
 
 #endif

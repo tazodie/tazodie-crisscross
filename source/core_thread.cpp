@@ -36,104 +36,121 @@
 #include "core_thread.h"
 #include "core_system.h"
 
-CoreThread::CoreThread ( CoreSystem *_system )
+CoreThread::CoreThread ( CoreSystem * _system )
 {
-	m_system			= _system;
+	m_system = _system;
 #if defined ( TARGET_OS_WINDOWS )
-	m_hThread			= NULL;
-	m_hMainThread		= ::GetCurrentThread ();
+	m_hThread = NULL;
+	m_hMainThread =::GetCurrentThread (  );
 #endif
-	m_hThreadId			= 0;
-	m_hMainThreadId		= pthread_self();
-	m_Timeout			= 2000; //milliseconds
-	m_Priority			= PRIORITY_NORMAL;
-	m_Affinity			= CPU_ANY;
+	m_hThreadId = 0;
+	m_hMainThreadId = pthread_self (  );
+	m_Timeout = 2000;			//milliseconds
+	m_Priority = PRIORITY_NORMAL;
+	m_Affinity = CPU_ANY;
 }
 
-CoreThread::~CoreThread ()
+CoreThread::~CoreThread (  )
 {
 	//waiting for the thread to terminate
-	if (m_hThread) {
-		Wait();
+	if ( m_hThread )
+	{
+		Wait (  );
 		pthread_detach ( m_hThread );
 	}
 }
 
-int CoreThread::IsRunning()
+int
+CoreThread::IsRunning (  )
 {
-	return (m_hThread != 0);
+	return ( m_hThread != 0 );
 }
 
-HANDLE CoreThread::GetMainThreadHandle()
+HANDLE
+CoreThread::GetMainThreadHandle (  )
 {
 	return m_hMainThread;
 }
 
-DWORD CoreThread::GetMainThreadId()
+DWORD
+CoreThread::GetMainThreadId (  )
 {
 	return m_hMainThreadId;
 }
 
-HANDLE CoreThread::GetThreadHandle()
+HANDLE
+CoreThread::GetThreadHandle (  )
 {
 	return m_hThread;
 }
 
-DWORD CoreThread::GetThreadId()
+DWORD
+CoreThread::GetThreadId (  )
 {
 	return m_hThreadId;
 }
 
-unsigned int CoreThread::Process (void *_parameter)
+unsigned int
+CoreThread::Process ( void *_parameter )
 {
 
 	//a mechanism for terminating thread should be implemented
 	//not allowing the method to be run from the main thread
-	if (pthread_self() == m_hMainThreadId)
+	if ( pthread_self (  ) == m_hMainThreadId )
 		return 0;
-	else {
+	else
+	{
 
 		return 0;
 	}
 
 }
 
-bool CoreThread::CreateThread ()
+bool
+CoreThread::CreateThread (  )
 {
 
-	if ( !IsRunning () ) {
-		param*	this_param = new param;
-		this_param->pThread	= this;
+	if ( !IsRunning (  ) )
+	{
+		param *this_param = new param;
+
+		this_param->pThread = this;
 		//::CreateThread ( NULL, NULL, &runProcess, (void *)this_param, NULL, &m_hThreadId );
-		pthread_create ( &m_hThread, NULL, runProcess, (void *)this_param );
+		pthread_create ( &m_hThread, NULL, runProcess,
+						 ( void * ) this_param );
 		return m_hThread ? true : false;
 	}
 	return false;
 
 }
 
-void CoreThread::Terminate()
+void
+CoreThread::Terminate (  )
 {
-	if ( IsRunning() )
+	if ( IsRunning (  ) )
 		pthread_cancel ( m_hThread );
 }
 
-THREAD_FUNCTION CoreThread::runProcess (void* Param)
+THREAD_FUNCTION
+CoreThread::runProcess ( void *Param )
 {
-	CoreThread*	thread; unsigned int retval;
-	thread			= (CoreThread*)((param*)Param)->pThread;
-	delete	((param*)Param);
+	CoreThread *thread;
+	unsigned int retval;
+
+	thread = ( CoreThread * ) ( ( param * ) Param )->pThread;
+	delete ( ( param * ) Param );
 
 	int affinity = thread->LocalAffinity ( thread->m_Affinity );
 
-	thread->m_hThreadId = pthread_self();
+	thread->m_hThreadId = pthread_self (  );
 
 #if defined ( TARGET_OS_WINDOWS )
 	/* TODO: Implement this for Linux / Mac OS X */
 	if ( affinity != -1 )
 		SetThreadAffinityMask ( thread->m_hThread, affinity );
 
-	SetThreadPriority ( thread->m_hThread, thread->LocalPriorityType(thread->m_Priority) );
+	SetThreadPriority ( thread->m_hThread,
+						thread->LocalPriorityType ( thread->m_Priority ) );
 #endif
 
 	retval = thread->Process ( thread->m_threadParams );
@@ -144,7 +161,8 @@ THREAD_FUNCTION CoreThread::runProcess (void* Param)
 	return NULL;
 }
 
-int CoreThread::LocalPriorityType ( ThreadPriority _priority )
+int
+CoreThread::LocalPriorityType ( ThreadPriority _priority )
 {
 	/* TODO: Mac OS X port of this function. */
 #if defined ( TARGET_OS_WINDOWS )
@@ -188,19 +206,21 @@ int CoreThread::LocalPriorityType ( ThreadPriority _priority )
 	return 0;
 }
 
-void CoreThread::Wait()
+void
+CoreThread::Wait (  )
 {
 #if defined ( TARGET_OS_WINDOWS )
 	WaitForSingleObject ( m_hThread, INFINITE );
 #else
-	while ( IsRunning() )
+	while ( IsRunning (  ) )
 	{
 		m_system->ThreadSleep ( 100 );
 	}
 #endif
 }
 
-int CoreThread::LocalAffinity ( ThreadAffinity _affinity )
+int
+CoreThread::LocalAffinity ( ThreadAffinity _affinity )
 {
 	/* TODO: Linux and Mac OS X ports of this function. */
 #if defined ( TARGET_OS_WINDOWS )
@@ -209,7 +229,7 @@ int CoreThread::LocalAffinity ( ThreadAffinity _affinity )
 	case CPU_ANY:
 		return -1;
 	default:
-		return (int)pow ( (double)2, _affinity );
+		return ( int ) pow ( ( double ) 2, _affinity );
 	}
 #endif
 }

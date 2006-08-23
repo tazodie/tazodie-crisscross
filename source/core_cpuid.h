@@ -33,26 +33,34 @@
  */
 
 #ifndef __included_core_cpuid_h
-#define __included_core_cpuid_h
+#    define __included_core_cpuid_h
 
-#ifdef ENABLE_CPUID
+#    ifdef ENABLE_CPUID
 
-#ifdef TARGET_OS_WINDOWS
-#include <windows.h>
-#endif
+#        ifdef TARGET_OS_WINDOWS
+#            include <windows.h>
+#        endif
 
-#include "datastructures/darray.h"
-#include "datastructures/rbtree.h"
+#        include "datastructures/darray.h"
+#        include "datastructures/rbtree.h"
 
-class Feature {
-public:
+class Feature
+{
+  public:
 	bool Enabled;
-	Feature(){ Enabled = 0; };
-	~Feature(){};
+	Feature (  )
+	{
+		Enabled = 0;
+	};
+
+	~Feature (  )
+	{
+	};
 };
 
-class Processor {
-public:
+class Processor
+{
+  public:
 	const char *Manufacturer;
 	const char *ProcessorName;
 	char Count;
@@ -61,32 +69,42 @@ public:
 	char Stepping;
 	char BrandID;
 	char APICID;
-	RedBlackTree<Feature *, char *> features;
-	DArray<char *> caches;
-public:
-	Processor() {};
-	~Processor() {};
+	  RedBlackTree < Feature *, char *>features;
+	  DArray < char *>caches;
+  public:
+	  Processor (  )
+	{
+	};
+
+	~Processor (  )
+	{
+	};
 };
 
 
-class CoreCPUID {
+class CoreCPUID
+{
 
-protected:
+  protected:
 
-#ifdef TARGET_OS_WINDOWS
+#        ifdef TARGET_OS_WINDOWS
 
-	struct GoThreadProc_Params {
+	struct GoThreadProc_Params
+	{
 		CoreCPUID *cpuid_class;
 		int processor;
 	};
 
-	static DWORD CALLBACK s_GoThreadProc(LPVOID lpParameter) {
-		return ((GoThreadProc_Params *)lpParameter)->cpuid_class->GoThread ( (LPVOID *)&((GoThreadProc_Params *)lpParameter)->processor );
+	static DWORD CALLBACK s_GoThreadProc ( LPVOID lpParameter )
+	{
+		return ( ( GoThreadProc_Params * ) lpParameter )->cpuid_class->
+			GoThread ( ( LPVOID * ) &
+					   ( ( GoThreadProc_Params * ) lpParameter )->processor );
 	};
-	DWORD WINAPI GoThread(LPVOID *params);
-#else
+	DWORD WINAPI GoThread ( LPVOID * params );
+#        else
 	long int GoThread ( int processor );
-#endif
+#        endif
 
 	void AddCacheDescription ( int processor, const char *description );
 	void AddCacheData ( int processor, int x );
@@ -98,18 +116,19 @@ protected:
 	void DetectCount ( int processor );
 	void DetectAPIC ( int processor );
 	void DetectFeatures ( int processor );
-	void DetectFeature (unsigned const int *_register, int _flag, int _processor, const char * _name );
+	void DetectFeature ( unsigned const int *_register, int _flag,
+						 int _processor, const char *_name );
 
-public:
-	CoreCPUID();
-	~CoreCPUID();
-	void Go();
-	int GetCPUCount();
+  public:
+	  CoreCPUID (  );
+	 ~CoreCPUID (  );
+	void Go (  );
+	int GetCPUCount (  );
 
-	Processor *proc[MAX_PROCESSORS]; // Support up to MAX_PROCESSORS
+	Processor *proc[MAX_PROCESSORS];	// Support up to MAX_PROCESSORS
 
 };
 
-#endif
+#    endif
 
 #endif

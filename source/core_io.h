@@ -33,9 +33,9 @@
  */
 
 #ifndef __included_core_io_h
-#define __included_core_io_h
+#    define __included_core_io_h
 
-#include "core_mutex.h"
+#    include "core_mutex.h"
 
 //! The core input/output class.
 /*!
@@ -44,136 +44,138 @@
 */
 class CoreIO
 {
-public:
+  public:
 	//! Line ending conventions.
 	/*!
-		An enumeration of different ending types.
-	*/
-	enum LineEndingType {
-							CR,		/*!< Carriage return only. (default for UNIX and UNIX-like systems, Linux, AIX, Xenix, Mac OS X, BeOS, Amiga, RISC OS and others) */
-							LF,		/*!< Line feed only. (default for Commodore machines, Apple II family and Mac OS through version 9) */
-							CRLF	/*!< Carriage return and line feed. (default for CP/M, MP/M, DOS, Microsoft Windows) */
-						};
+	   An enumeration of different ending types.
+	 */
+	enum LineEndingType
+	{
+		CR,						/*!< Carriage return only. (default for UNIX and UNIX-like systems, Linux, AIX, Xenix, Mac OS X, BeOS, Amiga, RISC OS and others) */
+		LF,						/*!< Line feed only. (default for Commodore machines, Apple II family and Mac OS through version 9) */
+		CRLF					/*!< Carriage return and line feed. (default for CP/M, MP/M, DOS, Microsoft Windows) */
+	};
 
-protected:
+  protected:
 
 	//! Line ending buffer.
 	/*!
-		Stores the line ending selected by CoreIO::SetLineEndings.
-	*/
-	char			*m_lineEnding;
+	   Stores the line ending selected by CoreIO::SetLineEndings.
+	 */
+	char *m_lineEnding;
 
 	//! Input/output buffer.
-	FILE			*m_fileBuffer;
+	FILE *m_fileBuffer;
 
 	//! Thread-safe mutex.
 	/*!
-		Prevents more than one read or write from occurring simultaneously.
-	*/
-	CoreMutex		*m_ioMutex;
+	   Prevents more than one read or write from occurring simultaneously.
+	 */
+	CoreMutex *m_ioMutex;
 
-public:
+  public:
 	//! The constructor.
 	/*!
-		Creates a new CoreIO instance. Will initialize line endings to the platform's
-		default, also initializes CoreIO::m_ioMutex.
-		\param _fileBuffer The buffer to be used for I/O operations.
-	*/
-	CoreIO			( FILE *_fileBuffer );
+	   Creates a new CoreIO instance. Will initialize line endings to the platform's
+	   default, also initializes CoreIO::m_ioMutex.
+	   \param _fileBuffer The buffer to be used for I/O operations.
+	 */
+	  CoreIO ( FILE * _fileBuffer );
 
 	//! The destructor.
-	~CoreIO			();
+	 ~CoreIO (  );
 
 	//! Determines whether the end of the file has been reached.
 	/*!
-		\return Boolean indicating whether the end of the file has been reached.
-	*/
-	bool			EndOfFile ();
+	   \return Boolean indicating whether the end of the file has been reached.
+	 */
+	bool EndOfFile (  );
 
 	//! Determines the length of the file buffer.
 	/*!
-		\return An unsigned long indicating the length of the buffer in bytes.
-	*/
-	unsigned long	Length ();
+	   \return An unsigned long indicating the length of the buffer in bytes.
+	 */
+	unsigned long Length (  );
 
 	//! Reads one byte from the file buffer.
 	/*!
-		\return A char containing the next byte from the buffer.
-	*/
-	char			Read ();
+	   \return A char containing the next byte from the buffer.
+	 */
+	char Read (  );
 
 	//! Reads a block of data from the file buffer.
 	/*!
-		\param _buffer The output buffer to read to.
-		\param _bufferLength The size of _buffer (in bytes).
-		\param _bufferIndex The position in _buffer to begin writing.
-		\param _count The number of bytes to read.
-	*/
-	size_t			Read ( char *_buffer, int _bufferLength, int _bufferIndex, int _count );
+	   \param _buffer The output buffer to read to.
+	   \param _bufferLength The size of _buffer (in bytes).
+	   \param _bufferIndex The position in _buffer to begin writing.
+	   \param _count The number of bytes to read.
+	 */
+	size_t Read ( char *_buffer, int _bufferLength, int _bufferIndex,
+				  int _count );
 
 	//! Reads a line of data.
 	/*!
-		Data returned by this function should be copied to another location before being parsed.
-		<div style="color: #FF0000;"><b>WARNING:</b>
-			This function is NOT thread-safe. A fix for this is in the works.
-		</div>
-		\return A pointer to the next line of data.
-	*/
-	const char		*ReadLine ();
+	   Data returned by this function should be copied to another location before being parsed.
+	   <div style="color: #FF0000;"><b>WARNING:</b>
+	   This function is NOT thread-safe. A fix for this is in the works.
+	   </div>
+	   \return A pointer to the next line of data.
+	 */
+	const char *ReadLine (  );
 
 	//! Sets the line ending convention used by this CoreIO instance.
 	/*!
-		\param _ending Any of the CoreIO::LineEndingType values.
-	*/
-	void			SetLineEndings ( LineEndingType _ending );
+	   \param _ending Any of the CoreIO::LineEndingType values.
+	 */
+	void SetLineEndings ( LineEndingType _ending );
 
 	//! Writes a string to the buffer.
 	/*!
-		\param _format The format of the string to be written.
-	*/
-	void			Write ( const char *_format, ... );
+	   \param _format The format of the string to be written.
+	 */
+	void Write ( const char *_format, ... );
 
 	//! Writes an empty line to the buffer.
 	/*!
-		Writes CoreIO::m_lineEnding to the buffer.
-	*/
-	void			WriteLine ();
+	   Writes CoreIO::m_lineEnding to the buffer.
+	 */
+	void WriteLine (  );
 
 	//! Writes a string to the buffer with a newline appended.
 	/*
-		Appends CoreIO::m_lineEnding to the _format and then prints the string to the buffer.
-		\param _format The format of the string to be written.
-	*/
-	void			WriteLine ( const char *_format, ... );
+	   Appends CoreIO::m_lineEnding to the _format and then prints the string to the buffer.
+	   \param _format The format of the string to be written.
+	 */
+	void WriteLine ( const char *_format, ... );
 
 	//! Seeks to a location in the buffer.
 	/*!
-		\param _position Position to seek to, relative to the first byte of the buffer.
-		\return An integer indicating the result of the operation. 0 indicates
-			success. Any non-zero number indicates failure.
-	*/
-	int				Seek ( int _position );
+	   \param _position Position to seek to, relative to the first byte of the buffer.
+	   \return An integer indicating the result of the operation. 0 indicates
+	   success. Any non-zero number indicates failure.
+	 */
+	int Seek ( int _position );
 
 	//! Moves forward to a location in the buffer.
 	/*!
-		\param _position Position to seek to, relative to the current position in the buffer.
-		\return An integer indicating the result of the operation. 0 indicates
-			success. Any non-zero number indicates failure.
-	*/
-	int				Forward ( int _position );
+	   \param _position Position to seek to, relative to the current position in the buffer.
+	   \return An integer indicating the result of the operation. 0 indicates
+	   success. Any non-zero number indicates failure.
+	 */
+	int Forward ( int _position );
 
-protected:
+  protected:
 	//! Flushes the output buffer.
-	void			Flush ();
+	void Flush (  );
 
 	//! Seeks to a location in the buffer.
 	/*!
-		\param _position Position to seek to, relative to _origin.
-		\param _origin Can be one of SEEK_SET, SEEK_CUR, or SEEK_END.
-		\return An integer indicating the result of the operation. 0 indicates
-			success. Any non-zero number indicates failure.
-	*/
-	int				Seek ( int _position, int _origin );
+	   \param _position Position to seek to, relative to _origin.
+	   \param _origin Can be one of SEEK_SET, SEEK_CUR, or SEEK_END.
+	   \return An integer indicating the result of the operation. 0 indicates
+	   success. Any non-zero number indicates failure.
+	 */
+	int Seek ( int _position, int _origin );
 
 };
 
