@@ -30,42 +30,31 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- */  
-	
+ */
+
 #include "universal_include.h"
 #include "core_debug.h"
 #include "textwriter.h"
 
 TextWriter::TextWriter ( const char *_file ):
-CoreIO ( NULL ) 
+CoreIO ( NULL )
 {
-	
-size_t _filePathLength = 0;
-	
-CoreAssert ( _file != NULL );
-	
-CoreAssert ( ( _filePathLength = strlen ( _file ) ) > 1 );
-	
+	size_t _filePathLength = 0;
 
-m_filePath = new char[_filePathLength + 1];
+	CoreAssert ( _file != NULL );
+	CoreAssert ( ( _filePathLength = strlen ( _file ) ) > 1 );
 
-	
-strcpy ( ( char * ) m_filePath, _file );
-	
-m_fileBuffer = fopen ( m_filePath, "wt" );
-	
+	m_filePath = new char[_filePathLength + 1];
 
-CoreAssert ( m_fileBuffer != NULL );
+	strcpy ( ( char * ) m_filePath, _file );
+	m_fileBuffer = fopen ( m_filePath, "wt" );
 
-} 
+	CoreAssert ( m_fileBuffer != NULL );
+}
 
-TextWriter::~TextWriter (  ) 
+TextWriter::~TextWriter (  )
 {
-	
-Flush (  );
-	
-fclose ( m_fileBuffer );
-	
-delete[]m_filePath;
-
-} 
+	Flush (  );
+	fclose ( m_fileBuffer );
+	delete[]m_filePath;
+}

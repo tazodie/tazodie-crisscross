@@ -30,434 +30,300 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- */  
-	
+ */
+
 #include "universal_include.h"
 #include "core_exception.h"
 #include "core_io.h"
 #include "core_debug.h"
-	
+
 #include "datastructures/rbtree.h"
-	
-CoreIO * g_stderr;
 
-CoreIO * g_stdout;
-
+CoreIO *g_stderr;
+CoreIO *g_stdout;
 
 #ifdef DETECT_MEMORY_LEAKS
-	
+
 using namespace std;
 
-
 #    ifdef ENABLE_MEMLEAK_STATS
-	_CrtMemState s1, s2, s3;
-
+_CrtMemState s1, s2, s3;
 #    endif
-	
+
 void
 ParseMemoryLeakFile ( const char *_inputFilename,
-					  const char *_outputFilename ) 
+					  const char *_outputFilename )
 {
-	
 
-		//
-		// Start up
-		//
-	
-RedBlackTree < int, char *>combined;
-	
-RedBlackTree < int, char *>frequency;
-	
-int unrecognised = 0;
+	//
+	// Start up
+	//
 
-	
+	RedBlackTree < int, char *>combined;
+	RedBlackTree < int, char *>frequency;
+	int unrecognised = 0;
 
-		//
-		// Open the file and start parsing
-		//
-		
-std::ifstream memoryfile ( _inputFilename );
-	
+	//
+	// Open the file and start parsing
+	//
 
-while ( !memoryfile.eof (  ) )
-		
+	std::ifstream memoryfile ( _inputFilename );
+
+	while ( !memoryfile.eof (  ) )
 	{
-		
-char thisline[256];
+		char thisline[256];
 
-		
-memoryfile.getline ( thisline, 256 );
-		
+		memoryfile.getline ( thisline, 256 );
 
-if ( !strncmp ( thisline, " Data:", 6 ) == 0 &&	// This line is a data line - useless to us
-			   strchr ( thisline, ':' ) )
+		if ( !strncmp ( thisline, " Data:", 6 ) == 0 &&	// This line is a data line - useless to us
+			 strchr ( thisline, ':' ) )
 		{						// This line does not have a source file location - useless to us
-			
-				// Get the size
-			
-char *lastcomma = strrchr ( thisline, ',' );
-			
-char *ssize = lastcomma + 2;
-			
-int size;
-			
-char unused[32];
 
-			
-sscanf ( ssize, "%d %s", &size, unused );
-			
+			// Get the size
 
-				// Get the source file name
-			
-char *sourcelocation = thisline;
-			
-char *colon = strrchr ( thisline, ':' );
+			char *lastcomma = strrchr ( thisline, ',' );
+			char *ssize = lastcomma + 2;
+			int size;
+			char unused[32];
 
-			
-*( colon - 1 ) = '\x0';
-			
+			sscanf ( ssize, "%d %s", &size, unused );
 
-				// Put the result into our BTree
-			
-RedBlackTree < int, char *>::nodeType * btree =
+			// Get the source file name
+
+			char *sourcelocation = thisline;
+			char *colon = strrchr ( thisline, ':' );
+
+			*( colon - 1 ) = '\x0';
+
+			// Put the result into our BTree
+
+			RedBlackTree < int, char *>::nodeType * btree =
 				combined.findNode ( sourcelocation );
-			
-if ( btree )
+			if ( btree )
 				( ( int ) btree->data ) += size;
-			
 			else
 				combined.PutData ( sourcelocation, size );
-			
 
-RedBlackTree < int, char *>::nodeType * freq =
+			RedBlackTree < int, char *>::nodeType * freq =
 				frequency.findNode ( sourcelocation );
-			
-if ( freq )
+			if ( freq )
 				( ( int ) freq->data )++;
-			
 			else
 				frequency.PutData ( sourcelocation, 1 );
-		
 
-}
-		
+		}
 		else
-			
 		{
-			
-char *lastcomma = strrchr ( thisline, ',' );
+			char *lastcomma = strrchr ( thisline, ',' );
 
-			
-
-if ( lastcomma )
-				
+			if ( lastcomma )
 			{
-				
 
-char *ssize = lastcomma + 2;
-				
-int size;
-				
-char unused[32];
+				char *ssize = lastcomma + 2;
+				int size;
+				char unused[32];
 
-				
-sscanf ( ssize, "%d %s", &size, unused );
-				
+				sscanf ( ssize, "%d %s", &size, unused );
 
-unrecognised += size;
-			
-}
-	
-} 
-} 
+				unrecognised += size;
+			}
+		}
+	}
 
-memoryfile.close (  );
-	
+	memoryfile.close (  );
 
 
-		//
-		// Sort the results into a list
-		//
-	
-DArray < int >*sizes = combined.ConvertToDArray (  );
-	
-DArray < char *>*sources = combined.ConvertIndexToDArray (  );
-	
-LList < char *>sorted;
-	
-int totalsize = 0;
+	//
+	// Sort the results into a list
+	//
 
-	
+	DArray < int >*sizes = combined.ConvertToDArray (  );
+	DArray < char *>*sources = combined.ConvertIndexToDArray (  );
+	LList < char *>sorted;
+	int totalsize = 0;
 
-for ( int i = 0; i < sources->Size (  ); ++i )
-		
+	for ( int i = 0; i < sources->Size (  ); ++i )
 	{
-		
-char *newsource = sources->GetData ( i );
-		
-int newsize = sizes->GetData ( i );
+		char *newsource = sources->GetData ( i );
+		int newsize = sizes->GetData ( i );
 
-		
-totalsize += newsize;
-		
-bool inserted = false;
-		
+		totalsize += newsize;
+		bool inserted = false;
 
-for ( int j = 0; j < sorted.Size (  ); ++j )
+		for ( int j = 0; j < sorted.Size (  ); ++j )
 		{
-			
 
-char *existingsource = sorted.GetData ( j );
-			
-int existingsize = combined.GetData ( existingsource );
+			char *existingsource = sorted.GetData ( j );
+			int existingsize = combined.GetData ( existingsource );
 
-			
-
-if ( newsize <= existingsize )
+			if ( newsize <= existingsize )
 			{
-				
 
-sorted.PutDataAtIndex ( newsource, j );
-				
-inserted = true;
-				
-break;
-			
+				sorted.PutDataAtIndex ( newsource, j );
+				inserted = true;
+				break;
 
-}
-		
+			}
 
-}
-		
+		}
 
-if ( !inserted )
+		if ( !inserted )
 			sorted.PutDataAtEnd ( newsource );
-	
-}
-	
+	}
 
 
-		//
-		// Open the output file
-		//
-		
-FILE * output = fopen ( _outputFilename, "wt" );
-	
+	//
+	// Open the output file
+	//
 
-		//
-		// Print out our sorted list
-		// 
-	
-fprintf ( output, "Total recognised memory leaks   : %d Kbytes\n",
-				   int ( totalsize / 1024 ) );
-	
-fprintf ( output, "Total unrecognised memory leaks : %d Kbytes\n\n",
-			   int ( unrecognised / 1024 ) );
-	
+	FILE *output = fopen ( _outputFilename, "wt" );
 
-for ( int k = sorted.Size (  ) - 1; k >= 0; --k )
-		
+	//
+	// Print out our sorted list
+	// 
+
+	fprintf ( output, "Total recognised memory leaks   : %d Kbytes\n",
+			  int ( totalsize / 1024 ) );
+	fprintf ( output, "Total unrecognised memory leaks : %d Kbytes\n\n",
+			  int ( unrecognised / 1024 ) );
+
+	for ( int k = sorted.Size (  ) - 1; k >= 0; --k )
 	{
-		
 
-char *source = sorted.GetData ( k );
-		
-int size = combined.GetData ( source );
-		
-int freq = frequency.GetData ( source );
+		char *source = sorted.GetData ( k );
+		int size = combined.GetData ( source );
+		int freq = frequency.GetData ( source );
 
-		
-
-if ( size > 2048 )
-			
+		if ( size > 2048 )
 		{
-			
-fprintf ( output, "%-95s (%d Kbytes in %d leaks)\n", source,
-					   int ( size / 1024 ), freq );
-		
-}
-		
+			fprintf ( output, "%-95s (%d Kbytes in %d leaks)\n", source,
+					  int ( size / 1024 ), freq );
+		}
 		else
-			
 		{
-			
-fprintf ( output, "%-95s (%d  bytes in %d leaks)\n", source,
-					   size, freq );
-		
+			fprintf ( output, "%-95s (%d  bytes in %d leaks)\n", source, size,
+					  freq );
+		}
+	}
+
+
+	//
+	// Clear up
+
+	fclose ( output );
+
+	delete sources;
+	delete sizes;
 }
-	
-}
-	
-
-
-		//
-		// Clear up
-		
-fclose ( output );
-	
-
-delete sources;
-	
-delete sizes;
-
-}
-
 
 
 void
-AppPrintMemoryLeaks ( char *_filename ) 
+AppPrintMemoryLeaks ( char *_filename )
 {
-	
-		//
-		// Print all raw memory leak data to a temporary file
-		
+	//
+	// Print all raw memory leak data to a temporary file
+
 #    ifdef ENABLE_MEMLEAK_STATS
-		_CrtMemCheckpoint ( &s2 );
-	
+	_CrtMemCheckpoint ( &s2 );
 #    endif
-	
-char tmpFilename[512];
 
-	
-sprintf ( tmpFilename, "%s.tmp", _filename );
-	
+	char tmpFilename[512];
 
-OFSTRUCT ofstruct;
-	
-HFILE file = OpenFile ( tmpFilename, 
-&ofstruct, 
-OF_CREATE );
-	
+	sprintf ( tmpFilename, "%s.tmp", _filename );
 
-_CrtSetReportMode ( _CRT_WARN, _CRTDBG_MODE_FILE );
-	
-_CrtSetReportFile ( _CRT_WARN, ( _HFILE ) file );
-	
+	OFSTRUCT ofstruct;
+	HFILE file = OpenFile ( tmpFilename,
+							&ofstruct,
+							OF_CREATE );
 
-_CrtDumpMemoryLeaks (  );
-	
+	_CrtSetReportMode ( _CRT_WARN, _CRTDBG_MODE_FILE );
+	_CrtSetReportFile ( _CRT_WARN, ( _HFILE ) file );
+
+	_CrtDumpMemoryLeaks (  );
 #    ifdef ENABLE_MEMLEAK_STATS
-		_CrtMemDifference ( &s3, &s1, &s2 );
-	
-_CrtMemDumpStatistics ( &s3 );
-	
+	_CrtMemDifference ( &s3, &s1, &s2 );
+	_CrtMemDumpStatistics ( &s3 );
 #    endif
-		
-_lclose ( file );
-	
+
+	_lclose ( file );
 
 
-		//
-		// Parse the temp file into a sensible format
-		
-ParseMemoryLeakFile ( tmpFilename, _filename );
-	
+	//
+	// Parse the temp file into a sensible format
+
+	ParseMemoryLeakFile ( tmpFilename, _filename );
 
 
 
-		//
-		// Delete the temporary file
-		
+	//
+	// Delete the temporary file
+
 #    ifdef TARGET_OS_WINDOWS
-		DeleteFile ( tmpFilename );
-	
+	DeleteFile ( tmpFilename );
 #    else
-		unlink ( tmpFilename );
-	
+	unlink ( tmpFilename );
 #    endif
 
-} 
+}
 #endif
-	
+
 
 #if 0
-	int APIENTRY
-WinMain ( HINSTANCE hInstance, 
-HINSTANCE hPrevInstance, 
-LPSTR lpCmdLine,
-		  
-int nCmdShow ) 
+int APIENTRY
+WinMain ( HINSTANCE hInstance,
+		  HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow )
 {
-	
 #else
-	int
-main ( int argc, char **argv ) 
+int
+main ( int argc, char **argv )
 {
-	
 #endif
-		/* TODO: Get proper command line parameters for Windows apps */ 
+	/* TODO: Get proper command line parameters for Windows apps */
 	int retval = 0;
 
-	
 #ifdef ENABLE_MEMLEAK_STATS
-		_CrtMemCheckpoint ( &s1 );
-	
+	_CrtMemCheckpoint ( &s1 );
 #endif
-		g_stderr = new CoreIO ( stderr );
-	
-g_stdout = new CoreIO ( stdout );
-	
+	g_stderr = new CoreIO ( stderr );
+	g_stdout = new CoreIO ( stdout );
 #ifdef ENABLE_CREDITS
-		g_stdout->
+	g_stdout->
 		WriteLine
 		( "Powered by CrissCross, http://www.uplinklabs.net/crisscross/" );
-	
-g_stdout->
+	g_stdout->
 		WriteLine ( "(c) 2006 by Steven Noonan <steven@uplinklabs.net>" );
-	
-g_stdout->WriteLine ( "        and Rudolf Olah   <omouse@gmail.com>" );
-	
-g_stdout->WriteLine (  );
-	
+	g_stdout->WriteLine ( "        and Rudolf Olah   <omouse@gmail.com>" );
+	g_stdout->WriteLine (  );
 #endif
-		try
+	try
 	{
-		
 #if 0
-			retval = RunApplication ( 0, NULL );
-		
+		retval = RunApplication ( 0, NULL );
 #else
-			retval = RunApplication ( argc, argv );
-		
+		retval = RunApplication ( argc, argv );
 #endif
-	} 
-catch ( CoreException * E ) 
+	}
+	catch ( CoreException * E )
 	{
-		
-g_stderr->
+		g_stderr->
 			WriteLine
-			( 
-"\nA CoreException has been raised.\n\tFile: %s\n\tLine: %d\n\tDescription: %s\n",
-			  
-E->ShowFile (  ), E->ShowLine (  ), E->ShowReason (  ) 
- );
-		
-return -1;
-	
-}
-	
-catch ( const char *_exception ) 
+			( "\nA CoreException has been raised.\n\tFile: %s\n\tLine: %d\n\tDescription: %s\n",
+			  E->ShowFile (  ), E->ShowLine (  ), E->ShowReason (  ) );
+		return -1;
+	}
+	catch ( const char *_exception )
 	{
-		
-g_stderr->
+		g_stderr->
 			WriteLine
 			( "An unknown exception has been raised:\n\tDescription: %s",
 			  _exception );
-		
-return -2;
-	
-}
-	
-delete g_stderr;
-	
-delete g_stdout;
-	
+		return -2;
+	}
+	delete g_stderr;
+	delete g_stdout;
+
 #ifdef DETECT_MEMORY_LEAKS
-		AppPrintMemoryLeaks ( "memleak.txt" );
-	
+	AppPrintMemoryLeaks ( "memleak.txt" );
 #endif
-		return retval;
-
+	return retval;
 }
-
-
