@@ -39,12 +39,14 @@
 
 #include "datastructures/rbtree.h"
 
+#include <exception>
+
+using namespace std;
+
 CoreIO *g_stderr;
 CoreIO *g_stdout;
 
 #ifdef DETECT_MEMORY_LEAKS
-
-using namespace std;
 
 #    ifdef ENABLE_MEMLEAK_STATS
 _CrtMemState s1, s2, s3;
@@ -303,12 +305,16 @@ main ( int argc, char **argv )
 		retval = RunApplication ( argc, argv );
 #endif
 	}
-	catch ( CoreException * E )
+	catch ( std::exception& e )
+	{
+		cout << e.what() << endl;
+	}
+	catch ( CoreException * e )
 	{
 		g_stderr->
 			WriteLine
 			( "\nA CoreException has been raised.\n\tFile: %s\n\tLine: %d\n\tDescription: %s\n",
-			  E->ShowFile (  ), E->ShowLine (  ), E->ShowReason (  ) );
+			  e->ShowFile (  ), e->ShowLine (  ), e->ShowReason (  ) );
 		return -1;
 	}
 	catch ( const char *_exception )

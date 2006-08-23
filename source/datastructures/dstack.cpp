@@ -61,7 +61,7 @@ DStack::push ( int val )
 }
 
 int
-DStack::num_items (  ) const const
+DStack::num_items (  ) const
 {
 	return ( int ) ( top_ - bottom_ );
 }

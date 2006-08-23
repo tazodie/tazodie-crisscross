@@ -190,13 +190,13 @@ template < class T >
 }
 
 
-template < class T > int LList < T >::Size (  ) const const
+template < class T > int LList < T >::Size (  ) const
 {
 	return m_numItems;
 }
 
 
-template < class T > T LList < T >::GetData ( int index ) const const
+template < class T > T LList < T >::GetData ( int index ) const
 {
 	LListItem < T > const *item = GetItem ( index );
 
@@ -209,7 +209,7 @@ template < class T > T LList < T >::GetData ( int index ) const const
 }
 
 
-template < class T > T * LList < T >::GetPointer ( int index ) const const
+template < class T > T * LList < T >::GetPointer ( int index ) const
 {
 	LListItem < T > *item = GetItem ( index );
 	if ( item )
@@ -221,7 +221,7 @@ template < class T > T * LList < T >::GetPointer ( int index ) const const
 }
 
 
-template < class T > LListItem < T > *LList < T >::GetItem ( int index ) const const
+template < class T > LListItem < T > *LList < T >::GetItem ( int index ) const
 {
 	if ( !ValidIndex ( index ) )
 		return NULL;
@@ -280,7 +280,7 @@ template < class T > T LList < T >::operator []( int index )
 }
 
 
-template < class T > bool LList < T >::ValidIndex ( int index ) const const
+template < class T > bool LList < T >::ValidIndex ( int index ) const
 {
 	return ( index >= 0 && index < m_numItems );
 }

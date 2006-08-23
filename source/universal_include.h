@@ -120,8 +120,8 @@ defined ( __powerpc64__ )
 #    endif
 	
 #    if !defined(TARGET_OS_WINDOWS) \
-	&&!defined ( TARGET_OS_LINUX ) \ 
-&&!defined ( TARGET_OS_MACOSX ) 
+		&&!defined ( TARGET_OS_LINUX ) \
+		&&!defined ( TARGET_OS_MACOSX ) 
 #        error Compiling on an unsupported target. Cannot continue.
 #    endif
 	

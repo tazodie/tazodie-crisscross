@@ -60,42 +60,42 @@ template < class dataType, class keyType >
 
 template < class dataType,
 	class keyType > inline bool RedBlackTree < dataType,
-	keyType >::compLT ( const char *a, const char *b ) const const
+	keyType >::compLT ( const char *a, const char *b ) const
 {
 	return ( stricmp ( a, b ) < 0 );
 }
 
 template < class dataType,
 	class keyType > inline bool RedBlackTree < dataType,
-	keyType >::compLTEQU ( const char *a, const char *b ) const const
+	keyType >::compLTEQU ( const char *a, const char *b ) const
 {
 	return ( stricmp ( a, b ) <= 0 );
 }
 
 template < class dataType,
 	class keyType > inline bool RedBlackTree < dataType,
-	keyType >::compEQ ( const char *a, const char *b ) const const
+	keyType >::compEQ ( const char *a, const char *b ) const
 {
 	return ( stricmp ( a, b ) == 0 );
 }
 
 template < class dataType,
 	class keyType > inline bool RedBlackTree < dataType,
-	keyType >::compLT ( const int *a, const int *b ) const const
+	keyType >::compLT ( const int *a, const int *b ) const
 {
 	return ( *a < *b );
 }
 
 template < class dataType,
 	class keyType > inline bool RedBlackTree < dataType,
-	keyType >::compLTEQU ( const int *a, const int *b ) const const
+	keyType >::compLTEQU ( const int *a, const int *b ) const
 {
 	return ( *a <= *b );
 }
 
 template < class dataType,
 	class keyType > inline bool RedBlackTree < dataType,
-	keyType >::compEQ ( const int *a, const int *b ) const const
+	keyType >::compEQ ( const int *a, const int *b ) const
 {
 	return ( *a == *b );
 }
@@ -620,7 +620,7 @@ template < class dataType, class keyType >
 
 template < class dataType, class keyType >
 	dataType RedBlackTree < dataType,
-	keyType >::find ( keyType key ) const const
+	keyType >::find ( keyType key ) const
 {
 	nodeType *current = rootNode;
 
@@ -661,7 +661,7 @@ template < class dataType, class keyType >
 template < class dataType, class keyType >
 	typename RedBlackTree < dataType,
 	keyType >::nodeType * RedBlackTree < dataType,
-	keyType >::findNode ( keyType key ) const const
+	keyType >::findNode ( keyType key ) const
 {
 	typename RedBlackTree < dataType, keyType >::nodeType * current =
 		rootNode;
@@ -751,7 +751,7 @@ template < class dataType, class keyType >
 
 template < class dataType, class keyType >
 	bool RedBlackTree < dataType,
-	keyType >::ValidNode ( nodeType * node ) const const
+	keyType >::ValidNode ( nodeType * node ) const
 {
 	if ( node != NULL && node != NULL_NODE )
 		return true;
@@ -846,7 +846,7 @@ template < class dataType, class keyType >
 
 template < class dataType, class keyType >
 	dataType RedBlackTree < dataType,
-	keyType >::GetData ( const keyType key ) const const
+	keyType >::GetData ( const keyType key ) const
 {
 	if ( !key )
 	{
