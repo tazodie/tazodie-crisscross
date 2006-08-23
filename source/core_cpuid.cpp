@@ -386,7 +386,7 @@ void CoreCPUID::DetectCacheInfo ( int processor )
 
 }
 
-void CoreCPUID::AddCacheDescription ( int processor, char *description )
+void CoreCPUID::AddCacheDescription ( int processor, const char *description )
 {
 	char *temp = new char[strlen(description) + 1];
 	CoreAssert ( temp != NULL );
@@ -628,10 +628,10 @@ void CoreCPUID::DetectAPIC ( int processor )
 	proc[processor]->APICID = (Std[1].ebx >> 24);
 }
 
-void CoreCPUID::DetectFeature ( unsigned const int *_register, int _flag, int _processor, char * _name ) {
+void CoreCPUID::DetectFeature ( unsigned const int *_register, int _flag, int _processor, const char * _name ) {
 	Feature *feature = new Feature();
 	feature->Enabled = (*_register & _flag) > 0;
-	proc[_processor]->features.insert ( _name, feature );
+	proc[_processor]->features.insert ( (char *)_name, feature );
 	feature = NULL;
 }
 

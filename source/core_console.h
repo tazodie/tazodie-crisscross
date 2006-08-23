@@ -43,7 +43,7 @@ class CoreConsole : public CoreIO
 public:
 	
 	//! Flags used for describing console colour output.
-	enum ColourTypes {
+	typedef enum {
 		FG_BLUE = 0x0001,										/*!< Blue Foreground */
 		FG_GREEN = 0x0002,										/*!< Green Foreground */
 		FG_RED = 0x0004,										/*!< Red Foreground */
@@ -75,7 +75,7 @@ public:
 		BG_GRAY = 0x10000,										/*!< Gray Background */
 		BG_WHITE = 0x20000										/*!< White Background */
 #endif
-	};
+	} ColourTypes;
 
 public:
 	

@@ -150,7 +150,7 @@ void SymbolEngine::StackTrace( PCONTEXT _pContext, CoreIO *_outputBuffer )
 #endif
 
 
-unsigned *GetRetAddress ( unsigned *_ebp )
+unsigned *GetRetAddress ( const unsigned *_ebp )
 {
 #ifdef TARGET_OS_WINDOWS
 	unsigned *retAddr;
@@ -226,7 +226,7 @@ void PrintStackTrace ( CoreIO *_outputBuffer )
 #endif // TARGET_OS_MACOSX
 }
 
-void GenerateBlackBox( char *_msg )
+void GenerateBlackBox( const char *_msg )
 {
     TextWriter *_file = new TextWriter ( "blackbox.txt" );
 
@@ -254,7 +254,7 @@ void GenerateBlackBox( char *_msg )
     delete _file;
 }
 
-void Assert( bool _condition, char *_testcase, char *_file, int _line )
+void Assert( bool _condition, const char *_testcase, const char *_file, int _line )
 {
 	if ( !_condition )
 	{

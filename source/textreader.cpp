@@ -36,7 +36,7 @@
 #include "core_debug.h"
 #include "textreader.h"
 
-TextReader::TextReader ( char *_file ):
+TextReader::TextReader ( const char *_file ):
 	CoreIO ( NULL )
 {
 	size_t _filePathLength = 0;
@@ -44,7 +44,7 @@ TextReader::TextReader ( char *_file ):
 	CoreAssert ( (_filePathLength = strlen ( _file )) > 1 );
 
 	m_filePath = new char[_filePathLength + 1];
-	strcpy ( m_filePath, _file );
+	strcpy ( (char *)m_filePath, _file );
 	m_fileBuffer = fopen ( m_filePath, "rt" );
 
 	CoreAssert ( m_fileBuffer != NULL );

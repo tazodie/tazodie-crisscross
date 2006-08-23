@@ -58,13 +58,13 @@ RedBlackTree< dataType, keyType >::~RedBlackTree()
 	delete NULL_NODE;
 }
 
-template< class dataType, class keyType > inline bool RedBlackTree< dataType, keyType >::compLT(char *a, char *b)	{ return ( stricmp(a,b) < 0 );  }
-template< class dataType, class keyType > inline bool RedBlackTree< dataType, keyType >::compLTEQU(char *a, char *b)	{ return ( stricmp(a,b) <= 0 );  }
-template< class dataType, class keyType > inline bool RedBlackTree< dataType, keyType >::compEQ(char *a, char *b)	{ return ( stricmp(a,b) == 0 );  }
+template< class dataType, class keyType > inline bool RedBlackTree< dataType, keyType >::compLT(const char *a, const char *b) const		{ return ( stricmp(a,b) < 0 ); }
+template< class dataType, class keyType > inline bool RedBlackTree< dataType, keyType >::compLTEQU(const char *a, const char *b) const	{ return ( stricmp(a,b) <= 0 ); }
+template< class dataType, class keyType > inline bool RedBlackTree< dataType, keyType >::compEQ(const char *a, const char *b) const		{ return ( stricmp(a,b) == 0 ); }
 
-template< class dataType, class keyType > inline bool RedBlackTree< dataType, keyType >::compLT(int *a, int *b)		{ return ( *a < *b );  }
-template< class dataType, class keyType > inline bool RedBlackTree< dataType, keyType >::compLTEQU(int *a, int *b)	{ return ( *a <= *b );  }
-template< class dataType, class keyType > inline bool RedBlackTree< dataType, keyType >::compEQ(int *a, int *b)		{ return ( *a == *b );  }
+template< class dataType, class keyType > inline bool RedBlackTree< dataType, keyType >::compLT(const int *a, const int *b) const		{ return ( *a < *b ); }
+template< class dataType, class keyType > inline bool RedBlackTree< dataType, keyType >::compLTEQU(const int *a, const int *b) const	{ return ( *a <= *b ); }
+template< class dataType, class keyType > inline bool RedBlackTree< dataType, keyType >::compEQ(const int *a, const int *b) const		{ return ( *a == *b ); }
 
 template< class dataType, class keyType >
 inline char *RedBlackTree< dataType, keyType >::newKey ( char *a )
@@ -532,7 +532,7 @@ void	RedBlackTree< dataType, keyType >::getNext( nodeType **current )
 }
 
 template< class dataType, class keyType >
-dataType	RedBlackTree< dataType, keyType >::find ( keyType key )
+dataType	RedBlackTree< dataType, keyType >::find ( keyType key ) const
 {
     nodeType*		current = rootNode;
 #ifdef SHOW_NODE_SEARCH_PROGRESS
@@ -565,7 +565,7 @@ dataType	RedBlackTree< dataType, keyType >::find ( keyType key )
 }
 
 template< class dataType, class keyType >
-typename RedBlackTree< dataType, keyType >::nodeType	*RedBlackTree< dataType, keyType >::findNode ( keyType key )
+typename RedBlackTree< dataType, keyType >::nodeType	*RedBlackTree< dataType, keyType >::findNode ( keyType key ) const
 {
     typename RedBlackTree< dataType, keyType >::nodeType *current = rootNode;
 #ifdef SHOW_NODE_SEARCH_PROGRESS
@@ -646,7 +646,7 @@ size_t	RedBlackTree< dataType, keyType >::size()
 }
 
 template< class dataType, class keyType >
-bool	RedBlackTree< dataType, keyType >::ValidNode(nodeType *node)
+bool	RedBlackTree< dataType, keyType >::ValidNode(nodeType *node) const
 {
 	if (node != NULL && node != NULL_NODE)
 		return true;
@@ -728,7 +728,7 @@ void RedBlackTree < dataType, keyType > :: Print()
 }
 
 template< class dataType, class keyType >
-dataType RedBlackTree< dataType, keyType >::GetData(keyType key)
+dataType RedBlackTree< dataType, keyType >::GetData(const keyType key) const
 {
 	if ( !key )
 	{

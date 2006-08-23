@@ -43,7 +43,7 @@ class TextReader : public CoreIO
 {
 protected:
 	//! The path to the file being read.
-	char			*m_filePath;
+	const char		*m_filePath;
 
 public:
 	//! The constructor.
@@ -51,7 +51,7 @@ public:
 		Creates an instance of CoreIO with read access to the file specified in _file.
 		\param _file The path to the file being read.
 	*/
-	TextReader		( char *_file );
+	TextReader		( const char *_file );
 
 	//! The destructor
 	/*!

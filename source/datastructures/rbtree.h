@@ -93,22 +93,22 @@ public:
 	statusEnum		insert ( keyType key, dataType rec );
 	statusEnum		deleteNode ( keyType key );
 	statusEnum		killNode( nodeType *z );
-	dataType		find ( keyType key );
-	nodeType		*findNode( keyType key );
-	bool			ValidNode( nodeType *node );
+	dataType		find ( keyType key ) const;
+	nodeType		*findNode( keyType key ) const;
+	bool			ValidNode( nodeType *node ) const;
 
 protected:
 	inline char     *reallocKey ( char *pointer, char *a );
 	inline int      *reallocKey ( int *pointer, int *a );
 	inline char		*newKey ( char *a );
 	inline int		*newKey ( int *a );
-	inline bool		compLT(char *a, char *b);
-	inline bool		compLTEQU(char *a, char *b);
-	inline bool		compEQ(char *a, char *b);
+	inline bool		compLT(const char *a, const char *b) const;
+	inline bool		compLTEQU(const char *a, const char *b) const;
+	inline bool		compEQ(const char *a, const char *b) const;
 	
-	inline bool		compLT(int *a, int *b);
-	inline bool		compLTEQU(int *a, int *b);
-	inline bool		compEQ(int *a, int *b);
+	inline bool		compLT(const int *a, const int *b) const;
+	inline bool		compLTEQU(const int *a, const int *b) const;
+	inline bool		compEQ(const int *a, const int *b) const;
 
 	/*
 	these are automatically called. no need to use them externally at all.
@@ -122,7 +122,7 @@ public:
 	/*
 	other old backward-compatible functions
 	*/
-	_DS_DEPRECATE_FUNCTION(find)		dataType	GetData(keyType key);
+	_DS_DEPRECATE_FUNCTION(find)		dataType	GetData(keyType key) const;
 	_DS_DEPRECATE_FUNCTION(insert)		void		PutData(keyType key, dataType rec);
 	_DS_DEPRECATE_FUNCTION(deleteNode)	void		RemoveData(keyType key);
 	_DS_DEPRECATE_FUNCTION(findNode)	nodeType	*LookupTree(keyType key);

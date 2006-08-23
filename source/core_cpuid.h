@@ -53,8 +53,8 @@ public:
 
 class Processor {
 public:
-	char *Manufacturer;
-	char *ProcessorName;
+	const char *Manufacturer;
+	const char *ProcessorName;
 	char Count;
 	char Family;
 	char Model;
@@ -88,7 +88,7 @@ protected:
 	long int GoThread ( int processor );
 #endif
 
-	void AddCacheDescription ( int processor, char *description );
+	void AddCacheDescription ( int processor, const char *description );
 	void AddCacheData ( int processor, int x );
 	void DetectManufacturer ( int processor );
 	void DetectProcessorName ( int processor );
@@ -98,7 +98,7 @@ protected:
 	void DetectCount ( int processor );
 	void DetectAPIC ( int processor );
 	void DetectFeatures ( int processor );
-	void DetectFeature (unsigned const int *_register, int _flag, int _processor, char * _name );
+	void DetectFeature (unsigned const int *_register, int _flag, int _processor, const char * _name );
 
 public:
 	CoreCPUID();

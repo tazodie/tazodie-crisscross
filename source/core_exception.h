@@ -45,7 +45,7 @@
 class CoreException
 {
 	//! The file in which the exception was thrown.
-	char *m_file;
+	const char *m_file;
 
 	//! The line in CoreException::m_file at which the exception was thrown.
 	int m_line;
@@ -56,7 +56,7 @@ public:
 		\param _file The file in which the exception was thrown. (usually specified with __FILE__ by a macro)
 		\param _line The line in _file at which the exception was thrown. (usually specified with __LINE__ by a macro)
 	*/
-	CoreException ( char *_file, int _line ) :
+	CoreException ( const char *_file, int _line ) :
 	  m_file ( _file ), m_line ( _line )
 	  {
 		  g_stderr->WriteLine ( "=== STACK TRACE ===\n" );
@@ -70,7 +70,7 @@ public:
 	/*!
 		\return CoreException::m_file
 	*/
-	char *ShowFile() { return m_file; };
+	const char *ShowFile() { return m_file; };
 
 	//! Returns the line in CoreException::m_file at which the exception was thrown.
 	int	ShowLine () { return m_line; };
@@ -95,7 +95,7 @@ public:
 		\param _file The file in which the exception was thrown. (usually specified with __FILE__ by a macro)
 		\param _line The line in _file at which the exception was thrown. (usually specified with __LINE__ by a macro)
 	*/
-	AssertionFailureException ( char *_file, int _line )
+	AssertionFailureException ( const char *_file, int _line )
 		: CoreException ( _file, _line ) {};
 
 	//! Returns the exception description.

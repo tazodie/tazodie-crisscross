@@ -50,7 +50,7 @@ using namespace std;
 _CrtMemState s1, s2, s3;
 #endif
 
-void ParseMemoryLeakFile ( char *_inputFilename, char *_outputFilename )
+void ParseMemoryLeakFile ( const char *_inputFilename, const char *_outputFilename )
 {
 
     //
@@ -283,7 +283,7 @@ int main ( int argc, char **argv )
 		);
 		return -1;
 	}
-	catch ( char *_exception )
+	catch ( const char *_exception )
 	{
 		g_stderr->WriteLine ( "An unknown exception has been raised:\n\tDescription: %s", _exception );	
 		return -2;

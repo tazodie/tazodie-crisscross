@@ -43,7 +43,7 @@ class TextWriter : public CoreIO
 {
 protected:
 	//! The path to the file being written.	
-	char			*m_filePath;
+	const char		*m_filePath;
 
 public:
 	//! The constructor.
@@ -51,7 +51,7 @@ public:
 		Creates an instance of CoreIO with write access to the file specified in _file.
 		\param _file The path to the file being read.
 	*/
-	TextWriter		( char *_file );
+	TextWriter		( const char *_file );
 
 	//! The destructor
 	/*!
