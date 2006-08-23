@@ -92,7 +92,7 @@ unsigned long CoreIO::Length ()
 	fsetpos ( m_fileBuffer, &lastpos );
 
 	m_ioMutex->Unlock();
-#if defined (TARGET_OS_WINDOWS) || defined (TARGET_OS_MACOSX)
+#if defined (TARGET_OS_WINDOWS) || defined (TARGET_OS_MACOSX) || defined (TARGET_OS_FREEBSD)
 	return (unsigned long)endpos;
 #elif defined (TARGET_OS_LINUX)
 	return (unsigned long)endpos.__pos;
