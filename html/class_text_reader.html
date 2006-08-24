@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
-<title>Technetium: TextReader Class Reference</title>
+<title>CrissCross: TextReader Class Reference</title>
 <link href="doxygen.css" rel="stylesheet" type="text/css">
 <link href="tabs.css" rel="stylesheet" type="text/css">
 </head><body>
@@ -31,31 +31,41 @@
 <a href="class_text_reader-members.html">List of all members.</a><table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_reader.html#9bd72e2c0797536255f99ae97189914e">TextReader</a> (char *_file)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_reader.html#0baace817c3f0658da1da1394186e7fa">TextReader</a> (const char *_file)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The constructor.  <a href="#9bd72e2c0797536255f99ae97189914e"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The constructor.  <a href="#0baace817c3f0658da1da1394186e7fa"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_reader.html#6445ed4a2df32c27e0dc02d2c5a0218d">~TextReader</a> ()</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The destructor.  <a href="#6445ed4a2df32c27e0dc02d2c5a0218d"></a><br></td></tr>
 <tr><td colspan="2"><br><h2>Protected Attributes</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_reader.html#7dff1c252c627891963c8dadd1513116">m_filePath</a></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">const char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_reader.html#6a6a0893ae382a368cc982fd59203f4b">m_filePath</a></td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The path to the file being read.  <a href="#7dff1c252c627891963c8dadd1513116"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The path to the file being read.  <a href="#6a6a0893ae382a368cc982fd59203f4b"></a><br></td></tr>
+<tr><td colspan="2"><br><h2>Private Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_reader.html#1bd1a0320fdff0d8213991b9a19c2a27">Write</a> (const char *_format,...)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Writes a string to the buffer.  <a href="#1bd1a0320fdff0d8213991b9a19c2a27"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_reader.html#ec9f3e176f1bf1bbc302e11b89280d0e">WriteLine</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Writes an empty line to the buffer.  <a href="#ec9f3e176f1bf1bbc302e11b89280d0e"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_reader.html#18cd3a046cb57adb7c1238c6f167370f">WriteLine</a> (const char *_format,...)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Writes a string to the buffer with a newline appended.  <a href="#18cd3a046cb57adb7c1238c6f167370f"></a><br></td></tr>
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
 The text file input class. 
 <p>
-Inherits <a class="el" href="class_core_i_o.html">CoreIO</a>, so functions like <a class="el" href="class_core_i_o.html#99db2256dbc89cf3b6fbfc9f3df258ba">CoreIO::Read</a> and <a class="el" href="class_core_i_o.html#003249b92444d753a19cacf3725f3495">CoreIO::ReadLine</a> are accessible to the programmer. 
+Inherits <a class="el" href="class_core_i_o.html">CoreIO</a>, so functions like <a class="el" href="class_core_i_o.html#17a902f26c7940aae1473bb4cc52047a">CoreIO::Read</a> and <a class="el" href="class_core_i_o.html#d4ad944aeea129a6403a8a22737077a3">CoreIO::ReadLine</a> are accessible to the programmer. 
 <p>
 <hr><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" name="9bd72e2c0797536255f99ae97189914e"></a><!-- doxytag: member="TextReader::TextReader" ref="9bd72e2c0797536255f99ae97189914e" args="(char *_file)" -->
+<a class="anchor" name="0baace817c3f0658da1da1394186e7fa"></a><!-- doxytag: member="TextReader::TextReader" ref="0baace817c3f0658da1da1394186e7fa" args="(const char *_file)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">TextReader::TextReader           </td>
           <td>(</td>
-          <td class="paramtype">char *&nbsp;</td>
+          <td class="paramtype">const char *&nbsp;</td>
           <td class="paramname"> <em>_file</em>          </td>
           <td>&nbsp;)&nbsp;</td>
           <td width="100%"></td>
@@ -96,13 +106,108 @@ The destructor.
 Closes the file and deallocates memory used by <a class="el" href="class_text_reader.html">TextReader</a>. 
 </div>
 </div><p>
-<hr><h2>Member Data Documentation</h2>
-<a class="anchor" name="7dff1c252c627891963c8dadd1513116"></a><!-- doxytag: member="TextReader::m_filePath" ref="7dff1c252c627891963c8dadd1513116" args="" -->
+<hr><h2>Member Function Documentation</h2>
+<a class="anchor" name="1bd1a0320fdff0d8213991b9a19c2a27"></a><!-- doxytag: member="TextReader::Write" ref="1bd1a0320fdff0d8213991b9a19c2a27" args="(const char *_format,...)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char* <a class="el" href="class_text_reader.html#7dff1c252c627891963c8dadd1513116">TextReader::m_filePath</a><code> [protected]</code>          </td>
+          <td class="memname">void TextReader::Write           </td>
+          <td>(</td>
+          <td class="paramtype">const char *&nbsp;</td>
+          <td class="paramname"> <em>_format</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>...</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"><code> [inline, private, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Writes a string to the buffer. 
+<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>_format</em>&nbsp;</td><td>The format of the string to be written. </td></tr>
+  </table>
+</dl>
+
+<p>
+Reimplemented from <a class="el" href="class_core_i_o.html#9db90c9e1fe08cc767fc34b82c61a4f8">CoreIO</a>.
+</div>
+</div><p>
+<a class="anchor" name="18cd3a046cb57adb7c1238c6f167370f"></a><!-- doxytag: member="TextReader::WriteLine" ref="18cd3a046cb57adb7c1238c6f167370f" args="(const char *_format,...)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void TextReader::WriteLine           </td>
+          <td>(</td>
+          <td class="paramtype">const char *&nbsp;</td>
+          <td class="paramname"> <em>_format</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>...</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"><code> [inline, private, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Writes a string to the buffer with a newline appended. 
+<p>
+
+<p>
+Reimplemented from <a class="el" href="class_core_i_o.html#27b8cf74e4428d7d10e4eeb4fb0743bd">CoreIO</a>.
+</div>
+</div><p>
+<a class="anchor" name="ec9f3e176f1bf1bbc302e11b89280d0e"></a><!-- doxytag: member="TextReader::WriteLine" ref="ec9f3e176f1bf1bbc302e11b89280d0e" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void TextReader::WriteLine           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [inline, private, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Writes an empty line to the buffer. 
+<p>
+Writes <a class="el" href="class_core_i_o.html#96c0df584348b1dc4eb16d4f32c67e5f">CoreIO::m_lineEnding</a> to the buffer. 
+<p>
+Reimplemented from <a class="el" href="class_core_i_o.html#9ce7e860185c464fecb825531b1efe01">CoreIO</a>.
+</div>
+</div><p>
+<hr><h2>Member Data Documentation</h2>
+<a class="anchor" name="6a6a0893ae382a368cc982fd59203f4b"></a><!-- doxytag: member="TextReader::m_filePath" ref="6a6a0893ae382a368cc982fd59203f4b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* <a class="el" href="class_text_reader.html#6a6a0893ae382a368cc982fd59203f4b">TextReader::m_filePath</a><code> [protected]</code>          </td>
         </tr>
       </table>
 </div>
@@ -114,9 +219,9 @@ The path to the file being read.
 
 </div>
 </div><p>
-<hr>The documentation for this class was generated from the following files:<ul>
-<li>N:/Technetium/Technetium/<a class="el" href="textreader_8h.html">textreader.h</a><li>N:/Technetium/Technetium/<a class="el" href="textreader_8cpp.html">textreader.cpp</a></ul>
-<hr size="1"><address style="align: right;"><small>Generated on Thu Aug 24 11:26:38 2006 for Technetium by&nbsp;
+<hr>The documentation for this class was generated from the following file:<ul>
+<li>N:/crisscross/source/<a class="el" href="textreader_8h.html">textreader.h</a></ul>
+<hr size="1"><address style="align: right;"><small>Generated on Thu Aug 24 11:42:18 2006 for CrissCross by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.4.7 </small></address>
 </body>

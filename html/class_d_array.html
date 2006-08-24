@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
-<title>Technetium: DArray&lt; T &gt; Class Template Reference</title>
+<title>CrissCross: DArray&lt; T &gt; Class Template Reference</title>
 <link href="doxygen.css" rel="stylesheet" type="text/css">
 <link href="tabs.css" rel="stylesheet" type="text/css">
 </head><body>
@@ -22,15 +22,14 @@
 <p>
 <a href="class_d_array-members.html">List of all members.</a><table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
-<tr><td colspan="2"><br><h2>Public Types</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">typedef int(*)&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_array.html#c6e1be60e492a365c14e8d81440df8a9">Sorter</a> (const T *data1, const T *data2)</td></tr>
-
 <tr><td colspan="2"><br><h2>Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">_TOSSER_DEPRECATE_SLOW&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_array.html#9479920cc1c8eba8057cd37ae96b8841">DArray</a> ()</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_array.html#9479920cc1c8eba8057cd37ae96b8841">DArray</a> ()</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_array.html#d2d86967a29cfce88274a1f0efca8a2e">DArray</a> (int newstepsize)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_array.html#c94f71ffd5052bf44cfba5e5e03c8030">~DArray</a> ()</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_array.html#b53a9d09c9c97d402a01567a5cb73c2b">Grow</a> ()</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_array.html#1bd33cd2aa617f4efdbb3ba3a5f11238">SetSize</a> (int newsize)</td></tr>
 
@@ -56,14 +55,12 @@
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_array.html#8395cf67d1773dc72d1b1d519f793874">Empty</a> ()</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">T &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_array.html#c837a6810deffe71843d1b85de767961">operator[]</a> (int index)</td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_array.html#32bc8cc9d78d7d64142117b340c22fb5">Sort</a> (<a class="el" href="class_d_array.html#c6e1be60e492a365c14e8d81440df8a9">Sorter</a> comp)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">T &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_array.html#687f73a95324d89d9b78edc0e8146fa1">operator[]</a> (int index)</td></tr>
 
 <tr><td colspan="2"><br><h2>Protected Attributes</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_array.html#3d5a2f505cc292495371053d6de4936e">stepsize</a></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_array.html#4402e0bf0571cf775bac0f5c2a05cf7b">m_stepSize</a></td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_array.html#6125d6863258513a2ed2388cb8eeb9e3">arraysize</a></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_array.html#6e798cdff308d92f2d251a611f6c4aae">m_arraySize</a></td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">T *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_array.html#ea7e4db672d15269d036a72eaa935304">array</a></td></tr>
 
@@ -76,24 +73,6 @@
 <h3>template&lt;class T&gt;<br>
  class DArray&lt; T &gt;</h3>
 
-<hr><h2>Member Typedef Documentation</h2>
-<a class="anchor" name="c6e1be60e492a365c14e8d81440df8a9"></a><!-- doxytag: member="DArray::Sorter" ref="c6e1be60e492a365c14e8d81440df8a9" args="(const T *data1, const T *data2)" -->
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef int( * ) <a class="el" href="class_d_array.html">DArray</a>&lt; T &gt;::<a class="el" href="class_d_array.html#c6e1be60e492a365c14e8d81440df8a9">Sorter</a>(const T *data1, const T *data2)          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
-</div>
-</div><p>
 <hr><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" name="9479920cc1c8eba8057cd37ae96b8841"></a><!-- doxytag: member="DArray::DArray" ref="9479920cc1c8eba8057cd37ae96b8841" args="()" -->
 <div class="memitem">
@@ -256,6 +235,27 @@ template&lt;class T&gt; </div>
 
 </div>
 </div><p>
+<a class="anchor" name="b53a9d09c9c97d402a01567a5cb73c2b"></a><!-- doxytag: member="DArray::Grow" ref="b53a9d09c9c97d402a01567a5cb73c2b" args="()" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_d_array.html">DArray</a>&lt; T &gt;::Grow           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
 <a class="anchor" name="d4d595ba2a7bdfb6979dac0d6dac4fe9"></a><!-- doxytag: member="DArray::NumUsed" ref="d4d595ba2a7bdfb6979dac0d6dac4fe9" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -277,14 +277,14 @@ template&lt;class T&gt; </div>
 
 </div>
 </div><p>
-<a class="anchor" name="c837a6810deffe71843d1b85de767961"></a><!-- doxytag: member="DArray::operator[]" ref="c837a6810deffe71843d1b85de767961" args="(int index)" -->
+<a class="anchor" name="687f73a95324d89d9b78edc0e8146fa1"></a><!-- doxytag: member="DArray::operator[]" ref="687f73a95324d89d9b78edc0e8146fa1" args="(int index)" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;class T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">T &amp; <a class="el" href="class_d_array.html">DArray</a>&lt; T &gt;::operator[]           </td>
+          <td class="memname">T&amp; <a class="el" href="class_d_array.html">DArray</a>&lt; T &gt;::operator[]           </td>
           <td>(</td>
           <td class="paramtype">int&nbsp;</td>
           <td class="paramname"> <em>index</em>          </td>
@@ -440,28 +440,6 @@ template&lt;class T&gt; </div>
 
 </div>
 </div><p>
-<a class="anchor" name="32bc8cc9d78d7d64142117b340c22fb5"></a><!-- doxytag: member="DArray::Sort" ref="32bc8cc9d78d7d64142117b340c22fb5" args="(Sorter comp)" -->
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="class_d_array.html">DArray</a>&lt; T &gt;::Sort           </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_d_array.html#c6e1be60e492a365c14e8d81440df8a9">Sorter</a>&nbsp;</td>
-          <td class="paramname"> <em>comp</em>          </td>
-          <td>&nbsp;)&nbsp;</td>
-          <td width="100%"></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
-</div>
-</div><p>
 <a class="anchor" name="c844a05372afbfa8ebf792878744c2a8"></a><!-- doxytag: member="DArray::ValidIndex" ref="c844a05372afbfa8ebf792878744c2a8" args="(int index)" -->
 <div class="memitem">
 <div class="memproto">
@@ -502,14 +480,14 @@ template&lt;class T&gt; </div>
 
 </div>
 </div><p>
-<a class="anchor" name="6125d6863258513a2ed2388cb8eeb9e3"></a><!-- doxytag: member="DArray::arraysize" ref="6125d6863258513a2ed2388cb8eeb9e3" args="" -->
+<a class="anchor" name="79b5d12e830924cebe10ce5f4d9a8990"></a><!-- doxytag: member="DArray::empty_nodes" ref="79b5d12e830924cebe10ce5f4d9a8990" args="" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;class T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">int <a class="el" href="class_d_array.html">DArray</a>&lt; T &gt;::<a class="el" href="class_d_array.html#6125d6863258513a2ed2388cb8eeb9e3">arraysize</a><code> [protected]</code>          </td>
+          <td class="memname"><a class="el" href="class_d_stack.html">DStack</a>* <a class="el" href="class_d_array.html">DArray</a>&lt; T &gt;::<a class="el" href="class_d_array.html#79b5d12e830924cebe10ce5f4d9a8990">empty_nodes</a><code> [private]</code>          </td>
         </tr>
       </table>
 </div>
@@ -519,14 +497,31 @@ template&lt;class T&gt; </div>
 
 </div>
 </div><p>
-<a class="anchor" name="79b5d12e830924cebe10ce5f4d9a8990"></a><!-- doxytag: member="DArray::empty_nodes" ref="79b5d12e830924cebe10ce5f4d9a8990" args="" -->
+<a class="anchor" name="6e798cdff308d92f2d251a611f6c4aae"></a><!-- doxytag: member="DArray::m_arraySize" ref="6e798cdff308d92f2d251a611f6c4aae" args="" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;class T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_d_stack.html">DStack</a>* <a class="el" href="class_d_array.html">DArray</a>&lt; T &gt;::<a class="el" href="class_d_array.html#79b5d12e830924cebe10ce5f4d9a8990">empty_nodes</a><code> [private]</code>          </td>
+          <td class="memname">int <a class="el" href="class_d_array.html">DArray</a>&lt; T &gt;::<a class="el" href="class_d_array.html#6e798cdff308d92f2d251a611f6c4aae">m_arraySize</a><code> [protected]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
+<a class="anchor" name="4402e0bf0571cf775bac0f5c2a05cf7b"></a><!-- doxytag: member="DArray::m_stepSize" ref="4402e0bf0571cf775bac0f5c2a05cf7b" args="" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="class_d_array.html">DArray</a>&lt; T &gt;::<a class="el" href="class_d_array.html#4402e0bf0571cf775bac0f5c2a05cf7b">m_stepSize</a><code> [protected]</code>          </td>
         </tr>
       </table>
 </div>
@@ -553,26 +548,9 @@ template&lt;class T&gt; </div>
 
 </div>
 </div><p>
-<a class="anchor" name="3d5a2f505cc292495371053d6de4936e"></a><!-- doxytag: member="DArray::stepsize" ref="3d5a2f505cc292495371053d6de4936e" args="" -->
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">int <a class="el" href="class_d_array.html">DArray</a>&lt; T &gt;::<a class="el" href="class_d_array.html#3d5a2f505cc292495371053d6de4936e">stepsize</a><code> [protected]</code>          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
-</div>
-</div><p>
-<hr>The documentation for this class was generated from the following files:<ul>
-<li>N:/Technetium/Technetium/tosser/<a class="el" href="darray_8h.html">darray.h</a><li>N:/Technetium/Technetium/tosser/<a class="el" href="darray_8cpp.html">darray.cpp</a></ul>
-<hr size="1"><address style="align: right;"><small>Generated on Thu Aug 24 11:26:38 2006 for Technetium by&nbsp;
+<hr>The documentation for this class was generated from the following file:<ul>
+<li>N:/crisscross/source/datastructures/<a class="el" href="darray_8h.html">darray.h</a></ul>
+<hr size="1"><address style="align: right;"><small>Generated on Thu Aug 24 11:42:18 2006 for CrissCross by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.4.7 </small></address>
 </body>

@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
-<title>Technetium: TextWriter Class Reference</title>
+<title>CrissCross: TextWriter Class Reference</title>
 <link href="doxygen.css" rel="stylesheet" type="text/css">
 <link href="tabs.css" rel="stylesheet" type="text/css">
 </head><body>
@@ -31,31 +31,53 @@
 <a href="class_text_writer-members.html">List of all members.</a><table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_writer.html#b9143f723d133928c2f8767a5fed0a98">TextWriter</a> (char *_file)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_writer.html#7abc6d84de67f227e3775d79a0fe298e">TextWriter</a> (const char *_file)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The constructor.  <a href="#b9143f723d133928c2f8767a5fed0a98"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The constructor.  <a href="#7abc6d84de67f227e3775d79a0fe298e"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_writer.html#ab0c50e9ffcd9fe2797753b222ad1641">~TextWriter</a> ()</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The destructor.  <a href="#ab0c50e9ffcd9fe2797753b222ad1641"></a><br></td></tr>
 <tr><td colspan="2"><br><h2>Protected Attributes</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_writer.html#4fc17c5737c1f666b770b68d3f3cad46">m_filePath</a></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">const char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_writer.html#0cf0c440752fca24d02476f781475034">m_filePath</a></td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The path to the file being written.  <a href="#4fc17c5737c1f666b770b68d3f3cad46"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The path to the file being written.  <a href="#0cf0c440752fca24d02476f781475034"></a><br></td></tr>
+<tr><td colspan="2"><br><h2>Private Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_writer.html#359b3ccbe723957379a6c5a2308d86d6">EndOfFile</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Determines whether the end of the file has been reached.  <a href="#359b3ccbe723957379a6c5a2308d86d6"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">unsigned long&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_writer.html#28b1849c07783ace5e3bcf8c04b79eea">Length</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Determines the length of the file buffer.  <a href="#28b1849c07783ace5e3bcf8c04b79eea"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">char&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_writer.html#b3834b9a73a145c7063257efe7e0e493">Read</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Reads one byte from the file buffer.  <a href="#b3834b9a73a145c7063257efe7e0e493"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">size_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_writer.html#bf86a787c5c9ee842a96cd1aebb60ebc">Read</a> (char *_buffer, int _bufferLength, int _bufferIndex, int _count)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Reads a block of data from the file buffer.  <a href="#bf86a787c5c9ee842a96cd1aebb60ebc"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">const char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_writer.html#7d293753019963f5bb9e120a1fd23f7f">ReadLine</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Reads a line of data.  <a href="#7d293753019963f5bb9e120a1fd23f7f"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_writer.html#417d3cf3dfcf49bd1fe4e669d08bf572">Seek</a> (int _position)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Seeks to a location in the buffer.  <a href="#417d3cf3dfcf49bd1fe4e669d08bf572"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_writer.html#117aba9121ab1dc6f3db695c5d331b10">Forward</a> (int _position)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Moves forward to a location in the buffer.  <a href="#117aba9121ab1dc6f3db695c5d331b10"></a><br></td></tr>
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
 The text file output class. 
 <p>
-Inherits <a class="el" href="class_core_i_o.html">CoreIO</a>, so functions like <a class="el" href="class_core_i_o.html#5a04e0ce4b9b2531193915c811a96088">CoreIO::Write</a> and <a class="el" href="class_core_i_o.html#5e1bdfbde851948869ef52075d59fa6f">CoreIO::WriteLine</a> are accessible to the programmer. 
+Inherits <a class="el" href="class_core_i_o.html">CoreIO</a>, so functions like <a class="el" href="class_core_i_o.html#9db90c9e1fe08cc767fc34b82c61a4f8">CoreIO::Write</a> and <a class="el" href="class_core_i_o.html#9ce7e860185c464fecb825531b1efe01">CoreIO::WriteLine</a> are accessible to the programmer. 
 <p>
 <hr><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" name="b9143f723d133928c2f8767a5fed0a98"></a><!-- doxytag: member="TextWriter::TextWriter" ref="b9143f723d133928c2f8767a5fed0a98" args="(char *_file)" -->
+<a class="anchor" name="7abc6d84de67f227e3775d79a0fe298e"></a><!-- doxytag: member="TextWriter::TextWriter" ref="7abc6d84de67f227e3775d79a0fe298e" args="(const char *_file)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">TextWriter::TextWriter           </td>
           <td>(</td>
-          <td class="paramtype">char *&nbsp;</td>
+          <td class="paramtype">const char *&nbsp;</td>
           <td class="paramname"> <em>_file</em>          </td>
           <td>&nbsp;)&nbsp;</td>
           <td width="100%"></td>
@@ -96,13 +118,223 @@ The destructor.
 Flushes the output buffer, closes the file, and deallocates memory used by <a class="el" href="class_text_writer.html">TextWriter</a>. 
 </div>
 </div><p>
-<hr><h2>Member Data Documentation</h2>
-<a class="anchor" name="4fc17c5737c1f666b770b68d3f3cad46"></a><!-- doxytag: member="TextWriter::m_filePath" ref="4fc17c5737c1f666b770b68d3f3cad46" args="" -->
+<hr><h2>Member Function Documentation</h2>
+<a class="anchor" name="359b3ccbe723957379a6c5a2308d86d6"></a><!-- doxytag: member="TextWriter::EndOfFile" ref="359b3ccbe723957379a6c5a2308d86d6" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char* <a class="el" href="class_text_writer.html#4fc17c5737c1f666b770b68d3f3cad46">TextWriter::m_filePath</a><code> [protected]</code>          </td>
+          <td class="memname">bool TextWriter::EndOfFile           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [inline, private, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Determines whether the end of the file has been reached. 
+<p>
+<dl compact><dt><b>Returns:</b></dt><dd>Boolean indicating whether the end of the file has been reached. </dd></dl>
+
+<p>
+Reimplemented from <a class="el" href="class_core_i_o.html#6c62e74e68b5871c3b7db26d787fd414">CoreIO</a>.
+</div>
+</div><p>
+<a class="anchor" name="117aba9121ab1dc6f3db695c5d331b10"></a><!-- doxytag: member="TextWriter::Forward" ref="117aba9121ab1dc6f3db695c5d331b10" args="(int _position)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int TextWriter::Forward           </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>_position</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [inline, private, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Moves forward to a location in the buffer. 
+<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>_position</em>&nbsp;</td><td>Position to seek to, relative to the current position in the buffer. </td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd>An integer indicating the result of the operation. 0 indicates success. Any non-zero number indicates failure. </dd></dl>
+
+<p>
+Reimplemented from <a class="el" href="class_core_i_o.html#3511040c0e122b494c9b2cfbf0963097">CoreIO</a>.
+</div>
+</div><p>
+<a class="anchor" name="28b1849c07783ace5e3bcf8c04b79eea"></a><!-- doxytag: member="TextWriter::Length" ref="28b1849c07783ace5e3bcf8c04b79eea" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long TextWriter::Length           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [inline, private, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Determines the length of the file buffer. 
+<p>
+<dl compact><dt><b>Returns:</b></dt><dd>An unsigned long indicating the length of the buffer in bytes. </dd></dl>
+
+<p>
+Reimplemented from <a class="el" href="class_core_i_o.html#fbabf900311eaab3c949b7f479a9a267">CoreIO</a>.
+</div>
+</div><p>
+<a class="anchor" name="bf86a787c5c9ee842a96cd1aebb60ebc"></a><!-- doxytag: member="TextWriter::Read" ref="bf86a787c5c9ee842a96cd1aebb60ebc" args="(char *_buffer, int _bufferLength, int _bufferIndex, int _count)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t TextWriter::Read           </td>
+          <td>(</td>
+          <td class="paramtype">char *&nbsp;</td>
+          <td class="paramname"> <em>_buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>_bufferLength</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>_bufferIndex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>_count</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td width="100%"><code> [inline, private, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Reads a block of data from the file buffer. 
+<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>_buffer</em>&nbsp;</td><td>The output buffer to read to. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>_bufferLength</em>&nbsp;</td><td>The size of _buffer (in bytes). </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>_bufferIndex</em>&nbsp;</td><td>The position in _buffer to begin writing. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>_count</em>&nbsp;</td><td>The number of bytes to read. </td></tr>
+  </table>
+</dl>
+
+<p>
+Reimplemented from <a class="el" href="class_core_i_o.html#9e2a1bbe4e73f5a608e06e140cff1642">CoreIO</a>.
+</div>
+</div><p>
+<a class="anchor" name="b3834b9a73a145c7063257efe7e0e493"></a><!-- doxytag: member="TextWriter::Read" ref="b3834b9a73a145c7063257efe7e0e493" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char TextWriter::Read           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [inline, private, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Reads one byte from the file buffer. 
+<p>
+<dl compact><dt><b>Returns:</b></dt><dd>A char containing the next byte from the buffer. </dd></dl>
+
+<p>
+Reimplemented from <a class="el" href="class_core_i_o.html#17a902f26c7940aae1473bb4cc52047a">CoreIO</a>.
+</div>
+</div><p>
+<a class="anchor" name="7d293753019963f5bb9e120a1fd23f7f"></a><!-- doxytag: member="TextWriter::ReadLine" ref="7d293753019963f5bb9e120a1fd23f7f" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* TextWriter::ReadLine           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [inline, private, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Reads a line of data. 
+<p>
+Data returned by this function should be copied to another location before being parsed. <div style="color: #FF0000;"><b>WARNING:</b> This function is NOT thread-safe. A fix for this is in the works. </div> <dl compact><dt><b>Returns:</b></dt><dd>A pointer to the next line of data. </dd></dl>
+
+<p>
+Reimplemented from <a class="el" href="class_core_i_o.html#d4ad944aeea129a6403a8a22737077a3">CoreIO</a>.
+</div>
+</div><p>
+<a class="anchor" name="417d3cf3dfcf49bd1fe4e669d08bf572"></a><!-- doxytag: member="TextWriter::Seek" ref="417d3cf3dfcf49bd1fe4e669d08bf572" args="(int _position)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int TextWriter::Seek           </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>_position</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [inline, private, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Seeks to a location in the buffer. 
+<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>_position</em>&nbsp;</td><td>Position to seek to, relative to the first byte of the buffer. </td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd>An integer indicating the result of the operation. 0 indicates success. Any non-zero number indicates failure. </dd></dl>
+
+<p>
+Reimplemented from <a class="el" href="class_core_i_o.html#3e026e0db0b21a68464b977575fd6259">CoreIO</a>.
+</div>
+</div><p>
+<hr><h2>Member Data Documentation</h2>
+<a class="anchor" name="0cf0c440752fca24d02476f781475034"></a><!-- doxytag: member="TextWriter::m_filePath" ref="0cf0c440752fca24d02476f781475034" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* <a class="el" href="class_text_writer.html#0cf0c440752fca24d02476f781475034">TextWriter::m_filePath</a><code> [protected]</code>          </td>
         </tr>
       </table>
 </div>
@@ -114,9 +346,9 @@ The path to the file being written.
 
 </div>
 </div><p>
-<hr>The documentation for this class was generated from the following files:<ul>
-<li>N:/Technetium/Technetium/<a class="el" href="textwriter_8h.html">textwriter.h</a><li>N:/Technetium/Technetium/<a class="el" href="textwriter_8cpp.html">textwriter.cpp</a></ul>
-<hr size="1"><address style="align: right;"><small>Generated on Thu Aug 24 11:26:38 2006 for Technetium by&nbsp;
+<hr>The documentation for this class was generated from the following file:<ul>
+<li>N:/crisscross/source/<a class="el" href="textwriter_8h.html">textwriter.h</a></ul>
+<hr size="1"><address style="align: right;"><small>Generated on Thu Aug 24 11:42:18 2006 for CrissCross by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.4.7 </small></address>
 </body>

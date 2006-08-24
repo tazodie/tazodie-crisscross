@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
-<title>Technetium: CoreMutex Class Reference</title>
+<title>CrissCross: CoreMutex Class Reference</title>
 <link href="doxygen.css" rel="stylesheet" type="text/css">
 <link href="tabs.css" rel="stylesheet" type="text/css">
 </head><body>
@@ -49,12 +49,12 @@
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Sleeps until the mutex is unlocked.  <a href="#63388a2c062b5be8a248ff6015a6217f"></a><br></td></tr>
 <tr><td colspan="2"><br><h2>Protected Attributes</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">unsigned long&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_core_mutex.html#92c70f5904015deedc58842e50924d21">m_currentThread</a></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">pthread_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_core_mutex.html#ea721d550337bf05dd86c517564504d6">m_currentThread</a></td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The currently active thread.  <a href="#92c70f5904015deedc58842e50924d21"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="class_l_list.html">LList</a>&lt; pthread_t &gt; *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_core_mutex.html#2c39a0efa7bfa30875ff1adc626824d3">m_threadQueue</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The currently active thread.  <a href="#ea721d550337bf05dd86c517564504d6"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="class_l_list.html">LList</a>&lt; pthread_t &gt; *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_core_mutex.html#03c066afda0c248b1daeaf350845ed55">m_threadQueue</a></td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The queue of threads waiting for access.  <a href="#2c39a0efa7bfa30875ff1adc626824d3"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The queue of threads waiting for access.  <a href="#03c066afda0c248b1daeaf350845ed55"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_core_mutex.html#da89df67d443aeb499f78696fbbae801">m_mutexLocked</a></td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Indicates whether the mutex is locked or not.  <a href="#da89df67d443aeb499f78696fbbae801"></a><br></td></tr>
@@ -222,12 +222,12 @@ Waits for the mutex to unlock or switch to allow the pending thread.
 </div>
 </div><p>
 <hr><h2>Member Data Documentation</h2>
-<a class="anchor" name="92c70f5904015deedc58842e50924d21"></a><!-- doxytag: member="CoreMutex::m_currentThread" ref="92c70f5904015deedc58842e50924d21" args="" -->
+<a class="anchor" name="ea721d550337bf05dd86c517564504d6"></a><!-- doxytag: member="CoreMutex::m_currentThread" ref="ea721d550337bf05dd86c517564504d6" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned long <a class="el" href="class_core_mutex.html#92c70f5904015deedc58842e50924d21">CoreMutex::m_currentThread</a><code> [protected]</code>          </td>
+          <td class="memname">pthread_t <a class="el" href="class_core_mutex.html#ea721d550337bf05dd86c517564504d6">CoreMutex::m_currentThread</a><code> [protected]</code>          </td>
         </tr>
       </table>
 </div>
@@ -256,12 +256,12 @@ Indicates whether the mutex is locked or not.
 
 </div>
 </div><p>
-<a class="anchor" name="2c39a0efa7bfa30875ff1adc626824d3"></a><!-- doxytag: member="CoreMutex::m_threadQueue" ref="2c39a0efa7bfa30875ff1adc626824d3" args="" -->
+<a class="anchor" name="03c066afda0c248b1daeaf350845ed55"></a><!-- doxytag: member="CoreMutex::m_threadQueue" ref="03c066afda0c248b1daeaf350845ed55" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_l_list.html">LList</a>&lt;pthread_t&gt;* <a class="el" href="class_core_mutex.html#2c39a0efa7bfa30875ff1adc626824d3">CoreMutex::m_threadQueue</a><code> [protected]</code>          </td>
+          <td class="memname"><a class="el" href="class_l_list.html">LList</a>&lt; pthread_t &gt;* <a class="el" href="class_core_mutex.html#03c066afda0c248b1daeaf350845ed55">CoreMutex::m_threadQueue</a><code> [protected]</code>          </td>
         </tr>
       </table>
 </div>
@@ -273,9 +273,9 @@ The queue of threads waiting for access.
 A linked list of threads waiting for access to objects locked by the mutex. 
 </div>
 </div><p>
-<hr>The documentation for this class was generated from the following files:<ul>
-<li>N:/Technetium/Technetium/<a class="el" href="core__mutex_8h.html">core_mutex.h</a><li>N:/Technetium/Technetium/<a class="el" href="core__mutex_8cpp.html">core_mutex.cpp</a></ul>
-<hr size="1"><address style="align: right;"><small>Generated on Thu Aug 24 11:26:38 2006 for Technetium by&nbsp;
+<hr>The documentation for this class was generated from the following file:<ul>
+<li>N:/crisscross/source/<a class="el" href="core__mutex_8h.html">core_mutex.h</a></ul>
+<hr size="1"><address style="align: right;"><small>Generated on Thu Aug 24 11:42:18 2006 for CrissCross by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.4.7 </small></address>
 </body>

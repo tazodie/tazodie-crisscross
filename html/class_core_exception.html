@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html><head><meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
-<title>Technetium: CoreException Class Reference</title>
+<title>CrissCross: CoreException Class Reference</title>
 <link href="doxygen.css" rel="stylesheet" type="text/css">
 <link href="tabs.css" rel="stylesheet" type="text/css">
 </head><body>
@@ -27,32 +27,35 @@
 <p><center><img src="class_core_exception.png" usemap="#CoreException_map" border="0" alt=""></center>
 <map name="CoreException_map">
 <area href="class_assertion_failure_exception.html" alt="AssertionFailureException" shape="rect" coords="0,56,160,80">
+<area href="class_invalid_call_exception.html" alt="InvalidCallException" shape="rect" coords="170,56,330,80">
 </map>
 <a href="class_core_exception-members.html">List of all members.</a><table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_core_exception.html#ac2c248962b667501442ddd20f195e1b">CoreException</a> (char *_file, int _line)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_core_exception.html#e2c46b3b1e021ba43cb96609e7704ab2">CoreException</a> (const char *_file, int _line)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The constructor.  <a href="#ac2c248962b667501442ddd20f195e1b"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The constructor.  <a href="#e2c46b3b1e021ba43cb96609e7704ab2"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_core_exception.html#7ad16df3108986c3419f3715ca410c93">CoreException</a> ()</td></tr>
+
 <tr><td class="memItemLeft" nowrap align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_core_exception.html#e33e8acc38799d090dc45159702498ab">~CoreException</a> ()</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The destructor.  <a href="#e33e8acc38799d090dc45159702498ab"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_core_exception.html#2d2804909d8495e677fb13319b080087">ShowFile</a> ()</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">const char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_core_exception.html#636183bcb0de71046f602e4cdbf95c54">ShowFile</a> ()</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Returns the file in which the exception was thrown.  <a href="#2d2804909d8495e677fb13319b080087"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Returns the file in which the exception was thrown.  <a href="#636183bcb0de71046f602e4cdbf95c54"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_core_exception.html#96c39da23e8c055003902b2613de89cb">ShowLine</a> ()</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Returns the line in <a class="el" href="class_core_exception.html#caab7af5c61bca8c19befec9a4ebe5b0">CoreException::m_file</a> at which the exception was thrown.  <a href="#96c39da23e8c055003902b2613de89cb"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Returns the line in <a class="el" href="class_core_exception.html#0dfc0c5ca60c6e04f93328ffe7c721fe">CoreException::m_file</a> at which the exception was thrown.  <a href="#96c39da23e8c055003902b2613de89cb"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">virtual const char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_core_exception.html#723862bba4f64a291ca0be75caae656f">ShowReason</a> () const </td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Returns the exception description.  <a href="#723862bba4f64a291ca0be75caae656f"></a><br></td></tr>
-<tr><td colspan="2"><br><h2>Private Attributes</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_core_exception.html#caab7af5c61bca8c19befec9a4ebe5b0">m_file</a></td></tr>
+<tr><td colspan="2"><br><h2>Protected Attributes</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">const char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_core_exception.html#0dfc0c5ca60c6e04f93328ffe7c721fe">m_file</a></td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The file in which the exception was thrown.  <a href="#caab7af5c61bca8c19befec9a4ebe5b0"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The file in which the exception was thrown.  <a href="#0dfc0c5ca60c6e04f93328ffe7c721fe"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_core_exception.html#dbcbd9e40a317294d11a36fa7d982fae">m_line</a></td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The line in <a class="el" href="class_core_exception.html#caab7af5c61bca8c19befec9a4ebe5b0">CoreException::m_file</a> at which the exception was thrown.  <a href="#dbcbd9e40a317294d11a36fa7d982fae"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The line in <a class="el" href="class_core_exception.html#0dfc0c5ca60c6e04f93328ffe7c721fe">CoreException::m_file</a> at which the exception was thrown.  <a href="#dbcbd9e40a317294d11a36fa7d982fae"></a><br></td></tr>
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
 The core exception class. 
@@ -60,14 +63,14 @@ The core exception class.
 This class should be inherited by whatever exception needs to be created, but not thrown as an exception in itself. 
 <p>
 <hr><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" name="ac2c248962b667501442ddd20f195e1b"></a><!-- doxytag: member="CoreException::CoreException" ref="ac2c248962b667501442ddd20f195e1b" args="(char *_file, int _line)" -->
+<a class="anchor" name="e2c46b3b1e021ba43cb96609e7704ab2"></a><!-- doxytag: member="CoreException::CoreException" ref="e2c46b3b1e021ba43cb96609e7704ab2" args="(const char *_file, int _line)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">CoreException::CoreException           </td>
           <td>(</td>
-          <td class="paramtype">char *&nbsp;</td>
+          <td class="paramtype">const char *&nbsp;</td>
           <td class="paramname"> <em>_file</em>, </td>
         </tr>
         <tr>
@@ -97,6 +100,25 @@ The constructor.
 
 </div>
 </div><p>
+<a class="anchor" name="7ad16df3108986c3419f3715ca410c93"></a><!-- doxytag: member="CoreException::CoreException" ref="7ad16df3108986c3419f3715ca410c93" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">CoreException::CoreException           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
 <a class="anchor" name="e33e8acc38799d090dc45159702498ab"></a><!-- doxytag: member="CoreException::~CoreException" ref="e33e8acc38799d090dc45159702498ab" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -119,12 +141,12 @@ The destructor.
 </div>
 </div><p>
 <hr><h2>Member Function Documentation</h2>
-<a class="anchor" name="2d2804909d8495e677fb13319b080087"></a><!-- doxytag: member="CoreException::ShowFile" ref="2d2804909d8495e677fb13319b080087" args="()" -->
+<a class="anchor" name="636183bcb0de71046f602e4cdbf95c54"></a><!-- doxytag: member="CoreException::ShowFile" ref="636183bcb0de71046f602e4cdbf95c54" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char* CoreException::ShowFile           </td>
+          <td class="memname">const char* CoreException::ShowFile           </td>
           <td>(</td>
           <td class="paramname">          </td>
           <td>&nbsp;)&nbsp;</td>
@@ -137,7 +159,7 @@ The destructor.
 <p>
 Returns the file in which the exception was thrown. 
 <p>
-<dl compact><dt><b>Returns:</b></dt><dd><a class="el" href="class_core_exception.html#caab7af5c61bca8c19befec9a4ebe5b0">CoreException::m_file</a> </dd></dl>
+<dl compact><dt><b>Returns:</b></dt><dd><a class="el" href="class_core_exception.html#0dfc0c5ca60c6e04f93328ffe7c721fe">CoreException::m_file</a> </dd></dl>
 
 </div>
 </div><p>
@@ -157,7 +179,7 @@ Returns the file in which the exception was thrown.
 <div class="memdoc">
 
 <p>
-Returns the line in <a class="el" href="class_core_exception.html#caab7af5c61bca8c19befec9a4ebe5b0">CoreException::m_file</a> at which the exception was thrown. 
+Returns the line in <a class="el" href="class_core_exception.html#0dfc0c5ca60c6e04f93328ffe7c721fe">CoreException::m_file</a> at which the exception was thrown. 
 <p>
 
 </div>
@@ -183,16 +205,16 @@ Returns the exception description.
 Should be replaced in any classes inheriting <a class="el" href="class_core_exception.html">CoreException</a> to properly describe the exception conditions. <dl compact><dt><b>Returns:</b></dt><dd>Exception description ("A core exception has occurred.") </dd></dl>
 
 <p>
-Reimplemented in <a class="el" href="class_assertion_failure_exception.html#1e94e11d4bcaa8c962a4f0d73cdbe712">AssertionFailureException</a>.
+Reimplemented in <a class="el" href="class_assertion_failure_exception.html#1e94e11d4bcaa8c962a4f0d73cdbe712">AssertionFailureException</a>, and <a class="el" href="class_invalid_call_exception.html#c1f62fd2138b7558597a1628c9e004b4">InvalidCallException</a>.
 </div>
 </div><p>
 <hr><h2>Member Data Documentation</h2>
-<a class="anchor" name="caab7af5c61bca8c19befec9a4ebe5b0"></a><!-- doxytag: member="CoreException::m_file" ref="caab7af5c61bca8c19befec9a4ebe5b0" args="" -->
+<a class="anchor" name="0dfc0c5ca60c6e04f93328ffe7c721fe"></a><!-- doxytag: member="CoreException::m_file" ref="0dfc0c5ca60c6e04f93328ffe7c721fe" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char* <a class="el" href="class_core_exception.html#caab7af5c61bca8c19befec9a4ebe5b0">CoreException::m_file</a><code> [private]</code>          </td>
+          <td class="memname">const char* <a class="el" href="class_core_exception.html#0dfc0c5ca60c6e04f93328ffe7c721fe">CoreException::m_file</a><code> [protected]</code>          </td>
         </tr>
       </table>
 </div>
@@ -209,21 +231,21 @@ The file in which the exception was thrown.
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int <a class="el" href="class_core_exception.html#dbcbd9e40a317294d11a36fa7d982fae">CoreException::m_line</a><code> [private]</code>          </td>
+          <td class="memname">int <a class="el" href="class_core_exception.html#dbcbd9e40a317294d11a36fa7d982fae">CoreException::m_line</a><code> [protected]</code>          </td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>
-The line in <a class="el" href="class_core_exception.html#caab7af5c61bca8c19befec9a4ebe5b0">CoreException::m_file</a> at which the exception was thrown. 
+The line in <a class="el" href="class_core_exception.html#0dfc0c5ca60c6e04f93328ffe7c721fe">CoreException::m_file</a> at which the exception was thrown. 
 <p>
 
 </div>
 </div><p>
 <hr>The documentation for this class was generated from the following file:<ul>
-<li>N:/Technetium/Technetium/<a class="el" href="core__exception_8h.html">core_exception.h</a></ul>
-<hr size="1"><address style="align: right;"><small>Generated on Thu Aug 24 11:26:38 2006 for Technetium by&nbsp;
+<li>N:/crisscross/source/<a class="el" href="core__exception_8h.html">core_exception.h</a></ul>
+<hr size="1"><address style="align: right;"><small>Generated on Thu Aug 24 11:42:18 2006 for CrissCross by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.4.7 </small></address>
 </body>
