@@ -45,7 +45,7 @@ m_fileBuffer ( _fileBuffer ), m_ioMutex ( new CoreMutex (  ) )
 #if defined ( TARGET_OS_WINDOWS )
 	SetLineEndings ( CRLF );
 #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX )
-	SetLineEndings ( CR );
+	SetLineEndings ( LF );
 #else
 #	error You are not using a supported OS.
 #endif
