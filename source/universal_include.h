@@ -39,6 +39,7 @@
 #    define APP_VERSION     "private-0.3.0"
 	
 #    define ENABLE_CPUID
+#    define ENABLE_DEBUGLOG
 	
 //NOTE: By disabling this line, you will not be in compliance with article 2
 //      of the BSD License. If you disable this line, you must display the
@@ -52,7 +53,7 @@
 // ============================================================================
 	
 #    define MAX_PROCESSORS 4
-	
+
 #    if defined ( _ARCH_PPC ) || defined ( __ppc__ ) || \
 	defined ( __ppc64__ ) || defined ( __PPC ) || \
 defined ( powerpc )

@@ -3,18 +3,19 @@ OUTDIR = ..
 OUTBIN = crisscross-test
 
 SOURCES = \
-core_debug.cpp \
-core_console.cpp \
-core_mutex.cpp \
-core_thread.cpp \
 datastructures/dstack.cpp \
-textwriter.cpp \
-universal_include.cpp \
-textreader.cpp \
+core_console.cpp \
 core_cpuid.cpp \
-core_system.cpp \
+core_debug.cpp \
+core_debuglog.cpp \
 core_io.cpp \
-main.cpp
+core_mutex.cpp \
+core_system.cpp \
+core_thread.cpp \
+textreader.cpp \
+textwriter.cpp \
+main.cpp \
+universal_include.cpp
 
 OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)
 

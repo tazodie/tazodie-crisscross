@@ -37,6 +37,11 @@
 #include "core_io.h"
 #include "core_debug.h"
 
+#if defined(ENABLE_DEBUGLOG)
+#	include "core_debuglog.h"
+CoreDebugLog *g_debuglog;
+#endif
+
 #include "datastructures/rbtree.h"
 
 #include <exception>
@@ -288,6 +293,10 @@ main ( int argc, char **argv )
 #endif
 	g_stderr = new CoreConsole ( stderr );
 	g_stdout = new CoreConsole ( stdout );
+#ifdef ENABLE_DEBUGLOG
+	g_debuglog = new CoreDebugLog ( 
+#endif
+
 #ifdef ENABLE_CREDITS
 	g_stdout->
 		WriteLine
