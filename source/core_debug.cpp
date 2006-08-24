@@ -170,28 +170,6 @@ SymbolEngine::StackTrace ( PCONTEXT _pContext, CoreIO * _outputBuffer )
 }
 #endif
 
-
-unsigned *
-GetRetAddress ( const unsigned *_ebp )
-{
-#ifdef TARGET_OS_WINDOWS
-	unsigned *retAddr;
-
-	__asm
-	{
-		mov eax,[_ebp];
-		mov eax, ss:[eax + 4];
-		mov[retAddr], eax;
-	}
-
-	return retAddr;
-#else
-	unsigned **p = ( unsigned ** ) _ebp;
-
-	return p[1];
-#endif
-}
-
 void
 PrintStackTrace ( CoreIO * _outputBuffer )
 {
@@ -210,42 +188,47 @@ PrintStackTrace ( CoreIO * _outputBuffer )
 
 #    else
 
-	unsigned *framePtr;
-	unsigned *previousFramePtr = NULL;
+	void *array[20];
+	size_t size;
+	char **strings;
+	size_t i;
 
-#        ifdef TARGET_OS_WINDOWS
-	__asm
+	//use -rdynamic flag when compiling
+	size = backtrace (array, 20);
+	strings = backtrace_symbols (array, size);
+  
+	_outputBuffer->WriteLine ( "Obtained %d stack frames.", size );
+
+	std::string bt = "";
+
+	for (i = 0; i < size; i++)
 	{
-	mov[framePtr], ebp}
-#        else
-	asm ( "movl %%ebp, %0;"
-		: "=r" ( framePtr ) );
-#        endif
-	while ( framePtr )
-	{
-
-		_outputBuffer->WriteLine ( "retAddress = %p",
-								   GetRetAddress ( framePtr ) );
-		framePtr = *( unsigned ** ) framePtr;
-
-		// Frame pointer must be aligned on a
-		// DWORD boundary.  Bail if not so.
-		if ( ( unsigned long ) framePtr & 3 )
-			break;
-
-		if ( framePtr <= previousFramePtr )
-			break;
-
-		// Can two DWORDs be read from the supposed frame address?          
-#        ifdef TARGET_OS_WINDOWS
-		if ( IsBadWritePtr ( framePtr, sizeof ( PVOID ) * 2 ) ||
-			 IsBadReadPtr ( framePtr, sizeof ( PVOID ) * 2 ) )
-			break;
-#        endif
-
-		previousFramePtr = framePtr;
-
+#if 1
+		bt += strings[i];
+		int status;
+		// extract the identifier from strings[i].  It's inside of parens.
+		char* firstparen = ::strchr(strings[i], '(');
+		char* lastparen = ::strchr(strings[i], '+');
+		if (firstparen != 0 && lastparen != 0 && firstparen < lastparen)
+		{
+			bt += ": ";
+			*lastparen = '\0';
+			char* realname = abi::__cxa_demangle(firstparen+1, 0, 0, &status);
+			if ( realname != NULL )
+				bt += realname;
+			free(realname);
+		}
+#else
+		bt += "  ";
+		bt += strings[i];
+#endif
+		bt += "\n";
 	}
+
+	_outputBuffer->WriteLine ( "%s\n", bt.c_str() );
+  
+	free(strings);
+
 #    endif
 #endif // TARGET_OS_MACOSX
 }

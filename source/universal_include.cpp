@@ -308,6 +308,7 @@ main ( int argc, char **argv )
 	catch ( std::exception& e )
 	{
 		cout << e.what() << endl;
+		return -3;
 	}
 	catch ( CoreException * e )
 	{

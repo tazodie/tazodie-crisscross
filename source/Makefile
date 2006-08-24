@@ -21,7 +21,7 @@ OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)
 CXX = g++
 CC = gcc
 LINK = $(CXX)
-CXXFLAGS = -I. -O2 -g
+CXXFLAGS = -I. -g
 NM = nm
 STRIP = :
 
@@ -39,7 +39,7 @@ clean:
 
 binary: $(OBJECTS)
 	@echo -n "Linking... "
-	@$(LINK) $+ -lpthread -lstdc++ -o $(OUTDIR)/$(OUTBIN)
+	@$(LINK) -rdynamic $+ -lpthread -lstdc++ -o $(OUTDIR)/$(OUTBIN)
 	@$(NM) $(OUTDIR)/$(OUTBIN) > $(OUTDIR)/$(OUTBIN).map
 	@$(STRIP) $(OUTDIR)/$(OUTBIN)
 	@echo done.

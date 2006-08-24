@@ -147,6 +147,8 @@ defined ( __powerpc64__ )
 #    endif
 	
 #    if defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX )
+#		include <cxxabi.h>
+#		include <execinfo.h>
 #        	include <pthread.h>
 #        	include <sys/types.h>
 #    endif
