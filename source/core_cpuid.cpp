@@ -145,7 +145,7 @@ call_cpuid ( unsigned int op, unsigned int *_eax, unsigned int *_ebx,
 			  "=b" ( *_ebx ),
 			  "=c" ( *_ecx ),
 			  "=d" ( *_edx )
-			: "0" ( op ), "c" ( 0 ) );
+			: "0" ( op ) );
 #    endif
 }
 
