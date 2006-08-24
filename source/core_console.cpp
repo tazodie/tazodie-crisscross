@@ -167,3 +167,11 @@ CoreConsole::Clear (  )
 	SetConsoleCursorPosition ( hConsole, coordScreen );
 #endif
 }
+
+char CoreConsole::Read() { return 0; }
+const char *CoreConsole::ReadLine() { return ""; }
+int CoreConsole::Seek ( int _position ) { return 0; }
+int CoreConsole::Forward ( int _position ) { return 0; }
+unsigned long CoreConsole::Length() { return 0; }
+size_t CoreConsole::Read ( char *_buffer, int _bufferLength, int _bufferIndex, int _count ) { return 0; };
+bool CoreConsole::EndOfFile () { return false; };

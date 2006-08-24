@@ -82,7 +82,7 @@ class CoreConsole:public CoreIO
 
 	//! The default constructor.
 	/*! Allocates a new console (in Windows) for stdout and stderr output. */
-	  CoreConsole (  );
+	  CoreConsole ();
 
 	//! The alternate constructor
 	/*!
@@ -93,7 +93,7 @@ class CoreConsole:public CoreIO
 	  CoreConsole ( FILE * _outputBuffer );
 
 	//! The destructor.
-	 ~CoreConsole (  );
+	 ~CoreConsole ();
 
 	//! Sets the console output colour.
 	/*!
@@ -106,7 +106,27 @@ class CoreConsole:public CoreIO
 	/*!
 	   Clears the console output (similar to commands 'cls' on Windows and 'clear' on Linux).
 	 */
-	void Clear (  );
+	void Clear ();
+
+	//! Does nothing.
+	/*!
+	   To get input from the console, use std::cin.
+	 */
+	char Read ();
+
+	//! Does nothing.
+	/*!
+	   To get input from the console, use std::cin.
+	 */
+	const char *ReadLine ();
+
+private:
+	bool EndOfFile ();
+	int Forward ( int _position );
+	int Seek ( int _position );
+	unsigned long Length ();
+	size_t Read ( char *_buffer, int _bufferLength, int _bufferIndex,
+			      int _count );
 };
 
 #endif
