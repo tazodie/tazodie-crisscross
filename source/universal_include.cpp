@@ -43,8 +43,8 @@
 
 using namespace std;
 
-CoreIO *g_stderr;
-CoreIO *g_stdout;
+CoreConsole *g_stderr;
+CoreConsole *g_stdout;
 
 #ifdef DETECT_MEMORY_LEAKS
 
@@ -286,8 +286,8 @@ main ( int argc, char **argv )
 #ifdef ENABLE_MEMLEAK_STATS
 	_CrtMemCheckpoint ( &s1 );
 #endif
-	g_stderr = new CoreIO ( stderr );
-	g_stdout = new CoreIO ( stdout );
+	g_stderr = new CoreConsole ( stderr );
+	g_stdout = new CoreConsole ( stdout );
 #ifdef ENABLE_CREDITS
 	g_stdout->
 		WriteLine

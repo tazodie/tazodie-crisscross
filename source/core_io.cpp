@@ -46,6 +46,8 @@ m_fileBuffer ( _fileBuffer ), m_ioMutex ( new CoreMutex (  ) )
 	SetLineEndings ( CRLF );
 #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX )
 	SetLineEndings ( CR );
+#else
+#	error You are not using a supported OS.
 #endif
 }
 
@@ -81,9 +83,7 @@ int
 CoreIO::Forward ( int _position )
 {
 	CoreAssert ( this );
-
 	int res = Seek ( _position, SEEK_CUR );
-
 	return ( res == 0 );
 }
 
@@ -94,17 +94,11 @@ CoreIO::Length (  )
 
 	m_ioMutex->Lock (  );
 	fpos_t lastpos;
-
 	fgetpos ( m_fileBuffer, &lastpos );
-
 	fseek ( m_fileBuffer, 0, SEEK_END );
-
 	fpos_t endpos;
-
 	fgetpos ( m_fileBuffer, &endpos );
-
 	fsetpos ( m_fileBuffer, &lastpos );
-
 	m_ioMutex->Unlock (  );
 #if defined (TARGET_OS_WINDOWS) || defined (TARGET_OS_MACOSX) || defined (TARGET_OS_FREEBSD)
 	return ( unsigned long ) endpos;
@@ -201,22 +195,19 @@ CoreIO::SetLineEndings ( LineEndingType _ending )
 {
 	CoreAssert ( this );
 
-	delete[]m_lineEnding;
+	delete [] m_lineEnding;
 	switch ( _ending )
 	{
 	case CR:
 		m_lineEnding = new char[2];
-
 		sprintf ( m_lineEnding, "\r" );
 		break;
 	case LF:
 		m_lineEnding = new char[2];
-
 		sprintf ( m_lineEnding, "\n" );
 		break;
 	case CRLF:
 		m_lineEnding = new char[3];
-
 		sprintf ( m_lineEnding, "\r\n" );
 		break;
 	default:
@@ -233,11 +224,10 @@ CoreIO::WriteLine ( const char *_format, ... )
 		return;
 
 	m_ioMutex->Lock (  );
+
 	va_list args;
 
 	va_start ( args, _format );
-
-	CoreAssert ( _format != NULL );
 
 	// Print out the string
 	vfprintf ( m_fileBuffer, _format, args );
@@ -246,6 +236,7 @@ CoreIO::WriteLine ( const char *_format, ... )
 	va_end ( args );
 
 	m_ioMutex->Unlock (  );
+
 }
 
 void

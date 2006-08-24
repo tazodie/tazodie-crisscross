@@ -66,6 +66,7 @@ CoreIO ( stdout )
 CoreConsole::CoreConsole ( FILE * _outputBuffer ):
 CoreIO ( _outputBuffer )
 {
+	SetLineEndings ( CoreIO::LF );
 }
 
 CoreConsole::~CoreConsole (  )

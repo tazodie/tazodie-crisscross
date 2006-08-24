@@ -35,7 +35,7 @@
 #ifndef __included_core_debug_h
 #    define __included_core_debug_h
 
-#    include "core_io.h"
+#    include "core_console.h"
 
 //! An assertion function.
 /*!
@@ -75,7 +75,7 @@ void PrintStackTrace ( CoreIO * _outputBuffer );
 */
 #    define CoreAssert(x)       Assert((x), #x, __FILE__, __LINE__ )
 
-extern CoreIO *g_stderr;
-extern CoreIO *g_stdout;
+extern CoreConsole *g_stderr;
+extern CoreConsole *g_stdout;
 
 #endif

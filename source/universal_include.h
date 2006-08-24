@@ -208,6 +208,4 @@ static char THIS_FILE[] = __FILE__;
 
 extern int RunApplication ( int argc, char **argv );
 
-
-
 #endif

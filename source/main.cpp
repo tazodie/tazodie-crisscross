@@ -53,6 +53,8 @@ RunApplication ( int argc, char **argv )
 	console->WriteLine ( "There are %d processors in the system.",
 						 cpuid->GetCPUCount (  ) );
 
+	CoreAssert ( 0 );
+
 	for ( int i = 0; i < MAX_PROCESSORS; i++ )
 	{
 		if ( cpuid->proc[i]->Manufacturer != NULL )
