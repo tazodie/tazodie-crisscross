@@ -37,52 +37,54 @@
 
 #ifdef ENABLE_DEBUGLOG
 
-CoreDebugLog::CoreDebugLog ( string name, string version,
-                             string website, string email,
-                             bool common_log_format )
+CoreDebugLog::CoreDebugLog ( string _name, string _version,
+                             string _website, string _email,
+                             bool _common_log_format )
+	: m_common_log_format ( _common_log_format ),
+	  m_app_name ( _name ), m_app_version ( _version ),
+	  m_app_website ( _website ), m_email ( _email ),
+	  m_reports ( new LList <CoreDebugLogData*> )
 {
-    this->common_log_format = common_log_format;
-    app_name = name;
-    app_version = version;
-    app_website = website;
-    this->email = email;
-    reports = new LList <CoreDebugLogData*> ( );
+
 }
 
 CoreDebugLog::~CoreDebugLog ( )
 {
-    for ( int i = 0; reports->ValidIndex ( i ); i++ )
-        delete reports->GetData ( i );
-    delete reports;
+    for ( int i = 0; m_reports->ValidIndex ( i ); i++ )
+        delete m_reports->GetData ( i );
+    delete m_reports;
 }
 
 void
-CoreDebugLog::AddInfo ( string desc, CoreDebugLog::BugReportPriority priority )
+CoreDebugLog::Write ( string _desc, CoreDebugLog::BugReportPriority _priority )
 {
     CoreAssert ( this );
-    CoreDebugLogData *report = new CoreDebugLogData ( );
     time_t temp;
     time ( &temp );
-    report->bug_time = localtime ( &temp );
-    report->priority = priority;
-    report->description = desc;
-    reports->PutDataAtEnd ( report );
+    CoreDebugLogData *report = new CoreDebugLogData ( localtime ( &temp ), _priority, _desc );
+    m_reports->PutDataAtEnd ( report );
 }
 
 void
-CoreDebugLog::PrintLog ( CoreDebugLog::BugReportPriority lowest_priority )
+CoreDebugLog::WriteLine ( string _desc, CoreDebugLog::BugReportPriority _priority )
+{
+    Write ( _desc, _priority );
+}
+
+void
+CoreDebugLog::Print ( CoreDebugLog::BugReportPriority _lowest_priority )
 {
     CoreAssert ( this );
     CoreDebugLogData *current;
     g_stdout->Write ( "%s %s - Website at <%s>\nEmail <%s> with Bug Reports\n",
-    app_name.c_str ( ), app_version.c_str ( ),
-    app_website.c_str ( ), email.c_str ( ) );
-    for ( int i = 0; reports->ValidIndex ( i ) ; i++ )
+    m_app_name.c_str ( ), m_app_version.c_str ( ),
+    m_app_website.c_str ( ), m_email.c_str ( ) );
+    for ( int i = 0; m_reports->ValidIndex ( i ) ; i++ )
     {
-        current = reports->GetData ( i );
-        if ( current->priority < lowest_priority )
+        current = m_reports->GetData ( i );
+        if ( current->m_priority < _lowest_priority )
         continue;
-        switch ( current->priority )
+        switch ( current->m_priority )
         {
             case BUG_LEVEL_ERROR:
                 g_stdout->SetColour ( g_stdout->FG_RED | g_stdout->FG_INTENSITY ); break;
@@ -93,27 +95,27 @@ CoreDebugLog::PrintLog ( CoreDebugLog::BugReportPriority lowest_priority )
             default:
                 g_stdout->SetColour ( 0 ); break;
         }
-        if (common_log_format)
+        if (m_common_log_format)
         {
             // Slightly modified Apache Common Log Format
             // Host ip and hostname are replaced by priority level
             char buffer[50];
-            sprintf ( buffer, "%i", current->priority );
+            sprintf ( buffer, "%i", current->m_priority );
             g_stdout->Write ( buffer );
-            strftime ( buffer, 50, " - [%d/%b/%Y:%H:%M:%S ", current->bug_time );
+            strftime ( buffer, 50, " - [%d/%b/%Y:%H:%M:%S ", current->m_bug_time );
             g_stdout->Write ( buffer );
             sprintf ( buffer, "%+i00", -1 * timezone/60/60 );
             g_stdout->Write ( buffer );
             g_stdout->Write ( "] " );
         }
         else
-            g_stdout->Write ( asctime ( current->bug_time ) );
-        g_stdout->WriteLine ( current->description.c_str ( ) );
+            g_stdout->Write ( asctime ( current->m_bug_time ) );
+        g_stdout->WriteLine ( current->m_description.c_str ( ) );
     }
 }
 
 void
-CoreDebugLog::SaveLog ( )
+CoreDebugLog::Save ( )
 {
     CoreAssert ( this );
     CoreDebugLogData *current;
@@ -125,30 +127,30 @@ CoreDebugLog::SaveLog ( )
 
     strftime ( buffer, 50, "%Y-%m-%d", localtime ( &temp ) );
     filename = buffer;
-    filename += "_" + app_name + "_" + app_version;
+    filename += "_" + m_app_name + "_" + m_app_version;
     filename += ".log";
     TextWriter *writer = new TextWriter ( filename.c_str () );
 
     writer->Write ( "%s %s - Website at <%s>\nEmail <%s> with Bug Reports\n",
-    app_name.c_str ( ), app_version.c_str ( ),
-    app_website.c_str ( ), email.c_str ( ) );
-    for (int i = 0; reports->ValidIndex ( i ) ; i++)
+    m_app_name.c_str ( ), m_app_version.c_str ( ),
+    m_app_website.c_str ( ), m_email.c_str ( ) );
+    for (int i = 0; m_reports->ValidIndex ( i ) ; i++)
     {
-        current = reports->GetData ( i );
-        if (common_log_format)
+        current = m_reports->GetData ( i );
+        if (m_common_log_format)
         {
             // Slightly modified Apache Common Log Format
             // Host ip and hostname are replaced by priority level
-            sprintf ( buffer, "%i", current->priority );
+            sprintf ( buffer, "%i", current->m_priority );
             writer->Write ( buffer );
-            strftime ( buffer, 50, " - [%d/%b/%Y:%H:%M:%S ", current->bug_time );
+            strftime ( buffer, 50, " - [%d/%b/%Y:%H:%M:%S ", current->m_bug_time );
             writer->Write ( buffer );
             sprintf ( buffer, "%+i00", -1 * timezone/60/60 );
             writer->Write ( "%s] ", buffer );
         }
         else
         {
-            switch ( current->priority )
+            switch ( current->m_priority )
             {
                 case BUG_LEVEL_ERROR:
                     writer->Write ( "(EE)" ); break;
@@ -159,10 +161,10 @@ CoreDebugLog::SaveLog ( )
                 default:
                     writer->Write ( "(--)" ); break;
             }
-            strftime ( buffer, 50, "%Y-%m-%d, %H:%M:%S", current->bug_time );
+            strftime ( buffer, 50, "%Y-%m-%d, %H:%M:%S", current->m_bug_time );
             writer->Write ( " %s: ", buffer ); 
         }
-        writer->WriteLine ( current->description.c_str ( ) );
+        writer->WriteLine ( current->m_description.c_str ( ) );
     }
     delete writer;
 }

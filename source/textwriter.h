@@ -33,40 +33,51 @@
  */  
 	
 #ifndef __included_textwriter_h
-#    define __included_textwriter_h
+#define __included_textwriter_h
+
+#include "core_exception.h"
 	
 //! The text file output class.
 /*!
 	Inherits CoreIO, so functions like CoreIO::Write and CoreIO::WriteLine are accessible to the programmer.
 */ 
-class TextWriter:public CoreIO 
+class TextWriter : public CoreIO 
 {
-  
+
 protected:
-		//! The path to the file being written. 
+	//! The path to the file being written. 
 	const char *m_filePath;
 
-  
-
 public:
-		//! The constructor.
-		/*!
-		   Creates an instance of CoreIO with write access to the file specified in _file.
-		   \param _file The path to the file being read.
-		 */ 
-		TextWriter ( const char *_file );
+	//! The constructor.
+	/*!
+		Creates an instance of CoreIO with write access to the file specified in _file.
+		\param _file The path to the file being read.
+		*/ 
+	TextWriter ( const char *_file );
 
-	
+	//! The destructor
+	/*!
+		Flushes the output buffer, closes the file, and deallocates memory used by TextWriter.
+		*/ 
+	~TextWriter (  );
 
-		//! The destructor
-		/*!
-		   Flushes the output buffer, closes the file, and deallocates memory used by TextWriter.
-		 */ 
-		~TextWriter (  );
-
+private:
+	bool EndOfFile (  )
+		{ throw new InvalidCallException(); };
+	unsigned long Length (  )
+		{ throw new InvalidCallException(); };
+	char Read (  )
+		{ throw new InvalidCallException(); };
+	size_t Read ( char *_buffer, int _bufferLength, int _bufferIndex, int _count )
+		{ throw new InvalidCallException(); };
+	const char *ReadLine (  )
+		{ throw new InvalidCallException(); };
+	int Seek ( int _position )
+		{ throw new InvalidCallException(); };
+	int Forward ( int _position )
+		{ throw new InvalidCallException(); };
 
 };
-
-
 
 #endif

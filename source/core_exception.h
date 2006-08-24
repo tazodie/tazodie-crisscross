@@ -44,27 +44,35 @@
 */
 class CoreException
 {
+protected:
+
 	//! The file in which the exception was thrown.
 	const char *m_file;
 
 	//! The line in CoreException::m_file at which the exception was thrown.
 	int m_line;
-  public:
+public:
 
 	//! The constructor.
 	/*!
 	   \param _file The file in which the exception was thrown. (usually specified with __FILE__ by a macro)
 	   \param _line The line in _file at which the exception was thrown. (usually specified with __LINE__ by a macro)
 	 */
-	  CoreException ( const char *_file, int _line ):m_file ( _file ),
+	CoreException ( const char *_file, int _line ):m_file ( _file ),
 		m_line ( _line )
 	{
 		g_stderr->WriteLine ( "=== STACK TRACE ===\n" );
 		PrintStackTrace ( g_stderr );
 	};
 
+	CoreException ( )
+	{
+		g_stderr->WriteLine ( "=== STACK TRACE ===\n" );
+		PrintStackTrace ( g_stderr );
+	};
+
 	//! The destructor.
-	virtual ~ CoreException (  )
+	virtual ~CoreException (  )
 	{
 	};
 
@@ -96,9 +104,9 @@ class CoreException
 };
 
 //! The assertion failure exception.
-class AssertionFailureException:public CoreException
+class AssertionFailureException : public CoreException
 {
-  public:
+public:
 	//! The constructor.
 	/*!
 	   \param _file The file in which the exception was thrown. (usually specified with __FILE__ by a macro)
@@ -116,6 +124,31 @@ class AssertionFailureException:public CoreException
 	const char *ShowReason (  ) const
 	{
 		return "Assertion failure.";
+	};
+};
+
+//! The invalid call exception.
+/*!
+	Happens if a function is called that shouldn't be. (for example, a write call on a read-only buffer)
+*/
+class InvalidCallException : public CoreException
+{
+public:
+	//! The constructor.
+	InvalidCallException ()
+		: CoreException()
+	{
+		m_file = "N/A";
+		m_line = 0;
+	};
+
+	//! Returns the exception description.
+	/*!
+	   \return Exception description ("Invalid function calle.")
+	 */
+	const char *ShowReason (  ) const
+	{
+		return "Invalid function call.";
 	};
 };
 

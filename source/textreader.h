@@ -33,7 +33,9 @@
  */  
 	
 #ifndef __included_textreader_h
-#    define __included_textreader_h
+#define __included_textreader_h
+
+#include "core_exception.h"
 	
 //! The text file input class.
 /*!
@@ -41,29 +43,31 @@
 */ 
 class TextReader:public CoreIO 
 {
-  
+
 protected:
-		//! The path to the file being read.
+	//! The path to the file being read.
 	const char *m_filePath;
 
-  
-
 public:
-		//! The constructor.
-		/*!
-		   Creates an instance of CoreIO with read access to the file specified in _file.
-		   \param _file The path to the file being read.
-		 */ 
-		TextReader ( const char *_file );
+	//! The constructor.
+	/*!
+		Creates an instance of CoreIO with read access to the file specified in _file.
+		\param _file The path to the file being read.
+		*/ 
+	TextReader ( const char *_file );
 
-	
-
-		//! The destructor
-		/*!
-		   Closes the file and deallocates memory used by TextReader.
-		 */ 
-		~TextReader (  );
-
+	//! The destructor
+	/*!
+		Closes the file and deallocates memory used by TextReader.
+		*/ 
+	~TextReader (  );
+private:
+	void Write ( const char *_format, ... )
+		{ throw new InvalidCallException(); };
+	void WriteLine (  )
+		{ throw new InvalidCallException(); };
+	void WriteLine ( const char *_format, ... )
+		{ throw new InvalidCallException(); };
 
 };
 

@@ -89,19 +89,19 @@ class CoreIO
 	/*!
 	   \return Boolean indicating whether the end of the file has been reached.
 	 */
-	bool EndOfFile (  );
+	virtual bool EndOfFile (  );
 
 	//! Determines the length of the file buffer.
 	/*!
 	   \return An unsigned long indicating the length of the buffer in bytes.
 	 */
-	unsigned long Length (  );
+	virtual unsigned long Length (  );
 
 	//! Reads one byte from the file buffer.
 	/*!
 	   \return A char containing the next byte from the buffer.
 	 */
-	char Read (  );
+	virtual char Read (  );
 
 	//! Reads a block of data from the file buffer.
 	/*!
@@ -110,7 +110,7 @@ class CoreIO
 	   \param _bufferIndex The position in _buffer to begin writing.
 	   \param _count The number of bytes to read.
 	 */
-	size_t Read ( char *_buffer, int _bufferLength, int _bufferIndex,
+	virtual size_t Read ( char *_buffer, int _bufferLength, int _bufferIndex,
 				  int _count );
 
 	//! Reads a line of data.
@@ -121,32 +121,32 @@ class CoreIO
 	   </div>
 	   \return A pointer to the next line of data.
 	 */
-	const char *ReadLine (  );
+	virtual const char *ReadLine (  );
 
 	//! Sets the line ending convention used by this CoreIO instance.
 	/*!
 	   \param _ending Any of the CoreIO::LineEndingType values.
 	 */
-	void SetLineEndings ( LineEndingType _ending );
+	virtual void SetLineEndings ( LineEndingType _ending );
 
 	//! Writes a string to the buffer.
 	/*!
 	   \param _format The format of the string to be written.
 	 */
-	void Write ( const char *_format, ... );
+	virtual void Write ( const char *_format, ... );
 
 	//! Writes an empty line to the buffer.
 	/*!
 	   Writes CoreIO::m_lineEnding to the buffer.
 	 */
-	void WriteLine (  );
+	virtual void WriteLine (  );
 
 	//! Writes a string to the buffer with a newline appended.
 	/*
 	   Appends CoreIO::m_lineEnding to the _format and then prints the string to the buffer.
 	   \param _format The format of the string to be written.
 	 */
-	void WriteLine ( const char *_format, ... );
+	virtual void WriteLine ( const char *_format, ... );
 
 	//! Seeks to a location in the buffer.
 	/*!
@@ -154,7 +154,7 @@ class CoreIO
 	   \return An integer indicating the result of the operation. 0 indicates
 	   success. Any non-zero number indicates failure.
 	 */
-	int Seek ( int _position );
+	virtual int Seek ( int _position );
 
 	//! Moves forward to a location in the buffer.
 	/*!
@@ -162,7 +162,7 @@ class CoreIO
 	   \return An integer indicating the result of the operation. 0 indicates
 	   success. Any non-zero number indicates failure.
 	 */
-	int Forward ( int _position );
+	virtual int Forward ( int _position );
 
   protected:
 	//! Flushes the output buffer.

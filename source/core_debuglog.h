@@ -50,12 +50,15 @@ using namespace std;
 
 class CoreDebugLogData
 {
-    public:
-    tm *bug_time;
-    int priority;
-    string description;
-    CoreDebugLogData () { bug_time = 0; };
-    ~CoreDebugLogData () { description.clear (); }
+public:
+    tm *m_bug_time;
+    int m_priority;
+    string m_description;
+public:
+	CoreDebugLogData ( tm *_bug_time, int _priority, string _description)
+		: m_bug_time ( _bug_time ), m_priority ( _priority ),
+		  m_description ( _description ) {};
+    ~CoreDebugLogData () { m_description.clear (); }
 };
 
     //! The core debug logging class.
@@ -63,12 +66,12 @@ class CoreDebugLog
 {
 private:
     //! If true, a log format similar to Apache Common Log Format will be used
-    bool common_log_format;
-    string app_name;
-    string app_version;
-    string app_website;
-    string email;
-    LList <CoreDebugLogData*> *reports;
+    bool m_common_log_format;
+    string m_app_name;
+    string m_app_version;
+    string m_app_website;
+    string m_email;
+    LList <CoreDebugLogData*> *m_reports;
 
 public:
     enum BugReportPriority
@@ -79,38 +82,47 @@ public:
     };
 
     //! The default constructor.
-    /*! Creates a new bug report object.
-        \param name Application name.
-        \param version Application version.
-        \param website Application website.
-        \param email Email to send bug reports to.
-        \param common_log_format If true, a log format similar to the Apache Common Log
+    /*!
+		Creates a new bug report object.
+        \param _name Application name.
+        \param _version Application version.
+        \param _website Application website.
+        \param _email Email to send bug reports to.
+        \param _common_log_format If true, a log format similar to the Apache Common Log
         Format will be used.
     */
-    CoreDebugLog ( string name, string version,
-        string website, string email,
-        bool common_log_format = true );
+    CoreDebugLog ( string _name, string _version,
+        string _website, string _email,
+        bool _common_log_format = true );
     //! The destructor.
     ~CoreDebugLog ( );
 
     //! Adds a line of bug report information.
-    /*! Adds a line of bug report information.
-        \param line Bug report line.
-        \param priority Bug priority.
+    /*!
+        \param _line Bug report line.
+        \param _priority Bug priority.
     */
-    void AddInfo ( string line, CoreDebugLog::BugReportPriority priority = BUG_LEVEL_WARNING );
+    void WriteLine ( string _line, CoreDebugLog::BugReportPriority _priority = BUG_LEVEL_WARNING );
+
+    //! Adds a line of bug report information.
+    /*!
+        \param _line Bug report line.
+        \param _priority Bug priority.
+    */
+    void Write ( string _line, CoreDebugLog::BugReportPriority _priority = BUG_LEVEL_WARNING );
 
     //! Print the bug report.
-    /*! Prints the bug report to stdout along with colours.
-        \param lowest_priority The lowest priority of bug information that will be printed.
+    /*!
+		Prints the bug report to stdout along with colours.
+        \param _lowest_priority The lowest priority of bug information that will be printed.
     */
-    void PrintLog ( CoreDebugLog::BugReportPriority lowest_priority = BUG_LEVEL_WARNING );
+    void Print ( CoreDebugLog::BugReportPriority _lowest_priority = BUG_LEVEL_WARNING );
 
     //! Save the bug report.
-    /*! Saves the bug report to a file named "year-month-day_application_version.log".
-        Returns true if successful.
-    */
-    void SaveLog ( );
+    /*!
+		Saves the bug report to a file named "year-month-day_application_version.log".
+	*/
+    void Save ( );
 };
 
 //! Global CoreDebugLog variable defined in universal_include.cpp
