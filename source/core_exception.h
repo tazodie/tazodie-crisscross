@@ -144,7 +144,7 @@ public:
 
 	//! Returns the exception description.
 	/*!
-	   \return Exception description ("Invalid function calle.")
+	   \return Exception description ("Invalid function call.")
 	 */
 	const char *ShowReason (  ) const
 	{

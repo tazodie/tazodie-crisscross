@@ -35,6 +35,10 @@
 #ifndef __included_core_debuglog_h
 #define __included_core_debuglog_h
 
+#ifndef __GNUC__
+#   include "universal_include.h"
+#endif
+
 #ifdef ENABLE_DEBUGLOG
 
 #include "datastructures/llist.h"
