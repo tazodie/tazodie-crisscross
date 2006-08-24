@@ -294,13 +294,14 @@ main ( int argc, char **argv )
 	g_stderr = new CoreConsole ( stderr );
 	g_stdout = new CoreConsole ( stdout );
 #ifdef ENABLE_DEBUGLOG
-	g_debuglog = new CoreDebugLog ( 
+	g_debuglog = new CoreDebugLog ( APP_NAME, APP_VERSION, APP_URL, "bugs@uplinklabs.net", false );
+	g_debuglog->AddInfo ( "Initializing", g_debuglog->BUG_LEVEL_INFO );
 #endif
 
 #ifdef ENABLE_CREDITS
 	g_stdout->
 		WriteLine
-		( "Powered by CrissCross, http://www.uplinklabs.net/crisscross/" );
+		( "Powered by " APP_NAME ", http://www.uplinklabs.net/crisscross/" );
 	g_stdout->
 		WriteLine ( "(c) 2006 by Steven Noonan <steven@uplinklabs.net>" );
 	g_stdout->WriteLine ( "        and Rudolf Olah   <omouse@gmail.com>" );
@@ -335,6 +336,13 @@ main ( int argc, char **argv )
 			  _exception );
 		return -2;
 	}
+	
+#ifdef ENABLE_DEBUGLOG
+	g_debuglog->AddInfo ( "Exiting", g_debuglog->BUG_LEVEL_INFO );
+	g_debuglog->SaveLog();
+	delete g_debuglog;
+#endif
+
 	delete g_stderr;
 	delete g_stdout;
 

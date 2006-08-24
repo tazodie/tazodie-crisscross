@@ -35,9 +35,11 @@
 #include "universal_include.h"
 #include "core_debuglog.h"
 
+#ifdef ENABLE_DEBUGLOG
+
 CoreDebugLog::CoreDebugLog ( string name, string version,
-			       string website, string email,
-			       bool common_log_format )
+                             string website, string email,
+                             bool common_log_format )
 {
     this->common_log_format = common_log_format;
     app_name = name;
@@ -49,13 +51,13 @@ CoreDebugLog::CoreDebugLog ( string name, string version,
 
 CoreDebugLog::~CoreDebugLog ( )
 {
-    for ( int i = 0; reports.ValidIndex ( i ); i++ )
+    for ( int i = 0; reports->ValidIndex ( i ); i++ )
         delete reports->GetData ( i );
     delete reports;
 }
 
 void
-CoreDebugLog::AddInfo ( string desc, unsigned int priority )
+CoreDebugLog::AddInfo ( string desc, CoreDebugLog::BugReportPriority priority )
 {
     CoreAssert ( this );
     CoreDebugLogData *report = new CoreDebugLogData ( );
@@ -68,26 +70,26 @@ CoreDebugLog::AddInfo ( string desc, unsigned int priority )
 }
 
 void
-CoreDebugLog::PrintLog ( unsigned int lowest_priority )
+CoreDebugLog::PrintLog ( CoreDebugLog::BugReportPriority lowest_priority )
 {
     CoreAssert ( this );
     CoreDebugLogData *current;
     g_stdout->Write ( "%s %s - Website at <%s>\nEmail <%s> with Bug Reports\n",
     app_name.c_str ( ), app_version.c_str ( ),
     app_website.c_str ( ), email.c_str ( ) );
-    for ( int i = 0; reports.ValidIndex ( i ) ; i++ )
+    for ( int i = 0; reports->ValidIndex ( i ) ; i++ )
     {
         current = reports->GetData ( i );
         if ( current->priority < lowest_priority )
         continue;
         switch ( current->priority )
         {
-            case ERROR:
-                g_stdout->SetColour ( console->FG_RED | console->FG_INTENSITY ); break;
-            case WARNING:
-                g_stdout->SetColour ( console->FG_GREEN | console->FG_INTENSITY ); break;
-            case INFO:
-                g_stdout->SetColour ( console->FG_GREEN ); break;
+            case BUG_LEVEL_ERROR:
+                g_stdout->SetColour ( g_stdout->FG_RED | g_stdout->FG_INTENSITY ); break;
+            case BUG_LEVEL_WARNING:
+                g_stdout->SetColour ( g_stdout->FG_GREEN | g_stdout->FG_INTENSITY ); break;
+            case BUG_LEVEL_INFO:
+                g_stdout->SetColour ( g_stdout->FG_GREEN ); break;
             default:
                 g_stdout->SetColour ( 0 ); break;
         }
@@ -130,7 +132,7 @@ CoreDebugLog::SaveLog ( )
     writer->Write ( "%s %s - Website at <%s>\nEmail <%s> with Bug Reports\n",
     app_name.c_str ( ), app_version.c_str ( ),
     app_website.c_str ( ), email.c_str ( ) );
-    for (int i = 0; reports.ValidIndex ( i ) ; i++)
+    for (int i = 0; reports->ValidIndex ( i ) ; i++)
     {
         current = reports->GetData ( i );
         if (common_log_format)
@@ -148,11 +150,11 @@ CoreDebugLog::SaveLog ( )
         {
             switch ( current->priority )
             {
-                case ERROR:
+                case BUG_LEVEL_ERROR:
                     writer->Write ( "(EE)" ); break;
-                case WARNING:
+                case BUG_LEVEL_WARNING:
                     writer->Write ( "(WW)" ); break;
-                case INFO:
+                case BUG_LEVEL_INFO:
                     writer->Write ( "(II)" ); break;
                 default:
                     writer->Write ( "(--)" ); break;
@@ -164,3 +166,4 @@ CoreDebugLog::SaveLog ( )
     }
     delete writer;
 }
+#endif

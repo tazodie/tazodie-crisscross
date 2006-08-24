@@ -33,9 +33,9 @@
  */
 
 #ifndef __included_core_debuglog_h
-#    define __included_core_debuglog_h
+#define __included_core_debuglog_h
 
-#define ENABLE_BUGREPORT
+#ifdef ENABLE_DEBUGLOG
 
 #include "datastructures/llist.h"
 #include "core_debug.h"
@@ -73,10 +73,9 @@ private:
 public:
     enum BugReportPriority
     {
-        
-        INFO,       //!< Informational
-        WARNING,    //!< Non-critical, but potentially threatening
-        ERROR       //!< Critical failure
+        BUG_LEVEL_INFO,       //!< Informational
+        BUG_LEVEL_WARNING,    //!< Non-critical, but potentially threatening
+        BUG_LEVEL_ERROR       //!< Critical failure
     };
 
     //! The default constructor.
@@ -90,7 +89,7 @@ public:
     */
     CoreDebugLog ( string name, string version,
         string website, string email,
-        bool common_log_format=true );
+        bool common_log_format = true );
     //! The destructor.
     ~CoreDebugLog ( );
 
@@ -99,13 +98,13 @@ public:
         \param line Bug report line.
         \param priority Bug priority.
     */
-    void AddInfo ( string line, unsigned int priority=WARNING );
+    void AddInfo ( string line, CoreDebugLog::BugReportPriority priority = BUG_LEVEL_WARNING );
 
     //! Print the bug report.
     /*! Prints the bug report to stdout along with colours.
         \param lowest_priority The lowest priority of bug information that will be printed.
     */
-    void PrintLog ( unsigned int lowest_priority=WARNING );
+    void PrintLog ( CoreDebugLog::BugReportPriority lowest_priority = BUG_LEVEL_WARNING );
 
     //! Save the bug report.
     /*! Saves the bug report to a file named "year-month-day_application_version.log".
@@ -116,5 +115,7 @@ public:
 
 //! Global CoreDebugLog variable defined in universal_include.cpp
 extern CoreDebugLog *debuglog;
+
+#endif
 
 #endif

@@ -297,6 +297,12 @@
 				RelativePath="core_debug.h">
 			</File>
 			<File
+				RelativePath=".\core_debuglog.cpp">
+			</File>
+			<File
+				RelativePath=".\core_debuglog.h">
+			</File>
+			<File
 				RelativePath="core_exception.h">
 			</File>
 			<File
