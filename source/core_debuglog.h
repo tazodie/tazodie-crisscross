@@ -123,6 +123,10 @@ public:
 		Saves the bug report to a file named "year-month-day_application_version.log".
 	*/
     void Save ( );
+
+protected:
+    void Put ( CoreIO *_stream, CoreDebugLog::BugReportPriority _lowest_priority = BUG_LEVEL_WARNING );
+
 };
 
 //! Global CoreDebugLog variable defined in universal_include.cpp
