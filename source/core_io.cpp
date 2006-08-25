@@ -223,7 +223,7 @@ CoreIO::WriteLine ( const char *_format, ... )
 	if ( _format == NULL )
 		return;
 
-	m_ioMutex->Lock (  );
+	m_ioMutex->Lock ();
 
 	va_list args;
 
@@ -235,8 +235,38 @@ CoreIO::WriteLine ( const char *_format, ... )
 
 	va_end ( args );
 
-	m_ioMutex->Unlock (  );
+	m_ioMutex->Unlock ();
 
+}
+
+void
+CoreIO::WriteLine ( std::string _string )
+{
+	CoreAssert ( this );
+	
+	if ( _string.empty() == true )
+		return;
+		
+	m_ioMutex->Lock ();
+	
+	fprintf ( m_fileBuffer, "%s%s", _string.c_str(), m_lineEnding );
+	
+	m_ioMutex->Unlock ();
+}
+
+void
+CoreIO::Write ( std::string _string )
+{
+	CoreAssert ( this );
+	
+	if ( _string.empty() == true )
+		return;
+		
+	m_ioMutex->Lock ();
+	
+	fprintf ( m_fileBuffer, "%s", _string.c_str() );
+	
+	m_ioMutex->Unlock ();
 }
 
 void
@@ -244,9 +274,9 @@ CoreIO::WriteLine (  )
 {
 	CoreAssert ( this );
 
-	m_ioMutex->Lock (  );
+	m_ioMutex->Lock ();
 	fprintf ( m_fileBuffer, m_lineEnding );
-	m_ioMutex->Unlock (  );
+	m_ioMutex->Unlock ();
 }
 
 void

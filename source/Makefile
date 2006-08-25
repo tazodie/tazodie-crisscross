@@ -22,22 +22,24 @@ OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)
 CXX = g++
 CC = gcc
 LINK = $(CXX)
-CXXFLAGS = -I. -g
+INCLUDES = -I.
+CXXFLAGS = $(INCLUDES) -g
 NM = nm
 STRIP = :
 
 PCH = universal_include.h.gch
 
-all: $(PCH) binary
+all: .depend $(PCH) binary
+# all: .depend binary
 
 clean:
 	rm -rf obj
-	rm -rf .depend
+	rm -f .depend
 	rm -rf .libs
 	rm -f $(OUTDIR)/$(OUTBIN)
 	rm -f $(OUTDIR)/$(OUTBIN).map
 	rm -f $(PCH)
-
+	
 binary: $(OBJECTS)
 	@echo -n "Linking... "
 	@$(LINK) -rdynamic $+ -lpthread -lstdc++ -o $(OUTDIR)/$(OUTBIN)
@@ -60,7 +62,10 @@ $(OBJDIR)/%.o: %.c
 	@echo Compiling $<
 	@$(CC) $(CXXFLAGS) -c $< -o $@
 
-ifneq ($(MAKECMDGOALS),clean)
-include auto-depend.mk
-endif
+.depend:
+	@echo Generating dependency information...
+	@../contrib/fastdep-0.16/fastdep --remakedeptarget=.depend $(SOURCES) > .depend
 
+ifneq ($(MAKECMDGOALS),clean)	
+-include .depend
+endif

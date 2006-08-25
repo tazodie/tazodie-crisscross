@@ -36,13 +36,6 @@
 
 #ifdef ENABLE_CPUID
 
-#    ifndef TARGET_OS_WINDOWS
-#        include <sys/types.h>
-#        include <unistd.h>
-#        include <sched.h>
-#        include <ctype.h>
-#    endif
-
 #    include "core_cpuid.h"
 #    include "core_io.h"
 #    include "core_thread.h"

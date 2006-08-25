@@ -49,9 +49,10 @@ RunApplication ( int argc, char **argv )
 	console->WriteLine ( "======================" );
 	console->SetColour ( 0 );
 	console->WriteLine (  );
-	cpuid->Go (  );
+	
+	cpuid->Go ();
 	console->WriteLine ( "There are %d processors in the system.",
-						 cpuid->GetCPUCount (  ) );
+						 cpuid->GetCPUCount () );
 
 	for ( int i = 0; i < MAX_PROCESSORS; i++ )
 	{
@@ -65,17 +66,17 @@ RunApplication ( int argc, char **argv )
 				WriteLine ( "CPU[%d] Family: %d, Model: %d, Stepping: %d", i,
 							cpuid->proc[i]->Family, cpuid->proc[i]->Model,
 							cpuid->proc[i]->Stepping );
-			if ( cpuid->proc[i]->caches.Size (  ) > 0 )
+			if ( cpuid->proc[i]->caches.Size () > 0 )
 			{
 				console->WriteLine ( "CPU[%d] Caches:", i );
-				for ( int j = 0; j < cpuid->proc[i]->caches.Size (  ); j++ )
+				for ( int j = 0; j < cpuid->proc[i]->caches.Size (); j++ )
 				{
 					if ( cpuid->proc[i]->caches.ValidIndex ( j ) )
 						console->Write ( "  %s",
 										 cpuid->proc[i]->caches.
 										 GetData ( j ) );
 				}
-				console->WriteLine (  );
+				console->WriteLine ();
 			}
 			console->Write ( "CPU[%d] Features: ", i );
 			RedBlackTree < Feature *, char *>::nodeType * node =
@@ -88,8 +89,8 @@ RunApplication ( int argc, char **argv )
 					console->Write ( "%s ", node->id );
 				cpuid->proc[i]->features.getNext ( &node );
 			}
-			console->WriteLine (  );
-			console->WriteLine (  );
+			console->WriteLine ();
+			console->WriteLine ();
 		}
 	}
 	delete cpuid;

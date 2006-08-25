@@ -135,6 +135,12 @@ class CoreIO
 	 */
 	virtual void Write ( const char *_format, ... );
 
+	//! Writes a string to the buffer.
+	/*!
+	   \param _string The string to be written.
+	 */
+	virtual void Write ( std::string _string );
+
 	//! Writes an empty line to the buffer.
 	/*!
 	   Writes CoreIO::m_lineEnding to the buffer.
@@ -143,10 +149,17 @@ class CoreIO
 
 	//! Writes a string to the buffer with a newline appended.
 	/*
-	   Appends CoreIO::m_lineEnding to the _format and then prints the string to the buffer.
+	   Prints the string to the buffer, and then prints the line terminator as specified in CoreIO::m_lineEnding.
 	   \param _format The format of the string to be written.
 	 */
 	virtual void WriteLine ( const char *_format, ... );
+
+	//! Writes a string to the buffer with a newline appended.
+	/*
+	   Prints the string to the buffer, and then prints the line terminator as specified in CoreIO::m_lineEnding.
+	   \param _format The format of the string to be written.
+	 */
+	virtual void WriteLine ( std::string _string );
 
 	//! Seeks to a location in the buffer.
 	/*!

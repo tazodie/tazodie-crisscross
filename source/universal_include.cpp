@@ -301,11 +301,9 @@ main ( int argc, char **argv )
 #ifdef ENABLE_CREDITS
 	g_stdout->
 		WriteLine
-		( "Powered by " APP_NAME ", http://www.uplinklabs.net/crisscross/" );
-	g_stdout->
-		WriteLine ( "(c) 2006 by Steven Noonan <steven@uplinklabs.net>" );
-	g_stdout->WriteLine ( "        and Rudolf Olah   <omouse@gmail.com>" );
-	g_stdout->WriteLine (  );
+		( "Powered by " APP_NAME ", " APP_URL );
+	g_stdout->WriteLine ( APP_COPYRIGHT_CONSOLE );
+	g_stdout->WriteLine ();
 #endif
 	try
 	{
@@ -338,8 +336,6 @@ main ( int argc, char **argv )
 	}
 	
 #ifdef ENABLE_DEBUGLOG
-	g_debuglog->Write ( "Exiting", g_debuglog->BUG_LEVEL_INFO );
-	g_debuglog->Save();
 	delete g_debuglog;
 #endif
 

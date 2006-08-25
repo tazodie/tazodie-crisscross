@@ -40,6 +40,8 @@
 #    define APP_VERSION     "private-0.3.0"
 #    define APP_URL         "http://www.uplinklabs.net/crisscross/"
 #    define APP_COPYRIGHT   "(c) 2006 by Steven Noonan <steven@uplinklabs.net> and Rudolf Olah <omouse@gmail.com>"
+#    define APP_COPYRIGHT_CONSOLE   "(c) 2006 by Steven Noonan <steven@uplinklabs.net>\n" \
+									"        and Rudolf Olah <omouse@gmail.com>"
 	
 #    define ENABLE_CPUID
 #    define ENABLE_DEBUGLOG
@@ -151,10 +153,13 @@ defined ( __powerpc64__ )
 #    endif
 	
 #    if defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX )
-#		include <cxxabi.h>
-#		include <execinfo.h>
+#           include <cxxabi.h>
+#           include <execinfo.h>
 #        	include <pthread.h>
 #        	include <sys/types.h>
+#           include <unistd.h>
+#			include <sched.h>
+#			include <ctype.h>
 #    endif
 	
 #    include <assert.h>
