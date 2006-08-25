@@ -40,7 +40,10 @@
 
 CoreIO::CoreIO ( FILE * _fileBuffer ):
 m_lineEnding ( NULL ),
-m_fileBuffer ( _fileBuffer ), m_ioMutex ( new CoreMutex (  ) )
+m_fileBuffer ( _fileBuffer )
+#ifndef __GNUC__
+, m_ioMutex ( new CoreMutex (  ) )
+#endif
 {
 #if defined ( TARGET_OS_WINDOWS )
 	SetLineEndings ( CRLF );
@@ -55,8 +58,10 @@ CoreIO::~CoreIO (  )
 {
 	delete[]m_lineEnding;
 	m_lineEnding = NULL;
+#ifndef __GNUC__
 	delete m_ioMutex;
 	m_ioMutex = NULL;
+#endif
 }
 
 bool
@@ -73,10 +78,13 @@ void
 CoreIO::Flush (  )
 {
 	CoreAssert ( this );
-
+#ifndef __GNUC__
 	m_ioMutex->Lock (  );
+#endif
 	fflush ( m_fileBuffer );
+#ifndef __GNUC__
 	m_ioMutex->Unlock (  );
+#endif
 }
 
 int
@@ -91,15 +99,19 @@ unsigned long
 CoreIO::Length (  )
 {
 	CoreAssert ( this );
-
+#ifndef __GNUC__
 	m_ioMutex->Lock (  );
+#endif
 	fpos_t lastpos;
 	fgetpos ( m_fileBuffer, &lastpos );
 	fseek ( m_fileBuffer, 0, SEEK_END );
 	fpos_t endpos;
 	fgetpos ( m_fileBuffer, &endpos );
 	fsetpos ( m_fileBuffer, &lastpos );
+#ifndef __GNUC__
 	m_ioMutex->Unlock (  );
+#endif
+
 #if defined (TARGET_OS_WINDOWS) || defined (TARGET_OS_MACOSX) || defined (TARGET_OS_FREEBSD)
 	return ( unsigned long ) endpos;
 #elif defined (TARGET_OS_LINUX)
@@ -114,9 +126,13 @@ CoreIO::Read (  )
 
 	char retval;
 
+#ifndef __GNUC__
 	m_ioMutex->Lock (  );
+#endif
 	retval = ( char ) fgetc ( m_fileBuffer );
+#ifndef __GNUC__
 	m_ioMutex->Unlock (  );
+#endif
 	return retval;
 }
 
@@ -132,9 +148,13 @@ CoreIO::Read ( char *_buffer, int _bufferLength, int _bufferIndex,
 	CoreAssert ( _bufferLength - _bufferIndex < _count );
 	CoreAssert ( _bufferIndex > 0 );
 	CoreAssert ( _count > 0 );
+#ifndef __GNUC__
 	m_ioMutex->Lock (  );
+#endif
 	retval = fread ( &_buffer[_bufferIndex], 1, _count, m_fileBuffer );
+#ifndef __GNUC__
 	m_ioMutex->Unlock (  );
+#endif
 	return retval;
 }
 
@@ -143,7 +163,9 @@ CoreIO::ReadLine (  )
 {
 	CoreAssert ( this );
 
+#ifndef __GNUC__
 	m_ioMutex->Lock (  );
+#endif
 	char c = getc ( m_fileBuffer );
 
 	if ( c == EOF )
@@ -164,7 +186,10 @@ CoreIO::ReadLine (  )
 	if ( len && buffer[len - 1] == '\r' )
 		buffer.resize ( len - 1 );
 
+#ifndef __GNUC__
 	m_ioMutex->Unlock (  );
+#endif
+
 	return buffer.c_str (  );
 }
 
@@ -173,10 +198,13 @@ CoreIO::Seek ( int _position, int _origin )
 {
 	CoreAssert ( this );
 
+#ifndef __GNUC__
 	m_ioMutex->Lock (  );
+#endif
 	int res = fseek ( m_fileBuffer, _position, _origin );
-
+#ifndef __GNUC__
 	m_ioMutex->Unlock (  );
+#endif
 	return res;
 }
 
@@ -222,8 +250,9 @@ CoreIO::WriteLine ( const char *_format, ... )
 
 	if ( _format == NULL )
 		return;
-
+#ifndef __GNUC__
 	m_ioMutex->Lock ();
+#endif
 
 	va_list args;
 
@@ -234,8 +263,9 @@ CoreIO::WriteLine ( const char *_format, ... )
 	fprintf ( m_fileBuffer, m_lineEnding );
 
 	va_end ( args );
-
+#ifndef __GNUC__
 	m_ioMutex->Unlock ();
+#endif
 
 }
 
@@ -246,12 +276,17 @@ CoreIO::WriteLine ( std::string _string )
 	
 	if ( _string.empty() == true )
 		return;
-		
+
+#ifndef __GNUC__		
 	m_ioMutex->Lock ();
+#endif
 	
 	fprintf ( m_fileBuffer, "%s%s", _string.c_str(), m_lineEnding );
-	
+
+#ifndef __GNUC__	
 	m_ioMutex->Unlock ();
+#endif
+
 }
 
 void
@@ -261,22 +296,31 @@ CoreIO::Write ( std::string _string )
 	
 	if ( _string.empty() == true )
 		return;
-		
+#ifndef __GNUC__		
 	m_ioMutex->Lock ();
+#endif
 	
 	fprintf ( m_fileBuffer, "%s", _string.c_str() );
-	
+
+#ifndef __GNUC__	
 	m_ioMutex->Unlock ();
+#endif
+
 }
 
 void
 CoreIO::WriteLine (  )
 {
 	CoreAssert ( this );
-
+#ifndef __GNUC__
 	m_ioMutex->Lock ();
+#endif
+
 	fprintf ( m_fileBuffer, m_lineEnding );
+
+#ifndef __GNUC__
 	m_ioMutex->Unlock ();
+#endif
 }
 
 void
@@ -286,7 +330,9 @@ CoreIO::Write ( const char *_format, ... )
 
 	if ( _format == NULL )
 		return;
+#ifndef __GNUC__
 	m_ioMutex->Lock (  );
+#endif
 
 	va_list args;
 
@@ -296,5 +342,7 @@ CoreIO::Write ( const char *_format, ... )
 	vfprintf ( m_fileBuffer, _format, args );
 
 	va_end ( args );
+#ifndef __GNUC__
 	m_ioMutex->Unlock (  );
+#endif
 }

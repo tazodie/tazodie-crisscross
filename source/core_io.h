@@ -67,11 +67,13 @@ class CoreIO
 	//! Input/output buffer.
 	FILE *m_fileBuffer;
 
+#ifndef __GNUC__
 	//! Thread-safe mutex.
 	/*!
 	   Prevents more than one read or write from occurring simultaneously.
 	 */
 	CoreMutex *m_ioMutex;
+#endif
 
   public:
 	//! The constructor.
