@@ -37,6 +37,11 @@
 #include "core_debug.h"
 #include "textwriter.h"
 
+#ifdef ENABLE_DEBUGLOG
+#include "core_debuglog.h"
+extern CoreDebugLog *g_debuglog;
+#endif
+
 #ifndef ENABLE_SYMBOL_ENGINE
 #    ifdef TARGET_OS_WINDOWS
 #        pragma warning (disable: 4311)
@@ -174,6 +179,10 @@ void
 PrintStackTrace ( CoreIO * _outputBuffer )
 {
 #ifndef TARGET_CPU_PPC
+#ifdef ENABLE_DEBUGLOG
+  g_debuglog->Write ( g_debuglog->BUG_LEVEL_ERROR, "%s", "Printing stack trace" );
+  g_debuglog->Print (  );
+#endif
 #    ifdef ENABLE_SYMBOL_ENGINE
 
 	CONTEXT context = { CONTEXT_FULL };
@@ -199,9 +208,13 @@ PrintStackTrace ( CoreIO * _outputBuffer )
   
 	_outputBuffer->WriteLine ( "Obtained %d stack frames.", size );
 
+	#ifdef ENABLE_DEBUGLOG
+	g_debuglog->Write ( g_debuglog->BUG_LEVEL_WARNING, "Obtained %d stack frames.", size );
+	#endif
+
 	std::string bt = "";
 
-	for (i = 0; i < size; i++)
+	for ( i = 0; i < size; i++ )
 	{
 #if 1
 		bt += strings[i];

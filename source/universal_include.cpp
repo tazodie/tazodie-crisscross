@@ -295,7 +295,7 @@ main ( int argc, char **argv )
 	g_stdout = new CoreConsole ( stdout );
 #ifdef ENABLE_DEBUGLOG
 	g_debuglog = new CoreDebugLog ( APP_NAME, APP_VERSION, APP_URL, "bugs@uplinklabs.net", false );
-	g_debuglog->Write ( "Initializing", g_debuglog->BUG_LEVEL_INFO );
+	g_debuglog->Write ( g_debuglog->BUG_LEVEL_INFO, "Initializing" );
 #endif
 
 #ifdef ENABLE_CREDITS
@@ -336,7 +336,14 @@ main ( int argc, char **argv )
 	}
 	
 #ifdef ENABLE_DEBUGLOG
+
+	g_debuglog->Write ( g_debuglog->BUG_LEVEL_INFO, "Exiting", "" );
+
+	// Below commented only because I hate cleaning out .log files. Uncomment if you wish. -- Steven
+	// g_debuglog->Save();
+
 	delete g_debuglog;
+
 #endif
 
 	delete g_stderr;

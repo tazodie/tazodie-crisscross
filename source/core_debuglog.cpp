@@ -56,19 +56,48 @@ CoreDebugLog::~CoreDebugLog ( )
 }
 
 void
-CoreDebugLog::Write ( string _desc, CoreDebugLog::BugReportPriority _priority )
+CoreDebugLog::Write ( CoreDebugLog::BugReportPriority _priority, const char *_format, ... )
 {
     CoreAssert ( this );
+
+    if ( _format == NULL )
+        return;
+    char buffer[10240];
+    char *temp_buffer;
+    va_list args;
+    va_start ( args , _format );
+    vsprintf ( buffer, _format, args );
+    va_end ( args );
+    temp_buffer = new char [strlen ( buffer ) + 1];
+    strcpy ( temp_buffer, buffer );
     time_t temp;
     time ( &temp );
-    CoreDebugLogData *report = new CoreDebugLogData ( localtime ( &temp ), _priority, _desc );
+    CoreDebugLogData *report = new CoreDebugLogData ( localtime ( &temp ), _priority, temp_buffer );
     m_reports->PutDataAtEnd ( report );
+
 }
 
 void
-CoreDebugLog::WriteLine ( string _desc, CoreDebugLog::BugReportPriority _priority )
+CoreDebugLog::WriteLine ( CoreDebugLog::BugReportPriority _priority, const char *_format, ... )
 {
-    Write ( _desc, _priority );
+    /* TODO: Write a way to make this non-redundant with Write(). */
+    CoreAssert ( this );
+
+    if ( _format == NULL )
+        return;
+    char buffer[10240];
+    char *temp_buffer;
+    va_list args;
+    va_start ( args , _format );
+    vsprintf ( buffer, _format, args );
+    va_end ( args );
+    temp_buffer = new char [strlen ( buffer ) + 1];
+    strcpy ( temp_buffer, buffer );
+    time_t temp;
+    time ( &temp );
+    CoreDebugLogData *report = new CoreDebugLogData ( localtime ( &temp ), _priority, temp_buffer );
+    m_reports->PutDataAtEnd ( report );
+
 }
 
 void
@@ -93,7 +122,7 @@ CoreDebugLog::Put ( CoreIO *_stream, CoreDebugLog::BugReportPriority _lowest_pri
             _stream->Write ( buffer );
             strftime ( buffer, 50, " - [%d/%b/%Y:%H:%M:%S ", current->m_bug_time );
             _stream->Write ( buffer );
-            sprintf ( buffer, "%+i00", -1 * timezone/60/60 );
+            sprintf ( buffer, "%+i00", (int)(-1 * timezone/60/60) );
             _stream->Write ( "%s] ", buffer );
         }
         else

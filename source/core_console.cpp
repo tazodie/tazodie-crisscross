@@ -92,7 +92,6 @@ CoreConsole::SetColour ( short _flags )
 		SetConsoleTextAttribute ( hConsole, _flags );
 #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX )
 	// Reset colours to defaults.
-	char temp[4];
 	char codes[16];
 
 	sprintf ( codes, "\033[" );

@@ -140,7 +140,9 @@ CoreThread::runProcess ( void *Param )
 	thread = ( CoreThread * ) ( ( param * ) Param )->pThread;
 	delete ( ( param * ) Param );
 
+#if defined ( TARGET_OS_WINDOWS )
 	int affinity = thread->LocalAffinity ( thread->m_Affinity );
+#endif
 
 	thread->m_hThreadId = pthread_self (  );
 
@@ -231,5 +233,7 @@ CoreThread::LocalAffinity ( ThreadAffinity _affinity )
 	default:
 		return ( int ) pow ( ( double ) 2, _affinity );
 	}
+#else
+	return 0;
 #endif
 }

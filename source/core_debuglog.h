@@ -103,17 +103,17 @@ public:
 
     //! Adds a line of bug report information.
     /*!
-        \param _line Bug report line.
         \param _priority Bug priority.
+        \param _line Bug report line.
     */
-    void WriteLine ( string _line, CoreDebugLog::BugReportPriority _priority = BUG_LEVEL_WARNING );
+    void WriteLine ( CoreDebugLog::BugReportPriority _priority, const char *_format, ... );
 
     //! Adds a line of bug report information.
     /*!
         \param _line Bug report line.
         \param _priority Bug priority.
     */
-    void Write ( string _line, CoreDebugLog::BugReportPriority _priority = BUG_LEVEL_WARNING );
+    void Write ( CoreDebugLog::BugReportPriority _priority, const char *_format, ... );
 
     //! Print the bug report.
     /*!

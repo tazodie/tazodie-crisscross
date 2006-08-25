@@ -82,10 +82,10 @@ class CoreIO
 	   default, also initializes CoreIO::m_ioMutex.
 	   \param _fileBuffer The buffer to be used for I/O operations.
 	 */
-	  CoreIO ( FILE * _fileBuffer );
+	CoreIO ( FILE * _fileBuffer );
 
 	//! The destructor.
-	 ~CoreIO (  );
+	virtual ~CoreIO (  );
 
 	//! Determines whether the end of the file has been reached.
 	/*!
