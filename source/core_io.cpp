@@ -346,3 +346,4 @@ CoreIO::Write ( const char *_format, ... )
 	m_ioMutex->Unlock (  );
 #endif
 }
+
