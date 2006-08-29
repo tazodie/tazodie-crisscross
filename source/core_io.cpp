@@ -166,7 +166,7 @@ CoreIO::ReadLine (  )
 #ifndef __GNUC__
 	m_ioMutex->Lock (  );
 #endif
-	char c = getc ( m_fileBuffer );
+	char c = ( char ) getc ( m_fileBuffer );
 
 	if ( c == EOF )
 		return NULL;
@@ -178,7 +178,7 @@ CoreIO::ReadLine (  )
 	while ( c != EOF && c != '\n' )
 	{
 		buffer += c;
-		c = getc ( m_fileBuffer );
+		c = ( char ) getc ( m_fileBuffer );
 	}
 
 	size_t len = buffer.length (  );

@@ -40,12 +40,12 @@
 #    define APP_VERSION     "private-0.3.0"
 #    define APP_URL         "http://www.uplinklabs.net/crisscross/"
 #    define APP_COPYRIGHT   "(c) 2006 by Steven Noonan <steven@uplinklabs.net> and Rudolf Olah <omouse@gmail.com>"
-#    define APP_COPYRIGHT_CONSOLE   "(c) 2006 by Steven Noonan <steven@uplinklabs.net>\n" \
-									"        and Rudolf Olah <omouse@gmail.com>"
+#    define APP_COPYRIGHT_CONSOLE   "(c) 2006 by Steven Noonan <steven@uplinklabs.net>,\n" \
+									"    Rudolf Olah <omouse@gmail.com>, and Miah Clayton <miah@io-in.com>"
 	
 #    define ENABLE_CPUID
 #    define ENABLE_DEBUGLOG
-	
+
 //NOTE: By disabling this line, you will not be in compliance with article 2
 //      of the BSD License. If you disable this line, you must display the
 //      copyright notice in the program elsewhere.
@@ -140,6 +140,11 @@ defined ( __powerpc64__ )
 #    endif
 	
 #    if defined ( TARGET_OS_WINDOWS )
+#			if _MSC_VER > 1200 && _MSC_VER < 1400
+#				pragma warning ( disable : 4345 )
+#				pragma warning ( disable : 4100 )
+#				pragma warning ( disable : 4800 )
+#			endif
 #        	if defined ( DETECT_MEMORY_LEAKS )
 #        		define _CRTDBG_MAP_ALLOC
 #        	endif
@@ -153,6 +158,7 @@ defined ( __powerpc64__ )
 #    endif
 	
 #    if defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX )
+#		    define ANSI_COLOUR
 #           include <cxxabi.h>
 #           include <execinfo.h>
 #        	include <pthread.h>

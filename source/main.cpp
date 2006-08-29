@@ -43,27 +43,27 @@ RunApplication ( int argc, char **argv )
 	CoreConsole *console = new CoreConsole (  );
 	CoreCPUID *cpuid = new CoreCPUID (  );
 
-	console->SetColour ( console->FG_RED );
+	console->SetColour ( console->FG_RED | console->FG_INTENSITY );
 	console->Write ( "Red " );
-	console->SetColour ( console->FG_GREEN );
+	console->SetColour ( console->FG_GREEN | console->FG_INTENSITY );
 	console->Write ( "Green " );
-	console->SetColour ( console->FG_BLUE );
+	console->SetColour ( console->FG_BLUE | console->FG_INTENSITY );
 	console->Write ( "Blue " );
 
-	console->SetColour ( console->FG_MAGENTA );
+	console->SetColour ( console->FG_MAGENTA | console->FG_INTENSITY );
 	console->Write ( "Magenta " );
-	console->SetColour ( console->FG_BROWN );
+	console->SetColour ( console->FG_BROWN | console->FG_INTENSITY );
 	console->Write ( "Brown " );
-	console->SetColour ( console->FG_CYAN );
+	console->SetColour ( console->FG_CYAN | console->FG_INTENSITY );
 	console->Write ( "Cyan " );
-	console->SetColour ( console->FG_GRAY );
+	console->SetColour ( console->FG_GRAY | console->FG_INTENSITY );
 	console->Write ( "Gray " );
-	console->SetColour ( console->FG_WHITE );
+	console->SetColour ( console->FG_WHITE | console->FG_INTENSITY );
 	console->Write ( "White " );
 	console->SetColour ( 0 );
 	console->WriteLine ();
 
-	return 0;
+#if 0
 
 	console->SetColour ( console->FG_RED | console->FG_INTENSITY );
 	console->WriteLine ( "======================" );
@@ -115,6 +115,7 @@ RunApplication ( int argc, char **argv )
 			console->WriteLine ();
 		}
 	}
+#endif
 	delete cpuid;
 	delete console;
 

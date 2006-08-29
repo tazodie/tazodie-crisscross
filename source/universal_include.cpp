@@ -53,6 +53,8 @@ CoreConsole *g_stdout;
 
 #ifdef DETECT_MEMORY_LEAKS
 
+#	pragma warning ( disable: 4312 )
+
 #    ifdef ENABLE_MEMLEAK_STATS
 _CrtMemState s1, s2, s3;
 #    endif

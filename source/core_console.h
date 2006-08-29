@@ -53,24 +53,24 @@ class CoreConsole:public CoreIO
 		BG_GREEN = 0x0020,		/*!< Green Background */
 		BG_RED = 0x0040,		/*!< Red Background */
 		BG_INTENSITY = 0x0080,	/*!< Background intensity (makes the foreground colour a shade brighter) */
-#    if defined ( TARGET_OS_WINDOWS )
-		FG_BROWN = 0x0000,		/*!< Nothing (on Windows) */
-		FG_MAGENTA = 0x0000,	/*!< Nothing (on Windows) */
-		FG_CYAN = 0x0000,		/*!< Nothing (on Windows) */
-		BG_BROWN = 0x0000,		/*!< Nothing (on Windows) */
-		BG_MAGENTA = 0x0000,	/*!< Nothing (on Windows) */
-		BG_CYAN = 0x0000,		/*!< Nothing (on Windows) */
-		FG_GRAY = FG_BLUE | FG_GREEN | FG_RED,	/*!< Gray Foreground */
+#    if !defined ( ANSI_COLOUR )
+		FG_BROWN = 0x0000,				/*!< Brown Foreground (POSIX only) */
+		FG_MAGENTA = FG_BLUE | FG_RED,	/*!< Magenta Foreground */
+		FG_CYAN = FG_BLUE | FG_GREEN,	/*!< Cyan Foreground */
+		BG_BROWN = 0x0000,				/*!< Brown Background (POSIX only) */
+		BG_MAGENTA = BG_BLUE | BG_RED,	/*!< Magenta Background */
+		BG_CYAN = BG_GREEN | BG_BLUE,							/*!< Cyan Background */
+		FG_GRAY = FG_BLUE | FG_GREEN | FG_RED,					/*!< Gray Foreground */
 		FG_WHITE = FG_BLUE | FG_GREEN | FG_RED | FG_INTENSITY,	/*!< White Foreground */
-		BG_GRAY = BG_BLUE | BG_GREEN | BG_RED,	/*!< Gray Background */
+		BG_GRAY = BG_BLUE | BG_GREEN | BG_RED,					/*!< Gray Background */
 		BG_WHITE = BG_BLUE | BG_GREEN | BG_RED | BG_INTENSITY	/*!< White Background */
 #    else
-		FG_BROWN = 0x0100,		/*!< Brown Foreground (Linux / Mac OS X) */
-		FG_MAGENTA = 0x0200,	/*!< Magenta Foreground (Linux / Mac OS X) */
-		FG_CYAN = 0x0400,		/*!< Cyan Foreground (Linux / Mac OS X) */
-		BG_BROWN = 0x0800,		/*!< Brown Background (Linux / Mac OS X) */
-		BG_MAGENTA = 0x1000,	/*!< Magenta Background (Linux / Mac OS X) */
-		BG_CYAN = 0x2000,		/*!< Cyan Background (Linux / Mac OS X) */
+		FG_BROWN = 0x0100,		/*!< Brown Foreground (POSIX only) */
+		FG_MAGENTA = 0x0200,	/*!< Magenta Foreground */
+		FG_CYAN = 0x0400,		/*!< Cyan Foreground */
+		BG_BROWN = 0x0800,		/*!< Brown Background (POSIX only) */
+		BG_MAGENTA = 0x1000,	/*!< Magenta Background */
+		BG_CYAN = 0x2000,		/*!< Cyan Background */
 		FG_GRAY = 0x4000,		/*!< Gray Foreground */
 		FG_WHITE = 0x8000,		/*!< White Foreground */
 		BG_GRAY = 0x10000,		/*!< Gray Background */

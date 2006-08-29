@@ -83,14 +83,14 @@ CoreConsole::SetColour ( short _flags )
 	CoreAssert ( this );
 
 	/* TODO: Linux and Mac OS X ports of this function. */
-#if defined ( TARGET_OS_WINDOWS )
+#if !defined ( ANSI_COLOUR ) && defined ( TARGET_OS_WINDOWS )
 	HANDLE hConsole = GetStdHandle ( STD_OUTPUT_HANDLE );
 
 	if ( _flags == 0 )
 		SetConsoleTextAttribute ( hConsole, FG_GRAY );
 	else
 		SetConsoleTextAttribute ( hConsole, _flags );
-#elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX )
+#elif defined ( ANSI_COLOUR )
 	// Reset colours to defaults.
 	char codes[16];
 
