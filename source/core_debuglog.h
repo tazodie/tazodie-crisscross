@@ -57,12 +57,10 @@ class CoreDebugLogData
 public:
     tm *m_bug_time;
     int m_priority;
-    string m_description;
+    char *m_description;
 public:
-	CoreDebugLogData ( tm *_bug_time, int _priority, string _description)
-		: m_bug_time ( _bug_time ), m_priority ( _priority ),
-		  m_description ( _description ) {};
-    ~CoreDebugLogData () { m_description.clear (); }
+	CoreDebugLogData ( tm *_bug_time, int _priority, char *_description);
+    ~CoreDebugLogData ();
 };
 
     //! The core debug logging class.

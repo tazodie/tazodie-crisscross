@@ -37,6 +37,19 @@
 
 #ifdef ENABLE_DEBUGLOG
 
+CoreDebugLogData::CoreDebugLogData ( tm *_bug_time, int _priority, char *_description)
+	: m_bug_time ( _bug_time ),
+	  m_priority ( _priority ),
+	  m_description ( new char[strlen(_description) + 1] )
+{
+	strcpy ( m_description, _description );
+}
+
+CoreDebugLogData::~CoreDebugLogData ()
+{
+	delete [] m_description;
+}
+
 CoreDebugLog::CoreDebugLog ( string _name, string _version,
                              string _website, string _email,
                              bool _common_log_format )
@@ -50,8 +63,11 @@ CoreDebugLog::CoreDebugLog ( string _name, string _version,
 
 CoreDebugLog::~CoreDebugLog ( )
 {
-    for ( int i = 0; m_reports->ValidIndex ( i ); i++ )
-        delete m_reports->GetData ( i );
+    while ( m_reports->Size() )
+	{
+		delete m_reports->GetData ( 0 );
+		m_reports->RemoveData ( 0 );
+	}
     delete m_reports;
 }
 
@@ -63,16 +79,13 @@ CoreDebugLog::Write ( CoreDebugLog::BugReportPriority _priority, const char *_fo
     if ( _format == NULL )
         return;
     char buffer[10240];
-    char *temp_buffer;
     va_list args;
     va_start ( args , _format );
     vsprintf ( buffer, _format, args );
     va_end ( args );
-    temp_buffer = new char [strlen ( buffer ) + 1];
-    strcpy ( temp_buffer, buffer );
     time_t temp;
     time ( &temp );
-    CoreDebugLogData *report = new CoreDebugLogData ( localtime ( &temp ), _priority, temp_buffer );
+    CoreDebugLogData *report = new CoreDebugLogData ( localtime ( &temp ), _priority, buffer );
     m_reports->PutDataAtEnd ( report );
 
 }
@@ -86,16 +99,13 @@ CoreDebugLog::WriteLine ( CoreDebugLog::BugReportPriority _priority, const char 
     if ( _format == NULL )
         return;
     char buffer[10240];
-    char *temp_buffer;
     va_list args;
     va_start ( args , _format );
     vsprintf ( buffer, _format, args );
     va_end ( args );
-    temp_buffer = new char [strlen ( buffer ) + 1];
-    strcpy ( temp_buffer, buffer );
     time_t temp;
     time ( &temp );
-    CoreDebugLogData *report = new CoreDebugLogData ( localtime ( &temp ), _priority, temp_buffer );
+    CoreDebugLogData *report = new CoreDebugLogData ( localtime ( &temp ), _priority, buffer );
     m_reports->PutDataAtEnd ( report );
 
 }
@@ -141,7 +151,7 @@ CoreDebugLog::Put ( CoreIO *_stream, CoreDebugLog::BugReportPriority _lowest_pri
             strftime ( buffer, 50, "%Y-%m-%d, %H:%M:%S", current->m_bug_time );
             _stream->Write ( " %s: ", buffer ); 
         }
-        _stream->WriteLine ( current->m_description.c_str ( ) );
+        _stream->WriteLine ( current->m_description );
     }
 }
 

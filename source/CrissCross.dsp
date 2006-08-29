@@ -1,24 +1,24 @@
-# Microsoft Developer Studio Project File - Name="Technetium" - Package Owner=<4>
+# Microsoft Developer Studio Project File - Name="CrissCross" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
 # ** DO NOT EDIT **
 
 # TARGTYPE "Win32 (x86) Application" 0x0101
 
-CFG=Technetium - Win32 Debug
+CFG=CrissCross - Win32 Debug
 !MESSAGE This is not a valid makefile. To build this project using NMAKE,
 !MESSAGE use the Export Makefile command and run
 !MESSAGE 
-!MESSAGE NMAKE /f "Technetium.mak".
+!MESSAGE NMAKE /f "CrissCross.mak".
 !MESSAGE 
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
 !MESSAGE 
-!MESSAGE NMAKE /f "Technetium.mak" CFG="Technetium - Win32 Debug"
+!MESSAGE NMAKE /f "CrissCross.mak" CFG="CrissCross - Win32 Debug"
 !MESSAGE 
 !MESSAGE Possible choices for configuration are:
 !MESSAGE 
-!MESSAGE "Technetium - Win32 Release" (based on "Win32 (x86) Application")
-!MESSAGE "Technetium - Win32 Debug" (based on "Win32 (x86) Application")
+!MESSAGE "CrissCross - Win32 Release" (based on "Win32 (x86) Application")
+!MESSAGE "CrissCross - Win32 Debug" (based on "Win32 (x86) Application")
 !MESSAGE 
 
 # Begin Project
@@ -29,12 +29,12 @@ CPP=xicl6.exe
 MTL=midl.exe
 RSC=rc.exe
 
-!IF  "$(CFG)" == "Technetium - Win32 Release"
+!IF  "$(CFG)" == "CrissCross - Win32 Release"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 0
-# PROP BASE Output_Dir "Technetium___Win32_Release"
-# PROP BASE Intermediate_Dir "Technetium___Win32_Release"
+# PROP BASE Output_Dir "CrissCross___Win32_Release"
+# PROP BASE Intermediate_Dir "CrissCross___Win32_Release"
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 0
@@ -56,12 +56,12 @@ LINK32=xilink6.exe
 # ADD LINK32 /nologo /subsystem:console /machine:I386
 # SUBTRACT LINK32 /pdb:none
 
-!ELSEIF  "$(CFG)" == "Technetium - Win32 Debug"
+!ELSEIF  "$(CFG)" == "CrissCross - Win32 Debug"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 1
-# PROP BASE Output_Dir "Technetium___Win32_Debug"
-# PROP BASE Intermediate_Dir "Technetium___Win32_Debug"
+# PROP BASE Output_Dir "CrissCross___Win32_Debug"
+# PROP BASE Intermediate_Dir "CrissCross___Win32_Debug"
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 1
@@ -87,8 +87,8 @@ LINK32=xilink6.exe
 
 # Begin Target
 
-# Name "Technetium - Win32 Release"
-# Name "Technetium - Win32 Debug"
+# Name "CrissCross - Win32 Release"
+# Name "CrissCross - Win32 Debug"
 # Begin Group "IO"
 
 # PROP Default_Filter ""

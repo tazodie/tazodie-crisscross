@@ -185,41 +185,44 @@ ParseMemoryLeakFile ( const char *_inputFilename,
 	// Open the output file
 	//
 
-	FILE *output = fopen ( _outputFilename, "wt" );
-
-	//
-	// Print out our sorted list
-	// 
-
-	fprintf ( output, "Total recognised memory leaks   : %d Kbytes\n",
-			  int ( totalsize / 1024 ) );
-	fprintf ( output, "Total unrecognised memory leaks : %d Kbytes\n\n",
-			  int ( unrecognised / 1024 ) );
-
-	for ( int k = sorted.Size (  ) - 1; k >= 0; --k )
+	if ( sorted.Size() )
 	{
+		FILE *output = fopen ( _outputFilename, "wt" );
 
-		char *source = sorted.GetData ( k );
-		int size = combined.GetData ( source );
-		int freq = frequency.GetData ( source );
+		//
+		// Print out our sorted list
+		// 
 
-		if ( size > 2048 )
+		fprintf ( output, "Total recognised memory leaks   : %d Kbytes\n",
+				int ( totalsize / 1024 ) );
+		fprintf ( output, "Total unrecognised memory leaks : %d Kbytes\n\n",
+				int ( unrecognised / 1024 ) );
+
+		for ( int k = sorted.Size (  ) - 1; k >= 0; --k )
 		{
-			fprintf ( output, "%-95s (%d Kbytes in %d leaks)\n", source,
-					  int ( size / 1024 ), freq );
+
+			char *source = sorted.GetData ( k );
+			int size = combined.GetData ( source );
+			int freq = frequency.GetData ( source );
+
+			if ( size > 2048 )
+			{
+				fprintf ( output, "%-95s (%d Kbytes in %d leaks)\n", source,
+						int ( size / 1024 ), freq );
+			}
+			else
+			{
+				fprintf ( output, "%-95s (%d  bytes in %d leaks)\n", source, size,
+						freq );
+			}
 		}
-		else
-		{
-			fprintf ( output, "%-95s (%d  bytes in %d leaks)\n", source, size,
-					  freq );
-		}
+
+
+		//
+		// Clear up
+
+		fclose ( output );
 	}
-
-
-	//
-	// Clear up
-
-	fclose ( output );
 
 	delete sources;
 	delete sizes;

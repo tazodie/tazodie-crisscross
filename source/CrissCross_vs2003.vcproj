@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="Technetium"
+	Name="CrissCross"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -114,6 +114,7 @@
 				OutputFile=".\../bin/Debug/Technetium.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
+				IgnoreDefaultLibraryNames="libc"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\../bin/Debug/Technetium.pdb"
 				SubSystem="1"
