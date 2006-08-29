@@ -158,7 +158,7 @@ defined ( __powerpc64__ )
 #    endif
 	
 #    if defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX )
-#		    define ANSI_COLOUR
+#	    define ANSI_COLOUR
 #           include <cxxabi.h>
 #           include <execinfo.h>
 #        	include <pthread.h>

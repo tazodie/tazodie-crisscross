@@ -53,7 +53,7 @@ class CoreConsole:public CoreIO
 		BG_GREEN = 0x0020,		/*!< Green Background */
 		BG_RED = 0x0040,		/*!< Red Background */
 		BG_INTENSITY = 0x0080,	/*!< Background intensity (makes the foreground colour a shade brighter) */
-#    if !defined ( ANSI_COLOUR )
+#    if !defined ( ANSI_COLOUR ) && defined ( TARGET_OS_WINDOWS )
 		FG_BROWN = 0x0000,				/*!< Brown Foreground (POSIX only) */
 		FG_MAGENTA = FG_BLUE | FG_RED,	/*!< Magenta Foreground */
 		FG_CYAN = FG_BLUE | FG_GREEN,	/*!< Cyan Foreground */
@@ -64,12 +64,12 @@ class CoreConsole:public CoreIO
 		FG_WHITE = FG_BLUE | FG_GREEN | FG_RED | FG_INTENSITY,	/*!< White Foreground */
 		BG_GRAY = BG_BLUE | BG_GREEN | BG_RED,					/*!< Gray Background */
 		BG_WHITE = BG_BLUE | BG_GREEN | BG_RED | BG_INTENSITY	/*!< White Background */
-#    else
+#    elif defined ( ANSI_COLOUR )
 		FG_BROWN = 0x0100,		/*!< Brown Foreground (POSIX only) */
-		FG_MAGENTA = 0x0200,	/*!< Magenta Foreground */
+		FG_MAGENTA = 0x0200,		/*!< Magenta Foreground */
 		FG_CYAN = 0x0400,		/*!< Cyan Foreground */
 		BG_BROWN = 0x0800,		/*!< Brown Background (POSIX only) */
-		BG_MAGENTA = 0x1000,	/*!< Magenta Background */
+		BG_MAGENTA = 0x1000,		/*!< Magenta Background */
 		BG_CYAN = 0x2000,		/*!< Cyan Background */
 		FG_GRAY = 0x4000,		/*!< Gray Foreground */
 		FG_WHITE = 0x8000,		/*!< White Foreground */
