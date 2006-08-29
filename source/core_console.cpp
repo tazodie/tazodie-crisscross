@@ -116,6 +116,8 @@ CoreConsole::SetColour ( short _flags )
 		strcat ( codes, "36;" );
 	if ( _flags & FG_GRAY )
 		strcat ( codes, "37;" );
+	if ( _flags & FG_WHITE )
+		strcat ( codes, "39;" );
 
 	/*
 	   TODO: Determine if there is an ANSI code for background color intensity.

@@ -43,6 +43,28 @@ RunApplication ( int argc, char **argv )
 	CoreConsole *console = new CoreConsole (  );
 	CoreCPUID *cpuid = new CoreCPUID (  );
 
+	console->SetColour ( console->FG_RED );
+	console->Write ( "Red " );
+	console->SetColour ( console->FG_GREEN );
+	console->Write ( "Green " );
+	console->SetColour ( console->FG_BLUE );
+	console->Write ( "Blue " );
+
+	console->SetColour ( console->FG_MAGENTA );
+	console->Write ( "Magenta " );
+	console->SetColour ( console->FG_BROWN );
+	console->Write ( "Brown " );
+	console->SetColour ( console->FG_CYAN );
+	console->Write ( "Cyan " );
+	console->SetColour ( console->FG_GRAY );
+	console->Write ( "Gray " );
+	console->SetColour ( console->FG_WHITE );
+	console->Write ( "White " );
+	console->SetColour ( 0 );
+	console->WriteLine ();
+
+	return 0;
+
 	console->SetColour ( console->FG_RED | console->FG_INTENSITY );
 	console->WriteLine ( "======================" );
 	console->WriteLine ( "= CPU IDENTIFICATION =" );
