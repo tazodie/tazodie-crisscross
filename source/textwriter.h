@@ -5,8 +5,8 @@
  *                              formerly Codename "Technetium"
  *                             project started August 14, 2006
  *
- * Copyright (c) 2006, Steven Noonan <steven@uplinklabs.net> and Rudolf Olah <omouse@gmail.com>.
- * All rights reserved.
+ * Copyright (c) 2006, Steven Noonan <steven@uplinklabs.net>, Rudolf Olah <omouse@gmail.com>,
+ * and Miah Clayton <miah@io-in.com>. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
@@ -31,52 +31,52 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */  
-	
+    
 #ifndef __included_textwriter_h
 #define __included_textwriter_h
 
 #include "core_exception.h"
-	
+    
 //! The text file output class.
 /*!
-	Inherits CoreIO, so functions like CoreIO::Write and CoreIO::WriteLine are accessible to the programmer.
+    Inherits CoreIO, so functions like CoreIO::Write and CoreIO::WriteLine are accessible to the programmer.
 */ 
 class TextWriter : public CoreIO 
 {
 
 protected:
-	//! The path to the file being written. 
-	const char *m_filePath;
+    //! The path to the file being written. 
+    const char *m_filePath;
 
 public:
-	//! The constructor.
-	/*!
-		Creates an instance of CoreIO with write access to the file specified in _file.
-		\param _file The path to the file being read.
-		*/ 
-	TextWriter ( const char *_file );
+    //! The constructor.
+    /*!
+        Creates an instance of CoreIO with write access to the file specified in _file.
+        \param _file The path to the file being read.
+        */ 
+    TextWriter ( const char *_file );
 
-	//! The destructor
-	/*!
-		Flushes the output buffer, closes the file, and deallocates memory used by TextWriter.
-		*/ 
-	~TextWriter (  );
+    //! The destructor
+    /*!
+        Flushes the output buffer, closes the file, and deallocates memory used by TextWriter.
+        */ 
+    ~TextWriter ();
 
 private:
-	bool EndOfFile (  )
-		{ throw new InvalidCallException(); };
-	unsigned long Length (  )
-		{ throw new InvalidCallException(); };
-	char Read (  )
-		{ throw new InvalidCallException(); };
-	size_t Read ( char *_buffer, int _bufferLength, int _bufferIndex, int _count )
-		{ throw new InvalidCallException(); };
-	const char *ReadLine (  )
-		{ throw new InvalidCallException(); };
-	int Seek ( int _position )
-		{ throw new InvalidCallException(); };
-	int Forward ( int _position )
-		{ throw new InvalidCallException(); };
+    bool EndOfFile ()
+        { throw new InvalidCallException(); };
+    unsigned long Length ()
+        { throw new InvalidCallException(); };
+    char Read ()
+        { throw new InvalidCallException(); };
+    size_t Read ( char *_buffer, int _bufferLength, int _bufferIndex, int _count )
+        { throw new InvalidCallException(); };
+    std::string ReadLine ()
+        { throw new InvalidCallException(); };
+    int Seek ( int _position )
+        { throw new InvalidCallException(); };
+    int Forward ( int _position )
+        { throw new InvalidCallException(); };
 
 };
 

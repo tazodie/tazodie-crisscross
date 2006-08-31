@@ -5,8 +5,8 @@
  *                              formerly Codename "Technetium"
  *                             project started August 14, 2006
  *
- * Copyright (c) 2006, Steven Noonan <steven@uplinklabs.net> and Rudolf Olah <omouse@gmail.com>.
- * All rights reserved.
+ * Copyright (c) 2006, Steven Noonan <steven@uplinklabs.net>, Rudolf Olah <omouse@gmail.com>,
+ * and Miah Clayton <miah@io-in.com>. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
@@ -33,65 +33,40 @@
  */
 
 #ifndef __included_core_mutex_h
-#    define __included_core_mutex_h
-
-#    include "datastructures/llist.h"
+#define __included_core_mutex_h
 
 //! The safe threading mutex class.
 /*!
-	Allows for safe threading by locking via thread ID.
+    Allows for safe threading by locking via thread ID.
 */
 class CoreMutex
 {
   protected:
-	//! The currently active thread.
-	/*!
-	   The thread currently permitted to execute between CoreMutex::Lock() and CoreMutex::Unlock()
-	 */
-	pthread_t m_currentThread;
 
-	//! The queue of threads waiting for access.
-	/*!
-	   A linked list of threads waiting for access to objects locked by the mutex.
-	 */
-	LList < pthread_t > *m_threadQueue;
-
-	//! Indicates whether the mutex is locked or not.
-	bool m_mutexLocked;
+#    ifdef _WIN32
+    //! The critical section for the mutex.
+    /*!
+       Windows uses "critical sections" for safe threading.
+     */
+    CRITICAL_SECTION m_criticalSection; /// Docs say this is faster than a mutex for single process access
+#    else
+    //! POSIX threading mutex.
+    pthread_mutex_t m_hMutex;
+#    endif
   public:
 
-	//! The constructor.
-	  CoreMutex (  );
+    //! The constructor.
+      CoreMutex ();
 
-	//! The destructor.
-	 ~CoreMutex (  );
+    //! The destructor.
+     ~CoreMutex ();
 
-	//! Determines whether the mutex is locked or not.
-	/*!
-	   \return Indicates the state of the mutex lock.
-	 */
-	bool IsLocked (  );
+    //! Locks the mutex.
+    void Lock ();
 
-	//! Locks the mutex.
-	void Lock (  );
+    //! Unlocks the mutex.
+    void Unlock ();
 
-	//! Unlocks the mutex.
-	void Unlock (  );
-  protected:
-
-
-	//! Sleeps the current thread for a specified time.
-	/*!
-	   \param _msec Time to sleep for, in milliseconds.
-	   \sa CoreSystem::ThreadSleep
-	 */
-	void ThreadSleep ( int _msec );
-
-	//! Sleeps until the mutex is unlocked.
-	/*!
-	   Waits for the mutex to unlock or switch to allow the pending thread.
-	 */
-	void WaitForUnlock (  );
 };
 
 #endif

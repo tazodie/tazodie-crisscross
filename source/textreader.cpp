@@ -5,8 +5,8 @@
  *                              formerly Codename "Technetium"
  *                             project started August 14, 2006
  *
- * Copyright (c) 2006, Steven Noonan <steven@uplinklabs.net> and Rudolf Olah <omouse@gmail.com>.
- * All rights reserved.
+ * Copyright (c) 2006, Steven Noonan <steven@uplinklabs.net>, Rudolf Olah <omouse@gmail.com>,
+ * and Miah Clayton <miah@io-in.com>. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
@@ -39,21 +39,21 @@
 TextReader::TextReader ( const char *_file ):
 CoreIO ( NULL )
 {
-	size_t _filePathLength = 0;
+    size_t _filePathLength = 0;
 
-	CoreAssert ( _file != NULL );
-	CoreAssert ( ( _filePathLength = strlen ( _file ) ) > 1 );
+    CoreAssert ( _file != NULL );
+    CoreAssert ( ( _filePathLength = strlen ( _file ) ) > 1 );
 
-	m_filePath = new char[_filePathLength + 1];
+    m_filePath = new char[_filePathLength + 1];
 
-	strcpy ( ( char * ) m_filePath, _file );
-	m_fileBuffer = fopen ( m_filePath, "rt" );
+    strcpy ( ( char * ) m_filePath, _file );
+    m_fileBuffer = fopen ( m_filePath, "rt" );
 
-	CoreAssert ( m_fileBuffer != NULL );
+    CoreAssert ( m_fileBuffer != NULL );
 }
 
-TextReader::~TextReader (  )
+TextReader::~TextReader ()
 {
-	fclose ( m_fileBuffer );
-	delete[]m_filePath;
+    fclose ( m_fileBuffer );
+    delete[]m_filePath;
 }

@@ -5,8 +5,8 @@
  *                              formerly Codename "Technetium"
  *                             project started August 14, 2006
  *
- * Copyright (c) 2006, Steven Noonan <steven@uplinklabs.net> and Rudolf Olah <omouse@gmail.com>.
- * All rights reserved.
+ * Copyright (c) 2006, Steven Noonan <steven@uplinklabs.net>, Rudolf Olah <omouse@gmail.com>,
+ * and Miah Clayton <miah@io-in.com>. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
@@ -36,141 +36,141 @@
 #include "core_debug.h"
 #include "core_console.h"
 
-CoreConsole::CoreConsole (  ):
+CoreConsole::CoreConsole ():
 CoreIO ( stdout )
 {
-	SetLineEndings ( CoreIO::LF );
+    SetLineEndings ( CoreIO::LF );
 #ifdef TARGET_OS_WINDOWS
-	if ( AllocConsole (  ) == TRUE )
-	{
-		int hCrt =
-			_open_osfhandle ( ( intptr_t ) GetStdHandle ( STD_OUTPUT_HANDLE ),
-							  _O_TEXT );
-		FILE *hf = _fdopen ( hCrt, "w" );
+    if ( AllocConsole () == TRUE )
+    {
+        int hCrt =
+            _open_osfhandle ( ( intptr_t ) GetStdHandle ( STD_OUTPUT_HANDLE ),
+                              _O_TEXT );
+        FILE *hf = _fdopen ( hCrt, "w" );
 
-		*stdout = *hf;
-		int i = setvbuf ( stdout, NULL, _IONBF, 0 );
+        *stdout = *hf;
+        int i = setvbuf ( stdout, NULL, _IONBF, 0 );
 
-		hCrt =
-			_open_osfhandle ( ( intptr_t ) GetStdHandle ( STD_ERROR_HANDLE ),
-							  _O_TEXT );
-		hf = _fdopen ( hCrt, "w" );
-		*stderr = *hf;
-		i = setvbuf ( stdout, NULL, _IONBF, 0 );
-	}
+        hCrt =
+            _open_osfhandle ( ( intptr_t ) GetStdHandle ( STD_ERROR_HANDLE ),
+                              _O_TEXT );
+        hf = _fdopen ( hCrt, "w" );
+        *stderr = *hf;
+        i = setvbuf ( stdout, NULL, _IONBF, 0 );
+    }
 
-	SetConsoleTitle ( "Codename \"" APP_CODENAME "\" " APP_VERSION );
+    SetConsoleTitle ( "Codename \"" APP_CODENAME "\" " APP_VERSION );
 #endif
 }
 
 CoreConsole::CoreConsole ( FILE * _outputBuffer ):
 CoreIO ( _outputBuffer )
 {
-	SetLineEndings ( CoreIO::LF );
+    SetLineEndings ( CoreIO::LF );
 }
 
-CoreConsole::~CoreConsole (  )
+CoreConsole::~CoreConsole ()
 {
-	SetColour ( 0 );
+    SetColour ( 0 );
 #ifdef TARGET_OS_WINDOWS
-	FreeConsole (  );
+    FreeConsole ();
 #endif
 }
 
 void
 CoreConsole::SetColour ( short _flags )
 {
-	CoreAssert ( this );
+    CoreAssert ( this != NULL );
 
-	/* TODO: Linux and Mac OS X ports of this function. */
+    /* TODO: Linux and Mac OS X ports of this function. */
 #if !defined ( ANSI_COLOUR ) && defined ( TARGET_OS_WINDOWS )
-	HANDLE hConsole = GetStdHandle ( STD_OUTPUT_HANDLE );
+    HANDLE hConsole = GetStdHandle ( STD_OUTPUT_HANDLE );
 
-	if ( _flags == 0 )
-		SetConsoleTextAttribute ( hConsole, FG_GRAY );
-	else
-		SetConsoleTextAttribute ( hConsole, _flags );
+    if ( _flags == 0 )
+        SetConsoleTextAttribute ( hConsole, FG_GRAY );
+    else
+        SetConsoleTextAttribute ( hConsole, _flags );
 #elif defined ( ANSI_COLOUR )
-	// Reset colours to defaults.
-	char codes[16];
+    // Reset colours to defaults.
+    char codes[16];
 
-	sprintf ( codes, "\033[" );
-	Write ( "\033[0m" );
+    sprintf ( codes, "\033[" );
+    Write ( "\033[0m" );
 
-	if ( _flags == 0 )
-		return;
+    if ( _flags == 0 )
+        return;
 
-	if ( _flags & FG_INTENSITY )
-		strcat ( codes, "1;" );
-	if ( _flags & FG_RED )
-		strcat ( codes, "31;" );
-	if ( _flags & FG_GREEN )
-		strcat ( codes, "32;" );
-	if ( _flags & FG_BROWN )
-		strcat ( codes, "33;" );
-	if ( _flags & FG_BLUE )
-		strcat ( codes, "34;" );
-	if ( _flags & FG_MAGENTA )
-		strcat ( codes, "35;" );
-	if ( _flags & FG_CYAN )
-		strcat ( codes, "36;" );
-	if ( _flags & FG_GRAY )
-		strcat ( codes, "37;" );
-	if ( _flags & FG_WHITE )
-		strcat ( codes, "39;" );
+    if ( _flags & FG_INTENSITY )
+        strcat ( codes, "1;" );
+    if ( _flags & FG_RED )
+        strcat ( codes, "31;" );
+    if ( _flags & FG_GREEN )
+        strcat ( codes, "32;" );
+    if ( _flags & FG_BROWN )
+        strcat ( codes, "33;" );
+    if ( _flags & FG_BLUE )
+        strcat ( codes, "34;" );
+    if ( _flags & FG_MAGENTA )
+        strcat ( codes, "35;" );
+    if ( _flags & FG_CYAN )
+        strcat ( codes, "36;" );
+    if ( _flags & FG_GRAY )
+        strcat ( codes, "37;" );
+    if ( _flags & FG_WHITE )
+        strcat ( codes, "39;" );
 
-	/*
-	   TODO: Determine if there is an ANSI code for background color intensity.
-	   if ( _flags & BG_INTENSITY )
-	   strcat ( codes, "???????" );
-	 */
-	if ( _flags & BG_RED )
-		strcat ( codes, "41;" );
-	if ( _flags & BG_GREEN )
-		strcat ( codes, "42;" );
-	if ( _flags & BG_BROWN )
-		strcat ( codes, "43;" );
-	if ( _flags & BG_BLUE )
-		strcat ( codes, "44;" );
-	if ( _flags & BG_MAGENTA )
-		strcat ( codes, "45;" );
-	if ( _flags & BG_CYAN )
-		strcat ( codes, "46;" );
-	if ( _flags & BG_WHITE )
-		strcat ( codes, "47;" );
+    /*
+       TODO: Determine if there is an ANSI code for background color intensity.
+       if ( _flags & BG_INTENSITY )
+       strcat ( codes, "???????" );
+     */
+    if ( _flags & BG_RED )
+        strcat ( codes, "41;" );
+    if ( _flags & BG_GREEN )
+        strcat ( codes, "42;" );
+    if ( _flags & BG_BROWN )
+        strcat ( codes, "43;" );
+    if ( _flags & BG_BLUE )
+        strcat ( codes, "44;" );
+    if ( _flags & BG_MAGENTA )
+        strcat ( codes, "45;" );
+    if ( _flags & BG_CYAN )
+        strcat ( codes, "46;" );
+    if ( _flags & BG_WHITE )
+        strcat ( codes, "47;" );
 
-	codes[strlen ( codes ) - 1] = 'm';
+    codes[strlen ( codes ) - 1] = 'm';
 
-	Write ( "%s", codes );
+    Write ( "%s", codes );
 #endif
 }
 
 void
-CoreConsole::Clear (  )
+CoreConsole::Clear ()
 {
-	CoreAssert ( this );
+    CoreAssert ( this != NULL );
 
-	/* TODO: Linux and Mac OS X ports of this function. */
+    /* TODO: Linux and Mac OS X ports of this function. */
 #if defined ( TARGET_OS_WINDOWS )
-	COORD coordScreen = { 0, 0 };
-	DWORD cCharsWritten;
-	CONSOLE_SCREEN_BUFFER_INFO csbi;
-	DWORD dwConSize;
-	HANDLE hConsole = GetStdHandle ( STD_OUTPUT_HANDLE );
+    COORD coordScreen = { 0, 0 };
+    DWORD cCharsWritten;
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    DWORD dwConSize;
+    HANDLE hConsole = GetStdHandle ( STD_OUTPUT_HANDLE );
 
-	GetConsoleScreenBufferInfo ( hConsole, &csbi );
-	dwConSize = csbi.dwSize.X * csbi.dwSize.Y;
-	FillConsoleOutputCharacter ( hConsole, TEXT ( ' ' ), dwConSize,
-								 coordScreen, &cCharsWritten );
-	GetConsoleScreenBufferInfo ( hConsole, &csbi );
-	FillConsoleOutputAttribute ( hConsole, csbi.wAttributes, dwConSize,
-								 coordScreen, &cCharsWritten );
-	SetConsoleCursorPosition ( hConsole, coordScreen );
+    GetConsoleScreenBufferInfo ( hConsole, &csbi );
+    dwConSize = csbi.dwSize.X * csbi.dwSize.Y;
+    FillConsoleOutputCharacter ( hConsole, TEXT ( ' ' ), dwConSize,
+                                 coordScreen, &cCharsWritten );
+    GetConsoleScreenBufferInfo ( hConsole, &csbi );
+    FillConsoleOutputAttribute ( hConsole, csbi.wAttributes, dwConSize,
+                                 coordScreen, &cCharsWritten );
+    SetConsoleCursorPosition ( hConsole, coordScreen );
 #endif
 }
 
 char CoreConsole::Read() { return 0; }
-const char *CoreConsole::ReadLine() { return ""; }
+std::string CoreConsole::ReadLine() { return ""; }
 int CoreConsole::Seek ( int _position ) { return 0; }
 int CoreConsole::Forward ( int _position ) { return 0; }
 unsigned long CoreConsole::Length() { return 0; }

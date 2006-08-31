@@ -5,8 +5,8 @@
  *                              formerly Codename "Technetium"
  *                             project started August 14, 2006
  *
- * Copyright (c) 2006, Steven Noonan <steven@uplinklabs.net> and Rudolf Olah <omouse@gmail.com>.
- * All rights reserved.
+ * Copyright (c) 2006, Steven Noonan <steven@uplinklabs.net>, Rudolf Olah <omouse@gmail.com>,
+ * and Miah Clayton <miah@io-in.com>. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
@@ -36,83 +36,43 @@
 #include "core_debug.h"
 #include "core_mutex.h"
 
-CoreMutex::CoreMutex (  ):
-m_mutexLocked ( false )
+CoreMutex::CoreMutex ()
 {
-	m_threadQueue = new LList < pthread_t >;
-	CoreAssert ( m_threadQueue );
+#ifdef TARGET_OS_WINDOWS
+    InitializeCriticalSection(&m_criticalSection);
+#else
+    int error = pthread_mutex_init(&m_hMutex, 0);
+    CoreAssert ( error == 0 );
+#endif
 }
 
-CoreMutex::~CoreMutex (  )
+CoreMutex::~CoreMutex ()
 {
-	delete m_threadQueue;
-
-	m_threadQueue = NULL;
-}
-
-bool
-CoreMutex::IsLocked (  )
-{
-	return m_mutexLocked;
-}
-
-void
-CoreMutex::Lock (  )
-{
-	WaitForUnlock (  );
-	m_currentThread = pthread_self (  );
-	m_mutexLocked = true;
-}
-
-void
-CoreMutex::ThreadSleep ( int _msec )
-{
-	/* TODO: Linux and Mac OS X ports of this function. */
-	/* NOTE: Linux uses usleep, which is slightly different. */
-#if defined ( TARGET_OS_WINDOWS )
-	Sleep ( _msec );
-#elif defined ( TARGET_OS_LINUX )
-	unsigned sleep_time = _msec * 1000;
-
-	while ( sleep_time > 1000000 )
-	{
-		usleep ( 1000000 );
-		sleep_time -= 1000000;
-	}
-	usleep ( sleep_time );
+#ifdef TARGET_OS_WINDOWS
+    DeleteCriticalSection(&m_criticalSection);
+#else
+    pthread_mutex_destroy(&m_hMutex);
 #endif
 }
 
 void
-CoreMutex::Unlock (  )
+CoreMutex::Lock ()
 {
-	pthread_t tempThread = 0;
-
-	if ( m_threadQueue->Size (  ) > 0 )
-	{
-		tempThread = m_threadQueue->GetData ( 0 );
-		m_threadQueue->RemoveData ( 0 );
-		m_currentThread = tempThread;
-	}
-	m_mutexLocked = false;
+#ifdef TARGET_OS_WINDOWS
+    EnterCriticalSection(&m_criticalSection);
+#else
+    int error = pthread_mutex_lock(&m_hMutex);
+    CoreAssert ( error == 0 );
+#endif
 }
 
 void
-CoreMutex::WaitForUnlock (  )
+CoreMutex::Unlock ()
 {
-	pthread_t thisThread = pthread_self (  );
-
-	CoreAssert ( m_threadQueue );
-	if ( m_threadQueue->Size (  ) == 0 && m_mutexLocked == false )
-		return;
-	m_threadQueue->PutDataAtEnd ( thisThread );
-	while ( true )
-	{
-		if ( m_currentThread == thisThread )
-		{
-			if ( !m_mutexLocked )
-				break;
-		}
-		ThreadSleep ( 5 );
-	}
+#ifdef TARGET_OS_WINDOWS
+    LeaveCriticalSection(&m_criticalSection);
+#else
+    int error = pthread_mutex_unlock(&m_hMutex);
+    CoreAssert ( error == 0 );
+#endif
 }

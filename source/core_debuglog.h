@@ -5,8 +5,8 @@
  *                              formerly Codename "Technetium"
  *                             project started August 14, 2006
  *
- * Copyright (c) 2006, Steven Noonan <steven@uplinklabs.net> and Rudolf Olah <omouse@gmail.com>.
- * All rights reserved.
+ * Copyright (c) 2006, Steven Noonan <steven@uplinklabs.net>, Rudolf Olah <omouse@gmail.com>,
+ * and Miah Clayton <miah@io-in.com>. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
@@ -59,7 +59,7 @@ public:
     int m_priority;
     char *m_description;
 public:
-	CoreDebugLogData ( tm *_bug_time, int _priority, char *_description);
+    CoreDebugLogData ( tm *_bug_time, int _priority, char *_description);
     ~CoreDebugLogData ();
 };
 
@@ -85,7 +85,7 @@ public:
 
     //! The default constructor.
     /*!
-		Creates a new bug report object.
+        Creates a new bug report object.
         \param _name Application name.
         \param _version Application version.
         \param _website Application website.
@@ -115,15 +115,16 @@ public:
 
     //! Print the bug report.
     /*!
-		Prints the bug report to stdout along with colours.
+        Prints the bug report to stdout along with colours.
         \param _lowest_priority The lowest priority of bug information that will be printed.
     */
-    void Print ( CoreDebugLog::BugReportPriority _lowest_priority = BUG_LEVEL_WARNING );
+    void CoreDebugLog::Print ( CoreIO *_output,
+        CoreDebugLog::BugReportPriority _lowest_priority = BUG_LEVEL_WARNING );
 
     //! Save the bug report.
     /*!
-		Saves the bug report to a file named "year-month-day_application_version.log".
-	*/
+        Saves the bug report to a file named "year-month-day_application_version.log".
+    */
     void Save ( );
 
 protected:

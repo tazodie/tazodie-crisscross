@@ -5,8 +5,8 @@
  *                              formerly Codename "Technetium"
  *                             project started August 14, 2006
  *
- * Copyright (c) 2006, Steven Noonan <steven@uplinklabs.net> and Rudolf Olah <omouse@gmail.com>.
- * All rights reserved.
+ * Copyright (c) 2006, Steven Noonan <steven@uplinklabs.net>, Rudolf Olah <omouse@gmail.com>,
+ * and Miah Clayton <miah@io-in.com>. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
@@ -38,25 +38,25 @@
 #ifdef ENABLE_DEBUGLOG
 
 CoreDebugLogData::CoreDebugLogData ( tm *_bug_time, int _priority, char *_description)
-	: m_bug_time ( _bug_time ),
-	  m_priority ( _priority ),
-	  m_description ( new char[strlen(_description) + 1] )
+    : m_bug_time ( _bug_time ),
+      m_priority ( _priority ),
+      m_description ( new char[strlen(_description) + 1] )
 {
-	strcpy ( m_description, _description );
+    strcpy ( m_description, _description );
 }
 
 CoreDebugLogData::~CoreDebugLogData ()
 {
-	delete [] m_description;
+    delete [] m_description;
 }
 
 CoreDebugLog::CoreDebugLog ( string _name, string _version,
                              string _website, string _email,
                              bool _common_log_format )
-	: m_common_log_format ( _common_log_format ),
-	  m_app_name ( _name ), m_app_version ( _version ),
-	  m_app_website ( _website ), m_email ( _email ),
-	  m_reports ( new LList <CoreDebugLogData*> )
+    : m_common_log_format ( _common_log_format ),
+      m_app_name ( _name ), m_app_version ( _version ),
+      m_app_website ( _website ), m_email ( _email ),
+      m_reports ( new LList <CoreDebugLogData*> )
 {
 
 }
@@ -64,17 +64,17 @@ CoreDebugLog::CoreDebugLog ( string _name, string _version,
 CoreDebugLog::~CoreDebugLog ( )
 {
     while ( m_reports->Size() )
-	{
-		delete m_reports->GetData ( 0 );
-		m_reports->RemoveData ( 0 );
-	}
+    {
+        delete m_reports->GetData ( 0 );
+        m_reports->RemoveData ( 0 );
+    }
     delete m_reports;
 }
 
 void
 CoreDebugLog::Write ( CoreDebugLog::BugReportPriority _priority, const char *_format, ... )
 {
-    CoreAssert ( this );
+    CoreAssert ( this != NULL );
 
     if ( _format == NULL )
         return;
@@ -94,7 +94,7 @@ void
 CoreDebugLog::WriteLine ( CoreDebugLog::BugReportPriority _priority, const char *_format, ... )
 {
     /* TODO: Write a way to make this non-redundant with Write(). */
-    CoreAssert ( this );
+    CoreAssert ( this != NULL );
 
     if ( _format == NULL )
         return;
@@ -113,7 +113,7 @@ CoreDebugLog::WriteLine ( CoreDebugLog::BugReportPriority _priority, const char 
 void
 CoreDebugLog::Put ( CoreIO *_stream, CoreDebugLog::BugReportPriority _lowest_priority )
 {
-    CoreAssert ( this );
+    CoreAssert ( this != NULL );
     CoreDebugLogData *current;
     char buffer[50];
     _stream->Write ( "%s %s - Website at <%s>\nEmail <%s> with Bug Reports\n",
@@ -122,8 +122,8 @@ CoreDebugLog::Put ( CoreIO *_stream, CoreDebugLog::BugReportPriority _lowest_pri
     for (int i = 0; m_reports->ValidIndex ( i ) ; i++)
     {
         current = m_reports->GetData ( i );
-	if ( current->m_priority < _lowest_priority )
-        continue;
+		if ( current->m_priority < _lowest_priority )
+			continue;
         if (m_common_log_format)
         {
             // Slightly modified Apache Common Log Format
@@ -132,7 +132,7 @@ CoreDebugLog::Put ( CoreIO *_stream, CoreDebugLog::BugReportPriority _lowest_pri
             _stream->Write ( buffer );
             strftime ( buffer, 50, " - [%d/%b/%Y:%H:%M:%S ", current->m_bug_time );
             _stream->Write ( buffer );
-            sprintf ( buffer, "%+i00", (int)(-1 * timezone/60/60) );
+            sprintf ( buffer, "%+i00", (int)( -1 * (int)timezone / 60 / 60 ) );
             _stream->Write ( "%s] ", buffer );
         }
         else
@@ -156,16 +156,16 @@ CoreDebugLog::Put ( CoreIO *_stream, CoreDebugLog::BugReportPriority _lowest_pri
 }
 
 void
-CoreDebugLog::Print ( CoreDebugLog::BugReportPriority _lowest_priority )
+CoreDebugLog::Print ( CoreIO *_output, CoreDebugLog::BugReportPriority _lowest_priority )
 {
-    CoreAssert ( this );
-    Put ( g_stdout, _lowest_priority );
+    CoreAssert ( this != NULL );
+    Put ( _output, _lowest_priority );
 }
 
 void
 CoreDebugLog::Save ( )
 {
-    CoreAssert ( this );
+    CoreAssert ( this != NULL );
     string filename;
     char buffer[50];
 

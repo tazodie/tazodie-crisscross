@@ -5,8 +5,8 @@
  *                              formerly Codename "Technetium"
  *                             project started August 14, 2006
  *
- * Copyright (c) 2006, Steven Noonan <steven@uplinklabs.net> and Rudolf Olah <omouse@gmail.com>.
- * All rights reserved.
+ * Copyright (c) 2006, Steven Noonan <steven@uplinklabs.net>, Rudolf Olah <omouse@gmail.com>,
+ * and Miah Clayton <miah@io-in.com>. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
@@ -33,7 +33,7 @@
  */
 
 #ifndef __included_core_cpuid_h
-#    define __included_core_cpuid_h
+#define __included_core_cpuid_h
 
 #    ifdef ENABLE_CPUID
 
@@ -47,38 +47,38 @@
 class Feature
 {
   public:
-	bool Enabled;
-	Feature (  )
-	{
-		Enabled = 0;
-	};
+    bool Enabled;
+    Feature ()
+    {
+        Enabled = 0;
+    };
 
-	~Feature (  )
-	{
-	};
+    ~Feature ()
+    {
+    };
 };
 
 class Processor
 {
   public:
-	const char *Manufacturer;
-	const char *ProcessorName;
-	char Count;
-	char Family;
-	char Model;
-	char Stepping;
-	char BrandID;
-	char APICID;
-	  RedBlackTree < Feature *, char *>features;
-	  DArray < char *>caches;
+    const char *Manufacturer;
+    const char *ProcessorName;
+    char Count;
+    char Family;
+    char Model;
+    char Stepping;
+    char BrandID;
+    char APICID;
+      RedBlackTree < Feature *, char *>features;
+      DArray < char *>caches;
   public:
-	  Processor (  )
-	{
-	};
+      Processor ()
+    {
+    };
 
-	~Processor (  )
-	{
-	};
+    ~Processor ()
+    {
+    };
 };
 
 
@@ -89,43 +89,43 @@ class CoreCPUID
 
 #        ifdef TARGET_OS_WINDOWS
 
-	struct GoThreadProc_Params
-	{
-		CoreCPUID *cpuid_class;
-		int processor;
-	};
+    struct GoThreadProc_Params
+    {
+        CoreCPUID *cpuid_class;
+        int processor;
+    };
 
-	static DWORD CALLBACK s_GoThreadProc ( LPVOID lpParameter )
-	{
-		return ( ( GoThreadProc_Params * ) lpParameter )->cpuid_class->
-			GoThread ( ( LPVOID * ) &
-					   ( ( GoThreadProc_Params * ) lpParameter )->processor );
-	};
-	DWORD WINAPI GoThread ( LPVOID * params );
+    static DWORD CALLBACK s_GoThreadProc ( LPVOID lpParameter )
+    {
+        return ( ( GoThreadProc_Params * ) lpParameter )->cpuid_class->
+            GoThread ( ( LPVOID * ) &
+                       ( ( GoThreadProc_Params * ) lpParameter )->processor );
+    };
+    DWORD WINAPI GoThread ( LPVOID * params );
 #        else
-	long int GoThread ( int processor );
+    long int GoThread ( int processor );
 #        endif
 
-	void AddCacheDescription ( int processor, const char *description );
-	void AddCacheData ( int processor, int x );
-	void DetectManufacturer ( int processor );
-	void DetectProcessorName ( int processor );
-	void DetectCacheInfo ( int processor );
-	void DetectFMS ( int processor );
-	void DetectBrandID ( int processor );
-	void DetectCount ( int processor );
-	void DetectAPIC ( int processor );
-	void DetectFeatures ( int processor );
-	void DetectFeature ( unsigned const int *_register, int _flag,
-						 int _processor, const char *_name );
+    void AddCacheDescription ( int processor, const char *description );
+    void AddCacheData ( int processor, int x );
+    void DetectManufacturer ( int processor );
+    void DetectProcessorName ( int processor );
+    void DetectCacheInfo ( int processor );
+    void DetectFMS ( int processor );
+    void DetectBrandID ( int processor );
+    void DetectCount ( int processor );
+    void DetectAPIC ( int processor );
+    void DetectFeatures ( int processor );
+    void DetectFeature ( unsigned const int *_register, int _flag,
+                         int _processor, const char *_name );
 
   public:
-	  CoreCPUID (  );
-	 ~CoreCPUID (  );
-	void Go (  );
-	int GetCPUCount (  );
+      CoreCPUID ();
+     ~CoreCPUID ();
+    void Go ();
+    int GetCPUCount ();
 
-	Processor *proc[MAX_PROCESSORS];	// Support up to MAX_PROCESSORS
+    Processor *proc[MAX_PROCESSORS];    // Support up to MAX_PROCESSORS
 
 };
 

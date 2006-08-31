@@ -5,8 +5,8 @@
  *                              formerly Codename "Technetium"
  *                             project started August 14, 2006
  *
- * Copyright (c) 2006, Steven Noonan <steven@uplinklabs.net> and Rudolf Olah <omouse@gmail.com>.
- * All rights reserved.
+ * Copyright (c) 2006, Steven Noonan <steven@uplinklabs.net>, Rudolf Olah <omouse@gmail.com>,
+ * and Miah Clayton <miah@io-in.com>. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
@@ -36,72 +36,72 @@
 
 #include "core_system.h"
 
-CoreSystem::CoreSystem (  )
+CoreSystem::CoreSystem ()
 {
-	InitTimer (  );
+    InitTimer ();
 }
 
-CoreSystem::~CoreSystem (  )
+CoreSystem::~CoreSystem ()
 {
 }
 
 void
-CoreSystem::InitTimer (  )
+CoreSystem::InitTimer ()
 {
 #if defined ( TARGET_OS_WINDOWS )
-	LARGE_INTEGER freq;
+    LARGE_INTEGER freq;
 
-	QueryPerformanceFrequency ( &freq );
-	m_tickInterval = 1.0 / ( double ) freq.QuadPart;
+    QueryPerformanceFrequency ( &freq );
+    m_tickInterval = 1.0 / ( double ) freq.QuadPart;
 #elif defined ( TARGET_OS_MACOSX )
-	mach_timebase_info ( &m_timebase );
-	m_start = mach_absolute_time (  );
+    mach_timebase_info ( &m_timebase );
+    m_start = mach_absolute_time ();
 #elif defined ( TARGET_OS_LINUX )
-	gettimeofday ( &m_start, NULL );
+    gettimeofday ( &m_start, NULL );
 #endif
 }
 
 double
-CoreSystem::GetHighResTime (  )
+CoreSystem::GetHighResTime ()
 {
 #if defined ( TARGET_OS_WINDOWS )
-	LARGE_INTEGER count;
+    LARGE_INTEGER count;
 
-	QueryPerformanceCounter ( &count );
-	return ( double ) count.QuadPart * m_tickInterval;
+    QueryPerformanceCounter ( &count );
+    return ( double ) count.QuadPart * m_tickInterval;
 #elif defined ( TARGET_OS_MACOSX )
-	uint64_t elapsed = mach_absolute_time (  ) - m_start;
-	return double ( elapsed ) * ( m_timebase.numer / m_timebase.denom ) /
-		1000000000.0;
+    uint64_t elapsed = mach_absolute_time () - m_start;
+    return double ( elapsed ) * ( m_timebase.numer / m_timebase.denom ) /
+        1000000000.0;
 #elif defined ( TARGET_OS_LINUX )
-	timeval now;
-	double t1, t2;
+    timeval now;
+    double t1, t2;
 
-	gettimeofday ( &now, NULL );
+    gettimeofday ( &now, NULL );
 
-	t1 = ( double ) m_start.tv_sec +
-		( double ) m_start.tv_usec / ( 1000 * 1000 );
-	t2 = ( double ) now.tv_sec + ( double ) now.tv_usec / ( 1000 * 1000 );
-	return t2 - t1;
+    t1 = ( double ) m_start.tv_sec +
+        ( double ) m_start.tv_usec / ( 1000 * 1000 );
+    t2 = ( double ) now.tv_sec + ( double ) now.tv_usec / ( 1000 * 1000 );
+    return t2 - t1;
 #endif
 }
 
 void
 CoreSystem::ThreadSleep ( int _msec )
 {
-	/* TODO: Linux and Mac OS X ports of this function. */
-	/* NOTE: Linux uses usleep, which is slightly different. */
+    /* TODO: Linux and Mac OS X ports of this function. */
+    /* NOTE: Linux uses usleep, which is slightly different. */
 #if defined ( TARGET_OS_WINDOWS )
-	Sleep ( _msec );
+    Sleep ( _msec );
 #elif defined ( TARGET_OS_LINUX )
-	unsigned sleep_time = _msec * 1000;
+    unsigned sleep_time = _msec * 1000;
 
-	while ( sleep_time > 1000000 )
-	{
-		usleep ( 1000000 );
-		sleep_time -= 1000000;
-	}
-	usleep ( sleep_time );
+    while ( sleep_time > 1000000 )
+    {
+        usleep ( 1000000 );
+        sleep_time -= 1000000;
+    }
+    usleep ( sleep_time );
 #endif
 }
 
@@ -109,14 +109,14 @@ CoreSystem::ThreadSleep ( int _msec )
 int
 CoreSystem::WaitForThread ( HANDLE _thread, DWORD _timeout )
 {
-	WaitForSingleObject ( _thread, INFINITE );
-	return 0;
+    WaitForSingleObject ( _thread, INFINITE );
+    return 0;
 }
 #elif defined ( TARGET_OS_LINUX )
 int
 CoreSystem::WaitForThread ( pthread_t _thread, int _timeout )
 {
-	pthread_join ( _thread, NULL );
-	return 0;
+    pthread_join ( _thread, NULL );
+    return 0;
 }
 #endif

@@ -4,6 +4,7 @@
 	Version="8.00"
 	Name="CrissCross"
 	ProjectGUID="{9520273D-42A8-4E63-A2DC-C209AAAC2B6A}"
+	RootNamespace="CrissCross"
 	>
 	<Platforms>
 		<Platform
@@ -78,10 +79,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\../bin/Release/Technetium.exe"
+				OutputFile=".\../bin/Release/$(ProjectName).exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				ProgramDatabaseFile=".\../bin/Release/Technetium.pdb"
+				GenerateDebugInformation="true"
+				ProgramDatabaseFile=".\../bin/Release/$(ProjectName).pdb"
 				SubSystem="1"
 				TargetMachine="1"
 			/>
@@ -173,12 +175,12 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="dbghelp.lib"
-				OutputFile=".\../bin/Debug/Technetium.exe"
+				OutputFile=".\../bin/Debug/$(ProjectName).exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
 				IgnoreDefaultLibraryNames="libc"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile=".\../bin/Debug/Technetium.pdb"
+				ProgramDatabaseFile=".\../bin/Debug/$(ProjectName).pdb"
 				SubSystem="1"
 				TargetMachine="1"
 			/>
@@ -543,6 +545,7 @@
 				>
 				<FileConfiguration
 					Name="Release|Win32"
+					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -602,6 +605,7 @@
 				>
 				<FileConfiguration
 					Name="Release|Win32"
+					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -632,6 +636,7 @@
 				>
 				<FileConfiguration
 					Name="Release|Win32"
+					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCLCompilerTool"

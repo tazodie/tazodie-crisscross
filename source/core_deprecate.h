@@ -5,8 +5,8 @@
  *                              formerly Codename "Technetium"
  *                             project started August 14, 2006
  *
- * Copyright (c) 2006, Steven Noonan <steven@uplinklabs.net> and Rudolf Olah <omouse@gmail.com>.
- * All rights reserved.
+ * Copyright (c) 2006, Steven Noonan <steven@uplinklabs.net>, Rudolf Olah <omouse@gmail.com>,
+ * and Miah Clayton <miah@io-in.com>. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
@@ -33,36 +33,36 @@
  */
 
 #ifndef __included_deprecate_h
-#    define __included_deprecate_h
+#define __included_deprecate_h
 
 #    define _DS_NO_DEPRECATE
 //#define _DS_ONLY_DEPRECATE_SLOW
 
 #    if defined(TARGET_OS_WINDOWS) && _MSC_VER >= 1300 && !defined(_DS_NO_DEPRECATE)
-#        	if _MSC_FULL_VER >= 140050320
-#        		define _DS_DEPRECATE_TEXT(_Text) __declspec(deprecated(_Text))
-#        	else
-#        		define _DS_DEPRECATE_TEXT(_Text) __declspec(deprecated)
-#        	endif
+#            if _MSC_FULL_VER >= 140050320
+#                define _DS_DEPRECATE_TEXT(_Text) __declspec(deprecated(_Text))
+#            else
+#                define _DS_DEPRECATE_TEXT(_Text) __declspec(deprecated)
+#            endif
 #        ifndef _DS_SLOW_NO_DEPRECATE
-#            	define _DS_DEPRECATE_SLOW						_DS_DEPRECATE_TEXT("This function will result in slow-executing code.")
+#                define _DS_DEPRECATE_SLOW                        _DS_DEPRECATE_TEXT("This function will result in slow-executing code.")
 #        else
-#            	define _DS_DEPRECATE_SLOW
+#                define _DS_DEPRECATE_SLOW
 #        endif
 #        ifndef _DS_ONLY_DEPRECATE_SLOW
-#            	define _DS_DEPRECATE_CLASS(_Replacement)		_DS_DEPRECATE_TEXT("This class is deprecated and may be removed from future versions. Consider using '" #_Replacement "' instead.")
-#            	define _DS_DEPRECATE_FUNCTION(_Replacement)		_DS_DEPRECATE_TEXT("This function is deprecated and may be removed from future versions. Consider using '" #_Replacement "' instead.")
-#            	define _DS_DEPRECATE_FUNCTION_N					_DS_DEPRECATE_TEXT("This function is deprecated and may be removed from future versions.")
+#                define _DS_DEPRECATE_CLASS(_Replacement)        _DS_DEPRECATE_TEXT("This class is deprecated and may be removed from future versions. Consider using '" #_Replacement "' instead.")
+#                define _DS_DEPRECATE_FUNCTION(_Replacement)        _DS_DEPRECATE_TEXT("This function is deprecated and may be removed from future versions. Consider using '" #_Replacement "' instead.")
+#                define _DS_DEPRECATE_FUNCTION_N                    _DS_DEPRECATE_TEXT("This function is deprecated and may be removed from future versions.")
 #        else
-#            	define _DS_DEPRECATE_CLASS(_Replacement)
-#            	define _DS_DEPRECATE_FUNCTION(_Replacement)
-#            	define _DS_DEPRECATE_FUNCTION_N
+#                define _DS_DEPRECATE_CLASS(_Replacement)
+#                define _DS_DEPRECATE_FUNCTION(_Replacement)
+#                define _DS_DEPRECATE_FUNCTION_N
 #        endif
 #    else
-#        	define _DS_DEPRECATE_SLOW
-#        	define _DS_DEPRECATE_CLASS(_Replacement)
-#        	define _DS_DEPRECATE_FUNCTION(_Replacement)
-#        	define _DS_DEPRECATE_FUNCTION_N
+#            define _DS_DEPRECATE_SLOW
+#            define _DS_DEPRECATE_CLASS(_Replacement)
+#            define _DS_DEPRECATE_FUNCTION(_Replacement)
+#            define _DS_DEPRECATE_FUNCTION_N
 #    endif
 
 #endif

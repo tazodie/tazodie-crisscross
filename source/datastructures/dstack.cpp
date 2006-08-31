@@ -5,8 +5,8 @@
  *                              formerly Codename "Technetium"
  *                             project started August 14, 2006
  *
- * Copyright (c) 2006, Steven Noonan <steven@uplinklabs.net> and Rudolf Olah <omouse@gmail.com>.
- * All rights reserved.
+ * Copyright (c) 2006, Steven Noonan <steven@uplinklabs.net>, Rudolf Olah <omouse@gmail.com>,
+ * and Miah Clayton <miah@io-in.com>. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
@@ -37,53 +37,53 @@
 
 DStack::DStack ( int N )
 {
-	step_ = 32;
-	bottom_ = new int[N];
+    step_ = 32;
+    bottom_ = new int[N];
 
-	top_ = bottom_;
-	size_ = origsize_ = N;
+    top_ = bottom_;
+    size_ = origsize_ = N;
 }
 
 void
 DStack::push ( int val )
 {
-	if ( num_items (  ) == size_ )	// the stack is full. need more space!
-	{
-		int *newstack_ = new int[size_ + step_];
-		memcpy ( newstack_, bottom_, sizeof ( int ) * size_ );
-		delete[]bottom_;
-		bottom_ = newstack_;
-		top_ = bottom_ + size_;
-		size_ += step_;
-	}
-	*top_ = val;
-	top_++;
+    if ( num_items () == size_ )    // the stack is full. need more space!
+    {
+        int *newstack_ = new int[size_ + step_];
+        memcpy ( newstack_, bottom_, sizeof ( int ) * size_ );
+        delete[]bottom_;
+        bottom_ = newstack_;
+        top_ = bottom_ + size_;
+        size_ += step_;
+    }
+    *top_ = val;
+    top_++;
 }
 
 int
-DStack::num_items (  ) const
+DStack::num_items () const
 {
-	return ( int ) ( top_ - bottom_ );
+    return ( int ) ( top_ - bottom_ );
 }
 
 int
-DStack::pop (  )
+DStack::pop ()
 {
-	top_--;
-	return *top_;
+    top_--;
+    return *top_;
 }
 
 void
-DStack::empty (  )
+DStack::empty ()
 {
-	delete[]bottom_;
-	bottom_ = new int[origsize_];
+    delete[]bottom_;
+    bottom_ = new int[origsize_];
 
-	top_ = bottom_;
-	size_ = origsize_;
+    top_ = bottom_;
+    size_ = origsize_;
 }
 
-DStack::~DStack (  )
+DStack::~DStack ()
 {
-	delete[]bottom_;
+    delete[]bottom_;
 }

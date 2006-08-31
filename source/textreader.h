@@ -5,8 +5,8 @@
  *                              formerly Codename "Technetium"
  *                             project started August 14, 2006
  *
- * Copyright (c) 2006, Steven Noonan <steven@uplinklabs.net> and Rudolf Olah <omouse@gmail.com>.
- * All rights reserved.
+ * Copyright (c) 2006, Steven Noonan <steven@uplinklabs.net>, Rudolf Olah <omouse@gmail.com>,
+ * and Miah Clayton <miah@io-in.com>. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
@@ -31,43 +31,43 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */  
-	
+    
 #ifndef __included_textreader_h
 #define __included_textreader_h
 
 #include "core_exception.h"
-	
+    
 //! The text file input class.
 /*!
-	Inherits CoreIO, so functions like CoreIO::Read and CoreIO::ReadLine are accessible to the programmer.
+    Inherits CoreIO, so functions like CoreIO::Read and CoreIO::ReadLine are accessible to the programmer.
 */ 
 class TextReader:public CoreIO 
 {
 
 protected:
-	//! The path to the file being read.
-	const char *m_filePath;
+    //! The path to the file being read.
+    const char *m_filePath;
 
 public:
-	//! The constructor.
-	/*!
-		Creates an instance of CoreIO with read access to the file specified in _file.
-		\param _file The path to the file being read.
-		*/ 
-	TextReader ( const char *_file );
+    //! The constructor.
+    /*!
+        Creates an instance of CoreIO with read access to the file specified in _file.
+        \param _file The path to the file being read.
+        */ 
+    TextReader ( const char *_file );
 
-	//! The destructor
-	/*!
-		Closes the file and deallocates memory used by TextReader.
-		*/ 
-	~TextReader (  );
+    //! The destructor
+    /*!
+        Closes the file and deallocates memory used by TextReader.
+        */ 
+    ~TextReader ();
 private:
-	void Write ( const char *_format, ... )
-		{ throw new InvalidCallException(); };
-	void WriteLine (  )
-		{ throw new InvalidCallException(); };
-	void WriteLine ( const char *_format, ... )
-		{ throw new InvalidCallException(); };
+    void Write ( const char *_format, ... )
+        { throw new InvalidCallException(); };
+    void WriteLine ()
+        { throw new InvalidCallException(); };
+    void WriteLine ( const char *_format, ... )
+        { throw new InvalidCallException(); };
 
 };
 

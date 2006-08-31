@@ -5,8 +5,8 @@
  *                              formerly Codename "Technetium"
  *                             project started August 14, 2006
  *
- * Copyright (c) 2006, Steven Noonan <steven@uplinklabs.net> and Rudolf Olah <omouse@gmail.com>.
- * All rights reserved.
+ * Copyright (c) 2006, Steven Noonan <steven@uplinklabs.net>, Rudolf Olah <omouse@gmail.com>,
+ * and Miah Clayton <miah@io-in.com>. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
@@ -33,24 +33,24 @@
  */
 
 #ifndef __included_dstack_h
-#    define __included_dstack_h
+#define __included_dstack_h
 
 class DStack
 {
   private:
-	int step_;
-	int *bottom_;
-	int *top_;
-	int size_;
-	int origsize_;
+    int step_;
+    int *bottom_;
+    int *top_;
+    int size_;
+    int origsize_;
 
   public:
-	  DStack ( int size = 32 );
-	void push ( int val );
-	int num_items (  ) const;
-	int pop (  );
-	void empty (  );
-	 ~DStack (  );
+      DStack ( int size = 32 );
+    void push ( int val );
+    int num_items () const;
+    int pop ();
+    void empty ();
+     ~DStack ();
 };
 
 #endif
