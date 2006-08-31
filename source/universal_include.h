@@ -5,8 +5,8 @@
  *                              formerly Codename "Technetium"
  *                             project started August 14, 2006
  *
- * Copyright (c) 2006, Steven Noonan <steven@uplinklabs.net> and Rudolf Olah <omouse@gmail.com>.
- * All rights reserved.
+ * Copyright (c) 2006, Steven Noonan <steven@uplinklabs.net>, Rudolf Olah <omouse@gmail.com>,
+ * and Miah Clayton <miah@io-in.com>. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
@@ -60,11 +60,9 @@
 #    define MAX_PROCESSORS 4
 
 #    if defined ( _ARCH_PPC ) || defined ( __ppc__ ) || \
-	defined ( __ppc64__ ) || defined ( __PPC ) || \
-defined ( powerpc )
-	|| defined ( __PPC__ ) || \
-defined ( __powerpc64__ )
-	|| defined ( __powerpc64 ) 
+    defined ( __ppc64__ ) || defined ( __PPC ) || \
+    defined ( powerpc ) || defined ( __PPC__ ) || \
+    defined ( __powerpc64__ ) || defined ( __powerpc64 )
 #        	if defined ( __ppc64__ ) || defined ( __powerpc64__ ) || defined ( __powerpc64 )
 #        	define TARGET_CPU_PPC 64
 #        	else
@@ -158,16 +156,19 @@ defined ( __powerpc64__ )
 #    endif
 	
 #    if defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX )
-#	    define ANSI_COLOUR
+#           define ANSI_COLOUR
 #           include <cxxabi.h>
-#           include <execinfo.h>
 #        	include <pthread.h>
 #        	include <sys/types.h>
 #           include <unistd.h>
 #			include <sched.h>
 #			include <ctype.h>
 #    endif
-	
+
+#    if defined ( TARGET_OS_LINUX )
+#           include <execinfo.h>
+#endif
+
 #    include <assert.h>
 #    include <math.h>
 #    include <memory.h>
