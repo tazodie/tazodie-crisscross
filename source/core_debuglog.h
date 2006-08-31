@@ -118,8 +118,8 @@ public:
         Prints the bug report to stdout along with colours.
         \param _lowest_priority The lowest priority of bug information that will be printed.
     */
-    void CoreDebugLog::Print ( CoreIO *_output,
-        CoreDebugLog::BugReportPriority _lowest_priority = BUG_LEVEL_WARNING );
+    void Print ( CoreIO *_output,
+        BugReportPriority _lowest_priority = BUG_LEVEL_WARNING );
 
     //! Save the bug report.
     /*!

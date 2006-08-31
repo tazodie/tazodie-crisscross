@@ -42,6 +42,7 @@ RunApplication ( int argc, char **argv )
 {
     CoreConsole *console = new CoreConsole ();
 
+#if 0
     console->SetColour ( console->FG_RED | console->FG_INTENSITY );
     console->Write ( "Red " );
     console->SetColour ( console->FG_GREEN | console->FG_INTENSITY );
@@ -61,8 +62,8 @@ RunApplication ( int argc, char **argv )
     console->Write ( "White " );
     console->SetColour ( 0 );
     console->WriteLine ();
-
-#if 0
+#endif
+#if 1
     CoreCPUID *cpuid = new CoreCPUID ();
 
     console->SetColour ( console->FG_RED | console->FG_INTENSITY );
