@@ -305,9 +305,9 @@ main ( int argc, char **argv )
 #endif
 
 #ifdef ENABLE_CREDITS
-    g_stdout->
-        WriteLine
-        ( "Powered by " APP_NAME ", " APP_URL );
+    g_stdout->SetColour ( g_stdout->FG_GREEN | g_stdout->FG_INTENSITY );
+    g_stdout->WriteLine ( "Powered by " APP_NAME ", " APP_URL );
+    g_stdout->SetColour ( 0 );
     g_stdout->WriteLine ( APP_COPYRIGHT_CONSOLE );
     g_stdout->WriteLine ();
 #endif
