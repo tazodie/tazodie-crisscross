@@ -97,7 +97,7 @@ class CoreIO
     /*!
        \return An unsigned long indicating the length of the buffer in bytes.
      */
-    virtual unsigned long Length ();
+    virtual size_t Length ();
 
     //! Reads one byte from the file buffer.
     /*!

@@ -122,8 +122,8 @@ CoreDebugLog::Put ( CoreIO *_stream, CoreDebugLog::BugReportPriority _lowest_pri
     for (int i = 0; m_reports->ValidIndex ( i ) ; i++)
     {
         current = m_reports->GetData ( i );
-		if ( current->m_priority < _lowest_priority )
-			continue;
+        if ( current->m_priority < _lowest_priority )
+            continue;
         if (m_common_log_format)
         {
             // Slightly modified Apache Common Log Format

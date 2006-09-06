@@ -7,6 +7,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CrissCross", "source\CrissC
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CrissCross_net", "CrissCross_net\CrissCross_net.vcproj", "{CBDC5799-0F8C-4F87-A4B8-B3CA8C82BA93}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Application", "Application\Application.vcproj", "{FD12E5A5-E163-4337-AD48-0B5A1F093CB9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9520273D-42A8-4E63-A2DC-C209AAAC2B6A} = {9520273D-42A8-4E63-A2DC-C209AAAC2B6A}
+		{CBDC5799-0F8C-4F87-A4B8-B3CA8C82BA93} = {CBDC5799-0F8C-4F87-A4B8-B3CA8C82BA93}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(DPCodeReviewSolutionGUID) = preSolution
 		DPCodeReviewSolutionGUID = {00000000-0000-0000-0000-000000000000}
@@ -32,6 +38,12 @@ Global
 		{CBDC5799-0F8C-4F87-A4B8-B3CA8C82BA93}.Release|Win32.ActiveCfg = Release|Win32
 		{CBDC5799-0F8C-4F87-A4B8-B3CA8C82BA93}.Release|Win32.Build.0 = Release|Win32
 		{CBDC5799-0F8C-4F87-A4B8-B3CA8C82BA93}.Release|x64.ActiveCfg = Release|Win32
+		{FD12E5A5-E163-4337-AD48-0B5A1F093CB9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FD12E5A5-E163-4337-AD48-0B5A1F093CB9}.Debug|Win32.Build.0 = Debug|Win32
+		{FD12E5A5-E163-4337-AD48-0B5A1F093CB9}.Debug|x64.ActiveCfg = Debug|Win32
+		{FD12E5A5-E163-4337-AD48-0B5A1F093CB9}.Release|Win32.ActiveCfg = Release|Win32
+		{FD12E5A5-E163-4337-AD48-0B5A1F093CB9}.Release|Win32.Build.0 = Release|Win32
+		{FD12E5A5-E163-4337-AD48-0B5A1F093CB9}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -65,7 +65,7 @@ public:
 private:
     bool EndOfFile ()
         { throw new InvalidCallException(); };
-    unsigned long Length ()
+    size_t Length ()
         { throw new InvalidCallException(); };
     char Read ()
         { throw new InvalidCallException(); };

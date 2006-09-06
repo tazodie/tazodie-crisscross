@@ -124,7 +124,7 @@ private:
     bool EndOfFile ();
     int Forward ( int _position );
     int Seek ( int _position );
-    unsigned long Length ();
+    size_t Length ();
     size_t Read ( char *_buffer, int _bufferLength, int _bufferIndex,
                   int _count );
 };

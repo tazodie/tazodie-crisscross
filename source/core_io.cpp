@@ -95,7 +95,7 @@ CoreIO::Forward ( int _position )
     return ( res == 0 );
 }
 
-unsigned long
+size_t
 CoreIO::Length ()
 {
     CoreAssert ( this != NULL );
@@ -113,9 +113,9 @@ CoreIO::Length ()
 #endif
 
 #if defined (TARGET_OS_WINDOWS) || defined (TARGET_OS_MACOSX) || defined (TARGET_OS_FREEBSD)
-    return ( unsigned long ) endpos;
+    return ( size_t ) endpos;
 #elif defined (TARGET_OS_LINUX)
-    return ( unsigned long ) endpos.__pos;
+    return ( size_t ) endpos.__pos;
 #endif
 }
 
