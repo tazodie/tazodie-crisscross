@@ -98,8 +98,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory=".\../bin/Debug"
-			IntermediateDirectory=".\../obj/Debug"
+			OutputDirectory="../bin/CrissCross/Debug"
+			IntermediateDirectory="../obj/CrissCross/Debug"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
@@ -131,11 +131,11 @@
 				Optimization="0"
 				AdditionalIncludeDirectories=".,datastructures,../CrissCross_net"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
+				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="universal_include.h"
-				PrecompiledHeaderFile=".\../obj/Debug/Technetium.pch"
 				AssemblerListingLocation=".\../obj/Debug/"
 				ObjectFile=".\../obj/Debug/"
 				ProgramDataBaseFileName=".\../obj/Debug/"

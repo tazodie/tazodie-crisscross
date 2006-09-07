@@ -43,15 +43,15 @@ template < class T > class DArray
 {
 
   private:
-    DStack * empty_nodes;
+    DStack<int>	*empty_nodes;
 
   protected:
 
-    int m_stepSize;
-    int m_arraySize;
+    int			m_stepSize;
+    int			m_arraySize;
 
-    T *array;
-    char *shadow;                //0=not used, 1=used
+    T			*m_array;
+    char		*m_shadow;                //0=not used, 1=used
 
   public:
 

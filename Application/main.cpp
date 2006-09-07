@@ -47,7 +47,7 @@ int
 RunApplication ( int argc, char **argv )
 {
     CoreConsole *console = new CoreConsole ();
-    CoreSocket *socket = new CoreSocket ();
+    /*CoreSocket *socket = new CoreSocket ();
 
     socket->Connect ( "localhost", 3193 );
 
@@ -55,7 +55,7 @@ RunApplication ( int argc, char **argv )
     packet = "\x3there's no place like 127.0.0.1\r\n";
     socket->Send ( packet );
     
-    delete socket;
+    delete socket;*/
     delete console;
     return 0;
 }

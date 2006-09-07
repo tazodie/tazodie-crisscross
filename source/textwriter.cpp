@@ -56,5 +56,5 @@ TextWriter::~TextWriter ()
 {
     Flush ();
     fclose ( m_fileBuffer );
-    delete[]m_filePath;
+    delete [] m_filePath;
 }

@@ -35,23 +35,34 @@
 #include "universal_include.h"
 #include "dstack.h"
 
-DStack::DStack ( int N )
+#ifndef __included_dstack_cpp
+#define __included_dstack_cpp
+
+template < class dataType >
+DStack<dataType>::DStack ( size_t N )
 {
     step_ = 32;
-    bottom_ = new int[N];
+    bottom_ = new dataType[N];
 
     top_ = bottom_;
     size_ = origsize_ = N;
 }
 
-void
-DStack::push ( int val )
+template < class dataType >
+DStack<dataType>::~DStack ()
 {
-    if ( num_items () == size_ )    // the stack is full. need more space!
+    delete [] bottom_;
+}
+
+
+template < class dataType >
+void DStack<dataType>::push ( dataType val )
+{
+    if ( count() == size_ )    // the stack is full. need more space!
     {
-        int *newstack_ = new int[size_ + step_];
-        memcpy ( newstack_, bottom_, sizeof ( int ) * size_ );
-        delete[]bottom_;
+        dataType *newstack_ = new dataType[size_ + step_];
+        memcpy ( newstack_, bottom_, sizeof ( dataType ) * size_ );
+        delete [] bottom_;
         bottom_ = newstack_;
         top_ = bottom_ + size_;
         size_ += step_;
@@ -60,30 +71,27 @@ DStack::push ( int val )
     top_++;
 }
 
-int
-DStack::num_items () const
+template < class dataType >
+size_t DStack<dataType>::count () const
 {
-    return ( int ) ( top_ - bottom_ );
+    return ( top_ - bottom_ );
 }
 
-int
-DStack::pop ()
+template < class dataType >
+typename dataType DStack<dataType>::pop ()
 {
     top_--;
     return *top_;
 }
 
-void
-DStack::empty ()
+template < class dataType >
+void DStack<dataType>::empty ()
 {
-    delete[]bottom_;
-    bottom_ = new int[origsize_];
+    delete [] bottom_;
+    bottom_ = new dataType[origsize_];
 
     top_ = bottom_;
     size_ = origsize_;
 }
 
-DStack::~DStack ()
-{
-    delete[]bottom_;
-}
+#endif

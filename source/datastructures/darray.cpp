@@ -43,25 +43,25 @@
 template < class T > DArray < T >::DArray ()
 {
 
-    empty_nodes = new DStack ();
+    empty_nodes = new DStack<int> ();
     empty_nodes->push ( -1 );
     m_stepSize = -1;
     m_arraySize = 0;
-    array = NULL;
-    shadow = NULL;
+    m_array = NULL;
+    m_shadow = NULL;
 
 }
 
 template < class T > DArray < T >::DArray ( int _newStepSize )
 {
 
-    empty_nodes = new DStack ( _newStepSize + 1 );
+    empty_nodes = new DStack<int> ( _newStepSize + 1 );
     empty_nodes->push ( -1 );
 
     m_stepSize = _newStepSize;
     m_arraySize = 0;
-    array = NULL;
-    shadow = NULL;
+    m_array = NULL;
+    m_shadow = NULL;
 
 }
 
@@ -85,11 +85,11 @@ template < class T > void DArray < T >::SetSize ( int newsize )
         T *temparray = new T[m_arraySize];
         char *tempshadow = new char[m_arraySize];
 
-        if ( array && temparray )
+        if ( m_array && temparray )
         {
-            memcpy ( &temparray[0], &array[0],
+            memcpy ( &temparray[0], &m_array[0],
                      sizeof ( temparray[0] ) * oldarraysize );
-            memcpy ( &tempshadow[0], &shadow[0],
+            memcpy ( &tempshadow[0], &m_shadow[0],
                      sizeof ( tempshadow[0] ) * oldarraysize );
         }
         memset ( &temparray[oldarraysize], 0,
@@ -102,13 +102,13 @@ template < class T > void DArray < T >::SetSize ( int newsize )
             empty_nodes->push ( i );
         }
 
-        if ( array )
-            delete[]array;
-        if ( shadow )
-            delete[]shadow;
+        if ( m_array )
+            delete [] m_array;
+        if ( m_shadow )
+            delete [] m_shadow;
 
-        array = temparray;
-        shadow = tempshadow;
+        m_array = temparray;
+        m_shadow = tempshadow;
 
     }
     else if ( newsize < m_arraySize )
@@ -118,24 +118,24 @@ template < class T > void DArray < T >::SetSize ( int newsize )
         T *temparray = new T[m_arraySize];
         char *tempshadow = new char[m_arraySize];
 
-        if ( array && temparray )
+        if ( m_array && temparray )
         {
-            memcpy ( &temparray[0], &array[0],
+            memcpy ( &temparray[0], &m_array[0],
                      sizeof ( temparray[0] ) * m_arraySize );
-            memcpy ( &tempshadow[0], &shadow[0],
+            memcpy ( &tempshadow[0], &m_shadow[0],
                      sizeof ( tempshadow[0] ) * m_arraySize );
         }
 
         // We need to find nodes that are out of the range and eliminate them.
         // At the same time, find any in-use nodes and remove them from the empty_nodes stack.
-        DStack *temp_stack = new DStack ();
+        DStack<int> *temp_stack = new DStack<int> ();
 
         temp_stack->push ( -1 );
         int _item = 0;
 
         while ( ( _item = empty_nodes->pop () ) > 0 )
             if ( _item < m_arraySize )
-                if ( shadow[_item] == 0 )
+                if ( m_shadow[_item] == 0 )
                     temp_stack->push ( _item );    // Node is deemed valid.
 
         empty_nodes->empty ();    // Aaaaaaand flush.
@@ -145,13 +145,13 @@ template < class T > void DArray < T >::SetSize ( int newsize )
 
         delete temp_stack;
 
-        if ( array )
-            delete[]array;
-        if ( shadow )
-            delete[]shadow;
+        if ( m_array )
+            delete [] m_array;
+        if ( m_shadow )
+            delete [] m_shadow;
 
-        array = temparray;
-        shadow = tempshadow;
+        m_array = temparray;
+        m_shadow = tempshadow;
 
     }
     else if ( newsize == m_arraySize )
@@ -197,8 +197,8 @@ template < class T > int DArray < T >::PutData ( const T & newdata )
 
     while ( ( freespace = empty_nodes->pop () ) != -1 )
     {
-        if ( shadow )
-            if ( shadow[freespace] == 0 )
+        if ( m_shadow )
+            if ( m_shadow[freespace] == 0 )
                 break;            // Found one!
     }
 
@@ -209,9 +209,9 @@ template < class T > int DArray < T >::PutData ( const T & newdata )
         Grow ();
     }
 
-    array[freespace] = newdata;
+    m_array[freespace] = newdata;
 
-    shadow[freespace] = 1;
+    m_shadow[freespace] = 1;
 
     return freespace;
 
@@ -223,22 +223,22 @@ template < class T >
 
     CoreAssert ( index < m_arraySize && index >= 0 );
 
-    array[index] = newdata;
+    m_array[index] = newdata;
 
-    shadow[index] = 1;
+    m_shadow[index] = 1;
 }
 
 template < class T > void DArray < T >::Empty ()
 {
 
-    if ( array != NULL )
-        delete[]array;
+    if ( m_array != NULL )
+        delete [] m_array;
 
-    if ( shadow != NULL )
-        delete[]shadow;
+    if ( m_shadow != NULL )
+        delete [] m_shadow;
 
-    array = NULL;
-    shadow = NULL;
+    m_array = NULL;
+    m_shadow = NULL;
 
     empty_nodes->empty ();
     empty_nodes->push ( -1 );
@@ -250,20 +250,20 @@ template < class T > void DArray < T >::Empty ()
 template < class T > T DArray < T >::GetData ( int index )
 {
 
-    CoreAssert ( shadow[index] != 0 );
+    CoreAssert ( m_shadow[index] != 0 );
     CoreAssert ( index < m_arraySize && index >= 0 );
 
-    return array[index];
+    return m_array[index];
 
 }
 
 template < class T > T & DArray < T >::operator []( int index )
 {
 
-    CoreAssert ( shadow[index] != 0 );
+    CoreAssert ( m_shadow[index] != 0 );
     CoreAssert ( index < m_arraySize && index >= 0 );
 
-    return array[index];
+    return m_array[index];
 }
 
 
@@ -271,23 +271,23 @@ template < class T >
     void DArray < T >::ChangeData ( const T & newdata, int index )
 {
 
-    CoreAssert ( shadow[index] != 0 );
+    CoreAssert ( m_shadow[index] != 0 );
     CoreAssert ( index < m_arraySize && index >= 0 );
 
     PutData ( newdata, index );
-    shadow[index] = 1;
+    m_shadow[index] = 1;
 
 }
 
 template < class T > void DArray < T >::RemoveData ( int index )
 {
 
-    CoreAssert ( shadow[index] != 0 );
+    CoreAssert ( m_shadow[index] != 0 );
     CoreAssert ( index < m_arraySize && index >= 0 );
 
     empty_nodes->push ( index );
 
-    shadow[index] = 0;
+    m_shadow[index] = 0;
 
 }
 
@@ -297,7 +297,7 @@ template < class T > int DArray < T >::NumUsed ()
     int count = 0;
 
     for ( int a = 0; a < m_arraySize; ++a )
-        if ( shadow[a] == 1 )
+        if ( m_shadow[a] == 1 )
             ++count;
     return count;
 
@@ -314,7 +314,7 @@ template < class T > bool DArray < T >::ValidIndex ( int index )
     if ( index >= m_arraySize || index < 0 )
         return false;
 
-    if ( !shadow[index] )
+    if ( !m_shadow[index] )
         return false;
 
     return true;
@@ -325,8 +325,8 @@ template < class T > int DArray < T >::FindData ( const T & newdata )
 {
 
     for ( int a = 0; a < m_arraySize; ++a )
-        if ( shadow[a] )
-            if ( array[a] == newdata )
+        if ( m_shadow[a] )
+            if ( m_array[a] == newdata )
                 return a;
 
     return -1;

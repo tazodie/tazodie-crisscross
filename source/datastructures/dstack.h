@@ -35,22 +35,26 @@
 #ifndef __included_dstack_h
 #define __included_dstack_h
 
+template < class dataType >
 class DStack
 {
-  private:
-    int step_;
-    int *bottom_;
-    int *top_;
-    int size_;
-    int origsize_;
+private:
+	size_t						step_;
+	dataType					*bottom_;
+	dataType					*top_;
+	size_t						size_;
+	size_t						origsize_;
 
-  public:
-      DStack ( int size = 32 );
-    void push ( int val );
-    int num_items () const;
-    int pop ();
-    void empty ();
-     ~DStack ();
+public:
+	DStack						( size_t size = 32 );
+	~DStack						();
+
+	void			push		( dataType val );
+	size_t			count		() const;
+	dataType		pop			();
+	void			empty		();
 };
+
+#include "dstack.cpp"
 
 #endif

@@ -56,7 +56,7 @@ m_fileBuffer ( _fileBuffer )
 
 CoreIO::~CoreIO ()
 {
-    delete[]m_lineEnding;
+    delete [] m_lineEnding;
     m_lineEnding = NULL;
 #ifndef __GNUC__
     delete m_ioMutex;

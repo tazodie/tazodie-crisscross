@@ -223,13 +223,13 @@ CoreCPUID::~CoreCPUID ()
     // Time to deallocate all the memory we allocated.
     int i = 0, j = 0;
 
-    delete[]Std;
-    delete[]Ext;
+    delete [] Std;
+    delete [] Ext;
     for ( i = 0; i < MAX_PROCESSORS; i++ )
     {
         while ( proc[i]->caches.ValidIndex ( j ) )
         {
-            delete[]proc[i]->caches.GetData ( j );
+            delete [] proc[i]->caches.GetData ( j );
             j++;
         }
         j = 0;
@@ -244,8 +244,8 @@ CoreCPUID::~CoreCPUID ()
             node->data = NULL;
             proc[i]->features.getNext ( &node );
         }
-        delete[]proc[i]->Manufacturer;
-        delete[]proc[i]->ProcessorName;
+        delete [] proc[i]->Manufacturer;
+        delete [] proc[i]->ProcessorName;
         delete proc[i];
     }
 }
