@@ -52,15 +52,22 @@ namespace CrissCross
         {
         private:
             socket_t m_sock;
-        public:
-            CoreSocket();
-            ~CoreSocket();
+            char *Internal_Read ( int len ) const;
 
-            void Connect ( const char *_address, unsigned short _port );
+        public:
+            CoreSocket ();
+            CoreSocket ( socket_t socket );
+            ~CoreSocket ();
+
+            CoreSocket *Accept ();
+            int Close ();
+            int Connect ( const char *_address, unsigned short _port );
+            /* int State () const; */
+            int Listen ( unsigned short _port );
             std::string Read ( int len ) const;
             std::string ReadLine () const;
-            bool Send ( const char *_packet, size_t _length );
-            bool Send ( std::string _packet );
+            int Send ( const char *_packet, size_t _length );
+            int Send ( std::string _packet );
 
         };
     }

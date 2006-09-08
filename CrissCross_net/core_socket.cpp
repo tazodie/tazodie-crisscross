@@ -33,33 +33,63 @@
  */
 
 #include "universal_include.h"
+#include "core_debug.h"
 #include "core_network.h"
 #include "core_socket.h"
 
 using namespace CrissCross::Network;
 
 CoreSocket::CoreSocket()
+    : m_sock ( 0 )
 {
     __initialise_network();
     memset ( &m_sock, 0, sizeof ( socket_t ) );
 }
 
+CoreSocket::CoreSocket ( socket_t socket )
+    : m_sock ( 0 )
+{
+    /* Calling __initialise_network() is NOT
+       necessary if we have a socket to copy. */
+    CoreAssert ( socket != NULL );
+    m_sock = socket;
+}
+
 CoreSocket::~CoreSocket()
 {
+    if ( m_sock != 0 )
+    {
 #ifdef TARGET_OS_WINDOWS
-    closesocket ( m_sock );
+        closesocket ( m_sock );
 #else
-    close ( m_sock );
+        close ( m_sock );
 #endif
+    }
     __cleanup_network();
 }
 
-void CoreSocket::Connect ( const char *_address, unsigned short _port )
+int CoreSocket::Close()
+{
+#ifdef TARGET_OS_WINDOWS
+    return closesocket ( m_sock );
+#else
+    close ( m_sock );
+#endif
+}
+
+int CoreSocket::Connect ( const char *_address, unsigned short _port )
 {
     struct sockaddr_in sin;
     struct hostent *host;
 
     m_sock = socket ( AF_INET, SOCK_STREAM, 0 );
+    if ( m_sock == INVALID_SOCKET )
+        return 1;
+
+    int optval = 1, optlen = sizeof optval;
+    int err = setsockopt ( m_sock, IPPROTO_TCP,
+        TCP_NODELAY, (char *) &optval, optlen );
+    CoreAssert ( err == 0 );
 
     host = gethostbyname ( _address );
 
@@ -68,45 +98,129 @@ void CoreSocket::Connect ( const char *_address, unsigned short _port )
     sin.sin_addr.s_addr = ( ( struct in_addr * ) ( host->h_addr ) )->s_addr;
     sin.sin_port = htons ( _port );
 
-    if ( connect ( m_sock, ( ( struct sockaddr * ) &sin ), sizeof ( sin ) ) < 0 )
+    if ( connect ( m_sock, ( ( struct sockaddr * ) 
+        &sin ), sizeof ( sin ) ) == SOCKET_ERROR )
     {
 #ifdef TARGET_OS_WINDOWS
         closesocket ( m_sock );
 #else
         close ( m_sock );
 #endif
+        return 2;
     }
+    return 0;
 }
 
-std::string CoreSocket::Read ( int len ) const
+CoreSocket *CoreSocket::Accept()
 {
+    struct sockaddr_in sin; int sin_size = sizeof ( sin );
+    memset ( &sin, 0, sizeof ( sin ) );
+    socket_t sock = accept ( m_sock, (sockaddr *)&sin, &sin_size );
+    if ( sock != INVALID_SOCKET )
+    {
+        CoreSocket *csock = new CoreSocket ( sock  );
+        return csock;
+    }
+    return NULL;
+}
+
+int CoreSocket::Listen ( unsigned short _port )
+{
+    struct sockaddr_in sin;
+    memset ( &sin, 0, sizeof ( sin ) );
+
+    sin.sin_family = PF_INET;
+    sin.sin_addr.s_addr = INADDR_ANY;
+    sin.sin_port = htons ( _port );
+    m_sock = socket ( AF_INET, SOCK_STREAM, 0 );
+
+    if ( m_sock == INVALID_SOCKET )
+        return 1;
+
+    int optval = 1, optlen = sizeof optval;
+    int err = setsockopt ( m_sock, IPPROTO_TCP,
+        TCP_NODELAY, (char *) &optval, optlen );
+    CoreAssert ( err == 0 );
+
+    unsigned long arg = 1;
+    ioctlsocket ( m_sock, FIONBIO, &arg );
+
+    if ( bind ( m_sock, (sockaddr *)&sin, sizeof ( sin ) ) == SOCKET_ERROR )
+    {
+#ifdef TARGET_OS_WINDOWS
+        closesocket ( m_sock );
+#else
+        close ( m_sock );
+#endif
+        return 2;
+    }
+
+    if ( listen ( m_sock, 10 ) == SOCKET_ERROR )
+    {
+#ifdef TARGET_OS_WINDOWS
+        closesocket ( m_sock );
+#else
+        close ( m_sock );
+#endif
+        return 3;
+    }
+
+    return 0;
+}
+
+char *CoreSocket::Internal_Read ( int len ) const
+{
+    CoreAssert ( m_sock != NULL );
+
     char *buf = new char[len];
-    std::string ret;
-#ifdef TARGET_OS_WINDOWS 
+
+#ifdef TARGET_OS_WINDOWS
     recv (m_sock, buf, len, 0 );
 #else
     read ( m_sock, buf, len );
 #endif
-    
-    ret = std::string(buf);
+
+    return buf;
+
+}
+
+std::string CoreSocket::Read ( int len ) const
+{
+    CoreAssert ( m_sock != NULL );
+
+    char *buf = new char[len];
+    std::string ret;
+
+#ifdef TARGET_OS_WINDOWS
+    recv (m_sock, buf, len, 0 );
+#else
+    read ( m_sock, buf, len );
+#endif
+
+    ret = std::string ( buf );
 
     delete [] buf;
 
     return ret;
-
 }
 
 std::string CoreSocket::ReadLine () const
 {
+    CoreAssert ( m_sock != NULL );
+
     const char *current;
     char line[8192];
     std::string retval;
 
     do {
-        current = this->Read(1).c_str();
+
+        current = this->Internal_Read(1);
 
         if ( *current != '\n' && *current != '\r')
             strcat ( line, current );
+
+        delete [] current;
+
     } while ( *current != '\n' && *current != '\r');
 
     retval = std::string ( line );
@@ -114,132 +228,20 @@ std::string CoreSocket::ReadLine () const
     return retval;
 }
 
-bool CoreSocket::Send ( const char *_packet, size_t _length )
+int CoreSocket::Send ( const char *_packet, size_t _length )
 {
+    CoreAssert ( m_sock != NULL );
+
     int n = 0, sent = 0;
-    send ( m_sock, _packet, (int)_length, 0 );
-    return sent > 0;
+    sent = send ( m_sock, _packet, (int)_length, 0 );
+    return sent;
 }
 
-bool CoreSocket::Send ( std::string _packet )
+int CoreSocket::Send ( std::string _packet )
 {
+    CoreAssert ( m_sock != NULL );
+
     int n = 0, sent = 0;
-    send ( m_sock, _packet.c_str(), (int)_packet.size(), 0 );
-    return sent > 0;
+    sent = send ( m_sock, _packet.c_str(), (int)_packet.size(), 0 );
+    return sent;
 }
-
-#if 0
-
-#include <stdio.h>
-#include <string.h>
-#include <errno.h>
-#include <sys/types.h>
-
-#ifdef __WIN32__
-# include <winsock.h>
-#else
-# include <sys/param.h>
-# include <sys/socket.h>
-# include <netdb.h>
-# include <netinet/in.h>
-# include <arpa/inet.h>
-#endif
-
-#include <fcntl.h>
-#include <unistd.h>
-#include "Socket.h"
-
-using namespace Warlock;
-
-Socket::Socket(const char *server, int port)
-{
-    struct sockaddr_in sin;
-    struct hostent *host;
-    int opt;
-    //socket_t sock;
-
-#ifdef __WIN32__
-    WORD version = MAKEWORD(1,1);
-    WSADATA wsaData;
-
-    WSAStartup(version, &wsaData);
-#endif
-
-    sock = socket(AF_INET, SOCK_STREAM, 0);
-
-    host = gethostbyname(server);
-    memset(&sin, 0, sizeof(sin));
-    sin.sin_family = AF_INET;
-    sin.sin_addr.s_addr = ((struct in_addr *)(host->h_addr))->s_addr;
-    sin.sin_port = htons(port);
-
-    if ( connect(sock, ((struct sockaddr *)&sin), sizeof(sin)) < 0 )
-    {
-#ifdef __WIN32__
-    closesocket(sock);
-#else
-        close(sock);
-#endif
-    }
-
-}
-
-char* Socket::Read(int len)
-{
-    char *buf = new char[len];
-#ifdef __WIN32__ 
-    recv(sock, buf, len, 0);
-#else
-    read(sock, buf, len);
-#endif
-
-    /*if (n == 0) return -1;
-    if (n == -1 && errno == EWOULDBLOCK) return 0;*/
-  
-return buf;
-
-}
-
-string Socket::ReadLine ()
-{
-    char *current;
-    string line;
-
-    do {
-        current = this->Read(1);
-
-        if ( *current != '\n' && *current != '\r')
-            line += current;
-    } while ( *current != '\n' && *current != '\r');
-
-    return line;
-}
-
-bool Socket::Write(char *data)
-{
-    int n = 0, sent = 0;
-    int len = strlen(data) + 1;
-    
-    /*do
-    {
-        n = send(sock, data+sent, len-sent, 0);
-        if (n == 0) return -1;
-        if (n == -1)
-        {
-            if (errno == EWOULDBLOCK || errno == EAGAIN) continue;
-            return -1;
-        }
-        sent += n;
-    }
-    while (sent != len);*/
-
-    send(this->sock, data, len, 0);
-    return sent > 0;
-}
-
-/*bool Socket::Write(string data)
-{
-    cout << "Writing " << data.c_str() << " to socket";
-    return this->Write(data.c_str());
-}*/
-#endif

@@ -37,25 +37,55 @@
 
 #include "universal_include.h"
 
+#include "datastructures/llist.h"
 #include "core_console.h"
 #include "core_cpuid.h"
 #include "core_socket.h"
+#include "core_system.h"
 
 using namespace CrissCross::Network;
+
+LList<CoreSocket *> *sockets;
 
 int
 RunApplication ( int argc, char **argv )
 {
     CoreConsole *console = new CoreConsole ();
-    /*CoreSocket *socket = new CoreSocket ();
+    sockets = new LList<CoreSocket *>;
 
-    socket->Connect ( "localhost", 3193 );
+    console->WriteLine ( "Creating CoreSystem..." );
+    CoreSystem *system = new CoreSystem ();
+    console->WriteLine ( "Creating CoreSocket..." );
+    CoreSocket *socket = new CoreSocket ();
+    CoreSocket *tsock = NULL;
+    char buffer[10240];
 
-    std::string packet;
-    packet = "\x3there's no place like 127.0.0.1\r\n";
-    socket->Send ( packet );
+    console->WriteLine ( "CoreSocket is listening on port 3193..." );
+    CoreAssert ( socket->Listen ( 3193 ) == 0 );
+
+    while ( true )
+    {
+        // console->WriteLine ( "Clearing variables..." );
+        memset ( buffer, 0, sizeof ( buffer ) );
+        tsock = NULL;
+
+        
+        console->Write ( "Attempting to accept a connection... " );
+        if ( ( tsock = socket->Accept() ) != NULL)
+        {
+            console->WriteLine ( "Accepted." );
+            sockets->PutData ( tsock );
+            strcat ( buffer, "Good day, sir." );
+            tsock->Send ( buffer, sizeof ( buffer ) );
+        } else {
+            console->WriteLine ( "None available." );
+        }
+
+        system->ThreadSleep ( 1000 );
+    }
     
-    delete socket;*/
+    delete system;
+    delete socket;
     delete console;
     return 0;
 }
