@@ -552,6 +552,7 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug|Win32"
+					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -627,6 +628,26 @@
 			</File>
 			<File
 				RelativePath="datastructures\rbtree.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Net"
+			>
+			<File
+				RelativePath=".\core_network.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\core_network.h"
+				>
+			</File>
+			<File
+				RelativePath=".\core_socket.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\core_socket.h"
 				>
 			</File>
 		</Filter>
