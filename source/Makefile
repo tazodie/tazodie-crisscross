@@ -3,13 +3,14 @@ OUTDIR = ..
 OUTBIN = crisscross-test
 
 SOURCES = \
-datastructures/dstack.cpp \
 core_console.cpp \
 core_cpuid.cpp \
 core_debug.cpp \
 core_debuglog.cpp \
 core_io.cpp \
 core_mutex.cpp \
+core_network.cpp \
+core_socket.cpp \
 core_system.cpp \
 core_thread.cpp \
 textreader.cpp \

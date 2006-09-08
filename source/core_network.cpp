@@ -35,6 +35,11 @@
 #include "universal_include.h"
 #include "core_network.h"
 
+#if !defined ( TARGET_OS_WINDOWS )
+#    include <sys/socket.h>
+#    include <signal.h>
+#endif
+
 static int s_initialised = 0;
 
 int

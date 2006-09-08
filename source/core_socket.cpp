@@ -37,6 +37,18 @@
 #include "core_network.h"
 #include "core_socket.h"
 
+#if !defined ( TARGET_OS_WINDOWS )
+#    include <asm/ioctls.h>
+#    include <netdb.h>
+#    include <netinet/in.h>
+#    include <netinet/tcp.h>
+#    include <sys/ioctl.h>
+#    include <sys/socket.h>
+#    include <signal.h>
+#    define INVALID_SOCKET -1
+#    define SOCKET_ERROR -1
+#endif
+
 using namespace CrissCross::Network;
 
 CoreSocket::CoreSocket()
@@ -51,7 +63,7 @@ CoreSocket::CoreSocket ( socket_t socket )
 {
     /* Calling __initialise_network() is NOT
        necessary if we have a socket to copy. */
-    CoreAssert ( socket != NULL );
+    CoreAssert ( socket != 0 );
     m_sock = socket;
 }
 
@@ -71,10 +83,12 @@ CoreSocket::~CoreSocket()
 int CoreSocket::Close()
 {
 #ifdef TARGET_OS_WINDOWS
-    return closesocket ( m_sock );
+    int retval = closesocket ( m_sock );
 #else
-    close ( m_sock );
+    int retval = close ( m_sock );
 #endif
+    m_sock = 0;
+    return retval;
 }
 
 int CoreSocket::Connect ( const char *_address, unsigned short _port )
@@ -115,7 +129,7 @@ CoreSocket *CoreSocket::Accept()
 {
     struct sockaddr_in sin; int sin_size = sizeof ( sin );
     memset ( &sin, 0, sizeof ( sin ) );
-    socket_t sock = accept ( m_sock, (sockaddr *)&sin, &sin_size );
+    socket_t sock = accept ( m_sock, (sockaddr *)&sin, (socklen_t *)&sin_size );
     if ( sock != INVALID_SOCKET )
     {
         CoreSocket *csock = new CoreSocket ( sock  );
@@ -143,7 +157,11 @@ int CoreSocket::Listen ( unsigned short _port )
     CoreAssert ( err == 0 );
 
     unsigned long arg = 1;
+#if defined ( TARGET_OS_WINDOWS )
     ioctlsocket ( m_sock, FIONBIO, &arg );
+#else
+    ioctl ( m_sock, FIONBIO, &arg );
+#endif
 
     if ( bind ( m_sock, (sockaddr *)&sin, sizeof ( sin ) ) == SOCKET_ERROR )
     {
@@ -170,7 +188,7 @@ int CoreSocket::Listen ( unsigned short _port )
 
 char *CoreSocket::Internal_Read ( int len ) const
 {
-    CoreAssert ( m_sock != NULL );
+    CoreAssert ( m_sock != 0 );
 
     char *buf = new char[len];
 
@@ -186,7 +204,7 @@ char *CoreSocket::Internal_Read ( int len ) const
 
 std::string CoreSocket::Read ( int len ) const
 {
-    CoreAssert ( m_sock != NULL );
+    CoreAssert ( m_sock != 0 );
 
     char *buf = new char[len];
     std::string ret;
@@ -206,7 +224,7 @@ std::string CoreSocket::Read ( int len ) const
 
 std::string CoreSocket::ReadLine () const
 {
-    CoreAssert ( m_sock != NULL );
+    CoreAssert ( m_sock != 0 );
 
     const char *current;
     char line[8192];
@@ -230,18 +248,18 @@ std::string CoreSocket::ReadLine () const
 
 int CoreSocket::Send ( const char *_packet, size_t _length )
 {
-    CoreAssert ( m_sock != NULL );
+    CoreAssert ( m_sock != 0 );
 
-    int n = 0, sent = 0;
+    int sent = 0;
     sent = send ( m_sock, _packet, (int)_length, 0 );
     return sent;
 }
 
 int CoreSocket::Send ( std::string _packet )
 {
-    CoreAssert ( m_sock != NULL );
+    CoreAssert ( m_sock != 0 );
 
-    int n = 0, sent = 0;
+    int sent = 0;
     sent = send ( m_sock, _packet.c_str(), (int)_packet.size(), 0 );
     return sent;
 }

@@ -46,12 +46,12 @@ private:
 	size_t						origsize_;
 
 public:
-	DStack						( size_t size = 32 );
-	~DStack						();
+	DStack					( size_t size = 32 );
+	~DStack					();
 
 	void			push		( dataType val );
 	size_t			count		() const;
-	dataType		pop			();
+	dataType		pop		();
 	void			empty		();
 };
 
