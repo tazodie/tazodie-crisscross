@@ -48,7 +48,7 @@ CrissCross::Network::__initialise_network()
     if ( !s_initialised ) {
 #ifdef TARGET_OS_WINDOWS
         /* Start up the windows networking */
-        WORD version_wanted = MAKEWORD(1,1);
+        WORD version_wanted = WINSOCK_VERSION;
         WSADATA wsaData;
 
         if ( WSAStartup(version_wanted, &wsaData) != 0 ) {

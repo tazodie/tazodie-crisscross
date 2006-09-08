@@ -54,14 +54,14 @@
 using namespace CrissCross::Network;
 
 CoreSocket::CoreSocket()
-    : m_sock ( 0 )
+    : m_sock ( INVALID_SOCKET ), m_calledInitialise ( 1 )
 {
     __initialise_network();
     memset ( &m_sock, 0, sizeof ( socket_t ) );
 }
 
 CoreSocket::CoreSocket ( socket_t socket )
-    : m_sock ( 0 )
+    : m_sock ( INVALID_SOCKET ), m_calledInitialise ( 0 )
 {
     /* Calling __initialise_network() is NOT
        necessary if we have a socket to copy. */
@@ -71,7 +71,7 @@ CoreSocket::CoreSocket ( socket_t socket )
 
 CoreSocket::~CoreSocket()
 {
-    if ( m_sock != 0 )
+    if ( m_sock != INVALID_SOCKET )
     {
 #ifdef TARGET_OS_WINDOWS
         closesocket ( m_sock );
@@ -79,7 +79,30 @@ CoreSocket::~CoreSocket()
         close ( m_sock );
 #endif
     }
-    __cleanup_network();
+    if ( m_calledInitialise == 1 )
+        __cleanup_network();
+}
+
+socket_t CoreSocket::GetSocket()
+{
+    return m_sock;
+}
+
+int CoreSocket::Ban ( unsigned long _host )
+{
+    if ( m_banned_hosts.findNode ( &_host ) == NULL )
+        m_banned_hosts.insert ( &_host, (char *)1 );
+    else
+        return -1;
+    return 0;
+}
+
+bool CoreSocket::IsBanned ( unsigned long _host ) const
+{
+    if ( m_banned_hosts.find ( &_host ) )
+        return true;
+    else
+        return false;
 }
 
 int CoreSocket::Close()
@@ -102,10 +125,7 @@ int CoreSocket::Connect ( const char *_address, unsigned short _port )
     if ( m_sock == INVALID_SOCKET )
         return 1;
 
-    int optval = 1, optlen = sizeof optval;
-    int err = setsockopt ( m_sock, IPPROTO_TCP,
-        TCP_NODELAY, (char *) &optval, optlen );
-    CoreAssert ( err == 0 );
+    SetAttributes ( m_sock );
 
     host = gethostbyname ( _address );
 
@@ -126,15 +146,37 @@ int CoreSocket::Connect ( const char *_address, unsigned short _port )
     }
     return 0;
 }
-
 CoreSocket *CoreSocket::Accept()
 {
-    struct sockaddr_in sin; int sin_size = sizeof ( sin );
-    memset ( &sin, 0, sizeof ( sin ) );
-    socket_t sock = accept ( m_sock, (sockaddr *)&sin, (socklen_t *)&sin_size );
+    /* TODO: Implement a much more elegant ability to
+             REJECT a connection if it IsBanned(). */
+#if !defined ( TARGET_OS_WINDOWS )
+    struct sockaddr_in saddr_sock; int sock_size = sizeof(saddr_sock);
+    memset ( &saddr_sock, 0, sizeof(saddr_sock) );
+    getpeername ( m_sock, (sockaddr *)&saddr_sock, &sock_size );
+    if ( IsBanned ( saddr_sock.sin_addr.s_addr ) )
+    {
+        return NULL;
+    }
+
+    socket_t sock = accept ( m_sock, 0, 0 );
+#else
+    socket_t sock = accept ( m_sock, 0, 0 );
+
+    struct sockaddr_in saddr_sock; int sock_size = sizeof(saddr_sock);
+    memset ( &saddr_sock, 0, sizeof(saddr_sock) );
+    getpeername ( sock, (sockaddr *)&saddr_sock, &sock_size );
+    if ( IsBanned ( saddr_sock.sin_addr.s_addr ) )
+    {
+        closesocket ( sock );
+        return NULL;
+    }
+#endif
+
     if ( sock != INVALID_SOCKET )
     {
-        CoreSocket *csock = new CoreSocket ( sock  );
+        SetAttributes ( sock );
+        CoreSocket *csock = new CoreSocket ( sock );
         return csock;
     }
     return NULL;
@@ -153,10 +195,7 @@ int CoreSocket::Listen ( unsigned short _port )
     if ( m_sock == INVALID_SOCKET )
         return 1;
 
-    int optval = 1, optlen = sizeof optval;
-    int err = setsockopt ( m_sock, IPPROTO_TCP,
-        TCP_NODELAY, (char *) &optval, optlen );
-    CoreAssert ( err == 0 );
+    SetAttributes ( m_sock );
 
     unsigned long arg = 1;
 #if defined ( TARGET_OS_WINDOWS )
@@ -188,42 +227,43 @@ int CoreSocket::Listen ( unsigned short _port )
     return 0;
 }
 
-char *CoreSocket::Internal_Read ( int len ) const
+char *CoreSocket::Internal_Read ( int _len ) const
 {
     CoreAssert ( m_sock != 0 );
 
-    char *buf = new char[len + 1];
-    memset ( buf, 0, len + 1 );
+    char *buf = new char[_len + 1];
+    memset ( buf, 0, _len + 1 );
 
-#ifdef TARGET_OS_WINDOWS
-    recv ( m_sock, buf, len, 0 );
-#else
-    read ( m_sock, buf, len );
-#endif
+    recv ( m_sock, buf, _len, 0 );
 
     return buf;
 
 }
 
-std::string CoreSocket::Read ( int len ) const
+int CoreSocket::Read ( std::string &_output, int _len ) const
 {
     CoreAssert ( m_sock != 0 );
 
-    char *buf = new char[len + 1];
-    memset ( buf, 0, len + 1 );
-    std::string ret;
+    char *buf = new char[_len + 1];
+    memset ( buf, 0, _len + 1 );
+    int ret = 0, recvlen = 0;
 
-#ifdef TARGET_OS_WINDOWS
-    recv (m_sock, buf, len, 0 );
-#else
-    read ( m_sock, buf, len );
-#endif
+    recvlen = recv ( m_sock, buf, _len, 0 );
+    ret = errno;
 
-    ret = std::string ( buf );
+    _output = std::string ( buf );
 
     delete [] buf;
 
+    if ( recvlen == 0 ) return -2;
     return ret;
+}
+
+int CoreSocket::Read ( char **_output, int _len ) const
+{
+    /* TODO: MERGE INTERNAL_READ HERE */
+    *_output = Internal_Read ( _len );
+    return 0;
 }
 
 int CoreSocket::Send ( const char *_packet, size_t _length )
@@ -242,4 +282,16 @@ int CoreSocket::Send ( std::string _packet )
     int sent = 0;
     sent = send ( m_sock, _packet.c_str(), (int)_packet.size(), 0 );
     return sent;
+}
+
+int CoreSocket::SetAttributes ( socket_t _socket )
+{
+    int optval = 1, optlen = sizeof optval;
+    int err = setsockopt ( _socket, IPPROTO_TCP,
+        TCP_NODELAY, (char *) &optval, optlen );
+    if ( err != 0 ) return -1;
+    err = setsockopt ( _socket, IPPROTO_TCP,
+        SO_KEEPALIVE, (char *) &optval, optlen );
+    if ( err != 0 ) return -1;
+    return 0;
 }

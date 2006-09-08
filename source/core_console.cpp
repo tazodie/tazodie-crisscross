@@ -59,7 +59,7 @@ CoreIO ( stdout )
         i = setvbuf ( stdout, NULL, _IONBF, 0 );
     }
 
-    SetConsoleTitle ( "Codename \"" APP_CODENAME "\" " APP_VERSION );
+    SetConsoleTitle ( APP_NAME " " APP_VERSION );
 #endif
 }
 

@@ -37,7 +37,7 @@
     
 #    define APP_NAME        "CrissCross"
 #    define APP_CODENAME    "Technetium"
-#    define APP_VERSION     "private-0.3.0"
+#    define APP_VERSION     "0.3.6"
 #    define APP_URL         "http://www.uplinklabs.net/crisscross/"
 #    define APP_COPYRIGHT   "(c) 2006 by Steven Noonan <steven@uplinklabs.net> and Rudolf Olah <omouse@gmail.com>"
 #    define APP_COPYRIGHT_CONSOLE   "(c) 2006 by Steven Noonan <steven@uplinklabs.net>,\n" \
@@ -147,6 +147,7 @@
 #            if defined ( DETECT_MEMORY_LEAKS )
 #                define _CRTDBG_MAP_ALLOC
 #            endif
+#            include <winsock2.h>
 #            include <io.h>
 #            include <fcntl.h>
 #            include <windows.h>

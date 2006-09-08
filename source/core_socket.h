@@ -37,8 +37,10 @@
 
 #include "core_network.h"
 
+#include "datastructures/rbtree.h"
+
 #ifdef TARGET_OS_WINDOWS
-# include <winsock.h>
+# include <winsock2.h>
 # define socket_t SOCKET
 #else
 # define socket_t int
@@ -51,22 +53,28 @@ namespace CrissCross
         class CoreSocket
         {
         private:
+            RedBlackTree<char*,u_long*> m_banned_hosts;
+            char m_calledInitialise;
             socket_t m_sock;
-            char *Internal_Read ( int len ) const;
-
+            char *Internal_Read ( int _len ) const;
+            int SetAttributes ( socket_t _socket );
         public:
             CoreSocket ();
             CoreSocket ( socket_t socket );
             ~CoreSocket ();
 
             CoreSocket *Accept ();
+            int Ban ( unsigned long _host );
+            bool IsBanned ( unsigned long _host ) const;
             int Close ();
             int Connect ( const char *_address, unsigned short _port );
             /* int State () const; */
             int Listen ( unsigned short _port );
-            std::string Read ( int len ) const;
+            int Read ( char **_output, int _len ) const;
+            int Read ( std::string &_output, int _len ) const;
             int Send ( const char *_packet, size_t _length );
             int Send ( std::string _packet );
+            socket_t GetSocket ();
 
         };
     }

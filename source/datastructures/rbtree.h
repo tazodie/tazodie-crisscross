@@ -103,8 +103,12 @@ template < class dataType, class keyType > class RedBlackTree
   protected:
     inline char *reallocKey ( char *pointer, char *a );
     inline int *reallocKey ( int *pointer, int *a );
+    inline unsigned long *reallocKey ( unsigned long *pointer, unsigned long *a );
+
     inline char *newKey ( char *a );
     inline int *newKey ( int *a );
+    inline unsigned long *newKey ( unsigned long *a );
+
     inline bool compLT ( const char *a, const char *b ) const;
     inline bool compLTEQU ( const char *a, const char *b ) const;
     inline bool compEQ ( const char *a, const char *b ) const;
@@ -112,6 +116,10 @@ template < class dataType, class keyType > class RedBlackTree
     inline bool compLT ( const int *a, const int *b ) const;
     inline bool compLTEQU ( const int *a, const int *b ) const;
     inline bool compEQ ( const int *a, const int *b ) const;
+
+    inline bool compLT ( const unsigned long *a, const unsigned long *b ) const;
+    inline bool compLTEQU ( const unsigned long *a, const unsigned long *b ) const;
+    inline bool compEQ ( const unsigned long *a, const unsigned long *b ) const;
 
     /*
        these are automatically called. no need to use them externally at all.

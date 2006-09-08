@@ -100,6 +100,27 @@ template < class dataType,
     return ( *a == *b );
 }
 
+template < class dataType,
+    class keyType > inline bool RedBlackTree < dataType,
+    keyType >::compLT ( const unsigned long *a, const unsigned long *b ) const
+{
+    return ( *a < *b );
+}
+
+template < class dataType,
+    class keyType > inline bool RedBlackTree < dataType,
+    keyType >::compLTEQU ( const unsigned long *a, const unsigned long *b ) const
+{
+    return ( *a <= *b );
+}
+
+template < class dataType,
+    class keyType > inline bool RedBlackTree < dataType,
+    keyType >::compEQ ( const unsigned long *a, const unsigned long *b ) const
+{
+    return ( *a == *b );
+}
+
 template < class dataType, class keyType >
     inline char *RedBlackTree < dataType, keyType >::newKey ( char *a )
 {
@@ -123,6 +144,19 @@ template < class dataType, class keyType >
     *b = *a;
     return b;
 }
+
+template < class dataType, class keyType >
+    inline unsigned long *RedBlackTree < dataType, keyType >::newKey ( unsigned long *a )
+{
+    unsigned long *b = ( unsigned long * ) malloc ( sizeof ( unsigned long ) );
+
+    if ( !b )
+        return 0;
+    memset ( b, 0, sizeof ( unsigned long ) );
+    *b = *a;
+    return b;
+}
+
 template < class dataType, class keyType >
     inline char *RedBlackTree < dataType,
     keyType >::reallocKey ( char *pointer, char *a )
@@ -142,6 +176,15 @@ template < class dataType, class keyType >
                                                                  int *a )
 {
     /* since integers don't have varying size, just overwrite */
+    *pointer = *a;
+    return pointer;
+}
+
+template < class dataType, class keyType >
+    inline unsigned long *RedBlackTree < dataType, keyType >::reallocKey ( unsigned long *pointer,
+                                                                 unsigned long *a )
+{
+    /* since unsigned longs don't have varying size, just overwrite */
     *pointer = *a;
     return pointer;
 }
