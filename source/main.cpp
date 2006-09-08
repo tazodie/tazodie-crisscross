@@ -36,47 +36,133 @@
 #include "universal_include.h"
 
 #include "datastructures/llist.h"
+#include "datastructures/rbtree.h"
 #include "core_console.h"
 #include "core_cpuid.h"
 #include "core_socket.h"
 #include "core_system.h"
 
+#if !defined ( TARGET_OS_WINDOWS )
+#    include <arpa/inet.h>
+#    include <asm/ioctls.h>
+#    include <errno.h>
+#    include <netdb.h>
+#    include <netinet/in.h>
+#    include <netinet/tcp.h>
+#    include <sys/ioctl.h>
+#    include <sys/socket.h>
+#    include <signal.h>
+#    define INVALID_SOCKET -1
+#    define SOCKET_ERROR -1
+#else
+     typedef int socklen_t;
+#endif
+
+
 using namespace CrissCross::Network;
 
 LList<CoreSocket *> *sockets;
+RedBlackTree<int,unsigned long *> *connections_per_host;
+
+const char *
+GetIPFromSocket ( socket_t _sock )
+{
+    static char buffer[32];
+    struct sockaddr_in sock; int sock_size = sizeof(sock);
+    memset ( &sock, 0, sizeof(sock) );
+    getpeername ( _sock, (sockaddr *)&sock, (socklen_t *)&sock_size );
+    sprintf ( buffer, inet_ntoa ( sock.sin_addr ) );
+    return buffer;
+}
+
+u_long
+GetHostFromSocket ( socket_t _sock )
+{
+    struct sockaddr_in sock; int sock_size = sizeof(sock);
+    memset ( &sock, 0, sizeof(sock) );
+    getpeername ( _sock, (sockaddr *)&sock, (socklen_t *)&sock_size );
+    return sock.sin_addr.s_addr;
+}
 
 int
 RunApplication ( int argc, char **argv )
 {
     CoreConsole *console = new CoreConsole ();
     sockets = new LList<CoreSocket *>;
+    connections_per_host = new RedBlackTree<int,unsigned long *>();
 
     console->WriteLine ( "Creating CoreSystem..." );
     CoreSystem *system = new CoreSystem ();
     console->WriteLine ( "Creating CoreSocket..." );
     CoreSocket *socket = new CoreSocket ();
     CoreSocket *tsock = NULL;
-    char buffer[10240];
+    //char buffer[10240];
+    int sockets_per_second = 0;
 
     console->WriteLine ( "CoreSocket is listening on port 3193..." );
     CoreAssert ( socket->Listen ( 3193 ) == 0 );
 
     while ( true )
     {
-        // console->WriteLine ( "Clearing variables..." );
-        memset ( buffer, 0, sizeof ( buffer ) );
         tsock = NULL;
 
-        
-        console->Write ( "Attempting to accept a connection... " );
-        if ( ( tsock = socket->Accept() ) != NULL)
+        sockets_per_second = 0;
+	while ( (tsock = socket->Accept()) != NULL )
         {
-            console->WriteLine ( "Accepted." );
+            sockets_per_second++;
+            //if ( sockets_per_second++ > 5 )
+            //{
+            //    console->WriteLine ( "Socket lockdown initiated. Too many incoming requests." );
+            //    socket->Close();
+            //}
+            
+            u_long host = GetHostFromSocket ( tsock->GetSocket() );
+            RedBlackTree<int,u_long *>::nodeType *node;
+            node = connections_per_host->findNode ( &host );
+
+            if ( node != NULL )
+            {
+                node->data++;
+                if ( node->data > 5 )
+                {
+                    socket->Ban ( host );
+                    console->WriteLine ( "Connection flood from '%s'!", 
+                        GetIPFromSocket ( tsock->GetSocket() ) );
+                    delete tsock;
+                    for ( int i = 0; sockets->ValidIndex ( i ); i++ )
+                    {
+                        tsock = sockets->GetData(i);
+                        if ( GetHostFromSocket ( tsock->GetSocket() ) == host )
+                        {
+                            sockets->RemoveData ( i );
+                            delete tsock;
+                            i--;
+                        }
+                    }
+                    continue;
+                }
+            } else {
+                connections_per_host->PutData ( &host, 1 );
+            }
+
             sockets->PutData ( tsock );
-            strcat ( buffer, "Good day, sir." );
-            tsock->Send ( buffer, sizeof ( buffer ) );
-        } else {
-            console->WriteLine ( "None available." );
+        }
+
+        console->WriteLine ( "%d connections per second.", sockets_per_second );
+
+        for ( int i = 0; sockets->ValidIndex ( i ); i++ )
+        {
+            tsock = sockets->GetData ( i );
+            std::string data;
+            int result = tsock->Read ( data, 1024 );
+            if ( result == -2 ) // Socket closed.
+            {
+                sockets->RemoveData ( i );
+                delete tsock;
+                i--; // This index has changed.
+            } else {
+                
+            }
         }
 
         system->ThreadSleep ( 1000 );

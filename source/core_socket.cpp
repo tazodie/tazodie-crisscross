@@ -39,6 +39,7 @@
 
 #if !defined ( TARGET_OS_WINDOWS )
 #    include <asm/ioctls.h>
+#    include <errno.h>
 #    include <netdb.h>
 #    include <netinet/in.h>
 #    include <netinet/tcp.h>
@@ -54,14 +55,14 @@
 using namespace CrissCross::Network;
 
 CoreSocket::CoreSocket()
-    : m_sock ( INVALID_SOCKET ), m_calledInitialise ( 1 )
+    : m_sock ( INVALID_SOCKET )
 {
-    __initialise_network();
+    __initialise_network(); m_calledInitialise = 1;
     memset ( &m_sock, 0, sizeof ( socket_t ) );
 }
 
 CoreSocket::CoreSocket ( socket_t socket )
-    : m_sock ( INVALID_SOCKET ), m_calledInitialise ( 0 )
+    : m_calledInitialise ( 0 ), m_sock ( INVALID_SOCKET )
 {
     /* Calling __initialise_network() is NOT
        necessary if we have a socket to copy. */
@@ -150,28 +151,20 @@ CoreSocket *CoreSocket::Accept()
 {
     /* TODO: Implement a much more elegant ability to
              REJECT a connection if it IsBanned(). */
-#if !defined ( TARGET_OS_WINDOWS )
-    struct sockaddr_in saddr_sock; int sock_size = sizeof(saddr_sock);
-    memset ( &saddr_sock, 0, sizeof(saddr_sock) );
-    getpeername ( m_sock, (sockaddr *)&saddr_sock, &sock_size );
-    if ( IsBanned ( saddr_sock.sin_addr.s_addr ) )
-    {
-        return NULL;
-    }
-
-    socket_t sock = accept ( m_sock, 0, 0 );
-#else
     socket_t sock = accept ( m_sock, 0, 0 );
 
     struct sockaddr_in saddr_sock; int sock_size = sizeof(saddr_sock);
     memset ( &saddr_sock, 0, sizeof(saddr_sock) );
-    getpeername ( sock, (sockaddr *)&saddr_sock, &sock_size );
+    getpeername ( sock, (sockaddr *)&saddr_sock, (socklen_t *)&sock_size );
     if ( IsBanned ( saddr_sock.sin_addr.s_addr ) )
     {
+#ifdef TARGET_OS_WINDOWS
         closesocket ( sock );
+#else
+        close ( sock );
+#endif
         return NULL;
     }
-#endif
 
     if ( sock != INVALID_SOCKET )
     {
@@ -290,8 +283,8 @@ int CoreSocket::SetAttributes ( socket_t _socket )
     int err = setsockopt ( _socket, IPPROTO_TCP,
         TCP_NODELAY, (char *) &optval, optlen );
     if ( err != 0 ) return -1;
-    err = setsockopt ( _socket, IPPROTO_TCP,
+    /* err = setsockopt ( _socket, IPPROTO_TCP,
         SO_KEEPALIVE, (char *) &optval, optlen );
-    if ( err != 0 ) return -1;
+    if ( err != 0 ) return -1; */
     return 0;
 }
