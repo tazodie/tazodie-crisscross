@@ -69,16 +69,19 @@ RunApplication ( int argc, char **argv )
         memset ( buffer, 0, sizeof ( buffer ) );
         tsock = NULL;
 
-        
-        console->Write ( "Attempting to accept a connection... " );
         if ( ( tsock = socket->Accept() ) != NULL)
         {
-            console->WriteLine ( "Accepted." );
             sockets->PutData ( tsock );
             strcat ( buffer, "Good day, sir." );
             tsock->Send ( buffer, sizeof ( buffer ) );
-        } else {
-            console->WriteLine ( "None available." );
+        }
+
+        for ( int i = 0; sockets->ValidIndex ( i ); i++ )
+        {
+            tsock = sockets->GetData ( i );
+            std::string data = tsock->Read(1024);
+            sprintf ( buffer, "Recv ( %d ): '%s'", i, data.c_str() );
+            console->WriteLine ( buffer );
         }
 
         system->ThreadSleep ( 1000 );

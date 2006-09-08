@@ -47,6 +47,8 @@
 #    include <signal.h>
 #    define INVALID_SOCKET -1
 #    define SOCKET_ERROR -1
+#else
+     typedef int socklen_t;
 #endif
 
 using namespace CrissCross::Network;
@@ -190,10 +192,11 @@ char *CoreSocket::Internal_Read ( int len ) const
 {
     CoreAssert ( m_sock != 0 );
 
-    char *buf = new char[len];
+    char *buf = new char[len + 1];
+    memset ( buf, 0, len + 1 );
 
 #ifdef TARGET_OS_WINDOWS
-    recv (m_sock, buf, len, 0 );
+    recv ( m_sock, buf, len, 0 );
 #else
     read ( m_sock, buf, len );
 #endif
@@ -206,7 +209,8 @@ std::string CoreSocket::Read ( int len ) const
 {
     CoreAssert ( m_sock != 0 );
 
-    char *buf = new char[len];
+    char *buf = new char[len + 1];
+    memset ( buf, 0, len + 1 );
     std::string ret;
 
 #ifdef TARGET_OS_WINDOWS
@@ -220,30 +224,6 @@ std::string CoreSocket::Read ( int len ) const
     delete [] buf;
 
     return ret;
-}
-
-std::string CoreSocket::ReadLine () const
-{
-    CoreAssert ( m_sock != 0 );
-
-    const char *current;
-    char line[8192];
-    std::string retval;
-
-    do {
-
-        current = this->Internal_Read(1);
-
-        if ( *current != '\n' && *current != '\r')
-            strcat ( line, current );
-
-        delete [] current;
-
-    } while ( *current != '\n' && *current != '\r');
-
-    retval = std::string ( line );
-
-    return retval;
 }
 
 int CoreSocket::Send ( const char *_packet, size_t _length )

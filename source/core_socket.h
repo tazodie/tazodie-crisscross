@@ -65,7 +65,6 @@ namespace CrissCross
             /* int State () const; */
             int Listen ( unsigned short _port );
             std::string Read ( int len ) const;
-            std::string ReadLine () const;
             int Send ( const char *_packet, size_t _length );
             int Send ( std::string _packet );
 
