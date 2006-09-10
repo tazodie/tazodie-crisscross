@@ -36,15 +36,16 @@
 #define __included_textwriter_h
 
 #include "core_exception.h"
-    
-//! The text file output class.
-/*!
-    Inherits CoreIO, so functions like CoreIO::Write and CoreIO::WriteLine are accessible to the programmer.
-*/
+
 namespace CrissCross
 {
     namespace IO
     {
+            
+        //! The text file output class.
+        /*!
+            Inherits CoreIO, so functions like CoreIO::Write and CoreIO::WriteLine are accessible to the programmer.
+        */
         class TextWriter : public CoreIO 
         {
 

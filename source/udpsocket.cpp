@@ -59,6 +59,7 @@ int UDPSocket::Bind ( const char *_address, unsigned short _port )
     SetAttributes ( m_sock );
 
     host = gethostbyname ( _address );
+    if ( !host ) return errno;
 
     memset ( &sin, 0, sizeof ( sin ) );
     sin.sin_family = AF_INET;

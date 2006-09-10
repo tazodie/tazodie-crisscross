@@ -64,6 +64,7 @@ int TCPSocket::Connect ( const char *_address, unsigned short _port )
     SetAttributes ( m_sock );
 
     host = gethostbyname ( _address );
+    if ( !host ) return errno;
 
     memset ( &sin, 0, sizeof ( sin ) );
     sin.sin_family = AF_INET;
@@ -78,7 +79,7 @@ int TCPSocket::Connect ( const char *_address, unsigned short _port )
 #else
         close ( m_sock );
 #endif
-        return 2;
+        return -2;
     }
     return 0;
 }
@@ -94,7 +95,7 @@ int TCPSocket::Listen ( unsigned short _port )
     m_sock = socket ( AF_INET, SOCK_STREAM, IPPROTO_TCP );
 
     if ( m_sock == INVALID_SOCKET )
-        return 1;
+        return -1;
 
     SetAttributes ( m_sock );
 
@@ -112,7 +113,7 @@ int TCPSocket::Listen ( unsigned short _port )
 #else
         close ( m_sock );
 #endif
-        return 2;
+        return -2;
     }
 
     if ( listen ( m_sock, 10 ) == SOCKET_ERROR )
@@ -122,7 +123,7 @@ int TCPSocket::Listen ( unsigned short _port )
 #else
         close ( m_sock );
 #endif
-        return 3;
+        return -3;
     }
 
     return 0;
@@ -162,7 +163,7 @@ int TCPSocket::SetAttributes ( socket_t _socket )
     int err, optval = 1, optlen = sizeof optval;
     err = setsockopt ( _socket, IPPROTO_TCP,
           TCP_NODELAY, (char *) &optval, optlen );
-    if ( err != 0 ) return -1;
+    if ( err == -1 ) return errno;
     /*
         Below attribute causes the program to oddly not
         report that there's a new connection until after
@@ -178,7 +179,7 @@ int TCPSocket::SetAttributes ( socket_t _socket )
     
     err = setsockopt ( _socket, IPPROTO_TCP,
           SO_KEEPALIVE, (char *) &optval, optlen );
-    if ( err != 0 ) return -2;
+    if ( err == -1 ) return errno;
     
     */
     return 0;

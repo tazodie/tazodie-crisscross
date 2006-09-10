@@ -20,7 +20,10 @@
   </ul></div>
 <div class="nav">
 <a class="el" href="namespace_criss_cross.html">CrissCross</a>::<a class="el" href="namespace_criss_cross_1_1_network.html">Network</a>::<a class="el" href="class_criss_cross_1_1_network_1_1_u_d_p_socket.html">UDPSocket</a></div>
-<h1>CrissCross::Network::UDPSocket Class Reference</h1><!-- doxytag: class="CrissCross::Network::UDPSocket" --><!-- doxytag: inherits="CrissCross::Network::CoreSocket" --><code>#include &lt;udpsocket.h&gt;</code>
+<h1>CrissCross::Network::UDPSocket Class Reference</h1><!-- doxytag: class="CrissCross::Network::UDPSocket" --><!-- doxytag: inherits="CrissCross::Network::CoreSocket" -->UDP/IP socket class.  
+<a href="#_details">More...</a>
+<p>
+<code>#include &lt;udpsocket.h&gt;</code>
 <p>
 <p>Inheritance diagram for CrissCross::Network::UDPSocket:
 <p><center><img src="class_criss_cross_1_1_network_1_1_u_d_p_socket.png" usemap="#CrissCross::Network::UDPSocket_map" border="0" alt=""></center>
@@ -32,13 +35,22 @@
 <tr><td colspan="2"><br><h2>Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_network_1_1_u_d_p_socket.html#46d700d0d70126e302a4d1ec8e97c69e">UDPSocket</a> ()</td></tr>
 
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The constructor.  <a href="#46d700d0d70126e302a4d1ec8e97c69e"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_network_1_1_u_d_p_socket.html#4c27446b3d28ec31e0ad48d13c2dacea">~UDPSocket</a> ()</td></tr>
 
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The destructor.  <a href="#4c27446b3d28ec31e0ad48d13c2dacea"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_network_1_1_u_d_p_socket.html#25613d776f92b0831cb8c2825b9060c4">Bind</a> (const char *_address, unsigned short _port)</td></tr>
 
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Binds an outbound UDP/IP socket to the specified address and port.  <a href="#25613d776f92b0831cb8c2825b9060c4"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_network_1_1_u_d_p_socket.html#f86f9d6b9bdc9a63a4724537d36c5386">Listen</a> (unsigned short _port)</td></tr>
 
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Binds an inbound UDP/IP socket on the specified port.  <a href="#f86f9d6b9bdc9a63a4724537d36c5386"></a><br></td></tr>
 </table>
+<hr><a name="_details"></a><h2>Detailed Description</h2>
+UDP/IP socket class. 
+<p>
+Used for connectionless UDP/IP communication. Note that this is one-way, and there must be a second UDP/IP socket created for communication in the opposite direction. 
+<p>
 <hr><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" name="46d700d0d70126e302a4d1ec8e97c69e"></a><!-- doxytag: member="CrissCross::Network::UDPSocket::UDPSocket" ref="46d700d0d70126e302a4d1ec8e97c69e" args="()" -->
 <div class="memitem">
@@ -55,6 +67,8 @@
 </div>
 <div class="memdoc">
 
+<p>
+The constructor. 
 <p>
 
 </div>
@@ -74,6 +88,8 @@
 </div>
 <div class="memdoc">
 
+<p>
+The destructor. 
 <p>
 
 </div>
@@ -105,6 +121,15 @@
 <div class="memdoc">
 
 <p>
+Binds an outbound UDP/IP socket to the specified address and port. 
+<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>_address</em>&nbsp;</td><td>The remote address to bind to. Can be a hostname, as it will be resolved by gethostbyname(). </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>_port</em>&nbsp;</td><td>The remote port to bind to. </td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd>Due to the use of Berkley sockets, this returns zero on success, and a nonzero value on failure. </dd></dl>
 
 </div>
 </div><p>
@@ -125,6 +150,14 @@
 <div class="memdoc">
 
 <p>
+Binds an inbound UDP/IP socket on the specified port. 
+<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>_port</em>&nbsp;</td><td>The port to bind. </td></tr>
+  </table>
+</dl>
+<dl compact><dt><b>Returns:</b></dt><dd>Due to the use of Berkley sockets, this returns zero on success, and a nonzero value on failure. </dd></dl>
 
 <p>
 Reimplemented from <a class="el" href="class_criss_cross_1_1_network_1_1_core_socket.html#6f0707825d90ba90394270debf1b1552">CrissCross::Network::CoreSocket</a>.
@@ -132,7 +165,7 @@ Reimplemented from <a class="el" href="class_criss_cross_1_1_network_1_1_core_so
 </div><p>
 <hr>The documentation for this class was generated from the following file:<ul>
 <li>N:/crisscross/source/<a class="el" href="udpsocket_8h.html">udpsocket.h</a></ul>
-<hr size="1"><address style="align: right;"><small>Generated on Sat Sep 9 22:08:49 2006 for CrissCross by&nbsp;
+<hr size="1"><address style="align: right;"><small>Generated on Sat Sep 9 22:29:28 2006 for CrissCross by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.4.7 </small></address>
 </body>

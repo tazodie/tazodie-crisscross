@@ -20,7 +20,10 @@
   </ul></div>
 <div class="nav">
 <a class="el" href="namespace_criss_cross.html">CrissCross</a>::<a class="el" href="namespace_criss_cross_1_1_network.html">Network</a>::<a class="el" href="class_criss_cross_1_1_network_1_1_t_c_p_socket.html">TCPSocket</a></div>
-<h1>CrissCross::Network::TCPSocket Class Reference</h1><!-- doxytag: class="CrissCross::Network::TCPSocket" --><!-- doxytag: inherits="CrissCross::Network::CoreSocket" --><code>#include &lt;tcpsocket.h&gt;</code>
+<h1>CrissCross::Network::TCPSocket Class Reference</h1><!-- doxytag: class="CrissCross::Network::TCPSocket" --><!-- doxytag: inherits="CrissCross::Network::CoreSocket" -->TCP/IP socket class.  
+<a href="#_details">More...</a>
+<p>
+<code>#include &lt;tcpsocket.h&gt;</code>
 <p>
 <p>Inheritance diagram for CrissCross::Network::TCPSocket:
 <p><center><img src="class_criss_cross_1_1_network_1_1_t_c_p_socket.png" usemap="#CrissCross::Network::TCPSocket_map" border="0" alt=""></center>
@@ -32,19 +35,31 @@
 <tr><td colspan="2"><br><h2>Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_network_1_1_t_c_p_socket.html#7fb5d4f518f42e87e5c748696f2a4555">TCPSocket</a> ()</td></tr>
 
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The default constructor.  <a href="#7fb5d4f518f42e87e5c748696f2a4555"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_network_1_1_t_c_p_socket.html#83b7848389b3d28e6f8a6658b3d15332">TCPSocket</a> (socket_t _socket)</td></tr>
 
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The constructor for existing sockets.  <a href="#83b7848389b3d28e6f8a6658b3d15332"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_network_1_1_t_c_p_socket.html#21fee2c8d6ab636dd80f6c7e6d5888eb">~TCPSocket</a> ()</td></tr>
 
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The destructor.  <a href="#21fee2c8d6ab636dd80f6c7e6d5888eb"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="class_criss_cross_1_1_network_1_1_t_c_p_socket.html">TCPSocket</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_network_1_1_t_c_p_socket.html#178d670e9c3a11b9159d6e4643fe5ece">Accept</a> ()</td></tr>
 
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Accepts an incoming connection. Only good when listening for a connection.  <a href="#178d670e9c3a11b9159d6e4643fe5ece"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_network_1_1_t_c_p_socket.html#545ccec700493832ce9c359405e0b234">Connect</a> (const char *_address, unsigned short _port)</td></tr>
 
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Establishes an outbound connection to the specified address and port.  <a href="#545ccec700493832ce9c359405e0b234"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_network_1_1_t_c_p_socket.html#0adf4d05093a6663f8cad67fb94a5a38">Listen</a> (unsigned short _port)</td></tr>
 
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Listens for connections on the specified port.  <a href="#0adf4d05093a6663f8cad67fb94a5a38"></a><br></td></tr>
+<tr><td colspan="2"><br><h2>Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_network_1_1_t_c_p_socket.html#3b73db7e6fef8e0d07952e5ddaf3f586">SetAttributes</a> (socket_t _socket)</td></tr>
 
 </table>
+<hr><a name="_details"></a><h2>Detailed Description</h2>
+TCP/IP socket class. 
+<p>
+Used for two-way TCP/IP communication. 
+<p>
 <hr><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" name="7fb5d4f518f42e87e5c748696f2a4555"></a><!-- doxytag: member="CrissCross::Network::TCPSocket::TCPSocket" ref="7fb5d4f518f42e87e5c748696f2a4555" args="()" -->
 <div class="memitem">
@@ -61,6 +76,8 @@
 </div>
 <div class="memdoc">
 
+<p>
+The default constructor. 
 <p>
 
 </div>
@@ -82,6 +99,8 @@
 <div class="memdoc">
 
 <p>
+The constructor for existing sockets. 
+<p>
 
 </div>
 </div><p>
@@ -100,6 +119,8 @@
 </div>
 <div class="memdoc">
 
+<p>
+The destructor. 
 <p>
 
 </div>
@@ -121,6 +142,9 @@
 <div class="memdoc">
 
 <p>
+Accepts an incoming connection. Only good when listening for a connection. 
+<p>
+<dl compact><dt><b>Returns:</b></dt><dd>A pointer to a newly created <a class="el" href="class_criss_cross_1_1_network_1_1_t_c_p_socket.html">TCPSocket</a> instance for the new connection. If no incoming connections are pending, this returns NULL. </dd></dl>
 
 </div>
 </div><p>
@@ -150,6 +174,14 @@
 <div class="memdoc">
 
 <p>
+Establishes an outbound connection to the specified address and port. 
+<p>
+<dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>_address</em>&nbsp;</td><td>The remote address to connect to. Can be a hostname, as it will be resolved by gethostbyname(). </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>_port</em>&nbsp;</td><td>The remote port to connect to. </td></tr>
+  </table>
+</dl>
 
 </div>
 </div><p>
@@ -170,6 +202,13 @@
 <div class="memdoc">
 
 <p>
+Listens for connections on the specified port. 
+<p>
+You need to <a class="el" href="class_criss_cross_1_1_network_1_1_t_c_p_socket.html#178d670e9c3a11b9159d6e4643fe5ece">Accept()</a> connections after calling this. <dl compact><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>_port</em>&nbsp;</td><td>The local port to listen on. </td></tr>
+  </table>
+</dl>
 
 <p>
 Reimplemented from <a class="el" href="class_criss_cross_1_1_network_1_1_core_socket.html#6f0707825d90ba90394270debf1b1552">CrissCross::Network::CoreSocket</a>.
@@ -185,7 +224,7 @@ Reimplemented from <a class="el" href="class_criss_cross_1_1_network_1_1_core_so
           <td class="paramtype">socket_t&nbsp;</td>
           <td class="paramname"> <em>_socket</em>          </td>
           <td>&nbsp;)&nbsp;</td>
-          <td width="100%"></td>
+          <td width="100%"><code> [private]</code></td>
         </tr>
       </table>
 </div>
@@ -199,7 +238,7 @@ Reimplemented from <a class="el" href="class_criss_cross_1_1_network_1_1_core_so
 </div><p>
 <hr>The documentation for this class was generated from the following file:<ul>
 <li>N:/crisscross/source/<a class="el" href="tcpsocket_8h.html">tcpsocket.h</a></ul>
-<hr size="1"><address style="align: right;"><small>Generated on Sat Sep 9 22:08:49 2006 for CrissCross by&nbsp;
+<hr size="1"><address style="align: right;"><small>Generated on Sat Sep 9 22:29:28 2006 for CrissCross by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.4.7 </small></address>
 </body>

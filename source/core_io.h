@@ -41,15 +41,15 @@
 
 #    include "core_mutex.h"
 
-//! The core input/output class.
-/*!
-    An abstract class inherited by most I/O classes, including CoreConsole, TextReader
-    and TextWriter. Programmers can write their own I/O classes which inherit CoreIO.
-*/
 namespace CrissCross
 {
     namespace IO
     {
+        //! The core input/output class.
+        /*!
+            An abstract class inherited by most I/O classes, including CoreConsole, TextReader
+            and TextWriter. Programmers can write their own I/O classes which inherit CoreIO.
+        */
         class CoreIO
         {
           public:
