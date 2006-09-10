@@ -49,7 +49,7 @@
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_array.html#d4d595ba2a7bdfb6979dac0d6dac4fe9">NumUsed</a> ()</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_array.html#d12f801c3ffbcdfb5ed2563c5b5479f2">Size</a> (bool guarantee_actual=false)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_array.html#28051e9842429e142f6780debf9d7028">Size</a> ()</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_array.html#c844a05372afbfa8ebf792878744c2a8">ValidIndex</a> (int index)</td></tr>
 
@@ -62,12 +62,12 @@
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_array.html#6e798cdff308d92f2d251a611f6c4aae">m_arraySize</a></td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">T *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_array.html#ea7e4db672d15269d036a72eaa935304">array</a></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">T *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_array.html#ba2f1793615f3dbe4bc5f0c7d54e6e73">m_array</a></td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_array.html#2aee6d757e1831c6245ce7f90c8710e3">shadow</a></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_array.html#6663d89bbfb96e39516ba5f07a3cb14d">m_shadow</a></td></tr>
 
 <tr><td colspan="2"><br><h2>Private Attributes</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="class_d_stack.html">DStack</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_array.html#79b5d12e830924cebe10ce5f4d9a8990">empty_nodes</a></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="class_d_stack.html">DStack</a>&lt; int &gt; *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_array.html#9ad53b1ca81b8477a9418b28d09fb275">empty_nodes</a></td></tr>
 
 </table>
 <h3>template&lt;class T&gt;<br>
@@ -418,7 +418,7 @@ template&lt;class T&gt; </div>
 
 </div>
 </div><p>
-<a class="anchor" name="d12f801c3ffbcdfb5ed2563c5b5479f2"></a><!-- doxytag: member="DArray::Size" ref="d12f801c3ffbcdfb5ed2563c5b5479f2" args="(bool guarantee_actual=false)" -->
+<a class="anchor" name="28051e9842429e142f6780debf9d7028"></a><!-- doxytag: member="DArray::Size" ref="28051e9842429e142f6780debf9d7028" args="()" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -427,8 +427,7 @@ template&lt;class T&gt; </div>
         <tr>
           <td class="memname">int <a class="el" href="class_d_array.html">DArray</a>&lt; T &gt;::Size           </td>
           <td>(</td>
-          <td class="paramtype">bool&nbsp;</td>
-          <td class="paramname"> <em>guarantee_actual</em> = <code>false</code>          </td>
+          <td class="paramname">          </td>
           <td>&nbsp;)&nbsp;</td>
           <td width="100%"></td>
         </tr>
@@ -463,14 +462,14 @@ template&lt;class T&gt; </div>
 </div>
 </div><p>
 <hr><h2>Member Data Documentation</h2>
-<a class="anchor" name="ea7e4db672d15269d036a72eaa935304"></a><!-- doxytag: member="DArray::array" ref="ea7e4db672d15269d036a72eaa935304" args="" -->
+<a class="anchor" name="9ad53b1ca81b8477a9418b28d09fb275"></a><!-- doxytag: member="DArray::empty_nodes" ref="9ad53b1ca81b8477a9418b28d09fb275" args="" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;class T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">T* <a class="el" href="class_d_array.html">DArray</a>&lt; T &gt;::<a class="el" href="class_d_array.html#ea7e4db672d15269d036a72eaa935304">array</a><code> [protected]</code>          </td>
+          <td class="memname"><a class="el" href="class_d_stack.html">DStack</a>&lt;int&gt;* <a class="el" href="class_d_array.html">DArray</a>&lt; T &gt;::<a class="el" href="class_d_array.html#9ad53b1ca81b8477a9418b28d09fb275">empty_nodes</a><code> [private]</code>          </td>
         </tr>
       </table>
 </div>
@@ -480,14 +479,14 @@ template&lt;class T&gt; </div>
 
 </div>
 </div><p>
-<a class="anchor" name="79b5d12e830924cebe10ce5f4d9a8990"></a><!-- doxytag: member="DArray::empty_nodes" ref="79b5d12e830924cebe10ce5f4d9a8990" args="" -->
+<a class="anchor" name="ba2f1793615f3dbe4bc5f0c7d54e6e73"></a><!-- doxytag: member="DArray::m_array" ref="ba2f1793615f3dbe4bc5f0c7d54e6e73" args="" -->
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;class T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_d_stack.html">DStack</a>* <a class="el" href="class_d_array.html">DArray</a>&lt; T &gt;::<a class="el" href="class_d_array.html#79b5d12e830924cebe10ce5f4d9a8990">empty_nodes</a><code> [private]</code>          </td>
+          <td class="memname">T* <a class="el" href="class_d_array.html">DArray</a>&lt; T &gt;::<a class="el" href="class_d_array.html#ba2f1793615f3dbe4bc5f0c7d54e6e73">m_array</a><code> [protected]</code>          </td>
         </tr>
       </table>
 </div>
@@ -514,6 +513,23 @@ template&lt;class T&gt; </div>
 
 </div>
 </div><p>
+<a class="anchor" name="6663d89bbfb96e39516ba5f07a3cb14d"></a><!-- doxytag: member="DArray::m_shadow" ref="6663d89bbfb96e39516ba5f07a3cb14d" args="" -->
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">char* <a class="el" href="class_d_array.html">DArray</a>&lt; T &gt;::<a class="el" href="class_d_array.html#6663d89bbfb96e39516ba5f07a3cb14d">m_shadow</a><code> [protected]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+
+</div>
+</div><p>
 <a class="anchor" name="4402e0bf0571cf775bac0f5c2a05cf7b"></a><!-- doxytag: member="DArray::m_stepSize" ref="4402e0bf0571cf775bac0f5c2a05cf7b" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -531,26 +547,9 @@ template&lt;class T&gt; </div>
 
 </div>
 </div><p>
-<a class="anchor" name="2aee6d757e1831c6245ce7f90c8710e3"></a><!-- doxytag: member="DArray::shadow" ref="2aee6d757e1831c6245ce7f90c8710e3" args="" -->
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">char* <a class="el" href="class_d_array.html">DArray</a>&lt; T &gt;::<a class="el" href="class_d_array.html#2aee6d757e1831c6245ce7f90c8710e3">shadow</a><code> [protected]</code>          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
-</div>
-</div><p>
 <hr>The documentation for this class was generated from the following file:<ul>
 <li>N:/crisscross/source/datastructures/<a class="el" href="darray_8h.html">darray.h</a></ul>
-<hr size="1"><address style="align: right;"><small>Generated on Thu Aug 24 11:42:18 2006 for CrissCross by&nbsp;
+<hr size="1"><address style="align: right;"><small>Generated on Sat Sep 9 22:08:48 2006 for CrissCross by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.4.7 </small></address>
 </body>

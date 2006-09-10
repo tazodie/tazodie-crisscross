@@ -31,13 +31,13 @@
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="core__debug_8h.html#d6c4419b587954d0a6f10cdd5c600983">GenerateBlackBox</a> (const char *_msg)</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Creates a debug log on application failure.  <a href="#d6c4419b587954d0a6f10cdd5c600983"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="core__debug_8h.html#5e4f5b761a2f5b5c656b5d8bff31b8be">PrintStackTrace</a> (<a class="el" href="class_core_i_o.html">CoreIO</a> *_outputBuffer)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="core__debug_8h.html#30be155cddbf1078ff073ba9d2c14c6d">PrintStackTrace</a> (<a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html">CrissCross::IO::CoreIO</a> *_outputBuffer)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Prints a stack trace to _outputBuffer.  <a href="#5e4f5b761a2f5b5c656b5d8bff31b8be"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Prints a stack trace to _outputBuffer.  <a href="#30be155cddbf1078ff073ba9d2c14c6d"></a><br></td></tr>
 <tr><td colspan="2"><br><h2>Variables</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="class_core_console.html">CoreConsole</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="core__debug_8h.html#e674f012d427f1416af6fb0234979d48">g_stderr</a></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="class_criss_cross_1_1_i_o_1_1_core_console.html">CrissCross::IO::CoreConsole</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="core__debug_8h.html#141775de304d41852696d3d3e80829a4">g_stderr</a></td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="class_core_console.html">CoreConsole</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="core__debug_8h.html#9d07f15f7ad666231412afdbc6da1c7f">g_stdout</a></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="class_criss_cross_1_1_i_o_1_1_core_console.html">CrissCross::IO::CoreConsole</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="core__debug_8h.html#90f1a3c532c0ec627f63d56eb9937fe7">g_stdout</a></td></tr>
 
 </table>
 <hr><h2>Define Documentation</h2>
@@ -144,14 +144,14 @@ Creates a debug log on application failure.
 Creates a file called "blackbox.txt" if the application fails an assertion. <div style="color: #FF0000;"><b>NOTE:</b> For internal use only. </div> 
 </div>
 </div><p>
-<a class="anchor" name="5e4f5b761a2f5b5c656b5d8bff31b8be"></a><!-- doxytag: member="core_debug.h::PrintStackTrace" ref="5e4f5b761a2f5b5c656b5d8bff31b8be" args="(CoreIO *_outputBuffer)" -->
+<a class="anchor" name="30be155cddbf1078ff073ba9d2c14c6d"></a><!-- doxytag: member="core_debug.h::PrintStackTrace" ref="30be155cddbf1078ff073ba9d2c14c6d" args="(CrissCross::IO::CoreIO *_outputBuffer)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void PrintStackTrace           </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_core_i_o.html">CoreIO</a> *&nbsp;</td>
+          <td class="paramtype"><a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html">CrissCross::IO::CoreIO</a> *&nbsp;</td>
           <td class="paramname"> <em>_outputBuffer</em>          </td>
           <td>&nbsp;)&nbsp;</td>
           <td width="100%"></td>
@@ -165,19 +165,19 @@ Prints a stack trace to _outputBuffer.
 <p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>_outputBuffer</em>&nbsp;</td><td>The <a class="el" href="class_core_i_o.html">CoreIO</a> output buffer to write to. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>_outputBuffer</em>&nbsp;</td><td>The CoreIO output buffer to write to. </td></tr>
   </table>
 </dl>
 
 </div>
 </div><p>
 <hr><h2>Variable Documentation</h2>
-<a class="anchor" name="e674f012d427f1416af6fb0234979d48"></a><!-- doxytag: member="core_debug.h::g_stderr" ref="e674f012d427f1416af6fb0234979d48" args="" -->
+<a class="anchor" name="141775de304d41852696d3d3e80829a4"></a><!-- doxytag: member="core_debug.h::g_stderr" ref="141775de304d41852696d3d3e80829a4" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_core_console.html">CoreConsole</a>* <a class="el" href="core__debug_8h.html#e674f012d427f1416af6fb0234979d48">g_stderr</a>          </td>
+          <td class="memname"><a class="el" href="class_criss_cross_1_1_i_o_1_1_core_console.html">CrissCross::IO::CoreConsole</a>* <a class="el" href="core__debug_8h.html#141775de304d41852696d3d3e80829a4">g_stderr</a>          </td>
         </tr>
       </table>
 </div>
@@ -187,12 +187,12 @@ Prints a stack trace to _outputBuffer.
 
 </div>
 </div><p>
-<a class="anchor" name="9d07f15f7ad666231412afdbc6da1c7f"></a><!-- doxytag: member="core_debug.h::g_stdout" ref="9d07f15f7ad666231412afdbc6da1c7f" args="" -->
+<a class="anchor" name="90f1a3c532c0ec627f63d56eb9937fe7"></a><!-- doxytag: member="core_debug.h::g_stdout" ref="90f1a3c532c0ec627f63d56eb9937fe7" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_core_console.html">CoreConsole</a>* <a class="el" href="core__debug_8h.html#9d07f15f7ad666231412afdbc6da1c7f">g_stdout</a>          </td>
+          <td class="memname"><a class="el" href="class_criss_cross_1_1_i_o_1_1_core_console.html">CrissCross::IO::CoreConsole</a>* <a class="el" href="core__debug_8h.html#90f1a3c532c0ec627f63d56eb9937fe7">g_stdout</a>          </td>
         </tr>
       </table>
 </div>
@@ -202,7 +202,7 @@ Prints a stack trace to _outputBuffer.
 
 </div>
 </div><p>
-<hr size="1"><address style="align: right;"><small>Generated on Thu Aug 24 11:42:18 2006 for CrissCross by&nbsp;
+<hr size="1"><address style="align: right;"><small>Generated on Sat Sep 9 22:08:48 2006 for CrissCross by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.4.7 </small></address>
 </body>
