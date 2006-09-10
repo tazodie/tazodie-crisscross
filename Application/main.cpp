@@ -41,12 +41,13 @@
 #include "datastructures/rbtree.h"
 #include "core_console.h"
 #include "core_cpuid.h"
-#include "core_socket.h"
 #include "core_system.h"
+#include "tcpsocket.h"
 
+using namespace CrissCross::IO;
 using namespace CrissCross::Network;
 
-LList<CoreSocket *> *sockets;
+LList<TCPSocket *> *sockets;
 RedBlackTree<int,unsigned long *> *connections_per_host;
 
 const char *
@@ -73,18 +74,17 @@ int
 RunApplication ( int argc, char **argv )
 {
     CoreConsole *console = new CoreConsole ();
-    sockets = new LList<CoreSocket *>;
+    sockets = new LList<TCPSocket *>;
     connections_per_host = new RedBlackTree<int,unsigned long *>();
 
     console->WriteLine ( "Creating CoreSystem..." );
     CoreSystem *system = new CoreSystem ();
-    console->WriteLine ( "Creating CoreSocket..." );
-    CoreSocket *socket = new CoreSocket ();
-    CoreSocket *tsock = NULL;
-    //char buffer[10240];
+    console->WriteLine ( "Creating TCPSocket..." );
+    TCPSocket *socket = new TCPSocket ();
+    TCPSocket *tsock = NULL;
     int active_connections = 0, sockets_per_second = 0;
 
-    console->WriteLine ( "CoreSocket is listening on port 3193..." );
+    console->WriteLine ( "TCPSocket is listening on port 3193..." );
     CoreAssert ( socket->Listen ( 3193 ) == 0 );
 
     while ( true )
@@ -94,11 +94,7 @@ RunApplication ( int argc, char **argv )
         sockets_per_second = 0;
         while ( ( tsock = socket->Accept() ) != NULL )
         {
-            //if ( sockets_per_second++ > 5 )
-            //{
-            //    console->WriteLine ( "Socket lockdown initiated. Too many incoming requests." );
-            //    socket->Close();
-            //}
+            sockets_per_second++;
             
             u_long host = GetHostFromSocket ( tsock->GetSocket() );
             RedBlackTree<int,u_long *>::nodeType *node;
@@ -132,7 +128,8 @@ RunApplication ( int argc, char **argv )
             sockets->PutData ( tsock );
         }
 
-        console->WriteLine ( "%d connections per second.", sockets_per_second );
+        //console->WriteLine ( "%d connections per second.", sockets_per_second );
+        //console->MoveUp(1);
 
         for ( int i = 0; sockets->ValidIndex ( i ); i++ )
         {
