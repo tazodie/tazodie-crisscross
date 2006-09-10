@@ -36,6 +36,8 @@
 #include "core_debug.h"
 #include "textreader.h"
 
+using namespace CrissCross::IO;
+
 TextReader::TextReader ( const char *_file ):
 CoreIO ( NULL )
 {

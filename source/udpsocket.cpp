@@ -32,55 +32,83 @@
  *
  */
 
-#ifndef __included_core_socket_h
-#define __included_core_socket_h
+#include "universal_include.h"
+#include "core_socket.h"
+#include "udpsocket.h"
 
-#include "core_network.h"
+using namespace CrissCross::Network;
 
-#include "datastructures/rbtree.h"
-
-//#define ENABLE_PROTECTION
-
-#ifdef TARGET_OS_WINDOWS
-# include <windows.h>
-# define socket_t SOCKET
-#else
-# define socket_t int
-#endif
-
-namespace CrissCross
+UDPSocket::UDPSocket()
+    : CoreSocket()
 {
-    namespace Network
-    {
-        class CoreSocket
-        {
-        protected:
-#if defined ( ENABLE_PROTECTION )
-            //! A RedBlackTree of banned hosts.
-            RedBlackTree<char*,u_long*> m_banned_hosts;
-#endif
-            char m_calledInitialise;
-            socket_t m_sock;
-            char *Internal_Read ( int _len ) const;
-            int SetAttributes ( socket_t _socket );
-        public:
-            CoreSocket ();
-            CoreSocket ( socket_t socket );
-            virtual ~CoreSocket ();
-
-            int Ban ( unsigned long _host );
-            bool IsBanned ( unsigned long _host ) const;
-            virtual int Close ();
-            /* int State () const; */
-            virtual int Listen ( unsigned short _port );
-            virtual int Read ( char **_output, int _len ) const;
-            virtual int Read ( std::string &_output, int _len ) const;
-            virtual int Send ( const char *_packet, size_t _length );
-            virtual int Send ( std::string _packet );
-            socket_t GetSocket ();
-
-        };
-    }
 }
 
+UDPSocket::~UDPSocket ()
+{
+}
+
+int UDPSocket::Bind ( const char *_address, unsigned short _port )
+{
+    struct sockaddr_in sin;
+    struct hostent *host;
+
+    m_sock = socket ( AF_INET, SOCK_DGRAM, IPPROTO_UDP );
+    if ( m_sock == INVALID_SOCKET )
+        return 1;
+
+    SetAttributes ( m_sock );
+
+    host = gethostbyname ( _address );
+
+    memset ( &sin, 0, sizeof ( sin ) );
+    sin.sin_family = AF_INET;
+    sin.sin_addr.s_addr = ( ( struct in_addr * ) ( host->h_addr ) )->s_addr;
+    sin.sin_port = htons ( _port );
+
+    if ( bind ( m_sock, ( ( struct sockaddr * ) 
+        &sin ), sizeof ( sin ) ) == SOCKET_ERROR )
+    {
+#ifdef TARGET_OS_WINDOWS
+        closesocket ( m_sock );
+#else
+        close ( m_sock );
 #endif
+        return 2;
+    }
+    return 0;
+}
+
+int UDPSocket::Listen ( unsigned short _port )
+{
+    struct sockaddr_in sin;
+    memset ( &sin, 0, sizeof ( sin ) );
+
+    sin.sin_family = PF_INET;
+    sin.sin_addr.s_addr = INADDR_ANY;
+    sin.sin_port = htons ( _port );
+    m_sock = socket ( AF_INET, SOCK_DGRAM, IPPROTO_UDP );
+
+    if ( m_sock == INVALID_SOCKET )
+        return 1;
+
+    SetAttributes ( m_sock );
+
+    unsigned long arg = 1;
+#if defined ( TARGET_OS_WINDOWS )
+    ioctlsocket ( m_sock, FIONBIO, &arg );
+#else
+    ioctl ( m_sock, FIONBIO, &arg );
+#endif
+
+    if ( bind ( m_sock, (sockaddr *)&sin, sizeof ( sin ) ) == SOCKET_ERROR )
+    {
+#ifdef TARGET_OS_WINDOWS
+        closesocket ( m_sock );
+#else
+        close ( m_sock );
+#endif
+        return 2;
+    }
+
+    return 0;
+}

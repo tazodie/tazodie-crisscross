@@ -13,6 +13,8 @@ core_network.cpp \
 core_socket.cpp \
 core_system.cpp \
 core_thread.cpp \
+tcpsocket.cpp \
+udpsocket.cpp \
 textreader.cpp \
 textwriter.cpp \
 main.cpp \

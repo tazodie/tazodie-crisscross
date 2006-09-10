@@ -91,18 +91,22 @@ socket_t CoreSocket::GetSocket()
 
 int CoreSocket::Ban ( unsigned long _host )
 {
+#if defined ( ENABLE_PROTECTION )
     if ( m_banned_hosts.findNode ( &_host ) == NULL )
         m_banned_hosts.insert ( &_host, (char *)1 );
     else
         return -1;
+#endif
     return 0;
 }
 
 bool CoreSocket::IsBanned ( unsigned long _host ) const
 {
+#if defined ( ENABLE_PROTECTION )
     if ( m_banned_hosts.find ( &_host ) )
         return true;
     else
+#endif
         return false;
 }
 
@@ -117,107 +121,10 @@ int CoreSocket::Close()
     return retval;
 }
 
-int CoreSocket::Connect ( const char *_address, unsigned short _port )
-{
-    struct sockaddr_in sin;
-    struct hostent *host;
-
-    m_sock = socket ( AF_INET, SOCK_STREAM, 0 );
-    if ( m_sock == INVALID_SOCKET )
-        return 1;
-
-    SetAttributes ( m_sock );
-
-    host = gethostbyname ( _address );
-
-    memset ( &sin, 0, sizeof ( sin ) );
-    sin.sin_family = AF_INET;
-    sin.sin_addr.s_addr = ( ( struct in_addr * ) ( host->h_addr ) )->s_addr;
-    sin.sin_port = htons ( _port );
-
-    if ( connect ( m_sock, ( ( struct sockaddr * ) 
-        &sin ), sizeof ( sin ) ) == SOCKET_ERROR )
-    {
-#ifdef TARGET_OS_WINDOWS
-        closesocket ( m_sock );
-#else
-        close ( m_sock );
-#endif
-        return 2;
-    }
-    return 0;
-}
-CoreSocket *CoreSocket::Accept()
-{
-    /* TODO: Implement a much more elegant ability to
-             REJECT a connection if it IsBanned(). */
-    socket_t sock = accept ( m_sock, 0, 0 );
-
-    struct sockaddr_in saddr_sock; int sock_size = sizeof(saddr_sock);
-    memset ( &saddr_sock, 0, sizeof(saddr_sock) );
-    getpeername ( sock, (sockaddr *)&saddr_sock, (socklen_t *)&sock_size );
-    if ( IsBanned ( saddr_sock.sin_addr.s_addr ) )
-    {
-#ifdef TARGET_OS_WINDOWS
-        closesocket ( sock );
-#else
-        close ( sock );
-#endif
-        return NULL;
-    }
-
-    if ( sock != INVALID_SOCKET )
-    {
-        SetAttributes ( sock );
-        CoreSocket *csock = new CoreSocket ( sock );
-        return csock;
-    }
-    return NULL;
-}
-
 int CoreSocket::Listen ( unsigned short _port )
 {
-    struct sockaddr_in sin;
-    memset ( &sin, 0, sizeof ( sin ) );
-
-    sin.sin_family = PF_INET;
-    sin.sin_addr.s_addr = INADDR_ANY;
-    sin.sin_port = htons ( _port );
-    m_sock = socket ( AF_INET, SOCK_STREAM, 0 );
-
-    if ( m_sock == INVALID_SOCKET )
-        return 1;
-
-    SetAttributes ( m_sock );
-
-    unsigned long arg = 1;
-#if defined ( TARGET_OS_WINDOWS )
-    ioctlsocket ( m_sock, FIONBIO, &arg );
-#else
-    ioctl ( m_sock, FIONBIO, &arg );
-#endif
-
-    if ( bind ( m_sock, (sockaddr *)&sin, sizeof ( sin ) ) == SOCKET_ERROR )
-    {
-#ifdef TARGET_OS_WINDOWS
-        closesocket ( m_sock );
-#else
-        close ( m_sock );
-#endif
-        return 2;
-    }
-
-    if ( listen ( m_sock, 10 ) == SOCKET_ERROR )
-    {
-#ifdef TARGET_OS_WINDOWS
-        closesocket ( m_sock );
-#else
-        close ( m_sock );
-#endif
-        return 3;
-    }
-
-    return 0;
+    /* CoreSocket::Listen does nothing. This is largely an abstract class. */
+    return -1;
 }
 
 char *CoreSocket::Internal_Read ( int _len ) const
@@ -279,12 +186,5 @@ int CoreSocket::Send ( std::string _packet )
 
 int CoreSocket::SetAttributes ( socket_t _socket )
 {
-    int optval = 1, optlen = sizeof optval;
-    int err = setsockopt ( _socket, IPPROTO_TCP,
-        TCP_NODELAY, (char *) &optval, optlen );
-    if ( err != 0 ) return -1;
-    /* err = setsockopt ( _socket, IPPROTO_TCP,
-        SO_KEEPALIVE, (char *) &optval, optlen );
-    if ( err != 0 ) return -1; */
-    return 0;
+    return -1;
 }

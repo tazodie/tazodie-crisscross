@@ -37,6 +37,9 @@
 
 #ifdef ENABLE_DEBUGLOG
 
+using namespace CrissCross::IO;
+using namespace CrissCross::Debug;
+
 CoreDebugLogData::CoreDebugLogData ( tm *_bug_time, int _priority, char *_description)
     : m_bug_time ( _bug_time ),
       m_priority ( _priority ),
@@ -72,7 +75,7 @@ CoreDebugLog::~CoreDebugLog ( )
 }
 
 void
-CoreDebugLog::Write ( CoreDebugLog::BugReportPriority _priority, const char *_format, ... )
+CoreDebugLog::Write ( CoreDebugLog::LogEntryPriority _priority, const char *_format, ... )
 {
     CoreAssert ( this != NULL );
 
@@ -91,7 +94,7 @@ CoreDebugLog::Write ( CoreDebugLog::BugReportPriority _priority, const char *_fo
 }
 
 void
-CoreDebugLog::WriteLine ( CoreDebugLog::BugReportPriority _priority, const char *_format, ... )
+CoreDebugLog::WriteLine ( CoreDebugLog::LogEntryPriority _priority, const char *_format, ... )
 {
     /* TODO: Write a way to make this non-redundant with Write(). */
     CoreAssert ( this != NULL );
@@ -111,12 +114,12 @@ CoreDebugLog::WriteLine ( CoreDebugLog::BugReportPriority _priority, const char 
 }
 
 void
-CoreDebugLog::Put ( CoreIO *_stream, CoreDebugLog::BugReportPriority _lowest_priority )
+CoreDebugLog::Put ( CoreIO *_stream, CoreDebugLog::LogEntryPriority _lowest_priority )
 {
     CoreAssert ( this != NULL );
     CoreDebugLogData *current;
     char buffer[50];
-    _stream->Write ( "%s %s - Website at <%s>\nEmail <%s> with Bug Reports\n",
+    _stream->Write ( "%s %s - Website at <%s>\nEmail <%s> with any bug reports\n",
     m_app_name.c_str ( ), m_app_version.c_str ( ),
     m_app_website.c_str ( ), m_email.c_str ( ) );
     for (int i = 0; m_reports->ValidIndex ( i ) ; i++)
@@ -156,7 +159,7 @@ CoreDebugLog::Put ( CoreIO *_stream, CoreDebugLog::BugReportPriority _lowest_pri
 }
 
 void
-CoreDebugLog::Print ( CoreIO *_output, CoreDebugLog::BugReportPriority _lowest_priority )
+CoreDebugLog::Print ( CoreIO *_output, CoreDebugLog::LogEntryPriority _lowest_priority )
 {
     CoreAssert ( this != NULL );
     Put ( _output, _lowest_priority );

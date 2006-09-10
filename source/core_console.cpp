@@ -36,6 +36,8 @@
 #include "core_debug.h"
 #include "core_console.h"
 
+using namespace CrissCross::IO;
+
 CoreConsole::CoreConsole ():
 CoreIO ( stdout )
 {
@@ -165,6 +167,23 @@ CoreConsole::Clear ()
     GetConsoleScreenBufferInfo ( hConsole, &csbi );
     FillConsoleOutputAttribute ( hConsole, csbi.wAttributes, dwConSize,
                                  coordScreen, &cCharsWritten );
+    SetConsoleCursorPosition ( hConsole, coordScreen );
+#endif
+}
+
+void
+CoreConsole::MoveUp ( int _lines )
+{
+    /* TOOD: Linux and Mac OS X ports of this function. */
+#if defined ( TARGET_OS_WINDOWS )
+    COORD coordScreen = { 0, 0 };
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    HANDLE hConsole = GetStdHandle ( STD_OUTPUT_HANDLE );
+
+    GetConsoleScreenBufferInfo ( hConsole, &csbi );
+    coordScreen = csbi.dwCursorPosition;
+    coordScreen.Y -= _lines;
+    if ( coordScreen.Y < 0 ) coordScreen.Y = 0;
     SetConsoleCursorPosition ( hConsole, coordScreen );
 #endif
 }

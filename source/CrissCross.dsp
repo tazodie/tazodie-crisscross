@@ -53,7 +53,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=xilink6.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /machine:I386
-# ADD LINK32 /nologo /subsystem:console /machine:I386
+# ADD LINK32 ws2_32.lib /nologo /subsystem:console /machine:I386
 # SUBTRACT LINK32 /pdb:none
 
 !ELSEIF  "$(CFG)" == "CrissCross - Win32 Debug"
@@ -80,7 +80,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=xilink6.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 dbghelp.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
+# ADD LINK32 dbghelp.lib ws2_32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
 # SUBTRACT LINK32 /pdb:none
 
 !ENDIF 
@@ -143,6 +143,14 @@ SOURCE=.\core_debug.cpp
 # Begin Source File
 
 SOURCE=.\core_debug.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\core_debuglog.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\core_debuglog.h
 # End Source File
 # Begin Source File
 
@@ -228,6 +236,42 @@ SOURCE=.\datastructures\rbtree.cpp
 # Begin Source File
 
 SOURCE=.\datastructures\rbtree.h
+# End Source File
+# End Group
+# Begin Group "Net"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\core_network.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\core_network.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\core_socket.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\core_socket.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\tcpsocket.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\tcpsocket.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\udpsocket.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\udpsocket.h
 # End Source File
 # End Group
 # Begin Source File

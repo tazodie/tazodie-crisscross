@@ -1,9 +1,9 @@
 /*
  *
- *                                   C R I S S C R O S S
- *                          A multi purpose cross platform library.
- *                              formerly Codename "Technetium"
- *                             project started August 14, 2006
+ *                               C R I S S C R O S S _ N E T
+ *                           A cross platform networking library.
+ *                              formerly Codename "Rivendell"
+ *                             project started August 30, 2006
  *
  * Copyright (c) 2006, Steven Noonan <steven@uplinklabs.net>, Rudolf Olah <omouse@gmail.com>,
  * and Miah Clayton <miah@io-in.com>. All rights reserved.
@@ -30,50 +30,27 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- */  
-    
-#ifndef __included_textreader_h
-#define __included_textreader_h
+ */
 
-#include "core_exception.h"
-   
+#ifndef __included_tcpsocket_h
+#define __included_tcpsocket_h
+
+#include "core_socket.h"
 namespace CrissCross
 {
-    namespace IO
+    namespace Network
     {
-
-        //! The text file input class.
-        /*!
-            Inherits CoreIO, so functions like CoreIO::Read and CoreIO::ReadLine are accessible to the programmer.
-        */ 
-        class TextReader : public CoreIO 
+        class TCPSocket : public CoreSocket
         {
-
-        protected:
-            //! The path to the file being read.
-            const char *m_filePath;
-
         public:
-            //! The constructor.
-            /*!
-                Creates an instance of CoreIO with read access to the file specified in _file.
-                \param _file The path to the file being read.
-                */ 
-            TextReader ( const char *_file );
+            TCPSocket ();
+            TCPSocket ( socket_t _socket );
+            ~TCPSocket ();
 
-            //! The destructor
-            /*!
-                Closes the file and deallocates memory used by TextReader.
-                */ 
-            ~TextReader ();
-        private:
-            void Write ( const char *_format, ... )
-                { throw new InvalidCallException(); };
-            void WriteLine ()
-                { throw new InvalidCallException(); };
-            void WriteLine ( const char *_format, ... )
-                { throw new InvalidCallException(); };
-
+            TCPSocket *Accept ();
+            int Connect ( const char *_address, unsigned short _port );
+            int Listen ( unsigned short _port );
+            int SetAttributes ( socket_t _socket );
         };
     }
 }

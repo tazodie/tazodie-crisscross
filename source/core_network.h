@@ -39,11 +39,16 @@ namespace CrissCross
 {
     namespace Network
     {
-        typedef struct {
-            unsigned int host;            /* 32-bit IPv4 host address */
-            unsigned short port;        /* 16-bit protocol port */
-        } IPaddress;
+        //! Initialises the sockets subsystems.
+        /*!
+            <span style="color:#ff0000;">FOR INTERNAL USE ONLY. DO NOT CALL THIS.</span>
+         */
         int __initialise_network();
+
+        //! Shuts down the sockets subsystems.
+        /*!
+            <span style="color:#ff0000;">FOR INTERNAL USE ONLY. DO NOT CALL THIS.</span>
+         */
         void __cleanup_network();
     }
 }

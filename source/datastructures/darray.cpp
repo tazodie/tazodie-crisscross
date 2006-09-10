@@ -303,7 +303,7 @@ template < class T > int DArray < T >::NumUsed ()
 
 }
 
-template < class T > int DArray < T >::Size ( bool guarantee_actual )
+template < class T > int DArray < T >::Size ()
 {
     return m_arraySize;
 }

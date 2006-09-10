@@ -37,9 +37,8 @@
 #include "core_io.h"
 #include "core_debug.h"
 
-#if defined(ENABLE_DEBUGLOG)
+#if defined ( ENABLE_DEBUGLOG )
 #    include "core_debuglog.h"
-CoreDebugLog *g_debuglog;
 #endif
 
 #include "datastructures/rbtree.h"
@@ -48,6 +47,12 @@ CoreDebugLog *g_debuglog;
 #include <exception>
 
 using namespace std;
+using namespace CrissCross::IO;
+
+#if defined ( ENABLE_DEBUGLOG )
+using namespace CrissCross::Debug;
+CoreDebugLog *g_debuglog;
+#endif
 
 CoreConsole *g_stderr;
 CoreConsole *g_stdout;

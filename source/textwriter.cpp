@@ -36,6 +36,8 @@
 #include "core_debug.h"
 #include "textwriter.h"
 
+using namespace CrissCross::IO;
+
 TextWriter::TextWriter ( const char *_file ):
 CoreIO ( NULL )
 {

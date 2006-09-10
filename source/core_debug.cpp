@@ -37,8 +37,11 @@
 #include "core_debug.h"
 #include "textwriter.h"
 
+using namespace CrissCross::IO;
+
 #ifdef ENABLE_DEBUGLOG
 #include "core_debuglog.h"
+using namespace CrissCross::Debug;
 extern CoreDebugLog *g_debuglog;
 #endif
 

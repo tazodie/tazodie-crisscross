@@ -84,10 +84,10 @@
 #            define TARGET_CPU_X64
 #    endif
     
-#    if defined ( WIN32 ) || defined ( WIN64 )
-#            if defined ( WIN32 )
+#    if defined ( _MSC_VER )
+#            if !defined ( WIN64 )
 #                define TARGET_CPU_X86
-#            elif defined ( WIN64 )
+#            else
 #                define TARGET_CPU_X64
 #            endif
 #            define TARGET_OS_WINDOWS
@@ -123,19 +123,19 @@
 #            undef ENABLE_CPUID
 #            undef DETECT_MEMORY_LEAKS
 #    endif
-    
+   
 #    if !defined(TARGET_OS_WINDOWS) \
         && !defined ( TARGET_OS_LINUX ) \
-        && !defined ( TARGET_OS_MACOSX ) 
-#        error Compiling on an unsupported target. Cannot continue.
+        && !defined ( TARGET_OS_MACOSX )
+#       error Compiling on an unsupported target. Cannot continue.
 #    endif
     
 #    ifdef TARGET_RELEASE
     
 #    endif
     
-#    if defined ( TARGET_OS_WINDOWS ) && _MSC_VER >= 1300
-#            define ENABLE_SYMBOL_ENGINE
+#    if defined ( TARGET_OS_WINDOWS ) // && _MSC_VER >= 1300
+#       define ENABLE_SYMBOL_ENGINE
 #    endif
     
 #    if defined ( TARGET_OS_WINDOWS )
@@ -147,7 +147,6 @@
 #            if defined ( DETECT_MEMORY_LEAKS )
 #                define _CRTDBG_MAP_ALLOC
 #            endif
-#            include <winsock2.h>
 #            include <io.h>
 #            include <fcntl.h>
 #            include <windows.h>

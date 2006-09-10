@@ -836,7 +836,7 @@ template < class dataType, class keyType >
 template < class dataType, class keyType >
     void RedBlackTree < dataType,
     keyType >::RecursiveConvertToDArray ( DArray < dataType > *darray,
-                                          nodeType * btree )
+                                          nodeType *btree )
 {
     // note that the btree parameter is ignored
 

@@ -37,96 +37,108 @@
 
 #    include "core_io.h"
 
-//! The core console input/output class.
-class CoreConsole:public CoreIO
+namespace CrissCross
 {
-  public:
-
-    //! Flags used for describing console colour output.
-    typedef enum
+    namespace IO
     {
-        FG_BLUE = 0x0001,        /*!< Blue Foreground */
-        FG_GREEN = 0x0002,        /*!< Green Foreground */
-        FG_RED = 0x0004,        /*!< Red Foreground */
-        FG_INTENSITY = 0x0008,    /*!< Foreground intensity (makes the foreground colour a shade brighter) */
-        BG_BLUE = 0x0010,        /*!< Blue Background */
-        BG_GREEN = 0x0020,        /*!< Green Background */
-        BG_RED = 0x0040,        /*!< Red Background */
-        BG_INTENSITY = 0x0080,    /*!< Background intensity (makes the foreground colour a shade brighter) */
-#    if !defined ( ANSI_COLOUR ) && defined ( TARGET_OS_WINDOWS )
-        FG_BROWN = 0x0000,                /*!< Brown Foreground (POSIX only) */
-        FG_MAGENTA = FG_BLUE | FG_RED,    /*!< Magenta Foreground */
-        FG_CYAN = FG_BLUE | FG_GREEN,    /*!< Cyan Foreground */
-        BG_BROWN = 0x0000,                /*!< Brown Background (POSIX only) */
-        BG_MAGENTA = BG_BLUE | BG_RED,    /*!< Magenta Background */
-        BG_CYAN = BG_GREEN | BG_BLUE,                            /*!< Cyan Background */
-        FG_GRAY = FG_BLUE | FG_GREEN | FG_RED,                    /*!< Gray Foreground */
-        FG_WHITE = FG_BLUE | FG_GREEN | FG_RED | FG_INTENSITY,    /*!< White Foreground */
-        BG_GRAY = BG_BLUE | BG_GREEN | BG_RED,                    /*!< Gray Background */
-        BG_WHITE = BG_BLUE | BG_GREEN | BG_RED | BG_INTENSITY    /*!< White Background */
-#    elif defined ( ANSI_COLOUR )
-        FG_BROWN = 0x0100,        /*!< Brown Foreground (POSIX only) */
-        FG_MAGENTA = 0x0200,        /*!< Magenta Foreground */
-        FG_CYAN = 0x0400,        /*!< Cyan Foreground */
-        BG_BROWN = 0x0800,        /*!< Brown Background (POSIX only) */
-        BG_MAGENTA = 0x1000,        /*!< Magenta Background */
-        BG_CYAN = 0x2000,        /*!< Cyan Background */
-        FG_GRAY = 0x4000,        /*!< Gray Foreground */
-        FG_WHITE = 0x8000,        /*!< White Foreground */
-        BG_GRAY = 0x10000,        /*!< Gray Background */
-        BG_WHITE = 0x20000        /*!< White Background */
-#    endif
-    } ColourTypes;
+        //! The core console input/output class.
+        class CoreConsole:public CoreIO
+        {
+          public:
 
-  public:
+            //! Flags used for describing console colour output.
+            typedef enum
+            {
+                FG_BLUE = 0x0001,        /*!< Blue Foreground */
+                FG_GREEN = 0x0002,        /*!< Green Foreground */
+                FG_RED = 0x0004,        /*!< Red Foreground */
+                FG_INTENSITY = 0x0008,    /*!< Foreground intensity (makes the foreground colour a shade brighter) */
+                BG_BLUE = 0x0010,        /*!< Blue Background */
+                BG_GREEN = 0x0020,        /*!< Green Background */
+                BG_RED = 0x0040,        /*!< Red Background */
+                BG_INTENSITY = 0x0080,    /*!< Background intensity (makes the foreground colour a shade brighter) */
+        #    if !defined ( ANSI_COLOUR ) && defined ( TARGET_OS_WINDOWS )
+                FG_BROWN = 0x0000,                /*!< Brown Foreground (POSIX only) */
+                FG_MAGENTA = FG_BLUE | FG_RED,    /*!< Magenta Foreground */
+                FG_CYAN = FG_BLUE | FG_GREEN,    /*!< Cyan Foreground */
+                BG_BROWN = 0x0000,                /*!< Brown Background (POSIX only) */
+                BG_MAGENTA = BG_BLUE | BG_RED,    /*!< Magenta Background */
+                BG_CYAN = BG_GREEN | BG_BLUE,                            /*!< Cyan Background */
+                FG_GRAY = FG_BLUE | FG_GREEN | FG_RED,                    /*!< Gray Foreground */
+                FG_WHITE = FG_BLUE | FG_GREEN | FG_RED | FG_INTENSITY,    /*!< White Foreground */
+                BG_GRAY = BG_BLUE | BG_GREEN | BG_RED,                    /*!< Gray Background */
+                BG_WHITE = BG_BLUE | BG_GREEN | BG_RED | BG_INTENSITY    /*!< White Background */
+        #    elif defined ( ANSI_COLOUR )
+                FG_BROWN = 0x0100,        /*!< Brown Foreground (POSIX only) */
+                FG_MAGENTA = 0x0200,        /*!< Magenta Foreground */
+                FG_CYAN = 0x0400,        /*!< Cyan Foreground */
+                BG_BROWN = 0x0800,        /*!< Brown Background (POSIX only) */
+                BG_MAGENTA = 0x1000,        /*!< Magenta Background */
+                BG_CYAN = 0x2000,        /*!< Cyan Background */
+                FG_GRAY = 0x4000,        /*!< Gray Foreground */
+                FG_WHITE = 0x8000,        /*!< White Foreground */
+                BG_GRAY = 0x10000,        /*!< Gray Background */
+                BG_WHITE = 0x20000        /*!< White Background */
+        #    endif
+            } ColourTypes;
 
-    //! The default constructor.
-    /*! Allocates a new console (in Windows) for stdout and stderr output. */
-      CoreConsole ();
+          public:
 
-    //! The alternate constructor
-    /*!
-       Does not allocate a new console, and instead uses the specified FILE * for output.
-       \param _outputBuffer The destination buffer for CoreConsole output.
-       \sa CoreConsole()
-     */
-      CoreConsole ( FILE * _outputBuffer );
+            //! The default constructor.
+            /*! Allocates a new console (in Windows) for stdout and stderr output. */
+              CoreConsole ();
 
-    //! The destructor.
-     ~CoreConsole ();
+            //! The alternate constructor
+            /*!
+               Does not allocate a new console, and instead uses the specified FILE * for output.
+               \param _outputBuffer The destination buffer for CoreConsole output.
+               \sa CoreConsole()
+             */
+              CoreConsole ( FILE * _outputBuffer );
 
-    //! Sets the console output colour.
-    /*!
-       Sets the console output colour using the flags specified in _flags.
-       \param _flags A bitmask created by OR-ing CoreConsole::ColourTypes flags.
-     */
-    void SetColour ( short _flags );
+            //! The destructor.
+             ~CoreConsole ();
 
-    //! Clears the console.
-    /*!
-       Clears the console output (similar to commands 'cls' on Windows and 'clear' on Linux).
-     */
-    void Clear ();
+            //! Sets the console output colour.
+            /*!
+               Sets the console output colour using the flags specified in _flags.
+               \param _flags A bitmask created by OR-ing CoreConsole::ColourTypes flags.
+             */
+            void SetColour ( short _flags );
 
-    //! Does nothing.
-    /*!
-       To get input from the console, use std::cin.
-     */
-    char Read ();
+            //! Clears the console.
+            /*!
+               Clears the console output (similar to commands 'cls' on Windows and 'clear' on Linux).
+             */
+            void Clear ();
 
-    //! Does nothing.
-    /*!
-       To get input from the console, use std::cin.
-     */
-    std::string ReadLine ();
+            //! Move up a line.
+            /*!
+               Permits you to overwrite the previous line. Good for a status display.
+             */
+            void MoveUp ( int _lines );
 
-private:
-    bool EndOfFile ();
-    int Forward ( int _position );
-    int Seek ( int _position );
-    size_t Length ();
-    size_t Read ( char *_buffer, int _bufferLength, int _bufferIndex,
-                  int _count );
-};
+            //! Does nothing.
+            /*!
+               To get input from the console, use std::cin.
+             */
+            char Read ();
+
+            //! Does nothing.
+            /*!
+               To get input from the console, use std::cin.
+             */
+            std::string ReadLine ();
+
+        private:
+            bool EndOfFile ();
+            int Forward ( int _position );
+            int Seek ( int _position );
+            size_t Length ();
+            size_t Read ( char *_buffer, int _bufferLength, int _bufferIndex,
+                          int _count );
+        };
+    }
+}
 
 #endif

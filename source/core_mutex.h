@@ -35,6 +35,10 @@
 #ifndef __included_core_mutex_h
 #define __included_core_mutex_h
 
+#if defined ( WIN32 ) && _MSC_VER < 1300
+#	include <windows.h>
+#endif
+
 //! The safe threading mutex class.
 /*!
     Allows for safe threading by locking via thread ID.
@@ -48,7 +52,7 @@ class CoreMutex
     /*!
        Windows uses "critical sections" for safe threading.
      */
-    CRITICAL_SECTION m_criticalSection; /// Docs say this is faster than a mutex for single process access
+    CRITICAL_SECTION m_criticalSection;
 #    else
     //! POSIX threading mutex.
     pthread_mutex_t m_hMutex;

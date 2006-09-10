@@ -35,10 +35,6 @@
 #ifndef __included_core_debuglog_h
 #define __included_core_debuglog_h
 
-#ifndef __GNUC__
-#   include "universal_include.h"
-#endif
-
 #ifdef ENABLE_DEBUGLOG
 
 #include "datastructures/llist.h"
@@ -52,88 +48,96 @@
 
 using namespace std;
 
-class CoreDebugLogData
+namespace CrissCross
 {
-public:
-    tm *m_bug_time;
-    int m_priority;
-    char *m_description;
-public:
-    CoreDebugLogData ( tm *_bug_time, int _priority, char *_description);
-    ~CoreDebugLogData ();
-};
-
-    //! The core debug logging class.
-class CoreDebugLog
-{
-private:
-    //! If true, a log format similar to Apache Common Log Format will be used
-    bool m_common_log_format;
-    string m_app_name;
-    string m_app_version;
-    string m_app_website;
-    string m_email;
-    LList <CoreDebugLogData*> *m_reports;
-
-public:
-    enum BugReportPriority
+    namespace Debug
     {
-        BUG_LEVEL_INFO,       //!< Informational
-        BUG_LEVEL_WARNING,    //!< Non-critical, but potentially threatening
-        BUG_LEVEL_ERROR       //!< Critical failure
-    };
 
-    //! The default constructor.
-    /*!
-        Creates a new bug report object.
-        \param _name Application name.
-        \param _version Application version.
-        \param _website Application website.
-        \param _email Email to send bug reports to.
-        \param _common_log_format If true, a log format similar to the Apache Common Log
-        Format will be used.
-    */
-    CoreDebugLog ( string _name, string _version,
-        string _website, string _email,
-        bool _common_log_format = true );
-    //! The destructor.
-    ~CoreDebugLog ( );
+        class CoreDebugLogData
+        {
+        public:
+            tm *m_bug_time;
+            int m_priority;
+            char *m_description;
+        public:
+            CoreDebugLogData ( tm *_bug_time, int _priority, char *_description);
+            ~CoreDebugLogData ();
+        };
 
-    //! Adds a line of bug report information.
-    /*!
-        \param _priority Bug priority.
-        \param _line Bug report line.
-    */
-    void WriteLine ( CoreDebugLog::BugReportPriority _priority, const char *_format, ... );
+            //! The core debug logging class.
+        class CoreDebugLog
+        {
+        private:
+            //! If true, a log format similar to Apache Common Log Format will be used
+            bool m_common_log_format;
+            string m_app_name;
+            string m_app_version;
+            string m_app_website;
+            string m_email;
+            LList <CoreDebugLogData*> *m_reports;
 
-    //! Adds a line of bug report information.
-    /*!
-        \param _line Bug report line.
-        \param _priority Bug priority.
-    */
-    void Write ( CoreDebugLog::BugReportPriority _priority, const char *_format, ... );
+        public:
+            enum LogEntryPriority
+            {
+                BUG_LEVEL_INFO,       //!< Informational
+                BUG_LEVEL_WARNING,    //!< Non-critical, but potentially threatening
+                BUG_LEVEL_ERROR       //!< Critical failure
+            };
 
-    //! Print the bug report.
-    /*!
-        Prints the bug report to stdout along with colours.
-        \param _lowest_priority The lowest priority of bug information that will be printed.
-    */
-    void Print ( CoreIO *_output,
-        BugReportPriority _lowest_priority = BUG_LEVEL_WARNING );
+            //! The default constructor.
+            /*!
+                Creates a new CoreDebugLog instance.
+                \param _name Application name.
+                \param _version Application version.
+                \param _website Application website.
+                \param _email Email to send debug logs to (if the log shows something abnormal).
+                \param _common_log_format If true, a log format similar to the Apache Common Log
+                Format will be used.
+            */
+            CoreDebugLog ( string _name, string _version,
+                string _website, string _email,
+                bool _common_log_format = true );
+            //! The destructor.
+            ~CoreDebugLog ( );
 
-    //! Save the bug report.
-    /*!
-        Saves the bug report to a file named "year-month-day_application_version.log".
-    */
-    void Save ( );
+            //! Add a line of debug log information.
+            /*!
+                \param _priority Log line priority.
+                \param _format The format of the string to be written.
+            */
+            void WriteLine ( CoreDebugLog::LogEntryPriority _priority, const char *_format, ... );
 
-protected:
-    void Put ( CoreIO *_stream, CoreDebugLog::BugReportPriority _lowest_priority = BUG_LEVEL_WARNING );
+            //! Adds a line of debug log information.
+            /*!
+                \param _priority Log line priority.
+                \param _format The format of the string to be written.
+            */
+            void Write ( CoreDebugLog::LogEntryPriority _priority, const char *_format, ... );
 
-};
+            //! Print the debug log to a buffer.
+            /*!
+                Writes the bug report to stdout along with colours.
+                \param _output The buffer to write the debug log to.
+                \param _lowest_priority The lowest priority of debug entries to be written.
+            */
+            void Print ( CrissCross::IO::CoreIO *_output,
+                LogEntryPriority _lowest_priority = BUG_LEVEL_WARNING );
 
-//! Global CoreDebugLog variable defined in universal_include.cpp
-extern CoreDebugLog *debuglog;
+            //! Save the debug log.
+            /*!
+                Saves the debug log to a file with with the naming convention "<year>-<month>-<day>_<application version>.log".
+            */
+            void Save ( );
+
+        protected:
+            void Put ( CrissCross::IO::CoreIO *_stream, CoreDebugLog::LogEntryPriority _lowest_priority = BUG_LEVEL_WARNING );
+
+        };
+
+        //! Global CoreDebugLog variable defined in universal_include.cpp
+        extern CoreDebugLog *debuglog;
+    }
+}
 
 #endif
 

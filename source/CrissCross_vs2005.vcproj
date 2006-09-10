@@ -650,6 +650,22 @@
 				RelativePath=".\core_socket.h"
 				>
 			</File>
+			<File
+				RelativePath=".\tcpsocket.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\tcpsocket.h"
+				>
+			</File>
+			<File
+				RelativePath=".\udpsocket.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\udpsocket.h"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

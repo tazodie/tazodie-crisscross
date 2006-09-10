@@ -43,15 +43,15 @@ template < class T > class DArray
 {
 
   private:
-    DStack<int>	*empty_nodes;
+    DStack<int>    *empty_nodes;
 
   protected:
 
-    int			m_stepSize;
-    int			m_arraySize;
+    int            m_stepSize;
+    int            m_arraySize;
 
-    T			*m_array;
-    char		*m_shadow;                //0=not used, 1=used
+    T            *m_array;
+    char        *m_shadow;                //0=not used, 1=used
 
   public:
 
@@ -73,7 +73,7 @@ template < class T > class DArray
     int FindData ( const T & data );    // -1 means 'not found'
 
     int NumUsed ();            // Returns the number of used entries
-    int Size ( bool guarantee_actual = false );    // Returns the total size of the array
+    int Size ();    // Returns the total size of the array
 
     bool ValidIndex ( int index );    // Returns true if the index contains used data
 

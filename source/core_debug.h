@@ -65,7 +65,7 @@ void GenerateBlackBox ( const char *_msg );
 /*!
     \param _outputBuffer The CoreIO output buffer to write to.
 */
-void PrintStackTrace ( CoreIO * _outputBuffer );
+void PrintStackTrace ( CrissCross::IO::CoreIO * _outputBuffer );
 
 //! An assertion macro.
 /*!
@@ -75,7 +75,7 @@ void PrintStackTrace ( CoreIO * _outputBuffer );
 */
 #    define CoreAssert(x)       Assert((x), #x, __FILE__, __LINE__ )
 
-extern CoreConsole *g_stderr;
-extern CoreConsole *g_stdout;
+extern CrissCross::IO::CoreConsole *g_stderr;
+extern CrissCross::IO::CoreConsole *g_stdout;
 
 #endif
