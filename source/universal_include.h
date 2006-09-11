@@ -43,8 +43,8 @@
 #    define APP_COPYRIGHT_CONSOLE   "(c) 2006 by Steven Noonan <steven@uplinklabs.net>,\n" \
                                     "    Rudolf Olah <omouse@gmail.com>, and Miah Clayton <miah@io-in.com>"
     
-#    define ENABLE_CPUID
-#    define ENABLE_DEBUGLOG
+//#    define ENABLE_CPUID
+//#    define ENABLE_DEBUGLOG
 
 //NOTE: By disabling this line, you will not be in compliance with article 2
 //      of the BSD License. If you disable this line, you must display the

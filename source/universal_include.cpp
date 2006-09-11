@@ -47,10 +47,10 @@
 #include <exception>
 
 using namespace std;
+using namespace CrissCross::Debug;
 using namespace CrissCross::IO;
 
 #if defined ( ENABLE_DEBUGLOG )
-using namespace CrissCross::Debug;
 CrissCross::Debug::CoreDebugLog *CrissCross::Debug::g_debuglog;
 #endif
 

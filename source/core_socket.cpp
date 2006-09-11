@@ -56,15 +56,15 @@
 using namespace CrissCross::Network;
 
 CoreSocket::CoreSocket()
-    : m_sock ( INVALID_SOCKET )
 {
     __initialise_network(); m_calledInitialise = 1;
     memset ( &m_sock, 0, sizeof ( socket_t ) );
+    m_sock = INVALID_SOCKET;
     m_state = SOCKET_STATE_NOT_CREATED;
 }
 
 CoreSocket::CoreSocket ( socket_t socket )
-    : m_calledInitialise ( 0 ), m_sock ( INVALID_SOCKET )
+    : m_calledInitialise ( 0 )
 {
     /* Calling __initialise_network() is NOT
        necessary if we have a socket to copy. */

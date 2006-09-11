@@ -61,12 +61,14 @@ RunApplication ( int argc, char **argv )
     console->WriteLine ( "Creating TCPSocket..." );
     TCPSocket *socket = new TCPSocket ();
     TCPSocket *tsock = NULL;
-    int sockets_per_second = 0;
+    int sockets_per_second = 0, retval = 0, breakout = 0;
 
-    console->WriteLine ( "TCPSocket is listening on port 3193..." );
-    CoreAssert ( socket->Listen ( 3193 ) == 0 );
+    console->Write ( "TCPSocket is listening on port 3193... " );
+    retval = socket->Listen ( 3193 );
+    console->WriteLine ( "retval == %d", retval );
+    CoreAssert ( retval == 0 );
 
-    while ( true )
+    while ( !breakout )
     {
         tsock = NULL;
 
@@ -118,12 +120,24 @@ RunApplication ( int argc, char **argv )
                 delete tsock;
                 i--; // This index has changed.
             } else {
-                
+		console->WriteLine ( "%s", data.c_str() );
+		if ( strcasecmp ( data.c_str(), "die" ) == 0 )
+		     breakout = true;
             }
         }
 
         system->ThreadSleep ( 1000 );
     }
+
+    while ( sockets->ValidIndex ( 0 ) )
+    {
+        tsock = sockets->GetData ( 0 );
+	sockets->RemoveData ( 0 );
+        delete tsock;
+    }
+
+    delete sockets;
+    delete connections_per_host;
     
     delete system;
     delete socket;

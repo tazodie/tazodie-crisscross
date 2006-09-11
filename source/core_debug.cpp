@@ -41,8 +41,9 @@ using namespace CrissCross::IO;
 
 #ifdef ENABLE_DEBUGLOG
 #include "core_debuglog.h"
-using namespace CrissCross::Debug;
 #endif
+
+using namespace CrissCross::Debug;
 
 #ifndef ENABLE_SYMBOL_ENGINE
 #    ifdef TARGET_OS_WINDOWS
