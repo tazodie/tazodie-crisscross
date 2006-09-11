@@ -78,13 +78,6 @@ CoreSocket::~CoreSocket()
     if ( m_calledInitialise == 1 )
         __cleanup_network();
 }
-
-socket_t
-CoreSocket::GetSocket()
-{
-    return m_sock;
-}
-
 int
 CoreSocket::Ban ( unsigned long _host )
 {
@@ -93,17 +86,6 @@ CoreSocket::Ban ( unsigned long _host )
         m_banned_hosts.insert ( &_host, (char *)1 );
 #endif
     return ERROR_NONE;
-}
-
-bool
-CoreSocket::IsBanned ( unsigned long _host ) const
-{
-#if defined ( ENABLE_PROTECTION )
-    if ( m_banned_hosts.find ( &_host ) )
-        return true;
-    else
-#endif
-        return false;
 }
 
 int
@@ -116,6 +98,47 @@ CoreSocket::Close()
 #endif
     m_sock = 0;
     return ERROR_NONE;
+}
+
+const char *
+CoreSocket::GetRemoteIP ()
+{
+    if ( m_sock == INVALID_SOCKET ) return NULL;
+
+    static char buffer[15];
+    struct sockaddr_in sock; int sock_size = sizeof(sock);
+    memset ( &sock, 0, sizeof(sock) );
+    getpeername ( m_sock, (sockaddr *)&sock, &sock_size );
+    sprintf ( buffer, inet_ntoa ( sock.sin_addr ) );
+    return buffer;
+}
+
+u_long
+CoreSocket::GetRemoteHost ()
+{
+    if ( m_sock == INVALID_SOCKET ) return 0;
+
+    struct sockaddr_in sock; int sock_size = sizeof(sock);
+    memset ( &sock, 0, sizeof(sock) );
+    getpeername ( m_sock, (sockaddr *)&sock, &sock_size );
+    return sock.sin_addr.s_addr;
+}
+
+socket_t
+CoreSocket::GetSocket()
+{
+    return m_sock;
+}
+
+bool
+CoreSocket::IsBanned ( unsigned long _host ) const
+{
+#if defined ( ENABLE_PROTECTION )
+    if ( m_banned_hosts.find ( &_host ) )
+        return true;
+    else
+#endif
+        return false;
 }
 
 int
@@ -198,29 +221,4 @@ CoreSocket::State() const
     // SO_ERROR (DWORD, get): per-socket error code.
     //
     return m_state;
-}
-
-
-const char *
-CoreSocket::GetRemoteIP ()
-{
-    if ( m_sock == INVALID_SOCKET ) return NULL;
-
-    static char buffer[15];
-    struct sockaddr_in sock; int sock_size = sizeof(sock);
-    memset ( &sock, 0, sizeof(sock) );
-    getpeername ( m_sock, (sockaddr *)&sock, &sock_size );
-    sprintf ( buffer, inet_ntoa ( sock.sin_addr ) );
-    return buffer;
-}
-
-u_long
-CoreSocket::GetRemoteHost ()
-{
-    if ( m_sock == INVALID_SOCKET ) return 0;
-
-    struct sockaddr_in sock; int sock_size = sizeof(sock);
-    memset ( &sock, 0, sizeof(sock) );
-    getpeername ( m_sock, (sockaddr *)&sock, &sock_size );
-    return sock.sin_addr.s_addr;
 }

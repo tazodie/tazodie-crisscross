@@ -54,6 +54,36 @@ TCPSocket::~TCPSocket ()
 {
 }
 
+TCPSocket *TCPSocket::Accept()
+{
+    /* TODO: Implement a much more elegant ability to
+             REJECT a connection if it IsBanned(). */
+    socket_t sock = accept ( m_sock, 0, 0 );
+
+    if ( sock != INVALID_SOCKET )
+    {
+#if defined ( ENABLE_PROTECTION )
+        struct sockaddr_in saddr_sock; int sock_size = sizeof(saddr_sock);
+        memset ( &saddr_sock, 0, sizeof(saddr_sock) );
+        getpeername ( sock, (sockaddr *)&saddr_sock, (socklen_t *)&sock_size );
+        if ( IsBanned ( saddr_sock.sin_addr.s_addr ) )
+        {
+#ifdef TARGET_OS_WINDOWS
+            closesocket ( sock );
+#else
+            close ( sock );
+#endif
+            return NULL;
+        }
+#endif
+        SetAttributes ( sock );
+        TCPSocket *csock = new TCPSocket ( sock );
+
+        return csock;
+    }
+    return NULL;
+}
+
 int TCPSocket::Connect ( const char *_address, unsigned short _port )
 {
     struct sockaddr_in sin;
@@ -134,36 +164,6 @@ int TCPSocket::Listen ( unsigned short _port )
     }
 
     return ERROR_NONE;
-}
-
-TCPSocket *TCPSocket::Accept()
-{
-    /* TODO: Implement a much more elegant ability to
-             REJECT a connection if it IsBanned(). */
-    socket_t sock = accept ( m_sock, 0, 0 );
-
-    if ( sock != INVALID_SOCKET )
-    {
-#if defined ( ENABLE_PROTECTION )
-        struct sockaddr_in saddr_sock; int sock_size = sizeof(saddr_sock);
-        memset ( &saddr_sock, 0, sizeof(saddr_sock) );
-        getpeername ( sock, (sockaddr *)&saddr_sock, (socklen_t *)&sock_size );
-        if ( IsBanned ( saddr_sock.sin_addr.s_addr ) )
-        {
-#ifdef TARGET_OS_WINDOWS
-            closesocket ( sock );
-#else
-            close ( sock );
-#endif
-            return NULL;
-        }
-#endif
-        SetAttributes ( sock );
-        TCPSocket *csock = new TCPSocket ( sock );
-
-        return csock;
-    }
-    return NULL;
 }
 
 int TCPSocket::SetAttributes ( socket_t _socket )

@@ -133,12 +133,13 @@ namespace CrissCross
              */
             int Ban ( unsigned long _host );
 
-            //! Indicates whether the specified host is banned or not.
+            //! Close the socket.
             /*!
-                \param _host The host to ban (retrieve this with GetRemoteHost()).
-                \return True or false, depending on whether the host is banned or not.
+                Doesn't need to be called before an instance is destructed, because
+                it is automatically called in the destructor.
+                \return Currently always returns ERROR_NONE.
              */
-            bool IsBanned ( unsigned long _host ) const;
+            virtual int Close ();
 
             //! Fetches the IP address of the remote host.
             /*!
@@ -154,13 +155,18 @@ namespace CrissCross
              */
             const char *GetRemoteIP ();
 
-            //! Close the socket.
+            //! Gives access to the socket itself (for extensibility only).
             /*!
-                Doesn't need to be called before an instance is destructed, because
-                it is automatically called in the destructor.
-                \return Currently always returns ERROR_NONE.
+                \return CoreSocket::m_sock
              */
-            virtual int Close ();
+            socket_t GetSocket ();
+
+            //! Indicates whether the specified host is banned or not.
+            /*!
+                \param _host The host to ban (retrieve this with GetRemoteHost()).
+                \return True or false, depending on whether the host is banned or not.
+             */
+            bool IsBanned ( unsigned long _host ) const;
 
             //! Fetch the state of the socket.
             /*!
@@ -212,12 +218,6 @@ namespace CrissCross
                 \return The actual number of bytes sent.
              */
             virtual int Send ( std::string _data );
-
-            //! Gives access to the socket itself (for extensibility only).
-            /*!
-                \return CoreSocket::m_sock
-             */
-            socket_t GetSocket ();
 
         };
     }

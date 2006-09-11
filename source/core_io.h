@@ -59,9 +59,9 @@ namespace CrissCross
              */
             enum LineEndingType
             {
-                CR,                        /*!< Carriage return only. (default for UNIX and UNIX-like systems, Linux, AIX, Xenix, Mac OS X, BeOS, Amiga, RISC OS and others) */
-                LF,                        /*!< Line feed only. (default for Commodore machines, Apple II family and Mac OS through version 9) */
-                CRLF                    /*!< Carriage return and line feed. (default for CP/M, MP/M, DOS, Microsoft Windows) */
+                CR,                         /*!< Carriage return only. (default for UNIX and UNIX-like systems, Linux, AIX, Xenix, Mac OS X, BeOS, Amiga, RISC OS and others) */
+                LF,                         /*!< Line feed only. (default for Commodore machines, Apple II family and Mac OS through version 9) */
+                CRLF                        /*!< Carriage return and line feed. (default for CP/M, MP/M, DOS, Microsoft Windows) */
             };
 
           protected:
@@ -103,7 +103,7 @@ namespace CrissCross
 
             //! Determines the length of the file buffer.
             /*!
-               \return An unsigned long indicating the length of the buffer in bytes.
+               \return Indicates the length of the buffer in bytes.
              */
             virtual size_t Length ();
 
@@ -119,6 +119,7 @@ namespace CrissCross
                \param _bufferLength The size of _buffer (in bytes).
                \param _bufferIndex The position in _buffer to begin writing.
                \param _count The number of bytes to read.
+               \return The actual number of bytes read.
              */
             virtual size_t Read ( char *_buffer, int _bufferLength, int _bufferIndex,
                           int _count );
