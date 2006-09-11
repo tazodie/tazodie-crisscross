@@ -11,6 +11,16 @@
     <li id="current"><a href="namespaces.html"><span>Namespaces</span></a></li>
     <li><a href="annotated.html"><span>Classes</span></a></li>
     <li><a href="files.html"><span>Files</span></a></li>
+    <li>
+      <form action="search.php" method="get">
+        <table cellspacing="0" cellpadding="0" border="0">
+          <tr>
+            <td><label>&nbsp;<u>S</u>earch&nbsp;for&nbsp;</label></td>
+            <td><input type="text" name="query" value="" size="20" accesskey="s"/></td>
+          </tr>
+        </table>
+      </form>
+    </li>
   </ul></div>
 <div class="tabs">
   <ul>
@@ -26,12 +36,45 @@
 <tr><td colspan="2"><br><h2>Classes</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_network_1_1_core_socket.html">CoreSocket</a></td></tr>
 
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The abstract core socket class.  <a href="class_criss_cross_1_1_network_1_1_core_socket.html#_details">More...</a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_network_1_1_t_c_p_socket.html">TCPSocket</a></td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">TCP/IP socket class.  <a href="class_criss_cross_1_1_network_1_1_t_c_p_socket.html#_details">More...</a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_network_1_1_u_d_p_socket.html">UDPSocket</a></td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">UDP/IP socket class.  <a href="class_criss_cross_1_1_network_1_1_u_d_p_socket.html#_details">More...</a><br></td></tr>
+<tr><td colspan="2"><br><h2>Enumerations</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_criss_cross_1_1_network.html#de4b3c0846d30331e051c196c1b05ea3">socketState</a> { <br>
+&nbsp;&nbsp;<a class="el" href="namespace_criss_cross_1_1_network.html#de4b3c0846d30331e051c196c1b05ea37e4c61e61c310fb3d18b8cc744b459a0">SOCKET_STATE_UNKNOWN</a>, 
+<a class="el" href="namespace_criss_cross_1_1_network.html#de4b3c0846d30331e051c196c1b05ea31965798f7dd8fc312fd89abd9abb2b68">SOCKET_STATE_NOT_CREATED</a>, 
+<a class="el" href="namespace_criss_cross_1_1_network.html#de4b3c0846d30331e051c196c1b05ea33130a28ab591bdbd0f67fe6acf5d0f0f">SOCKET_STATE_CLOSED</a>, 
+<a class="el" href="namespace_criss_cross_1_1_network.html#de4b3c0846d30331e051c196c1b05ea30f8ceb562db47ca7abafedf44362638d">SOCKET_STATE_LISTENING</a>, 
+<br>
+&nbsp;&nbsp;<a class="el" href="namespace_criss_cross_1_1_network.html#de4b3c0846d30331e051c196c1b05ea37c1b73b1c5ef1fa50524c948054e3e6a">SOCKET_STATE_CONNECTED</a>
+<br>
+ }</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_criss_cross_1_1_network.html#48d13a5afcddbce68d43ccf3fe181b45">socketError</a> { <br>
+&nbsp;&nbsp;<a class="el" href="namespace_criss_cross_1_1_network.html#48d13a5afcddbce68d43ccf3fe181b457f070e722b2927dff8ae32faef736f54">ERROR_CONNECT</a> =  -11, 
+<a class="el" href="namespace_criss_cross_1_1_network.html#48d13a5afcddbce68d43ccf3fe181b45de35987277f1474676eed21bb29a2234">ERROR_LISTEN</a> =  -10, 
+<a class="el" href="namespace_criss_cross_1_1_network.html#48d13a5afcddbce68d43ccf3fe181b45b4fd27e68ad1ba29f9c6abcad2cc566d">ERROR_BIND</a> =  -9, 
+<a class="el" href="namespace_criss_cross_1_1_network.html#48d13a5afcddbce68d43ccf3fe181b458503d8fd4a921765f673836b37a47a14">ERROR_DNS</a> =  -8, 
+<br>
+&nbsp;&nbsp;<a class="el" href="namespace_criss_cross_1_1_network.html#48d13a5afcddbce68d43ccf3fe181b45ba9d2ae501005d3ed3dc808e4dd87a1e">ERROR_CREATE_SOCKET</a> =  -7, 
+<a class="el" href="namespace_criss_cross_1_1_network.html#48d13a5afcddbce68d43ccf3fe181b459a23814df01cb3bdc663aa342dbc0afa">ERROR_SOCKET_IN_USE</a> =  -6, 
+<a class="el" href="namespace_criss_cross_1_1_network.html#48d13a5afcddbce68d43ccf3fe181b453f206c4a63d25892286aeb099f4ae2b9">ERROR_SOCKET_NOT_INITIALISED</a> =  -5, 
+<a class="el" href="namespace_criss_cross_1_1_network.html#48d13a5afcddbce68d43ccf3fe181b45d19469400c17a003999a61880f512983">ERROR_NOT_IMPLEMENTED</a> =  -4, 
+<br>
+&nbsp;&nbsp;<a class="el" href="namespace_criss_cross_1_1_network.html#48d13a5afcddbce68d43ccf3fe181b456df3bc0e40624490dcdd3cba44aa23d8">ERROR_BAD_PARAMETER</a> =  -3, 
+<a class="el" href="namespace_criss_cross_1_1_network.html#48d13a5afcddbce68d43ccf3fe181b457bda520b6d3d7455059c560a01b4be6c">ERROR_NONE</a> =  0
+<br>
+ }</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_criss_cross_1_1_network.html#53f0c5f3d19458863b0e1439c775987e">socketProtocol</a> { <a class="el" href="namespace_criss_cross_1_1_network.html#53f0c5f3d19458863b0e1439c775987ea477b3681359ac8fed2d80b45fec226a">PROTOCOL_NONE</a>, 
+<a class="el" href="namespace_criss_cross_1_1_network.html#53f0c5f3d19458863b0e1439c775987e4348347782327e697628a8583e63d56d">PROTOCOL_TCP</a>, 
+<a class="el" href="namespace_criss_cross_1_1_network.html#53f0c5f3d19458863b0e1439c775987e88586529847aa904490165b2267d6eaa">PROTOCOL_UDP</a>
+ }</td></tr>
+
 <tr><td colspan="2"><br><h2>Functions</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_criss_cross_1_1_network.html#79b9660b0c257dc0ecefb9f3fa147818">__initialise_network</a> ()</td></tr>
 
@@ -40,6 +83,106 @@
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Shuts down the sockets subsystems.  <a href="#5f12c089f0bd58352fa9c3b034e73f3b"></a><br></td></tr>
 </table>
+<hr><h2>Enumeration Type Documentation</h2>
+<a class="anchor" name="de4b3c0846d30331e051c196c1b05ea3"></a><!-- doxytag: member="CrissCross::Network::socketState" ref="de4b3c0846d30331e051c196c1b05ea3" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespace_criss_cross_1_1_network.html#de4b3c0846d30331e051c196c1b05ea3">CrissCross::Network::socketState</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<dl compact><dt><b>Enumerator: </b></dt><dd>
+<table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em><a class="anchor" name="de4b3c0846d30331e051c196c1b05ea37e4c61e61c310fb3d18b8cc744b459a0"></a><!-- doxytag: member="SOCKET_STATE_UNKNOWN" ref="de4b3c0846d30331e051c196c1b05ea37e4c61e61c310fb3d18b8cc744b459a0" args="" -->SOCKET_STATE_UNKNOWN</em>&nbsp;</td><td>
+The state has not yet been specified or is currently not known. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="de4b3c0846d30331e051c196c1b05ea31965798f7dd8fc312fd89abd9abb2b68"></a><!-- doxytag: member="SOCKET_STATE_NOT_CREATED" ref="de4b3c0846d30331e051c196c1b05ea31965798f7dd8fc312fd89abd9abb2b68" args="" -->SOCKET_STATE_NOT_CREATED</em>&nbsp;</td><td>
+The socket is not yet instantiated. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="de4b3c0846d30331e051c196c1b05ea33130a28ab591bdbd0f67fe6acf5d0f0f"></a><!-- doxytag: member="SOCKET_STATE_CLOSED" ref="de4b3c0846d30331e051c196c1b05ea33130a28ab591bdbd0f67fe6acf5d0f0f" args="" -->SOCKET_STATE_CLOSED</em>&nbsp;</td><td>
+The socket is closed. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="de4b3c0846d30331e051c196c1b05ea30f8ceb562db47ca7abafedf44362638d"></a><!-- doxytag: member="SOCKET_STATE_LISTENING" ref="de4b3c0846d30331e051c196c1b05ea30f8ceb562db47ca7abafedf44362638d" args="" -->SOCKET_STATE_LISTENING</em>&nbsp;</td><td>
+The socket is listening for incoming connections. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="de4b3c0846d30331e051c196c1b05ea37c1b73b1c5ef1fa50524c948054e3e6a"></a><!-- doxytag: member="SOCKET_STATE_CONNECTED" ref="de4b3c0846d30331e051c196c1b05ea37c1b73b1c5ef1fa50524c948054e3e6a" args="" -->SOCKET_STATE_CONNECTED</em>&nbsp;</td><td>
+The socket is connected to a remote host. </td></tr>
+</table>
+</dl>
+
+<p>
+Definition at line <a class="el" href="core__socket_8h-source.html#l00055">55</a> of file <a class="el" href="core__socket_8h-source.html">core_socket.h</a>.
+</div>
+</div><p>
+<a class="anchor" name="48d13a5afcddbce68d43ccf3fe181b45"></a><!-- doxytag: member="CrissCross::Network::socketError" ref="48d13a5afcddbce68d43ccf3fe181b45" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespace_criss_cross_1_1_network.html#48d13a5afcddbce68d43ccf3fe181b45">CrissCross::Network::socketError</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<dl compact><dt><b>Enumerator: </b></dt><dd>
+<table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em><a class="anchor" name="48d13a5afcddbce68d43ccf3fe181b457f070e722b2927dff8ae32faef736f54"></a><!-- doxytag: member="ERROR_CONNECT" ref="48d13a5afcddbce68d43ccf3fe181b457f070e722b2927dff8ae32faef736f54" args="" -->ERROR_CONNECT</em>&nbsp;</td><td>
+The connect() call failed. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="48d13a5afcddbce68d43ccf3fe181b45de35987277f1474676eed21bb29a2234"></a><!-- doxytag: member="ERROR_LISTEN" ref="48d13a5afcddbce68d43ccf3fe181b45de35987277f1474676eed21bb29a2234" args="" -->ERROR_LISTEN</em>&nbsp;</td><td>
+The listen() call failed. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="48d13a5afcddbce68d43ccf3fe181b45b4fd27e68ad1ba29f9c6abcad2cc566d"></a><!-- doxytag: member="ERROR_BIND" ref="48d13a5afcddbce68d43ccf3fe181b45b4fd27e68ad1ba29f9c6abcad2cc566d" args="" -->ERROR_BIND</em>&nbsp;</td><td>
+The bind() call failed. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="48d13a5afcddbce68d43ccf3fe181b458503d8fd4a921765f673836b37a47a14"></a><!-- doxytag: member="ERROR_DNS" ref="48d13a5afcddbce68d43ccf3fe181b458503d8fd4a921765f673836b37a47a14" args="" -->ERROR_DNS</em>&nbsp;</td><td>
+The host couldn't be resolved via DNS. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="48d13a5afcddbce68d43ccf3fe181b45ba9d2ae501005d3ed3dc808e4dd87a1e"></a><!-- doxytag: member="ERROR_CREATE_SOCKET" ref="48d13a5afcddbce68d43ccf3fe181b45ba9d2ae501005d3ed3dc808e4dd87a1e" args="" -->ERROR_CREATE_SOCKET</em>&nbsp;</td><td>
+The socket() call failed. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="48d13a5afcddbce68d43ccf3fe181b459a23814df01cb3bdc663aa342dbc0afa"></a><!-- doxytag: member="ERROR_SOCKET_IN_USE" ref="48d13a5afcddbce68d43ccf3fe181b459a23814df01cb3bdc663aa342dbc0afa" args="" -->ERROR_SOCKET_IN_USE</em>&nbsp;</td><td>
+The socket is in use. The call being attempted is invalid for the current socketState. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="48d13a5afcddbce68d43ccf3fe181b453f206c4a63d25892286aeb099f4ae2b9"></a><!-- doxytag: member="ERROR_SOCKET_NOT_INITIALISED" ref="48d13a5afcddbce68d43ccf3fe181b453f206c4a63d25892286aeb099f4ae2b9" args="" -->ERROR_SOCKET_NOT_INITIALISED</em>&nbsp;</td><td>
+The socket has not yet been initialised. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="48d13a5afcddbce68d43ccf3fe181b45d19469400c17a003999a61880f512983"></a><!-- doxytag: member="ERROR_NOT_IMPLEMENTED" ref="48d13a5afcddbce68d43ccf3fe181b45d19469400c17a003999a61880f512983" args="" -->ERROR_NOT_IMPLEMENTED</em>&nbsp;</td><td>
+The call has not yet been implemented or will not be implemented in the abstract class. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="48d13a5afcddbce68d43ccf3fe181b456df3bc0e40624490dcdd3cba44aa23d8"></a><!-- doxytag: member="ERROR_BAD_PARAMETER" ref="48d13a5afcddbce68d43ccf3fe181b456df3bc0e40624490dcdd3cba44aa23d8" args="" -->ERROR_BAD_PARAMETER</em>&nbsp;</td><td>
+One of the parameters given was invalid. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="48d13a5afcddbce68d43ccf3fe181b457bda520b6d3d7455059c560a01b4be6c"></a><!-- doxytag: member="ERROR_NONE" ref="48d13a5afcddbce68d43ccf3fe181b457bda520b6d3d7455059c560a01b4be6c" args="" -->ERROR_NONE</em>&nbsp;</td><td>
+Success. </td></tr>
+</table>
+</dl>
+
+<p>
+Definition at line <a class="el" href="core__socket_8h-source.html#l00064">64</a> of file <a class="el" href="core__socket_8h-source.html">core_socket.h</a>.
+</div>
+</div><p>
+<a class="anchor" name="53f0c5f3d19458863b0e1439c775987e"></a><!-- doxytag: member="CrissCross::Network::socketProtocol" ref="53f0c5f3d19458863b0e1439c775987e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespace_criss_cross_1_1_network.html#53f0c5f3d19458863b0e1439c775987e">CrissCross::Network::socketProtocol</a>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<dl compact><dt><b>Enumerator: </b></dt><dd>
+<table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em><a class="anchor" name="53f0c5f3d19458863b0e1439c775987ea477b3681359ac8fed2d80b45fec226a"></a><!-- doxytag: member="PROTOCOL_NONE" ref="53f0c5f3d19458863b0e1439c775987ea477b3681359ac8fed2d80b45fec226a" args="" -->PROTOCOL_NONE</em>&nbsp;</td><td>
+No protocol specified. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="53f0c5f3d19458863b0e1439c775987e4348347782327e697628a8583e63d56d"></a><!-- doxytag: member="PROTOCOL_TCP" ref="53f0c5f3d19458863b0e1439c775987e4348347782327e697628a8583e63d56d" args="" -->PROTOCOL_TCP</em>&nbsp;</td><td>
+Transmission Control Protocol. </td></tr>
+<tr><td valign="top"><em><a class="anchor" name="53f0c5f3d19458863b0e1439c775987e88586529847aa904490165b2267d6eaa"></a><!-- doxytag: member="PROTOCOL_UDP" ref="53f0c5f3d19458863b0e1439c775987e88586529847aa904490165b2267d6eaa" args="" -->PROTOCOL_UDP</em>&nbsp;</td><td>
+User Datagram Protocol. </td></tr>
+</table>
+</dl>
+
+<p>
+Definition at line <a class="el" href="core__socket_8h-source.html#l00078">78</a> of file <a class="el" href="core__socket_8h-source.html">core_socket.h</a>.
+</div>
+</div><p>
 <hr><h2>Function Documentation</h2>
 <a class="anchor" name="79b9660b0c257dc0ecefb9f3fa147818"></a><!-- doxytag: member="CrissCross::Network::__initialise_network" ref="79b9660b0c257dc0ecefb9f3fa147818" args="()" -->
 <div class="memitem">
@@ -83,7 +226,7 @@ Shuts down the sockets subsystems.
 <span style="color:#ff0000;">FOR INTERNAL USE ONLY. DO NOT CALL THIS.</span> 
 </div>
 </div><p>
-<hr size="1"><address style="align: right;"><small>Generated on Sat Sep 9 22:29:28 2006 for CrissCross by&nbsp;
+<hr size="1"><address style="align: right;"><small>Generated on Sun Sep 10 18:35:16 2006 for CrissCross by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.4.7 </small></address>
 </body>

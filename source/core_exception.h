@@ -37,119 +37,125 @@
 
 #    include "core_debug.h"
 
-//! The core exception class.
-/*!
-    This class should be inherited by whatever exception needs
-    to be created, but not thrown as an exception in itself.
-*/
-class CoreException
+namespace CrissCross
 {
-protected:
-
-    //! The file in which the exception was thrown.
-    const char *m_file;
-
-    //! The line in CoreException::m_file at which the exception was thrown.
-    int m_line;
-public:
-
-    //! The constructor.
-    /*!
-       \param _file The file in which the exception was thrown. (usually specified with __FILE__ by a macro)
-       \param _line The line in _file at which the exception was thrown. (usually specified with __LINE__ by a macro)
-     */
-    CoreException ( const char *_file, int _line ):m_file ( _file ),
-        m_line ( _line )
+    namespace Debug
     {
-        g_stderr->WriteLine ( "=== STACK TRACE ===\n" );
-        PrintStackTrace ( g_stderr );
-    };
 
-    CoreException ( )
-    {
-        g_stderr->WriteLine ( "=== STACK TRACE ===\n" );
-        PrintStackTrace ( g_stderr );
-    };
+        //! The core exception class.
+        /*!
+            This class should be inherited by whatever exception needs
+            to be created, but not thrown as an exception in itself.
+        */
+        class CoreException
+        {
+        protected:
 
-    //! The destructor.
-    virtual ~CoreException ()
-    {
-    };
+            //! The file in which the exception was thrown.
+            const char *m_file;
 
-    //! Returns the file in which the exception was thrown.
-    /*!
-       \return CoreException::m_file
-     */
-    const char *ShowFile ()
-    {
-        return m_file;
-    };
+            //! The line in CoreException::m_file at which the exception was thrown.
+            int m_line;
+        public:
 
-    //! Returns the line in CoreException::m_file at which the exception was thrown.
-    int ShowLine ()
-    {
-        return m_line;
-    };
+            //! The constructor.
+            /*!
+               \param _file The file in which the exception was thrown. (usually specified with __FILE__ by a macro)
+               \param _line The line in _file at which the exception was thrown. (usually specified with __LINE__ by a macro)
+             */
+            CoreException ( const char *_file, int _line ):m_file ( _file ),
+                m_line ( _line )
+            {
+                g_stderr->WriteLine ( "=== STACK TRACE ===\n" );
+                PrintStackTrace ( g_stderr );
+            };
 
-    //! Returns the exception description.
-    /*!
-       Should be replaced in any classes inheriting CoreException to properly
-       describe the exception conditions.
-       \return Exception description ("A core exception has occurred.")
-     */
-    virtual const char *ShowReason () const
-    {
-        return "A core exception has occurred.";
-    };
-};
+            CoreException ( )
+            {
+                g_stderr->WriteLine ( "=== STACK TRACE ===\n" );
+                PrintStackTrace ( g_stderr );
+            };
 
-//! The assertion failure exception.
-class AssertionFailureException : public CoreException
-{
-public:
-    //! The constructor.
-    /*!
-       \param _file The file in which the exception was thrown. (usually specified with __FILE__ by a macro)
-       \param _line The line in _file at which the exception was thrown. (usually specified with __LINE__ by a macro)
-     */
-    AssertionFailureException ( const char *_file,
-                                int _line ):CoreException ( _file, _line )
-    {
-    };
+            //! The destructor.
+            virtual ~CoreException ()
+            {
+            };
 
-    //! Returns the exception description.
-    /*!
-       \return Exception description ("Assertion failure.")
-     */
-    const char *ShowReason () const
-    {
-        return "Assertion failure.";
-    };
-};
+            //! Returns the file in which the exception was thrown.
+            /*!
+               \return CoreException::m_file
+             */
+            const char *ShowFile ()
+            {
+                return m_file;
+            };
 
-//! The invalid call exception.
-/*!
-    Happens if a function is called that shouldn't be. (for example, a write call on a read-only buffer)
-*/
-class InvalidCallException : public CoreException
-{
-public:
-    //! The constructor.
-    InvalidCallException ()
-        : CoreException()
-    {
-        m_file = "N/A";
-        m_line = 0;
-    };
+            //! Returns the line in CoreException::m_file at which the exception was thrown.
+            int ShowLine ()
+            {
+                return m_line;
+            };
 
-    //! Returns the exception description.
-    /*!
-       \return Exception description ("Invalid function call.")
-     */
-    const char *ShowReason () const
-    {
-        return "Invalid function call.";
-    };
-};
+            //! Returns the exception description.
+            /*!
+               Should be replaced in any classes inheriting CoreException to properly
+               describe the exception conditions.
+               \return Exception description ("A core exception has occurred.")
+             */
+            virtual const char *ShowReason () const
+            {
+                return "A core exception has occurred.";
+            };
+        };
 
+        //! The assertion failure exception.
+        class AssertionFailureException : public CoreException
+        {
+        public:
+            //! The constructor.
+            /*!
+               \param _file The file in which the exception was thrown. (usually specified with __FILE__ by a macro)
+               \param _line The line in _file at which the exception was thrown. (usually specified with __LINE__ by a macro)
+             */
+            AssertionFailureException ( const char *_file,
+                                        int _line ):CoreException ( _file, _line )
+            {
+            };
+
+            //! Returns the exception description.
+            /*!
+               \return Exception description ("Assertion failure.")
+             */
+            const char *ShowReason () const
+            {
+                return "Assertion failure.";
+            };
+        };
+
+        //! The invalid call exception.
+        /*!
+            Happens if a function is called that shouldn't be. (for example, a write call on a read-only buffer)
+        */
+        class InvalidCallException : public CoreException
+        {
+        public:
+            //! The constructor.
+            InvalidCallException ()
+                : CoreException()
+            {
+                m_file = "N/A";
+                m_line = 0;
+            };
+
+            //! Returns the exception description.
+            /*!
+               \return Exception description ("Invalid function call.")
+             */
+            const char *ShowReason () const
+            {
+                return "Invalid function call.";
+            };
+        };
+    }
+}
 #endif

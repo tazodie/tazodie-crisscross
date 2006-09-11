@@ -39,6 +39,7 @@
 #include "core_system.h"
 
 using namespace CrissCross::IO;
+using namespace CrissCross::System;
 
 CoreIO::CoreIO ( FILE * _fileBuffer ):
 m_lineEnding ( NULL ),

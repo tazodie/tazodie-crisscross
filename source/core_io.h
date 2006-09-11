@@ -80,7 +80,7 @@ namespace CrissCross
             /*!
                Prevents more than one read or write from occurring simultaneously.
              */
-            CoreMutex *m_ioMutex;
+            CrissCross::System::CoreMutex *m_ioMutex;
         #endif
 
           public:

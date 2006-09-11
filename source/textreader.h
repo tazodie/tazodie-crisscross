@@ -68,11 +68,11 @@ namespace CrissCross
             ~TextReader ();
         private:
             void Write ( const char *_format, ... )
-                { throw new InvalidCallException(); };
+                { throw new CrissCross::Debug::InvalidCallException(); };
             void WriteLine ()
-                { throw new InvalidCallException(); };
+                { throw new CrissCross::Debug::InvalidCallException(); };
             void WriteLine ( const char *_format, ... )
-                { throw new InvalidCallException(); };
+                { throw new CrissCross::Debug::InvalidCallException(); };
 
         };
     }

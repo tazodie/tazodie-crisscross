@@ -41,11 +41,13 @@ using namespace CrissCross::Network;
 TCPSocket::TCPSocket()
     : CoreSocket()
 {
+    m_proto = PROTOCOL_TCP;
 }
 
 TCPSocket::TCPSocket ( socket_t _socket )
     : CoreSocket ( _socket )
 {
+    m_proto = PROTOCOL_TCP;
 }
 
 TCPSocket::~TCPSocket ()
@@ -57,9 +59,11 @@ int TCPSocket::Connect ( const char *_address, unsigned short _port )
     struct sockaddr_in sin;
     struct hostent *host;
 
+    if ( m_sock != INVALID_SOCKET ) return ERROR_SOCKET_IN_USE;
+
     m_sock = socket ( AF_INET, SOCK_STREAM, IPPROTO_TCP );
     if ( m_sock == INVALID_SOCKET )
-        return 1;
+        return ERROR_CREATE_SOCKET;
 
     SetAttributes ( m_sock );
 
@@ -79,14 +83,17 @@ int TCPSocket::Connect ( const char *_address, unsigned short _port )
 #else
         close ( m_sock );
 #endif
-        return -2;
+        return ERROR_CONNECT;
     }
-    return 0;
+    return ERROR_NONE;
 }
 
 int TCPSocket::Listen ( unsigned short _port )
 {
     struct sockaddr_in sin;
+
+    if ( m_sock != INVALID_SOCKET ) return ERROR_SOCKET_IN_USE;
+
     memset ( &sin, 0, sizeof ( sin ) );
 
     sin.sin_family = PF_INET;
@@ -95,7 +102,7 @@ int TCPSocket::Listen ( unsigned short _port )
     m_sock = socket ( AF_INET, SOCK_STREAM, IPPROTO_TCP );
 
     if ( m_sock == INVALID_SOCKET )
-        return -1;
+        return ERROR_CREATE_SOCKET;
 
     SetAttributes ( m_sock );
 
@@ -113,7 +120,7 @@ int TCPSocket::Listen ( unsigned short _port )
 #else
         close ( m_sock );
 #endif
-        return -2;
+        return ERROR_BIND;
     }
 
     if ( listen ( m_sock, 10 ) == SOCKET_ERROR )
@@ -123,10 +130,10 @@ int TCPSocket::Listen ( unsigned short _port )
 #else
         close ( m_sock );
 #endif
-        return -3;
+        return ERROR_LISTEN;
     }
 
-    return 0;
+    return ERROR_NONE;
 }
 
 TCPSocket *TCPSocket::Accept()
@@ -153,6 +160,7 @@ TCPSocket *TCPSocket::Accept()
 #endif
         SetAttributes ( sock );
         TCPSocket *csock = new TCPSocket ( sock );
+
         return csock;
     }
     return NULL;
@@ -160,27 +168,33 @@ TCPSocket *TCPSocket::Accept()
 
 int TCPSocket::SetAttributes ( socket_t _socket )
 {
+    /* TCP_NODELAY */
     int err, optval = 1, optlen = sizeof optval;
     err = setsockopt ( _socket, IPPROTO_TCP,
           TCP_NODELAY, (char *) &optval, optlen );
+    if ( err == -1 ) return errno; 
+
+    /* SO_LINGER */
+    struct linger linger_opts;
+    linger_opts.l_onoff = 1;
+    linger_opts.l_linger = 10;
+    optlen = sizeof linger_opts;
+    err = setsockopt ( _socket, SOL_SOCKET,
+          SO_LINGER, (char *) &linger_opts, optlen );
     if ( err == -1 ) return errno;
+
+    /* SO_CONDITIONAL_ACCEPT (Winsock 2 only) */
     /*
-        Below attribute causes the program to oddly not
-        report that there's a new connection until after
-        the socket closes. So, if ENABLE_PROTECTION is
-        defined when someone closes a bunch of connections
-        at once, it will kick in and think they're doing a
-        connection flood. Why? Yet to be determined...
-        
-        SUMMARY: Don't touch the below comment until further
-                 research is done.
+    optlen = sizeof optval;
+    err = setsockopt ( _socket, SOL_SOCKET,
+          SO_CONDITIONAL_ACCEPT, &optval, optlen );
     */
-    /*
-    
-    err = setsockopt ( _socket, IPPROTO_TCP,
+
+    /* SO_KEEPALIVE */
+    optlen = sizeof optval;
+    err = setsockopt ( _socket, SOL_SOCKET,
           SO_KEEPALIVE, (char *) &optval, optlen );
     if ( err == -1 ) return errno;
-    
-    */
-    return 0;
+
+    return ERROR_NONE;
 }

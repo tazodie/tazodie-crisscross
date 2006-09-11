@@ -52,7 +52,6 @@ namespace CrissCross
 {
     namespace Debug
     {
-
         class CoreDebugLogData
         {
         public:
@@ -64,7 +63,7 @@ namespace CrissCross
             ~CoreDebugLogData ();
         };
 
-            //! The core debug logging class.
+        //! The core debug logging class.
         class CoreDebugLog
         {
         private:
@@ -134,8 +133,8 @@ namespace CrissCross
 
         };
 
-        //! Global CoreDebugLog variable defined in universal_include.cpp
-        extern CoreDebugLog *debuglog;
+        //! Global CoreDebugLog variable initialized in universal_include.cpp
+        extern CoreDebugLog *g_debuglog;
     }
 }
 

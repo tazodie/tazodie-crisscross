@@ -36,6 +36,8 @@
 #include "core_thread.h"
 #include "core_system.h"
 
+using namespace CrissCross::System;
+
 CoreThread::CoreThread ( CoreSystem * _system )
 {
     m_system = _system;

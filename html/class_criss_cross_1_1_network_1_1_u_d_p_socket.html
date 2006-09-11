@@ -11,6 +11,16 @@
     <li><a href="namespaces.html"><span>Namespaces</span></a></li>
     <li id="current"><a href="annotated.html"><span>Classes</span></a></li>
     <li><a href="files.html"><span>Files</span></a></li>
+    <li>
+      <form action="search.php" method="get">
+        <table cellspacing="0" cellpadding="0" border="0">
+          <tr>
+            <td><label>&nbsp;<u>S</u>earch&nbsp;for&nbsp;</label></td>
+            <td><input type="text" name="query" value="" size="20" accesskey="s"/></td>
+          </tr>
+        </table>
+      </form>
+    </li>
   </ul></div>
 <div class="tabs">
   <ul>
@@ -23,7 +33,7 @@
 <h1>CrissCross::Network::UDPSocket Class Reference</h1><!-- doxytag: class="CrissCross::Network::UDPSocket" --><!-- doxytag: inherits="CrissCross::Network::CoreSocket" -->UDP/IP socket class.  
 <a href="#_details">More...</a>
 <p>
-<code>#include &lt;udpsocket.h&gt;</code>
+<code>#include &lt;<a class="el" href="udpsocket_8h-source.html">udpsocket.h</a>&gt;</code>
 <p>
 <p>Inheritance diagram for CrissCross::Network::UDPSocket:
 <p><center><img src="class_criss_cross_1_1_network_1_1_u_d_p_socket.png" usemap="#CrissCross::Network::UDPSocket_map" border="0" alt=""></center>
@@ -33,12 +43,14 @@
 <a href="class_criss_cross_1_1_network_1_1_u_d_p_socket-members.html">List of all members.</a><table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>Protected Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_network_1_1_u_d_p_socket.html#46d700d0d70126e302a4d1ec8e97c69e">UDPSocket</a> ()</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="46d700d0d70126e302a4d1ec8e97c69e"></a><!-- doxytag: member="CrissCross::Network::UDPSocket::UDPSocket" ref="46d700d0d70126e302a4d1ec8e97c69e" args="()" -->
+&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_network_1_1_u_d_p_socket.html#46d700d0d70126e302a4d1ec8e97c69e">UDPSocket</a> ()</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The constructor.  <a href="#46d700d0d70126e302a4d1ec8e97c69e"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_network_1_1_u_d_p_socket.html#4c27446b3d28ec31e0ad48d13c2dacea">~UDPSocket</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The constructor. <br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="4c27446b3d28ec31e0ad48d13c2dacea"></a><!-- doxytag: member="CrissCross::Network::UDPSocket::~UDPSocket" ref="4c27446b3d28ec31e0ad48d13c2dacea" args="()" -->
+&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_network_1_1_u_d_p_socket.html#4c27446b3d28ec31e0ad48d13c2dacea">~UDPSocket</a> ()</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The destructor.  <a href="#4c27446b3d28ec31e0ad48d13c2dacea"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The destructor. <br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_network_1_1_u_d_p_socket.html#25613d776f92b0831cb8c2825b9060c4">Bind</a> (const char *_address, unsigned short _port)</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Binds an outbound UDP/IP socket to the specified address and port.  <a href="#25613d776f92b0831cb8c2825b9060c4"></a><br></td></tr>
@@ -51,50 +63,9 @@ UDP/IP socket class.
 <p>
 Used for connectionless UDP/IP communication. Note that this is one-way, and there must be a second UDP/IP socket created for communication in the opposite direction. 
 <p>
-<hr><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" name="46d700d0d70126e302a4d1ec8e97c69e"></a><!-- doxytag: member="CrissCross::Network::UDPSocket::UDPSocket" ref="46d700d0d70126e302a4d1ec8e97c69e" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">CrissCross::Network::UDPSocket::UDPSocket           </td>
-          <td>(</td>
-          <td class="paramname">          </td>
-          <td>&nbsp;)&nbsp;</td>
-          <td width="100%"><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
 
 <p>
-The constructor. 
-<p>
-
-</div>
-</div><p>
-<a class="anchor" name="4c27446b3d28ec31e0ad48d13c2dacea"></a><!-- doxytag: member="CrissCross::Network::UDPSocket::~UDPSocket" ref="4c27446b3d28ec31e0ad48d13c2dacea" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">CrissCross::Network::UDPSocket::~UDPSocket           </td>
-          <td>(</td>
-          <td class="paramname">          </td>
-          <td>&nbsp;)&nbsp;</td>
-          <td width="100%"><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-The destructor. 
-<p>
-
-</div>
-</div><p>
-<hr><h2>Member Function Documentation</h2>
+Definition at line <a class="el" href="udpsocket_8h-source.html#l00049">49</a> of file <a class="el" href="udpsocket_8h-source.html">udpsocket.h</a>.<hr><h2>Member Function Documentation</h2>
 <a class="anchor" name="25613d776f92b0831cb8c2825b9060c4"></a><!-- doxytag: member="CrissCross::Network::UDPSocket::Bind" ref="25613d776f92b0831cb8c2825b9060c4" args="(const char *_address, unsigned short _port)" -->
 <div class="memitem">
 <div class="memproto">
@@ -164,8 +135,8 @@ Reimplemented from <a class="el" href="class_criss_cross_1_1_network_1_1_core_so
 </div>
 </div><p>
 <hr>The documentation for this class was generated from the following file:<ul>
-<li>N:/crisscross/source/<a class="el" href="udpsocket_8h.html">udpsocket.h</a></ul>
-<hr size="1"><address style="align: right;"><small>Generated on Sat Sep 9 22:29:28 2006 for CrissCross by&nbsp;
+<li>N:/crisscross/source/<a class="el" href="udpsocket_8h-source.html">udpsocket.h</a></ul>
+<hr size="1"><address style="align: right;"><small>Generated on Sun Sep 10 18:35:16 2006 for CrissCross by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.4.7 </small></address>
 </body>

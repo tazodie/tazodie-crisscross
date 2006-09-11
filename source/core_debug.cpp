@@ -42,7 +42,6 @@ using namespace CrissCross::IO;
 #ifdef ENABLE_DEBUGLOG
 #include "core_debuglog.h"
 using namespace CrissCross::Debug;
-extern CoreDebugLog *g_debuglog;
 #endif
 
 #ifndef ENABLE_SYMBOL_ENGINE
@@ -182,7 +181,7 @@ SymbolEngine::StackTrace ( PCONTEXT _pContext, CoreIO * _outputBuffer )
 void
 PrintDebugLog ( CoreIO *_outputBuffer )
 {
-  g_debuglog->Print ( _outputBuffer, g_debuglog->BUG_LEVEL_INFO );
+    g_debuglog->Print ( _outputBuffer, g_debuglog->BUG_LEVEL_INFO );
 }
 #endif
 

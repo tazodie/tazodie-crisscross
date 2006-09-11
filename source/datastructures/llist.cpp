@@ -37,6 +37,8 @@
 
 #    include "llist.h"
 
+using namespace CrissCross::Data;
+
 template < class T > LListItem < T >::LListItem ()
 {
     m_next = NULL;

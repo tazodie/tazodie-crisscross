@@ -51,7 +51,7 @@ using namespace CrissCross::IO;
 
 #if defined ( ENABLE_DEBUGLOG )
 using namespace CrissCross::Debug;
-CoreDebugLog *g_debuglog;
+CrissCross::Debug::CoreDebugLog *CrissCross::Debug::g_debuglog;
 #endif
 
 CoreConsole *g_stderr;

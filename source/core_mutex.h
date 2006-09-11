@@ -39,38 +39,43 @@
 #	include <windows.h>
 #endif
 
-//! The safe threading mutex class.
-/*!
-    Allows for safe threading by locking via thread ID.
-*/
-class CoreMutex
+namespace CrissCross
 {
-  protected:
+    namespace System
+    {
+        //! The safe threading mutex class.
+        /*!
+            Allows for safe threading by locking via thread ID.
+        */
+        class CoreMutex
+        {
+          protected:
 
-#    ifdef _WIN32
-    //! The critical section for the mutex.
-    /*!
-       Windows uses "critical sections" for safe threading.
-     */
-    CRITICAL_SECTION m_criticalSection;
-#    else
-    //! POSIX threading mutex.
-    pthread_mutex_t m_hMutex;
-#    endif
-  public:
+        #    ifdef _WIN32
+            //! The critical section for the mutex.
+            /*!
+               Windows uses "critical sections" for safe threading.
+             */
+            CRITICAL_SECTION m_criticalSection;
+        #    else
+            //! POSIX threading mutex.
+            pthread_mutex_t m_hMutex;
+        #    endif
+          public:
 
-    //! The constructor.
-      CoreMutex ();
+            //! The constructor.
+              CoreMutex ();
 
-    //! The destructor.
-     ~CoreMutex ();
+            //! The destructor.
+             ~CoreMutex ();
 
-    //! Locks the mutex.
-    void Lock ();
+            //! Locks the mutex.
+            void Lock ();
 
-    //! Unlocks the mutex.
-    void Unlock ();
+            //! Unlocks the mutex.
+            void Unlock ();
 
-};
-
+        };
+    }
+}
 #endif

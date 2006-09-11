@@ -36,6 +36,8 @@
 
 #include "core_system.h"
 
+using namespace CrissCross::System;
+
 CoreSystem::CoreSystem ()
 {
     InitTimer ();

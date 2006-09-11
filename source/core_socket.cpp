@@ -59,6 +59,7 @@ CoreSocket::CoreSocket()
 {
     __initialise_network(); m_calledInitialise = 1;
     memset ( &m_sock, 0, sizeof ( socket_t ) );
+    m_state = SOCKET_STATE_NOT_CREATED;
 }
 
 CoreSocket::CoreSocket ( socket_t socket )
@@ -66,41 +67,36 @@ CoreSocket::CoreSocket ( socket_t socket )
 {
     /* Calling __initialise_network() is NOT
        necessary if we have a socket to copy. */
-    CoreAssert ( socket != 0 );
+    CoreAssert ( socket != INVALID_SOCKET );
     m_sock = socket;
+    m_state = SOCKET_STATE_UNKNOWN;
 }
 
 CoreSocket::~CoreSocket()
 {
-    if ( m_sock != INVALID_SOCKET )
-    {
-#ifdef TARGET_OS_WINDOWS
-        closesocket ( m_sock );
-#else
-        close ( m_sock );
-#endif
-    }
+    Close();
     if ( m_calledInitialise == 1 )
         __cleanup_network();
 }
 
-socket_t CoreSocket::GetSocket()
+socket_t
+CoreSocket::GetSocket()
 {
     return m_sock;
 }
 
-int CoreSocket::Ban ( unsigned long _host )
+int
+CoreSocket::Ban ( unsigned long _host )
 {
 #if defined ( ENABLE_PROTECTION )
     if ( m_banned_hosts.findNode ( &_host ) == NULL )
         m_banned_hosts.insert ( &_host, (char *)1 );
-    else
-        return -1;
 #endif
-    return 0;
+    return ERROR_NONE;
 }
 
-bool CoreSocket::IsBanned ( unsigned long _host ) const
+bool
+CoreSocket::IsBanned ( unsigned long _host ) const
 {
 #if defined ( ENABLE_PROTECTION )
     if ( m_banned_hosts.find ( &_host ) )
@@ -110,39 +106,30 @@ bool CoreSocket::IsBanned ( unsigned long _host ) const
         return false;
 }
 
-int CoreSocket::Close()
+int
+CoreSocket::Close()
 {
 #ifdef TARGET_OS_WINDOWS
-    int retval = closesocket ( m_sock );
+    closesocket ( m_sock );
 #else
-    int retval = close ( m_sock );
+    close ( m_sock );
 #endif
     m_sock = 0;
-    return retval;
+    return ERROR_NONE;
 }
 
-int CoreSocket::Listen ( unsigned short _port )
+int
+CoreSocket::Listen ( unsigned short _port )
 {
-    /* CoreSocket::Listen does nothing. This is largely an abstract class. */
-    return -1;
+    /* CoreSocket::Listen does nothing. This is an abstract class. */
+    return ERROR_NOT_IMPLEMENTED;
 }
 
-char *CoreSocket::Internal_Read ( int _len ) const
+int
+CoreSocket::Read ( std::string &_output, unsigned int _len ) const
 {
-    CoreAssert ( m_sock != 0 );
-
-    char *buf = new char[_len + 1];
-    memset ( buf, 0, _len + 1 );
-
-    recv ( m_sock, buf, _len, 0 );
-
-    return buf;
-
-}
-
-int CoreSocket::Read ( std::string &_output, int _len ) const
-{
-    CoreAssert ( m_sock != 0 );
+    if ( m_sock == INVALID_SOCKET ) return ERROR_SOCKET_NOT_INITIALISED;
+    if ( _len < 1 ) return ERROR_BAD_PARAMETER;
 
     char *buf = new char[_len + 1];
     memset ( buf, 0, _len + 1 );
@@ -155,36 +142,85 @@ int CoreSocket::Read ( std::string &_output, int _len ) const
 
     delete [] buf;
 
-    if ( recvlen == 0 ) return -2;
-    return ret;
+    return ( recvlen == 0 ) ? ERROR_NONE : errno;
 }
 
-int CoreSocket::Read ( char **_output, int _len ) const
+int
+CoreSocket::Read ( char **_output, unsigned int _len ) const
 {
-    /* TODO: MERGE INTERNAL_READ HERE */
-    *_output = Internal_Read ( _len );
-    return 0;
+    if ( m_sock == INVALID_SOCKET ) return ERROR_SOCKET_NOT_INITIALISED;
+    if ( _len < 1 ) return ERROR_BAD_PARAMETER;
+
+    char *buf = new char[_len + 1];
+    int ret = 0, recvlen = 0;
+    memset ( buf, 0, _len + 1 );
+
+    recvlen = recv ( m_sock, buf, _len, 0 );
+    ret = errno;
+
+    *_output = buf;
+
+    return ( recvlen == 0 ) ? ERROR_NONE : errno;
 }
 
-int CoreSocket::Send ( const char *_packet, size_t _length )
+int
+CoreSocket::Send ( const char *_data, size_t _length )
 {
     CoreAssert ( m_sock != 0 );
 
     int sent = 0;
-    sent = send ( m_sock, _packet, (int)_length, 0 );
+    sent = send ( m_sock, _data, (int)_length, 0 );
     return sent;
 }
 
-int CoreSocket::Send ( std::string _packet )
+int
+CoreSocket::Send ( std::string _data )
 {
     CoreAssert ( m_sock != 0 );
 
     int sent = 0;
-    sent = send ( m_sock, _packet.c_str(), (int)_packet.size(), 0 );
+    sent = send ( m_sock, _data.c_str(), (int)_data.size(), 0 );
     return sent;
 }
 
-int CoreSocket::SetAttributes ( socket_t _socket )
+int
+CoreSocket::SetAttributes ( socket_t _socket )
 {
-    return -1;
+    return ERROR_NOT_IMPLEMENTED;
+}
+
+socketState
+CoreSocket::State() const
+{
+    // SO_ACCEPTCONN (DWORD:boolean, get) : determine whether a socket is listening.
+    // SO_CONDITIONAL_ACCEPT (DWORD:boolean, get/set): determines whether a socket on
+    //    the stack level will accept connections or not.
+    // SO_ERROR (DWORD, get): per-socket error code.
+    //
+    return m_state;
+}
+
+
+const char *
+CoreSocket::GetRemoteIP ()
+{
+    if ( m_sock == INVALID_SOCKET ) return NULL;
+
+    static char buffer[15];
+    struct sockaddr_in sock; int sock_size = sizeof(sock);
+    memset ( &sock, 0, sizeof(sock) );
+    getpeername ( m_sock, (sockaddr *)&sock, &sock_size );
+    sprintf ( buffer, inet_ntoa ( sock.sin_addr ) );
+    return buffer;
+}
+
+u_long
+CoreSocket::GetRemoteHost ()
+{
+    if ( m_sock == INVALID_SOCKET ) return 0;
+
+    struct sockaddr_in sock; int sock_size = sizeof(sock);
+    memset ( &sock, 0, sizeof(sock) );
+    getpeername ( m_sock, (sockaddr *)&sock, &sock_size );
+    return sock.sin_addr.s_addr;
 }

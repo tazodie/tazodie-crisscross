@@ -40,6 +40,8 @@
 #    include "darray.h"
 #    include "dstack.h"
 
+using namespace CrissCross::Data;
+
 template < class T > DArray < T >::DArray ()
 {
 

@@ -11,6 +11,16 @@
     <li><a href="namespaces.html"><span>Namespaces</span></a></li>
     <li id="current"><a href="annotated.html"><span>Classes</span></a></li>
     <li><a href="files.html"><span>Files</span></a></li>
+    <li>
+      <form action="search.php" method="get">
+        <table cellspacing="0" cellpadding="0" border="0">
+          <tr>
+            <td><label>&nbsp;<u>S</u>earch&nbsp;for&nbsp;</label></td>
+            <td><input type="text" name="query" value="" size="20" accesskey="s"/></td>
+          </tr>
+        </table>
+      </form>
+    </li>
   </ul></div>
 <div class="tabs">
   <ul>
@@ -23,7 +33,7 @@
 <h1>CrissCross::IO::CoreIO Class Reference</h1><!-- doxytag: class="CrissCross::IO::CoreIO" -->The core input/output class.  
 <a href="#_details">More...</a>
 <p>
-<code>#include &lt;core_io.h&gt;</code>
+<code>#include &lt;<a class="el" href="core__io_8h-source.html">core_io.h</a>&gt;</code>
 <p>
 <p>Inheritance diagram for CrissCross::IO::CoreIO:
 <p><center><img src="class_criss_cross_1_1_i_o_1_1_core_i_o.png" usemap="#CrissCross::IO::CoreIO_map" border="0" alt=""></center>
@@ -51,9 +61,10 @@
 <tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html#7da3de45248f274b310446df6e1babf9">CoreIO</a> (FILE *_fileBuffer)</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The constructor.  <a href="#7da3de45248f274b310446df6e1babf9"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html#b62628e9687f7337819bdbcb0c7ea674">~CoreIO</a> ()</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="b62628e9687f7337819bdbcb0c7ea674"></a><!-- doxytag: member="CrissCross::IO::CoreIO::~CoreIO" ref="b62628e9687f7337819bdbcb0c7ea674" args="()" -->
+virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html#b62628e9687f7337819bdbcb0c7ea674">~CoreIO</a> ()</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The destructor.  <a href="#b62628e9687f7337819bdbcb0c7ea674"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The destructor. <br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">virtual bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html#0e3a575379a45e445493db7416ea9f48">EndOfFile</a> ()</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Determines whether the end of the file has been reached.  <a href="#0e3a575379a45e445493db7416ea9f48"></a><br></td></tr>
@@ -81,12 +92,14 @@
 <tr><td class="memItemLeft" nowrap align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html#e170756df2913105d7437ab819de4c82">WriteLine</a> ()</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Writes an empty line to the buffer.  <a href="#e170756df2913105d7437ab819de4c82"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html#b176e07772a6d7c1c27db074e74e1a95">WriteLine</a> (const char *_format,...)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="b176e07772a6d7c1c27db074e74e1a95"></a><!-- doxytag: member="CrissCross::IO::CoreIO::WriteLine" ref="b176e07772a6d7c1c27db074e74e1a95" args="(const char *_format,...)" -->
+virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html#b176e07772a6d7c1c27db074e74e1a95">WriteLine</a> (const char *_format,...)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Writes a string to the buffer with a newline appended.  <a href="#b176e07772a6d7c1c27db074e74e1a95"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html#1492852d2018e4bd9433d4c76203231a">WriteLine</a> (std::string _string)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Writes a string to the buffer with a newline appended. <br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="1492852d2018e4bd9433d4c76203231a"></a><!-- doxytag: member="CrissCross::IO::CoreIO::WriteLine" ref="1492852d2018e4bd9433d4c76203231a" args="(std::string _string)" -->
+virtual void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html#1492852d2018e4bd9433d4c76203231a">WriteLine</a> (std::string _string)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Writes a string to the buffer with a newline appended.  <a href="#1492852d2018e4bd9433d4c76203231a"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Writes a string to the buffer with a newline appended. <br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">virtual int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html#7dbf020e891d04604e9feb43f5d52603">Seek</a> (int _position)</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Seeks to a location in the buffer.  <a href="#7dbf020e891d04604e9feb43f5d52603"></a><br></td></tr>
@@ -94,9 +107,10 @@
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Moves forward to a location in the buffer.  <a href="#35f7cfc4874077e3a8caeaca8d658396"></a><br></td></tr>
 <tr><td colspan="2"><br><h2>Protected Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html#82819c9132259ae50694d5519df25b9e">Flush</a> ()</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="82819c9132259ae50694d5519df25b9e"></a><!-- doxytag: member="CrissCross::IO::CoreIO::Flush" ref="82819c9132259ae50694d5519df25b9e" args="()" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html#82819c9132259ae50694d5519df25b9e">Flush</a> ()</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Flushes the output buffer.  <a href="#82819c9132259ae50694d5519df25b9e"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Flushes the output buffer. <br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html#f0211d1dfc1bb2770e2101a16f38b465">Seek</a> (int _position, int _origin)</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Seeks to a location in the buffer.  <a href="#f0211d1dfc1bb2770e2101a16f38b465"></a><br></td></tr>
@@ -104,19 +118,22 @@
 <tr><td class="memItemLeft" nowrap align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html#9c85aae15a19d6f315063d5b3ee0cfa1">m_lineEnding</a></td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Line ending buffer.  <a href="#9c85aae15a19d6f315063d5b3ee0cfa1"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">FILE *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html#669484dfc5157b3ed68a450cfaa88c42">m_fileBuffer</a></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="669484dfc5157b3ed68a450cfaa88c42"></a><!-- doxytag: member="CrissCross::IO::CoreIO::m_fileBuffer" ref="669484dfc5157b3ed68a450cfaa88c42" args="" -->
+FILE *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html#669484dfc5157b3ed68a450cfaa88c42">m_fileBuffer</a></td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Input/output buffer.  <a href="#669484dfc5157b3ed68a450cfaa88c42"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="class_core_mutex.html">CoreMutex</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html#50b95cb88b783bbd16890eebdeb38d0c">m_ioMutex</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Input/output buffer. <br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="class_criss_cross_1_1_system_1_1_core_mutex.html">CrissCross::System::CoreMutex</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html#3a3e379e821a7e7a63a8920045c851ae">m_ioMutex</a></td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Thread-safe mutex.  <a href="#50b95cb88b783bbd16890eebdeb38d0c"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Thread-safe mutex.  <a href="#3a3e379e821a7e7a63a8920045c851ae"></a><br></td></tr>
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
 The core input/output class. 
 <p>
 An abstract class inherited by most I/O classes, including <a class="el" href="class_criss_cross_1_1_i_o_1_1_core_console.html">CoreConsole</a>, <a class="el" href="class_criss_cross_1_1_i_o_1_1_text_reader.html">TextReader</a> and <a class="el" href="class_criss_cross_1_1_i_o_1_1_text_writer.html">TextWriter</a>. Programmers can write their own I/O classes which inherit <a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html">CoreIO</a>. 
 <p>
-<hr><h2>Member Enumeration Documentation</h2>
+
+<p>
+Definition at line <a class="el" href="core__io_8h-source.html#l00053">53</a> of file <a class="el" href="core__io_8h-source.html">core_io.h</a>.<hr><h2>Member Enumeration Documentation</h2>
 <a class="anchor" name="749ef3bc76df17d913c9b09e0be0697a"></a><!-- doxytag: member="CrissCross::IO::CoreIO::LineEndingType" ref="749ef3bc76df17d913c9b09e0be0697a" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -142,6 +159,8 @@ Carriage return and line feed. (default for CP/M, MP/M, DOS, Microsoft Windows) 
 </table>
 </dl>
 
+<p>
+Definition at line <a class="el" href="core__io_8h-source.html#l00060">60</a> of file <a class="el" href="core__io_8h-source.html">core_io.h</a>.
 </div>
 </div><p>
 <hr><h2>Constructor &amp; Destructor Documentation</h2>
@@ -164,32 +183,11 @@ Carriage return and line feed. (default for CP/M, MP/M, DOS, Microsoft Windows) 
 <p>
 The constructor. 
 <p>
-Creates a new <a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html">CoreIO</a> instance. Will initialize line endings to the platform's default, also initializes <a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html#50b95cb88b783bbd16890eebdeb38d0c">CoreIO::m_ioMutex</a>. <dl compact><dt><b>Parameters:</b></dt><dd>
+Creates a new <a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html">CoreIO</a> instance. Will initialize line endings to the platform's default, also initializes <a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html#3a3e379e821a7e7a63a8920045c851ae">CoreIO::m_ioMutex</a>. <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>_fileBuffer</em>&nbsp;</td><td>The buffer to be used for I/O operations. </td></tr>
   </table>
 </dl>
-
-</div>
-</div><p>
-<a class="anchor" name="b62628e9687f7337819bdbcb0c7ea674"></a><!-- doxytag: member="CrissCross::IO::CoreIO::~CoreIO" ref="b62628e9687f7337819bdbcb0c7ea674" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual CrissCross::IO::CoreIO::~CoreIO           </td>
-          <td>(</td>
-          <td class="paramname">          </td>
-          <td>&nbsp;)&nbsp;</td>
-          <td width="100%"><code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-The destructor. 
-<p>
 
 </div>
 </div><p>
@@ -213,29 +211,6 @@ The destructor.
 Determines whether the end of the file has been reached. 
 <p>
 <dl compact><dt><b>Returns:</b></dt><dd>Boolean indicating whether the end of the file has been reached. </dd></dl>
-
-<p>
-Reimplemented in <a class="el" href="class_criss_cross_1_1_i_o_1_1_core_console.html#0fd8cc5a19f86b360e531dd59657f669">CrissCross::IO::CoreConsole</a>, and <a class="el" href="class_criss_cross_1_1_i_o_1_1_text_writer.html#c0457d7c130ba03b13bd782a693e1477">CrissCross::IO::TextWriter</a>.
-</div>
-</div><p>
-<a class="anchor" name="82819c9132259ae50694d5519df25b9e"></a><!-- doxytag: member="CrissCross::IO::CoreIO::Flush" ref="82819c9132259ae50694d5519df25b9e" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void CrissCross::IO::CoreIO::Flush           </td>
-          <td>(</td>
-          <td class="paramname">          </td>
-          <td>&nbsp;)&nbsp;</td>
-          <td width="100%"><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Flushes the output buffer. 
-<p>
 
 </div>
 </div><p>
@@ -265,8 +240,6 @@ Moves forward to a location in the buffer.
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd>An integer indicating the result of the operation. 0 indicates success. Any non-zero number indicates failure. </dd></dl>
 
-<p>
-Reimplemented in <a class="el" href="class_criss_cross_1_1_i_o_1_1_core_console.html#5fc837933d78dc1980ea49180644d074">CrissCross::IO::CoreConsole</a>, and <a class="el" href="class_criss_cross_1_1_i_o_1_1_text_writer.html#e5595befd170ca6a00047152e4e7a1b7">CrissCross::IO::TextWriter</a>.
 </div>
 </div><p>
 <a class="anchor" name="72f112a22d7874aaf2938d0d3f792293"></a><!-- doxytag: member="CrissCross::IO::CoreIO::Length" ref="72f112a22d7874aaf2938d0d3f792293" args="()" -->
@@ -289,8 +262,6 @@ Determines the length of the file buffer.
 <p>
 <dl compact><dt><b>Returns:</b></dt><dd>An unsigned long indicating the length of the buffer in bytes. </dd></dl>
 
-<p>
-Reimplemented in <a class="el" href="class_criss_cross_1_1_i_o_1_1_core_console.html#1c2412e595a513064322b710cdae5dff">CrissCross::IO::CoreConsole</a>, and <a class="el" href="class_criss_cross_1_1_i_o_1_1_text_writer.html#6e2c8bd791895d0c70c9e3e4c8370897">CrissCross::IO::TextWriter</a>.
 </div>
 </div><p>
 <a class="anchor" name="d4f217b82018f1079efc520113df8a9c"></a><!-- doxytag: member="CrissCross::IO::CoreIO::Read" ref="d4f217b82018f1079efc520113df8a9c" args="(char *_buffer, int _bufferLength, int _bufferIndex, int _count)" -->
@@ -342,8 +313,6 @@ Reads a block of data from the file buffer.
   </table>
 </dl>
 
-<p>
-Reimplemented in <a class="el" href="class_criss_cross_1_1_i_o_1_1_core_console.html#ec2cb8fc1648e07cbf27fb3a9a7f8514">CrissCross::IO::CoreConsole</a>, and <a class="el" href="class_criss_cross_1_1_i_o_1_1_text_writer.html#b62f0b0ab9d39c413aa70604711bc50a">CrissCross::IO::TextWriter</a>.
 </div>
 </div><p>
 <a class="anchor" name="a1eb7d5fc6a3dca66bb759ab4a0a97f6"></a><!-- doxytag: member="CrissCross::IO::CoreIO::Read" ref="a1eb7d5fc6a3dca66bb759ab4a0a97f6" args="()" -->
@@ -367,7 +336,7 @@ Reads one byte from the file buffer.
 <dl compact><dt><b>Returns:</b></dt><dd>A char containing the next byte from the buffer. </dd></dl>
 
 <p>
-Reimplemented in <a class="el" href="class_criss_cross_1_1_i_o_1_1_core_console.html#5d8cfdb01fbe22e7fc74310c8fb6499b">CrissCross::IO::CoreConsole</a>, and <a class="el" href="class_criss_cross_1_1_i_o_1_1_text_writer.html#ea92327f9fee28d9214713b4713659ff">CrissCross::IO::TextWriter</a>.
+Reimplemented in <a class="el" href="class_criss_cross_1_1_i_o_1_1_core_console.html#5d8cfdb01fbe22e7fc74310c8fb6499b">CrissCross::IO::CoreConsole</a>.
 </div>
 </div><p>
 <a class="anchor" name="991f6ba798af144b49050d618f0b1397"></a><!-- doxytag: member="CrissCross::IO::CoreIO::ReadLine" ref="991f6ba798af144b49050d618f0b1397" args="()" -->
@@ -388,10 +357,10 @@ Reimplemented in <a class="el" href="class_criss_cross_1_1_i_o_1_1_core_console.
 <p>
 Reads a line of data. 
 <p>
-Data returned by this function should be copied to another location before being parsed. <div style="color: #FF0000;"><b>WARNING:</b> This function is NOT thread-safe. A fix for this is in the works. </div> <dl compact><dt><b>Returns:</b></dt><dd>A pointer to the next line of data. </dd></dl>
+<a class="el" href="namespace_criss_cross_1_1_data.html">Data</a> returned by this function should be copied to another location before being parsed. <div style="color: #FF0000;"><b>WARNING:</b> This function is NOT thread-safe. A fix for this is in the works. </div> <dl compact><dt><b>Returns:</b></dt><dd>A pointer to the next line of data. </dd></dl>
 
 <p>
-Reimplemented in <a class="el" href="class_criss_cross_1_1_i_o_1_1_core_console.html#53bdd6622f01676671ca5044dca8674d">CrissCross::IO::CoreConsole</a>, and <a class="el" href="class_criss_cross_1_1_i_o_1_1_text_writer.html#f9f6c2d10cf7009d0ab190aba6ce6a44">CrissCross::IO::TextWriter</a>.
+Reimplemented in <a class="el" href="class_criss_cross_1_1_i_o_1_1_core_console.html#53bdd6622f01676671ca5044dca8674d">CrissCross::IO::CoreConsole</a>.
 </div>
 </div><p>
 <a class="anchor" name="f0211d1dfc1bb2770e2101a16f38b465"></a><!-- doxytag: member="CrissCross::IO::CoreIO::Seek" ref="f0211d1dfc1bb2770e2101a16f38b465" args="(int _position, int _origin)" -->
@@ -458,8 +427,6 @@ Seeks to a location in the buffer.
 </dl>
 <dl compact><dt><b>Returns:</b></dt><dd>An integer indicating the result of the operation. 0 indicates success. Any non-zero number indicates failure. </dd></dl>
 
-<p>
-Reimplemented in <a class="el" href="class_criss_cross_1_1_i_o_1_1_core_console.html#c3a7ae1c0fd35af7153a6ff5690f86e9">CrissCross::IO::CoreConsole</a>, and <a class="el" href="class_criss_cross_1_1_i_o_1_1_text_writer.html#4f0667ac744ed50090c6b962883b8bf9">CrissCross::IO::TextWriter</a>.
 </div>
 </div><p>
 <a class="anchor" name="f79ad2137df2dff29123bab4ebdeaeaa"></a><!-- doxytag: member="CrissCross::IO::CoreIO::SetLineEndings" ref="f79ad2137df2dff29123bab4ebdeaeaa" args="(LineEndingType _ending)" -->
@@ -550,63 +517,6 @@ Writes a string to the buffer.
   </table>
 </dl>
 
-<p>
-Reimplemented in <a class="el" href="class_criss_cross_1_1_i_o_1_1_text_reader.html#44f26294577e91f255f8d4c512640a44">CrissCross::IO::TextReader</a>.
-</div>
-</div><p>
-<a class="anchor" name="1492852d2018e4bd9433d4c76203231a"></a><!-- doxytag: member="CrissCross::IO::CoreIO::WriteLine" ref="1492852d2018e4bd9433d4c76203231a" args="(std::string _string)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void CrissCross::IO::CoreIO::WriteLine           </td>
-          <td>(</td>
-          <td class="paramtype">std::string&nbsp;</td>
-          <td class="paramname"> <em>_string</em>          </td>
-          <td>&nbsp;)&nbsp;</td>
-          <td width="100%"><code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Writes a string to the buffer with a newline appended. 
-<p>
-
-</div>
-</div><p>
-<a class="anchor" name="b176e07772a6d7c1c27db074e74e1a95"></a><!-- doxytag: member="CrissCross::IO::CoreIO::WriteLine" ref="b176e07772a6d7c1c27db074e74e1a95" args="(const char *_format,...)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void CrissCross::IO::CoreIO::WriteLine           </td>
-          <td>(</td>
-          <td class="paramtype">const char *&nbsp;</td>
-          <td class="paramname"> <em>_format</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&nbsp;</td>
-          <td class="paramname"> <em>...</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td width="100%"><code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Writes a string to the buffer with a newline appended. 
-<p>
-
-<p>
-Reimplemented in <a class="el" href="class_criss_cross_1_1_i_o_1_1_text_reader.html#f82caa78c5819ce0907dbda6dfdfc658">CrissCross::IO::TextReader</a>.
 </div>
 </div><p>
 <a class="anchor" name="e170756df2913105d7437ab819de4c82"></a><!-- doxytag: member="CrissCross::IO::CoreIO::WriteLine" ref="e170756df2913105d7437ab819de4c82" args="()" -->
@@ -628,34 +538,15 @@ Reimplemented in <a class="el" href="class_criss_cross_1_1_i_o_1_1_text_reader.h
 Writes an empty line to the buffer. 
 <p>
 Writes <a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html#9c85aae15a19d6f315063d5b3ee0cfa1">CoreIO::m_lineEnding</a> to the buffer. 
-<p>
-Reimplemented in <a class="el" href="class_criss_cross_1_1_i_o_1_1_text_reader.html#2a469bf65e8b7b221f82780c6ee36e09">CrissCross::IO::TextReader</a>.
 </div>
 </div><p>
 <hr><h2>Member Data Documentation</h2>
-<a class="anchor" name="669484dfc5157b3ed68a450cfaa88c42"></a><!-- doxytag: member="CrissCross::IO::CoreIO::m_fileBuffer" ref="669484dfc5157b3ed68a450cfaa88c42" args="" -->
+<a class="anchor" name="3a3e379e821a7e7a63a8920045c851ae"></a><!-- doxytag: member="CrissCross::IO::CoreIO::m_ioMutex" ref="3a3e379e821a7e7a63a8920045c851ae" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">FILE* <a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html#669484dfc5157b3ed68a450cfaa88c42">CrissCross::IO::CoreIO::m_fileBuffer</a><code> [protected]</code>          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Input/output buffer. 
-<p>
-
-</div>
-</div><p>
-<a class="anchor" name="50b95cb88b783bbd16890eebdeb38d0c"></a><!-- doxytag: member="CrissCross::IO::CoreIO::m_ioMutex" ref="50b95cb88b783bbd16890eebdeb38d0c" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_core_mutex.html">CoreMutex</a>* <a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html#50b95cb88b783bbd16890eebdeb38d0c">CrissCross::IO::CoreIO::m_ioMutex</a><code> [protected]</code>          </td>
+          <td class="memname"><a class="el" href="class_criss_cross_1_1_system_1_1_core_mutex.html">CrissCross::System::CoreMutex</a>* <a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html#3a3e379e821a7e7a63a8920045c851ae">CrissCross::IO::CoreIO::m_ioMutex</a><code> [protected]</code>          </td>
         </tr>
       </table>
 </div>
@@ -665,6 +556,8 @@ Input/output buffer.
 Thread-safe mutex. 
 <p>
 Prevents more than one read or write from occurring simultaneously. 
+<p>
+Definition at line <a class="el" href="core__io_8h-source.html#l00083">83</a> of file <a class="el" href="core__io_8h-source.html">core_io.h</a>.
 </div>
 </div><p>
 <a class="anchor" name="9c85aae15a19d6f315063d5b3ee0cfa1"></a><!-- doxytag: member="CrissCross::IO::CoreIO::m_lineEnding" ref="9c85aae15a19d6f315063d5b3ee0cfa1" args="" -->
@@ -682,11 +575,13 @@ Prevents more than one read or write from occurring simultaneously.
 Line ending buffer. 
 <p>
 Stores the line ending selected by <a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html#f79ad2137df2dff29123bab4ebdeaeaa">CoreIO::SetLineEndings</a>. 
+<p>
+Definition at line <a class="el" href="core__io_8h-source.html#l00073">73</a> of file <a class="el" href="core__io_8h-source.html">core_io.h</a>.
 </div>
 </div><p>
 <hr>The documentation for this class was generated from the following file:<ul>
-<li>N:/crisscross/source/<a class="el" href="core__io_8h.html">core_io.h</a></ul>
-<hr size="1"><address style="align: right;"><small>Generated on Sat Sep 9 22:29:28 2006 for CrissCross by&nbsp;
+<li>N:/crisscross/source/<a class="el" href="core__io_8h-source.html">core_io.h</a></ul>
+<hr size="1"><address style="align: right;"><small>Generated on Sun Sep 10 18:35:16 2006 for CrissCross by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.4.7 </small></address>
 </body>

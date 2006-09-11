@@ -69,19 +69,19 @@ namespace CrissCross
 
         private:
             bool EndOfFile ()
-                { throw new InvalidCallException(); };
+                { throw new CrissCross::Debug::InvalidCallException(); };
             size_t Length ()
-                { throw new InvalidCallException(); };
+                { throw new CrissCross::Debug::InvalidCallException(); };
             char Read ()
-                { throw new InvalidCallException(); };
+                { throw new CrissCross::Debug::InvalidCallException(); };
             size_t Read ( char *_buffer, int _bufferLength, int _bufferIndex, int _count )
-                { throw new InvalidCallException(); };
+                { throw new CrissCross::Debug::InvalidCallException(); };
             std::string ReadLine ()
-                { throw new InvalidCallException(); };
+                { throw new CrissCross::Debug::InvalidCallException(); };
             int Seek ( int _position )
-                { throw new InvalidCallException(); };
+                { throw new CrissCross::Debug::InvalidCallException(); };
             int Forward ( int _position )
-                { throw new InvalidCallException(); };
+                { throw new CrissCross::Debug::InvalidCallException(); };
 
         };
     }

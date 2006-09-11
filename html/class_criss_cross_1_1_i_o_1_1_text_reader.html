@@ -11,6 +11,16 @@
     <li><a href="namespaces.html"><span>Namespaces</span></a></li>
     <li id="current"><a href="annotated.html"><span>Classes</span></a></li>
     <li><a href="files.html"><span>Files</span></a></li>
+    <li>
+      <form action="search.php" method="get">
+        <table cellspacing="0" cellpadding="0" border="0">
+          <tr>
+            <td><label>&nbsp;<u>S</u>earch&nbsp;for&nbsp;</label></td>
+            <td><input type="text" name="query" value="" size="20" accesskey="s"/></td>
+          </tr>
+        </table>
+      </form>
+    </li>
   </ul></div>
 <div class="tabs">
   <ul>
@@ -23,7 +33,7 @@
 <h1>CrissCross::IO::TextReader Class Reference</h1><!-- doxytag: class="CrissCross::IO::TextReader" --><!-- doxytag: inherits="CrissCross::IO::CoreIO" -->The text file input class.  
 <a href="#_details">More...</a>
 <p>
-<code>#include &lt;textreader.h&gt;</code>
+<code>#include &lt;<a class="el" href="textreader_8h-source.html">textreader.h</a>&gt;</code>
 <p>
 <p>Inheritance diagram for CrissCross::IO::TextReader:
 <p><center><img src="class_criss_cross_1_1_i_o_1_1_text_reader.png" usemap="#CrissCross::IO::TextReader_map" border="0" alt=""></center>
@@ -40,26 +50,19 @@
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The destructor.  <a href="#8c2051c5fb39e3711e24844f2573ff84"></a><br></td></tr>
 <tr><td colspan="2"><br><h2>Protected Attributes</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">const char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_i_o_1_1_text_reader.html#9fb9de6b7450251f917fe378798a2251">m_filePath</a></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="9fb9de6b7450251f917fe378798a2251"></a><!-- doxytag: member="CrissCross::IO::TextReader::m_filePath" ref="9fb9de6b7450251f917fe378798a2251" args="" -->
+const char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_i_o_1_1_text_reader.html#9fb9de6b7450251f917fe378798a2251">m_filePath</a></td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The path to the file being read.  <a href="#9fb9de6b7450251f917fe378798a2251"></a><br></td></tr>
-<tr><td colspan="2"><br><h2>Private Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_i_o_1_1_text_reader.html#44f26294577e91f255f8d4c512640a44">Write</a> (const char *_format,...)</td></tr>
-
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Writes a string to the buffer.  <a href="#44f26294577e91f255f8d4c512640a44"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_i_o_1_1_text_reader.html#2a469bf65e8b7b221f82780c6ee36e09">WriteLine</a> ()</td></tr>
-
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Writes an empty line to the buffer.  <a href="#2a469bf65e8b7b221f82780c6ee36e09"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_criss_cross_1_1_i_o_1_1_text_reader.html#f82caa78c5819ce0907dbda6dfdfc658">WriteLine</a> (const char *_format,...)</td></tr>
-
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Writes a string to the buffer with a newline appended.  <a href="#f82caa78c5819ce0907dbda6dfdfc658"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The path to the file being read. <br></td></tr>
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
 The text file input class. 
 <p>
 Inherits <a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html">CoreIO</a>, so functions like <a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html#a1eb7d5fc6a3dca66bb759ab4a0a97f6">CoreIO::Read</a> and <a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html#991f6ba798af144b49050d618f0b1397">CoreIO::ReadLine</a> are accessible to the programmer. 
 <p>
-<hr><h2>Constructor &amp; Destructor Documentation</h2>
+
+<p>
+Definition at line <a class="el" href="textreader_8h-source.html#l00049">49</a> of file <a class="el" href="textreader_8h-source.html">textreader.h</a>.<hr><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" name="55d87de45ece6e7f1ac64bb1dbfb8e69"></a><!-- doxytag: member="CrissCross::IO::TextReader::TextReader" ref="55d87de45ece6e7f1ac64bb1dbfb8e69" args="(const char *_file)" -->
 <div class="memitem">
 <div class="memproto">
@@ -108,122 +111,9 @@ The destructor.
 Closes the file and deallocates memory used by <a class="el" href="class_criss_cross_1_1_i_o_1_1_text_reader.html">TextReader</a>. 
 </div>
 </div><p>
-<hr><h2>Member Function Documentation</h2>
-<a class="anchor" name="44f26294577e91f255f8d4c512640a44"></a><!-- doxytag: member="CrissCross::IO::TextReader::Write" ref="44f26294577e91f255f8d4c512640a44" args="(const char *_format,...)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void CrissCross::IO::TextReader::Write           </td>
-          <td>(</td>
-          <td class="paramtype">const char *&nbsp;</td>
-          <td class="paramname"> <em>_format</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&nbsp;</td>
-          <td class="paramname"> <em>...</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td width="100%"><code> [inline, private, virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Writes a string to the buffer. 
-<p>
-<dl compact><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>_format</em>&nbsp;</td><td>The format of the string to be written. </td></tr>
-  </table>
-</dl>
-
-<p>
-Reimplemented from <a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html#d1cfb19f12d0f05d584263003d3f0c9f">CrissCross::IO::CoreIO</a>.
-</div>
-</div><p>
-<a class="anchor" name="f82caa78c5819ce0907dbda6dfdfc658"></a><!-- doxytag: member="CrissCross::IO::TextReader::WriteLine" ref="f82caa78c5819ce0907dbda6dfdfc658" args="(const char *_format,...)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void CrissCross::IO::TextReader::WriteLine           </td>
-          <td>(</td>
-          <td class="paramtype">const char *&nbsp;</td>
-          <td class="paramname"> <em>_format</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&nbsp;</td>
-          <td class="paramname"> <em>...</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td width="100%"><code> [inline, private, virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Writes a string to the buffer with a newline appended. 
-<p>
-
-<p>
-Reimplemented from <a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html#b176e07772a6d7c1c27db074e74e1a95">CrissCross::IO::CoreIO</a>.
-</div>
-</div><p>
-<a class="anchor" name="2a469bf65e8b7b221f82780c6ee36e09"></a><!-- doxytag: member="CrissCross::IO::TextReader::WriteLine" ref="2a469bf65e8b7b221f82780c6ee36e09" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void CrissCross::IO::TextReader::WriteLine           </td>
-          <td>(</td>
-          <td class="paramname">          </td>
-          <td>&nbsp;)&nbsp;</td>
-          <td width="100%"><code> [inline, private, virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Writes an empty line to the buffer. 
-<p>
-Writes <a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html#9c85aae15a19d6f315063d5b3ee0cfa1">CoreIO::m_lineEnding</a> to the buffer. 
-<p>
-Reimplemented from <a class="el" href="class_criss_cross_1_1_i_o_1_1_core_i_o.html#e170756df2913105d7437ab819de4c82">CrissCross::IO::CoreIO</a>.
-</div>
-</div><p>
-<hr><h2>Member Data Documentation</h2>
-<a class="anchor" name="9fb9de6b7450251f917fe378798a2251"></a><!-- doxytag: member="CrissCross::IO::TextReader::m_filePath" ref="9fb9de6b7450251f917fe378798a2251" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const char* <a class="el" href="class_criss_cross_1_1_i_o_1_1_text_reader.html#9fb9de6b7450251f917fe378798a2251">CrissCross::IO::TextReader::m_filePath</a><code> [protected]</code>          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-The path to the file being read. 
-<p>
-
-</div>
-</div><p>
 <hr>The documentation for this class was generated from the following file:<ul>
-<li>N:/crisscross/source/<a class="el" href="textreader_8h.html">textreader.h</a></ul>
-<hr size="1"><address style="align: right;"><small>Generated on Sat Sep 9 22:29:28 2006 for CrissCross by&nbsp;
+<li>N:/crisscross/source/<a class="el" href="textreader_8h-source.html">textreader.h</a></ul>
+<hr size="1"><address style="align: right;"><small>Generated on Sun Sep 10 18:35:16 2006 for CrissCross by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.4.7 </small></address>
 </body>

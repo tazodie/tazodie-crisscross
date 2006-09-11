@@ -32,11 +32,11 @@
  *
  */
 
-#include "universal_include.h"
-#include "dstack.h"
-
 #ifndef __included_dstack_cpp
 #define __included_dstack_cpp
+
+#include "dstack.h"
+using namespace CrissCross::Data;
 
 template < class dataType >
 DStack<dataType>::DStack ( size_t N )

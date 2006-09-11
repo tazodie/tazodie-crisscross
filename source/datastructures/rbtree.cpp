@@ -38,6 +38,8 @@
 #    include "core_debug.h"
 #    include "rbtree.h"
 
+using namespace CrissCross::Data;
+
 #    ifndef TARGET_OS_WINDOWS
 #            define stricmp strcasecmp
 #    endif

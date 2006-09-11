@@ -38,129 +38,135 @@
 #    include "core_deprecate.h"
 #    include "darray.h"
 
-typedef enum
+namespace CrissCross
 {
-    STATUS_OK,
-    STATUS_NULL_POINTER,
-    STATUS_MEM_EXHAUSTED,
-    STATUS_DUPLICATE_KEY,
-    STATUS_KEY_NOT_FOUND,
-    STATUS_KEY_TOO_LARGE
-} statusEnum;
-
-template < class dataType, class keyType > class RedBlackTree
-{
-
-  public:
-
-    typedef enum
-    { BLACK, RED } nodeColor;
-    typedef enum
+    namespace Data
     {
-        NODE_ITSELF_VISITED = 0,
-        LEFT_CHILD_VISITED,
-        ALL_CHILDS_VISITED
-    } beenThereEnum;
-
-    /*
-       This is what a node looks like in this tree.
-     */
-    struct nodeType
-    {
-        struct nodeType *left;    // Left child.
-        struct nodeType *right;    // Right child.
-        struct nodeType *parent;    // Supernode.
-        nodeColor color;        // Color of this node (Red/Black).
-
-        keyType id;                // This node's key (doesn't have to be unique).
-        dataType data;            // The actual record associated with this node.
-        beenThereEnum beenThere;    // Used for iterators.
-        struct nodeType *Left ()
+        typedef enum
         {
-            return left;
-        }
-        struct nodeType *Right ()
+            STATUS_OK,
+            STATUS_NULL_POINTER,
+            STATUS_MEM_EXHAUSTED,
+            STATUS_DUPLICATE_KEY,
+            STATUS_KEY_NOT_FOUND,
+            STATUS_KEY_TOO_LARGE
+        } statusEnum;
+
+        template < class dataType, class keyType > class RedBlackTree
         {
-            return right;
-        }
 
-        nodeType(){};
-        ~nodeType(){};
-    };
+          public:
 
-    nodeType *rootNode;
-    nodeType *NULL_NODE;
+            typedef enum
+            { BLACK, RED } nodeColor;
+            typedef enum
+            {
+                NODE_ITSELF_VISITED = 0,
+                LEFT_CHILD_VISITED,
+                ALL_CHILDS_VISITED
+            } beenThereEnum;
 
-    RedBlackTree ();
-    ~RedBlackTree ();
-    statusEnum insert ( keyType key, dataType rec );
-    statusEnum deleteNode ( keyType key );
-    statusEnum killNode ( nodeType * z );
-    dataType find ( keyType key ) const;
-    nodeType *findNode ( keyType key ) const;
-    bool ValidNode ( nodeType * node ) const;
+            /*
+               This is what a node looks like in this tree.
+             */
+            struct nodeType
+            {
+                struct nodeType *left;    // Left child.
+                struct nodeType *right;    // Right child.
+                struct nodeType *parent;    // Supernode.
+                nodeColor color;        // Color of this node (Red/Black).
 
-  protected:
-    inline char *reallocKey ( char *pointer, char *a );
-    inline int *reallocKey ( int *pointer, int *a );
-    inline unsigned long *reallocKey ( unsigned long *pointer, unsigned long *a );
+                keyType id;                // This node's key (doesn't have to be unique).
+                dataType data;            // The actual record associated with this node.
+                beenThereEnum beenThere;    // Used for iterators.
+                struct nodeType *Left ()
+                {
+                    return left;
+                }
+                struct nodeType *Right ()
+                {
+                    return right;
+                }
 
-    inline char *newKey ( char *a );
-    inline int *newKey ( int *a );
-    inline unsigned long *newKey ( unsigned long *a );
+                nodeType(){};
+                ~nodeType(){};
+            };
 
-    inline bool compLT ( const char *a, const char *b ) const;
-    inline bool compLTEQU ( const char *a, const char *b ) const;
-    inline bool compEQ ( const char *a, const char *b ) const;
+            nodeType *rootNode;
+            nodeType *NULL_NODE;
 
-    inline bool compLT ( const int *a, const int *b ) const;
-    inline bool compLTEQU ( const int *a, const int *b ) const;
-    inline bool compEQ ( const int *a, const int *b ) const;
+            RedBlackTree ();
+            ~RedBlackTree ();
+            statusEnum insert ( keyType key, dataType rec );
+            statusEnum deleteNode ( keyType key );
+            statusEnum killNode ( nodeType * z );
+            dataType find ( keyType key ) const;
+            nodeType *findNode ( keyType key ) const;
+            bool ValidNode ( nodeType * node ) const;
 
-    inline bool compLT ( const unsigned long *a, const unsigned long *b ) const;
-    inline bool compLTEQU ( const unsigned long *a, const unsigned long *b ) const;
-    inline bool compEQ ( const unsigned long *a, const unsigned long *b ) const;
+          protected:
+            inline char *reallocKey ( char *pointer, char *a );
+            inline int *reallocKey ( int *pointer, int *a );
+            inline unsigned long *reallocKey ( unsigned long *pointer, unsigned long *a );
 
-    /*
-       these are automatically called. no need to use them externally at all.
-     */
-    void killAll ( nodeType * rec );
-    void killAll ();
+            inline char *newKey ( char *a );
+            inline int *newKey ( int *a );
+            inline unsigned long *newKey ( unsigned long *a );
 
-  public:
-    size_t size ();
-    void getNext ( nodeType ** current );
+            inline bool compLT ( const char *a, const char *b ) const;
+            inline bool compLTEQU ( const char *a, const char *b ) const;
+            inline bool compEQ ( const char *a, const char *b ) const;
 
-    /*
-       other old backward-compatible functions
-     */
-    _DS_DEPRECATE_FUNCTION ( find ) dataType GetData ( keyType key ) const;
-    _DS_DEPRECATE_FUNCTION ( insert ) void PutData ( keyType key,
-                                                     dataType rec );
-    _DS_DEPRECATE_FUNCTION ( deleteNode ) void RemoveData ( keyType key );
-    _DS_DEPRECATE_FUNCTION ( findNode ) nodeType *LookupTree ( keyType key );
+            inline bool compLT ( const int *a, const int *b ) const;
+            inline bool compLTEQU ( const int *a, const int *b ) const;
+            inline bool compEQ ( const int *a, const int *b ) const;
 
-  public:
-    DArray < dataType > *ConvertToDArray ();
-    DArray < keyType > *ConvertIndexToDArray ();
+            inline bool compLT ( const unsigned long *a, const unsigned long *b ) const;
+            inline bool compLTEQU ( const unsigned long *a, const unsigned long *b ) const;
+            inline bool compEQ ( const unsigned long *a, const unsigned long *b ) const;
 
-  protected:
-    void RecursiveConvertIndexToDArray ( DArray < keyType > *darray,
-                                         nodeType * btree );
-    void RecursiveConvertToDArray ( DArray < dataType > *darray,
-                                    nodeType * btree );
+            /*
+               these are automatically called. no need to use them externally at all.
+             */
+            void killAll ( nodeType * rec );
+            void killAll ();
 
-  public:
-    _DS_DEPRECATE_FUNCTION ( size ) int Size ();
-    _DS_DEPRECATE_FUNCTION_N void Empty ();    // Ironically, an empty function, just here for straight compatibility.
-    void Print ();            // Not deprecated, but still down here because it is a backwards-compatibility function.
+          public:
+            size_t size ();
+            void getNext ( nodeType ** current );
 
-  protected:
-    void rotateLeft ( nodeType * x );
-    void rotateRight ( nodeType * x );
-    void insertFixup ( nodeType * x );
-    void deleteFixup ( nodeType * x );
-};
+            /*
+               other old backward-compatible functions
+             */
+            _DS_DEPRECATE_FUNCTION ( find ) dataType GetData ( keyType key ) const;
+            _DS_DEPRECATE_FUNCTION ( insert ) void PutData ( keyType key,
+                                                             dataType rec );
+            _DS_DEPRECATE_FUNCTION ( deleteNode ) void RemoveData ( keyType key );
+            _DS_DEPRECATE_FUNCTION ( findNode ) nodeType *LookupTree ( keyType key );
+
+          public:
+            DArray < dataType > *ConvertToDArray ();
+            DArray < keyType > *ConvertIndexToDArray ();
+
+          protected:
+            void RecursiveConvertIndexToDArray ( DArray < keyType > *darray,
+                                                 nodeType * btree );
+            void RecursiveConvertToDArray ( DArray < dataType > *darray,
+                                            nodeType * btree );
+
+          public:
+            _DS_DEPRECATE_FUNCTION ( size ) int Size ();
+            _DS_DEPRECATE_FUNCTION_N void Empty ();    // Ironically, an empty function, just here for straight compatibility.
+            void Print ();            // Not deprecated, but still down here because it is a backwards-compatibility function.
+
+          protected:
+            void rotateLeft ( nodeType * x );
+            void rotateRight ( nodeType * x );
+            void insertFixup ( nodeType * x );
+            void deleteFixup ( nodeType * x );
+        };
+    }
+}
 
 #    include "rbtree.cpp"
 

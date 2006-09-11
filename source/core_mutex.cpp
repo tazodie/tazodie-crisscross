@@ -36,6 +36,8 @@
 #include "core_debug.h"
 #include "core_mutex.h"
 
+using namespace CrissCross::System;
+
 CoreMutex::CoreMutex ()
 {
 #ifdef TARGET_OS_WINDOWS
