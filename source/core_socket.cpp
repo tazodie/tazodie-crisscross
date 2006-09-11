@@ -38,6 +38,7 @@
 #include "core_socket.h"
 
 #if !defined ( TARGET_OS_WINDOWS )
+#    include <arpa/inet.h>
 #    include <asm/ioctls.h>
 #    include <errno.h>
 #    include <netdb.h>
@@ -108,7 +109,7 @@ CoreSocket::GetRemoteIP ()
     static char buffer[15];
     struct sockaddr_in sock; int sock_size = sizeof(sock);
     memset ( &sock, 0, sizeof(sock) );
-    getpeername ( m_sock, (sockaddr *)&sock, &sock_size );
+    getpeername ( m_sock, (sockaddr *)&sock, (socklen_t *)&sock_size );
     sprintf ( buffer, inet_ntoa ( sock.sin_addr ) );
     return buffer;
 }
@@ -120,7 +121,7 @@ CoreSocket::GetRemoteHost ()
 
     struct sockaddr_in sock; int sock_size = sizeof(sock);
     memset ( &sock, 0, sizeof(sock) );
-    getpeername ( m_sock, (sockaddr *)&sock, &sock_size );
+    getpeername ( m_sock, (sockaddr *)&sock, (socklen_t *)&sock_size );
     return sock.sin_addr.s_addr;
 }
 

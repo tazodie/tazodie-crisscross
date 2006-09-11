@@ -42,47 +42,12 @@
 #include "core_system.h"
 #include "tcpsocket.h"
 
-#if !defined ( TARGET_OS_WINDOWS )
-#    include <arpa/inet.h>
-#    include <asm/ioctls.h>
-#    include <errno.h>
-#    include <netdb.h>
-#    include <netinet/in.h>
-#    include <netinet/tcp.h>
-#    include <sys/ioctl.h>
-#    include <sys/socket.h>
-#    include <signal.h>
-#    define INVALID_SOCKET -1
-#    define SOCKET_ERROR -1
-#else
-     typedef int socklen_t;
-#endif
-
-
+using namespace CrissCross::IO;
 using namespace CrissCross::Network;
+using namespace CrissCross::System;
 
 LList<TCPSocket *> *sockets;
 RedBlackTree<int,unsigned long *> *connections_per_host;
-
-const char *
-GetIPFromSocket ( socket_t _sock )
-{
-    static char buffer[32];
-    struct sockaddr_in sock; int sock_size = sizeof(sock);
-    memset ( &sock, 0, sizeof(sock) );
-    getpeername ( _sock, (sockaddr *)&sock, &sock_size );
-    sprintf ( buffer, inet_ntoa ( sock.sin_addr ) );
-    return buffer;
-}
-
-u_long
-GetHostFromSocket ( socket_t _sock )
-{
-    struct sockaddr_in sock; int sock_size = sizeof(sock);
-    memset ( &sock, 0, sizeof(sock) );
-    getpeername ( _sock, (sockaddr *)&sock, &sock_size );
-    return sock.sin_addr.s_addr;
-}
 
 int
 RunApplication ( int argc, char **argv )
@@ -96,7 +61,7 @@ RunApplication ( int argc, char **argv )
     console->WriteLine ( "Creating TCPSocket..." );
     TCPSocket *socket = new TCPSocket ();
     TCPSocket *tsock = NULL;
-    int active_connections = 0, sockets_per_second = 0;
+    int sockets_per_second = 0;
 
     console->WriteLine ( "TCPSocket is listening on port 3193..." );
     CoreAssert ( socket->Listen ( 3193 ) == 0 );
@@ -110,7 +75,7 @@ RunApplication ( int argc, char **argv )
         {
             sockets_per_second++;
             
-            u_long host = GetHostFromSocket ( tsock->GetSocket() );
+            u_long host = tsock->GetRemoteHost();
             RedBlackTree<int,u_long *>::nodeType *node;
             node = connections_per_host->findNode ( &host );
 
@@ -121,12 +86,12 @@ RunApplication ( int argc, char **argv )
                 {
                     socket->Ban ( host );
                     console->WriteLine ( "Connection flood from '%s'!", 
-                        GetIPFromSocket ( tsock->GetSocket() ) );
+                        tsock->GetRemoteIP() );
                     delete tsock;
                     for ( int i = 0; sockets->ValidIndex ( i ); i++ )
                     {
                         tsock = sockets->GetData(i);
-                        if ( GetHostFromSocket ( tsock->GetSocket() ) == host )
+                        if ( tsock->GetRemoteHost() == host )
                         {
                             sockets->RemoveData ( i );
                             delete tsock;
@@ -141,9 +106,6 @@ RunApplication ( int argc, char **argv )
 
             sockets->PutData ( tsock );
         }
-
-        //console->WriteLine ( "%d connections per second.", sockets_per_second );
-        //console->MoveUp(1);
 
         for ( int i = 0; sockets->ValidIndex ( i ); i++ )
         {

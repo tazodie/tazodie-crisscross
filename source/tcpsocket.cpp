@@ -36,6 +36,23 @@
 #include "core_socket.h"
 #include "tcpsocket.h"
 
+#if !defined ( TARGET_OS_WINDOWS )
+#    include <arpa/inet.h>
+#    include <asm/ioctls.h>
+#    include <asm/socket.h>
+#    include <errno.h>
+#    include <netdb.h>
+#    include <netinet/in.h>
+#    include <netinet/tcp.h>
+#    include <sys/ioctl.h>
+#    include <sys/socket.h>
+#    include <signal.h>
+#    define INVALID_SOCKET -1
+#    define SOCKET_ERROR -1
+#else
+     typedef int socklen_t;
+#endif
+
 using namespace CrissCross::Network;
 
 TCPSocket::TCPSocket()
