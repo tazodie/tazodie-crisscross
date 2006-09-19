@@ -35,7 +35,7 @@
 #ifndef __included_core_mutex_h
 #define __included_core_mutex_h
 
-#if defined ( WIN32 ) && _MSC_VER < 1300
+#if defined ( WIN32 )
 #	include <windows.h>
 #endif
 

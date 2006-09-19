@@ -94,6 +94,13 @@ TCPSocket *TCPSocket::Accept()
         }
 #endif
         SetAttributes ( sock );
+
+        unsigned long arg = 1;
+#if defined ( TARGET_OS_WINDOWS )
+        ioctlsocket ( m_sock, FIONBIO, &arg );
+#else
+        ioctl ( m_sock, FIONBIO, &arg );
+#endif
         TCPSocket *csock = new TCPSocket ( sock );
 
         return csock;
@@ -132,6 +139,14 @@ int TCPSocket::Connect ( const char *_address, unsigned short _port )
 #endif
         return ERROR_CONNECT;
     }
+
+    unsigned long arg = 1;
+#if defined ( TARGET_OS_WINDOWS )
+    ioctlsocket ( m_sock, FIONBIO, &arg );
+#else
+    ioctl ( m_sock, FIONBIO, &arg );
+#endif
+
     return ERROR_NONE;
 }
 

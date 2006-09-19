@@ -35,7 +35,7 @@
 #ifndef __included_core_io_h
 #define __included_core_io_h
 
-#if defined ( WIN32 ) && _MSC_VER < 1300
+#if defined ( WIN32 )
 #	include "universal_include.h"
 #endif
 

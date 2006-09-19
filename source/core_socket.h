@@ -63,6 +63,7 @@ namespace CrissCross
 
         typedef enum
         {
+            ERROR_CONNECTIONLOST = -12,             //!< The connection was lost.
             ERROR_CONNECT = -11,                    //!< The connect() call failed.
             ERROR_LISTEN = -10,                     //!< The listen() call failed.
             ERROR_BIND = -9,                        //!< The bind() call failed.
@@ -72,6 +73,8 @@ namespace CrissCross
             ERROR_SOCKET_NOT_INITIALISED = -5,      //!< The socket has not yet been initialised.
             ERROR_NOT_IMPLEMENTED = -4,             //!< The call has not yet been implemented or will not be implemented in the abstract class.
             ERROR_BAD_PARAMETER = -3,               //!< One of the parameters given was invalid.
+            ERROR_DATA_NOTAVAIL = -2,               //!< A read call received no data.
+            ERROR_DATA_TIMEOUT = -1,                //!< Timeout waiting for data.
             ERROR_NONE = 0                          //!< Success.
         } socketError;
 
@@ -93,6 +96,10 @@ namespace CrissCross
             //! A RedBlackTree of banned hosts.
             RedBlackTree<char*,u_long*> m_banned_hosts;
 #endif
+
+            //! The maximum number of bytes to read per CoreSocket::Read or CoreSocket::ReadLine call.
+            int m_bufferSize;
+
             //! Indicates whether __socket_initialise() was called when the class was initialized.
             char m_calledInitialise;
 
@@ -193,16 +200,23 @@ namespace CrissCross
                 \return  If the return value is greater than zero, it is an 'errno'
                 value. If it is less than zero, it is a socketError value.
              */
-            virtual int Read ( char **_output, unsigned int _len ) const;
+            virtual int Read ( char **_output, unsigned int *_len ) const;
 
             //! Reads a block of data with a specified maximum size.
             /*!
                 \param _output An std::string in which the data will be stored.
-                \param _len The maximum number of bytes to read.
                 \return  If the return value is greater than zero, it is an 'errno'
                 value. If it is less than zero, it is a socketError value.
              */
-            virtual int Read ( std::string &_output, unsigned int _len ) const;
+            virtual int Read ( std::string &_output ) const;
+
+            //! Reads a newline or carriage return terminated line of data.
+            /*!
+                WARNING: ReadLine is a blocking call, so you MUST only use this in
+                cases where a new line is sure to happen (string-based communications).
+             */
+            virtual int ReadLine ( char **_output, unsigned int *_len ) const;
+
 
             //! Sends a block of data.
             /*!

@@ -32,6 +32,8 @@
  *
  */
 
+#define PACKET_DEBUG
+ 
 #include "universal_include.h"
 #include "core_debug.h"
 #include "core_network.h"
@@ -61,6 +63,7 @@ CoreSocket::CoreSocket()
     memset ( &m_sock, 0, sizeof ( socket_t ) );
     m_sock = INVALID_SOCKET;
     m_state = SOCKET_STATE_NOT_CREATED;
+    m_bufferSize = 8192;
 }
 
 CoreSocket::CoreSocket ( socket_t socket )
@@ -71,6 +74,7 @@ CoreSocket::CoreSocket ( socket_t socket )
     CoreAssert ( socket != INVALID_SOCKET );
     m_sock = socket;
     m_state = SOCKET_STATE_UNKNOWN;
+    m_bufferSize = 8192;
 }
 
 CoreSocket::~CoreSocket()
@@ -150,16 +154,15 @@ CoreSocket::Listen ( unsigned short _port )
 }
 
 int
-CoreSocket::Read ( std::string &_output, unsigned int _len ) const
+CoreSocket::Read ( std::string &_output ) const
 {
     if ( m_sock == INVALID_SOCKET ) return ERROR_SOCKET_NOT_INITIALISED;
-    if ( _len < 1 ) return ERROR_BAD_PARAMETER;
 
-    char *buf = new char[_len + 1];
-    memset ( buf, 0, _len + 1 );
+    char *buf = new char[m_bufferSize];
+    memset ( buf, 0, m_bufferSize );
     int ret = 0, recvlen = 0;
 
-    recvlen = recv ( m_sock, buf, _len, 0 );
+    recvlen = recv ( m_sock, buf, m_bufferSize - 1, 0 );
     ret = errno;
 
     _output = std::string ( buf );
@@ -170,21 +173,84 @@ CoreSocket::Read ( std::string &_output, unsigned int _len ) const
 }
 
 int
-CoreSocket::Read ( char **_output, unsigned int _len ) const
+CoreSocket::Read ( char **_output, unsigned int *_len ) const
 {
     if ( m_sock == INVALID_SOCKET ) return ERROR_SOCKET_NOT_INITIALISED;
-    if ( _len < 1 ) return ERROR_BAD_PARAMETER;
+    if ( _len == NULL ) return ERROR_BAD_PARAMETER;
 
-    char *buf = new char[_len + 1];
+    char *buf = new char[m_bufferSize];
     int ret = 0, recvlen = 0;
-    memset ( buf, 0, _len + 1 );
+    memset ( buf, 0, m_bufferSize );
 
-    recvlen = recv ( m_sock, buf, _len, 0 );
+    recvlen = recv ( m_sock, buf, m_bufferSize - 1, 0 );
+    if ( recvlen < 0 )
+    {
+        *_output = NULL;
+        *_len = 0;
+        delete [] buf;
+        return ERROR_DATA_NOTAVAIL;
+    }
     ret = errno;
 
     *_output = buf;
+    *_len = recvlen;
 
     return ( recvlen == 0 ) ? ERROR_NONE : errno;
+}
+
+int
+CoreSocket::ReadLine ( char **_output, unsigned int *_len ) const
+{
+    if ( m_sock == INVALID_SOCKET ) return ERROR_SOCKET_NOT_INITIALISED;
+    if ( _len == NULL ) return ERROR_BAD_PARAMETER;
+    char *buf = new char[m_bufferSize];
+    char temp[2];
+    int ret = 0, recvlen = 0;
+    memset ( buf, 0, m_bufferSize );
+    memset ( temp, 0, sizeof ( temp ) );
+
+    recvlen = recv ( m_sock, temp, 1, 0 );
+    if ( recvlen == 0 )
+    {
+        delete [] buf;
+        return ERROR_DATA_NOTAVAIL;
+    }
+    if ( temp[0] == '\n' || temp[0] == '\r' )
+    {
+        *_output = buf;
+        *_len = (unsigned int)strlen ( buf );
+        return ERROR_NONE;
+    } else {
+        strcat ( buf, temp );
+    }
+    
+    while ( true )
+    {
+        recvlen = recv ( m_sock, temp, 1, 0 );
+        if ( recvlen > 0 )
+        {
+            if ( temp[0] == '\n' || temp[0] == '\r' )
+            {
+                *_output = buf;
+                *_len = (unsigned int)strlen ( buf );
+                break;
+            } else {
+                strcat ( buf, temp );
+            }
+        } else if ( recvlen < 0 ) {
+            delete [] buf;
+            if ( WSAGetLastError () == 10035 )
+                return ERROR_DATA_NOTAVAIL;
+            else
+            {
+                return ERROR_CONNECTIONLOST;
+            }
+        } else {
+            fprintf ( stdout, "CoreSocket WARNING: Packet pipeline bubble!\n" );
+        }
+    }
+
+    return ERROR_NONE;
 }
 
 int
@@ -193,6 +259,19 @@ CoreSocket::Send ( const char *_data, size_t _length )
     CoreAssert ( m_sock != 0 );
 
     int sent = 0;
+#ifdef PACKET_DEBUG
+    char *temp_buf = new char[m_bufferSize];
+    memset ( temp_buf, 0, m_bufferSize );
+    char *p = temp_buf, *d = (char *)_data;
+    while ( *d != '\x0' )
+    {
+        if ( !( *d == '\n' || *d == '\r' ) )
+            *p = *d;
+        p++; d++;
+    }
+    //fprintf ( stdout, "Writing packet: '%s'\n", temp_buf );
+    delete [] temp_buf;
+#endif
     sent = send ( m_sock, _data, (int)_length, 0 );
     return sent;
 }
@@ -203,6 +282,19 @@ CoreSocket::Send ( std::string _data )
     CoreAssert ( m_sock != 0 );
 
     int sent = 0;
+#ifdef PACKET_DEBUG
+    char *temp_buf = new char[m_bufferSize];
+    memset ( temp_buf, 0, m_bufferSize );
+    char *p = temp_buf, *d = (char *)_data.c_str();
+    while ( *d != '\x0' )
+    {
+        if ( !( *d == '\n' || *d == '\r' ) )
+            *p = *d;
+        p++; d++;
+    }
+    //fprintf ( stdout, "Writing packet: '%s'\n", temp_buf );
+    delete [] temp_buf;
+#endif
     sent = send ( m_sock, _data.c_str(), (int)_data.size(), 0 );
     return sent;
 }
