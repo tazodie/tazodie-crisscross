@@ -113,7 +113,7 @@ RunApplication ( int argc, char **argv )
         {
             tsock = sockets->GetData ( i );
             std::string data;
-            int result = tsock->Read ( data, 1024 );
+            int result = tsock->Read ( data );
             if ( result == -2 ) // Socket closed.
             {
                 sockets->RemoveData ( i );

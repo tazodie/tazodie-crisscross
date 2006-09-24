@@ -205,7 +205,7 @@ CoreSocket::ReadLine ( char **_output, unsigned int *_len ) const
     if ( _len == NULL ) return ERROR_BAD_PARAMETER;
     char *buf = new char[m_bufferSize];
     char temp[2];
-    int ret = 0, recvlen = 0;
+    int recvlen = 0;
     memset ( buf, 0, m_bufferSize );
     memset ( temp, 0, sizeof ( temp ) );
 
@@ -239,9 +239,11 @@ CoreSocket::ReadLine ( char **_output, unsigned int *_len ) const
             }
         } else if ( recvlen < 0 ) {
             delete [] buf;
+#if defined ( TARGET_OS_WINDOWS )
             if ( WSAGetLastError () == 10035 )
                 return ERROR_DATA_NOTAVAIL;
             else
+#endif
             {
                 return ERROR_CONNECTIONLOST;
             }
