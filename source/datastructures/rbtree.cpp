@@ -821,7 +821,7 @@ template < class dataType, class keyType >
     DArray < dataType > *RedBlackTree < dataType,
     keyType >::ConvertToDArray ()
 {
-    DArray < dataType > *darray = new DArray < dataType > ( Size () );
+    DArray < dataType > *darray = new DArray < dataType > ( (int)size () );
     RecursiveConvertToDArray ( darray, rootNode );
     return darray;
 }
@@ -830,7 +830,7 @@ template < class dataType, class keyType >
     DArray < keyType > *RedBlackTree < dataType,
     keyType >::ConvertIndexToDArray ()
 {
-    DArray < keyType > *darray = new DArray < keyType > ( Size () );
+    DArray < keyType > *darray = new DArray < keyType > ( (int)size () );
     RecursiveConvertIndexToDArray ( darray, rootNode );
     return darray;
 }
@@ -939,12 +939,6 @@ template < class dataType, class keyType >
     int RedBlackTree < dataType, keyType >::Size ()
 {
     return ( int ) size ();
-}
-
-template < class dataType, class keyType >
-    void RedBlackTree < dataType, keyType >::Empty ()
-{
-    // Does nothing.
 }
 
 #endif

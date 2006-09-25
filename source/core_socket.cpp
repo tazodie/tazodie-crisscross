@@ -240,10 +240,12 @@ CoreSocket::ReadLine ( char **_output, unsigned int *_len ) const
         } else if ( recvlen < 0 ) {
             delete [] buf;
 #if defined ( TARGET_OS_WINDOWS )
-            if ( WSAGetLastError () == 10035 )
+            if ( WSAGetLastError () == WSAEWOULDBLOCK )
+#else
+            if (errno == EWOULDBLOCK)
+#endif
                 return ERROR_DATA_NOTAVAIL;
             else
-#endif
             {
                 return ERROR_CONNECTIONLOST;
             }

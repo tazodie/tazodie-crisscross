@@ -117,14 +117,14 @@ ParseMemoryLeakFile ( const char *_inputFilename,
             if ( btree )
                 ( ( int ) btree->data ) += size;
             else
-                combined.PutData ( sourcelocation, size );
+                combined.insert ( sourcelocation, size );
 
             RedBlackTree < int, char *>::nodeType * freq =
                 frequency.findNode ( sourcelocation );
             if ( freq )
                 ( ( int ) freq->data )++;
             else
-                frequency.PutData ( sourcelocation, 1 );
+                frequency.insert ( sourcelocation, 1 );
 
         }
         else
@@ -169,7 +169,7 @@ ParseMemoryLeakFile ( const char *_inputFilename,
         {
 
             char *existingsource = sorted.GetData ( j );
-            int existingsize = combined.GetData ( existingsource );
+            int existingsize = combined.find ( existingsource );
 
             if ( newsize <= existingsize )
             {
@@ -208,8 +208,8 @@ ParseMemoryLeakFile ( const char *_inputFilename,
         {
 
             char *source = sorted.GetData ( k );
-            int size = combined.GetData ( source );
-            int freq = frequency.GetData ( source );
+            int size = combined.find ( source );
+            int freq = frequency.find ( source );
 
             if ( size > 2048 )
             {

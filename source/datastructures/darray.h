@@ -35,9 +35,9 @@
 #ifndef __included_darray_h
 #define __included_darray_h
 
-#    include "core_deprecate.h"
-#    include "darray.h"
-#    include "dstack.h"
+#include "core_deprecate.h"
+#include "darray.h"
+#include "dstack.h"
 
 namespace CrissCross
 {
@@ -47,37 +47,44 @@ namespace CrissCross
         {
 
           private:
-            DStack<int>    *empty_nodes;
+            DStack<unsigned int>    *empty_nodes;
 
           protected:
 
             int            m_stepSize;
             int            m_arraySize;
+            int            m_numUsed;
 
-            T            *m_array;
-            char        *m_shadow;                //0=not used, 1=used
+            T              *m_array;
+            char           *m_shadow;
+
+            void Grow ();
+            void RebuildStack   ();
+            void Recount        ();
+            int GetNextFree     ();
 
           public:
 
             DArray ();                // using the default constructor defeats the 
-            // purpose of the stack. use the other one any time possible.
-            DArray ( int newstepsize );
-
+                                      // purpose of the stack. use the other one
+                                      // any time possible.
+            DArray ( int _newStepSize );
             ~DArray ();
 
-            void Grow ();
             void SetSize ( int newsize );
             void SetStepSize ( int newstepsize );
+            void SetStepDouble ();
 
-            int PutData ( const T & newdata );    // Returns index used
-            void PutData ( const T & newdata, int index );
-            T GetData ( int index );
-            void ChangeData ( const T & newdata, int index );
+            inline T GetData ( int index );
+
             void RemoveData ( int index );
             int FindData ( const T & data );    // -1 means 'not found'
 
+            int PutData ( const T & newdata );    // Returns index used
+            void PutData ( const T & newdata, int index );
+
             int NumUsed ();            // Returns the number of used entries
-            int Size ();    // Returns the total size of the array
+            inline int Size ();    // Returns the total size of the array
 
             bool ValidIndex ( int index );    // Returns true if the index contains used data
 

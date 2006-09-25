@@ -37,14 +37,14 @@
     
 #    define APP_NAME        "CrissCross"
 #    define APP_CODENAME    "Technetium"
-#    define APP_VERSION     "0.3.6"
+#    define APP_VERSION     "0.3.7"
 #    define APP_URL         "http://www.uplinklabs.net/crisscross/"
 #    define APP_COPYRIGHT   "(c) 2006 by Steven Noonan <steven@uplinklabs.net> and Rudolf Olah <omouse@gmail.com>"
 #    define APP_COPYRIGHT_CONSOLE   "(c) 2006 by Steven Noonan <steven@uplinklabs.net>,\n" \
                                     "    Rudolf Olah <omouse@gmail.com>, and Miah Clayton <miah@io-in.com>"
     
-//#    define ENABLE_CPUID
-//#    define ENABLE_DEBUGLOG
+#    define ENABLE_CPUID
+#    define ENABLE_DEBUGLOG
 
 //NOTE: By disabling this line, you will not be in compliance with article 2
 //      of the BSD License. If you disable this line, you must display the
@@ -139,19 +139,20 @@
 #    endif
     
 #    if defined ( TARGET_OS_WINDOWS )
-#            if _MSC_VER > 1200 && _MSC_VER < 1400
-#                pragma warning ( disable : 4345 )
-#                pragma warning ( disable : 4100 )
-#                pragma warning ( disable : 4800 )
-#            endif
-#            if defined ( DETECT_MEMORY_LEAKS )
-#                define _CRTDBG_MAP_ALLOC
-#            endif
-#            include <io.h>
-#            include <fcntl.h>
-#            include <windows.h>
-#            include <dbghelp.h>
-#            include <process.h>
+#           if _MSC_VER > 1200 && _MSC_VER < 1400
+#               pragma warning ( disable : 4345 4100 4800 )
+#           endif
+#           if defined ( DETECT_MEMORY_LEAKS )
+#               define _CRTDBG_MAP_ALLOC
+#           endif
+#           include <io.h>
+#           include <fcntl.h>
+#           include <windows.h>
+#           include <dbghelp.h>
+#           include <process.h>
+#           include <shlobj.h>
+#           define stat _stat
+#           define strcasecmp stricmp
 #    else
 #            undef ENABLE_SYMBOL_ENGINE
 #    endif
@@ -159,11 +160,11 @@
 #    if defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX )
 #           define ANSI_COLOUR
 #           include <cxxabi.h>
-#            include <pthread.h>
-#            include <sys/types.h>
+#           include <pthread.h>
+#           include <sys/types.h>
 #           include <unistd.h>
-#            include <sched.h>
-#            include <ctype.h>
+#           include <sched.h>
+#           include <ctype.h>
 #    endif
 
 #    if defined ( TARGET_OS_LINUX )

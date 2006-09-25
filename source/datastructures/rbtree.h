@@ -138,15 +138,14 @@ namespace CrissCross
             /*
                other old backward-compatible functions
              */
-            _DS_DEPRECATE_FUNCTION ( find ) dataType GetData ( keyType key ) const;
-            _DS_DEPRECATE_FUNCTION ( insert ) void PutData ( keyType key,
-                                                             dataType rec );
-            _DS_DEPRECATE_FUNCTION ( deleteNode ) void RemoveData ( keyType key );
-            _DS_DEPRECATE_FUNCTION ( findNode ) nodeType *LookupTree ( keyType key );
+            _CC_DEPRECATE_FUNCTION ( find )         dataType    GetData ( keyType key ) const;
+            _CC_DEPRECATE_FUNCTION ( insert )       void        PutData ( keyType key, dataType rec );
+            _CC_DEPRECATE_FUNCTION ( deleteNode )   void        RemoveData ( keyType key );
+            _CC_DEPRECATE_FUNCTION ( findNode )     nodeType    *LookupTree ( keyType key );
 
           public:
             DArray < dataType > *ConvertToDArray ();
-            DArray < keyType > *ConvertIndexToDArray ();
+            DArray < keyType >  *ConvertIndexToDArray ();
 
           protected:
             void RecursiveConvertIndexToDArray ( DArray < keyType > *darray,
@@ -155,9 +154,8 @@ namespace CrissCross
                                             nodeType * btree );
 
           public:
-            _DS_DEPRECATE_FUNCTION ( size ) int Size ();
-            _DS_DEPRECATE_FUNCTION_N void Empty ();    // Ironically, an empty function, just here for straight compatibility.
-            void Print ();            // Not deprecated, but still down here because it is a backwards-compatibility function.
+            _CC_DEPRECATE_FUNCTION ( size ) int Size ();
+            void Print ();                  // Not deprecated, but still down here because it is a backwards-compatibility function.
 
           protected:
             void rotateLeft ( nodeType * x );

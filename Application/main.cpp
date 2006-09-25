@@ -42,6 +42,7 @@
 #include "core_console.h"
 #include "core_cpuid.h"
 #include "core_system.h"
+#include "core_filesystem.h"
 #include "tcpsocket.h"
 
 using namespace CrissCross::IO;
@@ -55,6 +56,8 @@ int
 RunApplication ( int argc, char **argv )
 {
     CoreConsole *console = new CoreConsole ();
+    console->WriteLine ( CrissCross::FileSystem::DefaultHomePath () );
+#if 0
     sockets = new LList<TCPSocket *>;
     connections_per_host = new RedBlackTree<int,unsigned long *>();
 
@@ -115,7 +118,7 @@ RunApplication ( int argc, char **argv )
         {
             tsock = sockets->GetData ( i );
             std::string data;
-            int result = tsock->Read ( data, 1024 );
+            int result = tsock->Read ( data );
             if ( result == -2 ) // Socket closed.
             {
                 sockets->RemoveData ( i );
@@ -143,6 +146,7 @@ RunApplication ( int argc, char **argv )
     
     delete system;
     delete socket;
+#endif
     delete console;
     return 0;
 }

@@ -43,20 +43,20 @@ namespace CrissCross
         class DStack
         {
         private:
-            size_t                        step_;
-            dataType                    *bottom_;
-            dataType                    *top_;
-            size_t                        size_;
-            size_t                        origsize_;
+            size_t          step_;
+            dataType        *bottom_;
+            dataType        *top_;
+            size_t          size_;
+            size_t          origsize_;
 
         public:
-            DStack                    ( size_t size = 32 );
-            ~DStack                    ();
+            DStack          ( size_t size = 32 );
+            ~DStack         ();
 
-            void            push        ( dataType val );
-            size_t            count        () const;
-            dataType        pop        ();
-            void            empty        ();
+            void push       ( dataType val );
+            size_t count    () const;
+            dataType pop    ();
+            void empty      ();
         };
     }
 }

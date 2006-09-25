@@ -374,6 +374,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\core_filesystem.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\core_filesystem.h"
+				>
+			</File>
+			<File
 				RelativePath="core_mutex.cpp"
 				>
 				<FileConfiguration
