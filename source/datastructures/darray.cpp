@@ -230,6 +230,7 @@ void DArray < T >::Empty ()
     empty_nodes->push ( -1 );
 
     m_arraySize = 0;
+    m_numUsed = 0;
 
 }
 
@@ -244,7 +245,7 @@ int DArray < T >::GetNextFree()
 
     int freeslot = -2;
 
-    while ( (freeslot = empty_nodes->pop()) != -1 )
+    while ( (freeslot = empty_nodes->pop() ) != -1 )
     {
         if ( m_shadow[freeslot] == 0 )
             break;
@@ -297,6 +298,7 @@ void DArray < T >::RemoveData ( int index )
 
     empty_nodes->push ( index );
 
+    if ( m_shadow[index] == 1 ) m_numUsed--;
     m_shadow[index] = 0;
 
 }
