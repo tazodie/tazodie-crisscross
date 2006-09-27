@@ -78,7 +78,7 @@ size_t DStack<dataType>::count () const
 }
 
 template < class dataType >
-typename dataType DStack<dataType>::pop ()
+dataType DStack<dataType>::pop ()
 {
     if ( !top_ ) return (dataType)0;
     top_--;
