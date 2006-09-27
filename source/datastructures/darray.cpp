@@ -267,7 +267,7 @@ int DArray < T >::GetNextFree()
 }
 
 template < class T >
-typename T DArray < T >::GetData ( int index )
+T DArray < T >::GetData ( int index )
 {
 
     CoreAssert ( m_shadow[index] != 0 );
@@ -278,7 +278,7 @@ typename T DArray < T >::GetData ( int index )
 }
 
 template < class T >
-typename T & DArray < T >::operator []( int index )
+T & DArray < T >::operator []( int index )
 {
 
     CoreAssert ( m_shadow[index] != 0 );
