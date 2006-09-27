@@ -69,8 +69,8 @@ class Processor
     char Stepping;
     char BrandID;
     char APICID;
-      RedBlackTree < Feature *, char *>features;
-      DArray < char *>caches;
+      RedBlackTree < Feature *, char *> features;
+      DArray <char *> caches;
   public:
       Processor ()
     {

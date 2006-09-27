@@ -331,13 +331,11 @@ template < class dataType, class keyType >
 
     if ( !key )
     {
-        fprintf ( stderr,
-                  "WARNING: RedBlackTree < dataType, keyType >::insert() called with NULL key pointer!\n" );
+        fprintf ( stderr, "WARNING: RedBlackTree < dataType, keyType >::insert() called with NULL key pointer!\n" );
     }
     if ( !rec )
     {
-        fprintf ( stderr,
-                  "WARNING: RedBlackTree < dataType, keyType >::insert() called with NULL data pointer!\n" );
+        fprintf ( stderr, "WARNING: RedBlackTree < dataType, keyType >::insert() called with NULL data pointer!\n" );
     }
     if ( !key || !rec )
         return STATUS_NULL_POINTER;
@@ -674,8 +672,7 @@ template < class dataType, class keyType >
 #    endif
     if ( !key )
     {
-        fprintf ( stderr,
-                  "WARNING: RedBlackTree < dataType, keyType >::find() called with NULL key pointer!\n" );
+        fprintf ( stderr, "WARNING: RedBlackTree < dataType, keyType >::find() called with NULL key pointer!\n" );
         return NULL;
     }
 #    ifdef SHOW_NODE_SEARCH_PROGRESS
@@ -715,8 +712,7 @@ template < class dataType, class keyType >
 #    endif
     if ( !key )
     {
-        fprintf ( stderr,
-                  "WARNING: RedBlackTree < dataType, keyType >::findNode() called with NULL key pointer!\n" );
+        fprintf ( stderr, "WARNING: RedBlackTree < dataType, keyType >::findNode() called with NULL key pointer!\n" );
         return NULL;
     }
 #    ifdef SHOW_NODE_SEARCH_PROGRESS
@@ -895,8 +891,7 @@ template < class dataType, class keyType >
 {
     if ( !key )
     {
-        fprintf ( stderr,
-                  "WARNING: RedBlackTree < dataType, keyType >::GetData() called with NULL key pointer!\n" );
+        fprintf ( stderr, "WARNING: RedBlackTree < dataType, keyType >::GetData() called with NULL key pointer!\n" );
         return NULL;
     }
     return find ( key );
@@ -908,13 +903,11 @@ template < class dataType, class keyType >
 {
     if ( !key )
     {
-        fprintf ( stderr,
-                  "WARNING: RedBlackTree < dataType, keyType >::PutData() called with NULL key pointer!\n" );
+        fprintf ( stderr, "WARNING: RedBlackTree < dataType, keyType >::PutData() called with NULL key pointer!\n" );
     }
     if ( !rec )
     {
-        fprintf ( stderr,
-                  "WARNING: RedBlackTree < dataType, keyType >::PutData() called with NULL data pointer!\n" );
+        fprintf ( stderr, "WARNING: RedBlackTree < dataType, keyType >::PutData() called with NULL data pointer!\n" );
     }
     if ( !key || !rec )
         return;

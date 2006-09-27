@@ -75,7 +75,7 @@ namespace CrissCross
             void SetStepSize ( int newstepsize );
             void SetStepDouble ();
 
-            inline T GetData ( int index );
+            T GetData ( int index );
 
             void RemoveData ( int index );
             int FindData ( const T & data );    // -1 means 'not found'
