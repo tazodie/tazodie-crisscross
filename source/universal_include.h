@@ -37,7 +37,7 @@
     
 #    define APP_NAME        "CrissCross"
 #    define APP_CODENAME    "Technetium"
-#    define APP_VERSION     "0.3.7"
+#    define APP_VERSION     "0.4.0"
 #    define APP_URL         "http://www.uplinklabs.net/crisscross/"
 #    define APP_COPYRIGHT   "(c) 2006 by Steven Noonan <steven@uplinklabs.net> and Rudolf Olah <omouse@gmail.com>"
 #    define APP_COPYRIGHT_CONSOLE   "(c) 2006 by Steven Noonan <steven@uplinklabs.net>,\n" \
@@ -47,7 +47,7 @@
 #    define ENABLE_DEBUGLOG
 
 //NOTE: By disabling this line, you will not be in compliance with article 2
-//      of the BSD License. If you disable this line, you must display the
+//      of the New BSD License. If you disable this line, you must display the
 //      copyright notice in the program elsewhere.
 #    define ENABLE_CREDITS
     

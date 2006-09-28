@@ -36,6 +36,7 @@
 #define __included_textwriter_h
 
 #include "core_exception.h"
+#include "core_error.h"
 
 namespace CrissCross
 {
@@ -55,17 +56,29 @@ namespace CrissCross
 
         public:
             //! The constructor.
-            /*!
-                Creates an instance of CoreIO with write access to the file specified in _file.
-                \param _file The path to the file being read.
-                */ 
-            TextWriter ( const char *_file );
+            TextWriter ( );
 
             //! The destructor
             /*!
                 Flushes the output buffer, closes the file, and deallocates memory used by TextWriter.
                 */ 
             ~TextWriter ();
+
+            //! Opens the provided file.
+            /*!
+                Opens the file for reading.
+				\param _file The path of the file to be read.
+				\param _writeMode The mode with which to open the file.
+				\return Standard CrissCross::Errors values.
+             */ 
+			CrissCross::Errors Open ( const char *_file, FileWriteMode _writeMode = FILE_CREATE, LineEndingType _lnEnding = LN_NATIVE );
+
+            //! Closes the file.
+            /*!
+                Flushes the output buffer, closes the file, and deallocates memory used by TextWriter.
+				\return Standard CrissCross::Errors values.
+             */ 
+			CrissCross::Errors Close ();
 
         private:
             bool EndOfFile ()

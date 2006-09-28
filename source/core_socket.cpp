@@ -90,7 +90,7 @@ CoreSocket::Ban ( unsigned long _host )
     if ( m_banned_hosts.findNode ( &_host ) == NULL )
         m_banned_hosts.insert ( &_host, (char *)1 );
 #endif
-    return ERROR_NONE;
+    return CC_ERR_NONE;
 }
 
 int
@@ -102,7 +102,7 @@ CoreSocket::Close()
     close ( m_sock );
 #endif
     m_sock = 0;
-    return ERROR_NONE;
+    return CC_ERR_NONE;
 }
 
 const char *
@@ -150,13 +150,13 @@ int
 CoreSocket::Listen ( unsigned short _port )
 {
     /* CoreSocket::Listen does nothing. This is an abstract class. */
-    return ERROR_NOT_IMPLEMENTED;
+    return CC_ERR_SOCK_NOT_IMPLEMENTED;
 }
 
 int
 CoreSocket::Read ( std::string &_output ) const
 {
-    if ( m_sock == INVALID_SOCKET ) return ERROR_SOCKET_NOT_INITIALISED;
+    if ( m_sock == INVALID_SOCKET ) return CC_ERR_SOCK_SOCKET_NOT_INITIALISED;
 
     char *buf = new char[m_bufferSize];
     memset ( buf, 0, m_bufferSize );
@@ -169,14 +169,14 @@ CoreSocket::Read ( std::string &_output ) const
 
     delete [] buf;
 
-    return ( recvlen == 0 ) ? ERROR_NONE : errno;
+    return ( recvlen == 0 ) ? CC_ERR_NONE : errno;
 }
 
 int
 CoreSocket::Read ( char **_output, unsigned int *_len ) const
 {
-    if ( m_sock == INVALID_SOCKET ) return ERROR_SOCKET_NOT_INITIALISED;
-    if ( _len == NULL ) return ERROR_BAD_PARAMETER;
+    if ( m_sock == INVALID_SOCKET ) return CC_ERR_SOCK_SOCKET_NOT_INITIALISED;
+    if ( _len == NULL ) return CC_ERR_SOCK_BAD_PARAMETER;
 
     char *buf = new char[m_bufferSize];
     int ret = 0, recvlen = 0;
@@ -188,21 +188,21 @@ CoreSocket::Read ( char **_output, unsigned int *_len ) const
         *_output = NULL;
         *_len = 0;
         delete [] buf;
-        return ERROR_DATA_NOTAVAIL;
+        return CC_ERR_SOCK_DATA_NOTAVAIL;
     }
     ret = errno;
 
     *_output = buf;
     *_len = recvlen;
 
-    return ( recvlen == 0 ) ? ERROR_NONE : errno;
+    return ( recvlen == 0 ) ? CC_ERR_NONE : errno;
 }
 
 int
 CoreSocket::ReadLine ( char **_output, unsigned int *_len ) const
 {
-    if ( m_sock == INVALID_SOCKET ) return ERROR_SOCKET_NOT_INITIALISED;
-    if ( _len == NULL ) return ERROR_BAD_PARAMETER;
+    if ( m_sock == INVALID_SOCKET ) return CC_ERR_SOCK_SOCKET_NOT_INITIALISED;
+    if ( _len == NULL ) return CC_ERR_SOCK_BAD_PARAMETER;
     char *buf = new char[m_bufferSize];
     char temp[2];
     int recvlen = 0;
@@ -213,13 +213,13 @@ CoreSocket::ReadLine ( char **_output, unsigned int *_len ) const
     if ( recvlen == 0 )
     {
         delete [] buf;
-        return ERROR_DATA_NOTAVAIL;
+        return CC_ERR_SOCK_DATA_NOTAVAIL;
     }
     if ( temp[0] == '\n' || temp[0] == '\r' )
     {
         *_output = buf;
         *_len = (unsigned int)strlen ( buf );
-        return ERROR_NONE;
+        return CC_ERR_NONE;
     } else {
         strcat ( buf, temp );
     }
@@ -244,17 +244,17 @@ CoreSocket::ReadLine ( char **_output, unsigned int *_len ) const
 #else
             if (errno == EWOULDBLOCK)
 #endif
-                return ERROR_DATA_NOTAVAIL;
+                return CC_ERR_SOCK_DATA_NOTAVAIL;
             else
             {
-                return ERROR_CONNECTIONLOST;
+                return CC_ERR_SOCK_CONNECTIONLOST;
             }
         } else {
             fprintf ( stdout, "CoreSocket WARNING: Packet pipeline bubble!\n" );
         }
     }
 
-    return ERROR_NONE;
+    return CC_ERR_NONE;
 }
 
 int
@@ -306,7 +306,7 @@ CoreSocket::Send ( std::string _data )
 int
 CoreSocket::SetAttributes ( socket_t _socket )
 {
-    return ERROR_NOT_IMPLEMENTED;
+    return CC_ERR_SOCK_NOT_IMPLEMENTED;
 }
 
 socketState

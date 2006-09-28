@@ -199,10 +199,18 @@ ParseMemoryLeakFile ( const char *_inputFilename,
         // Print out our sorted list
         // 
 
-        fprintf ( output, "Total recognised memory leaks   : %d Kbytes\n",
-                int ( totalsize / 1024 ) );
-        fprintf ( output, "Total unrecognised memory leaks : %d Kbytes\n\n",
-                int ( unrecognised / 1024 ) );
+		#ifdef ENABLE_DEBUGLOG
+		g_debuglog->Write ( g_debuglog->BUG_LEVEL_INFO,
+			"Total recognised memory leaks   : %d Kbytes\n",
+			int ( totalsize / 1024 ) );
+		g_debuglog->Write ( g_debuglog->BUG_LEVEL_INFO,
+			"Total unrecognised memory leaks   : %d Kbytes\n",
+			int ( unrecognised / 1024 ) );
+		#endif
+		fprintf ( output, "Total recognised memory leaks   : %d Kbytes\n",
+			int ( totalsize / 1024 ) );
+		fprintf ( output, "Total unrecognised memory leaks : %d Kbytes\n\n",
+			int ( unrecognised / 1024 ) );
 
         for ( int k = sorted.Size () - 1; k >= 0; --k )
         {
@@ -225,7 +233,7 @@ ParseMemoryLeakFile ( const char *_inputFilename,
 
 
         //
-        // Clear up
+        // Clean up
 
         fclose ( output );
     }
@@ -323,36 +331,39 @@ main ( int argc, char **argv )
 #else
         retval = RunApplication ( argc, argv );
 #endif
-    }
-    catch ( std::exception& e )
-    {
-        cout << e.what() << endl;
-        return -3;
-    }
-    catch ( CoreException * e )
-    {
-        g_stderr->
-            WriteLine
-            ( "\nA CoreException has been raised.\n\tFile: %s\n\tLine: %d\n\tDescription: %s\n",
-              e->ShowFile (), e->ShowLine (), e->ShowReason () );
-        return -1;
-    }
-    catch ( const char *_exception )
-    {
-        g_stderr->
-            WriteLine
-            ( "An unknown exception has been raised:\n\tDescription: %s",
-              _exception );
-        return -2;
-    }
-    
+	}
+	catch ( std::exception& e )
+	{
+		cout << e.what() << endl;
+		return -3;
+	}
+	catch ( CoreException * e )
+	{
+		g_stderr->
+			WriteLine
+			( "\nA CoreException has been raised.\n\tFile: %s\n\tLine: %d\n\tDescription: %s\n",
+			  e->ShowFile (  ), e->ShowLine (  ), e->ShowReason (  ) );
+		#ifdef ENABLE_DEBUGLOG
+		g_debuglog->Write ( g_debuglog->BUG_LEVEL_ERROR, 
+				    "\nA CoreException has been raised.\n\tFile: %s\n\tLine: %d\n\tDescription: %s\n",
+				    e->ShowFile (  ), e->ShowLine (  ), e->ShowReason (  ) );
+		#endif
+		return -1;
+	}
+	catch ( const char *_exception )
+	{
+		g_stderr->
+			WriteLine
+			( "An unknown exception has been raised:\n\tDescription: %s",
+			  _exception );
+		return -2;
+	}
+	
 #ifdef ENABLE_DEBUGLOG
 
     g_debuglog->Write ( g_debuglog->BUG_LEVEL_INFO, "Exiting", "" );
-
-    // Below commented only because I hate cleaning out .log files. Uncomment if you wish. -- Steven
-    // g_debuglog->Save();
-
+	// Below commented only because I hate cleaning out .log files. Uncomment if you wish. -- Steven
+	 g_debuglog->Save();
     delete g_debuglog;
 
 #endif

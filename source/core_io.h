@@ -39,12 +39,24 @@
 #	include "universal_include.h"
 #endif
 
-#    include "core_mutex.h"
+#include "core_error.h"
+#include "core_mutex.h"
 
 namespace CrissCross
 {
     namespace IO
     {
+
+		//! File write modes.
+		/*!
+		   Provides the choice of creating a file when opening it or appending to it.
+	     */
+        enum FileWriteMode
+        {
+			FILE_CREATE,                     /*!< Default. Will create a new file if the one opened does not exist. */
+            FILE_APPEND,                     /*!< Write operations will append data to the end of the file. */
+        };
+
         //! The core input/output class.
         /*!
             An abstract class inherited by most I/O classes, including CoreConsole, TextReader
@@ -59,9 +71,10 @@ namespace CrissCross
              */
             enum LineEndingType
             {
-                CR,                         /*!< Carriage return only. (default for UNIX and UNIX-like systems, Linux, AIX, Xenix, Mac OS X, BeOS, Amiga, RISC OS and others) */
-                LF,                         /*!< Line feed only. (default for Commodore machines, Apple II family and Mac OS through version 9) */
-                CRLF                        /*!< Carriage return and line feed. (default for CP/M, MP/M, DOS, Microsoft Windows) */
+				LN_NATIVE,                     /*!< Automatically selects the appropriate line ending for the running platform. */
+                LN_CR,                         /*!< Carriage return only. (default for Commodore machines, Apple II family and Mac OS through version 9) */
+                LN_LF,                         /*!< Line feed only. (default for UNIX and UNIX-like systems, Linux, AIX, Xenix, Mac OS X, BeOS, Amiga, RISC OS and others) */
+                LN_CRLF                        /*!< Carriage return and line feed. (default for CP/M, MP/M, DOS, OS/2, Microsoft Windows) */
             };
 
           protected:
@@ -90,7 +103,7 @@ namespace CrissCross
                default, also initializes CoreIO::m_ioMutex.
                \param _fileBuffer The buffer to be used for I/O operations.
              */
-            CoreIO ( FILE * _fileBuffer );
+            CoreIO ( FILE * _fileBuffer, LineEndingType _lnEnding = LN_NATIVE );
 
             //! The destructor.
             virtual ~CoreIO ();
@@ -106,6 +119,12 @@ namespace CrissCross
                \return Indicates the length of the buffer in bytes.
              */
             virtual size_t Length ();
+
+            //! Validates that the file buffer isn't NULL.
+            /*!
+               \return Boolean indicating whether the file is safe to write to.
+             */
+            virtual bool IsOpen ();
 
             //! Reads one byte from the file buffer.
             /*!
@@ -138,39 +157,39 @@ namespace CrissCross
             /*!
                \param _ending Any of the CoreIO::LineEndingType values.
              */
-            virtual void SetLineEndings ( LineEndingType _ending );
+            virtual CrissCross::Errors SetLineEndings ( LineEndingType _ending );
 
             //! Writes a string to the buffer.
             /*!
                \param _format The format of the string to be written.
              */
-            virtual void Write ( const char *_format, ... );
+            virtual CrissCross::Errors Write ( const char *_format, ... );
 
             //! Writes a string to the buffer.
             /*!
                \param _string The string to be written.
              */
-            virtual void Write ( std::string _string );
+            virtual CrissCross::Errors Write ( std::string _string );
 
             //! Writes an empty line to the buffer.
             /*!
                Writes CoreIO::m_lineEnding to the buffer.
              */
-            virtual void WriteLine ();
+            virtual CrissCross::Errors WriteLine ();
 
             //! Writes a string to the buffer with a newline appended.
             /*
                Prints the string to the buffer, and then prints the line terminator as specified in CoreIO::m_lineEnding.
                \param _format The format of the string to be written.
              */
-            virtual void WriteLine ( const char *_format, ... );
+            virtual CrissCross::Errors WriteLine ( const char *_format, ... );
 
             //! Writes a string to the buffer with a newline appended.
             /*
                Prints the string to the buffer, and then prints the line terminator as specified in CoreIO::m_lineEnding.
                \param _format The format of the string to be written.
              */
-            virtual void WriteLine ( std::string _string );
+            virtual CrissCross::Errors WriteLine ( std::string _string );
 
             //! Seeks to a location in the buffer.
             /*!

@@ -71,11 +71,11 @@ int UDPSocket::Bind ( const char *_address, unsigned short _port )
     struct sockaddr_in sin;
     struct hostent *host;
 
-    if ( m_sock != INVALID_SOCKET ) return ERROR_SOCKET_IN_USE;
+    if ( m_sock != INVALID_SOCKET ) return CC_ERR_SOCK_SOCKET_IN_USE;
 
     m_sock = socket ( AF_INET, SOCK_DGRAM, IPPROTO_UDP );
     if ( m_sock == INVALID_SOCKET )
-        return ERROR_CREATE_SOCKET;
+        return CC_ERR_SOCK_CREATE_SOCKET;
 
     SetAttributes ( m_sock );
 
@@ -95,16 +95,16 @@ int UDPSocket::Bind ( const char *_address, unsigned short _port )
 #else
         close ( m_sock );
 #endif
-        return ERROR_BIND;
+        return CC_ERR_SOCK_BIND;
     }
-    return ERROR_NONE;
+    return CC_ERR_NONE;
 }
 
 int UDPSocket::Listen ( unsigned short _port )
 {
     struct sockaddr_in sin;
 
-    if ( m_sock != INVALID_SOCKET ) return ERROR_SOCKET_IN_USE;
+    if ( m_sock != INVALID_SOCKET ) return CC_ERR_SOCK_SOCKET_IN_USE;
 
     memset ( &sin, 0, sizeof ( sin ) );
 
@@ -114,7 +114,7 @@ int UDPSocket::Listen ( unsigned short _port )
     m_sock = socket ( AF_INET, SOCK_DGRAM, IPPROTO_UDP );
 
     if ( m_sock == INVALID_SOCKET )
-        return ERROR_CREATE_SOCKET;
+        return CC_ERR_SOCK_CREATE_SOCKET;
 
     SetAttributes ( m_sock );
 
@@ -132,8 +132,8 @@ int UDPSocket::Listen ( unsigned short _port )
 #else
         close ( m_sock );
 #endif
-        return ERROR_BIND;
+        return CC_ERR_SOCK_BIND;
     }
 
-    return ERROR_NONE;
+    return CC_ERR_NONE;
 }

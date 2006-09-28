@@ -41,20 +41,14 @@
 using namespace CrissCross::IO;
 using namespace CrissCross::System;
 
-CoreIO::CoreIO ( FILE * _fileBuffer ):
+CoreIO::CoreIO ( FILE * _fileBuffer, CoreIO::LineEndingType _lnEnding ):
 m_lineEnding ( NULL ),
 m_fileBuffer ( _fileBuffer )
 #ifndef __GNUC__
 , m_ioMutex ( new CoreMutex () )
 #endif
 {
-#if defined ( TARGET_OS_WINDOWS )
-    SetLineEndings ( CRLF );
-#elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX )
-    SetLineEndings ( LF );
-#else
-#    error You are not using a supported OS.
-#endif
+	SetLineEndings ( _lnEnding );
 }
 
 CoreIO::~CoreIO ()
@@ -88,6 +82,17 @@ CoreIO::Flush ()
 #ifndef __GNUC__
     m_ioMutex->Unlock ();
 #endif
+}
+
+bool
+CoreIO::IsOpen ()
+{
+    CoreAssert ( this != NULL );
+
+    if ( m_fileBuffer == NULL )
+        return false;
+	else
+		return true;
 }
 
 int
@@ -221,38 +226,50 @@ CoreIO::Seek ( int _position )
     return ( res == 0 );
 }
 
-void
+CrissCross::Errors
 CoreIO::SetLineEndings ( LineEndingType _ending )
 {
     CoreAssert ( this != NULL );
 
+	if ( _ending == LN_NATIVE )
+	{
+#if defined ( TARGET_OS_WINDOWS )
+		_ending = LN_CRLF;
+#elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX )
+		_ending = LN_LF;
+#else
+#		error You are not using a supported OS.
+#endif
+	}
+
     delete [] m_lineEnding;
     switch ( _ending )
     {
-    case CR:
+    case LN_CR:
         m_lineEnding = new char[2];
         sprintf ( m_lineEnding, "\r" );
         break;
-    case LF:
+    case LN_LF:
         m_lineEnding = new char[2];
         sprintf ( m_lineEnding, "\n" );
         break;
-    case CRLF:
+    case LN_CRLF:
         m_lineEnding = new char[3];
         sprintf ( m_lineEnding, "\r\n" );
         break;
     default:
-        CoreAssert ( 0 );
+        return CC_ERR_BADPARAMETER;
     }
+	return CC_ERR_NONE;
 }
 
-void
+CrissCross::Errors
 CoreIO::WriteLine ( const char *_format, ... )
 {
     CoreAssert ( this != NULL );
 
     if ( _format == NULL )
-        return;
+        return CC_ERR_BADPARAMETER;
 #ifndef __GNUC__
     m_ioMutex->Lock ();
 #endif
@@ -263,55 +280,63 @@ CoreIO::WriteLine ( const char *_format, ... )
 
     // Print out the string
     vfprintf ( m_fileBuffer, _format, args );
-    fprintf ( m_fileBuffer, m_lineEnding );
+
+    if ( fprintf ( m_fileBuffer, m_lineEnding ) < 0 )
+		return CC_ERR_WRITE;
 
     va_end ( args );
 #ifndef __GNUC__
     m_ioMutex->Unlock ();
 #endif
 
+	return CC_ERR_NONE;
 }
 
-void
+CrissCross::Errors
 CoreIO::WriteLine ( std::string _string )
 {
     CoreAssert ( this != NULL );
     
     if ( _string.empty() == true )
-        return;
+        return CC_ERR_BADPARAMETER;
 
 #ifndef __GNUC__        
     m_ioMutex->Lock ();
 #endif
     
-    fprintf ( m_fileBuffer, "%s%s", _string.c_str(), m_lineEnding );
+    if ( fprintf ( m_fileBuffer, "%s%s", _string.c_str(), m_lineEnding ) < 0 )
+		return CC_ERR_WRITE;
 
 #ifndef __GNUC__    
     m_ioMutex->Unlock ();
 #endif
 
+	return CC_ERR_NONE;
 }
 
-void
+CrissCross::Errors
 CoreIO::Write ( std::string _string )
 {
     CoreAssert ( this != NULL );
     
     if ( _string.empty() == true )
-        return;
+        return CC_ERR_BADPARAMETER;
+
 #ifndef __GNUC__        
     m_ioMutex->Lock ();
 #endif
     
-    fprintf ( m_fileBuffer, "%s", _string.c_str() );
+    if ( fprintf ( m_fileBuffer, "%s", _string.c_str() ) < 0 )
+		return CC_ERR_WRITE;
 
 #ifndef __GNUC__    
     m_ioMutex->Unlock ();
 #endif
 
+	return CC_ERR_NONE;
 }
 
-void
+CrissCross::Errors
 CoreIO::WriteLine ()
 {
     CoreAssert ( this != NULL );
@@ -319,20 +344,24 @@ CoreIO::WriteLine ()
     m_ioMutex->Lock ();
 #endif
 
-    fprintf ( m_fileBuffer, m_lineEnding );
+    if ( fprintf ( m_fileBuffer, m_lineEnding ) < 0 )
+		return CC_ERR_WRITE;
 
 #ifndef __GNUC__
     m_ioMutex->Unlock ();
 #endif
+
+	return CC_ERR_NONE;
 }
 
-void
+CrissCross::Errors
 CoreIO::Write ( const char *_format, ... )
 {
     CoreAssert ( this != NULL );
 
     if ( _format == NULL )
-        return;
+        return CC_ERR_BADPARAMETER;
+
 #ifndef __GNUC__
     m_ioMutex->Lock ();
 #endif
@@ -342,11 +371,14 @@ CoreIO::Write ( const char *_format, ... )
     va_start ( args, _format );
 
     // Print out the string
-    vfprintf ( m_fileBuffer, _format, args );
+    if ( vfprintf ( m_fileBuffer, _format, args ) < 0 )
+		return CC_ERR_WRITE;
 
     va_end ( args );
 #ifndef __GNUC__
     m_ioMutex->Unlock ();
 #endif
+
+	return CC_ERR_NONE;
 }
 

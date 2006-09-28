@@ -63,23 +63,6 @@ namespace CrissCross
 
         typedef enum
         {
-            ERROR_CONNECTIONLOST = -12,             //!< The connection was lost.
-            ERROR_CONNECT = -11,                    //!< The connect() call failed.
-            ERROR_LISTEN = -10,                     //!< The listen() call failed.
-            ERROR_BIND = -9,                        //!< The bind() call failed.
-            ERROR_DNS = -8,                         //!< The host couldn't be resolved via DNS.
-            ERROR_CREATE_SOCKET = -7,               //!< The socket() call failed.
-            ERROR_SOCKET_IN_USE = -6,               //!< The socket is in use. The call being attempted is invalid for the current socketState.
-            ERROR_SOCKET_NOT_INITIALISED = -5,      //!< The socket has not yet been initialised.
-            ERROR_NOT_IMPLEMENTED = -4,             //!< The call has not yet been implemented or will not be implemented in the abstract class.
-            ERROR_BAD_PARAMETER = -3,               //!< One of the parameters given was invalid.
-            ERROR_DATA_NOTAVAIL = -2,               //!< A read call received no data.
-            ERROR_DATA_TIMEOUT = -1,                //!< Timeout waiting for data.
-            ERROR_NONE = 0                          //!< Success.
-        } socketError;
-
-        typedef enum
-        {
             PROTOCOL_NONE,                          //!< No protocol specified.
             PROTOCOL_TCP,                           //!< Transmission Control Protocol.
             PROTOCOL_UDP                            //!< User Datagram Protocol.
@@ -116,7 +99,7 @@ namespace CrissCross
             /*!
                 Will set SO_LINGER and TCP_NODELAY on TCP sockets.
                 \param _socket The socket to modify.
-                \return ERROR_NONE if no error is encountered, otherwise returns 'errno'.
+                \return CC_ERR_NONE if no error is encountered, otherwise returns 'errno'.
              */
             int SetAttributes ( socket_t _socket );
         public:
@@ -136,7 +119,7 @@ namespace CrissCross
                 host from connecting (or, if the instance is a non-streaming socket,
                 ignore data sent by the host).
                 \param _host The host to ban (retrieve this with GetRemoteHost()).
-                \return Currently always returns ERROR_NONE.
+                \return Currently always returns CC_ERR_NONE.
              */
             int Ban ( unsigned long _host );
 
@@ -144,7 +127,7 @@ namespace CrissCross
             /*!
                 Doesn't need to be called before an instance is destructed, because
                 it is automatically called in the destructor.
-                \return Currently always returns ERROR_NONE.
+                \return Currently always returns CC_ERR_NONE.
              */
             virtual int Close ();
 

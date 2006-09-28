@@ -35,6 +35,8 @@
 #ifndef __included_core_network_h
 #define __included_core_network_h
 
+#include "core_error.h"
+
 namespace CrissCross
 {
     namespace Network
@@ -43,13 +45,13 @@ namespace CrissCross
         /*!
             <span style="color:#ff0000;">FOR INTERNAL USE ONLY. DO NOT CALL THIS.</span>
          */
-        int __initialise_network();
+        CrissCross::Errors __initialise_network();
 
         //! Shuts down the sockets subsystems.
         /*!
             <span style="color:#ff0000;">FOR INTERNAL USE ONLY. DO NOT CALL THIS.</span>
          */
-        void __cleanup_network();
+        CrissCross::Errors __cleanup_network();
     }
 }
 

@@ -36,6 +36,7 @@
 #define __included_textreader_h
 
 #include "core_exception.h"
+#include "core_error.h"
    
 namespace CrissCross
 {
@@ -55,23 +56,35 @@ namespace CrissCross
 
         public:
             //! The constructor.
-            /*!
-                Creates an instance of CoreIO with read access to the file specified in _file.
-                \param _file The path to the file being read.
-                */ 
-            TextReader ( const char *_file );
+            TextReader ();
 
             //! The destructor
             /*!
                 Closes the file and deallocates memory used by TextReader.
-                */ 
+             */ 
             ~TextReader ();
+
+            //! Opens the provided file for read access.
+            /*!
+				\param _file The path of the file to be read.
+				\return Standard CrissCross::Errors values.
+             */ 
+			CrissCross::Errors Open ( const char *_file );
+
+            //! Closes the file.
+            /*!
+                Closes the file and deallocates memory used by TextReader.
+				\return Standard CrissCross::Errors values.
+             */ 
+			CrissCross::Errors Close ();
+
         private:
-            void Write ( const char *_format, ... )
+			// TextReader shouldn't make any write calls whatsoever.
+            CrissCross::Errors Write ( const char *_format, ... )
                 { throw new CrissCross::Debug::InvalidCallException(); };
-            void WriteLine ()
+            CrissCross::Errors WriteLine ()
                 { throw new CrissCross::Debug::InvalidCallException(); };
-            void WriteLine ( const char *_format, ... )
+            CrissCross::Errors WriteLine ( const char *_format, ... )
                 { throw new CrissCross::Debug::InvalidCallException(); };
 
         };

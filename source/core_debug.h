@@ -52,15 +52,6 @@
 void Assert ( bool _condition, const char *_testcase, const char *_file,
               int _line );
 
-//! Creates a debug log on application failure.
-/*!
-    Creates a file called &quot;blackbox.txt&quot; if the application fails an assertion.
-    <div style="color: #FF0000;"><b>NOTE:</b>
-        For internal use only.
-    </div>
-*/
-void GenerateBlackBox ( const char *_msg );
-
 //! Prints a stack trace to _outputBuffer.
 /*!
     \param _outputBuffer The CoreIO output buffer to write to.
