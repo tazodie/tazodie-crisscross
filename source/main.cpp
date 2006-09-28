@@ -32,47 +32,19 @@
  *
  */
 
+#include "header.h"
 #include "universal_include.h"
 
 #include "core_filesystem.h"
 #include "core_console.h"
 #include "core_cpuid.h"
 
+using namespace CrissCross::IO;
+
 int
 RunApplication ( int argc, char **argv )
 {
-  CoreConsole *console = new CoreConsole ();
-  FileExists ( "~/Makefile" );
-  FileExists ( "Makefile" );
-  console->WriteLine ( ToWindowsPath ( "home/omouse/" ) );
-  console->WriteLine ( ToWindowsPath ( "/home/omouse/" ) );
-  console->WriteLine ( ToPosixPath ( ToWindowsPath ( "home/omouse/" ) ) );
-  console->WriteLine ( ToPosixPath ( ToWindowsPath ( "/home/omouse/" ) ) );
-  console->WriteLine ( ToWindowsPath ( ToPosixPath ( ToWindowsPath ( "home/omouse/" ) ) ) );
-  console->WriteLine ( ToWindowsPath ( ToPosixPath ( ToWindowsPath ( "/home/omouse/" ) ) ) );
-  console->WriteLine ( "Default home directory: %s", DefaultHomePath ( "omouse" ) );
-
-#if 0
-  console->SetColour ( console->FG_RED | console->FG_INTENSITY );
-  console->Write ( "Red " );
-  console->SetColour ( console->FG_GREEN | console->FG_INTENSITY );
-  console->Write ( "Green " );
-  console->SetColour ( console->FG_BLUE | console->FG_INTENSITY );
-  console->Write ( "Blue " );
-  console->SetColour ( console->FG_MAGENTA | console->FG_INTENSITY );
-  console->Write ( "Magenta " );
-  console->SetColour ( console->FG_BROWN | console->FG_INTENSITY );
-  console->Write ( "Brown " );
-  console->SetColour ( console->FG_CYAN | console->FG_INTENSITY );
-  console->Write ( "Cyan " );
-  console->SetColour ( console->FG_GRAY | console->FG_INTENSITY );
-  console->Write ( "Gray " );
-  console->SetColour ( console->FG_WHITE | console->FG_INTENSITY );
-  console->Write ( "White " );
-  console->SetColour ( 0 );
-  console->WriteLine ();
-#endif
-#if 1
+	CoreConsole *console = new CoreConsole ();
     CoreCPUID *cpuid = new CoreCPUID ();
 
     console->SetColour ( console->FG_RED | console->FG_INTENSITY );
@@ -126,8 +98,6 @@ RunApplication ( int argc, char **argv )
         }
     }
     delete cpuid;
-#endif
-
     delete console;
 
     return 0;
