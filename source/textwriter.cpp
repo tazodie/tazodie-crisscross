@@ -38,25 +38,56 @@
 
 using namespace CrissCross::IO;
 
-TextWriter::TextWriter ( const char *_file ):
-CoreIO ( NULL )
+TextWriter::TextWriter ():
+CoreIO ( NULL ), m_filePath ( NULL )
 {
-    size_t _filePathLength = 0;
-
-    CoreAssert ( _file != NULL );
-    CoreAssert ( ( _filePathLength = strlen ( _file ) ) > 1 );
-
-    m_filePath = new char[_filePathLength + 1];
-
-    strcpy ( ( char * ) m_filePath, _file );
-    m_fileBuffer = fopen ( m_filePath, "wt" );
-
-    CoreAssert ( m_fileBuffer != NULL );
 }
 
 TextWriter::~TextWriter ()
 {
+    Close ();
+}
+
+CrissCross::Errors TextWriter::Open ( const char *_file, FileWriteMode _writeMode, CoreIO::LineEndingType _lnEnding )
+{
+
+	Close ();
+
+	SetLineEndings ( _lnEnding );
+
+	char openModes[4];
+
+    size_t _filePathLength = 0;
+
+	if ( _file == NULL )
+		return CC_ERR_BADPARAMETER;
+
+	if ( ( _filePathLength = strlen ( _file ) ) < 1 )
+		return CC_ERR_BADPARAMETER;
+
+	delete [] m_filePath;
+    m_filePath = new char[_filePathLength + 1];
+    strcpy ( ( char * ) m_filePath, _file );
+
+	sprintf ( openModes, "%s%s", ( _writeMode == FILE_APPEND ? "a" : "w" ), "t" );
+    m_fileBuffer = fopen ( m_filePath, openModes );
+
+    if ( m_fileBuffer == NULL )
+		return CC_ERR_FILE_OPEN;
+	else
+		return CC_ERR_NONE;
+}
+
+CrissCross::Errors TextWriter::Close ()
+{
     Flush ();
-    fclose ( m_fileBuffer );
+
+	if ( m_fileBuffer )
+		fclose ( m_fileBuffer );
+	m_fileBuffer = NULL;
+
     delete [] m_filePath;
+	m_filePath = NULL;
+
+	return CC_ERR_NONE;
 }

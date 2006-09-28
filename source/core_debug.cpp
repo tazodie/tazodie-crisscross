@@ -190,6 +190,11 @@ void
 PrintStackTrace ( CoreIO * _outputBuffer )
 {
 #ifndef TARGET_CPU_PPC
+
+#ifdef ENABLE_DEBUGLOG
+  g_debuglog->Write ( g_debuglog->BUG_LEVEL_WARNING, "*** Printing stack trace ***" );
+#endif
+
 #    ifdef ENABLE_SYMBOL_ENGINE
 
     CONTEXT context = { CONTEXT_FULL };
@@ -222,22 +227,28 @@ PrintStackTrace ( CoreIO * _outputBuffer )
     std::string bt = "";
 
     for ( i = 0; i < size; i++ )
-    {
+      {
 #if 1
-        bt += strings[i];
-        int status;
-        // extract the identifier from strings[i].  It's inside of parens.
-        char* firstparen = ::strchr(strings[i], '(');
-        char* lastparen = ::strchr(strings[i], '+');
-        if (firstparen != 0 && lastparen != 0 && firstparen < lastparen)
-        {
-            bt += ": ";
-            *lastparen = '\0';
-            char* realname = abi::__cxa_demangle(firstparen+1, 0, 0, &status);
-            if ( realname != NULL )
-                bt += realname;
-            free(realname);
-        }
+	bt += strings[i];
+	int status;
+	// extract the identifier from strings[i].  It's inside of parens.
+	char* firstparen = ::strchr(strings[i], '(');
+	char* lastparen = ::strchr(strings[i], '+');
+	if (firstparen != 0 && lastparen != 0 && firstparen < lastparen)
+	  {
+	    bt += ": ";
+	    *lastparen = '\0';
+	    char* realname = abi::__cxa_demangle(firstparen+1, 0, 0, &status);
+	    if ( realname != NULL )
+	      {
+		bt += realname;
+#ifdef ENABLE_DEBUGLOG
+		g_debuglog->Write ( g_debuglog->BUG_LEVEL_ERROR,
+				    "%s", realname );
+#endif
+	      }
+	    free(realname);
+	  }
 #else
         bt += "  ";
         bt += strings[i];
@@ -250,63 +261,30 @@ PrintStackTrace ( CoreIO * _outputBuffer )
     free(strings);
 
 #    endif
-#endif // TARGET_OS_MACOSX
-}
-
-void
-GenerateBlackBox ( const char *_msg )
-{
-    TextWriter *_file = new TextWriter ( "blackbox.txt" );
-
-    _file->WriteLine ( "===========================" );
-    _file->WriteLine ( "TECHNETIUM BLACK BOX REPORT" );
-    _file->WriteLine ( "===========================" );
-    _file->WriteLine ();
-
-    _file->WriteLine ( "VERSION : %s", APP_VERSION );
-
-    if ( _msg )
-        _file->WriteLine ( "ERROR   : %s", _msg );
-
-    //
-    // Print stack trace
-    // Get our frame pointer, chain upwards
-
-#if defined ( ENABLE_DEBUGLOG )
-    _file->WriteLine ( "============================" );
-    _file->WriteLine ( "======= EXECUTION LOG ======" );
-    _file->WriteLine ( "============================" );
-    _file->WriteLine ();
-
-    PrintDebugLog ( _file );
-    _file->WriteLine ();
+#ifdef ENABLE_DEBUGLOG
+  g_debuglog->Write ( g_debuglog->BUG_LEVEL_WARNING, "*** Done printing stack trace ***" );
 #endif
-
-    _file->WriteLine ( "=========================" );
-    _file->WriteLine ( "====== STACKTRACE =======" );
-    _file->WriteLine ( "=========================" );
-    _file->WriteLine ();
-
-    PrintStackTrace ( _file );
-
-    delete _file;
+#endif // TARGET_OS_MACOSX
 }
 
 void
 Assert ( bool _condition, const char *_testcase, const char *_file,
          int _line )
 {
-    if ( !_condition )
+  if ( !_condition )
     {
-        char buffer[10240];
-
-        sprintf ( buffer, "Assertion failed : '%s'\nFile: %s\nLine: %d\n",
-                  _testcase, _file, _line );
-        GenerateBlackBox ( buffer );
-//#ifndef _DEBUG
-        throw new AssertionFailureException ( _file, _line );
-//#else
-//      _ASSERT ( _condition );
-//#endif
+      char buffer[10240];
+      sprintf ( buffer, "Assertion failed : '%s'\nFile: %s\nLine: %d\n\n",
+		_testcase, _file, _line );
+#ifdef ENABLE_DEBUGLOG
+      g_debuglog->Write ( g_debuglog->BUG_LEVEL_ERROR, "%s (%d): Assertion failed : '%s'",
+			  _file, _line, _testcase );
+      g_debuglog->Save ( );
+#endif
+      //#ifndef _DEBUG
+      throw new AssertionFailureException ( _file, _line );
+      //#else
+      //      _ASSERT ( _condition );
+      //#endif
     }
 }

@@ -113,11 +113,11 @@ int TCPSocket::Connect ( const char *_address, unsigned short _port )
     struct sockaddr_in sin;
     struct hostent *host;
 
-    if ( m_sock != INVALID_SOCKET ) return ERROR_SOCKET_IN_USE;
+    if ( m_sock != INVALID_SOCKET ) return CC_ERR_SOCK_SOCKET_IN_USE;
 
     m_sock = socket ( AF_INET, SOCK_STREAM, IPPROTO_TCP );
     if ( m_sock == INVALID_SOCKET )
-        return ERROR_CREATE_SOCKET;
+        return CC_ERR_SOCK_CREATE_SOCKET;
 
     SetAttributes ( m_sock );
 
@@ -137,7 +137,7 @@ int TCPSocket::Connect ( const char *_address, unsigned short _port )
 #else
         close ( m_sock );
 #endif
-        return ERROR_CONNECT;
+        return CC_ERR_SOCK_CONNECT;
     }
 
     unsigned long arg = 1;
@@ -147,14 +147,14 @@ int TCPSocket::Connect ( const char *_address, unsigned short _port )
     ioctl ( m_sock, FIONBIO, &arg );
 #endif
 
-    return ERROR_NONE;
+    return CC_ERR_NONE;
 }
 
 int TCPSocket::Listen ( unsigned short _port )
 {
     struct sockaddr_in sin;
 
-    if ( m_sock != INVALID_SOCKET ) return ERROR_SOCKET_IN_USE;
+    if ( m_sock != INVALID_SOCKET ) return CC_ERR_SOCK_SOCKET_IN_USE;
 
     memset ( &sin, 0, sizeof ( sin ) );
 
@@ -164,7 +164,7 @@ int TCPSocket::Listen ( unsigned short _port )
     m_sock = socket ( AF_INET, SOCK_STREAM, IPPROTO_TCP );
 
     if ( m_sock == INVALID_SOCKET )
-        return ERROR_CREATE_SOCKET;
+        return CC_ERR_SOCK_CREATE_SOCKET;
 
     SetAttributes ( m_sock );
 
@@ -182,7 +182,7 @@ int TCPSocket::Listen ( unsigned short _port )
 #else
         close ( m_sock );
 #endif
-        return ERROR_BIND;
+        return CC_ERR_SOCK_BIND;
     }
 
     if ( listen ( m_sock, 10 ) == SOCKET_ERROR )
@@ -192,10 +192,10 @@ int TCPSocket::Listen ( unsigned short _port )
 #else
         close ( m_sock );
 #endif
-        return ERROR_LISTEN;
+        return CC_ERR_SOCK_LISTEN;
     }
 
-    return ERROR_NONE;
+    return CC_ERR_NONE;
 }
 
 int TCPSocket::SetAttributes ( socket_t _socket )
@@ -228,5 +228,5 @@ int TCPSocket::SetAttributes ( socket_t _socket )
           SO_KEEPALIVE, (char *) &optval, optlen );
     if ( err == -1 ) return errno;
 
-    return ERROR_NONE;
+    return CC_ERR_NONE;
 }

@@ -477,6 +477,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\core_error.h"
+				>
+			</File>
+			<File
 				RelativePath="universal_include.cpp"
 				>
 				<FileConfiguration

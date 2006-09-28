@@ -39,9 +39,8 @@
 using namespace CrissCross::IO;
 
 CoreConsole::CoreConsole ():
-CoreIO ( stdout )
+CoreIO ( stdout, CoreIO::LN_LF )
 {
-    SetLineEndings ( CoreIO::LF );
 #ifdef TARGET_OS_WINDOWS
     if ( AllocConsole () == TRUE )
     {
@@ -66,9 +65,8 @@ CoreIO ( stdout )
 }
 
 CoreConsole::CoreConsole ( FILE * _outputBuffer ):
-CoreIO ( _outputBuffer )
+CoreIO ( _outputBuffer,  CoreIO::LN_LF )
 {
-    SetLineEndings ( CoreIO::LF );
 }
 
 CoreConsole::~CoreConsole ()

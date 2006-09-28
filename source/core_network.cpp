@@ -42,7 +42,7 @@
 
 static int s_initialised = 0;
 
-int
+CrissCross::Errors
 CrissCross::Network::__initialise_network()
 {
     if ( !s_initialised ) {
@@ -52,7 +52,7 @@ CrissCross::Network::__initialise_network()
         WSADATA wsaData;
 
         if ( WSAStartup(version_wanted, &wsaData) != 0 ) {
-            return(-1);
+            return CC_ERR_INTERNAL;
         }
 #else
         /* SIGPIPE is generated when a remote socket is closed */
@@ -64,14 +64,14 @@ CrissCross::Network::__initialise_network()
 #endif
     }
     ++s_initialised;
-    return(0);
+    return CC_ERR_NONE;
 }
 
-void
+CrissCross::Errors
 CrissCross::Network::__cleanup_network()
 {
     if ( s_initialised == 0 ) {
-        return;
+        return CC_ERR_NONE;
     }
     if ( --s_initialised == 0 ) {
 #ifdef TARGET_OS_WINDOWS
@@ -91,4 +91,5 @@ CrissCross::Network::__cleanup_network()
         }
 #endif
     }
+	return CC_ERR_NONE;
 }

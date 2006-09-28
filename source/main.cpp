@@ -20,7 +20,6 @@
  *       used to endorse or promote products derived from this software without specific
  *       prior written permission.
  *
-
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
  * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
@@ -35,112 +34,101 @@
 
 #include "universal_include.h"
 
-#include "datastructures/llist.h"
-#include "datastructures/rbtree.h"
+#include "core_filesystem.h"
 #include "core_console.h"
 #include "core_cpuid.h"
-#include "core_system.h"
-#include "tcpsocket.h"
-
-using namespace CrissCross::IO;
-using namespace CrissCross::Network;
-using namespace CrissCross::System;
-
-LList<TCPSocket *> *sockets;
-RedBlackTree<int,unsigned long *> *connections_per_host;
 
 int
 RunApplication ( int argc, char **argv )
 {
-    CoreConsole *console = new CoreConsole ();
-    sockets = new LList<TCPSocket *>;
-    connections_per_host = new RedBlackTree<int,unsigned long *>();
+  CoreConsole *console = new CoreConsole ();
+  FileExists ( "~/Makefile" );
+  FileExists ( "Makefile" );
+  console->WriteLine ( ToWindowsPath ( "home/omouse/" ) );
+  console->WriteLine ( ToWindowsPath ( "/home/omouse/" ) );
+  console->WriteLine ( ToPosixPath ( ToWindowsPath ( "home/omouse/" ) ) );
+  console->WriteLine ( ToPosixPath ( ToWindowsPath ( "/home/omouse/" ) ) );
+  console->WriteLine ( ToWindowsPath ( ToPosixPath ( ToWindowsPath ( "home/omouse/" ) ) ) );
+  console->WriteLine ( ToWindowsPath ( ToPosixPath ( ToWindowsPath ( "/home/omouse/" ) ) ) );
+  console->WriteLine ( "Default home directory: %s", DefaultHomePath ( "omouse" ) );
 
-    console->WriteLine ( "Creating CoreSystem..." );
-    CoreSystem *system = new CoreSystem ();
-    console->WriteLine ( "Creating TCPSocket..." );
-    TCPSocket *socket = new TCPSocket ();
-    TCPSocket *tsock = NULL;
-    int sockets_per_second = 0, retval = 0, breakout = 0;
+#if 0
+  console->SetColour ( console->FG_RED | console->FG_INTENSITY );
+  console->Write ( "Red " );
+  console->SetColour ( console->FG_GREEN | console->FG_INTENSITY );
+  console->Write ( "Green " );
+  console->SetColour ( console->FG_BLUE | console->FG_INTENSITY );
+  console->Write ( "Blue " );
+  console->SetColour ( console->FG_MAGENTA | console->FG_INTENSITY );
+  console->Write ( "Magenta " );
+  console->SetColour ( console->FG_BROWN | console->FG_INTENSITY );
+  console->Write ( "Brown " );
+  console->SetColour ( console->FG_CYAN | console->FG_INTENSITY );
+  console->Write ( "Cyan " );
+  console->SetColour ( console->FG_GRAY | console->FG_INTENSITY );
+  console->Write ( "Gray " );
+  console->SetColour ( console->FG_WHITE | console->FG_INTENSITY );
+  console->Write ( "White " );
+  console->SetColour ( 0 );
+  console->WriteLine ();
+#endif
+#if 1
+    CoreCPUID *cpuid = new CoreCPUID ();
 
-    console->Write ( "TCPSocket is listening on port 3193... " );
-    retval = socket->Listen ( 3193 );
-    console->WriteLine ( "retval == %d", retval );
-    CoreAssert ( retval == 0 );
-
-    while ( !breakout )
-    {
-        tsock = NULL;
-
-        sockets_per_second = 0;
-        while ( ( tsock = socket->Accept() ) != NULL )
-        {
-            sockets_per_second++;
-            
-            u_long host = tsock->GetRemoteHost();
-            RedBlackTree<int,u_long *>::nodeType *node;
-            node = connections_per_host->findNode ( &host );
-
-            if ( node != NULL )
-            {
-                node->data++;
-                if ( node->data > 5 )
-                {
-                    socket->Ban ( host );
-                    console->WriteLine ( "Connection flood from '%s'!", 
-                        tsock->GetRemoteIP() );
-                    delete tsock;
-                    for ( int i = 0; sockets->ValidIndex ( i ); i++ )
-                    {
-                        tsock = sockets->GetData(i);
-                        if ( tsock->GetRemoteHost() == host )
-                        {
-                            sockets->RemoveData ( i );
-                            delete tsock;
-                            i--;
-                        }
-                    }
-                    continue;
-                }
-            } else {
-                connections_per_host->PutData ( &host, 1 );
-            }
-
-            sockets->PutData ( tsock );
-        }
-
-        for ( int i = 0; sockets->ValidIndex ( i ); i++ )
-        {
-            tsock = sockets->GetData ( i );
-            std::string data;
-            int result = tsock->Read ( data );
-            if ( result == -2 ) // Socket closed.
-            {
-                sockets->RemoveData ( i );
-                delete tsock;
-                i--; // This index has changed.
-            } else {
-		console->WriteLine ( "%s", data.c_str() );
-		if ( strcasecmp ( data.c_str(), "die" ) == 0 )
-		     breakout = true;
-            }
-        }
-
-        system->ThreadSleep ( 1000 );
-    }
-
-    while ( sockets->ValidIndex ( 0 ) )
-    {
-        tsock = sockets->GetData ( 0 );
-	sockets->RemoveData ( 0 );
-        delete tsock;
-    }
-
-    delete sockets;
-    delete connections_per_host;
+    console->SetColour ( console->FG_RED | console->FG_INTENSITY );
+    console->WriteLine ( "======================" );
+    console->WriteLine ( "= CPU IDENTIFICATION =" );
+    console->WriteLine ( "======================" );
+    console->SetColour ( 0 );
+    console->WriteLine ();
     
-    delete system;
-    delete socket;
+    cpuid->Go ();
+    console->WriteLine ( "There are %d processors in the system.",
+                         cpuid->GetCPUCount () );
+
+    for ( int i = 0; i < MAX_PROCESSORS; i++ )
+    {
+        if ( cpuid->proc[i]->Manufacturer != NULL )
+        {
+            console->WriteLine ( "CPU[%d] Manufacturer: %s", i,
+                                 cpuid->proc[i]->Manufacturer );
+            console->WriteLine ( "CPU[%d] Name: %s", i,
+                                 cpuid->proc[i]->ProcessorName );
+            console->
+                WriteLine ( "CPU[%d] Family: %d, Model: %d, Stepping: %d", i,
+                            cpuid->proc[i]->Family, cpuid->proc[i]->Model,
+                            cpuid->proc[i]->Stepping );
+            if ( cpuid->proc[i]->caches.Size () > 0 )
+            {
+                console->WriteLine ( "CPU[%d] Caches:", i );
+                for ( int j = 0; j < cpuid->proc[i]->caches.Size (); j++ )
+                {
+                    if ( cpuid->proc[i]->caches.ValidIndex ( j ) )
+                        console->Write ( "  %s",
+                                         cpuid->proc[i]->caches.
+                                         GetData ( j ) );
+                }
+                console->WriteLine ();
+            }
+            console->Write ( "CPU[%d] Features: ", i );
+            RedBlackTree < Feature *, char *>::nodeType * node =
+                cpuid->proc[i]->features.rootNode;
+            node->beenThere =
+                RedBlackTree < Feature *, char *>::NODE_ITSELF_VISITED;
+            while ( cpuid->proc[i]->features.ValidNode ( node ) )
+            {
+                if ( node->data->Enabled )
+                    console->Write ( "%s ", node->id );
+                cpuid->proc[i]->features.getNext ( &node );
+            }
+            console->WriteLine ();
+            console->WriteLine ();
+        }
+    }
+    delete cpuid;
+#endif
+
     delete console;
+
     return 0;
 }

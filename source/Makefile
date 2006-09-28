@@ -7,6 +7,7 @@ core_console.cpp \
 core_cpuid.cpp \
 core_debug.cpp \
 core_debuglog.cpp \
+core_filesystem.cpp \
 core_io.cpp \
 core_mutex.cpp \
 core_network.cpp \
@@ -67,7 +68,7 @@ $(OBJDIR)/%.o: %.c
 
 .depend:
 	@echo Generating dependency information...
-	@../contrib/fastdep-0.15/fastdep --remakedeptarget=.depend $(SOURCES) > .depend
+	@../contrib/fastdep-0.16/fastdep --remakedeptarget=.depend $(SOURCES) > .depend
 
 ifneq ($(MAKECMDGOALS),clean)	
 -include .depend

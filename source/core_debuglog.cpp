@@ -179,7 +179,8 @@ CoreDebugLog::Save ( )
     filename = buffer;
     filename += "_" + m_app_name + "_" + m_app_version;
     filename += ".log";
-    TextWriter *writer = new TextWriter ( filename.c_str () );
+	TextWriter *writer = new TextWriter ();
+	writer->Open ( filename.c_str () );
     
     Put ( writer, this->BUG_LEVEL_INFO );
 
