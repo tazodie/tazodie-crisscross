@@ -146,7 +146,7 @@ CoreSocket::IsBanned ( unsigned long _host ) const
         return false;
 }
 
-int
+CrissCross::Errors
 CoreSocket::Listen ( unsigned short _port )
 {
     /* CoreSocket::Listen does nothing. This is an abstract class. */

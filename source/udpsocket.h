@@ -35,7 +35,9 @@
 #ifndef __included_udpsocket_h
 #define __included_udpsocket_h
 
+#include "core_error.h"
 #include "core_socket.h"
+
 namespace CrissCross
 {
     namespace Network
@@ -48,7 +50,7 @@ namespace CrissCross
          */
         class UDPSocket : public CoreSocket
         {
-        protected:
+        public:
             //! The constructor.
             UDPSocket ();
             //! The destructor.
@@ -60,14 +62,14 @@ namespace CrissCross
                 \param _port The remote port to bind to.
                 \return Due to the use of Berkley sockets, this returns zero on success, and a nonzero value on failure.
              */
-            int Bind ( const char *_address, unsigned short _port );
+            CrissCross::Errors Bind ( const char *_address, unsigned short _port );
             
             //! Binds an inbound UDP/IP socket on the specified port.
             /*!
                 \param _port The port to bind.
                 \return Due to the use of Berkley sockets, this returns zero on success, and a nonzero value on failure.
              */
-            int Listen ( unsigned short _port );
+            CrissCross::Errors Listen ( unsigned short _port );
 
         };
     }

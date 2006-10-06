@@ -517,7 +517,7 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Data Structures"
+			Name="Data"
 			>
 			<File
 				RelativePath="datastructures\darray.cpp"
@@ -641,6 +641,22 @@
 			</File>
 			<File
 				RelativePath="datastructures\rbtree.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SortClass.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\SortClass.h"
 				>
 			</File>
 		</Filter>

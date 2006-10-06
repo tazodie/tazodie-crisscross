@@ -66,7 +66,7 @@ UDPSocket::~UDPSocket ()
 {
 }
 
-int UDPSocket::Bind ( const char *_address, unsigned short _port )
+CrissCross::Errors UDPSocket::Bind ( const char *_address, unsigned short _port )
 {
     struct sockaddr_in sin;
     struct hostent *host;
@@ -80,14 +80,14 @@ int UDPSocket::Bind ( const char *_address, unsigned short _port )
     SetAttributes ( m_sock );
 
     host = gethostbyname ( _address );
-    if ( !host ) return errno;
+    if ( !host ) return CC_ERR_SOCK_DNS;
 
     memset ( &sin, 0, sizeof ( sin ) );
     sin.sin_family = AF_INET;
     sin.sin_addr.s_addr = ( ( struct in_addr * ) ( host->h_addr ) )->s_addr;
     sin.sin_port = htons ( _port );
 
-    if ( bind ( m_sock, ( ( struct sockaddr * ) 
+    if ( int retval = connect ( m_sock, ( ( struct sockaddr * ) 
         &sin ), sizeof ( sin ) ) == SOCKET_ERROR )
     {
 #ifdef TARGET_OS_WINDOWS
@@ -95,12 +95,12 @@ int UDPSocket::Bind ( const char *_address, unsigned short _port )
 #else
         close ( m_sock );
 #endif
-        return CC_ERR_SOCK_BIND;
+        return CC_ERR_SOCK_CONNECT;
     }
     return CC_ERR_NONE;
 }
 
-int UDPSocket::Listen ( unsigned short _port )
+CrissCross::Errors UDPSocket::Listen ( unsigned short _port )
 {
     struct sockaddr_in sin;
 

@@ -150,7 +150,7 @@ int TCPSocket::Connect ( const char *_address, unsigned short _port )
     return CC_ERR_NONE;
 }
 
-int TCPSocket::Listen ( unsigned short _port )
+CrissCross::Errors TCPSocket::Listen ( unsigned short _port )
 {
     struct sockaddr_in sin;
 

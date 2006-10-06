@@ -36,5 +36,9 @@
 #define __included_header_h
 
 
+#define NETWORK_DIAGNOSTIC
+
+#include <time.h>
+
 
 #endif
