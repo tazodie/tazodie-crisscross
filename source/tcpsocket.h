@@ -75,7 +75,7 @@ namespace CrissCross
                 You need to Accept() connections after calling this.
                 \param _port The local port to listen on.
              */
-            int Listen ( unsigned short _port );
+			CrissCross::Errors Listen ( unsigned short _port );
 
         };
     }

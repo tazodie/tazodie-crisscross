@@ -177,7 +177,7 @@ CoreIO::ReadLine ()
     char c = ( char ) getc ( m_fileBuffer );
 
     if ( c == EOF )
-        return NULL;
+        return std::string("");
 
     static std::string buffer;
 
