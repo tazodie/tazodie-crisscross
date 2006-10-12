@@ -46,7 +46,7 @@
 #	include "core_cpuid.h"
 #endif
 
-#ifdef NETWORK_DIAGNOSTIC
+#ifdef SORT_PROGRAM
 #	include "SortClass.h"
 #endif
 
@@ -132,9 +132,6 @@ RunApplication ( int argc, char **argv )
 			} else if ( SeqDiff < 1 ) {
 				// A difference of < 1 means we got one late.
 				loss -= 1;
-			} else {
-				// What the hell?
-				printf ( "SeqID %d unhandled.\n", tempSeq );
 			}
 			delete [] buf;
 			buf = NULL;
@@ -142,7 +139,7 @@ RunApplication ( int argc, char **argv )
 		time ( &Now );
 		printf ( "In: %d Out: %d Loss: %d Last Packet: %lds  \r", InSeqID, OutSeqID, loss, Now - LastIncomingPacket );
 		OutSeqID++;
-		Sleep(100);
+		Sleep(50);
 	}
 
 	system ( "pause" );
@@ -168,8 +165,12 @@ RunApplication ( int argc, char **argv )
     for ( int i = 0; i < 1024; i++ )
     {
         printf ( "%d ", ints[i] );
+		if ( i > 0 )
+			_ASSERT ( ints[i-1] <= ints[i] );
     }
     printf ( "\n\n" );
+
+	system ( "pause" );
 
     delete sort;
     delete comparison;

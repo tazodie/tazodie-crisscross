@@ -36,7 +36,8 @@
 #define __included_header_h
 
 
-#define NETWORK_DIAGNOSTIC
+//#define NETWORK_DIAGNOSTIC
+#define SORT_PROGRAM
 
 #include <time.h>
 
