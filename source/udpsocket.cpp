@@ -87,7 +87,7 @@ CrissCross::Errors UDPSocket::Bind ( const char *_address, unsigned short _port 
     sin.sin_addr.s_addr = ( ( struct in_addr * ) ( host->h_addr ) )->s_addr;
     sin.sin_port = htons ( _port );
 
-    if ( int retval = connect ( m_sock, ( ( struct sockaddr * ) 
+    if ( connect ( m_sock, ( ( struct sockaddr * ) 
         &sin ), sizeof ( sin ) ) == SOCKET_ERROR )
     {
 #ifdef TARGET_OS_WINDOWS
