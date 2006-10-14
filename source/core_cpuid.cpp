@@ -111,26 +111,19 @@ call_cpuid ( unsigned int op, unsigned int *_eax, unsigned int *_ebx,
              unsigned int *_ecx, unsigned int *_edx )
 {
 #    ifdef TARGET_OS_WINDOWS
-    /* TODO: This ASM block shouldn't be this large, but using "mov [_eax], eax" doesn't seem to work... Fix this. */
     __asm
     {
+		xor ecx, ecx;
         mov eax, op;
         cpuid;
-#if 1
         mov edi,[_eax];
+        mov esi,[_ebx];
         mov[edi], eax;
-        mov edi,[_ebx];
-        mov[edi], ebx;
+        mov[esi], ebx;
         mov edi,[_ecx];
+        mov esi,[_edx];
         mov[edi], ecx;
-        mov edi,[_edx];
-        mov[edi], edx;
-#else
-        mov[_eax], eax;
-        mov[_ebx], ebx;
-        mov[_ecx], ecx;
-        mov[_edx], edx;
-#endif
+        mov[esi], edx;
     }
 #    else
   __asm__ ( "cpuid"
@@ -739,13 +732,13 @@ CoreCPUID::DetectCount ( int processor )
     // AMD and Intel documentations state that if HTT is supported
     // then this the EBX:16 will reflect the logical processor count
     // otherwise the flag is reserved.
-    RedBlackTree < Feature *, char *>::nodeType * HTT_node =
-        proc[processor]->features.findNode ( "HTT" );
+    RedBlackTree < Feature *, char *>::nodeType * HTT_node = proc[processor]->features.findNode ( "HTT" );
+	proc[processor]->CoreCount = ( ( ( Std[4].eax >> 26 ) & 0x03f ) + 1 );
     if ( HTT_node->data->Enabled )
-        proc[processor]->Count = ( Std[1].ebx >> 16 );
+        proc[processor]->LogicalCount = ( (Std[1].ebx >> 16) & 0xff );
     else
         // HTT not supported. Report logical processor count as 1.
-        proc[processor]->Count = 1;
+        proc[processor]->LogicalCount = 1;
 }
 
 void
@@ -834,8 +827,7 @@ CoreCPUID::DetectFeatures ( int processor )
             DetectFeature ( &Ext[1].edx, FFXSR_FLAG, processor, "FFXSR" );
             DetectFeature ( &Ext[1].edx, RDTSCP_FLAG, processor, "RDTSCP" );
             DetectFeature ( &Ext[1].edx, LM_FLAG, processor, "LM" );
-            DetectFeature ( &Ext[1].edx, _3DNOWEXT_FLAG, processor,
-                            "3DNOWEXT" );
+            DetectFeature ( &Ext[1].edx, _3DNOWEXT_FLAG, processor, "3DNOWEXT" );
             DetectFeature ( &Ext[1].edx, _3DNOW_FLAG, processor, "3DNOW" );
         }
     }

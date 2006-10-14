@@ -37,7 +37,7 @@
 
 
 //#define NETWORK_DIAGNOSTIC
-#define SORT_PROGRAM
+#define CPUID_PROGRAM
 
 #include <time.h>
 
