@@ -63,7 +63,8 @@ class Processor
   public:
     const char *Manufacturer;
     const char *ProcessorName;
-    char Count;
+    char LogicalCount;
+	char CoreCount;
     char Family;
     char Model;
     char Stepping;
