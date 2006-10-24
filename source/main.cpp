@@ -34,7 +34,7 @@
 
 #include "universal_include.h"
 
-#define NETWORK_DIAGNOSTIC
+#define CPUID_PROGRAM
 
 #include "core_filesystem.h"
 #include "core_console.h"
@@ -64,10 +64,10 @@ using namespace std;
 int
 RunApplication ( int argc, char **argv )
 {
-	int retval = 0;
 	CoreConsole *console = new CoreConsole ();
 
 #ifdef NETWORK_DIAGNOSTIC
+	int retval = 0;
 	
 	UDPSocket *socket_out = new UDPSocket();
 	UDPSocket *socket_in = new UDPSocket();
