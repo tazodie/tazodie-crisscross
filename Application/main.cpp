@@ -175,13 +175,15 @@ RunApplication ( int argc, char **argv )
     for ( int i = 0; i < SORT_SIZE; i++ )
     {
         printf ( "%s ", items[i] );
+        if ( ( (i + 1) % 8 ) == 0 )
+            printf ( "\n" );
         free ( items[i] );
         items[i] = NULL;
     }
 
     printf ( "\n\n" );
 
-    system ( "pause" );
+    //system ( "pause" );
 
     delete sort;
     delete comparison;

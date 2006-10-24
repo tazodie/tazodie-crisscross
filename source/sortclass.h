@@ -35,53 +35,68 @@
 #ifndef __included_sortclass_h
 #define __included_sortclass_h
 
-//! Comparison abstract class.
-/*!
-    Used to compare two items in the sorting algorithm classes.
- */
-class Comparison
+namespace CrissCross
 {
-public:
-    Comparison(){};
-    virtual ~Comparison(){};
-    virtual int Compare ( int _first, int _second ) {
-        return -2;
-    };
-    virtual int Compare ( char *_first, char *_second ) {
-        return -2;
-    };
-};
+    namespace Data
+    {
+        //! Comparison abstract class.
+        /*!
+            Used to compare two items in the sorting algorithm classes.
+         */
+        class Comparison
+        {
+        public:
+            Comparison(){};
+            virtual ~Comparison(){};
+            virtual int Compare ( int _first, int _second ) {
+                return -2;
+            };
+            virtual int Compare ( char *_first, char *_second ) {
+                return -2;
+            };
+        };
 
-class StringCompare : public Comparison
-{
-public:
-    int Compare ( char *_first, char *_second );
-};
+        //! String comparison class.
+        /*!
+            \sa Comparison
+         */
+        class StringCompare : public Comparison
+        {
+        public:
+            int Compare ( char *_first, char *_second );
+        };
 
-class IntegerCompare : public Comparison
-{
-public:
-    int Compare ( int _first, int _second );
-};
+        //! Integer comparison class.
+        /*!
+            \sa Comparison
+         */
+        class IntegerCompare : public Comparison
+        {
+        public:
+            int Compare ( int _first, int _second );
+        };
 
-//! Sorting abstract class.
-template <class T>
-class SortClass
-{
-public:
-    SortClass();
-    virtual ~SortClass();
-    virtual int Sort ( T *_array, int _size, Comparison *_compare ) { return 0; };
-    virtual void Swap ( T *_array, int _first, int _second );
-};
+        //! Sorting abstract class.
+        template <class T>
+        class SortClass
+        {
+        public:
+            SortClass();
+            virtual ~SortClass();
+            virtual int Sort ( T *_array, int _size, Comparison *_compare ) { return 0; };
+            virtual void Swap ( T *_array, int _first, int _second );
+        };
 
-template <class T>
-class HeapSort : public SortClass<T>
-{
-public:
-    HeapSort();
-    int Sort ( T *_array, int _size, Comparison *_compare );
-};
+        //! HeapSort class.
+        template <class T>
+        class HeapSort : public SortClass<T>
+        {
+        public:
+            HeapSort();
+            int Sort ( T *_array, int _size, Comparison *_compare );
+        };
+    }
+}
 
 #include "sortclass.cpp"
 
