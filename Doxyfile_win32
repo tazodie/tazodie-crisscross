@@ -1,10 +1,10 @@
-# Doxyfile 1.4.7
+# Doxyfile 1.5.0
 
 #---------------------------------------------------------------------------
 # Project related configuration options
 #---------------------------------------------------------------------------
 PROJECT_NAME           = CrissCross
-PROJECT_NUMBER         = 0.3.6
+PROJECT_NUMBER         = 0.4.3
 OUTPUT_DIRECTORY       = 
 CREATE_SUBDIRS         = NO
 OUTPUT_LANGUAGE        = English
@@ -82,7 +82,7 @@ WARN_LOGFILE           =
 #---------------------------------------------------------------------------
 # configuration options related to the input files
 #---------------------------------------------------------------------------
-INPUT                  = N:/crisscross/source
+INPUT                  = source
 FILE_PATTERNS          = *.h \
                          *.hh \
                          *.hxx \

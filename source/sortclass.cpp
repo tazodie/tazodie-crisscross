@@ -30,81 +30,86 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- */  
-    
-int StringCompare::Compare ( char *_first, char *_second )
+ */
+namespace CrissCross
 {
-    return strcmp ( _first, _second );
-}
-
-int IntegerCompare::Compare ( int _first, int _second )
-{
-    if ( _first < _second )
-        return -1;
-    else if ( _first > _second )
-        return 1;
-    else
-        return 0;
-}
-
-template <class T>
-void SortClass<T>::Swap ( T *a, int _first, int _second )
-{
-    T old = a[_first];
-    a[_first] = a[_second];
-    a[_second] = old;
-}
-
-template <class T>
-SortClass<T>::SortClass()
-{}
-
-template <class T>
-SortClass<T>::~SortClass()
-{}
-
-template <class T>
-HeapSort<T>::HeapSort()
-{}
-
-template <class T>
-int HeapSort<T>::Sort ( T *_array, int _size, Comparison *_compare )
-{
-    // Phase 1: make a heap by sifting down all non-leaf 
-    // elements, one after another, starting with the last
-    // non-leaf element and going backwards.
-    for ( int i = (_size / 2) - 1; i >= 0; i-- ) {
-
-        for ( int j = i; j * 2 + 1 < _size; ) {
-            int k = j * 2 + 1;
-
-            if ( k + 1 < _size && _compare->Compare ( _array[k], _array[k + 1] ) < 0 )
-                k++;
-
-            if ( _compare->Compare ( _array[j], _array[k] ) < 0 )
-                Swap ( _array, j, k );
-            else
-                break;
-            j = k;
+    namespace Data
+    {    
+        int StringCompare::Compare ( char *_first, char *_second )
+        {
+            return strcmp ( _first, _second );
         }
 
-    }
-
-    // Phase 2: Successively place the biggest, then next biggest
-    // items at the end of the array. each time reconstructing the
-    // heap in the slots of the array not yet sorted.
-    for ( int i = _size - 1; i > 0; i-- ) {
-        Swap ( _array, 0, i );
-        for ( int j = 0; j *2 + 1 < i; ) {
-            int k = (j * 2) + 1;
-            if ( k + 1 < i && _compare->Compare ( _array[k], _array[k + 1] ) < 0 )
-                k++;
-            if ( _compare->Compare ( _array[j], _array[k] ) < 0 )
-                Swap ( _array, j, k );
+        int IntegerCompare::Compare ( int _first, int _second )
+        {
+            if ( _first < _second )
+                return -1;
+            else if ( _first > _second )
+                return 1;
             else
-                break;
-            j = k;
+                return 0;
+        }
+
+        template <class T>
+        void SortClass<T>::Swap ( T *a, int _first, int _second )
+        {
+            T old = a[_first];
+            a[_first] = a[_second];
+            a[_second] = old;
+        }
+
+        template <class T>
+        SortClass<T>::SortClass()
+        {}
+
+        template <class T>
+        SortClass<T>::~SortClass()
+        {}
+
+        template <class T>
+        HeapSort<T>::HeapSort()
+        {}
+
+        template <class T>
+        int HeapSort<T>::Sort ( T *_array, int _size, Comparison *_compare )
+        {
+            // Phase 1: make a heap by sifting down all non-leaf 
+            // elements, one after another, starting with the last
+            // non-leaf element and going backwards.
+            for ( int i = (_size / 2) - 1; i >= 0; i-- ) {
+
+                for ( int j = i; j * 2 + 1 < _size; ) {
+                    int k = j * 2 + 1;
+
+                    if ( k + 1 < _size && _compare->Compare ( _array[k], _array[k + 1] ) < 0 )
+                        k++;
+
+                    if ( _compare->Compare ( _array[j], _array[k] ) < 0 )
+                        Swap ( _array, j, k );
+                    else
+                        break;
+                    j = k;
+                }
+
+            }
+
+            // Phase 2: Successively place the biggest, then next biggest
+            // items at the end of the array. each time reconstructing the
+            // heap in the slots of the array not yet sorted.
+            for ( int i = _size - 1; i > 0; i-- ) {
+                Swap ( _array, 0, i );
+                for ( int j = 0; j *2 + 1 < i; ) {
+                    int k = (j * 2) + 1;
+                    if ( k + 1 < i && _compare->Compare ( _array[k], _array[k + 1] ) < 0 )
+                        k++;
+                    if ( _compare->Compare ( _array[j], _array[k] ) < 0 )
+                        Swap ( _array, j, k );
+                    else
+                        break;
+                    j = k;
+                }
+            }
+            return 0;
         }
     }
-    return 0;
 }
