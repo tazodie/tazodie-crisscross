@@ -32,18 +32,57 @@
  *
  */  
     
-#ifndef __included_header_h
-#define __included_header_h
+#ifndef __included_sortclass_h
+#define __included_sortclass_h
 
-#define _CRT_SECURE_NO_DEPRECATE
-#define _CRT_NONSTDC_NO_DEPRECATE
+//! Comparison abstract class.
+/*!
+    Used to compare two items in the sorting algorithm classes.
+ */
+class Comparison
+{
+public:
+    Comparison(){};
+    virtual ~Comparison(){};
+    virtual int Compare ( int _first, int _second ) {
+        return -2;
+    };
+    virtual int Compare ( char *_first, char *_second ) {
+        return -2;
+    };
+};
 
-//#define NETWORK_DIAGNOSTIC
-//#define CPUID_PROGRAM
-#define SORT_PROGRAM
-//#define DARRAY_TEST_PROGRAM
+class StringCompare : public Comparison
+{
+public:
+    int Compare ( char *_first, char *_second );
+};
 
-#include <time.h>
+class IntegerCompare : public Comparison
+{
+public:
+    int Compare ( int _first, int _second );
+};
 
+//! Sorting abstract class.
+template <class T>
+class SortClass
+{
+public:
+    SortClass();
+    virtual ~SortClass();
+    virtual int Sort ( T *_array, int _size, Comparison *_compare ) { return 0; };
+    virtual void Swap ( T *_array, int _first, int _second );
+};
+
+template <class T>
+class HeapSort : public SortClass<T>
+{
+public:
+    HeapSort();
+    int Sort ( T *_array, int _size, Comparison *_compare );
+};
+
+#include "sortclass.cpp"
 
 #endif

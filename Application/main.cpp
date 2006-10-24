@@ -35,19 +35,20 @@
 #include "header.h"
 #include "universal_include.h"
 
-#include "core_filesystem.h"
+#include "core_system.h"
 #include "core_console.h"
 
 #ifdef NETWORK_DIAGNOSTIC
-#	include "udpsocket.h"
+#    include "udpsocket.h"
 #endif
 
 #ifdef CPUID_PROGRAM
-#	include "core_cpuid.h"
+#    include "core_cpuid.h"
 #endif
 
 #ifdef SORT_PROGRAM
-#	include "SortClass.h"
+#    define SORT_SIZE 10240
+#    include "sortclass.h"
 #endif
 
 using namespace CrissCross::IO;
@@ -61,131 +62,144 @@ using namespace std;
 int
 RunApplication ( int argc, char **argv )
 {
-	int retval = 0;
-	CoreConsole *console = new CoreConsole ();
+    int retval = 0;
+    CoreConsole *console = new CoreConsole ();
+    
+#ifdef DARRAY_TEST_PROGRAM
+
+#endif
 
 #ifdef NETWORK_DIAGNOSTIC
-	
-	UDPSocket *socket_out = new UDPSocket();
-	UDPSocket *socket_in = new UDPSocket();
-	string input = "";
-	console->WriteLine ( "Enter an IP to send diagnostic requests to." );
-	while ( input.length() == 0 )
-		cin >> input;
+    
+    UDPSocket *socket_out = new UDPSocket();
+    UDPSocket *socket_in = new UDPSocket();
+    string input = "";
+    console->WriteLine ( "Enter an IP to send diagnostic requests to." );
+    while ( input.length() == 0 )
+        cin >> input;
 
-	retval = socket_out->Bind ( input.c_str(), 9931 );
-	retval = socket_in->Listen ( 9931 );
+    retval = socket_out->Bind ( input.c_str(), 9931 );
+    retval = socket_in->Listen ( 9931 );
 
-	time_t LastIncomingPacket, Now;
-	int InSeqID = -1, OutSeqID = 1, loss = 0, tempSeq, SeqDiff;
-	unsigned int len;
-	char buffer[128];
-	char *buf = NULL;
+    time_t LastIncomingPacket, Now;
+    int InSeqID = -1, OutSeqID = 1, loss = 0, tempSeq, SeqDiff;
+    unsigned int len;
+    char buffer[128];
+    char *buf = NULL;
 
-	// Establish a "connection"
-	printf ( "Waiting for initial reply... " );
-	while ( true )
-	{
-		Sleep ( 300 );
-		memset ( buffer, 0, sizeof ( buffer ) );
-		memcpy ( buffer, &InSeqID, sizeof ( int ) );
+    // Establish a "connection"
+    printf ( "Waiting for initial reply... " );
+    while ( true )
+    {
+        Sleep ( 300 );
+        memset ( buffer, 0, sizeof ( buffer ) );
+        memcpy ( buffer, &InSeqID, sizeof ( int ) );
 
-		retval = socket_out->Send ( buffer, sizeof ( buffer ) );
-		retval = socket_in->Read ( &buf, &len );
+        retval = socket_out->Send ( buffer, sizeof ( buffer ) );
+        retval = socket_in->Read ( &buf, &len );
 
-		if ( retval == CrissCross::CC_ERR_NONE )
-			break;
-	}
-	delete [] buf;
+        if ( retval == CrissCross::CC_ERR_NONE )
+            break;
+    }
+    delete [] buf;
 
-	// Calm before the storm...
-	// Sleep ( 1500 );
-	
-	time ( &LastIncomingPacket ); // Initial packet does count
+    // Calm before the storm...
+    // Sleep ( 1500 );
+    
+    time ( &LastIncomingPacket ); // Initial packet does count
 
-	printf ( "Received!\nRunning diagnostic...\n" );
-	while ( true )
-	{
-		memset ( buffer, 0, sizeof ( buffer ) );
-		memcpy ( buffer, &OutSeqID, sizeof ( int ) );
-		retval = socket_out->Send ( buffer, sizeof ( buffer ) );
-		retval = socket_in->Read ( &buf, &len );
+    printf ( "Received!\nRunning diagnostic...\n" );
+    while ( true )
+    {
+        memset ( buffer, 0, sizeof ( buffer ) );
+        memcpy ( buffer, &OutSeqID, sizeof ( int ) );
+        retval = socket_out->Send ( buffer, sizeof ( buffer ) );
+        retval = socket_in->Read ( &buf, &len );
 
-		if ( buf )
-			memcpy ( &tempSeq, buf, sizeof ( int ) );
-		else
-			tempSeq = -5;
+        if ( buf )
+            memcpy ( &tempSeq, buf, sizeof ( int ) );
+        else
+            tempSeq = -5;
 
-		if ( tempSeq != -5 && tempSeq != -1 && buf )
-		{
-			time ( &LastIncomingPacket );
-			SeqDiff = tempSeq - InSeqID;
-			if ( SeqDiff == 1 )
-			{
-				// A difference of 1 means we just got the appropriate SeqID.
-				InSeqID = tempSeq;
-			} else if ( SeqDiff > 1 ) {
-				// A difference of > 1 means we skipped one or more.
-				if ( InSeqID != -1 )
-					loss += SeqDiff - 1;
-				InSeqID = tempSeq;
-			} else if ( SeqDiff < 1 ) {
-				// A difference of < 1 means we got one late.
-				loss -= 1;
-			}
-			delete [] buf;
-			buf = NULL;
-		}
-		time ( &Now );
-		printf ( "In: %d Out: %d Loss: %d Last Packet: %lds  \r", InSeqID, OutSeqID, loss, Now - LastIncomingPacket );
-		OutSeqID++;
-		Sleep(50);
-	}
+        if ( tempSeq != -5 && tempSeq != -1 && buf )
+        {
+            time ( &LastIncomingPacket );
+            SeqDiff = tempSeq - InSeqID;
+            if ( SeqDiff == 1 )
+            {
+                // A difference of 1 means we just got the appropriate SeqID.
+                InSeqID = tempSeq;
+            } else if ( SeqDiff > 1 ) {
+                // A difference of > 1 means we skipped one or more.
+                if ( InSeqID != -1 )
+                    loss += SeqDiff - 1;
+                InSeqID = tempSeq;
+            } else if ( SeqDiff < 1 ) {
+                // A difference of < 1 means we got one late.
+                loss -= 1;
+            }
+            delete [] buf;
+            buf = NULL;
+        }
+        time ( &Now );
+        printf ( "In: %d Out: %d Loss: %d Last Packet: %lds  \r", InSeqID, OutSeqID, loss, Now - LastIncomingPacket );
+        OutSeqID++;
+        Sleep(50);
+    }
 
-	system ( "pause" );
+    system ( "pause" );
 #endif
 
 #ifdef SORT_PROGRAM
-    int ints[1024];
-    memset ( ints, 0, sizeof ( ints ) );
+    char temp[32];
+    char characters[64] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\0";
+    char *items[SORT_SIZE];
+    memset ( items, 0, sizeof ( items ) );
     srand ( GetTickCount() );
 
-    for ( int i = 0; i < 1024; i++ )
+    for ( int i = 0; i < SORT_SIZE; i++ )
     {
-        ints[i] = rand();
-        printf ( "%d ", ints[i] );
+        sprintf ( temp, "%c%c%c%c%c%c%c%c%c",
+            characters[rand() % 52], characters[rand() % 52], characters[rand() % 52], characters[rand() % 52],
+            characters[rand() % 52], characters[rand() % 52], characters[rand() % 52], characters[rand() % 52],
+            characters[rand() % 52]
+        );
+        items[i] = strdup ( temp );
     }
-    printf ( "\n\n" );
     
-    HeapSort<int> *sort = new HeapSort<int>();
-    IntegerCompare *comparison = new IntegerCompare();
+    HeapSort<char*> *sort = new HeapSort<char*>();
+    StringCompare *comparison = new StringCompare();
 
-    sort->Sort ( ints, 1024, comparison );
+    sort->Sort ( items, SORT_SIZE, comparison );
 
-    for ( int i = 0; i < 1024; i++ )
+    for ( int i = 0; i < SORT_SIZE; i++ )
     {
-        printf ( "%d ", ints[i] );
-		if ( i > 0 )
-			_ASSERT ( ints[i-1] <= ints[i] );
+        printf ( "%s ", items[i] );
+        free ( items[i] );
+        items[i] = NULL;
     }
+
     printf ( "\n\n" );
 
-	system ( "pause" );
+    system ( "pause" );
 
     delete sort;
     delete comparison;
 #endif
 
 #ifdef CPUID_PROGRAM
+
     CoreCPUID *cpuid = new CoreCPUID ();
+
     console->SetColour ( console->FG_RED | console->FG_INTENSITY );
     console->WriteLine ( "======================" );
     console->WriteLine ( "= CPU IDENTIFICATION =" );
     console->WriteLine ( "======================" );
     console->SetColour ( 0 );
     console->WriteLine ();
-    
+
     cpuid->Go ();
+    
     console->WriteLine ( "There are %d processors in the system.",
                          cpuid->GetCPUCount () );
 
@@ -228,6 +242,7 @@ RunApplication ( int argc, char **argv )
             console->WriteLine ();
         }
     }
+
     delete cpuid;
 #endif
     delete console;

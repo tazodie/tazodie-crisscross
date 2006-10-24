@@ -38,42 +38,53 @@
 
 using namespace CrissCross::System;
 
-CoreSystem::CoreSystem ()
-{
-    InitTimer ();
-}
+#if defined ( TARGET_OS_WINDOWS )
 
-CoreSystem::~CoreSystem ()
-{
-}
+//! The result of QueryPerformanceFrequency(). (Windows only)
+double __m_tickInterval;
+
+#elif defined ( TARGET_OS_MACOSX )
+
+//! The time index at which the timer started. ( Mac OS X only)
+uint64_t __m_start;
+
+//! The time base information. (Mac OS X only)
+mach_timebase_info_data_t __m_timebase;
+
+#elif defined ( TARGET_OS_LINUX )
+
+//! The time index at which the timer started. (Linux only)
+timeval __m_start;
+
+#endif
 
 void
-CoreSystem::InitTimer ()
+InitTimer ()
 {
 #if defined ( TARGET_OS_WINDOWS )
     LARGE_INTEGER freq;
 
     QueryPerformanceFrequency ( &freq );
-    m_tickInterval = 1.0 / ( double ) freq.QuadPart;
+    __m_tickInterval = 1.0 / ( double ) freq.QuadPart;
 #elif defined ( TARGET_OS_MACOSX )
-    mach_timebase_info ( &m_timebase );
-    m_start = mach_absolute_time ();
+    mach_timebase_info ( &__m_timebase );
+    __m_start = mach_absolute_time ();
 #elif defined ( TARGET_OS_LINUX )
-    gettimeofday ( &m_start, NULL );
+    gettimeofday ( &__m_start, NULL );
 #endif
 }
 
 double
-CoreSystem::GetHighResTime ()
+GetHighResTime ()
 {
 #if defined ( TARGET_OS_WINDOWS )
     LARGE_INTEGER count;
 
     QueryPerformanceCounter ( &count );
-    return ( double ) count.QuadPart * m_tickInterval;
+    return ( double ) count.QuadPart * __m_tickInterval;
 #elif defined ( TARGET_OS_MACOSX )
-    uint64_t elapsed = mach_absolute_time () - m_start;
-    return double ( elapsed ) * ( m_timebase.numer / m_timebase.denom ) /
+    uint64_t elapsed = mach_absolute_time () - __m_start;
+    return double ( elapsed ) * ( __m_timebase.numer / __m_timebase.denom ) /
         1000000000.0;
 #elif defined ( TARGET_OS_LINUX )
     timeval now;
@@ -81,15 +92,15 @@ CoreSystem::GetHighResTime ()
 
     gettimeofday ( &now, NULL );
 
-    t1 = ( double ) m_start.tv_sec +
-        ( double ) m_start.tv_usec / ( 1000 * 1000 );
+    t1 = ( double ) __m_start.tv_sec +
+        ( double ) __m_start.tv_usec / ( 1000 * 1000 );
     t2 = ( double ) now.tv_sec + ( double ) now.tv_usec / ( 1000 * 1000 );
     return t2 - t1;
 #endif
 }
 
 void
-CoreSystem::ThreadSleep ( int _msec )
+ThreadSleep ( int _msec )
 {
     /* TODO: Linux and Mac OS X ports of this function. */
     /* NOTE: Linux uses usleep, which is slightly different. */
@@ -109,14 +120,14 @@ CoreSystem::ThreadSleep ( int _msec )
 
 #if defined ( TARGET_OS_WINDOWS )
 int
-CoreSystem::WaitForThread ( HANDLE _thread, DWORD _timeout )
+WaitForThread ( HANDLE _thread, DWORD _timeout )
 {
     WaitForSingleObject ( _thread, INFINITE );
     return 0;
 }
 #elif defined ( TARGET_OS_LINUX )
 int
-CoreSystem::WaitForThread ( pthread_t _thread, int _timeout )
+WaitForThread ( pthread_t _thread, int _timeout )
 {
     pthread_join ( _thread, NULL );
     return 0;
