@@ -106,7 +106,7 @@ unsigned int StdMax;
 struct Registers *Ext;
 unsigned int ExtMax;
 
-static inline void
+static void
 call_cpuid ( unsigned int op, unsigned int *_eax, unsigned int *_ebx,
              unsigned int *_ecx, unsigned int *_edx )
 {

@@ -16,8 +16,8 @@
 	<Configurations>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory=".\../bin/Release"
-			IntermediateDirectory=".\../obj/Release"
+			OutputDirectory="../bin/CrissCross/$(ConfigurationName)"
+			IntermediateDirectory="../obj/CrissCross/$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
@@ -98,8 +98,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="../bin/CrissCross/Debug"
-			IntermediateDirectory="../obj/CrissCross/Debug"
+			OutputDirectory="../bin/CrissCross/$(ConfigurationName)"
+			IntermediateDirectory="../obj/CrissCross/$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
@@ -644,8 +644,16 @@
 				>
 			</File>
 			<File
-				RelativePath=".\SortClass.cpp"
+				RelativePath=".\sortclass.cpp"
 				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug|Win32"
 					ExcludedFromBuild="true"
@@ -656,7 +664,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\SortClass.h"
+				RelativePath=".\sortclass.h"
 				>
 			</File>
 		</Filter>
