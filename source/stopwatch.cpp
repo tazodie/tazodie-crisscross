@@ -58,7 +58,7 @@ namespace CrissCross
         {
 #if defined ( TARGET_OS_WINDOWS )
             QueryPerformanceCounter ( &m_start );
-#elif defiend ( TARGET_OS_MACOSX )
+#elif defined ( TARGET_OS_MACOSX )
 	        m_start = mach_absolute_time ();
 #elif defined ( TARGET_OS_LINUX )
             gettimeofday ( &m_start, NULL );
@@ -69,7 +69,7 @@ namespace CrissCross
         {
 #if defined ( TARGET_OS_WINDOWS )
             QueryPerformanceCounter ( &m_finish );
-#elif defiend ( TARGET_OS_MACOSX )
+#elif defined ( TARGET_OS_MACOSX )
 	        m_finish = mach_absolute_time ();
 #elif defined ( TARGET_OS_LINUX )
             gettimeofday ( &m_finish, NULL );

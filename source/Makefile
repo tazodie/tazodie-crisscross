@@ -3,6 +3,7 @@ OUTDIR = ..
 OUTBIN = crisscross-test
 
 SOURCES = \
+compare.cpp \
 core_console.cpp \
 core_cpuid.cpp \
 core_debug.cpp \
@@ -14,6 +15,7 @@ core_network.cpp \
 core_socket.cpp \
 core_system.cpp \
 core_thread.cpp \
+stopwatch.cpp \
 tcpsocket.cpp \
 udpsocket.cpp \
 textreader.cpp \
