@@ -30,39 +30,63 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- */  
-    
-#ifndef __included_sortclass_h
-#define __included_sortclass_h
+ */
 
-#include "compare.h"
+#include "universal_include.h"
+#include "stopwatch.h"
 
 namespace CrissCross
 {
-    namespace Data
+    namespace System
     {
-        //! Sorting abstract class.
-        template <class T>
-        class SortClass
+        Stopwatch::Stopwatch()
         {
-        public:
-            SortClass();
-            virtual ~SortClass();
-            virtual int Sort ( T *_array, int _size ) { return 0; };
-            virtual void Swap ( T *_array, int _first, int _second );
-        };
+        #ifdef TARGET_OS_WINDOWS
+            LARGE_INTEGER freq;
+            QueryPerformanceFrequency ( &freq );
+            m_tickInterval = 1.0 / (double)freq.QuadPart;
+        #elif TARGET_OS_MACOSX
+	        mach_timebase_info ( &m_timebase );
+        #endif
+        }
 
-        //! HeapSort class.
-        template <class T>
-        class HeapSort : public SortClass<T>
+        Stopwatch::~Stopwatch()
         {
-        public:
-            HeapSort();
-            int Sort ( T *_array, int _size );
-        };
+        }
+
+        void Stopwatch::Start()
+        {
+#if defined ( TARGET_OS_WINDOWS )
+            QueryPerformanceCounter ( &m_start );
+#elif defiend ( TARGET_OS_MACOSX )
+	        m_start = mach_absolute_time ();
+#elif defined ( TARGET_OS_LINUX )
+            gettimeofday ( &m_start, NULL );
+#endif
+        }
+
+        void Stopwatch::Stop()
+        {
+#if defined ( TARGET_OS_WINDOWS )
+            QueryPerformanceCounter ( &m_finish );
+#elif defiend ( TARGET_OS_MACOSX )
+	        m_finish = mach_absolute_time ();
+#elif defined ( TARGET_OS_LINUX )
+            gettimeofday ( &m_finish, NULL );
+#endif
+        }
+
+        double Stopwatch::Elapsed()
+        {
+#if defined ( TARGET_OS_WINDOWS )
+            return ( (double)m_finish.QuadPart - (double)m_start.QuadPart ) * m_tickInterval;
+#elif defined ( TARGET_OS_MACOSX )
+	        uint64_t elapsed = m_finished - m_start;
+	        return double(elapsed) * ( m_timebase.numer / m_timebase.denom ) / 1000000000.0;
+#elif defined ( TARGET_OS_LINUX )
+	        return (double)(m_finish.tv_sec - m_start.tv_sec) +
+                ( (double)(m_finish.tv_usec) - (double)(m_start.tv_usec) ) / 1000000.0;
+#endif
+        }
     }
 }
-
-#include "sortclass.cpp"
-
-#endif

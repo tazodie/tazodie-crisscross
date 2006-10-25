@@ -5,12 +5,10 @@
 	Name="Application"
 	ProjectGUID="{FD12E5A5-E163-4337-AD48-0B5A1F093CB9}"
 	RootNamespace="Application"
-	Keyword="Win32Proj"
-	>
+	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
-			Name="Win32"
-		/>
+			Name="Win32"/>
 	</Platforms>
 	<ToolFiles>
 	</ToolFiles>
@@ -20,23 +18,17 @@
 			OutputDirectory="../bin/Application/$(ConfigurationName)"
 			IntermediateDirectory="../obj/Application/$(ConfigurationName)"
 			ConfigurationType="1"
-			CharacterSet="1"
-			>
+			CharacterSet="1">
 			<Tool
-				Name="VCPreBuildEventTool"
-			/>
+				Name="VCPreBuildEventTool"/>
 			<Tool
-				Name="VCCustomBuildTool"
-			/>
+				Name="VCCustomBuildTool"/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
+				Name="VCXMLDataGeneratorTool"/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
+				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
-				Name="VCMIDLTool"
-			/>
+				Name="VCMIDLTool"/>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
@@ -48,51 +40,41 @@
 				BufferSecurityCheck="false"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="header.h"
+				AssemblerListingLocation="../obj/Application/$(ConfigurationName)/"
+				ObjectFile="../obj/Application/$(ConfigurationName)/"
+				ProgramDataBaseFileName="../obj/Application/$(ConfigurationName)/"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="4"
-			/>
+				DebugInformationFormat="4"/>
 			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
+				Name="VCManagedResourceCompilerTool"/>
 			<Tool
-				Name="VCResourceCompilerTool"
-			/>
+				Name="VCResourceCompilerTool"/>
 			<Tool
-				Name="VCPreLinkEventTool"
-			/>
+				Name="VCPreLinkEventTool"/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="ws2_32.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="1"
-				TargetMachine="1"
-			/>
+				TargetMachine="1"/>
 			<Tool
-				Name="VCALinkTool"
-			/>
+				Name="VCALinkTool"/>
 			<Tool
-				Name="VCManifestTool"
-			/>
+				Name="VCManifestTool"/>
 			<Tool
-				Name="VCXDCMakeTool"
-			/>
+				Name="VCXDCMakeTool"/>
 			<Tool
-				Name="VCBscMakeTool"
-			/>
+				Name="VCBscMakeTool"/>
 			<Tool
-				Name="VCFxCopTool"
-			/>
+				Name="VCFxCopTool"/>
 			<Tool
-				Name="VCAppVerifierTool"
-			/>
+				Name="VCAppVerifierTool"/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
+				Name="VCWebDeploymentTool"/>
 			<Tool
-				Name="VCPostBuildEventTool"
-			/>
+				Name="VCPostBuildEventTool"/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
@@ -100,25 +82,20 @@
 			IntermediateDirectory="../obj/Application/$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="1"
-			WholeProgramOptimization="0"
-			>
+			WholeProgramOptimization="0">
 			<Tool
-				Name="VCPreBuildEventTool"
-			/>
+				Name="VCPreBuildEventTool"/>
 			<Tool
-				Name="VCCustomBuildTool"
-			/>
+				Name="VCCustomBuildTool"/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
+				Name="VCXMLDataGeneratorTool"/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
+				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
-				Name="VCMIDLTool"
-			/>
+				Name="VCMIDLTool"/>
 			<Tool
 				Name="VCCLCompilerTool"
+				Optimization="3"
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
@@ -126,21 +103,24 @@
 				WholeProgramOptimization="false"
 				AdditionalIncludeDirectories="../source,../source/datastructures,../CrissCross_net"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				StringPooling="true"
 				RuntimeLibrary="2"
-				UsePrecompiledHeader="0"
+				BufferSecurityCheck="false"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="header.h"
+				AssemblerOutput="4"
+				AssemblerListingLocation="../obj/Application/$(ConfigurationName)/"
+				ObjectFile="../obj/Application/$(ConfigurationName)/"
+				ProgramDataBaseFileName="../obj/Application/$(ConfigurationName)/"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="3"
-			/>
+				DebugInformationFormat="3"/>
 			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
+				Name="VCManagedResourceCompilerTool"/>
 			<Tool
-				Name="VCResourceCompilerTool"
-			/>
+				Name="VCResourceCompilerTool"/>
 			<Tool
-				Name="VCPreLinkEventTool"
-			/>
+				Name="VCPreLinkEventTool"/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="ws2_32.lib"
@@ -149,56 +129,48 @@
 				SubSystem="1"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				TargetMachine="1"
-			/>
+				TargetMachine="1"/>
 			<Tool
-				Name="VCALinkTool"
-			/>
+				Name="VCALinkTool"/>
 			<Tool
-				Name="VCManifestTool"
-			/>
+				Name="VCManifestTool"/>
 			<Tool
-				Name="VCXDCMakeTool"
-			/>
+				Name="VCXDCMakeTool"/>
 			<Tool
-				Name="VCBscMakeTool"
-			/>
+				Name="VCBscMakeTool"/>
 			<Tool
-				Name="VCFxCopTool"
-			/>
+				Name="VCFxCopTool"/>
 			<Tool
-				Name="VCAppVerifierTool"
-			/>
+				Name="VCAppVerifierTool"/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
+				Name="VCWebDeploymentTool"/>
 			<Tool
-				Name="VCPostBuildEventTool"
-			/>
+				Name="VCPostBuildEventTool"/>
 		</Configuration>
 	</Configurations>
 	<References>
 	</References>
 	<Files>
 		<File
-			RelativePath=".\header.cpp"
-			>
+			RelativePath=".\header.cpp">
 			<FileConfiguration
-				Name="Debug|Win32"
-				>
+				Name="Debug|Win32">
 				<Tool
 					Name="VCCLCompilerTool"
-					UsePrecompiledHeader="1"
-				/>
+					UsePrecompiledHeader="1"/>
+			</FileConfiguration>
+			<FileConfiguration
+				Name="Release|Win32">
+				<Tool
+					Name="VCCLCompilerTool"
+					UsePrecompiledHeader="1"/>
 			</FileConfiguration>
 		</File>
 		<File
-			RelativePath=".\header.h"
-			>
+			RelativePath=".\header.h">
 		</File>
 		<File
-			RelativePath=".\main.cpp"
-			>
+			RelativePath=".\main.cpp">
 		</File>
 	</Files>
 	<Globals>

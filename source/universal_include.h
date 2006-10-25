@@ -42,7 +42,7 @@
 #    define APP_COPYRIGHT   "(c) 2006 by Steven Noonan <steven@uplinklabs.net>, Rudolf Olah <omouse@gmail.com>, Miah Clayton <miah@io-in.com"
 #    define APP_COPYRIGHT_CONSOLE   "(c) 2006 by Steven Noonan <steven@uplinklabs.net>,\n" \
                                     "    Rudolf Olah <omouse@gmail.com>, and Miah Clayton <miah@io-in.com>"
-    
+
 #    define ENABLE_CPUID
 //#    define ENABLE_DEBUGLOG
 

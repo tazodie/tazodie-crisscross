@@ -30,39 +30,47 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- */  
-    
-#ifndef __included_sortclass_h
-#define __included_sortclass_h
+ */
 
-#include "compare.h"
+#ifndef __included_stopwatch_h
+#define __included_stopwatch_h
+
+#if defined ( TARGET_OS_MACOSX )
+#   include <CoreServices/CoreServices.h>
+#   include <mach/mach.h>
+#   include <mach/mach_time.h>
+#elif defined ( TARGET_OS_LINUX )
+#   include <sys/time.h>
+#   include <time.h>
+#endif
 
 namespace CrissCross
 {
-    namespace Data
+    namespace System
     {
-        //! Sorting abstract class.
-        template <class T>
-        class SortClass
+        class Stopwatch
         {
+        private:
+#if defined ( TARGET_OS_WINDOWS )
+            LARGE_INTEGER               m_start, m_finish;
+            double                      m_tickInterval;
+#elif defined ( TARGET_OS_MACOSX )
+            uint64_t					m_start;
+            uint64_t					m_finish;
+            mach_timebase_info_data_t 	m_timebase;
+#elif defined ( TARGET_OS_LINUX )
+            timeval                     m_start;
+            timeval                     m_finish;
+#endif
         public:
-            SortClass();
-            virtual ~SortClass();
-            virtual int Sort ( T *_array, int _size ) { return 0; };
-            virtual void Swap ( T *_array, int _first, int _second );
-        };
+            Stopwatch();
+            ~Stopwatch();
 
-        //! HeapSort class.
-        template <class T>
-        class HeapSort : public SortClass<T>
-        {
-        public:
-            HeapSort();
-            int Sort ( T *_array, int _size );
+            void Start();
+            void Stop();
+            double Elapsed();
         };
     }
 }
-
-#include "sortclass.cpp"
 
 #endif
