@@ -38,9 +38,8 @@
 
 using namespace CrissCross::System;
 
-CoreThread::CoreThread ( CoreSystem * _system )
+CoreThread::CoreThread ()
 {
-    m_system = _system;
 #if defined ( TARGET_OS_WINDOWS )
     m_hThread = NULL;
     m_hMainThread =::GetCurrentThread ();
@@ -218,7 +217,7 @@ CoreThread::Wait ()
 #else
     while ( IsRunning () )
     {
-        m_system->ThreadSleep ( 100 );
+        ThreadSleep ( 100 );
     }
 #endif
 }

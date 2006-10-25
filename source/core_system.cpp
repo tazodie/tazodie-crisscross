@@ -36,100 +36,104 @@
 
 #include "core_system.h"
 
-using namespace CrissCross::System;
-
-#if defined ( TARGET_OS_WINDOWS )
-
-//! The result of QueryPerformanceFrequency(). (Windows only)
-double __m_tickInterval;
-
-#elif defined ( TARGET_OS_MACOSX )
-
-//! The time index at which the timer started. ( Mac OS X only)
-uint64_t __m_start;
-
-//! The time base information. (Mac OS X only)
-mach_timebase_info_data_t __m_timebase;
-
-#elif defined ( TARGET_OS_LINUX )
-
-//! The time index at which the timer started. (Linux only)
-timeval __m_start;
-
-#endif
-
-void
-InitTimer ()
+namespace CrissCross
 {
-#if defined ( TARGET_OS_WINDOWS )
-    LARGE_INTEGER freq;
-
-    QueryPerformanceFrequency ( &freq );
-    __m_tickInterval = 1.0 / ( double ) freq.QuadPart;
-#elif defined ( TARGET_OS_MACOSX )
-    mach_timebase_info ( &__m_timebase );
-    __m_start = mach_absolute_time ();
-#elif defined ( TARGET_OS_LINUX )
-    gettimeofday ( &__m_start, NULL );
-#endif
-}
-
-double
-GetHighResTime ()
-{
-#if defined ( TARGET_OS_WINDOWS )
-    LARGE_INTEGER count;
-
-    QueryPerformanceCounter ( &count );
-    return ( double ) count.QuadPart * __m_tickInterval;
-#elif defined ( TARGET_OS_MACOSX )
-    uint64_t elapsed = mach_absolute_time () - __m_start;
-    return double ( elapsed ) * ( __m_timebase.numer / __m_timebase.denom ) /
-        1000000000.0;
-#elif defined ( TARGET_OS_LINUX )
-    timeval now;
-    double t1, t2;
-
-    gettimeofday ( &now, NULL );
-
-    t1 = ( double ) __m_start.tv_sec +
-        ( double ) __m_start.tv_usec / ( 1000 * 1000 );
-    t2 = ( double ) now.tv_sec + ( double ) now.tv_usec / ( 1000 * 1000 );
-    return t2 - t1;
-#endif
-}
-
-void
-ThreadSleep ( int _msec )
-{
-    /* TODO: Linux and Mac OS X ports of this function. */
-    /* NOTE: Linux uses usleep, which is slightly different. */
-#if defined ( TARGET_OS_WINDOWS )
-    Sleep ( _msec );
-#elif defined ( TARGET_OS_LINUX )
-    unsigned sleep_time = _msec * 1000;
-
-    while ( sleep_time > 1000000 )
+    namespace System
     {
-        usleep ( 1000000 );
-        sleep_time -= 1000000;
-    }
-    usleep ( sleep_time );
-#endif
-}
+    #if defined ( TARGET_OS_WINDOWS )
 
-#if defined ( TARGET_OS_WINDOWS )
-int
-WaitForThread ( HANDLE _thread, DWORD _timeout )
-{
-    WaitForSingleObject ( _thread, INFINITE );
-    return 0;
+    //! The result of QueryPerformanceFrequency(). (Windows only)
+    double __m_tickInterval;
+
+    #elif defined ( TARGET_OS_MACOSX )
+
+    //! The time index at which the timer started. ( Mac OS X only)
+    uint64_t __m_start;
+
+    //! The time base information. (Mac OS X only)
+    mach_timebase_info_data_t __m_timebase;
+
+    #elif defined ( TARGET_OS_LINUX )
+
+    //! The time index at which the timer started. (Linux only)
+    timeval __m_start;
+
+    #endif
+
+    void
+    InitTimer ()
+    {
+    #if defined ( TARGET_OS_WINDOWS )
+        LARGE_INTEGER freq;
+
+        QueryPerformanceFrequency ( &freq );
+        __m_tickInterval = 1.0 / ( double ) freq.QuadPart;
+    #elif defined ( TARGET_OS_MACOSX )
+        mach_timebase_info ( &__m_timebase );
+        __m_start = mach_absolute_time ();
+    #elif defined ( TARGET_OS_LINUX )
+        gettimeofday ( &__m_start, NULL );
+    #endif
+    }
+
+    double
+    GetHighResTime ()
+    {
+    #if defined ( TARGET_OS_WINDOWS )
+        LARGE_INTEGER count;
+
+        QueryPerformanceCounter ( &count );
+        return ( double ) count.QuadPart * __m_tickInterval;
+    #elif defined ( TARGET_OS_MACOSX )
+        uint64_t elapsed = mach_absolute_time () - __m_start;
+        return double ( elapsed ) * ( __m_timebase.numer / __m_timebase.denom ) /
+            1000000000.0;
+    #elif defined ( TARGET_OS_LINUX )
+        timeval now;
+        double t1, t2;
+
+        gettimeofday ( &now, NULL );
+
+        t1 = ( double ) __m_start.tv_sec +
+            ( double ) __m_start.tv_usec / ( 1000 * 1000 );
+        t2 = ( double ) now.tv_sec + ( double ) now.tv_usec / ( 1000 * 1000 );
+        return t2 - t1;
+    #endif
+    }
+
+    void
+    ThreadSleep ( int _msec )
+    {
+        /* TODO: Linux and Mac OS X ports of this function. */
+        /* NOTE: Linux uses usleep, which is slightly different. */
+    #if defined ( TARGET_OS_WINDOWS )
+        Sleep ( _msec );
+    #elif defined ( TARGET_OS_LINUX )
+        unsigned sleep_time = _msec * 1000;
+
+        while ( sleep_time > 1000000 )
+        {
+            usleep ( 1000000 );
+            sleep_time -= 1000000;
+        }
+        usleep ( sleep_time );
+    #endif
+    }
+
+    #if defined ( TARGET_OS_WINDOWS )
+    int
+    WaitForThread ( HANDLE _thread, DWORD _timeout )
+    {
+        WaitForSingleObject ( _thread, INFINITE );
+        return 0;
+    }
+    #elif defined ( TARGET_OS_LINUX )
+    int
+    WaitForThread ( pthread_t _thread, int _timeout )
+    {
+        pthread_join ( _thread, NULL );
+        return 0;
+    }
+    #endif
+    }
 }
-#elif defined ( TARGET_OS_LINUX )
-int
-WaitForThread ( pthread_t _thread, int _timeout )
-{
-    pthread_join ( _thread, NULL );
-    return 0;
-}
-#endif
