@@ -60,6 +60,18 @@ namespace CrissCross
          */
         void ThreadSleep ( int _msec );
 
+        //! Generates a random number.
+        /*!
+           Don't forget to use SeedRandom first!
+         */
+        int RandomNumber();
+
+        //! Generates a random number.
+        /*!
+           Seeds the random number generator with the current time.
+         */
+        void SeedRandom ();
+
 #if defined ( TARGET_OS_WINDOWS )
         //! Waits for the specified thread to finish executing.
         /*!
