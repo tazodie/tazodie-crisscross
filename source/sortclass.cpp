@@ -31,24 +31,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
+
 namespace CrissCross
 {
     namespace Data
-    {    
-        int StringCompare::Compare ( char *_first, char *_second )
-        {
-            return strcmp ( _first, _second );
-        }
-
-        int IntegerCompare::Compare ( int _first, int _second )
-        {
-            if ( _first < _second )
-                return -1;
-            else if ( _first > _second )
-                return 1;
-            else
-                return 0;
-        }
+    {
 
         template <class T>
         void SortClass<T>::Swap ( T *a, int _first, int _second )
@@ -71,7 +58,7 @@ namespace CrissCross
         {}
 
         template <class T>
-        int HeapSort<T>::Sort ( T *_array, int _size, Comparison *_compare )
+        int HeapSort<T>::Sort ( T *_array, int _size )
         {
             // Phase 1: make a heap by sifting down all non-leaf 
             // elements, one after another, starting with the last
@@ -81,10 +68,10 @@ namespace CrissCross
                 for ( int j = i; j * 2 + 1 < _size; ) {
                     int k = j * 2 + 1;
 
-                    if ( k + 1 < _size && _compare->Compare ( _array[k], _array[k + 1] ) < 0 )
+                    if ( k + 1 < _size && Comparison::Compare ( _array[k], _array[k + 1] ) < 0 )
                         k++;
 
-                    if ( _compare->Compare ( _array[j], _array[k] ) < 0 )
+                    if ( Comparison::Compare ( _array[j], _array[k] ) < 0 )
                         Swap ( _array, j, k );
                     else
                         break;
@@ -100,9 +87,9 @@ namespace CrissCross
                 Swap ( _array, 0, i );
                 for ( int j = 0; j *2 + 1 < i; ) {
                     int k = (j * 2) + 1;
-                    if ( k + 1 < i && _compare->Compare ( _array[k], _array[k + 1] ) < 0 )
+                    if ( k + 1 < i && Comparison::Compare ( _array[k], _array[k + 1] ) < 0 )
                         k++;
-                    if ( _compare->Compare ( _array[j], _array[k] ) < 0 )
+                    if ( Comparison::Compare ( _array[j], _array[k] ) < 0 )
                         Swap ( _array, j, k );
                     else
                         break;

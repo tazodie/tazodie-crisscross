@@ -47,11 +47,13 @@
 #endif
 
 #ifdef SORT_PROGRAM
-#    define SORT_SIZE 10240
+#    define SORT_SIZE 81920
 #    include "sortclass.h"
+#    include "stopwatch.h"
 #endif
 
 using namespace CrissCross::IO;
+using namespace CrissCross::System;
 
 #ifdef NETWORK_DIAGNOSTIC
 using namespace CrissCross::Network;
@@ -64,10 +66,6 @@ RunApplication ( int argc, char **argv )
 {
     int retval = 0;
     CoreConsole *console = new CoreConsole ();
-    
-#ifdef DARRAY_TEST_PROGRAM
-
-#endif
 
 #ifdef NETWORK_DIAGNOSTIC
     
@@ -151,42 +149,46 @@ RunApplication ( int argc, char **argv )
 #endif
 
 #ifdef SORT_PROGRAM
+
+    system ( "pause" );
+
     char temp[32];
     char characters[64] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\0";
     char *items[SORT_SIZE];
     memset ( items, 0, sizeof ( items ) );
     srand ( GetTickCount() );
+    Stopwatch *timer = new Stopwatch();
 
+    timer->Start();
     for ( int i = 0; i < SORT_SIZE; i++ )
     {
-        sprintf ( temp, "%c%c%c%c%c%c%c%c%c",
+        sprintf ( temp, "%c%c%c%c%c%c%c",
             characters[rand() % 52], characters[rand() % 52], characters[rand() % 52], characters[rand() % 52],
-            characters[rand() % 52], characters[rand() % 52], characters[rand() % 52], characters[rand() % 52],
-            characters[rand() % 52]
+            characters[rand() % 52], characters[rand() % 52], characters[rand() % 52]
         );
         items[i] = strdup ( temp );
     }
+    timer->Stop();
+    console->WriteLine ( "%lf seconds to create %ld 10-byte strings", timer->Elapsed(), SORT_SIZE );
     
     HeapSort<char*> *sort = new HeapSort<char*>();
-    StringCompare *comparison = new StringCompare();
 
-    sort->Sort ( items, SORT_SIZE, comparison );
+    timer->Start();
+    sort->Sort ( items, SORT_SIZE );
+    timer->Stop();
+
+    console->WriteLine ( "%lf seconds to sort", timer->Elapsed() );
 
     for ( int i = 0; i < SORT_SIZE; i++ )
     {
-        printf ( "%s ", items[i] );
-        if ( ( (i + 1) % 8 ) == 0 )
-            printf ( "\n" );
+        //printf ( "%s ", items[i] );
         free ( items[i] );
         items[i] = NULL;
     }
 
-    printf ( "\n\n" );
-
-    //system ( "pause" );
+    system ( "pause" );
 
     delete sort;
-    delete comparison;
 #endif
 
 #ifdef CPUID_PROGRAM

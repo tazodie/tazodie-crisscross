@@ -30,39 +30,71 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- */  
-    
-#ifndef __included_sortclass_h
-#define __included_sortclass_h
+ */
 
+#include "universal_include.h"
 #include "compare.h"
 
 namespace CrissCross
 {
     namespace Data
     {
-        //! Sorting abstract class.
-        template <class T>
-        class SortClass
+        namespace Comparison
         {
-        public:
-            SortClass();
-            virtual ~SortClass();
-            virtual int Sort ( T *_array, int _size ) { return 0; };
-            virtual void Swap ( T *_array, int _first, int _second );
-        };
+            int Compare ( char _first, char _second )
+            {
+                if ( _first < _second )
+                    return -1;
+                else if ( _first > _second )
+                    return 1;
+                else
+                    return 0;
+            }
 
-        //! HeapSort class.
-        template <class T>
-        class HeapSort : public SortClass<T>
-        {
-        public:
-            HeapSort();
-            int Sort ( T *_array, int _size );
-        };
+            int Compare ( short _first, short _second )
+            {
+                if ( _first < _second )
+                    return -1;
+                else if ( _first > _second )
+                    return 1;
+                else
+                    return 0;
+            }
+
+            int Compare ( int _first, int _second )
+            {
+                if ( _first < _second )
+                    return -1;
+                else if ( _first > _second )
+                    return 1;
+                else
+                    return 0;
+            }
+
+            int Compare ( long _first, long _second )
+            {
+                if ( _first < _second )
+                    return -1;
+                else if ( _first > _second )
+                    return 1;
+                else
+                    return 0;
+            }
+
+            int Compare ( char *_first, char *_second )
+            {
+                return strcmp ( _first, _second );
+            }
+
+            int Compare ( std::string _first, std::string _second )
+            {
+                if ( _first < _second )
+                    return -1;
+                else if ( _first > _second )
+                    return 1;
+                else
+                    return 0;
+            }
+        }
     }
 }
-
-#include "sortclass.cpp"
-
-#endif

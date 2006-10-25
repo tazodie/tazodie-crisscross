@@ -30,39 +30,34 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- */  
-    
-#ifndef __included_sortclass_h
-#define __included_sortclass_h
-
-#include "compare.h"
-
+ */
 namespace CrissCross
 {
     namespace Data
     {
-        //! Sorting abstract class.
-        template <class T>
-        class SortClass
+        //! Data comparison namespace.
+        /*!
+            Used to compare two items of a given data type. Return values are similar to those of strcmp().
+         */
+        namespace Comparison
         {
-        public:
-            SortClass();
-            virtual ~SortClass();
-            virtual int Sort ( T *_array, int _size ) { return 0; };
-            virtual void Swap ( T *_array, int _first, int _second );
-        };
+            //! Function for byte comparisons.
+            int Compare ( char _first, char _second );
 
-        //! HeapSort class.
-        template <class T>
-        class HeapSort : public SortClass<T>
-        {
-        public:
-            HeapSort();
-            int Sort ( T *_array, int _size );
-        };
+            //! Function for short integer comparisons.
+            int Compare ( short _first, short _second );
+
+            //! Function for integer comparisons.
+            int Compare ( int _first, int _second );
+
+            //! Function for long integer comparisons.
+            int Compare ( long _first, long _second );
+
+            //! Function for C-style string comparisons.
+            int Compare ( char *_first, char *_second );
+
+            //! Function for std::string comparisons.
+            int Compare ( std::string _first, std::string _second );
+        }
     }
 }
-
-#include "sortclass.cpp"
-
-#endif

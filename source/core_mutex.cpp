@@ -50,6 +50,7 @@ CoreMutex::CoreMutex ()
 
 CoreMutex::~CoreMutex ()
 {
+    Unlock();
 #ifdef TARGET_OS_WINDOWS
     DeleteCriticalSection(&m_criticalSection);
 #else
