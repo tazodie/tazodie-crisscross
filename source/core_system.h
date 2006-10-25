@@ -77,30 +77,6 @@ namespace CrissCross
          */
         int WaitForThread ( pthread_t _thread, int _timeout );
 #endif
-
-        //! Class for platform-specific API calls.
-        class CoreSystem
-        {
-          protected:
-          public:
-            //! The constructor.
-              CoreSystem ();
-
-            //! The destructor.
-             ~CoreSystem ();
-
-            //! (Re)initializes the timer. Automatically called in CoreSystem::CoreSystem().
-            /*!
-               Resets the start time to zero.
-             */
-            void InitTimer ();
-
-            //! Queries the high resolution timer.
-            /*!
-               \return The number of seconds that the high resolution timer is currently at.
-             */
-            double GetHighResTime ();
-        };
     }
 }
 #endif

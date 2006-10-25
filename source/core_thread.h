@@ -130,16 +130,10 @@ namespace CrissCross
         #            define            m_hMainThread m_hMainThreadId
         #    endif
 
-            //! An instance of CoreSystem to be used for API calls.
-            CrissCross::System::CoreSystem *m_system;
-
           public:
 
             //! The constructor.
-            /*!
-               \param _system A pointer to an existing CoreSystem instance.
-             */
-              CoreThread ( CoreSystem * _system );
+              CoreThread ();
 
             //! The destructor.
             /*!
