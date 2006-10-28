@@ -58,12 +58,12 @@ $(PCH): universal_include.h
 	@$(CXX) -c universal_include.h -o $(PCH) $(CXXFLAGS)
 
 
-$(OBJDIR)/%.o: %.cpp
+$(OBJDIR)/%.o: %.cpp $(PCH)
 	@test -d $(dir $(OBJDIR)/$<) || mkdir -p $(dir $(OBJDIR)/$<)
 	@echo Compiling $<
 	@$(CXX) $(CXXFLAGS) -c $< -o $@
 
-$(OBJDIR)/%.o: %.c
+$(OBJDIR)/%.o: %.c $(PCH)
 	@test -d $(dir $(OBJDIR)/$<) || mkdir -p $(dir $(OBJDIR)/$<)
 	@echo Compiling $<
 	@$(CC) $(CXXFLAGS) -c $< -o $@
