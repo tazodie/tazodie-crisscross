@@ -69,6 +69,7 @@ namespace CrissCross
                 Opens the file for reading.
 				\param _file The path of the file to be read.
 				\param _writeMode The mode with which to open the file.
+                \param _lnEnding The line ending type to use.
 				\return Standard CrissCross::Errors values.
              */ 
 			CrissCross::Errors Open ( const char *_file, FileWriteMode _writeMode = FILE_CREATE, LineEndingType _lnEnding = LN_NATIVE );
@@ -82,19 +83,19 @@ namespace CrissCross
 
         private:
             bool EndOfFile ()
-                { throw new CrissCross::Debug::InvalidCallException(); };
+                { return false; };
             size_t Length ()
-                { throw new CrissCross::Debug::InvalidCallException(); };
+                { return 0; };
             char Read ()
-                { throw new CrissCross::Debug::InvalidCallException(); };
+                { return '\0'; };
             size_t Read ( char *_buffer, int _bufferLength, int _bufferIndex, int _count )
-                { throw new CrissCross::Debug::InvalidCallException(); };
+                { return 0; };
             std::string ReadLine ()
-                { throw new CrissCross::Debug::InvalidCallException(); };
+                { return std::string(""); };
             int Seek ( int _position )
-                { throw new CrissCross::Debug::InvalidCallException(); };
+                { return 0; };
             int Forward ( int _position )
-                { throw new CrissCross::Debug::InvalidCallException(); };
+                { return 0; };
 
         };
     }

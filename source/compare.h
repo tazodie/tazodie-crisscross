@@ -35,10 +35,6 @@ namespace CrissCross
 {
     namespace Data
     {
-        //! Data comparison namespace.
-        /*!
-            Used to compare two items of a given data type. Return values are similar to those of strcmp().
-         */
         namespace Comparison
         {
             //! Function for byte comparisons.

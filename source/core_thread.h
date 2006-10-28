@@ -212,10 +212,12 @@ namespace CrissCross
 
         };
 
+        //! @cond
         struct param
         {
             CoreThread *pThread;
         };
+        //! @endcond
     }
 }
 

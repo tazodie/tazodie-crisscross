@@ -102,6 +102,7 @@ namespace CrissCross
                Creates a new CoreIO instance. Will initialize line endings to the platform's
                default, also initializes CoreIO::m_ioMutex.
                \param _fileBuffer The buffer to be used for I/O operations.
+               \param _lnEnding The line ending to use.
              */
             CoreIO ( FILE * _fileBuffer, LineEndingType _lnEnding = LN_NATIVE );
 
@@ -140,8 +141,7 @@ namespace CrissCross
                \param _count The number of bytes to read.
                \return The actual number of bytes read.
              */
-            virtual size_t Read ( char *_buffer, int _bufferLength, int _bufferIndex,
-                          int _count );
+            virtual size_t Read ( char *_buffer, int _bufferLength, int _bufferIndex, int _count );
 
             //! Reads a line of data.
             /*!

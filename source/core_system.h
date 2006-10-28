@@ -62,7 +62,8 @@ namespace CrissCross
 
         //! Generates a random number.
         /*!
-           Don't forget to use SeedRandom first!
+           Don't forget to use SeedRandom() first!
+           \sa SeedRandom()
          */
         int RandomNumber();
 

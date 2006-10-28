@@ -52,6 +52,7 @@ namespace CrissCross
 {
     namespace Network
     {
+        //! Possible states of socket instances.
         typedef enum
         {
             SOCKET_STATE_UNKNOWN,           //!< The state has not yet been specified or is currently not known.
@@ -61,6 +62,7 @@ namespace CrissCross
             SOCKET_STATE_CONNECTED          //!< The socket is connected to a remote host.
         } socketState;
 
+        //! Socket protocols.
         typedef enum
         {
             PROTOCOL_NONE,                          //!< No protocol specified.

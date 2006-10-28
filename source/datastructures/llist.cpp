@@ -307,19 +307,6 @@ template < class T > void LList < T >::Empty ()
     m_previousIndex = -1;
 }
 
-
-template < class T > void LList < T >::EmptyAndDelete ()
-{
-    while ( Size () > 0 )
-    {
-        T theData = GetData ( 0 );
-
-        RemoveData ( 0 );
-        delete theData;
-    }
-}
-
-
 template < class T > void LList < T >::RemoveData ( int index )
 {
     LListItem < T > *current = GetItem ( index );

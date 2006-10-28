@@ -46,21 +46,22 @@ namespace CrissCross
     enum Errors
     {
         CC_ERR_BADPARAMETER = -1000,                  //!< One of the parameters passed to the function was not valid.
-        CC_ERR_FILE_OPEN,                             //!< The specified file could not be opened.
-        CC_ERR_WRITE,                                 //!< The buffer could not be written to.
-        CC_ERR_INTERNAL,                              //!< A call inside the function failed.
-        CC_ERR_SOCK_CONNECTIONLOST,                   //!< The connection was lost.
-        CC_ERR_SOCK_CONNECT,                          //!< The connect() call failed.
-        CC_ERR_SOCK_LISTEN,                           //!< The listen() call failed.
-        CC_ERR_SOCK_BIND,                             //!< The bind() call failed.
-        CC_ERR_SOCK_DNS,                              //!< The host couldn't be resolved via DNS.
-        CC_ERR_SOCK_CREATE_SOCKET,                    //!< The socket() call failed.
-        CC_ERR_SOCK_SOCKET_IN_USE,                    //!< The socket is in use. The call being attempted is invalid for the current socketState.
-        CC_ERR_SOCK_SOCKET_NOT_INITIALISED,           //!< The socket has not yet been initialised.
-        CC_ERR_SOCK_NOT_IMPLEMENTED,                  //!< The call has not yet been implemented or will not be implemented in the abstract class.
-        CC_ERR_SOCK_BAD_PARAMETER,                    //!< One of the parameters given was invalid.
-        CC_ERR_SOCK_DATA_NOTAVAIL,                    //!< A read call received no data.
-        CC_ERR_SOCK_DATA_TIMEOUT,                     //!< Timeout waiting for data.
+        CC_ERR_FILE_OPEN = -999,                      //!< The specified file could not be opened.
+        CC_ERR_WRITE = -998,                          //!< The buffer could not be written to.
+        CC_ERR_INTERNAL = -997,                       //!< A call inside the function failed.
+        CC_ERR_SOCK_CONNECTIONLOST = -996,            //!< The connection was lost.
+        CC_ERR_SOCK_CONNECT = -995,                   //!< The connect() call failed.
+        CC_ERR_SOCK_LISTEN = -994,                    //!< The listen() call failed.
+        CC_ERR_SOCK_BIND = -993,                      //!< The bind() call failed.
+        CC_ERR_SOCK_DNS = -992,                       //!< The host couldn't be resolved via DNS.
+        CC_ERR_SOCK_CREATE_SOCKET = -991,             //!< The socket() call failed.
+        CC_ERR_SOCK_SOCKET_IN_USE = -990,             //!< The socket is in use. The call being attempted is invalid for the current socketState.
+        CC_ERR_SOCK_SOCKET_NOT_INITIALISED = -989,    //!< The socket has not yet been initialised.
+        CC_ERR_SOCK_NOT_IMPLEMENTED = -988,           //!< The call has not yet been implemented or will not be implemented in the abstract class.
+        CC_ERR_SOCK_BAD_PARAMETER = -987,             //!< One of the parameters given was invalid.
+        CC_ERR_SOCK_DATA_NOTAVAIL = -986,             //!< A read call received no data.
+        CC_ERR_SOCK_DATA_TIMEOUT = -985,              //!< Timeout waiting for data.
+        CC_ERR_INVALID_CALL = -500,                   //!< The function call was invalid.
         CC_ERR_NONE = 0                               //!< Everything is fine, nothing is ruined.
     };
 }

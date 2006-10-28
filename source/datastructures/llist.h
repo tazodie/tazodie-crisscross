@@ -39,10 +39,11 @@ namespace CrissCross
 {
     namespace Data
     {
+        //! @cond
         template < class T > class LListItem
         {
-          protected:
-          public:
+        protected:
+        public:
             T m_data;
             LListItem *m_next;
             LListItem *m_previous;
@@ -50,48 +51,137 @@ namespace CrissCross
             LListItem ();
             ~LListItem ();
         };
+        //! @endcond
 
 
+        //! A doubly-linked list implementation.
         template < class T > class LList
         {
-          protected:
-            LListItem < T > *m_first;    // Pointer to first node
-            LListItem < T > *m_last;    // Pointer to last node
+        protected:
+            //! The first node.
+            LListItem < T > *m_first;
 
+            //! The last node.
+            LListItem < T > *m_last;
+
+            //! The last accessed node.
+            /*!
+                Speeds up searches and sequential access.
+             */
             mutable LListItem < T > *m_previous;    // Used to get quick access
+            
+            //! The last accessed index.
+            /*!
+                Speeds up searches and sequential access.
+             */
             mutable int m_previousIndex;    // for sequential reads (common)
 
+            //! The number of nodes in the list.
             int m_numItems;
 
-          protected:
+        protected:
             inline LListItem < T > *GetItem ( int index ) const;
 
-          public:
+        public:
+
+            //! The default constructor.
             LList ();
+
+            //! The copy constructor.
             LList ( const LList < T > & );
 
+            //! The destructor.
             ~LList ();
 
+            //! The implicit copy operator.
             LList & operator = ( const LList < T > & );
 
-            inline void PutData ( const T & newdata );    // Adds in data at the end  
-            void PutDataAtEnd ( const T & newdata );
-            void PutDataAtStart ( const T & newdata );
-            void PutDataAtIndex ( const T & newdata, int index );
+            //! Adds data at the end of the list.
+            /*!
+                \param _newdata The data to add to the list.
+             */
+            inline void PutData ( const T & _newdata );
 
-            inline T GetData ( int index ) const;    // slow unless sequential
-            inline T *GetPointer ( int index ) const;    // slow unless sequential
-            void RemoveData ( int index );    // slow unless sequential
+            //! Adds data at the end of the list.
+            /*!
+                \param _newdata The data to add to the list.
+             */
+            void PutDataAtEnd ( const T & _newdata );
+
+            //! Adds data at the start of the list.
+            /*!
+                \param _newdata The data to add to the list.
+             */
+            void PutDataAtStart ( const T & _newdata );
+
+            //! Adds data at the specified index.
+            /*!
+                \param _newdata The data to add to the list.
+                \param _index The index where the node should be added.
+             */
+            void PutDataAtIndex ( const T & _newdata, int _index );
+
+            //! Gets the data at the specified index.
+            /*!
+                WARNING: Slow unless you're sequentially iterating through.
+                \param _index The index of the data to fetch.
+                \return The data contained in the node at the index.
+             */
+            inline T GetData ( int _index ) const;
+
+            //! Gets the address of where the data at the specified index is stored.
+            /*!
+                WARNING: Slow unless you're sequentially iterating through.
+                \param _index The index of the node to find.
+                \return The pointer to where the data record is stored.
+             */
+            inline T *GetPointer ( int _index ) const;
+
+            //! Removes the node at the given index.
+            /*!
+                This does not delete the data at the node, just the node itself.
+                WARNING: Slow unless you're sequentially iterating through.
+                \param _index The index of the node to delete.
+             */
+            void RemoveData ( int _index );
+
+            //! Removes the node at the end of the list.
+            /*!
+                This does not delete the data at the node, just the node itself.
+                WARNING: Slow unless you're sequentially iterating through.
+             */
             inline void RemoveDataAtEnd ();
-            int FindData ( const T & data );    // -1 means 'not found'
 
-            inline int Size () const;    // Returns the total size of the array
-            inline bool ValidIndex ( int index ) const;
+            //! Finds a node's index by searching for the given data.
+            /*!
+                \param _data The data to find.
+                \return -1 if not found, otherwise returns the index.
+             */
+            int FindData ( const T & _data );
 
-            void Empty ();            // Resets the array to empty    
-            void EmptyAndDelete ();    // As above, deletes all data as well
+            //! Indicates the size of the linked list.
+            /*!
+                \return The size of the linked list.
+             */
+            inline int Size () const;
 
-            inline T operator [] ( int index );
+            //! Determines whether a given index is within the bounds of the list.
+            /*!
+                \param _index The index to validate.
+                \return True if the index is valid, false otherwise.
+             */
+            inline bool ValidIndex ( int _index ) const;
+
+            //! Deletes all nodes in the list, but does not free memory allocated by data.
+            void Empty();
+
+            //! Gets the data at the specified index.
+            /*!
+                WARNING: Slow unless you're sequentially iterating through.
+                \param _index The index of the data to fetch.
+                \return The data contained in the node at the index.
+             */
+            inline T operator [] ( int _index );
         };
     }
 }

@@ -50,6 +50,7 @@
 #    define SORT_SIZE 81920
 #    include "sortclass.h"
 #    include "stopwatch.h"
+using namespace CrissCross::Data;
 #endif
 
 using namespace CrissCross::IO;
