@@ -29,7 +29,7 @@ CXX = g++
 CC = gcc
 LINK = $(CXX) -rdynamic
 INCLUDES = -I.
-CXXFLAGS = -Wall $(INCLUDES) -g
+CXXFLAGS = -O3 -Wall $(INCLUDES) -g
 NM = nm
 STRIP = :
 

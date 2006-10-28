@@ -33,7 +33,6 @@
  */
 
 #include "universal_include.h"
-#include "core_exception.h"
 #include "core_io.h"
 #include "core_debug.h"
 

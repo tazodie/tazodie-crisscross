@@ -35,7 +35,6 @@
 #ifndef __included_textwriter_h
 #define __included_textwriter_h
 
-#include "core_exception.h"
 #include "core_error.h"
 
 namespace CrissCross

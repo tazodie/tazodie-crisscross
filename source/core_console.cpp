@@ -82,7 +82,6 @@ CoreConsole::SetColour ( short _flags )
 {
     CoreAssert ( this != NULL );
 
-    /* TODO: Linux and Mac OS X ports of this function. */
 #if !defined ( ANSI_COLOUR ) && defined ( TARGET_OS_WINDOWS )
     HANDLE hConsole = GetStdHandle ( STD_OUTPUT_HANDLE );
 
@@ -150,7 +149,6 @@ CoreConsole::Clear ()
 {
     CoreAssert ( this != NULL );
 
-    /* TODO: Linux and Mac OS X ports of this function. */
 #if defined ( TARGET_OS_WINDOWS )
     COORD coordScreen = { 0, 0 };
     DWORD cCharsWritten;
@@ -166,13 +164,14 @@ CoreConsole::Clear ()
     FillConsoleOutputAttribute ( hConsole, csbi.wAttributes, dwConSize,
                                  coordScreen, &cCharsWritten );
     SetConsoleCursorPosition ( hConsole, coordScreen );
+#elif defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_LINUX )
+    Write ( "%s", "\033[0;0H\033[2J" );
 #endif
 }
 
 void
 CoreConsole::MoveUp ( int _lines )
 {
-    /* TOOD: Linux and Mac OS X ports of this function. */
 #if defined ( TARGET_OS_WINDOWS )
     COORD coordScreen = { 0, 0 };
     CONSOLE_SCREEN_BUFFER_INFO csbi;
@@ -183,6 +182,8 @@ CoreConsole::MoveUp ( int _lines )
     coordScreen.Y -= _lines;
     if ( coordScreen.Y < 0 ) coordScreen.Y = 0;
     SetConsoleCursorPosition ( hConsole, coordScreen );
+#elif defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_LINUX )
+    Write ( "%s%d%s", "\033[", _lines, "A" );
 #endif
 }
 
