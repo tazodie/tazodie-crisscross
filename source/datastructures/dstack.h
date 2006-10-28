@@ -39,23 +39,61 @@ namespace CrissCross
 {
     namespace Data
     {
+        //! A dynamic stack implementation.
         template < class dataType >
         class DStack
         {
         private:
-            size_t          step_;
-            dataType        *bottom_;
-            dataType        *top_;
-            size_t          size_;
-            size_t          origsize_;
+            //! The step size for which to increase the stack size by.
+            size_t          m_stepSize;
+            
+            //! The actual stack itself.
+            dataType        *m_bottom;
+
+            //! The pointer to the current position in the stack.
+            dataType        *m_top;
+
+            //! The size of the stack.
+            size_t          m_size;
+
+            //! The original size of the stack (used on an empty() call to reset things to defaults).
+            size_t          m_origSize;
 
         public:
-            DStack          ( size_t size = 32 );
+            //! The constructor.
+            /*!
+                \param _size The step size to use.
+             */
+            DStack          ( size_t _size = 32 );
+
+            //! The destructor.
             ~DStack         ();
 
-            void push       ( dataType val );
-            size_t count    () const;
+            //! Increases the array size by the number in step_
+            void grow       ();
+
+            //! Pushes a value onto the stack.
+            /*!
+                \param _val The value to put on the stack.
+             */
+            void push       ( dataType _val );
+
+            //! Pops a value off the stack.
+            /*!
+                \return The topmost value on the stack.
+             */
             dataType pop    ();
+
+            //! Indicates the number of items on the stack.
+            /*!
+                \return Number of items on the stack.
+             */
+            size_t count    () const;
+
+            //! Empties the stack.
+            /*!
+                If pointers are stored in the stack, they must be freed manually via a series of pop() and delete or free() calls.
+             */
             void empty      ();
         };
     }

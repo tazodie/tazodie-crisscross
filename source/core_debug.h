@@ -47,7 +47,7 @@
     \param _testcase The condition that was validated.
     \param _file The file _testcase is in.
     \param _line The line in _file that _testcase is in.
-    \sa CoreAssert
+    \sa CoreAssert()
 */
 void Assert ( bool _condition, const char *_testcase, const char *_file,
               int _line );
@@ -62,7 +62,7 @@ void PrintStackTrace ( CrissCross::IO::CoreIO * _outputBuffer );
 /*!
     Will abort program execution if _condition is false. Also includes file and line numbers.
     \param x The condition to validate.
-    \sa Assert
+    \sa Assert()
 */
 #    define CoreAssert(x)       Assert((x), #x, __FILE__, __LINE__ )
 

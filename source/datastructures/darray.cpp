@@ -49,8 +49,8 @@ DArray < T >::DArray ()
     m_arraySize = 0;
     m_shadow = NULL;
     m_array = NULL;
-    empty_nodes = new DStack<unsigned int>;
-    empty_nodes->push ( -1 );
+    m_emptyNodes = new DStack<unsigned int>;
+    m_emptyNodes->push ( -1 );
 }
 
 template < class T >
@@ -60,15 +60,15 @@ DArray < T >::DArray ( int _newStepSize )
     m_arraySize = 0;
     m_shadow = NULL;
     m_array = NULL;
-    empty_nodes = new DStack<unsigned int> ( _newStepSize + 1 );
-    empty_nodes->push ( -1 );
+    m_emptyNodes = new DStack<unsigned int> ( _newStepSize + 1 );
+    m_emptyNodes->push ( -1 );
 }
 
 template < class T >
 DArray < T >::~DArray ()
 {
     Empty ();
-    delete empty_nodes;
+    delete m_emptyNodes;
 }
 
 template < class T >
@@ -76,14 +76,14 @@ void DArray < T >::RebuildStack ()
 {
 	//  Reset free list
 
-    empty_nodes->empty();
-    empty_nodes->push ( -1 );
+    m_emptyNodes->empty();
+    m_emptyNodes->push ( -1 );
 
 	// Step through, rebuilding
 
 	for ( int i = m_arraySize; i >= 0; i-- )
 		if ( m_shadow[i] == 0 )
-			empty_nodes->push ( i );
+			m_emptyNodes->push ( i );
 
 }
 
@@ -118,7 +118,7 @@ void DArray < T >::SetSize ( int newsize )
 
 		for ( int a = m_arraySize - 1; a >= oldarraysize; a-- ) 
 		{
-			empty_nodes->push ( a );
+			m_emptyNodes->push ( a );
 		}
 
         delete [] m_array;
@@ -226,8 +226,8 @@ void DArray < T >::Empty ()
     m_array = NULL;
     m_shadow = NULL;
 
-    empty_nodes->empty ();
-    empty_nodes->push ( -1 );
+    m_emptyNodes->empty ();
+    m_emptyNodes->push ( -1 );
 
     m_arraySize = 0;
     m_numUsed = 0;
@@ -245,7 +245,7 @@ int DArray < T >::GetNextFree()
 
     int freeslot = -2;
 
-    while ( (freeslot = empty_nodes->pop() ) != -1 )
+    while ( (freeslot = m_emptyNodes->pop() ) != -1 )
     {
         if ( m_shadow[freeslot] == 0 )
             break;
@@ -253,7 +253,7 @@ int DArray < T >::GetNextFree()
 
     if ( freeslot == -1 )
 	{
-        empty_nodes->push ( -1 );
+        m_emptyNodes->push ( -1 );
         freeslot = m_arraySize;	
 		Grow();
 	}
@@ -296,7 +296,7 @@ void DArray < T >::RemoveData ( int index )
     CoreAssert ( m_shadow[index] != 0 );
     CoreAssert ( index < m_arraySize && index >= 0 );
 
-    empty_nodes->push ( index );
+    m_emptyNodes->push ( index );
 
     if ( m_shadow[index] == 1 ) m_numUsed--;
     m_shadow[index] = 0;

@@ -37,22 +37,18 @@
 
 namespace CrissCross
 {
-    //! The file system namespace.
-    /*!
-        This namespace is maintained by Rudolf Olah <omouse@gmail.com>
-     */   
     namespace FileSystem
     {
-        bool FileExists ( std::string );
-        bool IsFile ( std::string );
-        bool IsDir ( std::string );
-        bool IsLink ( std::string );
-        const char *NativePath ( std::string, char device='c' );
-        const char *WindowsPath ( std::string, char device='c' );
-        const char *PosixPath ( std::string );
-        const char *NativePath ( const char *path, char device='c' );
-        const char *WindowsPath ( const char *path, char device='c' );
-        const char *PosixPath ( const char * );
+        bool FileExists ( std::string _file );
+        bool IsFile ( std::string _file );
+        bool IsDir ( std::string _file );
+        bool IsLink ( std::string _file );
+        const char *NativePath ( std::string _file, char _device = 'c' );
+        const char *WindowsPath ( std::string _file, char _device = 'c' );
+        const char *PosixPath ( std::string _file );
+        const char *NativePath ( const char *_path, char _device = 'c' );
+        const char *WindowsPath ( const char *_path, char _device = 'c' );
+        const char *PosixPath ( const char *_path );
         const char *DefaultHomePath ();
     }
 }

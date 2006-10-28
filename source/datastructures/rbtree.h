@@ -42,23 +42,25 @@ namespace CrissCross
 {
     namespace Data
     {
+        //! An enumeration used to indicate the result of RedBlackTree calls.
+        /*!
+            \sa RedBlackTree
+         */
         typedef enum
         {
-            STATUS_OK,
-            STATUS_NULL_POINTER,
-            STATUS_MEM_EXHAUSTED,
-            STATUS_DUPLICATE_KEY,
-            STATUS_KEY_NOT_FOUND,
-            STATUS_KEY_TOO_LARGE
+            STATUS_OK,                  //!< Success.
+            STATUS_NULL_POINTER,        //!< A null pointer was found in a parameter.
+            STATUS_MEM_EXHAUSTED        //!< Out of memory.
         } statusEnum;
 
-        template < class dataType, class keyType > class RedBlackTree
+        //! A very fast red-black tree implementation.
+        template < class dataType, class keyType >
+        class RedBlackTree
         {
 
-          public:
-
-            typedef enum
-            { BLACK, RED } nodeColor;
+        public:
+            //! @cond
+            typedef enum { BLACK, RED } nodeColor;
             typedef enum
             {
                 NODE_ITSELF_VISITED = 0,
@@ -67,8 +69,8 @@ namespace CrissCross
             } beenThereEnum;
 
             /*
-               This is what a node looks like in this tree.
-             */
+                This is what a node looks like in this tree.
+            */
             struct nodeType
             {
                 struct nodeType *left;    // Left child.
@@ -91,77 +93,141 @@ namespace CrissCross
                 nodeType(){};
                 ~nodeType(){};
             };
+            //! @endcond
 
+            //! The root node at the top of the tree.
             nodeType *rootNode;
+            
+            //! The null node at the end of every branch, etc.
             nodeType *NULL_NODE;
 
+            //! The constructor.
             RedBlackTree ();
+            
+            //! The destructor.
             ~RedBlackTree ();
-            statusEnum insert ( keyType key, dataType rec );
-            statusEnum deleteNode ( keyType key );
-            statusEnum killNode ( nodeType * z );
-            dataType find ( keyType key ) const;
-            nodeType *findNode ( keyType key ) const;
-            bool ValidNode ( nodeType * node ) const;
 
-          protected:
-            inline char *reallocKey ( char *pointer, char *a );
-            inline int *reallocKey ( int *pointer, int *a );
-            inline unsigned long *reallocKey ( unsigned long *pointer, unsigned long *a );
+            //! Inserts data into the tree.
+            /*!
+                \param _key The key of the data.
+                \param _rec The data to insert.
+                \return A value indicating the result of the request.
+                \sa statusEnum
+             */
+            statusEnum insert ( keyType _key, dataType _rec );
 
-            inline char *newKey ( char *a );
-            inline int *newKey ( int *a );
-            inline unsigned long *newKey ( unsigned long *a );
+            //! Deletes a node from the tree, specified by the node's key.
+            /*!
+                This won't free the memory occupied by the data, so the data must be freed
+                seperately.
+                \param _key The key of the node to delete.
+                \return A value indicating the result of the request.
+                \sa statusEnum
+             */
+            statusEnum deleteNode ( keyType _key );
 
-            inline bool compLT ( const char *a, const char *b ) const;
-            inline bool compLTEQU ( const char *a, const char *b ) const;
-            inline bool compEQ ( const char *a, const char *b ) const;
+            //! Deletes a node from the tree, specified by the pointer to the node.
+            /*!
+                This won't free the memory occupied by the data, so the data must be freed
+                seperately.
+                \param _z The node to remove.
+                \return A value indicating the result of the request.
+                \sa statusEnum
+             */
+            statusEnum killNode ( nodeType * _z );
 
-            inline bool compLT ( const int *a, const int *b ) const;
-            inline bool compLTEQU ( const int *a, const int *b ) const;
-            inline bool compEQ ( const int *a, const int *b ) const;
+            //! Finds a node in the tree and returns the data at that node.
+            /*!
+                \param _key The key of the node to find.
+                \return The data at the node. NULL if not found.
+             */
+            dataType find ( keyType _key ) const;
 
-            inline bool compLT ( const unsigned long *a, const unsigned long *b ) const;
-            inline bool compLTEQU ( const unsigned long *a, const unsigned long *b ) const;
-            inline bool compEQ ( const unsigned long *a, const unsigned long *b ) const;
+            //! Finds a node in the tree and returns the data at that node.
+            /*!
+                \param _key The key of the node to find.
+                \return The node pointer. NULL or NULL_NODE if not found. Test result with ValidNode() function.
+                \sa ValidNode()
+             */
+            nodeType *findNode ( keyType _key ) const;
+
+            //! Verifies that a node is valid.
+            /*!
+                \param _node A node pointer.
+                \return True if the node is a valid node, false otherwise.
+             */
+            bool ValidNode ( nodeType * _node ) const;
+
+        protected:
+            inline char *reallocKey ( char *_pointer, char *_a );
+            inline int *reallocKey ( int *_pointer, int *_a );
+            inline unsigned long *reallocKey ( unsigned long *_pointer, unsigned long *_a );
+
+            inline char *newKey ( char *_a );
+            inline int *newKey ( int *_a );
+            inline unsigned long *newKey ( unsigned long *_a );
+
+            inline bool compLT ( const char *_a, const char *_b ) const;
+            inline bool compLTEQU ( const char *_a, const char *_b ) const;
+            inline bool compEQ ( const char *_a, const char *_b ) const;
+
+            inline bool compLT ( const int *_a, const int *_b ) const;
+            inline bool compLTEQU ( const int *_a, const int *_b ) const;
+            inline bool compEQ ( const int *_a, const int *_b ) const;
+
+            inline bool compLT ( const unsigned long *_a, const unsigned long *_b ) const;
+            inline bool compLTEQU ( const unsigned long *_a, const unsigned long *_b ) const;
+            inline bool compEQ ( const unsigned long *_a, const unsigned long *_b ) const;
 
             /*
-               these are automatically called. no need to use them externally at all.
-             */
-            void killAll ( nodeType * rec );
+            these are automatically called. no need to use them externally at all.
+            */
+            void killAll ( nodeType *_rec );
             void killAll ();
 
-          public:
-            size_t size ();
-            void getNext ( nodeType ** current );
-
-            /*
-               other old backward-compatible functions
+        public:
+            //! Indicates the size of the tree.
+            /*!
+                \return Size of the tree.
              */
-            _CC_DEPRECATE_FUNCTION ( find )         dataType    GetData ( keyType key ) const;
-            _CC_DEPRECATE_FUNCTION ( insert )       void        PutData ( keyType key, dataType rec );
-            _CC_DEPRECATE_FUNCTION ( deleteNode )   void        RemoveData ( keyType key );
-            _CC_DEPRECATE_FUNCTION ( findNode )     nodeType    *LookupTree ( keyType key );
+            size_t size ();
 
-          public:
+            //! Will get the next node in the tree, useful as an iterator.
+            void getNext ( nodeType ** _current );
+
+            //! @cond
+            /*
+                other old backward-compatible functions
+            */
+            _CC_DEPRECATE_FUNCTION ( find )         dataType    GetData ( keyType _key ) const;
+            _CC_DEPRECATE_FUNCTION ( insert )       void        PutData ( keyType _key, dataType _rec );
+            _CC_DEPRECATE_FUNCTION ( deleteNode )   void        RemoveData ( keyType _key );
+            _CC_DEPRECATE_FUNCTION ( findNode )     nodeType    *LookupTree ( keyType _key );
+            _CC_DEPRECATE_FUNCTION ( size )         int         Size ();
+                                                    void        Print ();
+            //! @endcond
+
+        public:
+            //! Converts the tree data into a linearized DArray.
+            /*!
+                \return A DArray containing the data of the tree.
+             */
             DArray < dataType > *ConvertToDArray ();
+
+            //! Converts the tree keys into a linearized DArray.
+            /*!
+                \return A DArray containing the keys in the tree.
+             */
             DArray < keyType >  *ConvertIndexToDArray ();
 
-          protected:
-            void RecursiveConvertIndexToDArray ( DArray < keyType > *darray,
-                                                 nodeType * btree );
-            void RecursiveConvertToDArray ( DArray < dataType > *darray,
-                                            nodeType * btree );
+        protected:
+            void RecursiveConvertIndexToDArray ( DArray < keyType > *_darray, nodeType *_btree );
+            void RecursiveConvertToDArray ( DArray < dataType > *_darray, nodeType *_btree );
 
-          public:
-            _CC_DEPRECATE_FUNCTION ( size ) int Size ();
-            void Print ();                  // Not deprecated, but still down here because it is a backwards-compatibility function.
-
-          protected:
-            void rotateLeft ( nodeType * x );
-            void rotateRight ( nodeType * x );
-            void insertFixup ( nodeType * x );
-            void deleteFixup ( nodeType * x );
+            void rotateLeft ( nodeType * _x );
+            void rotateRight ( nodeType * _x );
+            void insertFixup ( nodeType * _x );
+            void deleteFixup ( nodeType * _x );
         };
     }
 }

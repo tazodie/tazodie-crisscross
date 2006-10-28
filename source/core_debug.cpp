@@ -271,20 +271,22 @@ void
 Assert ( bool _condition, const char *_testcase, const char *_file,
          int _line )
 {
-  if ( !_condition )
+    if ( !_condition )
     {
-      char buffer[10240];
-      sprintf ( buffer, "Assertion failed : '%s'\nFile: %s\nLine: %d\n\n",
-		_testcase, _file, _line );
+        char buffer[10240];
+        sprintf ( buffer, "Assertion failed : '%s'\nFile: %s\nLine: %d\n\n",
+        _testcase, _file, _line );
 #ifdef ENABLE_DEBUGLOG
-      g_debuglog->Write ( g_debuglog->BUG_LEVEL_ERROR, "%s (%d): Assertion failed : '%s'",
-			  _file, _line, _testcase );
-      g_debuglog->Save ( );
+        g_debuglog->Write ( g_debuglog->BUG_LEVEL_ERROR, "%s (%d): Assertion failed : '%s'",
+        _file, _line, _testcase );
+        g_debuglog->Save ( );
 #endif
-      //#ifndef _DEBUG
-      throw new AssertionFailureException ( _file, _line );
-      //#else
-      //      _ASSERT ( _condition );
-      //#endif
+        g_stderr->WriteLine ( "=== STACK TRACE ===\n" );
+        PrintStackTrace ( g_stderr );
+        #ifndef _DEBUG
+            abort();
+        #else
+            _ASSERT ( _condition );
+        #endif
     }
 }

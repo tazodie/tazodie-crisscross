@@ -35,28 +35,41 @@
 #ifndef __included_universal_include_h
 #define __included_universal_include_h
     
-#    define APP_NAME        "CrissCross"
-#    define APP_CODENAME    "Technetium"
-#    define APP_VERSION     "0.4.3"
-#    define APP_URL         "http://www.uplinklabs.net/crisscross/"
-#    define APP_COPYRIGHT   "(c) 2006 by Steven Noonan <steven@uplinklabs.net>, Rudolf Olah <omouse@gmail.com>, Miah Clayton <miah@io-in.com"
+#    define APP_NAME                "CrissCross"
+
+//#  define APP_CODENAME            "Technetium"    // v0.1.0 codename ( Milestone 1 )
+//#  define APP_CODENAME            "Freya"         // v0.2.0 codename
+//#  define APP_CODENAME            "Hodur"         // v0.3.0 codename
+//#  define APP_CODENAME            "Baldur"        // v0.4.0 codename
+#    define APP_CODENAME            "Loki"          // v0.5.0 codename ( Milestone 2 )
+//#  define APP_CODENAME            "Ragnarok"      // v0.6.0 codename
+//#  define APP_CODENAME            "Heimdall"      // v0.7.0 codename
+//#  define APP_CODENAME            "Odin"          // v0.8.0 codename ( Milestone 3 )
+//#  define APP_CODENAME            "Thor"          // v0.9.0 codename ( Milestone 4 )
+//#  define APP_CODENAME            "Valhalla"      // v1.0.0 codename ( Milestone 5 )
+
+#    define APP_VERSION             "0.4.7"
+#    define APP_BRANCH_AT_VERSION   "0.5.0"
+#    define APP_URL                 "http://www.uplinklabs.net/crisscross/"
+#    define APP_COPYRIGHT           "(c) 2006 by Steven Noonan <steven@uplinklabs.net>, Rudolf Olah <omouse@gmail.com>, Miah Clayton <miah@io-in.com"
 #    define APP_COPYRIGHT_CONSOLE   "(c) 2006 by Steven Noonan <steven@uplinklabs.net>,\n" \
                                     "    Rudolf Olah <omouse@gmail.com>, and Miah Clayton <miah@io-in.com>"
 
-#    define ENABLE_CPUID
+// Disabling these two will save space.
+//#    define ENABLE_CPUID
 //#    define ENABLE_DEBUGLOG
 
 //NOTE: By disabling this line, you will not be in compliance with article 2
 //      of the New BSD License. If you disable this line, you must display the
 //      copyright notice in the program elsewhere.
 #    define ENABLE_CREDITS
-    
+
 #    define DETECT_MEMORY_LEAKS
-    
+
 // ============================================================================
 // Dont edit anything below this line   
 // ============================================================================
-    
+
 #    define MAX_PROCESSORS 4
 
 #    if defined ( _ARCH_PPC ) || defined ( __ppc__ ) || \
@@ -70,17 +83,17 @@
 #            endif
 #    endif
     
-#    if defined ( __i386__ ) || defined ( __i386 ) || \
-    defined ( i386 ) 
-#            define TARGET_CPU_X86
+#    if defined ( __i386__ ) || defined ( __i386 ) || defined ( i386 ) || defined ( _X86_ )
+#       define TARGET_CPU_X86
 #    endif
     
 #    if defined ( __alpha ) || defined ( __alpha__ )
-#            define TARGET_CPU_ALPHA
+#       define TARGET_CPU_ALPHA
 #    endif
     
 #    if defined ( __x86_64__ ) || defined ( __x86_64 ) || \
-    defined ( __amd64 ) || defined ( __amd64__ ) 
+        defined ( __amd64 ) || defined ( __amd64__ ) || \
+        defined ( _IA64_ ) || defined ( _AMD64_ )
 #            define TARGET_CPU_X64
 #    endif
     
@@ -229,5 +242,74 @@ static char THIS_FILE[] = __FILE__;
 #    endif
 
 extern int RunApplication ( int argc, char **argv );
+
+// Namespace Definitions
+//! The CrissCross main namespace.
+/*!
+    All CrissCross classes and functions are kept in this namespace.
+ */
+namespace CrissCross
+{
+    //! The data structure namespace.
+    /*!
+        Contains basic data structures to assist in sorting and searching
+        for data.
+     */
+    namespace Data
+    {
+        //! Data comparison namespace.
+        /*!
+            The functions contained here are designed to compare two items of a
+            given data type. Return values are similar to those of strcmp().
+         */
+        namespace Comparison
+        {
+        }
+    }
+
+    //! The debug namespace.
+    /*!
+        Contains classes and functions designed to assist programmers
+        in debugging their software.
+     */
+    namespace Debug
+    {
+    }
+
+    //! The file system namespace.
+    /*!
+        This namespace is maintained by Rudolf Olah <omouse@gmail.com>
+     */   
+    namespace FileSystem
+    {
+    }
+
+    //! The input/output namespace.
+    /*!
+        Contains classes for console and file I/O.
+     */
+    namespace IO
+    {
+    }
+    
+    //! The network communication class.
+    /*!
+        Contains classes which enable programmers to use TCP, UDP,
+        and other network protocols to transfer data.
+     */
+    namespace Network
+    {
+    }
+
+    //! The system call namespace.
+    /*!
+        Contains platform-specific API call wrappers, which allow the programmer
+        to write code which is cross-platform and functions identically on all
+        platforms.
+     */
+    namespace System
+    {
+    }
+}
 
 #endif

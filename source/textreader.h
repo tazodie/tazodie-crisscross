@@ -81,11 +81,11 @@ namespace CrissCross
         private:
 			// TextReader shouldn't make any write calls whatsoever.
             CrissCross::Errors Write ( const char *_format, ... )
-                { throw new CrissCross::Debug::InvalidCallException(); };
+                { return CC_ERR_INVALID_CALL; };
             CrissCross::Errors WriteLine ()
-                { throw new CrissCross::Debug::InvalidCallException(); };
+                { return CC_ERR_INVALID_CALL; };
             CrissCross::Errors WriteLine ( const char *_format, ... )
-                { throw new CrissCross::Debug::InvalidCallException(); };
+                { return CC_ERR_INVALID_CALL; };
 
         };
     }

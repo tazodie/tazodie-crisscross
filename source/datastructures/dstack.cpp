@@ -43,54 +43,60 @@ using namespace CrissCross::Data;
 template < class dataType >
 DStack<dataType>::DStack ( size_t N )
 {
-    step_ = 32;
-    top_ = bottom_ = NULL;
-    size_ = origsize_ = 0;
+    m_stepSize = 32;
+    m_top = m_bottom = NULL;
+    m_size = m_origSize = 0;
 }
 
 template < class dataType >
 DStack<dataType>::~DStack ()
 {
-    delete [] bottom_;
+    delete [] m_bottom;
+}
+
+template < class dataType >
+void DStack<dataType>::grow ()
+{
+    dataType *newstack_ = new dataType[m_size + m_stepSize];
+    if ( m_bottom )
+        memcpy ( newstack_, m_bottom, sizeof ( dataType ) * m_size );
+    delete [] m_bottom;
+    m_bottom = newstack_;
+    m_top = m_bottom + m_size;
+    m_size += m_stepSize;
 }
 
 template < class dataType >
 void DStack<dataType>::push ( dataType val )
 {
-    if ( count() == size_ )    // the stack is full. need more space!
+    if ( count() == m_size )    // the stack is full. need more space!
     {
-        dataType *newstack_ = new dataType[size_ + step_];
-        if ( bottom_ )
-            memcpy ( newstack_, bottom_, sizeof ( dataType ) * size_ );
-        delete [] bottom_;
-        bottom_ = newstack_;
-        top_ = bottom_ + size_;
-        size_ += step_;
+        grow();
     }
-    *top_ = val;
-    top_++;
+    *m_top = val;
+    m_top++;
 }
 
 template < class dataType >
 size_t DStack<dataType>::count () const
 {
-    return ( top_ - bottom_ );
+    return ( m_top - m_bottom );
 }
 
 template < class dataType >
 dataType DStack<dataType>::pop ()
 {
-    if ( !top_ ) return (dataType)0;
-    top_--;
-    return *top_;
+    if ( !m_top ) return (dataType)0;
+    m_top--;
+    return *m_top;
 }
 
 template < class dataType >
 void DStack<dataType>::empty ()
 {
-    delete [] bottom_;
-    top_ = bottom_ = NULL;
-    size_ = origsize_ = 0;
+    delete [] m_bottom;
+    m_top = m_bottom = NULL;
+    m_size = m_origSize = 0;
 }
 
 #endif

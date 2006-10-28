@@ -319,7 +319,7 @@ main ( int argc, char **argv )
 
 #ifdef ENABLE_CREDITS
     g_stdout->SetColour ( g_stdout->FG_GREEN | g_stdout->FG_INTENSITY );
-    g_stdout->WriteLine ( "Powered by " APP_NAME ", " APP_URL );
+    g_stdout->WriteLine ( "Powered by " APP_NAME " " APP_VERSION " (Codename " APP_CODENAME ")\n    " APP_URL );
     g_stdout->SetColour ( 0 );
     g_stdout->WriteLine ( APP_COPYRIGHT_CONSOLE );
     g_stdout->WriteLine ();
@@ -336,19 +336,6 @@ main ( int argc, char **argv )
 	{
 		cout << e.what() << endl;
 		return -3;
-	}
-	catch ( CoreException * e )
-	{
-		g_stderr->
-			WriteLine
-			( "\nA CoreException has been raised.\n\tFile: %s\n\tLine: %d\n\tDescription: %s\n",
-			  e->ShowFile (  ), e->ShowLine (  ), e->ShowReason (  ) );
-		#ifdef ENABLE_DEBUGLOG
-		g_debuglog->Write ( g_debuglog->BUG_LEVEL_ERROR, 
-				    "\nA CoreException has been raised.\n\tFile: %s\n\tLine: %d\n\tDescription: %s\n",
-				    e->ShowFile (  ), e->ShowLine (  ), e->ShowReason (  ) );
-		#endif
-		return -1;
 	}
 	catch ( const char *_exception )
 	{

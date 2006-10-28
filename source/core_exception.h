@@ -32,6 +32,10 @@
  *
  */
 
+ #if 0
+ 
+ This code segment is deprecated.
+ 
 #ifndef __included_core_exception_h
 #define __included_core_exception_h
 
@@ -158,4 +162,5 @@ namespace CrissCross
         };
     }
 }
+#endif
 #endif

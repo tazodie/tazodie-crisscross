@@ -48,6 +48,7 @@ namespace CrissCross
 {
     namespace System
     {
+        //! A timer class designed for code profiling.
         class Stopwatch
         {
         private:
@@ -63,11 +64,22 @@ namespace CrissCross
             timeval                     m_finish;
 #endif
         public:
+            //! The constructor.
             Stopwatch();
+
+            //! The destructor.
             ~Stopwatch();
 
+            //! Starts the timer counter.
             void Start();
+
+            //! Stops the timer counter.
             void Stop();
+
+            //! Indicates the number of seconds elapsed.
+            /*!
+                \return Number of seconds elapsed between the Start() and Stop() calls.
+             */
             double Elapsed();
         };
     }
