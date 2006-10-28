@@ -38,8 +38,6 @@
 
 #if !defined ( TARGET_OS_WINDOWS )
 #    include <arpa/inet.h>
-#    include <asm/ioctls.h>
-#    include <asm/socket.h>
 #    include <errno.h>
 #    include <netdb.h>
 #    include <netinet/in.h>

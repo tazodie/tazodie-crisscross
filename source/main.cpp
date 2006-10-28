@@ -37,7 +37,7 @@
 #include "core_system.h"
 #include "core_console.h"
 
-#define SORT_PROGRAM
+#define CPUID_PROGRAM
 
 #ifdef NETWORK_DIAGNOSTIC
 #    include "udpsocket.h"
@@ -48,9 +48,10 @@
 #endif
 
 #ifdef SORT_PROGRAM
-#    define SORT_SIZE 81920
+#    define SORT_SIZE 163840
 #    include "sortclass.h"
 #    include "stopwatch.h"
+using namespace CrissCross::Data;
 #endif
 
 using namespace CrissCross::IO;
@@ -90,7 +91,7 @@ RunApplication ( int argc, char **argv )
     printf ( "Waiting for initial reply... " );
     while ( true )
     {
-        Sleep ( 300 );
+        ThreadSleep ( 300 );
         memset ( buffer, 0, sizeof ( buffer ) );
         memcpy ( buffer, &InSeqID, sizeof ( int ) );
 
@@ -143,15 +144,12 @@ RunApplication ( int argc, char **argv )
         time ( &Now );
         printf ( "In: %d Out: %d Loss: %d Last Packet: %lds  \r", InSeqID, OutSeqID, loss, Now - LastIncomingPacket );
         OutSeqID++;
-        Sleep(50);
+        ThreadSleep(50);
     }
 
-    system ( "pause" );
 #endif
 
 #ifdef SORT_PROGRAM
-
-    system ( "pause" );
 
     char temp[32];
     char characters[64] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\0";
@@ -187,8 +185,7 @@ RunApplication ( int argc, char **argv )
         items[i] = NULL;
     }
 
-    system ( "pause" );
-
+    delete timer;
     delete sort;
 #endif
 

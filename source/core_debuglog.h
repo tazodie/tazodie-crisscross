@@ -39,7 +39,6 @@
 
 #include "datastructures/llist.h"
 #include "core_debug.h"
-#include "core_exception.h"
 #include "core_console.h"
 #include "textwriter.h"
 

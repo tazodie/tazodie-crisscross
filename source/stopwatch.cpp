@@ -41,11 +41,11 @@ namespace CrissCross
     {
         Stopwatch::Stopwatch()
         {
-        #ifdef TARGET_OS_WINDOWS
+        #if defined ( TARGET_OS_WINDOWS )
             LARGE_INTEGER freq;
             QueryPerformanceFrequency ( &freq );
             m_tickInterval = 1.0 / (double)freq.QuadPart;
-        #elif TARGET_OS_MACOSX
+        #elif defined ( TARGET_OS_MACOSX )
 	        mach_timebase_info ( &m_timebase );
         #endif
         }
