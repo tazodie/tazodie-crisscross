@@ -37,7 +37,11 @@
 #include "core_system.h"
 #include "core_console.h"
 
-#define CPUID_PROGRAM
+#ifdef ENABLE_CPUID
+#	define CPUID_PROGRAM
+#else
+#	define SORT_PROGRAM
+#endif
 
 #ifdef NETWORK_DIAGNOSTIC
 #    include "udpsocket.h"

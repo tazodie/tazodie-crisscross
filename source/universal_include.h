@@ -77,10 +77,11 @@
     defined ( powerpc ) || defined ( __PPC__ ) || \
     defined ( __powerpc64__ ) || defined ( __powerpc64 )
 #            if defined ( __ppc64__ ) || defined ( __powerpc64__ ) || defined ( __powerpc64 )
-#            define TARGET_CPU_PPC 64
+#               define TARGET_CPU_PPC 64
 #            else
-#            define TARGET_CPU_PPC 32
+#               define TARGET_CPU_PPC 32
 #            endif
+#            undef ENABLE_CPUID
 #    endif
     
 #    if defined ( __i386__ ) || defined ( __i386 ) || defined ( i386 ) || defined ( _X86_ )
@@ -133,7 +134,6 @@
 #            define TARGET_OS_MACOSX
 #            undef TARGET_OS_LINUX
 #            undef TARGET_OS_WINDOWS
-#            undef ENABLE_CPUID
 #            undef DETECT_MEMORY_LEAKS
 #    endif
    
@@ -141,6 +141,12 @@
         && !defined ( TARGET_OS_LINUX ) \
         && !defined ( TARGET_OS_MACOSX )
 #       error Compiling on an unsupported target. Cannot continue.
+#    endif
+
+#    if ( defined ( TARGET_OS_WINDOWS ) && defined ( TARGET_OS_MACOSX ) ) || \
+        ( defined ( TARGET_OS_WINDOWS ) && defined ( TARGET_OS_LINUX ) ) || \
+        ( defined ( TARGET_OS_LINUX ) && defined ( TARGET_OS_MACOSX ) )
+#       error Compilation detected multiple targets. Only select one.
 #    endif
     
 #    ifdef TARGET_RELEASE
@@ -184,7 +190,7 @@
 
 #    if defined ( TARGET_OS_LINUX )
 #           include <execinfo.h>
-#endif
+#    endif
 
 #    include <assert.h>
 #    include <math.h>
