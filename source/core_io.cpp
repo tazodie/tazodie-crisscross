@@ -174,16 +174,16 @@ CoreIO::ReadLine ()
 #ifndef __GNUC__
     m_ioMutex->Lock ();
 #endif
-    char c = ( char ) getc ( m_fileBuffer );
+    char c = (char)getc ( m_fileBuffer );
 
-    if ( c == EOF )
+    if ( c == (char)EOF )
         return std::string("");
 
     static std::string buffer;
 
     buffer = "";
 
-    while ( c != EOF && c != '\n' )
+    while ( c != (char)EOF && c != '\n' )
     {
         buffer += c;
         c = ( char ) getc ( m_fileBuffer );
