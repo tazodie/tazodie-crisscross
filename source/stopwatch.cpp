@@ -81,7 +81,7 @@ namespace CrissCross
 #if defined ( TARGET_OS_WINDOWS )
             return ( (double)m_finish.QuadPart - (double)m_start.QuadPart ) * m_tickInterval;
 #elif defined ( TARGET_OS_MACOSX )
-	        uint64_t elapsed = m_finished - m_start;
+	        uint64_t elapsed = m_finish - m_start;
 	        return double(elapsed) * ( m_timebase.numer / m_timebase.denom ) / 1000000000.0;
 #elif defined ( TARGET_OS_LINUX )
 	        return (double)(m_finish.tv_sec - m_start.tv_sec) +
