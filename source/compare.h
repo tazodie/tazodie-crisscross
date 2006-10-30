@@ -38,7 +38,12 @@ namespace CrissCross
         namespace Comparison
         {
             //! Function for byte comparisons.
-            int Compare ( char _first, char _second );
+            int Compare ( CHAR _first, CHAR _second );
+
+#if defined ( ENABLE_UNICODE )
+            //! Function for UTF-8 comparisons.
+            int Compare ( WCHAR _first, WCHAR _second );
+#endif
 
             //! Function for short integer comparisons.
             int Compare ( short _first, short _second );
@@ -50,7 +55,12 @@ namespace CrissCross
             int Compare ( long _first, long _second );
 
             //! Function for C-style string comparisons.
-            int Compare ( char *_first, char *_second );
+            int Compare ( CHAR *_first, CHAR *_second );
+
+#if defined ( ENABLE_UNICODE )
+            //! Function for C-style UTF-8 string comparisons.
+            int Compare ( WCHAR *_first, WCHAR *_second );
+#endif
 
             //! Function for std::string comparisons.
             int Compare ( std::string _first, std::string _second );

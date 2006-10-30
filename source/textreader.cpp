@@ -48,7 +48,7 @@ TextReader::~TextReader ()
     Close ();
 }
 
-CrissCross::Errors TextReader::Open ( const char *_file )
+CrissCross::Errors TextReader::Open ( CONST CHAR *_file )
 {
 
 	Close ();
@@ -61,8 +61,8 @@ CrissCross::Errors TextReader::Open ( const char *_file )
 	if ( ( _filePathLength = strlen ( _file ) ) < 1 )
 		return CC_ERR_BADPARAMETER;
 
-    m_filePath = new char[_filePathLength + 1];
-    strcpy ( ( char * ) m_filePath, _file );
+    m_filePath = new CHAR[_filePathLength + 1];
+    strcpy ( (CHAR *) m_filePath, _file );
 
     m_fileBuffer = fopen ( m_filePath, "rt" );
 

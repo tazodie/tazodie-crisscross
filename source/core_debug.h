@@ -49,7 +49,7 @@
     \param _line The line in _file that _testcase is in.
     \sa CoreAssert()
 */
-void Assert ( bool _condition, const char *_testcase, const char *_file,
+void Assert ( bool _condition, CONST CHAR *_testcase, CONST CHAR *_file,
               int _line );
 
 //! Prints a stack trace to _outputBuffer.

@@ -65,16 +65,16 @@ _CrtMemState s1, s2, s3;
 #    endif
 
 void
-ParseMemoryLeakFile ( const char *_inputFilename,
-                      const char *_outputFilename )
+ParseMemoryLeakFile ( CONST CHAR *_inputFilename,
+                      CONST CHAR *_outputFilename )
 {
 
     //
     // Start up
     //
 
-    RedBlackTree < int, char *>combined;
-    RedBlackTree < int, char *>frequency;
+    RedBlackTree < int, CHAR *>combined;
+    RedBlackTree < int, CHAR *>frequency;
     int unrecognised = 0;
 
     //
@@ -85,7 +85,7 @@ ParseMemoryLeakFile ( const char *_inputFilename,
 
     while ( !memoryfile.eof () )
     {
-        char thisline[256];
+        CHAR thisline[256];
 
         memoryfile.getline ( thisline, 256 );
 
@@ -95,30 +95,30 @@ ParseMemoryLeakFile ( const char *_inputFilename,
 
             // Get the size
 
-            char *lastcomma = strrchr ( thisline, ',' );
-            char *ssize = lastcomma + 2;
+            CHAR *lastcomma = strrchr ( thisline, ',' );
+            CHAR *ssize = lastcomma + 2;
             int size;
-            char unused[32];
+            CHAR unused[32];
 
             sscanf ( ssize, "%d %s", &size, unused );
 
             // Get the source file name
 
-            char *sourcelocation = thisline;
-            char *colon = strrchr ( thisline, ':' );
+            CHAR *sourcelocation = thisline;
+            CHAR *colon = strrchr ( thisline, ':' );
 
             *( colon - 1 ) = '\x0';
 
             // Put the result into our BTree
 
-            RedBlackTree < int, char *>::nodeType * btree =
+            RedBlackTree < int, CHAR *>::nodeType * btree =
                 combined.findNode ( sourcelocation );
             if ( btree )
                 ( ( int ) btree->data ) += size;
             else
                 combined.insert ( sourcelocation, size );
 
-            RedBlackTree < int, char *>::nodeType * freq =
+            RedBlackTree < int, CHAR *>::nodeType * freq =
                 frequency.findNode ( sourcelocation );
             if ( freq )
                 ( ( int ) freq->data )++;
@@ -128,14 +128,14 @@ ParseMemoryLeakFile ( const char *_inputFilename,
         }
         else
         {
-            char *lastcomma = strrchr ( thisline, ',' );
+            CHAR *lastcomma = strrchr ( thisline, ',' );
 
             if ( lastcomma )
             {
 
-                char *ssize = lastcomma + 2;
+                CHAR *ssize = lastcomma + 2;
                 int size;
-                char unused[32];
+                CHAR unused[32];
 
                 sscanf ( ssize, "%d %s", &size, unused );
 
@@ -152,13 +152,13 @@ ParseMemoryLeakFile ( const char *_inputFilename,
     //
 
     DArray < int >*sizes = combined.ConvertToDArray ();
-    DArray < char *>*sources = combined.ConvertIndexToDArray ();
-    LList < char *>sorted;
+    DArray < CHAR *>*sources = combined.ConvertIndexToDArray ();
+    LList < CHAR *>sorted;
     int totalsize = 0;
 
     for ( int i = 0; i < sources->Size (); ++i )
     {
-        char *newsource = sources->GetData ( i );
+        CHAR *newsource = sources->GetData ( i );
         int newsize = sizes->GetData ( i );
 
         totalsize += newsize;
@@ -167,7 +167,7 @@ ParseMemoryLeakFile ( const char *_inputFilename,
         for ( int j = 0; j < sorted.Size (); ++j )
         {
 
-            char *existingsource = sorted.GetData ( j );
+            CHAR *existingsource = sorted.GetData ( j );
             int existingsize = combined.find ( existingsource );
 
             if ( newsize <= existingsize )
@@ -214,7 +214,7 @@ ParseMemoryLeakFile ( const char *_inputFilename,
         for ( int k = sorted.Size () - 1; k >= 0; --k )
         {
 
-            char *source = sorted.GetData ( k );
+            CHAR *source = sorted.GetData ( k );
             int size = combined.find ( source );
             int freq = frequency.find ( source );
 
@@ -243,7 +243,7 @@ ParseMemoryLeakFile ( const char *_inputFilename,
 
 
 void
-AppPrintMemoryLeaks ( char *_filename )
+AppPrintMemoryLeaks ( CHAR *_filename )
 {
     //
     // Print all raw memory leak data to a temporary file
@@ -252,7 +252,7 @@ AppPrintMemoryLeaks ( char *_filename )
     _CrtMemCheckpoint ( &s2 );
 #    endif
 
-    char tmpFilename[512];
+    CHAR tmpFilename[512];
 
     sprintf ( tmpFilename, "%s.tmp", _filename );
 
@@ -284,7 +284,7 @@ AppPrintMemoryLeaks ( char *_filename )
     // Delete the temporary file
 
 #    ifdef TARGET_OS_WINDOWS
-    DeleteFile ( tmpFilename );
+    DeleteFileA ( tmpFilename );
 #    else
     unlink ( tmpFilename );
 #    endif
@@ -336,7 +336,7 @@ main ( int argc, char **argv )
 		cout << e.what() << endl;
 		return -3;
 	}
-	catch ( const char *_exception )
+	catch ( const CHAR *_exception )
 	{
 		g_stderr->
 			WriteLine

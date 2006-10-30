@@ -61,17 +61,17 @@ class Feature
 class Processor
 {
   public:
-    const char *Manufacturer;
-    const char *ProcessorName;
-    char LogicalCount;
-	char CoreCount;
-    char Family;
-    char Model;
-    char Stepping;
-    char BrandID;
-    char APICID;
-      RedBlackTree < Feature *, char *> features;
-      DArray <char *> caches;
+    CONST CHAR *Manufacturer;
+    CONST CHAR *ProcessorName;
+    CHAR LogicalCount;
+	CHAR CoreCount;
+    CHAR Family;
+    CHAR Model;
+    CHAR Stepping;
+    CHAR BrandID;
+    CHAR APICID;
+      RedBlackTree < Feature *, CHAR *> features;
+      DArray <CHAR *> caches;
   public:
       Processor ()
     {
@@ -107,7 +107,7 @@ class CoreCPUID
     long int GoThread ( int processor );
 #        endif
 
-    void AddCacheDescription ( int processor, const char *description );
+    void AddCacheDescription ( int processor, CONST CHAR *description );
     void AddCacheData ( int processor, int x );
     void DetectManufacturer ( int processor );
     void DetectProcessorName ( int processor );
@@ -118,7 +118,7 @@ class CoreCPUID
     void DetectAPIC ( int processor );
     void DetectFeatures ( int processor );
     void DetectFeature ( unsigned const int *_register, int _flag,
-                         int _processor, const char *_name );
+                         int _processor, CONST CHAR *_name );
 
   public:
       CoreCPUID ();

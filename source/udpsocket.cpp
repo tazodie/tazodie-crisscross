@@ -64,7 +64,7 @@ UDPSocket::~UDPSocket ()
 {
 }
 
-CrissCross::Errors UDPSocket::Bind ( const char *_address, unsigned short _port )
+CrissCross::Errors UDPSocket::Bind ( CONST CHAR *_address, unsigned short _port )
 {
     struct sockaddr_in sin;
     struct hostent *host;

@@ -51,7 +51,7 @@ namespace CrissCross
 
         protected:
             //! The path to the file being read.
-            const char *m_filePath;
+            CONST CHAR *m_filePath;
 
         public:
             //! The constructor.
@@ -68,7 +68,7 @@ namespace CrissCross
 				\param _file The path of the file to be read.
 				\return Standard CrissCross::Errors values.
              */ 
-			CrissCross::Errors Open ( const char *_file );
+			CrissCross::Errors Open ( CONST CHAR *_file );
 
             //! Closes the file.
             /*!
@@ -79,11 +79,11 @@ namespace CrissCross
 
         private:
 			// TextReader shouldn't make any write calls whatsoever.
-            CrissCross::Errors Write ( const char *_format, ... )
+            CrissCross::Errors Write ( CONST CHAR *_format, ... )
                 { return CC_ERR_INVALID_CALL; };
             CrissCross::Errors WriteLine ()
                 { return CC_ERR_INVALID_CALL; };
-            CrissCross::Errors WriteLine ( const char *_format, ... )
+            CrissCross::Errors WriteLine ( CONST CHAR *_format, ... )
                 { return CC_ERR_INVALID_CALL; };
 
         };

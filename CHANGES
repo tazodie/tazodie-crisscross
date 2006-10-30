@@ -1,0 +1,22 @@
+VERSION 0.5.0 ( MILESTONE 2, Codename "Loki" )
+    * Cleanup
+		Much of the existing code was disorganized, and was re-categorized into other namespaces.
+    * Documentation
+          o All namespaces
+          o Stopwatch class
+          o LList class
+          o RedBlackTree class
+		Some classes that showed up in documentation are now hidden.
+          o CrissCross::System::param
+          o CrissCross::Data::LListItem< T >
+          o CrissCross::Data::RedBlackTree< dataType, keyType >::nodeType
+    * Conventionalization
+		Existing code is now consistent in it's conventions.
+    * Bugfixes
+		Bugs discovered during the v0.4.x testing cycle have been corrected (details unnecessary for pre-release code).
+    * Examples
+		v0.5.0 is the first public release. Examples are now provided for reference.
+    * Cross-Platform Fixes
+		Functions in CoreConsole that previously did nothing on non-Windows platforms now do what they should.
+    * UTF-8 Support ( partially implemented and is untested)
+		WCHAR and so on need to be supported. We're working on this right now, so please don't #define ENABLE_UNICODE unless you're brave.
