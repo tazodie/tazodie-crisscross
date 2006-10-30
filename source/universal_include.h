@@ -213,6 +213,19 @@
 #    include <iostream>
 #    include <fstream>
 #    include <sstream>
+
+#ifndef CONST
+#define CONST const
+#endif
+
+#ifndef CHAR
+typedef char CHAR;
+#endif
+
+#ifndef WCHAR
+typedef wchar_t WCHAR;
+#endif
+
     
 #    if defined ( TARGET_OS_WINDOWS )
 #            if defined ( DETECT_MEMORY_LEAKS )
