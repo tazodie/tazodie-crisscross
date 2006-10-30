@@ -40,10 +40,10 @@
 using namespace CrissCross::IO;
 using namespace CrissCross::Debug;
 
-CoreDebugLogData::CoreDebugLogData ( tm *_bug_time, int _priority, char *_description)
+CoreDebugLogData::CoreDebugLogData ( tm *_bug_time, int _priority, CHAR *_description)
     : m_bug_time ( _bug_time ),
       m_priority ( _priority ),
-      m_description ( new char[strlen(_description) + 1] )
+      m_description ( new CHAR[strlen(_description) + 1] )
 {
     strcpy ( m_description, _description );
 }
@@ -75,13 +75,13 @@ CoreDebugLog::~CoreDebugLog ( )
 }
 
 void
-CoreDebugLog::Write ( CoreDebugLog::LogEntryPriority _priority, const char *_format, ... )
+CoreDebugLog::Write ( CoreDebugLog::LogEntryPriority _priority, CONST CHAR *_format, ... )
 {
     CoreAssert ( this != NULL );
 
     if ( _format == NULL )
         return;
-    char buffer[10240];
+    CHAR buffer[10240];
     va_list args;
     va_start ( args , _format );
     vsprintf ( buffer, _format, args );
@@ -94,14 +94,14 @@ CoreDebugLog::Write ( CoreDebugLog::LogEntryPriority _priority, const char *_for
 }
 
 void
-CoreDebugLog::WriteLine ( CoreDebugLog::LogEntryPriority _priority, const char *_format, ... )
+CoreDebugLog::WriteLine ( CoreDebugLog::LogEntryPriority _priority, CONST CHAR *_format, ... )
 {
     /* TODO: Write a way to make this non-redundant with Write(). */
     CoreAssert ( this != NULL );
 
     if ( _format == NULL )
         return;
-    char buffer[10240];
+    CHAR buffer[10240];
     va_list args;
     va_start ( args , _format );
     vsprintf ( buffer, _format, args );
@@ -118,7 +118,7 @@ CoreDebugLog::Put ( CoreIO *_stream, CoreDebugLog::LogEntryPriority _lowest_prio
 {
     CoreAssert ( this != NULL );
     CoreDebugLogData *current;
-    char buffer[50];
+    CHAR buffer[50];
     _stream->Write ( "%s %s - Website at <%s>\nEmail <%s> with any bug reports\n",
     m_app_name.c_str ( ), m_app_version.c_str ( ),
     m_app_website.c_str ( ), m_email.c_str ( ) );
@@ -170,7 +170,7 @@ CoreDebugLog::Save ( )
 {
     CoreAssert ( this != NULL );
     string filename;
-    char buffer[50];
+    CHAR buffer[50];
 
     time_t temp;
     time ( &temp );

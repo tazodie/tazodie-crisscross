@@ -83,7 +83,7 @@ namespace CrissCross
             /*!
                Stores the line ending selected by CoreIO::SetLineEndings.
              */
-            char *m_lineEnding;
+            CHAR *m_lineEnding;
 
             //! Input/output buffer.
             FILE *m_fileBuffer;
@@ -131,7 +131,7 @@ namespace CrissCross
             /*!
                \return A char containing the next byte from the buffer.
              */
-            virtual char Read ();
+            virtual CHAR Read ();
 
             //! Reads a block of data from the file buffer.
             /*!
@@ -141,7 +141,7 @@ namespace CrissCross
                \param _count The number of bytes to read.
                \return The actual number of bytes read.
              */
-            virtual size_t Read ( char *_buffer, int _bufferLength, int _bufferIndex, int _count );
+            virtual size_t Read ( CHAR *_buffer, int _bufferLength, int _bufferIndex, int _count );
 
             //! Reads a line of data.
             /*!
@@ -163,7 +163,7 @@ namespace CrissCross
             /*!
                \param _format The format of the string to be written.
              */
-            virtual CrissCross::Errors Write ( const char *_format, ... );
+            virtual CrissCross::Errors Write ( CONST CHAR *_format, ... );
 
             //! Writes a string to the buffer.
             /*!
@@ -182,7 +182,7 @@ namespace CrissCross
                Prints the string to the buffer, and then prints the line terminator as specified in CoreIO::m_lineEnding.
                \param _format The format of the string to be written.
              */
-            virtual CrissCross::Errors WriteLine ( const char *_format, ... );
+            virtual CrissCross::Errors WriteLine ( CONST CHAR *_format, ... );
 
             //! Writes a string to the buffer with a newline appended.
             /*

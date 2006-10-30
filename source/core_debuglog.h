@@ -56,9 +56,9 @@ namespace CrissCross
         public:
             tm *m_bug_time;
             int m_priority;
-            char *m_description;
+            CHAR *m_description;
         public:
-            CoreDebugLogData ( tm *_bug_time, int _priority, char *_description);
+            CoreDebugLogData ( tm *_bug_time, int _priority, CHAR *_description);
             ~CoreDebugLogData ();
         };
 
@@ -103,14 +103,14 @@ namespace CrissCross
                 \param _priority Log line priority.
                 \param _format The format of the string to be written.
             */
-            void WriteLine ( CoreDebugLog::LogEntryPriority _priority, const char *_format, ... );
+            void WriteLine ( CoreDebugLog::LogEntryPriority _priority, CONST CHAR *_format, ... );
 
             //! Adds a line of debug log information.
             /*!
                 \param _priority Log line priority.
                 \param _format The format of the string to be written.
             */
-            void Write ( CoreDebugLog::LogEntryPriority _priority, const char *_format, ... );
+            void Write ( CoreDebugLog::LogEntryPriority _priority, CONST CHAR *_format, ... );
 
             //! Print the debug log to a buffer.
             /*!

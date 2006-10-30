@@ -42,7 +42,7 @@ namespace CrissCross
     namespace IO
     {
         //! The core console input/output class.
-        class CoreConsole:public CoreIO
+        class CoreConsole : public CoreIO
         {
           public:
 
@@ -122,7 +122,7 @@ namespace CrissCross
             /*!
                To get input from the console, use std::cin.
              */
-            char Read ();
+            CHAR Read ();
 
             //! Does nothing.
             /*!
@@ -135,7 +135,7 @@ namespace CrissCross
             int Forward ( int _position );
             int Seek ( int _position );
             size_t Length ();
-            size_t Read ( char *_buffer, int _bufferLength, int _bufferIndex,
+            size_t Read ( CHAR *_buffer, int _bufferLength, int _bufferIndex,
                           int _count );
         };
     }

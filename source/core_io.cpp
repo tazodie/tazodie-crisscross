@@ -127,17 +127,17 @@ CoreIO::Length ()
 #endif
 }
 
-char
+CHAR
 CoreIO::Read ()
 {
     CoreAssert ( this != NULL );
 
-    char retval;
+    CHAR retval;
 
 #ifndef __GNUC__
     m_ioMutex->Lock ();
 #endif
-    retval = ( char ) fgetc ( m_fileBuffer );
+    retval = (CHAR)fgetc ( m_fileBuffer );
 #ifndef __GNUC__
     m_ioMutex->Unlock ();
 #endif
@@ -145,7 +145,7 @@ CoreIO::Read ()
 }
 
 size_t
-CoreIO::Read ( char *_buffer, int _bufferLength, int _bufferIndex,
+CoreIO::Read ( CHAR *_buffer, int _bufferLength, int _bufferIndex,
                int _count )
 {
     CoreAssert ( this != NULL );
@@ -174,19 +174,19 @@ CoreIO::ReadLine ()
 #ifndef __GNUC__
     m_ioMutex->Lock ();
 #endif
-    char c = (char)getc ( m_fileBuffer );
+    CHAR c = (CHAR)getc ( m_fileBuffer );
 
-    if ( c == (char)EOF )
+    if ( c == (CHAR)EOF )
         return std::string("");
 
     static std::string buffer;
 
     buffer = "";
 
-    while ( c != (char)EOF && c != '\n' )
+    while ( c != (CHAR)EOF && c != '\n' )
     {
         buffer += c;
-        c = ( char ) getc ( m_fileBuffer );
+        c = (CHAR)getc ( m_fileBuffer );
     }
 
     size_t len = buffer.length ();
@@ -246,15 +246,15 @@ CoreIO::SetLineEndings ( LineEndingType _ending )
     switch ( _ending )
     {
     case LN_CR:
-        m_lineEnding = new char[2];
+        m_lineEnding = new CHAR[2];
         sprintf ( m_lineEnding, "\r" );
         break;
     case LN_LF:
-        m_lineEnding = new char[2];
+        m_lineEnding = new CHAR[2];
         sprintf ( m_lineEnding, "\n" );
         break;
     case LN_CRLF:
-        m_lineEnding = new char[3];
+        m_lineEnding = new CHAR[3];
         sprintf ( m_lineEnding, "\r\n" );
         break;
     default:
@@ -264,7 +264,7 @@ CoreIO::SetLineEndings ( LineEndingType _ending )
 }
 
 CrissCross::Errors
-CoreIO::WriteLine ( const char *_format, ... )
+CoreIO::WriteLine ( CONST CHAR *_format, ... )
 {
     CoreAssert ( this != NULL );
 
@@ -355,7 +355,7 @@ CoreIO::WriteLine ()
 }
 
 CrissCross::Errors
-CoreIO::Write ( const char *_format, ... )
+CoreIO::Write ( CONST CHAR *_format, ... )
 {
     CoreAssert ( this != NULL );
 

@@ -48,7 +48,7 @@
 //#  define APP_CODENAME            "Thor"          // v0.9.0 codename ( Milestone 4 )
 //#  define APP_CODENAME            "Valhalla"      // v1.0.0 codename ( Milestone 5 )
 
-#    define APP_VERSION             "0.4.8"
+#    define APP_VERSION             "0.5.0-RC1"
 #    define APP_BRANCH_AT_VERSION   "0.5.0"
 #    define APP_URL                 "http://www.uplinklabs.net/crisscross/"
 #    define APP_COPYRIGHT           "(c) 2006 by Steven Noonan <steven@uplinklabs.net>, Rudolf Olah <omouse@gmail.com>, Miah Clayton <miah@io-in.com"
@@ -58,6 +58,9 @@
 // Disabling these two will save space.
 #    define ENABLE_CPUID
 //#    define ENABLE_DEBUGLOG
+
+// WARNING: Highly experimental.
+//#    define ENABLE_UNICODE
 
 //NOTE: By disabling this line, you will not be in compliance with article 2
 //      of the New BSD License. If you disable this line, you must display the
@@ -192,6 +195,9 @@
 #           include <execinfo.h>
 #    endif
 
+#    if defined ( ENABLE_UNICODE )
+#       include <wchar.h>
+#    endif
 #    include <assert.h>
 #    include <math.h>
 #    include <memory.h>

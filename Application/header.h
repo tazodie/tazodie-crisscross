@@ -38,12 +38,7 @@
 #define _CRT_SECURE_NO_DEPRECATE
 #define _CRT_NONSTDC_NO_DEPRECATE
 
-//#define NETWORK_DIAGNOSTIC
-//#define CPUID_PROGRAM
-#define SORT_PROGRAM
-//#define DARRAY_TEST_PROGRAM
-
+#include <math.h>
 #include <time.h>
-
 
 #endif

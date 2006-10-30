@@ -62,24 +62,47 @@ template < class dataType, class keyType >
 
 template < class dataType,
     class keyType > inline bool RedBlackTree < dataType,
-    keyType >::compLT ( const char *a, const char *b ) const
+    keyType >::compLT ( CONST CHAR *a, CONST CHAR *b ) const
 {
     return ( stricmp ( a, b ) < 0 );
 }
 
 template < class dataType,
     class keyType > inline bool RedBlackTree < dataType,
-    keyType >::compLTEQU ( const char *a, const char *b ) const
+    keyType >::compLTEQU ( CONST CHAR *a, CONST CHAR *b ) const
 {
     return ( stricmp ( a, b ) <= 0 );
 }
 
 template < class dataType,
     class keyType > inline bool RedBlackTree < dataType,
-    keyType >::compEQ ( const char *a, const char *b ) const
+    keyType >::compEQ ( CONST CHAR *a, CONST CHAR *b ) const
 {
     return ( stricmp ( a, b ) == 0 );
 }
+
+#if defined ( ENABLE_UNICODE )
+template < class dataType,
+    class keyType > inline bool RedBlackTree < dataType,
+    keyType >::compLT ( CONST WCHAR *a, CONST WCHAR *b ) const
+{
+    return ( wcsicmp ( a, b ) < 0 );
+}
+
+template < class dataType,
+    class keyType > inline bool RedBlackTree < dataType,
+    keyType >::compLTEQU ( CONST WCHAR *a, CONST WCHAR *b ) const
+{
+    return ( wcsicmp ( a, b ) <= 0 );
+}
+
+template < class dataType,
+    class keyType > inline bool RedBlackTree < dataType,
+    keyType >::compEQ ( CONST WCHAR *a, CONST WCHAR *b ) const
+{
+    return ( wcsicmp ( a, b ) == 0 );
+}
+#endif
 
 template < class dataType,
     class keyType > inline bool RedBlackTree < dataType,
@@ -124,9 +147,9 @@ template < class dataType,
 }
 
 template < class dataType, class keyType >
-    inline char *RedBlackTree < dataType, keyType >::newKey ( char *a )
+    inline CHAR *RedBlackTree < dataType, keyType >::newKey ( CHAR *a )
 {
-    char *b = ( char * ) malloc ( strlen ( a ) + 1 );
+    CHAR *b = ( CHAR * ) malloc ( strlen ( a ) + 1 );
 
     if ( !b )
         return 0;
@@ -134,6 +157,20 @@ template < class dataType, class keyType >
     strcpy ( b, a );
     return b;
 }
+
+#if defined ( ENABLE_UNICODE )
+template < class dataType, class keyType >
+    inline WCHAR *RedBlackTree < dataType, keyType >::newKey ( WCHAR *a )
+{
+    WCHAR *b = ( WCHAR * ) malloc ( ( wcslen ( a ) * 2 ) + 1 );
+
+    if ( !b )
+        return 0;
+    memset ( b, 0, ( wcslen ( a ) * 2 ) + 1 );
+    wcscpy ( b, a );
+    return b;
+}
+#endif
 
 template < class dataType, class keyType >
     inline int *RedBlackTree < dataType, keyType >::newKey ( int *a )
@@ -160,18 +197,32 @@ template < class dataType, class keyType >
 }
 
 template < class dataType, class keyType >
-    inline char *RedBlackTree < dataType,
-    keyType >::reallocKey ( char *pointer, char *a )
+    inline CHAR *RedBlackTree < dataType, keyType >::reallocKey ( CHAR *pointer, CHAR *a )
 {
-    char *tmp = NULL;
+    CHAR *tmp = NULL;
 
-    tmp = ( char * ) realloc ( pointer, strlen ( a ) + 1 );
+    tmp = ( CHAR * ) realloc ( pointer, strlen ( a ) + 1 );
     if ( !tmp )
         return 0;
     memset ( tmp, 0, strlen ( a ) + 1 );
     strcpy ( tmp, a );
     return tmp;
 }
+
+#if defined ( ENABLE_UNICODE )
+template < class dataType, class keyType >
+    inline WCHAR *RedBlackTree < dataType, keyType >::reallocKey ( WCHAR *pointer, WCHAR *a )
+{
+    WCHAR *tmp = NULL;
+
+    tmp = ( WCHAR * ) realloc ( pointer, ( wcslen ( a ) * 2 ) + 1 );
+    if ( !tmp )
+        return 0;
+    memset ( tmp, 0, ( wcslen ( a ) * 2 ) + 1 );
+    strcpy ( tmp, a );
+    return tmp;
+}
+#endif
 
 template < class dataType, class keyType >
     inline int *RedBlackTree < dataType, keyType >::reallocKey ( int *pointer,

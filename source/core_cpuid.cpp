@@ -226,11 +226,10 @@ CoreCPUID::~CoreCPUID ()
             j++;
         }
         j = 0;
-        RedBlackTree < Feature *, char *>::nodeType * node;
+        RedBlackTree < Feature *, CHAR *>::nodeType * node;
 
         node = proc[i]->features.rootNode;
-        node->beenThere =
-            RedBlackTree < Feature *, char *>::NODE_ITSELF_VISITED;
+        node->beenThere = RedBlackTree < Feature *, CHAR *>::NODE_ITSELF_VISITED;
         while ( proc[i]->features.ValidNode ( node ) )
         {
             delete ( Feature * ) node->data;
@@ -336,8 +335,8 @@ CoreCPUID::Go ()
 void
 CoreCPUID::DetectManufacturer ( int processor )
 {
-    char *manufacturer = new char[( 4 * 3 ) + 1];
-    char *_man = &manufacturer[0];
+    CHAR *manufacturer = new CHAR[( 4 * 3 ) + 1];
+    CHAR *_man = &manufacturer[0];
 
     memcpy ( _man, &Std[0].ebx, 4 );
     _man += 4;
@@ -352,8 +351,8 @@ CoreCPUID::DetectManufacturer ( int processor )
 void
 CoreCPUID::DetectProcessorName ( int processor )
 {
-    char *processorname = new char[( 4 * 12 ) + 1];
-    char *_proc = &processorname[0];
+    CHAR *processorname = new CHAR[( 4 * 12 ) + 1];
+    CHAR *_proc = &processorname[0];
 
     memcpy ( _proc, &Ext[2].eax, 4 );
     _proc += 4;
@@ -434,9 +433,9 @@ CoreCPUID::DetectCacheInfo ( int processor )
 }
 
 void
-CoreCPUID::AddCacheDescription ( int processor, const char *description )
+CoreCPUID::AddCacheDescription ( int processor, CONST CHAR *description )
 {
-    char *temp = new char[strlen ( description ) + 1];
+    CHAR *temp = new CHAR[strlen ( description ) + 1];
 
     CoreAssert ( temp != NULL );
     strcpy ( temp, description );
@@ -732,7 +731,7 @@ CoreCPUID::DetectCount ( int processor )
     // AMD and Intel documentations state that if HTT is supported
     // then this the EBX:16 will reflect the logical processor count
     // otherwise the flag is reserved.
-    RedBlackTree < Feature *, char *>::nodeType * HTT_node = proc[processor]->features.findNode ( "HTT" );
+    RedBlackTree < Feature *, CHAR *>::nodeType * HTT_node = proc[processor]->features.findNode ( "HTT" );
 	proc[processor]->CoreCount = ( ( ( Std[4].eax >> 26 ) & 0x03f ) + 1 );
     if ( HTT_node->data->Enabled )
         proc[processor]->LogicalCount = ( (Std[1].ebx >> 16) & 0xff );
@@ -749,12 +748,12 @@ CoreCPUID::DetectAPIC ( int processor )
 
 void
 CoreCPUID::DetectFeature ( unsigned const int *_register, int _flag,
-                           int _processor, const char *_name )
+                           int _processor, CONST CHAR *_name )
 {
     Feature *feature = new Feature ();
 
     feature->Enabled = ( *_register & _flag ) > 0;
-    proc[_processor]->features.insert ( ( char * ) _name, feature );
+    proc[_processor]->features.insert ( ( CHAR * ) _name, feature );
     feature = NULL;
 }
 
