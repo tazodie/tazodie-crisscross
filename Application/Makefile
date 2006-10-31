@@ -1,5 +1,7 @@
 VERSION = 0.5.0
 VERSION_MAJOR = 0
+LIBNAME = libcrisscross.so.$(VERSION)
+MAJORLIB = libcrisscross.so.$(VERSION_MAJOR)
 
 OBJDIR = obj/linux
 OUTDIR = .
@@ -35,10 +37,11 @@ clean:
 	
 $(OUTDIR)/$(OUTBIN): $(OBJECTS)
 	@echo -n "Linking... "
-	@$(LINK) $+ -lpthread -lstdc++ -L../source -lcrisscross -o $(OUTDIR)/$(OUTBIN)
-#	@$(CXX) -shared -Wl,-soname,libcrisscross.so.$(VERSION_MAJOR) -o libcrisscross.so.$(VERSION) $+
+	@$(LINK) $+ -lpthread -lstdc++ ../source/$(LIBNAME) -o $(OUTDIR)/$(OUTBIN)
 	@$(NM) $(OUTDIR)/$(OUTBIN) > $(OUTDIR)/$(OUTBIN).map
 	@$(STRIP) $(OUTDIR)/$(OUTBIN)
+	@ln -sf ../source/$(LIBNAME)
+	@ln -sf ../source/$(LIBNAME) $(MAJORLIB)
 	@echo done.
 
 $(PCH): header.h
