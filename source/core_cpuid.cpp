@@ -106,11 +106,72 @@ unsigned int StdMax;
 struct Registers *Ext;
 unsigned int ExtMax;
 
+#if !defined ( TARGET_OS_WINDOWS )
+/* If the current processor supports the CPUID instruction, execute
+   one, with REQUEST in %eax, and set *EAX, *EBX, *ECX, and *EDX to
+   the values the 'cpuid' stored in those registers.  Return true if
+   the current processor supports CPUID, false otherwise.  */
+static bool
+call_cpuid (uint32_t request,
+       uint32_t *eax, uint32_t *ebx, uint32_t *ecx, uint32_t *edx)
+{
+  uint32_t pre_change, post_change;
+  const uint32_t id_flag = 0x200000;
+
+  /* This is pretty much the standard way to detect whether the CPUID
+     instruction is supported: try to change the ID bit in the EFLAGS
+     register.  If we can change it, then the CPUID instruction is
+     implemented.  */
+  asm ("pushfl\n\t"		/* Save %eflags to restore later.  */
+       "pushfl\n\t"		/* Push second copy, for manipulation.  */
+       "popl %1\n\t"		/* Pop it into post_change.  */
+       "movl %1,%0\n\t"		/* Save copy in pre_change.   */
+       "xorl %2,%1\n\t"		/* Tweak bit in post_change.  */
+       "pushl %1\n\t"		/* Push tweaked copy... */
+       "popfl\n\t"		/* ... and pop it into %eflags.  */
+       "pushfl\n\t"		/* Did it change?  Push new %eflags... */
+       "popl %1\n\t"		/* ... and pop it into post_change.  */
+       "popfl"			/* Restore original value.  */
+       : "=&r" (pre_change), "=&r" (post_change)
+       : "ir" (id_flag));
+
+  /* If the bit changed, then we support the CPUID instruction.  */
+  if ((pre_change ^ post_change) & id_flag)
+    {
+      /* The IA-32 ABI specifies that %ebx holds the address of the
+	 global offset table.  In PIC code, GCC seems to be unable to
+	 handle asms with result operands that live in %ebx; I get the
+	 message:
+
+	 error: can't find a register in class `BREG' while reloading
+	 `asm'
+	 
+	 So, to work around this, we save %ebx in %esi, restore %ebx
+	 after we've done the 'cpuid', and return %ebx's value in
+	 %esi.
+
+	 We include "memory" in the clobber list, because this is a
+	 synchronizing instruction; other processor's writes may
+	 become visible here.  */
+      asm volatile ("mov %%ebx, %%esi\n\t" /* Save %ebx.  */
+		    "cpuid\n\t"
+		    "xchgl %%ebx, %%esi" /* Restore %ebx.  */
+		    : "=a" (*eax), "=S" (*ebx), "=c" (*ecx), "=d" (*edx)
+		    : "0" (request)
+		    : "memory");
+
+      return true;
+    }
+  else
+    return false;
+}
+
+#else
+
 static void
 call_cpuid ( unsigned int op, unsigned int *_eax, unsigned int *_ebx,
              unsigned int *_ecx, unsigned int *_edx )
 {
-#    ifdef TARGET_OS_WINDOWS
     __asm
     {
 		xor ecx, ecx;
@@ -125,15 +186,8 @@ call_cpuid ( unsigned int op, unsigned int *_eax, unsigned int *_ebx,
         mov[edi], ecx;
         mov[esi], edx;
     }
-#    else
-  __asm__ ( "cpuid"
-            : "=a" ( *_eax ),
-              "=b" ( *_ebx ),
-              "=c" ( *_ecx ),
-              "=d" ( *_edx )
-            : "0" ( op ) );
-#    endif
 }
+#endif
 
 CoreCPUID::CoreCPUID ()
 {
