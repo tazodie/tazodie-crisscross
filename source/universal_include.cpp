@@ -319,7 +319,7 @@ main ( int argc, char **argv )
     g_stdout->SetColour ( g_stdout->FG_GREEN | g_stdout->FG_INTENSITY );
     g_stdout->WriteLine ( "Powered by " APP_NAME " " APP_VERSION " (Codename " APP_CODENAME ")\n    " APP_URL );
     g_stdout->SetColour ( 0 );
-    g_stdout->WriteLine ( APP_COPYRIGHT_CONSOLE );
+    g_stdout->WriteLine ( APP_COPYRIGHT );
     g_stdout->WriteLine ();
 #endif
     try
@@ -348,7 +348,7 @@ main ( int argc, char **argv )
 
     g_debuglog->Write ( g_debuglog->BUG_LEVEL_INFO, "Exiting", "" );
 	// Below commented only because I hate cleaning out .log files. Uncomment if you wish. -- Steven
-	 g_debuglog->Save();
+	// g_debuglog->Save();
     delete g_debuglog;
 
 #endif

@@ -202,10 +202,10 @@ namespace CrissCross
              */
             virtual int Forward ( int _position );
 
-          protected:
             //! Flushes the output buffer.
             void Flush ();
 
+          protected:
             //! Seeks to a location in the buffer.
             /*!
                \param _position Position to seek to, relative to _origin.

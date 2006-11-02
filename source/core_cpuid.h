@@ -63,7 +63,7 @@ class Processor
     CONST CHAR *Manufacturer;
     CONST CHAR *ProcessorName;
     CHAR LogicalCount;
-	CHAR CoreCount;
+	CHAR PhysicalCount;
     CHAR Family;
     CHAR Model;
     CHAR Stepping;
@@ -123,7 +123,9 @@ class CoreCPUID
       CoreCPUID ();
      ~CoreCPUID ();
     void Go ();
-    int GetCPUCount ();
+    int GetLogicalCPUCount ();
+    int GetPhysicalCPUCount ();
+    int GetVirtualCPUCount ();
 
     Processor *proc[MAX_PROCESSORS];    // Support up to MAX_PROCESSORS
 

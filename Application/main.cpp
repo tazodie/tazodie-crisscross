@@ -59,21 +59,38 @@ RunApplication ( int argc, char **argv )
 
     cpuid->Go ();
     
-    console->WriteLine ( "There are %d processors in the system.",
-                         cpuid->GetCPUCount () );
+    // NOTES
+    // The Virtual count is the number of processors that the operating system sees,
+    // but does not take into account whether any of the processors counted are
+    // hyperthreads, cores, or truly physical CPUs.
+    //
+    // If the Physical and Logical counts are equal, the number of Physical/Logical is the 
+    // core count, because it's a dual core system.
+    console->WriteLine ( "There are %d processors in the system (%d physical, %d logical).",
+                         cpuid->GetVirtualCPUCount (),
+                         cpuid->GetPhysicalCPUCount (),
+                         cpuid->GetLogicalCPUCount () );
 
     for ( int i = 0; i < MAX_PROCESSORS; i++ )
     {
+        // Go through each Virtual processor.
         if ( cpuid->proc[i]->Manufacturer != NULL )
         {
+            // Print out the manufacturer string
             console->WriteLine ( "CPU[%d] Manufacturer: %s", i,
                                  cpuid->proc[i]->Manufacturer );
-            console->WriteLine ( "CPU[%d] Name: %s", i,
-                                 cpuid->proc[i]->ProcessorName );
-            console->
-                WriteLine ( "CPU[%d] Family: %d, Model: %d, Stepping: %d", i,
-                            cpuid->proc[i]->Family, cpuid->proc[i]->Model,
-                            cpuid->proc[i]->Stepping );
+            
+            // Print out the CPU name string, if available.
+            if ( strlen ( cpuid->proc[i]->ProcessorName ) > 0 )
+                console->WriteLine ( "CPU[%d] Name: %s", i,
+                                     cpuid->proc[i]->ProcessorName );
+
+            // Print out Family/Model/Stepping info.
+            console->WriteLine ( "CPU[%d] Family: %d, Model: %d, Stepping: %d", i,
+                                 cpuid->proc[i]->Family, cpuid->proc[i]->Model,
+                                 cpuid->proc[i]->Stepping );
+
+            // Print out the CPU cache info.
             if ( cpuid->proc[i]->caches.Size () > 0 )
             {
                 console->WriteLine ( "CPU[%d] Caches:", i );
@@ -86,11 +103,11 @@ RunApplication ( int argc, char **argv )
                 }
                 console->WriteLine ();
             }
+
+            // Print out CPU features (MMX, SSE, and so on).
             console->Write ( "CPU[%d] Features: ", i );
-            RedBlackTree < Feature *, char *>::nodeType * node =
-                cpuid->proc[i]->features.rootNode;
-            node->beenThere =
-                RedBlackTree < Feature *, char *>::NODE_ITSELF_VISITED;
+            RedBlackTree < Feature *, char *>::nodeType * node = cpuid->proc[i]->features.rootNode;
+            node->beenThere = RedBlackTree < Feature *, char *>::NODE_ITSELF_VISITED;
             while ( cpuid->proc[i]->features.ValidNode ( node ) )
             {
                 if ( node->data->Enabled )
@@ -105,6 +122,7 @@ RunApplication ( int argc, char **argv )
     delete cpuid;
 
     // End your application here.
+    system ( "PAUSE" );
 
     delete console;
     return 0;
