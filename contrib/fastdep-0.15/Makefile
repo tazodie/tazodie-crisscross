@@ -1,6 +1,5 @@
 all: fastdep
 
-include config/config.me
 include build/project.mk
 include build/dependencies.mk
 include build/release.mk
@@ -10,6 +9,7 @@ include Makefile.common
 
 ifneq ($(MAKECMDGOALS),clean)
 ifneq ($(MAKECMDGOALS),distclean)
+-include config/config.me
 -include .depends-all
 endif
 endif

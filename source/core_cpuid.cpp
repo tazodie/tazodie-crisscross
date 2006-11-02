@@ -247,8 +247,6 @@ CoreCPUID::CoreCPUID ()
         ExtMax = Ext[0].eax - 0x80000000;
     }
 
-    printf ( "ExtMax: %u\n", ExtMax );
-
     for ( i = 0; i <= ExtMax; i++ )
     {
         call_cpuid ( 0x80000000 + i, &Ext[i].eax, &Ext[i].ebx, &Ext[i].ecx, &Ext[i].edx );
