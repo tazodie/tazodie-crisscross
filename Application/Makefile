@@ -34,10 +34,12 @@ clean:
 	rm -f $(OUTDIR)/$(OUTBIN)
 	rm -f $(OUTDIR)/$(OUTBIN).map
 	rm -f $(PCH)
+	rm -f $(LIBNAME)
+	rm -f $(MAJORLIB)
 	
 $(OUTDIR)/$(OUTBIN): $(OBJECTS)
 	@echo -n "Linking... "
-	@$(LINK) $+ -lpthread -lstdc++ ../source/$(LIBNAME) -o $(OUTDIR)/$(OUTBIN)
+	@$(LINK) $+ -lpthread -lstdc++ -lcrisscross -o $(OUTDIR)/$(OUTBIN)
 	@$(NM) $(OUTDIR)/$(OUTBIN) > $(OUTDIR)/$(OUTBIN).map
 	@$(STRIP) $(OUTDIR)/$(OUTBIN)
 	@ln -sf ../source/$(LIBNAME)
