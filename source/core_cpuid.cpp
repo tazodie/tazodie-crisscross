@@ -285,7 +285,7 @@ CoreCPUID::~CoreCPUID ()
 }
 
 int
-CoreCPUID::GetCPUCount ()
+CoreCPUID::GetVirtualCPUCount ()
 {
     int count = 0, i;
 
@@ -295,6 +295,18 @@ CoreCPUID::GetCPUCount ()
             count++;
     }
     return count;
+}
+
+int
+CoreCPUID::GetLogicalCPUCount ()
+{
+    return proc[0]->LogicalCount;
+}
+
+int
+CoreCPUID::GetPhysicalCPUCount ()
+{
+    return proc[0]->PhysicalCount;
 }
 
 #    ifdef TARGET_OS_WINDOWS
@@ -327,6 +339,7 @@ CoreCPUID::GoThread ( int processor )
 void
 CoreCPUID::Go ()
 {
+    CoreAssert ( this );
 #    ifdef TARGET_OS_WINDOWS
     // TODO: Implement this WIN32-only part in Linux/MacOS
     DWORD dThread = NULL;
@@ -774,7 +787,7 @@ CoreCPUID::DetectCount ( int processor )
     // then this the EBX:16 will reflect the logical processor count
     // otherwise the flag is reserved.
     RedBlackTree < Feature *, CHAR *>::nodeType * HTT_node = proc[processor]->features.findNode ( "HTT" );
-	proc[processor]->CoreCount = ( ( ( Std[4].eax >> 26 ) & 0x03f ) + 1 );
+	proc[processor]->PhysicalCount = ( ( ( Std[4].eax >> 26 ) & 0x03f ) + 1 );
     if ( HTT_node->data->Enabled )
         proc[processor]->LogicalCount = ( (Std[1].ebx >> 16) & 0xff );
     else

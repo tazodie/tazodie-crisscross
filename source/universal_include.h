@@ -50,7 +50,7 @@
 #    define APP_VERSION             "0.5.0-RC2"
 #    define APP_BRANCH_AT_VERSION   "0.5.0"
 #    define APP_URL                 "http://www.uplinklabs.net/crisscross/"
-#    define APP_COPYRIGHT_CONSOLE   "(c) 2006 by IO.IN Research. Licensed under the New BSD License."
+#    define APP_COPYRIGHT           "(c) 2006 by IO.IN Research. Licensed under the New BSD License."
 
 // Disabling these two will save space.
 #    define ENABLE_CPUID
@@ -59,9 +59,9 @@
 // WARNING: Highly experimental. To be improved upon in 0.6.0 branch.
 //#    define ENABLE_UNICODE
 
-//NOTE: By disabling this line, you will not be in compliance with article 2
-//      of the New BSD License. If you disable this line, you must display the
-//      copyright notice in the program elsewhere.
+//NOTE: By disabling this line, you will not be in compliance with the New BSD License.
+//      If you disable this line, you must display the copyright notice in the program
+//      elsewhere.
 #    define ENABLE_CREDITS
 
 #    define DETECT_MEMORY_LEAKS
@@ -70,7 +70,7 @@
 // Dont edit anything below this line   
 // ============================================================================
 
-#    define MAX_PROCESSORS 4
+#    define MAX_PROCESSORS 8
 
 /*
 
@@ -108,76 +108,132 @@ TARGET_COMPILER_ICC
 
  */
 
+#   undef PROCESSOR_DETECTED
+#   undef COMPILER_DETECTED
+#   undef OS_DETECTED
+
 // -------------------
 // PROCESSOR DETECTION
 // -------------------
 
-#   if defined ( _ARCH_PPC ) || defined ( __ppc__ ) || defined ( __ppc64__ ) || defined ( __PPC ) || defined ( powerpc ) || defined ( __PPC__ ) || defined ( __powerpc64__ ) || defined ( __powerpc64 )
-#       if defined ( __ppc64__ ) || defined ( __powerpc64__ ) || defined ( __powerpc64 )
-#           define TARGET_CPU_PPC 64
-#       else
-#           define TARGET_CPU_PPC 32
+#	if !defined ( PROCESSOR_DETECTED )
+#       if defined ( _ARCH_PPC ) || defined ( __ppc__ ) || defined ( __ppc64__ ) || defined ( __PPC ) || defined ( powerpc ) || defined ( __PPC__ ) || defined ( __powerpc64__ ) || defined ( __powerpc64 )
+#           define PROCESSOR_DETECTED
+#           if defined ( __ppc64__ ) || defined ( __powerpc64__ ) || defined ( __powerpc64 )
+#               define TARGET_CPU_PPC 64
+#           else
+#               define TARGET_CPU_PPC 32
+#           endif
 #       endif
 #   endif
-    
-#   if defined ( __i386__ ) || defined ( __i386 ) || defined ( i386 ) || defined ( _X86_ ) || defined ( _WIN32 )
-#       define TARGET_CPU_X86
+
+#   if !defined ( PROCESSOR_DETECTED )
+#       if defined ( __i386__ ) || defined ( __i386 ) || defined ( i386 ) || defined ( _X86_ ) || defined ( _WIN32 )
+#           define PROCESSOR_DETECTED
+#           define TARGET_CPU_X86
+#       endif
 #   endif
-    
-#   if defined ( __alpha ) || defined ( __alpha__ )
-#       define TARGET_CPU_ALPHA
+
+#	if !defined ( PROCESSOR_DETECTED )
+#       if defined ( __alpha ) || defined ( __alpha__ )
+#           define PROCESSOR_DETECTED
+#           define TARGET_CPU_ALPHA
+#       endif
 #   endif
-    
-#   if defined ( __x86_64__ ) || defined ( __x86_64 ) || defined ( __amd64 ) || defined ( __amd64__ ) || defined ( _IA64_ ) || defined ( _AMD64_ ) || defined ( _WIN64 )
-#       define TARGET_CPU_X64
+
+#	if !defined ( PROCESSOR_DETECTED )    
+#       if defined ( __x86_64__ ) || defined ( __x86_64 ) || defined ( __amd64 ) || defined ( __amd64__ ) || defined ( _IA64_ ) || defined ( _AMD64_ ) || defined ( _WIN64 )
+#           define PROCESSOR_DETECTED
+#           define TARGET_CPU_X64
+#       endif
 #   endif
 
 // -------------------
 // COMPILER DETECTION
 // -------------------
 
-#   if defined ( __GNUC__ ) || defined ( __CYGWIN__ ) || defined ( __CYGWIN32__ )
-#       define TARGET_COMPILER_GCC
+#   if !defined ( COMPILER_DETECTED )
+#       if defined ( __GNUC__ ) || defined ( __CYGWIN__ ) || defined ( __CYGWIN32__ )
+#           define COMPILER_DETECTED
+#           define TARGET_COMPILER_GCC
+#       endif
 #   endif
 
-#   if defined ( _MSC_VER )
-#       define TARGET_COMPILER_VC
+#   if !defined ( COMPILER_DETECTED )
+#       if defined ( _MSC_VER )
+#           define COMPILER_DETECTED
+#           define TARGET_COMPILER_VC
+#       endif
 #   endif
 
-#   if defined ( __INTEL_COMPILER )
-#       define TARGET_COMPILER_ICC
+#   if !defined ( COMPILER_DETECTED )
+#       if defined ( __INTEL_COMPILER )
+#           define COMPILER_DETECTED
+#           define TARGET_COMPILER_ICC
+#       endif
 #   endif
+
 // ------------
 // OS DETECTION
 // ------------
 
-#   if defined ( TARGET_COMPILER_VC ) || defined ( __CYGWIN__ )
-#       define TARGET_OS_WINDOWS
-#   endif
-    
-#   if defined ( __linux__ ) || defined ( linux ) || defined ( __linux ) || defined ( __gnu_linux__ )
-#       define TARGET_OS_LINUX
-#    endif
-    
-#   if defined (__FreeBSD__)
-#       define TARGET_OS_FREEBSD
+#   if !defined ( OS_DETECTED )
+#       if defined ( TARGET_COMPILER_VC ) || defined ( __CYGWIN__ ) || defined ( _WIN32 ) || defined ( _WIN64 )
+#           define OS_DETECTED
+#           define TARGET_OS_WINDOWS
+#       endif
 #   endif
 
-#   if defined (__NetBSD__)
-#       define TARGET_OS_NETBSD
+#   if !defined ( OS_DETECTED )
+#       if defined ( __linux__ ) || defined ( linux ) || defined ( __linux ) || defined ( __gnu_linux__ )
+#           define OS_DETECTED
+#           define TARGET_OS_LINUX
+#       endif
+#   endif
+
+#   if !defined ( OS_DETECTED )
+#       if defined (__FreeBSD__)
+#           define OS_DETECTED
+#           define TARGET_OS_FREEBSD
+#       endif
+#   endif
+
+#   if !defined ( OS_DETECTED )
+#       if defined (__NetBSD__)
+#           define OS_DETECTED
+#           define TARGET_OS_NETBSD
+#       endif
 #   endif
     
-#   if defined (__OpenBSD__)
-#       define TARGET_OS_OPENBSD
+#   if !defined ( OS_DETECTED )
+#       if defined (__OpenBSD__)
+#           define OS_DETECTED
+#           define TARGET_OS_OPENBSD
+#       endif
 #   endif
     
-#   if defined (__APPLE__) || defined (__MACH__)
-#       define TARGET_OS_MACOSX
+#   if !defined ( OS_DETECTED )
+#       if defined (__APPLE__) || defined (__MACH__)
+#           define OS_DETECTED
+#           define TARGET_OS_MACOSX
+#       endif
 #   endif
 
 // -----------------------
 // RESULTANT CONFIGURATION
 // -----------------------
+
+#   if !defined ( PROCESSOR_DETECTED )
+#       error "Could not detect target CPU."
+#   endif
+
+#   if !defined ( COMPILER_DETECTED )
+#       error "Could not detect target compiler."
+#   endif
+
+#   if !defined ( OS_DETECTED )
+#       error "Could not detect target OS."
+#   endif
 
 #   if !defined ( TARGET_COMPILER_VC )
 #       undef DETECT_MEMORY_LEAKS
@@ -186,22 +242,13 @@ TARGET_COMPILER_ICC
 #   if !defined ( TARGET_CPU_X86 )
 #       undef ENABLE_CPUID
 #   endif
-   
-#    if !defined(TARGET_OS_WINDOWS) && !defined ( TARGET_OS_LINUX ) && !defined ( TARGET_OS_MACOSX ) && !defined ( TARGET_OS_NETBSD ) && !defined ( TARGET_OS_FREEBSD ) && !defined ( TARGET_OS_OPENBSD )
-#       error Compiling on an unsupported target. Cannot continue.
-#    endif
-
-#    if ( defined ( TARGET_OS_WINDOWS ) && defined ( TARGET_OS_MACOSX ) ) || \
-        ( defined ( TARGET_OS_WINDOWS ) && defined ( TARGET_OS_LINUX ) ) || \
-        ( defined ( TARGET_OS_LINUX )   && defined ( TARGET_OS_MACOSX ) )
-#       error Compilation detected multiple targets. Only select one.
-#    endif
     
 #    if defined ( TARGET_COMPILER_VC )
 #       define ENABLE_SYMBOL_ENGINE
 #    endif
     
 #   if defined ( TARGET_COMPILER_VC )
+typedef unsigned int uint32_t;
 #       define _CRT_SECURE_NO_DEPRECATE
 #       define _CRT_NONSTDC_NO_DEPRECATE
 #       if _MSC_VER > 1200 && _MSC_VER < 1400
@@ -247,8 +294,7 @@ TARGET_COMPILER_ICC
 #    include <stdarg.h>
 #    include <stdio.h>
 #    include <stdlib.h>
-#    include <string.h>
-    
+#    include <string.h>    
 #    if _MSC_VER < 1300 && defined ( TARGET_COMPILER_VC )
 #       include <xstring>
         typedef long intptr_t;
@@ -269,8 +315,10 @@ TARGET_COMPILER_ICC
     typedef wchar_t WCHAR;
 #endif
 
-#ifndef uint32_t
-#   include <stdint.h>
+#ifdef TARGET_COMPILER_GCC
+#    ifndef uint32_t
+#       include <stdint.h>
+#    endif
 #endif
 
 #    if defined ( TARGET_OS_WINDOWS )

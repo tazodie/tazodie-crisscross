@@ -103,8 +103,7 @@ namespace CrissCross
         void
         ThreadSleep ( int _msec )
         {
-            /* TODO: Linux and Mac OS X ports of this function. */
-            /* NOTE: Linux uses usleep, which is slightly different. */
+            /* TODO: Mac OS X port of this function. */
     #if defined ( TARGET_OS_WINDOWS )
             Sleep ( _msec );
     #elif defined ( TARGET_OS_LINUX )
