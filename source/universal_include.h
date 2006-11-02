@@ -59,7 +59,7 @@
 #    define ENABLE_CPUID
 //#    define ENABLE_DEBUGLOG
 
-// WARNING: Highly experimental.
+// WARNING: Highly experimental. To be improved upon in 0.6.0 branch.
 //#    define ENABLE_UNICODE
 
 //NOTE: By disabling this line, you will not be in compliance with article 2
@@ -75,109 +75,149 @@
 
 #    define MAX_PROCESSORS 4
 
-#    if defined ( _ARCH_PPC ) || defined ( __ppc__ ) || \
-    defined ( __ppc64__ ) || defined ( __PPC ) || \
-    defined ( powerpc ) || defined ( __PPC__ ) || \
-    defined ( __powerpc64__ ) || defined ( __powerpc64 )
-#            if defined ( __ppc64__ ) || defined ( __powerpc64__ ) || defined ( __powerpc64 )
-#               define TARGET_CPU_PPC 64
-#            else
-#               define TARGET_CPU_PPC 32
-#            endif
-#            undef ENABLE_CPUID
-#    endif
-    
-#    if defined ( __i386__ ) || defined ( __i386 ) || defined ( i386 ) || defined ( _X86_ )
-#       define TARGET_CPU_X86
-#    endif
-    
-#    if defined ( __alpha ) || defined ( __alpha__ )
-#       define TARGET_CPU_ALPHA
-#    endif
-    
-#    if defined ( __x86_64__ ) || defined ( __x86_64 ) || \
-        defined ( __amd64 ) || defined ( __amd64__ ) || \
-        defined ( _IA64_ ) || defined ( _AMD64_ )
-#            define TARGET_CPU_X64
-#    endif
-    
-#    if defined ( _MSC_VER )
-#            if !defined ( WIN64 )
-#                define TARGET_CPU_X86
-#            else
-#                define TARGET_CPU_X64
-#            endif
-#            define TARGET_OS_WINDOWS
-#            define _CRT_SECURE_NO_DEPRECATE
-#            define _CRT_NONSTDC_NO_DEPRECATE
-#    endif
-    
+/*
 
-#    ifdef _DEBUG
-#            define TARGET_DEBUG
+Preprocessor Definitions
+------------------------
+
+TARGET_CPU_X86
+    x86 processor
+TARGET_CPU_X64
+    64-bit processor
+TARGET_CPU_PPC
+    PowerPC processor
+TARGET_CPU_ALPHA
+    Alpha processor (not supported)
+
+TARGET_OS_WINDOWS
+    Windows
+TARGET_OS_LINUX
+    Linux
+TARGET_OS_MACOSX
+    Mac OS X
+TARGET_OS_OPENBSD
+    OpenBSD (not supported)
+TARGET_OS_FREEBSD
+    FreeBSD (not supported)
+
+TARGET_COMPILER_GCC
+    GNU C++ Compiler
+TARGET_COMPILER_VC
+    Visual C++
+TARGET_COMPILER_ICC
+    Intel C++ Compiler
+
+ */
+
+// -------------------
+// PROCESSOR DETECTION
+// -------------------
+
+#   if defined ( _ARCH_PPC ) || defined ( __ppc__ ) || defined ( __ppc64__ ) || defined ( __PPC ) || defined ( powerpc ) || defined ( __PPC__ ) || defined ( __powerpc64__ ) || defined ( __powerpc64 )
+#       if defined ( __ppc64__ ) || defined ( __powerpc64__ ) || defined ( __powerpc64 )
+#           define TARGET_CPU_PPC 64
+#       else
+#           define TARGET_CPU_PPC 32
+#       endif
+#   endif
+    
+#   if defined ( __i386__ ) || defined ( __i386 ) || defined ( i386 ) || defined ( _X86_ ) || defined ( _WIN32 )
+#       define TARGET_CPU_X86
+#   endif
+    
+#   if defined ( __alpha ) || defined ( __alpha__ )
+#       define TARGET_CPU_ALPHA
+#   endif
+    
+#   if defined ( __x86_64__ ) || defined ( __x86_64 ) || defined ( __amd64 ) || defined ( __amd64__ ) || defined ( _IA64_ ) || defined ( _AMD64_ ) || defined ( _WIN64 )
+#       define TARGET_CPU_X64
+#   endif
+
+// -------------------
+// COMPILER DETECTION
+// -------------------
+
+#   if defined ( __GNUC__ ) || defined ( __CYGWIN__ ) || defined ( __CYGWIN32__ )
+#       define TARGET_COMPILER_GCC
+#   endif
+
+#   if defined ( _MSC_VER )
+#       define TARGET_COMPILER_VC
+#   endif
+
+#   if defined ( __INTEL_COMPILER )
+#       define TARGET_COMPILER_ICC
+#   endif
+// ------------
+// OS DETECTION
+// ------------
+
+#   if defined ( TARGET_COMPILER_VC ) || defined ( __CYGWIN__ )
+#       define TARGET_OS_WINDOWS
+#   endif
+    
+#   if defined ( __linux__ ) || defined ( linux ) || defined ( __linux ) || defined ( __gnu_linux__ )
+#       define TARGET_OS_LINUX
 #    endif
     
-#    if defined ( __linux__ ) || defined ( linux ) || \
-    defined ( __linux ) || defined ( __gnu_linux__ ) 
-#            define TARGET_OS_LINUX
-#            undef TARGET_OS_WINDOWS
-#            undef TARGET_OS_MACOSX
-#            undef DETECT_MEMORY_LEAKS
-#    endif
+#   if defined (__FreeBSD__)
+#       define TARGET_OS_FREEBSD
+#   endif
     
-#    if defined (__FreeBSD__)
-#            define TARGET_OS_FREEBSD
-#    endif
+#   if defined (__OpenBSD__)
+#       define TARGET_OS_OPENBSD
+#   endif
     
-#    if defined (__OpenBSD__)
-#            define TARGET_OS_OPENBSD
-#    endif
-    
-#    if defined (__APPLE__) || defined (__MACH__)
-#            define TARGET_OS_MACOSX
-#            undef TARGET_OS_LINUX
-#            undef TARGET_OS_WINDOWS
-#            undef DETECT_MEMORY_LEAKS
-#    endif
+#   if defined (__APPLE__) || defined (__MACH__)
+#       define TARGET_OS_MACOSX
+#   endif
+
+// -----------------------
+// RESULTANT CONFIGURATION
+// -----------------------
+
+#   if !defined ( TARGET_COMPILER_VC )
+#       undef DETECT_MEMORY_LEAKS
+#   endif
+
+#   if !defined ( TARGET_CPU_X86 )
+#       undef ENABLE_CPUID
+#   endif
    
-#    if !defined(TARGET_OS_WINDOWS) \
-        && !defined ( TARGET_OS_LINUX ) \
-        && !defined ( TARGET_OS_MACOSX )
+#    if !defined(TARGET_OS_WINDOWS) && !defined ( TARGET_OS_LINUX ) && !defined ( TARGET_OS_MACOSX )
 #       error Compiling on an unsupported target. Cannot continue.
 #    endif
 
 #    if ( defined ( TARGET_OS_WINDOWS ) && defined ( TARGET_OS_MACOSX ) ) || \
         ( defined ( TARGET_OS_WINDOWS ) && defined ( TARGET_OS_LINUX ) ) || \
-        ( defined ( TARGET_OS_LINUX ) && defined ( TARGET_OS_MACOSX ) )
+        ( defined ( TARGET_OS_LINUX )   && defined ( TARGET_OS_MACOSX ) )
 #       error Compilation detected multiple targets. Only select one.
 #    endif
     
-#    ifdef TARGET_RELEASE
-    
-#    endif
-    
-#    if defined ( TARGET_OS_WINDOWS ) // && _MSC_VER >= 1300
+#    if defined ( TARGET_COMPILER_VC )
 #       define ENABLE_SYMBOL_ENGINE
 #    endif
     
-#    if defined ( TARGET_OS_WINDOWS )
-#           if _MSC_VER > 1200 && _MSC_VER < 1400
-#               pragma warning ( disable : 4345 4100 4800 )
-#           endif
-#           if defined ( DETECT_MEMORY_LEAKS )
-#               define _CRTDBG_MAP_ALLOC
-#           endif
-#           include <io.h>
-#           include <fcntl.h>
-#           include <windows.h>
-#           include <dbghelp.h>
-#           include <process.h>
-#           include <shlobj.h>
-#           define stat _stat
-#           define strcasecmp stricmp
-#    else
-#            undef ENABLE_SYMBOL_ENGINE
-#    endif
+#   if defined ( TARGET_COMPILER_VC )
+#       define _CRT_SECURE_NO_DEPRECATE
+#       define _CRT_NONSTDC_NO_DEPRECATE
+#       if _MSC_VER > 1200 && _MSC_VER < 1400
+#           pragma warning ( disable : 4345 4100 4800 )
+#       endif
+#       if defined ( DETECT_MEMORY_LEAKS )
+#           define _CRTDBG_MAP_ALLOC
+#       endif
+#       include <io.h>
+#       include <fcntl.h>
+#       include <windows.h>
+#       include <dbghelp.h>
+#       include <process.h>
+#       include <shlobj.h>
+#       define stat _stat
+#       define strcasecmp stricmp
+#   else
+#       undef ENABLE_SYMBOL_ENGINE
+#   endif
     
 #    if defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX )
 #           define ANSI_COLOUR
@@ -206,7 +246,7 @@
 #    include <stdlib.h>
 #    include <string.h>
     
-#    if _MSC_VER < 1300 && defined ( TARGET_OS_WINDOWS )
+#    if _MSC_VER < 1300 && defined ( TARGET_COMPILER_VC )
 #       include <xstring>
         typedef long intptr_t;
 #    endif
