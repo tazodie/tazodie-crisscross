@@ -47,7 +47,7 @@
 //#  define APP_CODENAME            "Thor"          // v0.9.0 codename ( Milestone 4 )
 //#  define APP_CODENAME            "Valhalla"      // v1.0.0 codename ( Milestone 5 )
 
-#    define APP_VERSION             "0.5.0-RC1"
+#    define APP_VERSION             "0.5.0-RC2"
 #    define APP_BRANCH_AT_VERSION   "0.5.0"
 #    define APP_URL                 "http://www.uplinklabs.net/crisscross/"
 #    define APP_COPYRIGHT_CONSOLE   "(c) 2006 by IO.IN Research"
@@ -92,10 +92,12 @@ TARGET_OS_LINUX
     Linux
 TARGET_OS_MACOSX
     Mac OS X
-TARGET_OS_OPENBSD
-    OpenBSD (not supported)
 TARGET_OS_FREEBSD
     FreeBSD (not supported)
+TARGET_OS_NETBSD
+    NetBSD (not supported)
+TARGET_OS_OPENBSD
+    OpenBSD (not supported)
 
 TARGET_COMPILER_GCC
     GNU C++ Compiler
