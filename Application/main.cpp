@@ -122,7 +122,6 @@ RunApplication ( int argc, char **argv )
     delete cpuid;
 
     // End your application here.
-    system ( "PAUSE" );
 
     delete console;
     return 0;
