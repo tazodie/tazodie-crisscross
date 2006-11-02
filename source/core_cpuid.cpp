@@ -372,7 +372,6 @@ CoreCPUID::Go ()
     }
     sched_setaffinity ( 0, sizeof ( originalmask ), &originalmask );
 #    endif
-    GoThread ( 0 );
 }
 
 void
