@@ -5,8 +5,7 @@
  *                              formerly Codename "Technetium"
  *                             project started August 14, 2006
  *
- * Copyright (c) 2006, Steven Noonan <steven@uplinklabs.net>, Rudolf Olah <omouse@gmail.com>,
- * and Miah Clayton <miah@io-in.com>. All rights reserved.
+ * Copyright (c) 2006 IO.IN Research
  *
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
@@ -16,9 +15,9 @@
  *     * Redistributions in binary form must reproduce the above copyright notice, this
  *       list of conditions and the following disclaimer in the documentation and/or other
  *       materials provided with the distribution.
- *     * Neither the name of Uplink Laboratories nor the names of its contributors may be
- *       used to endorse or promote products derived from this software without specific
- *       prior written permission.
+ *     * Neither the name of the I.O. Independent Network nor the names of its contributors
+ *       may be used to endorse or promote products derived from this software without
+ *       specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
@@ -36,8 +35,10 @@
 #include "universal_include.h"
 
 #include "core_console.h"
+#include "core_cpuid.h"
 
 using namespace CrissCross::IO;
+using namespace CrissCross::System;
 using namespace std;
 
 int
@@ -47,7 +48,61 @@ RunApplication ( int argc, char **argv )
 
     // Begin your application here.
 
-    console->WriteLine ( "Hello, world!" );
+    CoreCPUID *cpuid = new CoreCPUID ();
+
+    console->SetColour ( console->FG_RED | console->FG_INTENSITY );
+    console->WriteLine ( "======================" );
+    console->WriteLine ( "= CPU IDENTIFICATION =" );
+    console->WriteLine ( "======================" );
+    console->SetColour ( 0 );
+    console->WriteLine ();
+
+    cpuid->Go ();
+    
+    console->WriteLine ( "There are %d processors in the system.",
+                         cpuid->GetCPUCount () );
+
+    for ( int i = 0; i < MAX_PROCESSORS; i++ )
+    {
+        if ( cpuid->proc[i]->Manufacturer != NULL )
+        {
+            console->WriteLine ( "CPU[%d] Manufacturer: %s", i,
+                                 cpuid->proc[i]->Manufacturer );
+            console->WriteLine ( "CPU[%d] Name: %s", i,
+                                 cpuid->proc[i]->ProcessorName );
+            console->
+                WriteLine ( "CPU[%d] Family: %d, Model: %d, Stepping: %d", i,
+                            cpuid->proc[i]->Family, cpuid->proc[i]->Model,
+                            cpuid->proc[i]->Stepping );
+            if ( cpuid->proc[i]->caches.Size () > 0 )
+            {
+                console->WriteLine ( "CPU[%d] Caches:", i );
+                for ( int j = 0; j < cpuid->proc[i]->caches.Size (); j++ )
+                {
+                    if ( cpuid->proc[i]->caches.ValidIndex ( j ) )
+                        console->Write ( "  %s",
+                                         cpuid->proc[i]->caches.
+                                         GetData ( j ) );
+                }
+                console->WriteLine ();
+            }
+            console->Write ( "CPU[%d] Features: ", i );
+            RedBlackTree < Feature *, char *>::nodeType * node =
+                cpuid->proc[i]->features.rootNode;
+            node->beenThere =
+                RedBlackTree < Feature *, char *>::NODE_ITSELF_VISITED;
+            while ( cpuid->proc[i]->features.ValidNode ( node ) )
+            {
+                if ( node->data->Enabled )
+                    console->Write ( "%s ", node->id );
+                cpuid->proc[i]->features.getNext ( &node );
+            }
+            console->WriteLine ();
+            console->WriteLine ();
+        }
+    }
+
+    delete cpuid;
 
     // End your application here.
 
