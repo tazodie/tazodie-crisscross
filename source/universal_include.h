@@ -270,7 +270,7 @@ TARGET_COMPILER_ICC
 #endif
 
 #ifndef uint32_t
-typedef unsigned int uint32_t;
+#   include <stdint.h>
 #endif
 
 #    if defined ( TARGET_OS_WINDOWS )
