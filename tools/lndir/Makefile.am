@@ -24,24 +24,24 @@ lndir_CFLAGS = $(XPROTO_CFLAGS)
 lndir_SOURCES = lndir.c
 
 # Man page
-appmandir = $(APP_MAN_DIR)
+# appmandir = $(APP_MAN_DIR)
 
-appman_PRE = lndir.man
+# appman_PRE = lndir.man
 
-appman_DATA = $(appman_PRE:man=@APP_MAN_SUFFIX@)
+# appman_DATA = $(appman_PRE:man=@APP_MAN_SUFFIX@)
 
-CLEANFILES = $(appman_DATA)
+# CLEANFILES = $(appman_DATA)
 
 # Strings to replace in man pages
-XORGRELSTRING = @PACKAGE_STRING@
-  XORGMANNAME = X Version 11
+# XORGRELSTRING = @PACKAGE_STRING@
+# XORGMANNAME = X Version 11
 
-MAN_SUBSTS = \
-	-e 's|__xorgversion__|"$(XORGRELSTRING)" "$(XORGMANNAME)"|'
+# MAN_SUBSTS = \
+# 	-e 's|__xorgversion__|"$(XORGRELSTRING)" "$(XORGMANNAME)"|'
 
-SUFFIXES = .$(APP_MAN_SUFFIX) .man
+# SUFFIXES = .$(APP_MAN_SUFFIX) .man
 
-.man.$(APP_MAN_SUFFIX):
-	sed $(MAN_SUBSTS) < $< > $@
+# .man.$(APP_MAN_SUFFIX):
+#	sed $(MAN_SUBSTS) < $< > $@
 
-EXTRA_DIST = $(appman_PRE)
+# EXTRA_DIST = $(appman_PRE)
