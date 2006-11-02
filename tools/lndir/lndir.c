@@ -43,8 +43,8 @@ in this Software without prior written authorization from The Open Group.
    	%  lndir ../X
 */
 
-#include <X11/Xos.h>
-#include <X11/Xfuncproto.h>
+//#include <X11/Xos.h>
+//#include <X11/Xfuncproto.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/stat.h>
