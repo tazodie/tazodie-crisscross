@@ -1,14 +1,14 @@
 all:
-	+make -C contrib/fastdep-0.15
-	+make -C source
-	+make -C Application
+	+$(MAKE) -C contrib/fastdep-0.15
+	$(MAKE) -C source
+	+$(MAKE) -C Application
 
 install:
-	make -C source install
+	$(MAKE) -C source install
 
 clean:
-	make -C source clean
-	make -C Application clean
+	$(MAKE) -C source clean
+	$(MAKE) -C Application clean
 	
 distclean: clean
-	make -C contrib/fastdep-0.15 distclean
+	$(MAKE) -C contrib/fastdep-0.15 distclean
