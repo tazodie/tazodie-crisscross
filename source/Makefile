@@ -39,8 +39,8 @@ STRIP = :
 
 PCH = universal_include.h.gch
 
-all: .depend $(PCH) $(OUTDIR)/$(OUTBIN)
-# all: .depend $(OUTDIR)/$(OUTBIN)
+# all: .depend $(PCH) $(OUTDIR)/$(OUTBIN)
+all: .depend $(OUTDIR)/$(OUTBIN)
 
 install: $(OUTDIR)/$(OUTBIN)
 	mkdir -p $(prefix)/include/crisscross
@@ -67,7 +67,6 @@ clean:
 	
 $(OUTDIR)/$(OUTBIN): $(OBJECTS)
 	@echo -n "Creating library... "
-#	@$(LINK) $+ -lpthread -lstdc++ -o $(OUTDIR)/$(OUTBIN)
 	@$(CXX) -shared -Wl,-soname,libcrisscross.so.$(VERSION_MAJOR) -o libcrisscross.so.$(VERSION) $+
 	@$(NM) $(OUTDIR)/$(OUTBIN) > $(OUTDIR)/$(OUTBIN).map
 	@$(STRIP) $(OUTDIR)/$(OUTBIN)
