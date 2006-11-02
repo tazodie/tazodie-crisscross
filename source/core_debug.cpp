@@ -180,7 +180,7 @@ PrintDebugLog ( CoreIO *_outputBuffer )
 void
 PrintStackTrace ( CoreIO * _outputBuffer )
 {
-#ifndef TARGET_CPU_PPC
+#if !defined ( TARGET_CPU_PPC ) && !defined ( TARGET_OS_NETBSD ) && !defined ( TARGET_OS_FREEBSD ) && !defined ( TARGET_OS_OPENBSD )
 
 #ifdef ENABLE_DEBUGLOG
   g_debuglog->Write ( g_debuglog->BUG_LEVEL_WARNING, "*** Printing stack trace ***" );

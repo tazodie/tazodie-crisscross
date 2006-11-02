@@ -160,6 +160,10 @@ TARGET_COMPILER_ICC
 #   if defined (__FreeBSD__)
 #       define TARGET_OS_FREEBSD
 #   endif
+
+#   if defined (__NetBSD__)
+#       define TARGET_OS_NETBSD
+#   endif
     
 #   if defined (__OpenBSD__)
 #       define TARGET_OS_OPENBSD
@@ -181,7 +185,7 @@ TARGET_COMPILER_ICC
 #       undef ENABLE_CPUID
 #   endif
    
-#    if !defined(TARGET_OS_WINDOWS) && !defined ( TARGET_OS_LINUX ) && !defined ( TARGET_OS_MACOSX )
+#    if !defined(TARGET_OS_WINDOWS) && !defined ( TARGET_OS_LINUX ) && !defined ( TARGET_OS_MACOSX ) && !defined ( TARGET_OS_NETBSD ) && !defined ( TARGET_OS_FREEBSD ) && !defined ( TARGET_OS_OPENBSD )
 #       error Compiling on an unsupported target. Cannot continue.
 #    endif
 
@@ -216,7 +220,7 @@ TARGET_COMPILER_ICC
 #       undef ENABLE_SYMBOL_ENGINE
 #   endif
     
-#    if defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX )
+#    if defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
 #           define ANSI_COLOUR
 #           include <cxxabi.h>
 #           include <pthread.h>
@@ -252,18 +256,21 @@ TARGET_COMPILER_ICC
 #    include <sstream>
 
 #ifndef CONST
-#define CONST const
+#    define CONST const
 #endif
 
 #ifndef CHAR
-typedef char CHAR;
+    typedef char CHAR;
 #endif
 
 #ifndef WCHAR
-typedef wchar_t WCHAR;
+    typedef wchar_t WCHAR;
 #endif
 
-    
+#ifndef uint32_t
+typedef unsigned int uint32_t;
+#endif
+
 #    if defined ( TARGET_OS_WINDOWS )
 #            if defined ( DETECT_MEMORY_LEAKS )
 #                ifndef _DBG_NEW

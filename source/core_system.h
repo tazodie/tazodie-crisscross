@@ -80,7 +80,7 @@ namespace CrissCross
            \return Always zero, until _timeout is implemented.
          */
         int WaitForThread ( HANDLE _thread, DWORD _timeout );
-#elif defined ( TARGET_OS_LINUX )
+#elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
         //! Waits for the specified thread to finish executing.
         /*!
            \param _thread Thread to wait for.

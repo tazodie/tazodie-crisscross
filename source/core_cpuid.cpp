@@ -112,8 +112,7 @@ unsigned int ExtMax;
    the values the 'cpuid' stored in those registers.  Return true if
    the current processor supports CPUID, false otherwise.  */
 static bool
-call_cpuid (uint32_t request,
-       uint32_t *eax, uint32_t *ebx, uint32_t *ecx, uint32_t *edx)
+call_cpuid (uint32_t request, uint32_t *eax, uint32_t *ebx, uint32_t *ecx, uint32_t *edx)
 {
   uint32_t pre_change, post_change;
   const uint32_t id_flag = 0x200000;
@@ -237,32 +236,22 @@ CoreCPUID::CoreCPUID ()
         call_cpuid ( i, &Std[i].eax, &Std[i].ebx, &Std[i].ecx, &Std[i].edx );
     }
 
+    call_cpuid ( 0x80000000, &Ext[0].eax, &Ext[0].ebx, &Ext[0].ecx, &Ext[0].edx );
 
-    call_cpuid ( 0x80000000, &Ext[0].eax, &Ext[0].ebx, &Ext[0].ecx,
-                 &Ext[0].edx );
-
-    if ( Ext[0].eax > ( 0x80000000 + 31 ) )
+    if ( Ext[0].eax < 0x80000004 )
     {
-#    ifdef CPUID_DEBUG
-        g_console->
-            WriteLine
-            ( "Extended CPUID maximum input is 0x80000000 + 31 [forced].",
-              Ext[0].eax );
-#    endif
-        Ext[0].eax = 0x80000000 + 31;
+	return;
     }
     else
     {
-#    ifdef CPUID_DEBUG
-        g_console->WriteLine ( "Extended CPUID maximum input is %u.",
-                               Ext[0].eax - 0x80000000 );
-#    endif
+        ExtMax = Ext[0].eax - 0x80000000;
     }
 
-    for ( i = 0; i <= Ext[0].eax - 0x80000000; i++ )
+    printf ( "ExtMax: %u\n", ExtMax );
+
+    for ( i = 0; i <= ExtMax; i++ )
     {
-        call_cpuid ( 0x80000000 + i, &Ext[i].eax, &Ext[i].ebx, &Ext[i].ecx,
-                     &Ext[i].edx );
+        call_cpuid ( 0x80000000 + i, &Ext[i].eax, &Ext[i].ebx, &Ext[i].ecx, &Ext[i].edx );
     }
 }
 
@@ -370,7 +359,7 @@ CoreCPUID::Go ()
         SetThreadPriority ( hThread, THREAD_PRIORITY_ABOVE_NORMAL );
         WaitForSingleObject ( hThread, INFINITE );
     }
-#    else
+#    elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX )
     int NUM_PROCS = sysconf ( _SC_NPROCESSORS_CONF ), i;
     cpu_set_t mask;
     cpu_set_t originalmask;
@@ -385,6 +374,7 @@ CoreCPUID::Go ()
     }
     sched_setaffinity ( 0, sizeof ( originalmask ), &originalmask );
 #    endif
+    GoThread ( 0 );
 }
 
 void

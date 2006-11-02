@@ -119,9 +119,9 @@ CoreIO::Length ()
     m_ioMutex->Unlock ();
 #endif
 
-#if defined (TARGET_OS_WINDOWS) || defined (TARGET_OS_MACOSX) || defined (TARGET_OS_FREEBSD)
+#if defined ( TARGET_OS_WINDOWS ) || defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
     return ( size_t ) endpos;
-#elif defined (TARGET_OS_LINUX)
+#elif defined ( TARGET_OS_LINUX )
     return ( size_t ) endpos.__pos;
 #endif
 }
@@ -234,7 +234,7 @@ CoreIO::SetLineEndings ( LineEndingType _ending )
 	{
 #if defined ( TARGET_OS_WINDOWS )
 		_ending = LN_CRLF;
-#elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX )
+#elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
 		_ending = LN_LF;
 #else
 #		error You are not using a supported OS.
