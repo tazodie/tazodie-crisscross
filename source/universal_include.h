@@ -50,7 +50,7 @@
 #    define APP_VERSION             "0.5.0-RC2"
 #    define APP_BRANCH_AT_VERSION   "0.5.0"
 #    define APP_URL                 "http://www.uplinklabs.net/crisscross/"
-#    define APP_COPYRIGHT_CONSOLE   "(c) 2006 by IO.IN Research"
+#    define APP_COPYRIGHT_CONSOLE   "(c) 2006 by IO.IN Research. Licensed under the New BSD License."
 
 // Disabling these two will save space.
 #    define ENABLE_CPUID
