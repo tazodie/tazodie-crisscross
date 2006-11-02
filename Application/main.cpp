@@ -35,11 +35,9 @@
 #include "header.h"
 #include "universal_include.h"
 
-#include "core_system.h"
 #include "core_console.h"
 
 using namespace CrissCross::IO;
-using namespace CrissCross::System;
 using namespace std;
 
 int

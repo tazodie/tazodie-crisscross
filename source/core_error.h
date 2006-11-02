@@ -32,8 +32,8 @@
  *
  */
 
-#ifndef __included_core_CC_ERR_SOCK_h
-#define __included_core_CC_ERR_SOCK_h
+#ifndef __included_core_error_h
+#define __included_core_error_h
 
 namespace CrissCross
 {

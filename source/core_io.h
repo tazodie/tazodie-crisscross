@@ -35,10 +35,6 @@
 #ifndef __included_core_io_h
 #define __included_core_io_h
 
-#if defined ( WIN32 )
-#	include "universal_include.h"
-#endif
-
 #include "core_error.h"
 #include "core_mutex.h"
 
@@ -54,7 +50,7 @@ namespace CrissCross
         enum FileWriteMode
         {
 			FILE_CREATE,                     /*!< Default. Will create a new file if the one opened does not exist. */
-            FILE_APPEND,                     /*!< Write operations will append data to the end of the file. */
+            FILE_APPEND                      /*!< Write operations will append data to the end of the file. */
         };
 
         //! The core input/output class.
@@ -88,7 +84,7 @@ namespace CrissCross
             //! Input/output buffer.
             FILE *m_fileBuffer;
 
-        #ifndef __GNUC__
+        #ifndef TARGET_COMPILER_GCC
             //! Thread-safe mutex.
             /*!
                Prevents more than one read or write from occurring simultaneously.

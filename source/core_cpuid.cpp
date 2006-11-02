@@ -106,7 +106,8 @@ unsigned int StdMax;
 struct Registers *Ext;
 unsigned int ExtMax;
 
-#if !defined ( TARGET_OS_WINDOWS )
+#if !defined ( TARGET_COMPILER_VC )
+
 /* If the current processor supports the CPUID instruction, execute
    one, with REQUEST in %eax, and set *EAX, *EBX, *ECX, and *EDX to
    the values the 'cpuid' stored in those registers.  Return true if
@@ -187,6 +188,7 @@ call_cpuid ( unsigned int op, unsigned int *_eax, unsigned int *_ebx,
         mov[esi], edx;
     }
 }
+
 #endif
 
 CoreCPUID::CoreCPUID ()
