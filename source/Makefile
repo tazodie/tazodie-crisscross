@@ -39,8 +39,8 @@ STRIP = :
 
 PCH = universal_include.h.gch
 
-# all: .depend $(PCH) $(OUTDIR)/$(OUTBIN)
-all: .depend $(OUTDIR)/$(OUTBIN)
+all: .depend $(PCH) $(OUTDIR)/$(OUTBIN)
+# all: .depend $(OUTDIR)/$(OUTBIN)
 
 install: $(OUTDIR)/$(OUTBIN)
 	mkdir -p $(prefix)/include/crisscross
