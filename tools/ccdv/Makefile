@@ -44,7 +44,7 @@ $(OBJDIR)/%.o: %.c
 
 .depend:
 	@echo Generating dependency information...
-	@../../contrib/fastdep-0.15/fastdep $(CXXFLAGS) --remakedeptarget=.depend $(SOURCES) > .depend
+	@../../contrib/fastdep-0.15/fastdep $(INCLUDES) --remakedeptarget=.depend $(SOURCES) > .depend
 
 ifneq ($(MAKECMDGOALS),clean)	
 -include .depend
