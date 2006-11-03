@@ -1,17 +1,18 @@
 include common.mk
 
-# test:
-# 	@echo "EMULATED: $(GCC_ISEMULATED)"
-# 	@echo "MINGW: $(GCC_MINGW)"
-# 	@echo "CYGMING: $(GCC_CYGMING)"
+all: testapp
 
-all:
-ifneq ($(GCC_ISMINGW),mingw32)
-	+$(MAKE) -C contrib/fastdep-0.15
-endif
+main: toolchain
+	+$(MAKE) -C source
+
+testapp: toolchain main
+	+$(MAKE) -C Application	
+
+test: testapp
+	cd Application; ./crisscross-test;
+
+toolchain: fastdep
 	+$(MAKE) -C tools
-	$(MAKE) -C source
-	+$(MAKE) -C Application
 
 install:
 	$(MAKE) -C source install
@@ -21,7 +22,7 @@ clean:
 	$(MAKE) -C Application clean
 
 fastdep:
-	make -C contrib/fastdep-0.15
+	+$(MAKE) -C contrib/fastdep-0.15
 	
 distclean: clean
 	$(MAKE) -C contrib/fastdep-0.15 distclean
