@@ -70,7 +70,7 @@ namespace CrissCross
                 \param _lnEnding The line ending type to use.
 				\return Standard CrissCross::Errors values.
              */ 
-			CrissCross::Errors Open ( CONST CHAR *_file, FileWriteMode _writeMode = FILE_CREATE, LineEndingType _lnEnding = LN_NATIVE );
+			CrissCross::Errors Open ( CONST CHAR *_file, FileWriteMode _writeMode = CC_FILE_CREATE, LineEndingType _lnEnding = CC_LN_NATIVE );
 
             //! Closes the file.
             /*!

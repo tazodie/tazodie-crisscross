@@ -112,10 +112,10 @@ unsigned int ExtMax;
    the values the 'cpuid' stored in those registers.  Return true if
    the current processor supports CPUID, false otherwise.  */
 static bool
-call_cpuid (uint32_t request, uint32_t *eax, uint32_t *ebx, uint32_t *ecx, uint32_t *edx)
+call_cpuid (unsigned int request, unsigned int *eax, unsigned int *ebx, unsigned int *ecx, unsigned int *edx)
 {
-  uint32_t pre_change, post_change;
-  const uint32_t id_flag = 0x200000;
+  unsigned int pre_change, post_change;
+  const unsigned int id_flag = 0x200000;
 
   /* This is pretty much the standard way to detect whether the CPUID
      instruction is supported: try to change the ID bit in the EFLAGS
@@ -339,7 +339,7 @@ CoreCPUID::GoThread ( int processor )
 void
 CoreCPUID::Go ()
 {
-    CoreAssert ( this );
+    CoreAssert ( this != NULL );
 #    ifdef TARGET_OS_WINDOWS
     // TODO: Implement this WIN32-only part in Linux/MacOS
     DWORD dThread = NULL;

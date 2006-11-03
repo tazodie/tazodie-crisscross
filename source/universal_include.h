@@ -47,24 +47,28 @@
 //#  define APP_CODENAME            "Thor"          // v0.9.0 codename ( Milestone 4 )
 //#  define APP_CODENAME            "Valhalla"      // v1.0.0 codename ( Milestone 5 )
 
-#    define APP_VERSION             "0.5.0-RC2"
-#    define APP_BRANCH_AT_VERSION   "0.5.0"
-#    define APP_URL                 "http://www.uplinklabs.net/crisscross/"
-#    define APP_COPYRIGHT           "(c) 2006 by IO.IN Research. Licensed under the New BSD License."
+#   define APP_VERSION             "0.5.0-RC2"
+#   define APP_BRANCH_AT_VERSION   "0.5.0"
+#   define APP_URL                 "http://www.uplinklabs.net/crisscross/"
+#   define APP_COPYRIGHT           "(c) 2006 by IO.IN Research. Licensed under the New BSD License."
 
 // Disabling these two will save space.
-#    define ENABLE_CPUID
-//#    define ENABLE_DEBUGLOG
+#   define ENABLE_CPUID
+//#   define ENABLE_DEBUGLOG
 
 // WARNING: Highly experimental. To be improved upon in 0.6.0 branch.
-//#    define ENABLE_UNICODE
+//#   define ENABLE_UNICODE
 
 //NOTE: By disabling this line, you will not be in compliance with the New BSD License.
 //      If you disable this line, you must display the copyright notice in the program
 //      elsewhere.
-#    define ENABLE_CREDITS
+#   define ENABLE_CREDITS
 
-#    define DETECT_MEMORY_LEAKS
+// Sorry, this is Windows-only... (Use Valgrind on Linux)
+#   define DETECT_MEMORY_LEAKS
+
+// Linux backtrace()
+#   define ENABLE_BACKTRACE
 
 // ============================================================================
 // Dont edit anything below this line   
@@ -153,9 +157,12 @@ TARGET_COMPILER_ICC
 // -------------------
 
 #   if !defined ( COMPILER_DETECTED )
-#       if defined ( __GNUC__ ) || defined ( __CYGWIN__ ) || defined ( __CYGWIN32__ )
+#       if defined ( __GNUC__ )
 #           define COMPILER_DETECTED
 #           define TARGET_COMPILER_GCC
+#       endif
+#       if defined ( __CYGWIN__ ) || defined ( __CYGWIN32__ )
+#           define TARGET_COMPILER_CYGWIN
 #       endif
 #   endif
 
@@ -178,14 +185,14 @@ TARGET_COMPILER_ICC
 // ------------
 
 #   if !defined ( OS_DETECTED )
-#       if defined ( TARGET_COMPILER_VC ) || defined ( __CYGWIN__ ) || defined ( _WIN32 ) || defined ( _WIN64 )
+#       if defined ( TARGET_COMPILER_VC ) || defined ( _WIN32 ) || defined ( _WIN64 )
 #           define OS_DETECTED
 #           define TARGET_OS_WINDOWS
 #       endif
 #   endif
 
 #   if !defined ( OS_DETECTED )
-#       if defined ( __linux__ ) || defined ( linux ) || defined ( __linux ) || defined ( __gnu_linux__ )
+#       if defined ( __linux__ ) || defined ( linux ) || defined ( __linux ) || defined ( __gnu_linux__ ) || defined ( __CYGWIN__ )
 #           define OS_DETECTED
 #           define TARGET_OS_LINUX
 #       endif
@@ -239,7 +246,8 @@ TARGET_COMPILER_ICC
 #       undef DETECT_MEMORY_LEAKS
 #   endif
 
-#   if !defined ( TARGET_CPU_X86 )
+// Doesn't work on non-x86, and Cygwin doesn't have the functionality for cpu_set_t.
+#   if !defined ( TARGET_CPU_X86 ) || defined ( TARGET_COMPILER_CYGWIN )
 #       undef ENABLE_CPUID
 #   endif
     
@@ -248,7 +256,6 @@ TARGET_COMPILER_ICC
 #    endif
     
 #   if defined ( TARGET_COMPILER_VC )
-typedef unsigned int uint32_t;
 #       define _CRT_SECURE_NO_DEPRECATE
 #       define _CRT_NONSTDC_NO_DEPRECATE
 #       if _MSC_VER > 1200 && _MSC_VER < 1400
@@ -268,22 +275,30 @@ typedef unsigned int uint32_t;
 #   else
 #       undef ENABLE_SYMBOL_ENGINE
 #   endif
+
+#   if defined ( TARGET_COMPILER_GCC ) && defined ( TARGET_OS_WINDOWS )
+
+#   endif
     
-#    if defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
-#           define ANSI_COLOUR
-#           include <cxxabi.h>
-#           include <pthread.h>
-#           include <sys/stat.h>
-#           include <sys/types.h>
-#           include <unistd.h>
-#           include <errno.h>
-#           include <sched.h>
-#           include <ctype.h>
+#   if defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
+#       define ANSI_COLOUR
+#       include <cxxabi.h>
+#       include <pthread.h>
+#       include <sys/stat.h>
+#       include <sys/types.h>
+#       include <unistd.h>
+#       include <errno.h>
+#       include <sched.h>
+#       include <ctype.h>
 #    endif
 
-#    if defined ( TARGET_OS_LINUX )
-#           include <execinfo.h>
-#    endif
+#   if defined ( TARGET_COMPILER_CYGWIN )
+#       undef ENABLE_BACKTRACE
+#   endif
+
+#   if defined ( TARGET_OS_LINUX ) && defined ( ENABLE_BACKTRACE )
+#       include <execinfo.h>
+#   endif
 
 #    if defined ( ENABLE_UNICODE )
 #       include <wchar.h>
@@ -313,12 +328,6 @@ typedef unsigned int uint32_t;
 
 #ifndef WCHAR
     typedef wchar_t WCHAR;
-#endif
-
-#ifdef TARGET_COMPILER_GCC
-#    ifndef uint32_t
-#       include <stdint.h>
-#    endif
 #endif
 
 #    if defined ( TARGET_OS_WINDOWS )

@@ -1,3 +1,5 @@
+include ../../common.mk
+
 OBJDIR = obj/linux
 OUTDIR = .
 OUTNAME = ccdv
@@ -43,8 +45,9 @@ $(OBJDIR)/%.o: %.c
 	@$(CC) $(CXXFLAGS) -c $< -o $@
 
 .depend:
-	@echo Generating dependency information...
+ifeq ($(GCC_ISEMULATED),yes)
 	@../../contrib/fastdep-0.15/fastdep $(INCLUDES) --remakedeptarget=.depend $(SOURCES) > .depend
+endif
 
 ifneq ($(MAKECMDGOALS),clean)	
 -include .depend

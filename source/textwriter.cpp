@@ -68,7 +68,7 @@ CrissCross::Errors TextWriter::Open ( CONST CHAR *_file, FileWriteMode _writeMod
     m_filePath = new CHAR[_filePathLength + 1];
     strcpy ( (CHAR *) m_filePath, _file );
 
-	sprintf ( openModes, "%s%s", ( _writeMode == FILE_APPEND ? "a" : "w" ), "t" );
+	sprintf ( openModes, "%s%s", ( _writeMode == CC_FILE_APPEND ? "a" : "w" ), "t" );
     m_fileBuffer = fopen ( m_filePath, openModes );
 
     if ( m_fileBuffer == NULL )

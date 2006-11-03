@@ -48,8 +48,8 @@ namespace CrissCross
 	     */
         enum FileWriteMode
         {
-			FILE_CREATE,                     /*!< Default. Will create a new file if the one opened does not exist. */
-            FILE_APPEND                      /*!< Write operations will append data to the end of the file. */
+			CC_FILE_CREATE,                     /*!< Default. Will create a new file if the one opened does not exist. */
+            CC_FILE_APPEND                      /*!< Write operations will append data to the end of the file. */
         };
 
         //! The core input/output class.
@@ -66,10 +66,10 @@ namespace CrissCross
              */
             enum LineEndingType
             {
-				LN_NATIVE,                     /*!< Automatically selects the appropriate line ending for the running platform. */
-                LN_CR,                         /*!< Carriage return only. (default for Commodore machines, Apple II family and Mac OS through version 9) */
-                LN_LF,                         /*!< Line feed only. (default for UNIX and UNIX-like systems, Linux, AIX, Xenix, Mac OS X, BeOS, Amiga, RISC OS and others) */
-                LN_CRLF                        /*!< Carriage return and line feed. (default for CP/M, MP/M, DOS, OS/2, Microsoft Windows) */
+				CC_LN_NATIVE,                     /*!< Automatically selects the appropriate line ending for the running platform. */
+                CC_LN_CR,                         /*!< Carriage return only. (default for Commodore machines, Apple II family and Mac OS through version 9) */
+                CC_LN_LF,                         /*!< Line feed only. (default for UNIX and UNIX-like systems, Linux, AIX, Xenix, Mac OS X, BeOS, Amiga, RISC OS and others) */
+                CC_LN_CRLF                        /*!< Carriage return and line feed. (default for CP/M, MP/M, DOS, OS/2, Microsoft Windows) */
             };
 
           protected:
@@ -99,7 +99,7 @@ namespace CrissCross
                \param _fileBuffer The buffer to be used for I/O operations.
                \param _lnEnding The line ending to use.
              */
-            CoreIO ( FILE * _fileBuffer, LineEndingType _lnEnding = LN_NATIVE );
+            CoreIO ( FILE * _fileBuffer, LineEndingType _lnEnding = CC_LN_NATIVE );
 
             //! The destructor.
             virtual ~CoreIO ();

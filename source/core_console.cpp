@@ -38,14 +38,12 @@
 using namespace CrissCross::IO;
 
 CoreConsole::CoreConsole ():
-CoreIO ( stdout, CoreIO::LN_LF )
+CoreIO ( stdout, CoreIO::CC_LN_LF )
 {
 #ifdef TARGET_OS_WINDOWS
     if ( AllocConsole () == TRUE )
     {
-        int hCrt =
-            _open_osfhandle ( ( intptr_t ) GetStdHandle ( STD_OUTPUT_HANDLE ),
-                              _O_TEXT );
+        int hCrt = _open_osfhandle ( ( intptr_t ) GetStdHandle ( STD_OUTPUT_HANDLE ), _O_TEXT );
         FILE *hf = _fdopen ( hCrt, "w" );
 
         *stdout = *hf;
@@ -64,7 +62,7 @@ CoreIO ( stdout, CoreIO::LN_LF )
 }
 
 CoreConsole::CoreConsole ( FILE * _outputBuffer ):
-CoreIO ( _outputBuffer,  CoreIO::LN_LF )
+CoreIO ( _outputBuffer,  CoreIO::CC_LN_LF )
 {
 }
 

@@ -48,6 +48,7 @@ RunApplication ( int argc, char **argv )
 
     // Begin your application here.
 
+#ifdef ENABLE_CPUID
     CoreCPUID *cpuid = new CoreCPUID ();
 
     console->SetColour ( console->FG_RED | console->FG_INTENSITY );
@@ -120,7 +121,9 @@ RunApplication ( int argc, char **argv )
     }
 
     delete cpuid;
-
+#else
+	console->WriteLine ( "Hello, world!" );
+#endif
     // End your application here.
 
     delete console;

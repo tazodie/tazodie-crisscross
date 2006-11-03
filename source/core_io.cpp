@@ -119,7 +119,8 @@ CoreIO::Length ()
     m_ioMutex->Unlock ();
 #endif
 
-#if defined ( TARGET_OS_WINDOWS ) || defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
+#if defined ( TARGET_OS_WINDOWS ) || defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_FREEBSD ) || \
+    defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD ) || defined ( TARGET_COMPILER_CYGWIN )
     return ( size_t ) endpos;
 #elif defined ( TARGET_OS_LINUX )
     return ( size_t ) endpos.__pos;
@@ -230,12 +231,12 @@ CoreIO::SetLineEndings ( LineEndingType _ending )
 {
     CoreAssert ( this != NULL );
 
-	if ( _ending == LN_NATIVE )
+	if ( _ending == CC_LN_NATIVE )
 	{
 #if defined ( TARGET_OS_WINDOWS )
-		_ending = LN_CRLF;
+		_ending = CC_LN_CRLF;
 #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
-		_ending = LN_LF;
+		_ending = CC_LN_LF;
 #else
 #		error You are not using a supported OS.
 #endif
@@ -244,15 +245,15 @@ CoreIO::SetLineEndings ( LineEndingType _ending )
     delete [] m_lineEnding;
     switch ( _ending )
     {
-    case LN_CR:
+    case CC_LN_CR:
         m_lineEnding = new CHAR[2];
         sprintf ( m_lineEnding, "\r" );
         break;
-    case LN_LF:
+    case CC_LN_LF:
         m_lineEnding = new CHAR[2];
         sprintf ( m_lineEnding, "\n" );
         break;
-    case LN_CRLF:
+    case CC_LN_CRLF:
         m_lineEnding = new CHAR[3];
         sprintf ( m_lineEnding, "\r\n" );
         break;

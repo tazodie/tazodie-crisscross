@@ -1,15 +1,17 @@
-GCC_MAJOR    := $(shell $(CXX) -v 2>&1 | \
-                        grep " version " | cut -d' ' -f3  | cut -d'.' -f1)
-GCC_MINOR    := $(shell $(CXX) -v 2>&1 | \
-                        grep " version " | cut -d' ' -f3  | cut -d'.' -f2)
+include ../common.mk
 
 VERSION = 0.5.0
 VERSION_MAJOR = 0
 
 OBJDIR = obj/linux
 OUTDIR = .
+ifneq ($(CC_BUILDSTATIC),yes)
 OUTNAME = libcrisscross.so
 OUTBIN = $(OUTNAME).$(VERSION)
+else
+OUTNAME = libcrisscross
+OUTBIN = $(OUTNAME)-$(VERSION).a
+endif
 prefix = /usr
 
 SOURCES = \
@@ -34,12 +36,14 @@ universal_include.cpp
 
 OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)
 
+AR = ar rc
+RANLIB = ranlib
 CXX = g++
 CC = gcc
 CCDV = ../tools/ccdv/ccdv.bin
 LINK = $(CXX) -rdynamic
 INCLUDES = -I.
-CXXFLAGS = -O2 -fPIC -Wall $(INCLUDES) -g
+CXXFLAGS = -O2 $(FPIC) -Wall $(INCLUDES) -g
 NM = nm
 STRIP = :
 
@@ -75,7 +79,12 @@ clean:
 	
 $(OUTDIR)/$(OUTBIN): $(OBJECTS)
 	@echo -n "Creating library... "
+ifneq ($(CC_BUILDSTATIC),yes)
 	@$(CCDV) $(CXX) -shared -Wl,-soname,libcrisscross.so.$(VERSION_MAJOR) -o libcrisscross.so.$(VERSION) $+
+else
+	@$(AR) $@ $+
+	-@($(RANLIB) $@ || true) >/dev/null 2>&1
+endif
 	@$(NM) $(OUTDIR)/$(OUTBIN) > $(OUTDIR)/$(OUTBIN).map
 	@$(STRIP) $(OUTDIR)/$(OUTBIN)
 	@echo done.
@@ -93,8 +102,9 @@ $(OBJDIR)/%.o: %.c
 	@$(CCDV) $(CC) $(CXXFLAGS) -c $< -o $@
 
 .depend:
-#	@echo Generating dependency information...
+ifeq ($(GCC_ISEMULATED),yes)
 	@../contrib/fastdep-0.15/fastdep --remakedeptarget=.depend $(SOURCES) > .depend
+endif
 
 ifneq ($(MAKECMDGOALS),clean)	
 -include .depend

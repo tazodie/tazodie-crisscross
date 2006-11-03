@@ -1,12 +1,13 @@
-GCC_MAJOR    := $(shell $(CXX) -v 2>&1 | \
-                        grep " version " | cut -d' ' -f3  | cut -d'.' -f1)
-GCC_MINOR    := $(shell $(CXX) -v 2>&1 | \
-                        grep " version " | cut -d' ' -f3  | cut -d'.' -f2)
+include ../common.mk
 
 VERSION = 0.5.0
 VERSION_MAJOR = 0
+ifneq ($(CC_BUILDSTATIC),yes)
 LIBNAME = libcrisscross.so.$(VERSION)
 MAJORLIB = libcrisscross.so.$(VERSION_MAJOR)
+else
+LIBNAME = libcrisscross-$(VERSION).a
+endif
 
 OBJDIR = obj/linux
 OUTDIR = .
@@ -22,7 +23,11 @@ OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)
 CXX = g++
 CC = gcc
 CCDV = ../tools/ccdv/ccdv.bin
+ifneq ($(GCC_ISCYGMING),yes)
 LINK = $(CXX) -rdynamic
+else
+LINK = $(CXX) -L../source
+endif
 INCLUDES = -I. -I../source -I../source/datastructures
 CXXFLAGS = -O2 -Wall $(INCLUDES) -g
 NM = nm
@@ -42,16 +47,16 @@ clean:
 	rm -f $(OUTDIR)/$(OUTBIN)
 	rm -f $(OUTDIR)/$(OUTBIN).map
 	rm -f $(PCH)
-	rm -f $(LIBNAME)
-	rm -f $(MAJORLIB)
 	
 $(OUTDIR)/$(OUTBIN): $(OBJECTS)
 	@echo -n "Linking... "
+ifneq ($(CC_BUILDSTATIC),yes)
 	@$(LINK) $+ -lpthread -lstdc++ -lcrisscross -o $(OUTDIR)/$(OUTBIN)
+else
+	@$(LINK) $+ -lpthread -lstdc++ -lcrisscross-$(VERSION) -o $(OUTDIR)/$(OUTBIN)
+endif
 	@$(NM) $(OUTDIR)/$(OUTBIN) > $(OUTDIR)/$(OUTBIN).map
 	@$(STRIP) $(OUTDIR)/$(OUTBIN)
-	@ln -sf ../source/$(LIBNAME)
-	@ln -sf ../source/$(LIBNAME) $(MAJORLIB)
 	@echo done.
 
 $(PCH): header.h
@@ -67,8 +72,9 @@ $(OBJDIR)/%.o: %.c
 	@$(CCDV) $(CC) $(CXXFLAGS) -c $< -o $@
 
 .depend:
-#	@echo Generating dependency information...
+ifeq ($(GCC_ISEMULATED),yes)
 	@../contrib/fastdep-0.15/fastdep $(INCLUDES) --remakedeptarget=.depend $(SOURCES) > .depend
+endif
 
 ifneq ($(MAKECMDGOALS),clean)	
 -include .depend
