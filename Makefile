@@ -1,5 +1,6 @@
 all:
 	+$(MAKE) -C contrib/fastdep-0.15
+	+$(MAKE) -C tools
 	$(MAKE) -C source
 	+$(MAKE) -C Application
 
@@ -15,3 +16,4 @@ fastdep:
 	
 distclean: clean
 	$(MAKE) -C contrib/fastdep-0.15 distclean
+	$(MAKE) -C tools clean
