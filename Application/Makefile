@@ -11,8 +11,8 @@ endif
 
 OBJDIR = obj/linux
 OUTDIR = .
-OUTNAME = criss-app.bin
-OUTBIN = $(OUTNAME).$(VERSION)
+OUTNAME = crisscross-test
+OUTBIN = $(OUTNAME)
 
 SOURCES = \
 main.cpp \
@@ -37,8 +37,8 @@ ifeq ($(GCC_MAJOR),4)
 PCH = header.h.gch
 endif
 
-# all: .depend $(PCH) $(OUTDIR)/$(OUTBIN)
-all: .depend $(OUTDIR)/$(OUTBIN)
+all: .depend $(PCH) $(OUTDIR)/$(OUTBIN)
+# all: .depend $(OUTDIR)/$(OUTBIN)
 
 clean:
 	rm -rf obj
