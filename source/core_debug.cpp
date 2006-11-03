@@ -198,7 +198,7 @@ PrintStackTrace ( CoreIO * _outputBuffer )
     _asm mov context.Ebp, ebp;
     SymbolEngine::instance ().StackTrace ( &context, _outputBuffer );
 
-#    else
+#    elif defined ( ENABLE_BACKTRACE )
 
     void *array[20];
     size_t size;
@@ -251,7 +251,9 @@ PrintStackTrace ( CoreIO * _outputBuffer )
   
     free(strings);
 
-#    endif
+#   else
+    _outputBuffer->WriteLine ( "FAIL: backtrace() function not available." );
+#   endif
 #ifdef ENABLE_DEBUGLOG
   g_debuglog->Write ( g_debuglog->BUG_LEVEL_WARNING, "*** Done printing stack trace ***" );
 #endif
