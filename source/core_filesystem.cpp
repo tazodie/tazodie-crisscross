@@ -31,10 +31,13 @@
  *
  */
 
-
 #include "universal_include.h"
 
 #include "core_filesystem.h"
+
+/*============================================*/
+/*|MAINTAINER: Rudolf Olah <omouse@gmail.com>|*/
+/*============================================*/
 
 namespace CrissCross
 {
