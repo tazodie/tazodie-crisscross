@@ -2,16 +2,16 @@ include common.mk
 
 all: testapp
 
-main: toolchain
+main: fastdep
 	+$(MAKE) -C source
 
-testapp: toolchain main
+testapp: main
 	+$(MAKE) -C Application	
 
 test: testapp
-	cd Application; ./crisscross-test;
+	cd Application; LD_LIBRARY_PATH="../source" ./crisscross-test;
 
-toolchain: fastdep
+toolchain:
 	+$(MAKE) -C tools
 
 install:
@@ -21,7 +21,7 @@ clean:
 	$(MAKE) -C source clean
 	$(MAKE) -C Application clean
 
-fastdep:
+fastdep: toolchain
 	+$(MAKE) -C contrib/fastdep-0.15
 	
 distclean: clean

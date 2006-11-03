@@ -1,3 +1,5 @@
+GCC_APPLE    := $(shell $(CXX) -v 2>&1 | \
+                    grep "Apple" )
 GCC_MINGW    := $(shell $(CXX) -v 2>&1 | \
                     grep "mingw" )
 GCC_CYGMING  := $(shell $(CXX) -v 2>&1 | \
@@ -15,6 +17,11 @@ CC_BUILDSTATIC = no
 ifneq ($(GCC_MINGW),)
 GCC_ISMINGW = yes
 GCC_ISEMULATED = yes
+endif
+
+ifneq ($(GCC_APPLE),)
+GCC_ISAPPLE = yes
+CC_BUILDSTATIC = yes
 endif
 
 ifneq ($(GCC_CYGMING),)

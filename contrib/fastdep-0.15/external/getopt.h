@@ -99,7 +99,7 @@ struct option
 #define required_argument	1
 #define optional_argument	2
 
-#if defined (__STDC__) && __STDC__
+#if ( defined (__STDC__) && __STDC__ )
 /* HAVE_DECL_* is a three-state macro: undefined, 0 or 1.  If it is
    undefined, we haven't run the autoconf check so provide the
    declaration without arguments.  If it is 0, we checked and failed
@@ -111,7 +111,7 @@ struct option
    errors, only prototype getopt for the GNU C library.  */
 extern int getopt (int argc, char *const *argv, const char *shortopts);
 #else /* not __GNU_LIBRARY__ */
-# if !defined (HAVE_DECL_GETOPT)
+# if !defined (HAVE_DECL_GETOPT) && !defined (__MACH__)
 extern int getopt ();
 # endif
 #endif /* __GNU_LIBRARY__ */

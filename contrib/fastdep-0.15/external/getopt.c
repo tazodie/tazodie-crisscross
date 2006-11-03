@@ -72,11 +72,15 @@
 # include <unistd.h>
 #endif	/* GNU C library.  */
 
-#ifdef VMS
+#if defined ( VMS )
 # include <unixlib.h>
 # if HAVE_STRING_H - 0
 #  include <string.h>
 # endif
+#endif
+
+#if defined ( __MACH__ )
+# include <string.h>
 #endif
 
 #ifndef _

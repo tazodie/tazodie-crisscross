@@ -1,4 +1,13 @@
+CCDV=../../tools/ccdv/ccdv.bin
+CXX=g++
+
 all: fastdep
+
+ifneq ($(MAKECMDGOALS),clean)
+ifneq ($(MAKECMDGOALS),distclean)
+include config/config.me
+endif
+endif
 
 include build/project.mk
 include build/dependencies.mk
@@ -9,7 +18,6 @@ include Makefile.common
 
 ifneq ($(MAKECMDGOALS),clean)
 ifneq ($(MAKECMDGOALS),distclean)
--include config/config.me
 -include .depends-all
 endif
 endif
@@ -26,19 +34,19 @@ CFLAGS+=-Wall $(foreach include,$(INCLUDEDIRS),-I $(include))
 $(OBJECTS): config/config.me $(ALLMAKEFILES)
 
 $(BINARY): $(OBJECTS) $(ALLMAKEFILES)
-	g++ $(CFLAGS) $(CXXFLAGS) -o $(BINARY) $(OBJECTS)
+	@$(CCDV) $(CXX) $(CFLAGS) $(CXXFLAGS) -o $(BINARY) $(OBJECTS)
 # Here is a trick on how to get fastdep linking on older cygwins.
 # It's probably also needed to get it working on VC 6.0.
 # However, since I am still reworking the build environment for now,
 # this is left unmerged.
 #ifeq ($(HOST_SYSTEM),cygwin)
 #	$(foreach file, $(OBJECTS), $(shell echo $(file) >> linkfiles))
-#	g++ $(CFLAGS) $(CXXFLAGS) -o $(BINARY) @linkfiles
+#	@$(CCDV) $(CXX) $(CFLAGS) $(CXXFLAGS) -o $(BINARY) @linkfiles
 #	-rm -f linkfiles
 #endif
 
 .cc.o: $(ALLMAKEFILES)
-	g++ $(CFLAGS) $(CXXFLAGS) -c $< -o $@
+	@$(CCDV) $(CXX) $(CFLAGS) $(CXXFLAGS) -c $< -o $@
 
 clean:
 	-rm -f $(OBJECTS) $(BINARY) .depends-all

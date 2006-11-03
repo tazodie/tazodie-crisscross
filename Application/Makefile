@@ -3,8 +3,7 @@ include ../common.mk
 VERSION = 0.5.0
 VERSION_MAJOR = 0
 ifneq ($(CC_BUILDSTATIC),yes)
-LIBNAME = libcrisscross.so.$(VERSION)
-MAJORLIB = libcrisscross.so.$(VERSION_MAJOR)
+LIBNAME = libcrisscross.so
 else
 LIBNAME = libcrisscross-$(VERSION).a
 endif
@@ -41,19 +40,23 @@ all: .depend $(PCH) $(OUTDIR)/$(OUTBIN)
 # all: .depend $(OUTDIR)/$(OUTBIN)
 
 clean:
-	rm -rf obj
-	rm -f .depend
-	rm -rf .libs
-	rm -f $(OUTDIR)/$(OUTBIN)
-	rm -f $(OUTDIR)/$(OUTBIN).map
-	rm -f $(PCH)
+	-rm -rf obj
+	-rm -f .depend
+	-rm -rf .libs
+	-rm -f $(OUTDIR)/$(OUTBIN)
+	-rm -f $(OUTDIR)/$(OUTBIN).map
+	-rm -f $(PCH)
 	
 $(OUTDIR)/$(OUTBIN): $(OBJECTS)
 	@echo -n "Linking... "
 ifneq ($(CC_BUILDSTATIC),yes)
-	@$(LINK) $+ -lpthread -lstdc++ -lcrisscross -o $(OUTDIR)/$(OUTBIN)
+	@$(LINK) $+ -lpthread -lstdc++ -L../source -lcrisscross -o $(OUTDIR)/$(OUTBIN)
+	@ln -sf ../source/$(LIBNAME).$(VERSION) $(LIBNAME)
+	@ln -sf ../source/$(LIBNAME).$(VERSION) $(LIBNAME).$(VERSION_MAJOR)
+	@ln -sf ../source/$(LIBNAME).$(VERSION) $(LIBNAME).$(VERSION)
 else
-	@$(LINK) $+ -lpthread -lstdc++ -lcrisscross-$(VERSION) -o $(OUTDIR)/$(OUTBIN)
+	@ln -sf ../source/$(LIBNAME) $(LIBNAME)
+	@$(LINK) $+ -lpthread -lstdc++ libcrisscross-$(VERSION).a -o $(OUTDIR)/$(OUTBIN)
 endif
 	@$(NM) $(OUTDIR)/$(OUTBIN) > $(OUTDIR)/$(OUTBIN).map
 	@$(STRIP) $(OUTDIR)/$(OUTBIN)
