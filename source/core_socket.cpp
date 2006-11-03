@@ -38,6 +38,10 @@
 #include "core_network.h"
 #include "core_socket.h"
 
+#if defined ( TARGET_OS_MACOSX )
+#    define _BSD_SOCKLEN_T_ int
+#endif
+
 #if !defined ( TARGET_OS_WINDOWS )
 #    include <arpa/inet.h>
 #    include <errno.h>

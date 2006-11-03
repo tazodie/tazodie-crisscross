@@ -70,24 +70,29 @@ install: $(OUTDIR)/$(OUTBIN)
 	fi
 
 clean:
-	rm -rf obj
-	rm -f .depend
-	rm -rf .libs
-	rm -f $(OUTDIR)/$(OUTBIN)
-	rm -f $(OUTDIR)/$(OUTBIN).map
-	rm -f $(PCH)
+	-rm -rf obj
+	-rm -f .depend
+	-rm -rf .libs
+	-rm -f $(OUTDIR)/$(OUTBIN)
+	-rm -f $(OUTDIR)/$(OUTBIN).map
+	-rm -f $(PCH)
 	
 $(OUTDIR)/$(OUTBIN): $(OBJECTS)
 	@echo -n "Creating library... "
 ifneq ($(CC_BUILDSTATIC),yes)
-	@$(CCDV) $(CXX) -shared -Wl,-soname,libcrisscross.so.$(VERSION_MAJOR) -o libcrisscross.so.$(VERSION) $+
+ifneq ($(GCC_ISAPPLE),yes)
+	@$(CCDV) $(CXX) -shared -Wl,-soname,$(OUTNAME).$(VERSION_MAJOR) -o $(OUTNAME).$(VERSION) $+
+else
+	@$(CCDV) $(CXX) -dynamiclib -Wl,-install_name,$(OUTNAME).$(VERSION_MAJOR) -o $(OUTNAME).$(VERSION) $+
+endif
+	@ln -sf $(OUTNAME).$(VERSION) $(OUTNAME)
+	@ln -sf $(OUTNAME).$(VERSION) $(OUTNAME).$(VERSION_MAJOR)
 else
 	@$(AR) $@ $+
 	-@($(RANLIB) $@ || true) >/dev/null 2>&1
 endif
 	@$(NM) $(OUTDIR)/$(OUTBIN) > $(OUTDIR)/$(OUTBIN).map
 	@$(STRIP) $(OUTDIR)/$(OUTBIN)
-	@echo done.
 
 $(PCH): universal_include.h
 	@$(CCDV) $(CXX) -c universal_include.h -o $(PCH) $(CXXFLAGS)
