@@ -76,6 +76,8 @@ clean:
 	-rm -f $(OUTDIR)/$(OUTBIN)
 	-rm -f $(OUTDIR)/$(OUTBIN).map
 	-rm -f $(PCH)
+	-rm -f $(OUTNAME).$(VERSION_MAJOR)
+	-rm -f $(OUTNAME)
 	
 $(OUTDIR)/$(OUTBIN): $(OBJECTS)
 	@echo -n "Creating library... "

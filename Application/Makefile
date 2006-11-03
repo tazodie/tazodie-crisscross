@@ -46,6 +46,10 @@ clean:
 	-rm -f $(OUTDIR)/$(OUTBIN)
 	-rm -f $(OUTDIR)/$(OUTBIN).map
 	-rm -f $(PCH)
+	-rm -f $(LIBNAME)
+	-rm -f $(LIBNAME).$(VERSION_MAJOR)
+	-rm -f $(LIBNAME).$(VERSION)
+
 	
 $(OUTDIR)/$(OUTBIN): $(OBJECTS)
 	@echo -n "Linking... "

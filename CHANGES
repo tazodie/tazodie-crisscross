@@ -1,3 +1,7 @@
+VERSION 0.5.1
+    * Fixed Makefiles to work on any previously non-working platforms (OS X, mainly).
+    * Disabled CPUID on BSD. BSD lacks affinity control, and therefore doesn't work.
+
 VERSION 0.5.0 ( MILESTONE 2, Codename "Loki" )
     * Cleanup
 		Much of the existing code was disorganized, and was re-categorized into other namespaces.
