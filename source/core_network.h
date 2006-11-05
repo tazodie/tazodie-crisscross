@@ -40,16 +40,8 @@ namespace CrissCross
 {
     namespace Network
     {
-        //! Initialises the sockets subsystems.
-        /*!
-            <span style="color:#ff0000;">FOR INTERNAL USE ONLY. DO NOT CALL THIS.</span>
-         */
+        // Undocumented for a reason. Don't call them.
         CrissCross::Errors __initialise_network();
-
-        //! Shuts down the sockets subsystems.
-        /*!
-            <span style="color:#ff0000;">FOR INTERNAL USE ONLY. DO NOT CALL THIS.</span>
-         */
         CrissCross::Errors __cleanup_network();
     }
 }
