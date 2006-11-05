@@ -103,7 +103,7 @@ CoreSocket::Close()
 #else
     close ( m_sock );
 #endif
-    m_sock = 0;
+    m_sock = INVALID_SOCKET;
     return CC_ERR_NONE;
 }
 
