@@ -1,8 +1,5 @@
 include ../common.mk
 
-VERSION = 0.5.0
-VERSION_MAJOR = 0
-
 OBJDIR = obj/linux
 OUTDIR = .
 ifneq ($(CC_BUILDSTATIC),yes)

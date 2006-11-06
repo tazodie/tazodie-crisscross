@@ -1,13 +1,5 @@
 include ../common.mk
 
-VERSION = 0.5.0
-VERSION_MAJOR = 0
-ifneq ($(CC_BUILDSTATIC),yes)
-LIBNAME = libcrisscross.so
-else
-LIBNAME = libcrisscross-$(VERSION).a
-endif
-
 OBJDIR = obj/linux
 OUTDIR = .
 OUTNAME = crisscross-test
@@ -52,19 +44,17 @@ clean:
 
 	
 $(OUTDIR)/$(OUTBIN): $(OBJECTS)
-	@echo -n "Linking... "
 ifneq ($(CC_BUILDSTATIC),yes)
-	@$(LINK) $+ -lpthread -lstdc++ -L../source -lcrisscross -o $(OUTDIR)/$(OUTBIN)
+	@$(CCDV) $(LINK) $+ -lpthread -lstdc++ -L../source -lcrisscross -o $(OUTDIR)/$(OUTBIN)
 	@ln -sf ../source/$(LIBNAME).$(VERSION) $(LIBNAME)
 	@ln -sf ../source/$(LIBNAME).$(VERSION) $(LIBNAME).$(VERSION_MAJOR)
 	@ln -sf ../source/$(LIBNAME).$(VERSION) $(LIBNAME).$(VERSION)
 else
 	@ln -sf ../source/$(LIBNAME) $(LIBNAME)
-	@$(LINK) $+ -lpthread -lstdc++ libcrisscross-$(VERSION).a -o $(OUTDIR)/$(OUTBIN)
+	@$(CCDV) $(LINK) $+ -lpthread -lstdc++ libcrisscross-$(VERSION).a -o $(OUTDIR)/$(OUTBIN)
 endif
 	@$(NM) $(OUTDIR)/$(OUTBIN) > $(OUTDIR)/$(OUTBIN).map
 	@$(STRIP) $(OUTDIR)/$(OUTBIN)
-	@echo done.
 
 $(PCH): header.h
 	@$(CXX) -c header.h -o $(PCH) $(CXXFLAGS)

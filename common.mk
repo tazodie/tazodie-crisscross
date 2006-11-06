@@ -1,3 +1,6 @@
+VERSION = 0.5.0
+VERSION_MAJOR = 0
+
 GCC_APPLE    := $(shell $(CXX) -v 2>&1 | \
                     grep "Apple" )
 GCC_MINGW    := $(shell $(CXX) -v 2>&1 | \
@@ -34,4 +37,10 @@ ifeq ($(GCC_ISCYGMING),yes)
 FPIC =
 else
 FPIC = -fPIC
+endif
+
+ifneq ($(CC_BUILDSTATIC),yes)
+LIBNAME = libcrisscross.so
+else
+LIBNAME = libcrisscross-$(VERSION).a
 endif
