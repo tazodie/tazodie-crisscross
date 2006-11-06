@@ -346,6 +346,11 @@ int main(int argc, char **argv)
 			cc++;
 			snprintf(gTarget, sizeof(gTarget), "%s", Basename(argv[i]));
 		}
+		else if(strncasecmp(Extension(argv[i]), ".gch", 4) == 0)
+		{
+			cc++;
+			snprintf(gTarget, sizeof(gTarget), "%s", Basename(argv[i]));
+		}
 		else if((i == 1) && (strcmp(Basename(argv[i]), "ar") == 0))
 		{
 			snprintf(gAr, sizeof(gAr), "%s", Basename(argv[i]));
