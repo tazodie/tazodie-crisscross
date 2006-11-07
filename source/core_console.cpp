@@ -31,9 +31,9 @@
  *
  */
 
-#include "universal_include.h"
-#include "core_debug.h"
-#include "core_console.h"
+#include <crisscross/universal_include.h>
+#include <crisscross/core_debug.h>
+#include <crisscross/core_console.h>
 
 using namespace CrissCross::IO;
 

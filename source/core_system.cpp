@@ -31,9 +31,9 @@
  *
  */
 
-#include "universal_include.h"
+#include <crisscross/universal_include.h>
 
-#include "core_system.h"
+#include <crisscross/core_system.h>
 
 namespace CrissCross
 {

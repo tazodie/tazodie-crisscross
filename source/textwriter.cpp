@@ -31,9 +31,9 @@
  *
  */
 
-#include "universal_include.h"
-#include "core_debug.h"
-#include "textwriter.h"
+#include <crisscross/universal_include.h>
+#include <crisscross/core_debug.h>
+#include <crisscross/textwriter.h>
 
 using namespace CrissCross::IO;
 

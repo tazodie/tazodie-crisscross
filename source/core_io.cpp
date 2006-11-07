@@ -31,11 +31,11 @@
  *
  */
 
-#include "universal_include.h"
+#include <crisscross/universal_include.h>
 
-#include "core_debug.h"
-#include "core_io.h"
-#include "core_system.h"
+#include <crisscross/core_debug.h>
+#include <crisscross/core_io.h>
+#include <crisscross/core_system.h>
 
 using namespace CrissCross::IO;
 using namespace CrissCross::System;

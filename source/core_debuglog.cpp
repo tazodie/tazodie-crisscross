@@ -31,8 +31,8 @@
  *
  */
 
-#include "universal_include.h"
-#include "core_debuglog.h"
+#include <crisscross/universal_include.h>
+#include <crisscross/core_debuglog.h>
 
 #ifdef ENABLE_DEBUGLOG
 

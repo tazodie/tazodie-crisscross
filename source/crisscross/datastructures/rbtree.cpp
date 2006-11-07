@@ -34,8 +34,8 @@
 #ifndef __included_rbtree_cpp
 #define __included_rbtree_cpp
 
-#    include "core_debug.h"
-#    include "rbtree.h"
+#    include <crisscross/core_debug.h>
+#    include <crisscross/datastructures/rbtree.h>
 
 using namespace CrissCross::Data;
 

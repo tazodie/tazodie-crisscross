@@ -47,7 +47,7 @@
 //#  define APP_CODENAME            "Thor"          // v0.9.0 codename ( Milestone 4 )
 //#  define APP_CODENAME            "Valhalla"      // v1.0.0 codename ( Milestone 5 )
 
-#   define APP_VERSION             "0.5.1"
+#   define APP_VERSION             "0.5.2"
 #   define APP_BRANCH_AT_VERSION   "0.6.0"
 #   define APP_URL                 "http://www.uplinklabs.net/crisscross/"
 #   define APP_COPYRIGHT           "(c) 2006 by IO.IN Research. Licensed under the New BSD License."
@@ -254,6 +254,8 @@ TARGET_COMPILER_ICC
 #    if defined ( TARGET_COMPILER_VC )
 #       define ENABLE_SYMBOL_ENGINE
 #    endif
+
+#   include <sys/stat.h>
     
 #   if defined ( TARGET_COMPILER_VC )
 #       define _CRT_SECURE_NO_DEPRECATE
@@ -284,7 +286,6 @@ TARGET_COMPILER_ICC
 #       define ANSI_COLOUR
 #       include <cxxabi.h>
 #       include <pthread.h>
-#       include <sys/stat.h>
 #       include <sys/types.h>
 #       include <unistd.h>
 #       include <errno.h>
@@ -300,6 +301,7 @@ TARGET_COMPILER_ICC
 #       include <execinfo.h>
 #   endif
 
+#    include <string.h>   
 #    if defined ( ENABLE_UNICODE )
 #       include <wchar.h>
 #    endif
@@ -309,7 +311,6 @@ TARGET_COMPILER_ICC
 #    include <stdarg.h>
 #    include <stdio.h>
 #    include <stdlib.h>
-#    include <string.h>    
 #    if _MSC_VER < 1300 && defined ( TARGET_COMPILER_VC )
 #       include <xstring>
         typedef long intptr_t;
@@ -326,8 +327,10 @@ TARGET_COMPILER_ICC
     typedef char CHAR;
 #endif
 
-#ifndef WCHAR
+#ifdef ENABLE_UNICODE
+#   ifndef WCHAR
     typedef wchar_t WCHAR;
+#   endif
 #endif
 
 #    if defined ( TARGET_OS_WINDOWS )
