@@ -32,10 +32,10 @@
  */
 
 #include "header.h"
-#include "universal_include.h"
+#include <crisscross/universal_include.h>
 
-#include "core_console.h"
-#include "core_cpuid.h"
+#include <crisscross/core_console.h>
+#include <crisscross/core_cpuid.h>
 
 using namespace CrissCross::IO;
 using namespace CrissCross::System;

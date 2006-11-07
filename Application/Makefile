@@ -19,7 +19,7 @@ LINK = $(CXX) -rdynamic
 else
 LINK = $(CXX) -L../source
 endif
-INCLUDES = -I. -I../source -I../source/datastructures
+INCLUDES = -I. -I../source
 CXXFLAGS = -O2 -Wall $(INCLUDES) -g
 NM = nm
 STRIP = strip
