@@ -36,7 +36,7 @@
 
 #include "core_network.h"
 
-#include "datastructures/rbtree.h"
+#include "rbtree.h"
 
 //#define ENABLE_PROTECTION
 

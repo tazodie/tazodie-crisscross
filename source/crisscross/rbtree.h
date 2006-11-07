@@ -35,7 +35,7 @@
 #define __included_rbtree_h
 
 #    include <crisscross/core_deprecate.h>
-#    include <crisscross/datastructures/darray.h>
+#    include <crisscross/darray.h>
 
 namespace CrissCross
 {

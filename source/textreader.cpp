@@ -77,7 +77,7 @@ CrissCross::Errors TextReader::Close ()
 		fclose ( m_fileBuffer );
 	m_fileBuffer = NULL;
 
-	delete [] m_filePath;
+	delete [] (char *)m_filePath;
 	m_filePath = NULL;
 	
 	return CC_ERR_NONE;

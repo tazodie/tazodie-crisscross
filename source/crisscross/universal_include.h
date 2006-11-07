@@ -252,14 +252,14 @@ TARGET_COMPILER_ICC
 #   endif
     
 #    if defined ( TARGET_COMPILER_VC )
+#       define _CRT_SECURE_NO_DEPRECATE
+#       define _CRT_NONSTDC_NO_DEPRECATE
 #       define ENABLE_SYMBOL_ENGINE
 #    endif
 
 #   include <sys/stat.h>
     
 #   if defined ( TARGET_COMPILER_VC )
-#       define _CRT_SECURE_NO_DEPRECATE
-#       define _CRT_NONSTDC_NO_DEPRECATE
 #       if _MSC_VER > 1200 && _MSC_VER < 1400
 #           pragma warning ( disable : 4345 4100 4800 )
 #       endif

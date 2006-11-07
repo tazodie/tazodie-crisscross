@@ -51,7 +51,7 @@
 				InlineFunctionExpansion="1"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories=".,datastructures,../CrissCross_net"
+				AdditionalIncludeDirectories=".,../CrissCross_net"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -131,7 +131,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".,datastructures,../CrissCross_net"
+				AdditionalIncludeDirectories=".,../CrissCross_net"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -372,10 +372,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\crisscross\core_exception.h"
-				>
-			</File>
-			<File
 				RelativePath=".\core_filesystem.cpp"
 				>
 			</File>
@@ -538,7 +534,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\crisscross\datastructures\darray.cpp"
+				RelativePath=".\crisscross\darray.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -565,42 +561,11 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\crisscross\datastructures\darray.h"
+				RelativePath=".\crisscross\darray.h"
 				>
 			</File>
 			<File
-				RelativePath=".\crisscross\datastructures\dstack.cpp"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\crisscross\datastructures\dstack.h"
-				>
-			</File>
-			<File
-				RelativePath=".\crisscross\datastructures\llist.cpp"
+				RelativePath=".\crisscross\dstack.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -627,11 +592,11 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\crisscross\datastructures\llist.h"
+				RelativePath=".\crisscross\dstack.h"
 				>
 			</File>
 			<File
-				RelativePath=".\crisscross\datastructures\rbtree.cpp"
+				RelativePath=".\crisscross\llist.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -658,11 +623,42 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\crisscross\datastructures\rbtree.h"
+				RelativePath=".\crisscross\llist.h"
 				>
 			</File>
 			<File
-				RelativePath=".\sortclass.cpp"
+				RelativePath=".\crisscross\rbtree.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\crisscross\rbtree.h"
+				>
+			</File>
+			<File
+				RelativePath=".\crisscross\sortclass.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"

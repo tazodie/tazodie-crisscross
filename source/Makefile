@@ -55,8 +55,8 @@ install: $(OUTDIR)/$(OUTBIN)
 	mkdir -p $(prefix)/include/crisscross
 	mkdir -p $(prefix)/include/crisscross/datastructures
 	mkdir -p $(prefix)/lib
-	cp *.h $(prefix)/include/crisscross/
-	cp datastructures/* $(prefix)/include/crisscross/datastructures
+	cp crisscross/*.h $(prefix)/include/crisscross/
+	cp crisscross/datastructures/* $(prefix)/include/crisscross/datastructures
 	cp $(OUTBIN) $(prefix)/lib/
 	cd $(prefix)/lib; chmod 755 $(OUTBIN)
 	cd $(prefix)/lib; if test -f $(OUTBIN); then \
