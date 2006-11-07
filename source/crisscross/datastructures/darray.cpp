@@ -34,10 +34,10 @@
 #ifndef __included_darray_cpp
 #define __included_darray_cpp
 
-#include "core_debug.h"
+#include <crisscross/core_debug.h>
 
-#include "darray.h"
-#include "dstack.h"
+#include <crisscross/datastructures/darray.h>
+#include <crisscross/datastructures/dstack.h>
 
 using namespace CrissCross::Data;
 

@@ -31,16 +31,17 @@
  *
  */
 
-#include "universal_include.h"
-#include "core_io.h"
-#include "core_debug.h"
+#include <crisscross/universal_include.h>
+#include <crisscross/core_io.h>
+#include <crisscross/core_debug.h>
 
 #if defined ( ENABLE_DEBUGLOG )
-#    include "core_debuglog.h"
+#    include <crisscross/core_debuglog.h>
 #endif
 
-#include "datastructures/rbtree.h"
-#include "datastructures/llist.h"
+#include <crisscross/datastructures/darray.h>
+#include <crisscross/datastructures/rbtree.h>
+#include <crisscross/datastructures/llist.h>
 
 #include <exception>
 

@@ -31,9 +31,9 @@
  *
  */
 
-#include "universal_include.h"
-#include "core_socket.h"
-#include "udpsocket.h"
+#include <crisscross/universal_include.h>
+#include <crisscross/core_socket.h>
+#include <crisscross/udpsocket.h>
 
 #if !defined ( TARGET_OS_WINDOWS )
 #    include <arpa/inet.h>

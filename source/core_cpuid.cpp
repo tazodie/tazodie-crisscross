@@ -31,13 +31,13 @@
  *
  */
 
-#include "universal_include.h"
+#include <crisscross/universal_include.h>
 
 #ifdef ENABLE_CPUID
 
-#    include "core_cpuid.h"
-#    include "core_io.h"
-#    include "core_thread.h"
+#    include <crisscross/core_cpuid.h>
+#    include <crisscross/core_io.h>
+#    include <crisscross/core_thread.h>
 
 #    define FPU_FLAG 0x0001
 #    define VME_FLAG 0x0002
@@ -278,8 +278,8 @@ CoreCPUID::~CoreCPUID ()
             node->data = NULL;
             proc[i]->features.getNext ( &node );
         }
-        delete [] proc[i]->Manufacturer;
-        delete [] proc[i]->ProcessorName;
+        delete [] (char *)proc[i]->Manufacturer;
+        delete [] (char *)proc[i]->ProcessorName;
         delete proc[i];
     }
 }

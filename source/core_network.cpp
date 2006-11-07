@@ -31,8 +31,8 @@
  *
  */
 
-#include "universal_include.h"
-#include "core_network.h"
+#include <crisscross/universal_include.h>
+#include <crisscross/core_network.h>
 
 #if !defined ( TARGET_OS_WINDOWS )
 #    include <sys/socket.h>

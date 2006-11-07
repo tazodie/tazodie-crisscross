@@ -31,9 +31,9 @@
  *
  */
 
-#include "universal_include.h"
+#include <crisscross/universal_include.h>
 
-#include "core_filesystem.h"
+#include <crisscross/core_filesystem.h>
 
 /*============================================*/
 /*|MAINTAINER: Rudolf Olah <omouse@gmail.com>|*/

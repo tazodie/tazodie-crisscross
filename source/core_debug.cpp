@@ -31,14 +31,14 @@
  *
  */
 
-#include "universal_include.h"
-#include "core_debug.h"
-#include "textwriter.h"
+#include <crisscross/universal_include.h>
+#include <crisscross/core_debug.h>
+#include <crisscross/textwriter.h>
 
 using namespace CrissCross::IO;
 
 #ifdef ENABLE_DEBUGLOG
-#include "core_debuglog.h"
+#include <crisscross/core_debuglog.h>
 #endif
 
 using namespace CrissCross::Debug;

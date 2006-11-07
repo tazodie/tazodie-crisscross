@@ -31,8 +31,8 @@
  *
  */
 
-#include "universal_include.h"
-#include "compare.h"
+#include <crisscross/universal_include.h>
+#include <crisscross/compare.h>
 
 namespace CrissCross
 {

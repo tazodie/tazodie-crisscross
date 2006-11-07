@@ -31,8 +31,8 @@
  *
  */
 
-#include "universal_include.h"
-#include "stopwatch.h"
+#include <crisscross/universal_include.h>
+#include <crisscross/stopwatch.h>
 
 namespace CrissCross
 {

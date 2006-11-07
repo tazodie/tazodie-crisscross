@@ -34,9 +34,9 @@
 #ifndef __included_darray_h
 #define __included_darray_h
 
-#include "core_deprecate.h"
-#include "darray.h"
-#include "dstack.h"
+#include <crisscross/core_deprecate.h>
+#include <crisscross/datastructures/darray.h>
+#include <crisscross/datastructures/dstack.h>
 
 namespace CrissCross
 {
