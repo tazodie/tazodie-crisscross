@@ -40,8 +40,8 @@
 #            include <windows.h>
 #        endif
 
-#        include "datastructures/darray.h"
-#        include "datastructures/rbtree.h"
+#        include "darray.h"
+#        include "rbtree.h"
 
 class Feature
 {

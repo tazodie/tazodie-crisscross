@@ -36,8 +36,8 @@
 
 #include <crisscross/core_debug.h>
 
-#include <crisscross/datastructures/darray.h>
-#include <crisscross/datastructures/dstack.h>
+#include <crisscross/darray.h>
+#include <crisscross/dstack.h>
 
 using namespace CrissCross::Data;
 

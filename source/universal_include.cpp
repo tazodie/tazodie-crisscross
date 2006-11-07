@@ -39,9 +39,9 @@
 #    include <crisscross/core_debuglog.h>
 #endif
 
-#include <crisscross/datastructures/darray.h>
-#include <crisscross/datastructures/rbtree.h>
-#include <crisscross/datastructures/llist.h>
+#include <crisscross/darray.h>
+#include <crisscross/rbtree.h>
+#include <crisscross/llist.h>
 
 #include <exception>
 

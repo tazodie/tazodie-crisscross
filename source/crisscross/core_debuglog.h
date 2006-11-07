@@ -36,7 +36,7 @@
 
 #ifdef ENABLE_DEBUGLOG
 
-#include "datastructures/llist.h"
+#include "llist.h"
 #include "core_debug.h"
 #include "core_console.h"
 #include "textwriter.h"

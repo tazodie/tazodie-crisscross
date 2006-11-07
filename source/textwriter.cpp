@@ -64,7 +64,7 @@ CrissCross::Errors TextWriter::Open ( CONST CHAR *_file, FileWriteMode _writeMod
 	if ( ( _filePathLength = strlen ( _file ) ) < 1 )
 		return CC_ERR_BADPARAMETER;
 
-	delete [] m_filePath;
+	delete [] (char *)m_filePath;
     m_filePath = new CHAR[_filePathLength + 1];
     strcpy ( (CHAR *) m_filePath, _file );
 
@@ -85,7 +85,7 @@ CrissCross::Errors TextWriter::Close ()
 		fclose ( m_fileBuffer );
 	m_fileBuffer = NULL;
 
-    delete [] m_filePath;
+    delete [] (char *)m_filePath;
 	m_filePath = NULL;
 
 	return CC_ERR_NONE;
