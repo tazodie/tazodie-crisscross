@@ -211,7 +211,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="crisscross/core_console.h"
+				RelativePath=".\crisscross\core_console.h"
 				>
 			</File>
 			<File
@@ -240,7 +240,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="crisscross/core_io.h"
+				RelativePath=".\crisscross\core_io.h"
 				>
 			</File>
 			<File
@@ -269,7 +269,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="crisscross/textreader.h"
+				RelativePath=".\crisscross\textreader.h"
 				>
 			</File>
 			<File
@@ -298,7 +298,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="crisscross/textwriter.h"
+				RelativePath=".\crisscross\textwriter.h"
 				>
 			</File>
 		</Filter>
@@ -331,7 +331,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="crisscross/core_cpuid.h"
+				RelativePath=".\crisscross\core_cpuid.h"
 				>
 			</File>
 			<File
@@ -360,7 +360,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="crisscross/core_debug.h"
+				RelativePath=".\crisscross\core_debug.h"
 				>
 			</File>
 			<File
@@ -368,11 +368,11 @@
 				>
 			</File>
 			<File
-				RelativePath="crisscross/core_debuglog.h"
+				RelativePath=".\crisscross\core_debuglog.h"
 				>
 			</File>
 			<File
-				RelativePath="crisscross/core_exception.h"
+				RelativePath=".\crisscross\core_exception.h"
 				>
 			</File>
 			<File
@@ -380,7 +380,7 @@
 				>
 			</File>
 			<File
-				RelativePath="crisscross/core_filesystem.h"
+				RelativePath=".\crisscross\core_filesystem.h"
 				>
 			</File>
 			<File
@@ -409,7 +409,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="crisscross/core_mutex.h"
+				RelativePath=".\crisscross\core_mutex.h"
 				>
 			</File>
 			<File
@@ -438,7 +438,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="crisscross/core_system.h"
+				RelativePath=".\crisscross\core_system.h"
 				>
 			</File>
 			<File
@@ -467,7 +467,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="crisscross/core_thread.h"
+				RelativePath=".\crisscross\core_thread.h"
 				>
 			</File>
 			<File
@@ -475,7 +475,7 @@
 				>
 			</File>
 			<File
-				RelativePath="crisscross/stopwatch.h"
+				RelativePath=".\crisscross\stopwatch.h"
 				>
 			</File>
 		</Filter>
@@ -483,11 +483,11 @@
 			Name="Include"
 			>
 			<File
-				RelativePath="crisscross/core_deprecate.h"
+				RelativePath=".\crisscross\core_deprecate.h"
 				>
 			</File>
 			<File
-				RelativePath="crisscross/core_error.h"
+				RelativePath=".\crisscross\core_error.h"
 				>
 			</File>
 			<File
@@ -518,11 +518,11 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="crisscross/universal_include.h"
+				RelativePath=".\crisscross\universal_include.h"
 				>
 			</File>
 			<File
-				RelativePath="crisscross/win32_pthread_emulate.h"
+				RelativePath=".\crisscross\win32_pthread_emulate.h"
 				>
 			</File>
 		</Filter>
@@ -534,42 +534,11 @@
 				>
 			</File>
 			<File
-				RelativePath="crisscross/compare.h"
+				RelativePath=".\crisscross\compare.h"
 				>
 			</File>
 			<File
-				RelativePath="crisscross/datastructures\darray.cpp"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="crisscross/datastructures\darray.h"
-				>
-			</File>
-			<File
-				RelativePath="crisscross/datastructures\dstack.cpp"
+				RelativePath=".\crisscross\datastructures\darray.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -596,42 +565,11 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="crisscross/datastructures\dstack.h"
+				RelativePath=".\crisscross\datastructures\darray.h"
 				>
 			</File>
 			<File
-				RelativePath="crisscross/datastructures\llist.cpp"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="crisscross/datastructures\llist.h"
-				>
-			</File>
-			<File
-				RelativePath="crisscross/datastructures\rbtree.cpp"
+				RelativePath=".\crisscross\datastructures\dstack.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -658,7 +596,69 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="crisscross/datastructures\rbtree.h"
+				RelativePath=".\crisscross\datastructures\dstack.h"
+				>
+			</File>
+			<File
+				RelativePath=".\crisscross\datastructures\llist.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\crisscross\datastructures\llist.h"
+				>
+			</File>
+			<File
+				RelativePath=".\crisscross\datastructures\rbtree.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\crisscross\datastructures\rbtree.h"
 				>
 			</File>
 			<File
@@ -682,7 +682,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="crisscross/sortclass.h"
+				RelativePath=".\crisscross\sortclass.h"
 				>
 			</File>
 		</Filter>
@@ -694,7 +694,7 @@
 				>
 			</File>
 			<File
-				RelativePath="crisscross/core_network.h"
+				RelativePath=".\crisscross\core_network.h"
 				>
 			</File>
 			<File
@@ -702,7 +702,7 @@
 				>
 			</File>
 			<File
-				RelativePath="crisscross/core_socket.h"
+				RelativePath=".\crisscross\core_socket.h"
 				>
 			</File>
 			<File
@@ -710,7 +710,7 @@
 				>
 			</File>
 			<File
-				RelativePath="crisscross/tcpsocket.h"
+				RelativePath=".\crisscross\tcpsocket.h"
 				>
 			</File>
 			<File
@@ -718,7 +718,7 @@
 				>
 			</File>
 			<File
-				RelativePath="crisscross/udpsocket.h"
+				RelativePath=".\crisscross\udpsocket.h"
 				>
 			</File>
 		</Filter>
