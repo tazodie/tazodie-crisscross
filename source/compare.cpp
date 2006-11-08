@@ -40,17 +40,7 @@ namespace CrissCross
     {
         namespace Comparison
         {
-            int Compare ( CHAR _first, CHAR _second )
-            {
-                if ( _first < _second )
-                    return -1;
-                else if ( _first > _second )
-                    return 1;
-                else
-                    return 0;
-            }
-
-            int Compare ( WCHAR _first, WCHAR _second )
+            int Compare ( char _first, char _second )
             {
                 if ( _first < _second )
                     return -1;
@@ -90,14 +80,9 @@ namespace CrissCross
                     return 0;
             }
 
-            int Compare ( CHAR *_first, CHAR *_second )
+            int Compare ( char *_first, char *_second )
             {
                 return strcmp ( _first, _second );
-            }
-
-            int Compare ( WCHAR *_first, WCHAR *_second )
-            {
-                return wcscmp ( _first, _second );
             }
 
             int Compare ( std::string _first, std::string _second )

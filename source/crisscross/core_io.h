@@ -78,7 +78,7 @@ namespace CrissCross
             /*!
                Stores the line ending selected by CoreIO::SetLineEndings.
              */
-            CHAR *m_lineEnding;
+            char *m_lineEnding;
 
             //! Input/output buffer.
             FILE *m_fileBuffer;
@@ -131,14 +131,7 @@ namespace CrissCross
                \param _destination A pointer to where the character can be stored.
                \return Number of bytes read (size of the character type).
              */
-            virtual size_t Read ( CHAR *_destination );
-
-            //! Reads one unicode character from the file buffer.
-            /*!
-               \param _destination A pointer to where the character can be stored.
-               \return Number of bytes read (size of the character type).
-             */
-            virtual size_t Read ( WCHAR *_destination );
+            virtual size_t Read ( char *_destination );
 
             //! Reads a block of data from the file buffer.
             /*!
@@ -148,17 +141,7 @@ namespace CrissCross
                \param _count The number of bytes to read.
                \return The actual number of bytes read.
              */
-            virtual size_t Read ( CHAR *_buffer, int _bufferLength, int _bufferIndex, int _count );
-
-            //! Reads a block of unicode data from the file buffer.
-            /*!
-               \param _buffer The output buffer to read to.
-               \param _bufferLength The size of _buffer (in bytes).
-               \param _bufferIndex The position in _buffer to begin writing.
-               \param _count The number of bytes to read.
-               \return The actual number of bytes read.
-             */
-            virtual size_t Read ( WCHAR *_buffer, int _bufferLength, int _bufferIndex, int _count );
+            virtual size_t Read ( char *_buffer, int _bufferLength, int _bufferIndex, int _count );
 
             //! Reads a line of data.
             /*!
@@ -167,14 +150,6 @@ namespace CrissCross
                \return The number of bytes read.
              */
             virtual size_t ReadLine ( std::string &_string );
-
-            //! Reads a line of unicode data.
-            /*!
-               Data returned by this function should be copied to another location before being parsed.
-               \param _string A reference of an std::wstring where the unicode data will be stored.
-               \return The number of bytes read.
-             */
-            virtual size_t ReadLine ( std::wstring &_string );
 
             //! Sets the line ending convention used by this CoreIO instance.
             /*!
@@ -186,25 +161,13 @@ namespace CrissCross
             /*!
                \param _format The format of the string to be written.
              */
-            virtual CrissCross::Errors Write ( CONST CHAR *_format, ... );
-
-            //! Writes a unicode string to the buffer.
-            /*!
-               \param _format The format of the string to be written.
-             */
-            virtual CrissCross::Errors Write ( CONST WCHAR *_format, ... );
+            virtual CrissCross::Errors Write ( const char *_format, ... );
 
             //! Writes a string to the buffer.
             /*!
                \param _string The string to be written.
              */
             virtual CrissCross::Errors Write ( std::string _string );
-
-            //! Writes a unicode string to the buffer.
-            /*!
-               \param _string The unicode string to be written.
-             */
-            virtual CrissCross::Errors Write ( std::wstring _string );
 
             //! Writes an empty line to the buffer.
             /*!
@@ -218,15 +181,7 @@ namespace CrissCross
                format specified by CoreIO::m_lineEnding.
                \param _format The format of the string to be written.
              */
-            virtual CrissCross::Errors WriteLine ( CONST CHAR *_format, ... );
-
-            //! Writes a unicode string to the buffer with a newline appended.
-            /*
-               Prints the unicode string to the buffer, and then prints the line terminator in
-               the format specified by CoreIO::m_lineEnding.
-               \param _format The format of the string to be written.
-             */
-            virtual CrissCross::Errors WriteLine ( CONST WCHAR *_format, ... );
+            virtual CrissCross::Errors WriteLine ( const char *_format, ... );
 
             //! Writes a string to the buffer with a newline appended.
             /*
@@ -235,14 +190,6 @@ namespace CrissCross
                \param _format The format of the string to be written.
              */
             virtual CrissCross::Errors WriteLine ( std::string _string );
-
-            //! Writes a unicode string to the buffer with a newline appended.
-            /*
-               Prints the unicode string to the buffer, and then prints the line terminator in the
-               format specified by CoreIO::m_lineEnding.
-               \param _format The format of the string to be written.
-             */
-            virtual CrissCross::Errors WriteLine ( std::wstring _string );
 
             //! Seeks to a location in the buffer.
             /*!

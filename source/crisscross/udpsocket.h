@@ -61,7 +61,7 @@ namespace CrissCross
                 \param _port The remote port to bind to.
                 \return Due to the use of Berkley sockets, this returns zero on success, and a nonzero value on failure.
              */
-            CrissCross::Errors Bind ( CONST CHAR *_address, unsigned short _port );
+            CrissCross::Errors Bind ( const char *_address, unsigned short _port );
             
             //! Binds an inbound UDP/IP socket on the specified port.
             /*!

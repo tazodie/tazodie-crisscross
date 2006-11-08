@@ -61,44 +61,23 @@ template < class dataType, class keyType >
 
 template < class dataType,
     class keyType > inline bool RedBlackTree < dataType,
-    keyType >::compLT ( CONST CHAR *a, CONST CHAR *b ) const
+    keyType >::compLT ( const char *a, const char *b ) const
 {
     return ( stricmp ( a, b ) < 0 );
 }
 
 template < class dataType,
     class keyType > inline bool RedBlackTree < dataType,
-    keyType >::compLTEQU ( CONST CHAR *a, CONST CHAR *b ) const
+    keyType >::compLTEQU ( const char *a, const char *b ) const
 {
     return ( stricmp ( a, b ) <= 0 );
 }
 
 template < class dataType,
     class keyType > inline bool RedBlackTree < dataType,
-    keyType >::compEQ ( CONST CHAR *a, CONST CHAR *b ) const
+    keyType >::compEQ ( const char *a, const char *b ) const
 {
     return ( stricmp ( a, b ) == 0 );
-}
-
-template < class dataType,
-    class keyType > inline bool RedBlackTree < dataType,
-    keyType >::compLT ( CONST WCHAR *a, CONST WCHAR *b ) const
-{
-    return ( wcsicmp ( a, b ) < 0 );
-}
-
-template < class dataType,
-    class keyType > inline bool RedBlackTree < dataType,
-    keyType >::compLTEQU ( CONST WCHAR *a, CONST WCHAR *b ) const
-{
-    return ( wcsicmp ( a, b ) <= 0 );
-}
-
-template < class dataType,
-    class keyType > inline bool RedBlackTree < dataType,
-    keyType >::compEQ ( CONST WCHAR *a, CONST WCHAR *b ) const
-{
-    return ( wcsicmp ( a, b ) == 0 );
 }
 
 template < class dataType,
@@ -144,26 +123,14 @@ template < class dataType,
 }
 
 template < class dataType, class keyType >
-    inline CHAR *RedBlackTree < dataType, keyType >::newKey ( CHAR *a )
+    inline char *RedBlackTree < dataType, keyType >::newKey ( char *a )
 {
-    CHAR *b = ( CHAR * ) malloc ( strlen ( a ) + 1 );
+    char *b = ( char * ) malloc ( strlen ( a ) + 1 );
 
     if ( !b )
         return 0;
     memset ( b, 0, strlen ( a ) + 1 );
     strcpy ( b, a );
-    return b;
-}
-
-template < class dataType, class keyType >
-    inline WCHAR *RedBlackTree < dataType, keyType >::newKey ( WCHAR *a )
-{
-    WCHAR *b = ( WCHAR * ) malloc ( ( wcslen ( a ) * 2 ) + 1 );
-
-    if ( !b )
-        return 0;
-    memset ( b, 0, ( wcslen ( a ) * 2 ) + 1 );
-    wcscpy ( b, a );
     return b;
 }
 
@@ -192,27 +159,14 @@ template < class dataType, class keyType >
 }
 
 template < class dataType, class keyType >
-    inline CHAR *RedBlackTree < dataType, keyType >::reallocKey ( CHAR *pointer, CHAR *a )
+    inline char *RedBlackTree < dataType, keyType >::reallocKey ( char *pointer, char *a )
 {
-    CHAR *tmp = NULL;
+    char *tmp = NULL;
 
-    tmp = ( CHAR * ) realloc ( pointer, strlen ( a ) + 1 );
+    tmp = ( char * ) realloc ( pointer, strlen ( a ) + 1 );
     if ( !tmp )
         return 0;
     memset ( tmp, 0, strlen ( a ) + 1 );
-    strcpy ( tmp, a );
-    return tmp;
-}
-
-template < class dataType, class keyType >
-    inline WCHAR *RedBlackTree < dataType, keyType >::reallocKey ( WCHAR *pointer, WCHAR *a )
-{
-    WCHAR *tmp = NULL;
-
-    tmp = ( WCHAR * ) realloc ( pointer, ( wcslen ( a ) * 2 ) + 1 );
-    if ( !tmp )
-        return 0;
-    memset ( tmp, 0, ( wcslen ( a ) * 2 ) + 1 );
     strcpy ( tmp, a );
     return tmp;
 }
