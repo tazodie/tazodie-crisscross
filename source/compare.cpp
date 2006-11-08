@@ -50,7 +50,6 @@ namespace CrissCross
                     return 0;
             }
 
-#if defined ( ENABLE_UNICODE )
             int Compare ( WCHAR _first, WCHAR _second )
             {
                 if ( _first < _second )
@@ -60,7 +59,6 @@ namespace CrissCross
                 else
                     return 0;
             }
-#endif
 
             int Compare ( short _first, short _second )
             {
@@ -97,12 +95,10 @@ namespace CrissCross
                 return strcmp ( _first, _second );
             }
 
-#if defined ( ENABLE_UNICODE )
             int Compare ( WCHAR *_first, WCHAR *_second )
             {
                 return wcscmp ( _first, _second );
             }
-#endif
 
             int Compare ( std::string _first, std::string _second )
             {
