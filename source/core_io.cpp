@@ -132,10 +132,8 @@ size_t
 CoreIO::Read ( char *_destination )
 {
     CoreAssert ( this != NULL );
-
-    if ( m_unicode ) return CC_ERR_INCOMPATIBLE_BUFFER;
-
     CoreAssert ( _destination != NULL );
+
 #ifndef __GNUC__
     m_ioMutex->Lock ();
 #endif
@@ -172,8 +170,6 @@ size_t
 CoreIO::ReadLine ( std::string &_string )
 {
     CoreAssert ( this != NULL );
-
-    if ( m_unicode ) return CC_ERR_INCOMPATIBLE_BUFFER;
 
 #ifndef __GNUC__
     m_ioMutex->Lock ();
@@ -272,8 +268,6 @@ CoreIO::WriteLine ( const char *_format, ... )
 {
     CoreAssert ( this != NULL );
 
-    if ( m_unicode ) return CC_ERR_INCOMPATIBLE_BUFFER;
-
     if ( _format == NULL )
         return CC_ERR_BADPARAMETER;
 #ifndef __GNUC__
@@ -303,8 +297,6 @@ CrissCross::Errors
 CoreIO::WriteLine ( std::string _string )
 {
     CoreAssert ( this != NULL );
-
-    if ( m_unicode ) return CC_ERR_INCOMPATIBLE_BUFFER;
     
     if ( _string.empty() == true )
         return CC_ERR_BADPARAMETER;
@@ -328,8 +320,6 @@ CoreIO::Write ( std::string _string )
 {
     CoreAssert ( this != NULL );
 
-    if ( m_unicode ) return CC_ERR_INCOMPATIBLE_BUFFER;
-    
     if ( _string.empty() == true )
         return CC_ERR_BADPARAMETER;
 
