@@ -288,6 +288,7 @@ TARGET_COMPILER_ICC
 #       include <errno.h>
 #       include <sched.h>
 #       include <ctype.h>
+#       include <wstring>
 #    endif
 
 #   if defined ( TARGET_COMPILER_CYGWIN )

@@ -364,14 +364,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\core_debuglog.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\crisscross\core_debuglog.h"
-				>
-			</File>
-			<File
 				RelativePath=".\core_filesystem.cpp"
 				>
 			</File>
