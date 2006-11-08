@@ -184,7 +184,7 @@ CoreIO::ReadLine ( std::string &_string )
     while ( c != (char)EOF && c != '\n' )
     {
         buffer += c;
-        c = (char)fgetwc ( m_fileBuffer );
+        c = (char)fgetc ( m_fileBuffer );
     }
 
     size_t len = buffer.length ();
