@@ -105,7 +105,7 @@ TCPSocket *TCPSocket::Accept()
     return NULL;
 }
 
-int TCPSocket::Connect ( CONST CHAR *_address, unsigned short _port )
+int TCPSocket::Connect ( const char *_address, unsigned short _port )
 {
     struct sockaddr_in sin;
     struct hostent *host;
@@ -200,7 +200,7 @@ int TCPSocket::SetAttributes ( socket_t _socket )
     /* TCP_NODELAY */
     int err, optval = 1, optlen = sizeof optval;
     err = setsockopt ( _socket, IPPROTO_TCP,
-          TCP_NODELAY, (CHAR *) &optval, optlen );
+          TCP_NODELAY, (char *) &optval, optlen );
     if ( err == -1 ) return errno; 
 
     /* SO_LINGER */
@@ -209,13 +209,13 @@ int TCPSocket::SetAttributes ( socket_t _socket )
     linger_opts.l_linger = 10;
     optlen = sizeof linger_opts;
     err = setsockopt ( _socket, SOL_SOCKET,
-          SO_LINGER, (CHAR *) &linger_opts, optlen );
+          SO_LINGER, (char *) &linger_opts, optlen );
     if ( err == -1 ) return errno;
 
     /* SO_KEEPALIVE */
     optlen = sizeof optval;
     err = setsockopt ( _socket, SOL_SOCKET,
-          SO_KEEPALIVE, (CHAR *) &optval, optlen );
+          SO_KEEPALIVE, (char *) &optval, optlen );
     if ( err == -1 ) return errno;
 
     return CC_ERR_NONE;

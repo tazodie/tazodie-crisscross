@@ -121,7 +121,7 @@ namespace CrissCross
             /*!
                To get input from the console, use std::cin.
              */
-            CHAR Read ();
+            char Read ();
 
             //! Does nothing.
             /*!
@@ -134,7 +134,7 @@ namespace CrissCross
             int Forward ( int _position );
             int Seek ( int _position );
             size_t Length ();
-            size_t Read ( CHAR *_buffer, int _bufferLength, int _bufferIndex,
+            size_t Read ( char *_buffer, int _bufferLength, int _bufferIndex,
                           int _count );
         };
     }

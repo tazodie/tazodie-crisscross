@@ -50,7 +50,7 @@ namespace CrissCross
 
         protected:
             //! The path to the file being written. 
-            CONST CHAR *m_filePath;
+            const char *m_filePath;
 
         public:
             //! The constructor.
@@ -70,7 +70,7 @@ namespace CrissCross
                 \param _lnEnding The line ending type to use.
 				\return Standard CrissCross::Errors values.
              */ 
-			CrissCross::Errors Open ( CONST CHAR *_file, FileWriteMode _writeMode = CC_FILE_CREATE, LineEndingType _lnEnding = CC_LN_NATIVE );
+			CrissCross::Errors Open ( const char *_file, FileWriteMode _writeMode = CC_FILE_CREATE, LineEndingType _lnEnding = CC_LN_NATIVE );
 
             //! Closes the file.
             /*!
@@ -84,9 +84,9 @@ namespace CrissCross
                 { return false; };
             size_t Length ()
                 { return 0; };
-            CHAR Read ()
+            char Read ()
                 { return '\0'; };
-            size_t Read ( CHAR *_buffer, int _bufferLength, int _bufferIndex, int _count )
+            size_t Read ( char *_buffer, int _bufferLength, int _bufferIndex, int _count )
                 { return 0; };
             std::string ReadLine ()
                 { return std::string(""); };

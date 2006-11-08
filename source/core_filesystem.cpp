@@ -92,14 +92,14 @@ namespace CrissCross
             return false;
         }
 
-        CONST CHAR *
-        NativePath ( std::string path, CHAR device )
+        const char *
+        NativePath ( std::string path, char device )
         {
             return NativePath ( path.c_str (), device );
         }
 
-        CONST CHAR *
-        NativePath ( CONST CHAR *path, CHAR device )
+        const char *
+        NativePath ( const char *path, char device )
         {
 #ifdef TARGET_OS_WINDOWS
             return WindowsPath ( path, device );
@@ -108,24 +108,24 @@ namespace CrissCross
 #endif
         }
 
-        CONST CHAR *
-        WindowsPath ( std::string path, CONST CHAR device )
+        const char *
+        WindowsPath ( std::string path, const char device )
         {
             return WindowsPath ( path.c_str (), device );
         }
 
-        CONST CHAR *
-        WindowsPath ( CONST CHAR *path, CHAR device )
+        const char *
+        WindowsPath ( const char *path, char device )
         {
-            static CHAR *buffer = NULL;
+            static char *buffer = NULL;
             if ( path[0] != '/' ) // Relative path
             {
-                buffer = new CHAR[strlen ( path ) + 1];
+                buffer = new char[strlen ( path ) + 1];
                 memset (buffer, 0, sizeof (buffer));
             }
             else
             {
-                buffer = new CHAR[strlen ( path ) + 3];
+                buffer = new char[strlen ( path ) + 3];
                 memset (buffer, 0, sizeof (buffer));
                 buffer[0] = device;
                 buffer[1] = ':';
@@ -139,24 +139,24 @@ namespace CrissCross
             return buffer;
         }
 
-        CONST CHAR *
+        const char *
         PosixPath ( std::string path )
         {
             return PosixPath ( path.c_str () );
         }
 
-        CONST CHAR *
-        PosixPath ( CONST CHAR *path )
+        const char *
+        PosixPath ( const char *path )
         {
-            static CHAR *buffer = NULL;
+            static char *buffer = NULL;
             if ( path[1] != ':' ) // Relative path
             {
-                buffer = new CHAR[strlen ( path ) + 1];
+                buffer = new char[strlen ( path ) + 1];
                 strncpy ( buffer, path, strlen ( path ));
             }
             else
             {
-                buffer = new CHAR[strlen ( path ) + 3];
+                buffer = new char[strlen ( path ) + 3];
                 strcpy ( buffer, path );
                 buffer += 2;
             }
@@ -168,20 +168,20 @@ namespace CrissCross
             return buffer;
         }
 
-        CONST CHAR *
+        const char *
         DefaultHomePath ()
         {
             size_t bufsize = 1;
-            static CHAR buffer[512];
+            static char buffer[512];
             memset ( buffer, 0, sizeof ( buffer ) );
 #ifdef TARGET_OS_WINDOWS
-            CHAR path_buf[MAX_PATH];
+            char path_buf[MAX_PATH];
             memset ( path_buf, 0, sizeof ( path_buf ) );
             SHGetFolderPathA ( NULL, CSIDL_PERSONAL, NULL, 0, path_buf );
             bufsize += strlen ( path_buf ) + 1;
             sprintf ( buffer, "%s\\", path_buf );
 #else
-            CHAR *tbuf;
+            char *tbuf;
             tbuf = getenv ( "HOME" );
             bufsize = strlen ( tbuf ) + 2;
             sprintf ( buffer, "%s/", tbuf );

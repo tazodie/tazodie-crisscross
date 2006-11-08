@@ -148,16 +148,5 @@ namespace CrissCross
             srand ( time(NULL) );
 #endif
         }
-
-        size_t ConvertToWideChar ( WCHAR *_dest, CHAR *_src )
-        {
-            CoreAssert ( _dest != NULL );
-            CoreAssert ( _src != NULL );
-            size_t count = 0;
-            CHAR *source = _src;
-            WCHAR *dest = _dest;
-            while ( *dest++ = *source++ ) { count++; };
-            return count;
-        }
     }
 }

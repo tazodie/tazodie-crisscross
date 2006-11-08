@@ -70,13 +70,13 @@ namespace CrissCross
          */
         bool IsLink ( std::string _path );
 
-        CONST CHAR *NativePath ( std::string _path, CHAR _device = 'c' );
-        CONST CHAR *WindowsPath ( std::string _path, CHAR _device = 'c' );
-        CONST CHAR *PosixPath ( std::string _path );
-        CONST CHAR *NativePath ( CONST CHAR *_path, CHAR _device = 'c' );
-        CONST CHAR *WindowsPath ( CONST CHAR *_path, CHAR _device = 'c' );
-        CONST CHAR *PosixPath ( CONST CHAR *_path );
-        CONST CHAR *DefaultHomePath ();
+        const char *NativePath ( std::string _path, char _device = 'c' );
+        const char *WindowsPath ( std::string _path, char _device = 'c' );
+        const char *PosixPath ( std::string _path );
+        const char *NativePath ( const char *_path, char _device = 'c' );
+        const char *WindowsPath ( const char *_path, char _device = 'c' );
+        const char *PosixPath ( const char *_path );
+        const char *DefaultHomePath ();
     }
 }
 

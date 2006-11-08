@@ -88,7 +88,7 @@ CoreConsole::SetColour ( short _flags )
         SetConsoleTextAttribute ( hConsole, _flags );
 #elif defined ( ANSI_COLOUR )
     // Reset colours to defaults.
-    CHAR codes[16];
+    char codes[16];
 
     sprintf ( codes, "\033[" );
     Write ( "\033[0m" );
@@ -184,10 +184,10 @@ CoreConsole::MoveUp ( int _lines )
 #endif
 }
 
-CHAR CoreConsole::Read() { return 0; }
+char CoreConsole::Read() { return 0; }
 std::string CoreConsole::ReadLine() { return ""; }
 int CoreConsole::Seek ( int _position ) { return 0; }
 int CoreConsole::Forward ( int _position ) { return 0; }
 size_t CoreConsole::Length() { return 0; }
-size_t CoreConsole::Read ( CHAR *_buffer, int _bufferLength, int _bufferIndex, int _count ) { return 0; };
+size_t CoreConsole::Read ( char *_buffer, int _bufferLength, int _bufferIndex, int _count ) { return 0; };
 bool CoreConsole::EndOfFile () { return false; };

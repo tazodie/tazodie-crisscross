@@ -78,14 +78,14 @@ namespace CrissCross
         protected:
 #if defined ( ENABLE_PROTECTION )
             //! A RedBlackTree of banned hosts.
-            RedBlackTree<CHAR*,u_long*> m_banned_hosts;
+            RedBlackTree<char*,u_long*> m_banned_hosts;
 #endif
 
             //! The maximum number of bytes to read per CoreSocket::Read or CoreSocket::ReadLine call.
             int m_bufferSize;
 
             //! Indicates whether __socket_initialise() was called when the class was initialized.
-            CHAR m_calledInitialise;
+            char m_calledInitialise;
 
             //! Stores the socket data.
             socket_t m_sock;
@@ -144,7 +144,7 @@ namespace CrissCross
                 pointer this returns will be reused on the next GetRemoteIP call, so the
                 data pointed at by the return value should be copied into another buffer.
              */
-            CONST CHAR *GetRemoteIP ();
+            const char *GetRemoteIP ();
 
             //! Gives access to the socket itself (for extensibility only).
             /*!
@@ -176,7 +176,7 @@ namespace CrissCross
 
             //! Reads a block of data with a specified maximum size.
             /*!
-                \param _output Input should be the address of a NULL CHAR * pointer.
+                \param _output Input should be the address of a NULL char * pointer.
                 The _output will point to the internal data buffer after the function
                 executes. The data in _output should be copied somewhere else if it
                 is needed longer than until the next Read() call.
@@ -184,7 +184,7 @@ namespace CrissCross
                 \return  If the return value is greater than zero, it is an 'errno'
                 value. If it is less than zero, it is a socketError value.
              */
-            virtual int Read ( CHAR **_output, unsigned int *_len ) const;
+            virtual int Read ( char **_output, unsigned int *_len ) const;
 
             //! Reads a block of data with a specified maximum size.
             /*!
@@ -199,7 +199,7 @@ namespace CrissCross
                 WARNING: ReadLine is a blocking call, so you MUST only use this in
                 cases where a new line is sure to happen (string-based communications).
              */
-            virtual int ReadLine ( CHAR **_output, unsigned int *_len ) const;
+            virtual int ReadLine ( char **_output, unsigned int *_len ) const;
 
 
             //! Sends a block of data.
@@ -208,7 +208,7 @@ namespace CrissCross
                 \param _length The number of bytes of _data to send (must NOT exceed the size of _data).
                 \return The actual number of bytes sent.
              */
-            virtual int Send ( CONST CHAR *_data, size_t _length );
+            virtual int Send ( const char *_data, size_t _length );
             
             //! Sends a string.
             /*!

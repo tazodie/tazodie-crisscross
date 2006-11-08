@@ -67,7 +67,7 @@ namespace CrissCross
                 \param _address The remote address to connect to. Can be a hostname, as it will be resolved by gethostbyname().
                 \param _port The remote port to connect to.
              */
-            int Connect ( CONST CHAR *_address, unsigned short _port );
+            int Connect ( const char *_address, unsigned short _port );
 
             //! Listens for connections on the specified port.
             /*!

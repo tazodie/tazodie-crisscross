@@ -274,10 +274,6 @@ TARGET_COMPILER_ICC
 #   else
 #       undef ENABLE_SYMBOL_ENGINE
 #   endif
-
-#   if defined ( TARGET_COMPILER_GCC ) && defined ( TARGET_OS_WINDOWS )
-
-#   endif
     
 #   if defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
 #       define ANSI_COLOUR
@@ -288,7 +284,6 @@ TARGET_COMPILER_ICC
 #       include <errno.h>
 #       include <sched.h>
 #       include <ctype.h>
-#       include <wstring>
 #    endif
 
 #   if defined ( TARGET_COMPILER_CYGWIN )
@@ -299,8 +294,7 @@ TARGET_COMPILER_ICC
 #       include <execinfo.h>
 #   endif
 
-#    include <string.h>   
-#    include <wchar.h>
+#    include <string.h>
 #    include <assert.h>
 #    include <math.h>
 #    include <memory.h>
@@ -314,18 +308,6 @@ TARGET_COMPILER_ICC
 #    include <iostream>
 #    include <fstream>
 #    include <sstream>
-
-#ifndef CONST
-#    define CONST const
-#endif
-
-#ifndef CHAR
-    typedef char CHAR;
-#endif
-
-#ifndef WCHAR
-    typedef wchar_t WCHAR;
-#endif
 
 #    if defined ( TARGET_OS_WINDOWS )
 #            if defined ( DETECT_MEMORY_LEAKS )

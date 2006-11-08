@@ -47,14 +47,14 @@ TextWriter::~TextWriter ()
     Close ();
 }
 
-CrissCross::Errors TextWriter::Open ( CONST CHAR *_file, FileWriteMode _writeMode, CoreIO::LineEndingType _lnEnding )
+CrissCross::Errors TextWriter::Open ( const char *_file, FileWriteMode _writeMode, CoreIO::LineEndingType _lnEnding )
 {
 
 	Close ();
 
 	SetLineEndings ( _lnEnding );
 
-	CHAR openModes[4];
+	char openModes[4];
 
     size_t _filePathLength = 0;
 
@@ -65,8 +65,8 @@ CrissCross::Errors TextWriter::Open ( CONST CHAR *_file, FileWriteMode _writeMod
 		return CC_ERR_BADPARAMETER;
 
 	delete [] (char *)m_filePath;
-    m_filePath = new CHAR[_filePathLength + 1];
-    strcpy ( (CHAR *) m_filePath, _file );
+    m_filePath = new char[_filePathLength + 1];
+    strcpy ( (char *) m_filePath, _file );
 
 	sprintf ( openModes, "%s%s", ( _writeMode == CC_FILE_APPEND ? "a" : "w" ), "t" );
     m_fileBuffer = fopen ( m_filePath, openModes );

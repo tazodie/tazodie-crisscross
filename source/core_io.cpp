@@ -42,8 +42,8 @@ using namespace CrissCross::System;
 
 CoreIO::CoreIO ( FILE * _fileBuffer, bool _isUnicode, CoreIO::LineEndingType _lnEnding ):
 m_lineEnding ( NULL ),
-m_unicode ( _isUnicode ),
-m_fileBuffer ( _fileBuffer )
+m_fileBuffer ( _fileBuffer ),
+m_unicode ( _isUnicode )
 #ifndef __GNUC__
 , m_ioMutex ( new CoreMutex () )
 #endif
@@ -129,7 +129,7 @@ CoreIO::Length ()
 }
 
 size_t
-CoreIO::Read ( CHAR *_destination )
+CoreIO::Read ( char *_destination )
 {
     CoreAssert ( this != NULL );
 
@@ -139,38 +139,18 @@ CoreIO::Read ( CHAR *_destination )
 #ifndef __GNUC__
     m_ioMutex->Lock ();
 #endif
-    *_destination = (CHAR)fgetc ( m_fileBuffer );
+    *_destination = (char)fgetc ( m_fileBuffer );
 #ifndef __GNUC__
     m_ioMutex->Unlock ();
 #endif
-    return sizeof(CHAR);
+    return sizeof(char);
 }
 
 size_t
-CoreIO::Read ( WCHAR *_destination )
-{
-    CoreAssert ( this != NULL );
-
-    if ( !m_unicode ) return CC_ERR_INCOMPATIBLE_BUFFER;
-
-    CoreAssert ( _destination != NULL );
-#ifndef __GNUC__
-    m_ioMutex->Lock ();
-#endif
-    *_destination = (WCHAR)fgetc ( m_fileBuffer );
-#ifndef __GNUC__
-    m_ioMutex->Unlock ();
-#endif
-    return sizeof(WCHAR);
-}
-
-size_t
-CoreIO::Read ( CHAR *_buffer, int _bufferLength, int _bufferIndex,
+CoreIO::Read ( char *_buffer, int _bufferLength, int _bufferIndex,
                int _count )
 {
     CoreAssert ( this != NULL );
-
-    if ( m_unicode ) return CC_ERR_INCOMPATIBLE_BUFFER;
 
     size_t retval;
 
@@ -181,72 +161,11 @@ CoreIO::Read ( CHAR *_buffer, int _bufferLength, int _bufferIndex,
 #ifndef __GNUC__
     m_ioMutex->Lock ();
 #endif
-    retval = fread ( &_buffer[_bufferIndex], sizeof(CHAR), _count, m_fileBuffer );
+    retval = fread ( &_buffer[_bufferIndex], sizeof(char), _count, m_fileBuffer );
 #ifndef __GNUC__
     m_ioMutex->Unlock ();
 #endif
     return retval;
-}
-
-size_t
-CoreIO::Read ( WCHAR *_buffer, int _bufferLength, int _bufferIndex,
-               int _count )
-{
-    CoreAssert ( this != NULL );
-
-    if ( !m_unicode ) return CC_ERR_INCOMPATIBLE_BUFFER;
-
-    size_t retval;
-
-    CoreAssert ( _buffer != NULL );
-    CoreAssert ( _bufferLength - _bufferIndex < _count );
-    CoreAssert ( _bufferIndex > 0 );
-    CoreAssert ( _count > 0 );
-#ifndef __GNUC__
-    m_ioMutex->Lock ();
-#endif
-    retval = fread ( &_buffer[_bufferIndex], sizeof(WCHAR), _count, m_fileBuffer );
-#ifndef __GNUC__
-    m_ioMutex->Unlock ();
-#endif
-    return retval;
-}
-
-size_t
-CoreIO::ReadLine ( std::wstring &_string )
-{
-    CoreAssert ( this != NULL );
-
-    if ( !m_unicode ) return CC_ERR_INCOMPATIBLE_BUFFER;
-
-#ifndef __GNUC__
-    m_ioMutex->Lock ();
-#endif
-    WCHAR c = (WCHAR)fgetwc ( m_fileBuffer );
-
-    if ( c == (WCHAR)EOF )
-        return 0;
-
-    static std::wstring buffer;
-
-    while ( c != (WCHAR)EOF && c != '\n' )
-    {
-        buffer += c;
-        c = (WCHAR)fgetwc ( m_fileBuffer );
-    }
-
-    size_t len = buffer.length ();
-
-    if ( len && buffer[len - 1] == '\r' )
-        buffer.resize ( len - 1 );
-
-#ifndef __GNUC__
-    m_ioMutex->Unlock ();
-#endif
-
-    _string = buffer;
-
-    return _string.length() * sizeof ( WCHAR );
 }
 
 size_t
@@ -259,17 +178,17 @@ CoreIO::ReadLine ( std::string &_string )
 #ifndef __GNUC__
     m_ioMutex->Lock ();
 #endif
-    CHAR c = (CHAR) fgetc ( m_fileBuffer );
+    char c = (char) fgetc ( m_fileBuffer );
 
-    if ( c == (CHAR)EOF )
+    if ( c == (char)EOF )
         return 0;
 
     static std::string buffer;
 
-    while ( c != (CHAR)EOF && c != '\n' )
+    while ( c != (char)EOF && c != '\n' )
     {
         buffer += c;
-        c = (CHAR)fgetwc ( m_fileBuffer );
+        c = (char)fgetwc ( m_fileBuffer );
     }
 
     size_t len = buffer.length ();
@@ -283,7 +202,7 @@ CoreIO::ReadLine ( std::string &_string )
 
     _string = buffer;
 
-    return _string.length() * sizeof ( CHAR );
+    return _string.length() * sizeof ( char );
 }
 
 int
@@ -331,15 +250,15 @@ CoreIO::SetLineEndings ( LineEndingType _ending )
     switch ( _ending )
     {
     case CC_LN_CR:
-        m_lineEnding = new CHAR[2];
+        m_lineEnding = new char[2];
         sprintf ( m_lineEnding, "\r" );
         break;
     case CC_LN_LF:
-        m_lineEnding = new CHAR[2];
+        m_lineEnding = new char[2];
         sprintf ( m_lineEnding, "\n" );
         break;
     case CC_LN_CRLF:
-        m_lineEnding = new CHAR[3];
+        m_lineEnding = new char[3];
         sprintf ( m_lineEnding, "\r\n" );
         break;
     default:
@@ -349,7 +268,7 @@ CoreIO::SetLineEndings ( LineEndingType _ending )
 }
 
 CrissCross::Errors
-CoreIO::WriteLine ( CONST CHAR *_format, ... )
+CoreIO::WriteLine ( const char *_format, ... )
 {
     CoreAssert ( this != NULL );
 
@@ -369,41 +288,6 @@ CoreIO::WriteLine ( CONST CHAR *_format, ... )
     vfprintf ( m_fileBuffer, _format, args );
 
     if ( fprintf ( m_fileBuffer, "%s", m_lineEnding ) < 0 )
-		return CC_ERR_WRITE;
-
-    va_end ( args );
-
-#ifndef __GNUC__
-    m_ioMutex->Unlock ();
-#endif
-
-	return CC_ERR_NONE;
-}
-
-CrissCross::Errors
-CoreIO::WriteLine ( CONST WCHAR *_format, ... )
-{
-    CoreAssert ( this != NULL );
-
-    if ( !m_unicode ) return CC_ERR_INCOMPATIBLE_BUFFER;
-
-    if ( _format == NULL )
-        return CC_ERR_BADPARAMETER;
-#ifndef __GNUC__
-    m_ioMutex->Lock ();
-#endif
-
-    va_list args;
-
-    va_start ( args, _format );
-
-    // Print out the string
-    vfwprintf ( m_fileBuffer, _format, args );
-
-    WCHAR tempformat[8];
-    ConvertToWideChar ( tempformat, m_lineEnding );
-
-    if ( fwprintf ( m_fileBuffer, tempformat ) < 0 )
 		return CC_ERR_WRITE;
 
     va_end ( args );
@@ -440,36 +324,6 @@ CoreIO::WriteLine ( std::string _string )
 }
 
 CrissCross::Errors
-CoreIO::WriteLine ( std::wstring _string )
-{
-    CoreAssert ( this != NULL );
-
-    if ( !m_unicode ) return CC_ERR_INCOMPATIBLE_BUFFER;
-    
-    if ( _string.empty() == true )
-        return CC_ERR_BADPARAMETER;
-
-#ifndef __GNUC__        
-    m_ioMutex->Lock ();
-#endif
-
-    WCHAR tempnewline[8];
-    WCHAR tempformat[8];
-
-    ConvertToWideChar ( tempformat, "%ls%ls" );
-    ConvertToWideChar ( tempnewline, m_lineEnding );
-
-    if ( fwprintf ( m_fileBuffer, tempformat, _string.c_str(), tempnewline ) < 0 )
-		return CC_ERR_WRITE;
-
-#ifndef __GNUC__    
-    m_ioMutex->Unlock ();
-#endif
-
-	return CC_ERR_NONE;
-}
-
-CrissCross::Errors
 CoreIO::Write ( std::string _string )
 {
     CoreAssert ( this != NULL );
@@ -493,32 +347,6 @@ CoreIO::Write ( std::string _string )
 	return CC_ERR_NONE;
 }
 
-CrissCross::Errors
-CoreIO::Write ( std::wstring _string )
-{
-    CoreAssert ( this != NULL );
-
-    if ( !m_unicode ) return CC_ERR_INCOMPATIBLE_BUFFER;
-    
-    if ( _string.empty() == true )
-        return CC_ERR_BADPARAMETER;
-
-#ifndef __GNUC__        
-    m_ioMutex->Lock ();
-#endif
-
-    WCHAR tempformat[8];
-    ConvertToWideChar ( tempformat, "%s" );
-    
-    if ( fwprintf ( m_fileBuffer, tempformat, _string.c_str() ) < 0 )
-		return CC_ERR_WRITE;
-
-#ifndef __GNUC__    
-    m_ioMutex->Unlock ();
-#endif
-
-	return CC_ERR_NONE;
-}
 
 CrissCross::Errors
 CoreIO::WriteLine ()
@@ -528,18 +356,8 @@ CoreIO::WriteLine ()
     m_ioMutex->Lock ();
 #endif
 
-    if ( m_unicode )
-    {
-        WCHAR tempnewline[8];
-        ConvertToWideChar ( tempnewline, m_lineEnding );
-        if ( fwprintf ( m_fileBuffer, tempnewline ) < 0 )
-		    return CC_ERR_WRITE;
-    }
-    else
-    {
-        if ( fprintf ( m_fileBuffer, m_lineEnding ) < 0 )
-		    return CC_ERR_WRITE;
-    }
+    if ( fprintf ( m_fileBuffer, m_lineEnding ) < 0 )
+	    return CC_ERR_WRITE;
 
 #ifndef __GNUC__
     m_ioMutex->Unlock ();
@@ -549,11 +367,9 @@ CoreIO::WriteLine ()
 }
 
 CrissCross::Errors
-CoreIO::Write ( CONST CHAR *_format, ... )
+CoreIO::Write ( const char *_format, ... )
 {
     CoreAssert ( this != NULL );
-
-    if ( m_unicode ) return CC_ERR_INCOMPATIBLE_BUFFER;
 
     if ( _format == NULL )
         return CC_ERR_BADPARAMETER;
@@ -577,35 +393,3 @@ CoreIO::Write ( CONST CHAR *_format, ... )
 
 	return CC_ERR_NONE;
 }
-
-
-CrissCross::Errors
-CoreIO::Write ( CONST WCHAR *_format, ... )
-{
-    CoreAssert ( this != NULL );
-
-    if ( !m_unicode ) return CC_ERR_INCOMPATIBLE_BUFFER;
-
-    if ( _format == NULL )
-        return CC_ERR_BADPARAMETER;
-
-#ifndef __GNUC__
-    m_ioMutex->Lock ();
-#endif
-
-    va_list args;
-
-    va_start ( args, _format );
-
-    // Print out the string
-    if ( vfwprintf ( m_fileBuffer, _format, args ) < 0 )
-		return CC_ERR_WRITE;
-
-    va_end ( args );
-#ifndef __GNUC__
-    m_ioMutex->Unlock ();
-#endif
-
-	return CC_ERR_NONE;
-}
-

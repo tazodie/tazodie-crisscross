@@ -90,7 +90,7 @@ CoreSocket::Ban ( unsigned long _host )
 {
 #if defined ( ENABLE_PROTECTION )
     if ( m_banned_hosts.findNode ( &_host ) == NULL )
-        m_banned_hosts.insert ( &_host, (CHAR *)1 );
+        m_banned_hosts.insert ( &_host, (char *)1 );
 #endif
     return CC_ERR_NONE;
 }
@@ -107,12 +107,12 @@ CoreSocket::Close()
     return CC_ERR_NONE;
 }
 
-CONST CHAR *
+const char *
 CoreSocket::GetRemoteIP ()
 {
     if ( m_sock == INVALID_SOCKET ) return NULL;
 
-    static CHAR buffer[15];
+    static char buffer[15];
     struct sockaddr_in sock; int sock_size = sizeof(sock);
     memset ( &sock, 0, sizeof(sock) );
     getpeername ( m_sock, (sockaddr *)&sock, (socklen_t *)&sock_size );
@@ -160,7 +160,7 @@ CoreSocket::Read ( std::string &_output ) const
 {
     if ( m_sock == INVALID_SOCKET ) return CC_ERR_SOCK_SOCKET_NOT_INITIALISED;
 
-    CHAR *buf = new CHAR[m_bufferSize];
+    char *buf = new char[m_bufferSize];
     memset ( buf, 0, m_bufferSize );
     int ret = 0, recvlen = 0;
 
@@ -175,12 +175,12 @@ CoreSocket::Read ( std::string &_output ) const
 }
 
 int
-CoreSocket::Read ( CHAR **_output, unsigned int *_len ) const
+CoreSocket::Read ( char **_output, unsigned int *_len ) const
 {
     if ( m_sock == INVALID_SOCKET ) return CC_ERR_SOCK_SOCKET_NOT_INITIALISED;
     if ( _len == NULL ) return CC_ERR_SOCK_BAD_PARAMETER;
 
-    CHAR *buf = new CHAR[m_bufferSize];
+    char *buf = new char[m_bufferSize];
     int ret = 0, recvlen = 0;
     memset ( buf, 0, m_bufferSize );
 
@@ -201,13 +201,13 @@ CoreSocket::Read ( CHAR **_output, unsigned int *_len ) const
 }
 
 int
-CoreSocket::ReadLine ( CHAR **_output, unsigned int *_len ) const
+CoreSocket::ReadLine ( char **_output, unsigned int *_len ) const
 {
     if ( m_sock == INVALID_SOCKET ) return CC_ERR_SOCK_SOCKET_NOT_INITIALISED;
     if ( _len == NULL ) return CC_ERR_SOCK_BAD_PARAMETER;
 
-    CHAR *buf = new CHAR[m_bufferSize];
-    CHAR temp[2];
+    char *buf = new char[m_bufferSize];
+    char temp[2];
     int recvlen = 0;
     memset ( buf, 0, m_bufferSize );
     memset ( temp, 0, sizeof ( temp ) );
@@ -261,15 +261,15 @@ CoreSocket::ReadLine ( CHAR **_output, unsigned int *_len ) const
 }
 
 int
-CoreSocket::Send ( CONST CHAR *_data, size_t _length )
+CoreSocket::Send ( const char *_data, size_t _length )
 {
     CoreAssert ( m_sock != 0 );
 
     int sent = 0;
 #ifdef PACKET_DEBUG
-    CHAR *temp_buf = new CHAR[m_bufferSize];
+    char *temp_buf = new char[m_bufferSize];
     memset ( temp_buf, 0, m_bufferSize );
-    CHAR *p = temp_buf, *d = (CHAR *)_data;
+    char *p = temp_buf, *d = (char *)_data;
     while ( *d != '\x0' )
     {
         if ( !( *d == '\n' || *d == '\r' ) )
@@ -290,9 +290,9 @@ CoreSocket::Send ( std::string _data )
 
     int sent = 0;
 #ifdef PACKET_DEBUG
-    CHAR *temp_buf = new CHAR[m_bufferSize];
+    char *temp_buf = new char[m_bufferSize];
     memset ( temp_buf, 0, m_bufferSize );
-    CHAR *p = temp_buf, *d = (CHAR *)_data.c_str();
+    char *p = temp_buf, *d = (char *)_data.c_str();
     while ( *d != '\x0' )
     {
         if ( !( *d == '\n' || *d == '\r' ) )

@@ -103,7 +103,7 @@ std::string SymbolEngine::addressToString ( DWORD address )
     struct tagSymInfo
     {
         IMAGEHLP_SYMBOL symInfo;
-        CHAR nameBuffer[4 * 256];
+        char nameBuffer[4 * 256];
     } SymInfo = { { sizeof ( IMAGEHLP_SYMBOL ) } };
 
     IMAGEHLP_SYMBOL *
@@ -131,7 +131,7 @@ std::string SymbolEngine::addressToString ( DWORD address )
          ( GetCurrentProcess (), ( DWORD ) address, &dwDisplacement,
            &lineInfo ) )
     {
-        CONST CHAR *pDelim = strrchr ( lineInfo.FileName, '\\' );
+        const char *pDelim = strrchr ( lineInfo.FileName, '\\' );
 
         oss << " at " << ( pDelim ? pDelim +
                            1 : lineInfo.FileName ) << "(" << lineInfo.
@@ -202,7 +202,7 @@ PrintStackTrace ( CoreIO * _outputBuffer )
 
     void *array[20];
     size_t size;
-    CHAR **strings;
+    char **strings;
     size_t i;
 
     //use -rdynamic flag when compiling
@@ -223,13 +223,13 @@ PrintStackTrace ( CoreIO * _outputBuffer )
 	bt += strings[i];
 	int status;
 	// extract the identifier from strings[i].  It's inside of parens.
-	CHAR* firstparen = ::strchr(strings[i], '(');
-	CHAR* lastparen = ::strchr(strings[i], '+');
+	char* firstparen = ::strchr(strings[i], '(');
+	char* lastparen = ::strchr(strings[i], '+');
 	if (firstparen != 0 && lastparen != 0 && firstparen < lastparen)
 	  {
 	    bt += ": ";
 	    *lastparen = '\0';
-	    CHAR* realname = abi::__cxa_demangle(firstparen+1, 0, 0, &status);
+	    char* realname = abi::__cxa_demangle(firstparen+1, 0, 0, &status);
 	    if ( realname != NULL )
 	      {
 		bt += realname;
@@ -261,12 +261,12 @@ PrintStackTrace ( CoreIO * _outputBuffer )
 }
 
 void
-Assert ( bool _condition, CONST CHAR *_testcase, CONST CHAR *_file,
+Assert ( bool _condition, const char *_testcase, const char *_file,
          int _line )
 {
     if ( !_condition )
     {
-        CHAR buffer[10240];
+        char buffer[10240];
         sprintf ( buffer, "Assertion failed : '%s'\nFile: %s\nLine: %d\n\n",
         _testcase, _file, _line );
 #ifdef ENABLE_DEBUGLOG
