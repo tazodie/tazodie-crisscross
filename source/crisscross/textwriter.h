@@ -54,7 +54,7 @@ namespace CrissCross
 
         public:
             //! The constructor.
-            TextWriter ( );
+            TextWriter ( bool _unicode = false );
 
             //! The destructor
             /*!

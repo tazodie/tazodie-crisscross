@@ -38,7 +38,7 @@
 using namespace CrissCross::IO;
 
 CoreConsole::CoreConsole ():
-CoreIO ( stdout, CoreIO::CC_LN_LF )
+CoreIO ( stdout, false, CoreIO::CC_LN_LF )
 {
 #ifdef TARGET_OS_WINDOWS
     if ( AllocConsole () == TRUE )
@@ -62,7 +62,7 @@ CoreIO ( stdout, CoreIO::CC_LN_LF )
 }
 
 CoreConsole::CoreConsole ( FILE * _outputBuffer ):
-CoreIO ( _outputBuffer,  CoreIO::CC_LN_LF )
+CoreIO ( _outputBuffer, false, CoreIO::CC_LN_LF )
 {
 }
 

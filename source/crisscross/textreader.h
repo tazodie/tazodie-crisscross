@@ -54,7 +54,7 @@ namespace CrissCross
 
         public:
             //! The constructor.
-            TextReader ();
+            TextReader ( bool _unicode = false );
 
             //! The destructor
             /*!
