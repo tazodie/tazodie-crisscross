@@ -37,8 +37,8 @@
 
 using namespace CrissCross::IO;
 
-TextWriter::TextWriter ( bool _unicode ):
-CoreIO ( NULL, _unicode ), m_filePath ( NULL )
+TextWriter::TextWriter ():
+CoreIO ( NULL, false ), m_filePath ( NULL )
 {
 }
 
