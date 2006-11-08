@@ -32,23 +32,20 @@ universal_include.cpp
 
 OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)
 
-AR = ar rc
-RANLIB = ranlib
-CXX = g++
-CC = gcc
 CCDV = ../tools/ccdv/ccdv.bin
-LINK = $(CXX) -rdynamic
-INCLUDES = -I.
-CXXFLAGS = -O2 $(FPIC) -Wall $(INCLUDES) -g
-NM = nm
-STRIP = :
+ifneq ($(GCC_ISCYGMING),yes)
+LINK += -rdynamic
+endif
+INCLUDES += -I.
+CXXFLAGS += $(FPIC) $(INCLUDES)
 
 ifeq ($(GCC_MAJOR),4)
 PCH = universal_include.h.gch
 endif
 
-all: .depend $(PCH) $(OUTDIR)/$(OUTBIN)
-# all: .depend $(OUTDIR)/$(OUTBIN)
+all: .depend precomp $(OUTDIR)/$(OUTBIN)
+
+precomp: $(PCH)
 
 install: $(OUTDIR)/$(OUTBIN)
 	mkdir -p $(prefix)/include/crisscross
@@ -94,11 +91,11 @@ $(PCH): crisscross/universal_include.h
 	@$(CCDV) $(CXX) -c crisscross/universal_include.h -o $(PCH) $(CXXFLAGS)
 
 
-$(OBJDIR)/%.o: %.cpp
+$(OBJDIR)/%.o: %.cpp precomp
 	@test -d $(dir $(OBJDIR)/$<) || mkdir -p $(dir $(OBJDIR)/$<)
 	@$(CCDV) $(CXX) $(CXXFLAGS) -c $< -o $@
 
-$(OBJDIR)/%.o: %.c
+$(OBJDIR)/%.o: %.c precomp
 	@test -d $(dir $(OBJDIR)/$<) || mkdir -p $(dir $(OBJDIR)/$<)
 	@$(CCDV) $(CC) $(CXXFLAGS) -c $< -o $@
 

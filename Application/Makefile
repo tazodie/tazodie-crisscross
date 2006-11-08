@@ -11,25 +11,22 @@ header.cpp
 
 OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)
 
-CXX = g++
-CC = gcc
 CCDV = ../tools/ccdv/ccdv.bin
-ifneq ($(GCC_ISCYGMING),yes)
-LINK = $(CXX) -rdynamic
+ifneq ($(CC_BUILDSTATIC),yes)
+LINK += -rdynamic
 else
-LINK = $(CXX) -L../source
+LINK += -L../source
 endif
-INCLUDES = -I. -I../source
-CXXFLAGS = -O2 -Wall $(INCLUDES) -g
-NM = nm
-STRIP = strip
+INCLUDES += -I. -I../source
+CXXFLAGS += $(INCLUDES)
 
 ifeq ($(GCC_MAJOR),4)
 PCH = header.h.gch
 endif
 
-all: .depend $(PCH) $(OUTDIR)/$(OUTBIN)
-# all: .depend $(OUTDIR)/$(OUTBIN)
+all: .depend precomp $(OUTDIR)/$(OUTBIN)
+
+precomp: $(PCH)
 
 clean:
 	-rm -rf obj
@@ -53,18 +50,20 @@ else
 	@ln -sf ../source/$(LIBNAME) $(LIBNAME)
 	@$(CCDV) $(LINK) $+ -lpthread -lstdc++ libcrisscross-$(VERSION).a -o $(OUTDIR)/$(OUTBIN)
 endif
+ifneq ($(GCC_ISEMULATED),yes)
 	@$(NM) $(OUTDIR)/$(OUTBIN) > $(OUTDIR)/$(OUTBIN).map
+endif   
 	@$(STRIP) $(OUTDIR)/$(OUTBIN)
 
 $(PCH): header.h
 	@$(CXX) -c header.h -o $(PCH) $(CXXFLAGS)
 
 
-$(OBJDIR)/%.o: %.cpp
+$(OBJDIR)/%.o: %.cpp precomp
 	@test -d $(dir $(OBJDIR)/$<) || mkdir -p $(dir $(OBJDIR)/$<)
 	@$(CCDV) $(CXX) $(CXXFLAGS) -c $< -o $@
 
-$(OBJDIR)/%.o: %.c
+$(OBJDIR)/%.o: %.c precomp
 	@test -d $(dir $(OBJDIR)/$<) || mkdir -p $(dir $(OBJDIR)/$<)
 	@$(CCDV) $(CC) $(CXXFLAGS) -c $< -o $@
 
