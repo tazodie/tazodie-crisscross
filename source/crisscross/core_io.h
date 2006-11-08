@@ -83,7 +83,7 @@ namespace CrissCross
             //! Input/output buffer.
             FILE *m_fileBuffer;
 
-            //! Indicates whether the buffer is to be written in unicode or not.
+            //! Indicates whether the buffer is to be written in unicode or not. (UNIMPLEMENTED)
             bool m_unicode;
 
         #ifndef TARGET_COMPILER_GCC
@@ -100,7 +100,7 @@ namespace CrissCross
                Creates a new CoreIO instance. Will initialize line endings to the platform's
                default, also initializes CoreIO::m_ioMutex.
                \param _fileBuffer The buffer to be used for I/O operations.
-               \param _isUnicode The buffer is going to be a Unicode I/O buffer.
+               \param _isUnicode The buffer is going to be a Unicode I/O buffer. (UNIMPLEMENTED)
                \param _lnEnding The line ending to use.
              */
             CoreIO ( FILE * _fileBuffer, bool _isUnicode, LineEndingType _lnEnding = CC_LN_NATIVE );
