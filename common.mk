@@ -1,5 +1,12 @@
-VERSION = 0.5.0
+VERSION = 0.5.2
 VERSION_MAJOR = 0
+
+CXX = g++
+CC = gcc
+LINK = $(CXX)
+
+CFLAGS = -O2 -g -Wall
+INCLUDES = 
 
 GCC_APPLE    := $(shell $(CXX) -v 2>&1 | \
                     grep "Apple" )
@@ -44,3 +51,10 @@ LIBNAME = libcrisscross.so
 else
 LIBNAME = libcrisscross-$(VERSION).a
 endif
+
+AR = ar rc
+RANLIB = ranlib
+CXX = g++
+CC = gcc
+NM = nm
+STRIP = :
