@@ -56,9 +56,6 @@
 #   define ENABLE_CPUID
 //#   define ENABLE_DEBUGLOG
 
-// WARNING: Highly experimental. To be improved upon in 0.6.0 branch.
-//#   define ENABLE_UNICODE
-
 //NOTE: By disabling this line, you will not be in compliance with the New BSD License.
 //      If you disable this line, you must display the copyright notice in the program
 //      elsewhere.
@@ -302,9 +299,7 @@ TARGET_COMPILER_ICC
 #   endif
 
 #    include <string.h>   
-#    if defined ( ENABLE_UNICODE )
-#       include <wchar.h>
-#    endif
+#    include <wchar.h>
 #    include <assert.h>
 #    include <math.h>
 #    include <memory.h>
@@ -327,10 +322,8 @@ TARGET_COMPILER_ICC
     typedef char CHAR;
 #endif
 
-#ifdef ENABLE_UNICODE
-#   ifndef WCHAR
+#ifndef WCHAR
     typedef wchar_t WCHAR;
-#   endif
 #endif
 
 #    if defined ( TARGET_OS_WINDOWS )

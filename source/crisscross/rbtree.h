@@ -159,16 +159,12 @@ namespace CrissCross
 
         protected:
             inline CHAR *reallocKey ( CHAR *_pointer, CHAR *_a );
-#if defined ( ENABLE_UNICODE )
             inline WCHAR *reallocKey ( WCHAR *_pointer, WCHAR *_a );
-#endif
             inline int *reallocKey ( int *_pointer, int *_a );
             inline unsigned long *reallocKey ( unsigned long *_pointer, unsigned long *_a );
 
             inline CHAR *newKey ( CHAR *_a );
-#if defined ( ENABLE_UNICODE )
             inline WCHAR *newKey ( WCHAR *_a );
-#endif
             inline int *newKey ( int *_a );
             inline unsigned long *newKey ( unsigned long *_a );
 
@@ -176,11 +172,9 @@ namespace CrissCross
             inline bool compLTEQU ( CONST CHAR *_a, CONST CHAR *_b ) const;
             inline bool compEQ ( CONST CHAR *_a, CONST CHAR *_b ) const;
 
-#if defined ( ENABLE_UNICODE )
             inline bool compLT ( CONST WCHAR *_a, CONST WCHAR *_b ) const;
             inline bool compLTEQU ( CONST WCHAR *_a, CONST WCHAR *_b ) const;
             inline bool compEQ ( CONST WCHAR *_a, CONST WCHAR *_b ) const;
-#endif
 
             inline bool compLT ( const int *_a, const int *_b ) const;
             inline bool compLTEQU ( const int *_a, const int *_b ) const;
