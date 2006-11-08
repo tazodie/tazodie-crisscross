@@ -37,8 +37,8 @@
 
 using namespace CrissCross::IO;
 
-TextReader::TextReader ():
-CoreIO ( NULL ), m_filePath ( NULL )
+TextReader::TextReader ( bool _unicode ):
+CoreIO ( NULL, _unicode ), m_filePath ( NULL )
 {
 }
 

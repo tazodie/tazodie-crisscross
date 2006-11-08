@@ -89,6 +89,8 @@ namespace CrissCross
          */
         int WaitForThread ( pthread_t _thread, int _timeout );
 #endif
+
+        size_t ConvertToWideChar ( WCHAR *_dest, CHAR *_src );
     }
 }
 #endif
