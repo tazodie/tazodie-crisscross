@@ -61,7 +61,8 @@ namespace CrissCross
         CC_ERR_SOCK_DATA_NOTAVAIL = -986,             //!< A read call received no data.
         CC_ERR_SOCK_DATA_TIMEOUT = -985,              //!< Timeout waiting for data.
         CC_ERR_INVALID_CALL = -500,                   //!< The function call was invalid.
-        CC_ERR_INCOMPATIBLE_BUFFER = -499,            //!< The buffer was incompatible (i.e. reading unicode data on a non-unicode buffer).
+        CC_ERR_INVALID_BUFFER = -499,                 //!< The buffer was NULL (file not opened?)
+        CC_ERR_INCOMPATIBLE_BUFFER = -498,            //!< The buffer was incompatible (i.e. reading unicode data on a non-unicode buffer).
         CC_ERR_NONE = 0                               //!< Everything is fine, nothing is ruined.
     };
 }

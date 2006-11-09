@@ -35,14 +35,14 @@
 #ifndef __included_dstack_cpp
 #define __included_dstack_cpp
 
-#include "dstack.h"
+#include <crisscross/dstack.h>
 
 using namespace CrissCross::Data;
 
 template < class dataType >
-DStack<dataType>::DStack ( size_t N )
+DStack<dataType>::DStack ( int N )
 {
-    m_stepSize = 32;
+    m_stepSize = N;
     m_top = m_bottom = NULL;
     m_size = m_origSize = 0;
 }
@@ -77,9 +77,9 @@ void DStack<dataType>::push ( dataType val )
 }
 
 template < class dataType >
-size_t DStack<dataType>::count () const
+int DStack<dataType>::count () const
 {
-    return ( m_top - m_bottom );
+    return (int)(m_top - m_bottom);
 }
 
 template < class dataType >

@@ -34,14 +34,14 @@
 #ifndef __included_core_console_h
 #define __included_core_console_h
 
-#    include "core_io.h"
+#include <crisscross/core_io.h>
 
 namespace CrissCross
 {
     namespace IO
     {
         //! The core console input/output class.
-        class CoreConsole : public CoreIO
+        class CoreConsole : public CoreIOWriter, public CoreIOReader
         {
           public:
 
@@ -84,16 +84,17 @@ namespace CrissCross
           public:
 
             //! The default constructor.
-            /*! Allocates a new console (in Windows) for stdout and stderr output. */
+            /*! Allocates a new console for stdout and stderr output. */
             CoreConsole ();
 
             //! The alternate constructor
             /*!
-               Does not allocate a new console, and instead uses the specified FILE * for output.
-               \param _outputBuffer The destination buffer for CoreConsole output.
+               Does not allocate a new console, and instead uses the specified FILE* parameters for input/output.
+               \param _outputBuffer The buffer for CoreConsole output.
+               \param _inputBuffer The buffer for CoreConsole input.
                \sa CoreConsole()
              */
-            CoreConsole ( FILE * _outputBuffer );
+            CoreConsole ( FILE * _outputBuffer, FILE *_inputBuffer );
 
             //! The destructor.
              ~CoreConsole ();
@@ -111,30 +112,19 @@ namespace CrissCross
              */
             void Clear ();
 
-            //! Move up a line.
+            //! Move the cursor up a given number of lines.
             /*!
-               Permits you to overwrite the previous line. Good for a status display.
+               Permits you to overwrite previous lines. Good for a status display.
+               \param _lines Number of lines to move the cursor
              */
             void MoveUp ( int _lines );
-
-            //! Does nothing.
-            /*!
-               To get input from the console, use std::cin.
-             */
-            char Read ();
-
-            //! Does nothing.
-            /*!
-               To get input from the console, use std::cin.
-             */
-            std::string ReadLine ();
 
         private:
             bool EndOfFile ();
             int Forward ( int _position );
             int Seek ( int _position );
-            size_t Length ();
-            size_t Read ( char *_buffer, int _bufferLength, int _bufferIndex,
+            int Length ();
+            int Read ( char *_buffer, int _bufferLength, int _bufferIndex,
                           int _count );
         };
     }

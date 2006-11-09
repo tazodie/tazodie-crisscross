@@ -31,7 +31,7 @@
  *
  */
 
-#include "sortclass.h"
+#include <crisscross/sortclass.h>
 
 namespace CrissCross
 {

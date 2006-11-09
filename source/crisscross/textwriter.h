@@ -34,7 +34,7 @@
 #ifndef __included_textwriter_h
 #define __included_textwriter_h
 
-#include "core_error.h"
+#include <crisscross/core_error.h>
 
 namespace CrissCross
 {
@@ -45,7 +45,7 @@ namespace CrissCross
         /*!
             Inherits CoreIO, so functions like CoreIO::Write and CoreIO::WriteLine are accessible to the programmer.
         */
-        class TextWriter : public CoreIO 
+        class TextWriter : public CoreIOWriter
         {
 
         protected:
@@ -78,23 +78,6 @@ namespace CrissCross
 				\return Standard CrissCross::Errors values.
              */ 
 			CrissCross::Errors Close ();
-
-        private:
-            bool EndOfFile ()
-                { return false; };
-            size_t Length ()
-                { return 0; };
-            char Read ()
-                { return '\0'; };
-            size_t Read ( char *_buffer, int _bufferLength, int _bufferIndex, int _count )
-                { return 0; };
-            std::string ReadLine ()
-                { return std::string(""); };
-            int Seek ( int _position )
-                { return 0; };
-            int Forward ( int _position )
-                { return 0; };
-
         };
     }
 }

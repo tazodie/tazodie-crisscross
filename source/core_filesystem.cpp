@@ -171,14 +171,14 @@ namespace CrissCross
         const char *
         DefaultHomePath ()
         {
-            size_t bufsize = 1;
+            int bufsize = 1;
             static char buffer[512];
             memset ( buffer, 0, sizeof ( buffer ) );
 #ifdef TARGET_OS_WINDOWS
             char path_buf[MAX_PATH];
             memset ( path_buf, 0, sizeof ( path_buf ) );
             SHGetFolderPathA ( NULL, CSIDL_PERSONAL, NULL, 0, path_buf );
-            bufsize += strlen ( path_buf ) + 1;
+            bufsize += (int)strlen ( path_buf ) + 1;
             sprintf ( buffer, "%s\\", path_buf );
 #else
             char *tbuf;

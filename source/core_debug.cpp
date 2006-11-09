@@ -56,7 +56,7 @@ class SymbolEngine
   public:
     static SymbolEngine & instance ();
       std::string addressToString ( DWORD address );
-    void StackTrace ( PCONTEXT _pContext, CoreIO * _outputBuffer );
+    void StackTrace ( PCONTEXT _pContext, CoreIOWriter * _outputBuffer );
   private:
       SymbolEngine ( SymbolEngine const & );
       SymbolEngine & operator= ( SymbolEngine const & );
@@ -141,7 +141,7 @@ std::string SymbolEngine::addressToString ( DWORD address )
 }
 
 void
-SymbolEngine::StackTrace ( PCONTEXT _pContext, CoreIO * _outputBuffer )
+SymbolEngine::StackTrace ( PCONTEXT _pContext, CoreIOWriter * _outputBuffer )
 {
     _outputBuffer->WriteLine ( "  Frame       Address   Code" );
 
@@ -178,7 +178,7 @@ PrintDebugLog ( CoreIO *_outputBuffer )
 #endif
 
 void
-PrintStackTrace ( CoreIO * _outputBuffer )
+PrintStackTrace ( CoreIOWriter * _outputBuffer )
 {
 #if !defined ( TARGET_CPU_PPC ) && !defined ( TARGET_OS_NETBSD ) && !defined ( TARGET_OS_FREEBSD ) && !defined ( TARGET_OS_OPENBSD )
 
@@ -201,9 +201,9 @@ PrintStackTrace ( CoreIO * _outputBuffer )
 #    elif defined ( ENABLE_BACKTRACE )
 
     void *array[20];
-    size_t size;
+    int size;
     char **strings;
-    size_t i;
+    int i;
 
     //use -rdynamic flag when compiling
     size = backtrace (array, 20);

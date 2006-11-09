@@ -34,9 +34,9 @@
 #ifndef __included_core_socket_h
 #define __included_core_socket_h
 
-#include "core_network.h"
+#include <crisscross/core_network.h>
 
-#include "rbtree.h"
+#include <crisscross/rbtree.h>
 
 //#define ENABLE_PROTECTION
 
@@ -198,6 +198,10 @@ namespace CrissCross
             /*!
                 WARNING: ReadLine is a blocking call, so you MUST only use this in
                 cases where a new line is sure to happen (string-based communications).
+                \param _output A pointer to the location of a NULL char* variable. Will be overwritten.
+                \param _len A pointer to an unsigned integer. Upon function return, this will contain
+                the length of the data received.
+                \return Zero on success. If negative, it is a standard CrissCross::Errors value. If positive, it is an errno value.
              */
             virtual int ReadLine ( char **_output, unsigned int *_len ) const;
 
@@ -208,7 +212,7 @@ namespace CrissCross
                 \param _length The number of bytes of _data to send (must NOT exceed the size of _data).
                 \return The actual number of bytes sent.
              */
-            virtual int Send ( const char *_data, size_t _length );
+            virtual int Send ( const char *_data, int _length );
             
             //! Sends a string.
             /*!

@@ -34,7 +34,7 @@
 #ifndef __included_core_network_h
 #define __included_core_network_h
 
-#include "core_error.h"
+#include <crisscross/core_error.h>
 
 namespace CrissCross
 {

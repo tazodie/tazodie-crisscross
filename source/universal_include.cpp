@@ -309,8 +309,8 @@ main ( int argc, char **argv )
 #ifdef ENABLE_MEMLEAK_STATS
     _CrtMemCheckpoint ( &s1 );
 #endif
-    g_stderr = new CoreConsole ( stderr );
-    g_stdout = new CoreConsole ( stdout );
+    g_stderr = new CoreConsole ( stderr, NULL );
+    g_stdout = new CoreConsole ( stdout, NULL );
 #ifdef ENABLE_DEBUGLOG
     g_debuglog = new CoreDebugLog ( APP_NAME, APP_VERSION, APP_URL, "bugs@uplinklabs.net", false );
     g_debuglog->Write ( g_debuglog->BUG_LEVEL_INFO, "Initializing" );

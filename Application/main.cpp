@@ -48,6 +48,10 @@ RunApplication ( int argc, char **argv )
 
     // Begin your application here.
 
+	std::string inputLine;
+	console->ReadLine ( inputLine );
+	console->WriteLine ( inputLine );
+
 #ifdef ENABLE_CPUID
     CoreCPUID *cpuid = new CoreCPUID ();
 

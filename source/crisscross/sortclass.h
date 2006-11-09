@@ -34,7 +34,7 @@
 #ifndef __included_sortclass_h
 #define __included_sortclass_h
 
-#include "compare.h"
+#include <crisscross/compare.h>
 
 namespace CrissCross
 {
@@ -89,6 +89,6 @@ namespace CrissCross
     }
 }
 
-#include "sortclass.cpp"
+#include <crisscross/sortclass.cpp>
 
 #endif

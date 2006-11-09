@@ -34,7 +34,7 @@
 #ifndef __included_core_debug_h
 #define __included_core_debug_h
 
-#    include "core_console.h"
+#    include <crisscross/core_console.h>
 
 //! An assertion function.
 /*!
@@ -55,7 +55,7 @@ void Assert ( bool _condition, const char *_testcase, const char *_file,
 /*!
     \param _outputBuffer The CoreIO output buffer to write to.
 */
-void PrintStackTrace ( CrissCross::IO::CoreIO * _outputBuffer );
+void PrintStackTrace ( CrissCross::IO::CoreIOWriter * _outputBuffer );
 
 //! An assertion macro.
 /*!

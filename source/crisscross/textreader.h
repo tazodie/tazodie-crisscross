@@ -34,7 +34,7 @@
 #ifndef __included_textreader_h
 #define __included_textreader_h
 
-#include "core_error.h"
+#include <crisscross/core_error.h>
    
 namespace CrissCross
 {
@@ -45,7 +45,7 @@ namespace CrissCross
         /*!
             Inherits CoreIO, so functions like CoreIO::Read and CoreIO::ReadLine are accessible to the programmer.
         */ 
-        class TextReader : public CoreIO 
+        class TextReader : public CoreIOReader
         {
 
         protected:
@@ -75,15 +75,6 @@ namespace CrissCross
 				\return Standard CrissCross::Errors values.
              */ 
 			CrissCross::Errors Close ();
-
-        private:
-			// TextReader shouldn't make any write calls whatsoever.
-            CrissCross::Errors Write ( const char *_format, ... )
-                { return CC_ERR_INVALID_CALL; };
-            CrissCross::Errors WriteLine ()
-                { return CC_ERR_INVALID_CALL; };
-            CrissCross::Errors WriteLine ( const char *_format, ... )
-                { return CC_ERR_INVALID_CALL; };
 
         };
     }

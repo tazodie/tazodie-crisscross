@@ -51,7 +51,7 @@
 				AssemblerListingLocation="../obj/Application/$(ConfigurationName)/"
 				ObjectFile="../obj/Application/$(ConfigurationName)/"
 				ProgramDataBaseFileName="../obj/Application/$(ConfigurationName)/"
-				WarningLevel="3"
+				WarningLevel="4"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="4"
 			/>

@@ -38,7 +38,7 @@
 using namespace CrissCross::IO;
 
 TextReader::TextReader ():
-CoreIO ( NULL, false ), m_filePath ( NULL )
+CoreIOReader ( NULL, false ), m_filePath ( NULL )
 {
 }
 
@@ -52,14 +52,15 @@ CrissCross::Errors TextReader::Open ( const char *_file )
 
 	Close ();
 
-    size_t _filePathLength = 0;
+    int _filePathLength = 0;
 
 	if ( _file == NULL )
 		return CC_ERR_BADPARAMETER;
 
-	if ( ( _filePathLength = strlen ( _file ) ) < 1 )
+	if ( ( _filePathLength = (int)strlen ( _file ) ) < 1 )
 		return CC_ERR_BADPARAMETER;
 
+    delete [] (char *) m_filePath;
     m_filePath = new char[_filePathLength + 1];
     strcpy ( (char *) m_filePath, _file );
 

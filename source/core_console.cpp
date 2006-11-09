@@ -38,7 +38,8 @@
 using namespace CrissCross::IO;
 
 CoreConsole::CoreConsole ():
-CoreIO ( stdout, false, CoreIO::CC_LN_LF )
+CoreIOWriter ( stdout, false, CC_LN_LF ),
+CoreIOReader ( stdin, false, CC_LN_LF )
 {
 #ifdef TARGET_OS_WINDOWS
     if ( AllocConsole () == TRUE )
@@ -61,8 +62,9 @@ CoreIO ( stdout, false, CoreIO::CC_LN_LF )
 #endif
 }
 
-CoreConsole::CoreConsole ( FILE * _outputBuffer ):
-CoreIO ( _outputBuffer, false, CoreIO::CC_LN_LF )
+CoreConsole::CoreConsole ( FILE * _outputBuffer, FILE *_inputBuffer ):
+CoreIOWriter ( _outputBuffer, false, CC_LN_LF ),
+CoreIOReader ( _inputBuffer, false, CC_LN_LF )
 {
 }
 
@@ -176,7 +178,7 @@ CoreConsole::MoveUp ( int _lines )
 
     GetConsoleScreenBufferInfo ( hConsole, &csbi );
     coordScreen = csbi.dwCursorPosition;
-    coordScreen.Y -= _lines;
+    coordScreen.Y -= (short)_lines;
     if ( coordScreen.Y < 0 ) coordScreen.Y = 0;
     SetConsoleCursorPosition ( hConsole, coordScreen );
 #elif defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_LINUX )
@@ -184,10 +186,8 @@ CoreConsole::MoveUp ( int _lines )
 #endif
 }
 
-char CoreConsole::Read() { return 0; }
-std::string CoreConsole::ReadLine() { return ""; }
 int CoreConsole::Seek ( int _position ) { return 0; }
 int CoreConsole::Forward ( int _position ) { return 0; }
-size_t CoreConsole::Length() { return 0; }
-size_t CoreConsole::Read ( char *_buffer, int _bufferLength, int _bufferIndex, int _count ) { return 0; };
+int CoreConsole::Length() { return 0; }
+int CoreConsole::Read ( char *_buffer, int _bufferLength, int _bufferIndex, int _count ) { return 0; };
 bool CoreConsole::EndOfFile () { return false; };

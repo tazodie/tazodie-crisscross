@@ -34,8 +34,8 @@
 #ifndef __included_udpsocket_h
 #define __included_udpsocket_h
 
-#include "core_error.h"
-#include "core_socket.h"
+#include <crisscross/core_error.h>
+#include <crisscross/core_socket.h>
 
 namespace CrissCross
 {
