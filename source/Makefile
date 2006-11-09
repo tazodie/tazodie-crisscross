@@ -17,7 +17,8 @@ core_console.cpp \
 core_cpuid.cpp \
 core_debug.cpp \
 core_filesystem.cpp \
-core_io.cpp \
+core_io_reader.cpp \
+core_io_writer.cpp \
 core_mutex.cpp \
 core_network.cpp \
 core_socket.cpp \
@@ -48,7 +49,7 @@ all: .depend precomp $(OUTDIR)/$(OUTBIN)
 precomp: $(PCH)
 
 install: $(OUTDIR)/$(OUTBIN)
-    -rm -rf $(prefix)/include/crisscross
+	-rm -rf $(prefix)/include/crisscross
 	mkdir -p $(prefix)/include/crisscross
 	mkdir -p $(prefix)/lib
 	cp crisscross/*.h $(prefix)/include/crisscross/
