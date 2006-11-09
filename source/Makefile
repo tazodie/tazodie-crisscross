@@ -48,6 +48,7 @@ all: .depend precomp $(OUTDIR)/$(OUTBIN)
 precomp: $(PCH)
 
 install: $(OUTDIR)/$(OUTBIN)
+    -rm -rf $(prefix)/include/crisscross
 	mkdir -p $(prefix)/include/crisscross
 	mkdir -p $(prefix)/lib
 	cp crisscross/*.h $(prefix)/include/crisscross/
@@ -91,11 +92,11 @@ $(PCH): crisscross/universal_include.h
 	@$(CCDV) $(CXX) -c crisscross/universal_include.h -o $(PCH) $(CXXFLAGS)
 
 
-$(OBJDIR)/%.o: %.cpp precomp
+$(OBJDIR)/%.o: %.cpp
 	@test -d $(dir $(OBJDIR)/$<) || mkdir -p $(dir $(OBJDIR)/$<)
 	@$(CCDV) $(CXX) $(CXXFLAGS) -c $< -o $@
 
-$(OBJDIR)/%.o: %.c precomp
+$(OBJDIR)/%.o: %.c
 	@test -d $(dir $(OBJDIR)/$<) || mkdir -p $(dir $(OBJDIR)/$<)
 	@$(CCDV) $(CC) $(CXXFLAGS) -c $< -o $@
 
