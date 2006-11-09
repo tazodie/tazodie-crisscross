@@ -189,7 +189,7 @@ namespace CrissCross
             /*!
                 \return Size of the tree.
              */
-            size_t size ();
+            int size ();
 
             //! Will get the next node in the tree, useful as an iterator.
             void getNext ( nodeType ** _current );
@@ -231,6 +231,6 @@ namespace CrissCross
     }
 }
 
-#    include "rbtree.cpp"
+#    include <crisscross/rbtree.cpp>
 
 #endif

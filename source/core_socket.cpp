@@ -261,7 +261,7 @@ CoreSocket::ReadLine ( char **_output, unsigned int *_len ) const
 }
 
 int
-CoreSocket::Send ( const char *_data, size_t _length )
+CoreSocket::Send ( const char *_data, int _length )
 {
     CoreAssert ( m_sock != 0 );
 

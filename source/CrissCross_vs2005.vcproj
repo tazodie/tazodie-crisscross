@@ -215,32 +215,23 @@
 				>
 			</File>
 			<File
-				RelativePath=".\core_io.cpp"
+				RelativePath=".\crisscross\core_io.h"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\crisscross\core_io.h"
+				RelativePath=".\core_io_reader.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\crisscross\core_io_reader.h"
+				>
+			</File>
+			<File
+				RelativePath=".\core_io_writer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\crisscross\core_io_writer.h"
 				>
 			</File>
 			<File

@@ -44,7 +44,7 @@ namespace CrissCross
         {
         private:
             //! The step size for which to increase the stack size by.
-            size_t          m_stepSize;
+            int          m_stepSize;
             
             //! The actual stack itself.
             dataType        *m_bottom;
@@ -53,17 +53,17 @@ namespace CrissCross
             dataType        *m_top;
 
             //! The size of the stack.
-            size_t          m_size;
+            int          m_size;
 
             //! The original size of the stack (used on an empty() call to reset things to defaults).
-            size_t          m_origSize;
+            int          m_origSize;
 
         public:
             //! The constructor.
             /*!
                 \param _size The step size to use.
              */
-            DStack          ( size_t _size = 32 );
+            DStack          ( int _size = 32 );
 
             //! The destructor.
             ~DStack         ();
@@ -87,7 +87,7 @@ namespace CrissCross
             /*!
                 \return Number of items on the stack.
              */
-            size_t count    () const;
+            int count    () const;
 
             //! Empties the stack.
             /*!
@@ -98,6 +98,6 @@ namespace CrissCross
     }
 }
 
-#include "dstack.cpp"
+#include <crisscross/dstack.cpp>
 
 #endif

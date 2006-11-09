@@ -34,7 +34,7 @@
 #ifndef __included_core_system_h
 #define __included_core_system_h
 
-#    include "core_cpuid.h"
+#    include <crisscross/core_cpuid.h>
 
 #    if defined ( TARGET_OS_WINDOWS )
 #            include <windows.h>

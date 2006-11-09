@@ -34,7 +34,8 @@
 #ifndef __included_tcpsocket_h
 #define __included_tcpsocket_h
 
-#include "core_socket.h"
+#include <crisscross/core_socket.h>
+
 namespace CrissCross
 {
     namespace Network

@@ -38,7 +38,7 @@
 using namespace CrissCross::IO;
 
 TextWriter::TextWriter ():
-CoreIO ( NULL, false ), m_filePath ( NULL )
+CoreIOWriter ( NULL, false ), m_filePath ( NULL )
 {
 }
 
@@ -47,7 +47,7 @@ TextWriter::~TextWriter ()
     Close ();
 }
 
-CrissCross::Errors TextWriter::Open ( const char *_file, FileWriteMode _writeMode, CoreIO::LineEndingType _lnEnding )
+CrissCross::Errors TextWriter::Open ( const char *_file, FileWriteMode _writeMode, LineEndingType _lnEnding )
 {
 
 	Close ();
@@ -56,12 +56,12 @@ CrissCross::Errors TextWriter::Open ( const char *_file, FileWriteMode _writeMod
 
 	char openModes[4];
 
-    size_t _filePathLength = 0;
+    int _filePathLength = 0;
 
 	if ( _file == NULL )
 		return CC_ERR_BADPARAMETER;
 
-	if ( ( _filePathLength = strlen ( _file ) ) < 1 )
+	if ( ( _filePathLength = (int)strlen ( _file ) ) < 1 )
 		return CC_ERR_BADPARAMETER;
 
 	delete [] (char *)m_filePath;

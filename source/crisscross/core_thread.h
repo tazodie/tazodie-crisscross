@@ -34,9 +34,9 @@
 #ifndef __included_core_thread_h
 #define __included_core_thread_h
 
-#    include "win32_pthread_emulate.h"
+#    include <crisscross/win32_pthread_emulate.h>
 
-#    include "core_system.h"
+#    include <crisscross/core_system.h>
 
 #    if defined ( TARGET_OS_WINDOWS )
 #            include <windows.h>

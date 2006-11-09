@@ -773,10 +773,10 @@ template < class dataType, class keyType >
 }
 
 template < class dataType, class keyType >
-    size_t RedBlackTree < dataType, keyType >::size ()
+    int RedBlackTree < dataType, keyType >::size ()
 {
     nodeType *vNode = NULL_NODE;
-    size_t vCount = 0;
+    int vCount = 0;
 
     getNext ( &vNode );
     while ( ValidNode ( vNode ) )

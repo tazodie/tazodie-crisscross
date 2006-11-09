@@ -196,6 +196,6 @@ namespace CrissCross
     }
 }
 
-#    include "darray.cpp"
+#    include <crisscross/darray.cpp>
 
 #endif

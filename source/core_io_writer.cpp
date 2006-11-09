@@ -40,7 +40,7 @@
 using namespace CrissCross::IO;
 using namespace CrissCross::System;
 
-CoreIO::CoreIO ( FILE * _fileBuffer, bool _isUnicode, CoreIO::LineEndingType _lnEnding ):
+CoreIOWriter::CoreIOWriter ( FILE * _fileBuffer, bool _isUnicode, LineEndingType _lnEnding ):
 m_lineEnding ( NULL ),
 m_fileBuffer ( _fileBuffer ),
 m_unicode ( _isUnicode )
@@ -51,7 +51,7 @@ m_unicode ( _isUnicode )
 	SetLineEndings ( _lnEnding );
 }
 
-CoreIO::~CoreIO ()
+CoreIOWriter::~CoreIOWriter ()
 {
     delete [] m_lineEnding;
     m_lineEnding = NULL;
@@ -61,20 +61,12 @@ CoreIO::~CoreIO ()
 #endif
 }
 
-bool
-CoreIO::EndOfFile ()
-{
-    CoreAssert ( this != NULL );
-
-    if ( !m_fileBuffer )
-        return true;
-    return ( feof ( m_fileBuffer ) != 0 );
-}
-
 void
-CoreIO::Flush ()
+CoreIOWriter::Flush ()
 {
     CoreAssert ( this != NULL );
+    if ( !IsOpen() ) return;
+
 #ifndef __GNUC__
     m_ioMutex->Lock ();
 #endif
@@ -85,7 +77,7 @@ CoreIO::Flush ()
 }
 
 bool
-CoreIO::IsOpen ()
+CoreIOWriter::IsOpen ()
 {
     CoreAssert ( this != NULL );
 
@@ -95,139 +87,8 @@ CoreIO::IsOpen ()
 		return true;
 }
 
-int
-CoreIO::Forward ( int _position )
-{
-    CoreAssert ( this != NULL );
-    int res = Seek ( _position, SEEK_CUR );
-    return ( res == 0 );
-}
-
-size_t
-CoreIO::Length ()
-{
-    CoreAssert ( this != NULL );
-#ifndef __GNUC__
-    m_ioMutex->Lock ();
-#endif
-    fpos_t lastpos;
-    fgetpos ( m_fileBuffer, &lastpos );
-    fseek ( m_fileBuffer, 0, SEEK_END );
-    fpos_t endpos;
-    fgetpos ( m_fileBuffer, &endpos );
-    fsetpos ( m_fileBuffer, &lastpos );
-#ifndef __GNUC__
-    m_ioMutex->Unlock ();
-#endif
-
-#if defined ( TARGET_OS_WINDOWS ) || defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_FREEBSD ) || \
-    defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD ) || defined ( TARGET_COMPILER_CYGWIN )
-    return ( size_t ) endpos;
-#elif defined ( TARGET_OS_LINUX )
-    return ( size_t ) endpos.__pos;
-#endif
-}
-
-size_t
-CoreIO::Read ( char *_destination )
-{
-    CoreAssert ( this != NULL );
-    CoreAssert ( _destination != NULL );
-
-#ifndef __GNUC__
-    m_ioMutex->Lock ();
-#endif
-    *_destination = (char)fgetc ( m_fileBuffer );
-#ifndef __GNUC__
-    m_ioMutex->Unlock ();
-#endif
-    return sizeof(char);
-}
-
-size_t
-CoreIO::Read ( char *_buffer, int _bufferLength, int _bufferIndex,
-               int _count )
-{
-    CoreAssert ( this != NULL );
-
-    size_t retval;
-
-    CoreAssert ( _buffer != NULL );
-    CoreAssert ( _bufferLength - _bufferIndex < _count );
-    CoreAssert ( _bufferIndex > 0 );
-    CoreAssert ( _count > 0 );
-#ifndef __GNUC__
-    m_ioMutex->Lock ();
-#endif
-    retval = fread ( &_buffer[_bufferIndex], sizeof(char), _count, m_fileBuffer );
-#ifndef __GNUC__
-    m_ioMutex->Unlock ();
-#endif
-    return retval;
-}
-
-size_t
-CoreIO::ReadLine ( std::string &_string )
-{
-    CoreAssert ( this != NULL );
-
-#ifndef __GNUC__
-    m_ioMutex->Lock ();
-#endif
-    char c = (char) fgetc ( m_fileBuffer );
-
-    if ( c == (char)EOF )
-        return 0;
-
-    static std::string buffer;
-
-    while ( c != (char)EOF && c != '\n' )
-    {
-        buffer += c;
-        c = (char)fgetc ( m_fileBuffer );
-    }
-
-    size_t len = buffer.length ();
-
-    if ( len && buffer[len - 1] == '\r' )
-        buffer.resize ( len - 1 );
-
-#ifndef __GNUC__
-    m_ioMutex->Unlock ();
-#endif
-
-    _string = buffer;
-
-    return _string.length() * sizeof ( char );
-}
-
-int
-CoreIO::Seek ( int _position, int _origin )
-{
-    CoreAssert ( this != NULL );
-
-#ifndef __GNUC__
-    m_ioMutex->Lock ();
-#endif
-    int res = fseek ( m_fileBuffer, _position, _origin );
-#ifndef __GNUC__
-    m_ioMutex->Unlock ();
-#endif
-    return res;
-}
-
-int
-CoreIO::Seek ( int _position )
-{
-    CoreAssert ( this != NULL );
-
-    int res = Seek ( _position, SEEK_SET );
-
-    return ( res == 0 );
-}
-
 CrissCross::Errors
-CoreIO::SetLineEndings ( LineEndingType _ending )
+CoreIOWriter::SetLineEndings ( LineEndingType _ending )
 {
     CoreAssert ( this != NULL );
 
@@ -241,32 +102,40 @@ CoreIO::SetLineEndings ( LineEndingType _ending )
 #		error You are not using a supported OS.
 #endif
 	}
-
-    delete [] m_lineEnding;
+    
     switch ( _ending )
     {
     case CC_LN_CR:
+        delete [] m_lineEnding;
+        m_lineEnding = NULL;
         m_lineEnding = new char[2];
         sprintf ( m_lineEnding, "\r" );
         break;
     case CC_LN_LF:
+        delete [] m_lineEnding;
+        m_lineEnding = NULL;
         m_lineEnding = new char[2];
         sprintf ( m_lineEnding, "\n" );
         break;
     case CC_LN_CRLF:
+        delete [] m_lineEnding;
+        m_lineEnding = NULL;
         m_lineEnding = new char[3];
         sprintf ( m_lineEnding, "\r\n" );
         break;
     default:
+        // Don't delete m_lineEnding, or else
+        // it'll remain unassigned.
         return CC_ERR_BADPARAMETER;
     }
 	return CC_ERR_NONE;
 }
 
 CrissCross::Errors
-CoreIO::WriteLine ( const char *_format, ... )
+CoreIOWriter::WriteLine ( const char *_format, ... )
 {
     CoreAssert ( this != NULL );
+    if ( !IsOpen() ) return CC_ERR_INVALID_BUFFER;
 
     if ( _format == NULL )
         return CC_ERR_BADPARAMETER;
@@ -294,9 +163,10 @@ CoreIO::WriteLine ( const char *_format, ... )
 }
 
 CrissCross::Errors
-CoreIO::WriteLine ( std::string _string )
+CoreIOWriter::WriteLine ( std::string _string )
 {
     CoreAssert ( this != NULL );
+    if ( !IsOpen() ) return CC_ERR_INVALID_BUFFER;
     
     if ( _string.empty() == true )
         return CC_ERR_BADPARAMETER;
@@ -316,9 +186,10 @@ CoreIO::WriteLine ( std::string _string )
 }
 
 CrissCross::Errors
-CoreIO::Write ( std::string _string )
+CoreIOWriter::Write ( std::string _string )
 {
     CoreAssert ( this != NULL );
+    if ( !IsOpen() ) return CC_ERR_INVALID_BUFFER;
 
     if ( _string.empty() == true )
         return CC_ERR_BADPARAMETER;
@@ -339,9 +210,11 @@ CoreIO::Write ( std::string _string )
 
 
 CrissCross::Errors
-CoreIO::WriteLine ()
+CoreIOWriter::WriteLine ()
 {
     CoreAssert ( this != NULL );
+    if ( !IsOpen() ) return CC_ERR_INVALID_BUFFER;
+
 #ifndef __GNUC__
     m_ioMutex->Lock ();
 #endif
@@ -357,9 +230,10 @@ CoreIO::WriteLine ()
 }
 
 CrissCross::Errors
-CoreIO::Write ( const char *_format, ... )
+CoreIOWriter::Write ( const char *_format, ... )
 {
     CoreAssert ( this != NULL );
+    if ( !IsOpen() ) return CC_ERR_INVALID_BUFFER;
 
     if ( _format == NULL )
         return CC_ERR_BADPARAMETER;
