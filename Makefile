@@ -3,9 +3,11 @@ include common.mk
 all: testapp
 
 main: fastdep
+	+$(MAKE) -C source precomp
 	+$(MAKE) -C source
 
 testapp: main
+	+$(MAKE) -C Application precomp
 	+$(MAKE) -C Application	
 
 test: testapp

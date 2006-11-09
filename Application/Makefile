@@ -59,11 +59,11 @@ $(PCH): header.h
 	@$(CXX) -c header.h -o $(PCH) $(CXXFLAGS)
 
 
-$(OBJDIR)/%.o: %.cpp precomp
+$(OBJDIR)/%.o: %.cpp
 	@test -d $(dir $(OBJDIR)/$<) || mkdir -p $(dir $(OBJDIR)/$<)
 	@$(CCDV) $(CXX) $(CXXFLAGS) -c $< -o $@
 
-$(OBJDIR)/%.o: %.c precomp
+$(OBJDIR)/%.o: %.c
 	@test -d $(dir $(OBJDIR)/$<) || mkdir -p $(dir $(OBJDIR)/$<)
 	@$(CCDV) $(CC) $(CXXFLAGS) -c $< -o $@
 
