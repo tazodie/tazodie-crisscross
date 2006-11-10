@@ -119,13 +119,60 @@ namespace CrissCross
              */
             void MoveUp ( int _lines );
 
+            //! Reads a char from the console.
+            /*!
+                If both _min and _max are zero, the input will be returned, no matter what the value is (no bounds checking).
+                \param _min The minimum input value.
+                \param _max The maximum input value.
+             */
+            char ReadChar ( char _min = 0, char _max = 0 );
+
+            //! Reads an integer from the console.
+            /*!
+                If both _min and _max are zero, the input will be returned, no matter what the value is (no bounds checking).
+                \param _min The minimum input value.
+                \param _max The maximum input value.
+             */
+            int ReadInt ( int _min = 0, int _max = 0 );
+
+            //! Reads a long integer from the console.
+            /*!
+                If both _min and _max are zero, the input will be returned, no matter what the value is (no bounds checking).
+                \param _min The minimum input value.
+                \param _max The maximum input value.
+             */
+            long ReadLong ( long _min = 0, long _max = 0 );
+
+            //! Reads a float from the console.
+            /*!
+                If both _min and _max are zero, the input will be returned, no matter what the value is (no bounds checking).
+                \param _min The minimum input value.
+                \param _max The maximum input value.
+             */
+            float ReadFloat ( float _min = 0, float _max = 0 );
+
+            //! Reads a double from the console.
+            /*!
+                If both _min and _max are zero, the input will be returned, no matter what the value is (no bounds checking).
+                \param _min The minimum input value.
+                \param _max The maximum input value.
+             */
+            double ReadDouble ( double _min = 0, double _max = 0 );
+
+            //! Reads a long double from the console.
+            /*!
+                If both _min and _max are zero, the input will be returned, no matter what the value is (no bounds checking).
+                \param _min The minimum input value.
+                \param _max The maximum input value.
+             */
+            long double ReadLongDouble ( long double _min = 0, long double _max = 0 );
+
         private:
             bool EndOfFile ();
             int Forward ( int _position );
             int Seek ( int _position );
             int Length ();
-            int Read ( char *_buffer, int _bufferLength, int _bufferIndex,
-                          int _count );
+            int Read ( char *_buffer, int _bufferLength, int _bufferIndex, int _count );
         };
     }
 }

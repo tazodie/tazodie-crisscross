@@ -56,8 +56,11 @@ namespace CrissCross
              */
             char *m_lineEnding;
 
-            //! Input/output buffer.
-            FILE *m_fileBuffer;
+            //! Input/output FILE pointer.
+            FILE *m_fileInputPointer;
+
+            //! Input/output FILE buffer.
+            std::ifstream *m_fileInputBuffer;
 
             //! Indicates whether the buffer is to be read in unicode or not. (UNIMPLEMENTED)
             bool m_unicode;
@@ -148,6 +151,9 @@ namespace CrissCross
                success. Any non-zero number indicates failure.
              */
             virtual int Forward ( int _position );
+
+            //! Flushes the input buffer.
+            void Flush ();
 
           protected:
             //! Seeks to a location in the buffer.
