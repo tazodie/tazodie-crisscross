@@ -9,6 +9,7 @@ VERSION 0.5.2
     * Moved data structures to the main include directory.
     * Including CrissCross files with #include <crisscross/foo> now works properly without adding -I/usr/include/crisscross to the GCC command line.
     * Fixed CCDV to say 'Compiling' rather than 'Linking' for precompiled headers.
+    * CPUID now detects SSSE3 (Supplemental SSE3 instructions).
 
 VERSION 0.5.1
     * Fixed Makefiles to work on any previously non-working platforms (OS X, mainly).
