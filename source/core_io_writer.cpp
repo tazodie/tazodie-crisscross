@@ -48,10 +48,6 @@ m_unicode ( _isUnicode )
 , m_ioMutex ( new CoreMutex () )
 #endif
 {
-    if ( m_fileOutputPointer )
-        m_fileOutputBuffer = new std::ofstream ( m_fileOutputPointer );
-    else
-        m_fileOutputBuffer = NULL;
 	SetLineEndings ( _lnEnding );
 }
 
@@ -59,8 +55,6 @@ CoreIOWriter::~CoreIOWriter ()
 {
     delete [] m_lineEnding;
     m_lineEnding = NULL;
-    delete m_fileOutputBuffer;
-    m_fileOutputBuffer = NULL;
 #ifndef __GNUC__
     delete m_ioMutex;
     m_ioMutex = NULL;
