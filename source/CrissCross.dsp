@@ -234,10 +234,6 @@ SOURCE=.\core_filesystem.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\core_io.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\core_mutex.cpp
 # End Source File
 # Begin Source File
