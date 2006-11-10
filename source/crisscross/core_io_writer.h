@@ -56,8 +56,11 @@ namespace CrissCross
              */
             char *m_lineEnding;
 
-            //! Input/output buffer.
-            FILE *m_fileBuffer;
+            //! Input/output FILE pointer.
+            FILE *m_fileOutputPointer;
+
+            //! Input/output FILE buffer.
+            std::ofstream *m_fileOutputBuffer;
 
             //! Indicates whether the buffer is to be written in unicode or not. (UNIMPLEMENTED)
             bool m_unicode;

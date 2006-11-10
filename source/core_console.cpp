@@ -186,6 +186,96 @@ CoreConsole::MoveUp ( int _lines )
 #endif
 }
 
+char CoreConsole::ReadChar ( char _min, char _max )
+{
+    char _result = 0;
+    (*m_fileInputBuffer) >> _result;
+    CoreIOReader::Flush();
+    if ( ( _min && _max ) && ( _min < _max ) )
+    {
+        if ( _result < _min )
+            _result = _min;
+        if ( _result > _max )
+            _result = _max;
+    }
+    return _result;
+}
+
+int CoreConsole::ReadInt ( int _min, int _max )
+{
+    int _result = 0;
+    (*m_fileInputBuffer) >> _result;
+    CoreIOReader::Flush();
+    if ( ( _min && _max ) && ( _min < _max ) )
+    {
+        if ( _result < _min )
+            _result = _min;
+        if ( _result > _max )
+            _result = _max;
+    }
+    return _result;
+}
+
+long CoreConsole::ReadLong ( long _min, long _max )
+{
+    long _result = 0;
+    (*m_fileInputBuffer) >> _result;
+    CoreIOReader::Flush();
+    if ( ( _min && _max ) && ( _min < _max ) )
+    {
+        if ( _result < _min )
+            _result = _min;
+        if ( _result > _max )
+            _result = _max;
+    }
+    return _result;
+}
+
+float CoreConsole::ReadFloat ( float _min, float _max )
+{
+    float _result = 0;
+    (*m_fileInputBuffer) >> _result;
+    CoreIOReader::Flush();
+    if ( ( _min && _max ) && ( _min < _max ) )
+    {
+        if ( _result < _min )
+            _result = _min;
+        if ( _result > _max )
+            _result = _max;
+    }
+    return _result;
+}
+
+double CoreConsole::ReadDouble ( double _min, double _max )
+{
+    double _result = 0;
+    (*m_fileInputBuffer) >> _result;
+    CoreIOReader::Flush();
+    if ( ( _min && _max ) && ( _min < _max ) )
+    {
+        if ( _result < _min )
+            _result = _min;
+        if ( _result > _max )
+            _result = _max;
+    }
+    return _result;
+}
+
+long double CoreConsole::ReadLongDouble ( long double _min, long double _max )
+{
+    long double _result = 0;
+    (*m_fileInputBuffer) >> _result;
+    CoreIOReader::Flush();
+    if ( ( _min && _max ) && ( _min < _max ) )
+    {
+        if ( _result < _min )
+            _result = _min;
+        if ( _result > _max )
+            _result = _max;
+    }
+    return _result;
+}
+
 int CoreConsole::Seek ( int _position ) { return 0; }
 int CoreConsole::Forward ( int _position ) { return 0; }
 int CoreConsole::Length() { return 0; }

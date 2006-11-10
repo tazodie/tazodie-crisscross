@@ -306,6 +306,7 @@ TARGET_COMPILER_ICC
         typedef long intptr_t;
 #    endif
 #    include <iostream>
+#    include <istream>
 #    include <fstream>
 #    include <sstream>
 

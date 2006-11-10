@@ -69,21 +69,29 @@ CrissCross::Errors TextWriter::Open ( const char *_file, FileWriteMode _writeMod
     strcpy ( (char *) m_filePath, _file );
 
 	sprintf ( openModes, "%s%s", ( _writeMode == CC_FILE_APPEND ? "a" : "w" ), "t" );
-    m_fileBuffer = fopen ( m_filePath, openModes );
+    m_fileOutputPointer = fopen ( m_filePath, openModes );
 
-    if ( m_fileBuffer == NULL )
+    if ( m_fileOutputPointer == NULL )
+    {
+        m_fileOutputBuffer = new std::ofstream ( m_fileOutputPointer );
 		return CC_ERR_FILE_OPEN;
+    }
 	else
+    {
 		return CC_ERR_NONE;
+    }
 }
 
 CrissCross::Errors TextWriter::Close ()
 {
     Flush ();
 
-	if ( m_fileBuffer )
-		fclose ( m_fileBuffer );
-	m_fileBuffer = NULL;
+	if ( m_fileOutputPointer )
+		fclose ( m_fileOutputPointer );
+	m_fileOutputPointer = NULL;
+
+    delete m_fileOutputBuffer;
+    m_fileOutputBuffer = NULL;
 
     delete [] (char *)m_filePath;
 	m_filePath = NULL;

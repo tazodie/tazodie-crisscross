@@ -42,12 +42,16 @@ using namespace CrissCross::System;
 
 CoreIOReader::CoreIOReader ( FILE * _fileBuffer, bool _isUnicode, LineEndingType _lnEnding ):
 m_lineEnding ( NULL ),
-m_fileBuffer ( _fileBuffer ),
+m_fileInputPointer ( _fileBuffer ),
 m_unicode ( _isUnicode )
 #ifndef __GNUC__
 , m_ioMutex ( new CoreMutex () )
 #endif
 {
+    if ( m_fileInputPointer )
+        m_fileInputBuffer = new std::ifstream ( m_fileInputPointer );
+    else
+        m_fileInputBuffer = NULL;
 	SetLineEndings ( _lnEnding );
 }
 
@@ -55,6 +59,8 @@ CoreIOReader::~CoreIOReader ()
 {
     delete [] m_lineEnding;
     m_lineEnding = NULL;
+    delete m_fileInputBuffer;
+    m_fileInputBuffer = NULL;
 #ifndef __GNUC__
     delete m_ioMutex;
     m_ioMutex = NULL;
@@ -66,10 +72,25 @@ CoreIOReader::EndOfFile ()
 {
     CoreAssert ( this != NULL );
 
-    if ( !m_fileBuffer )
+    if ( !m_fileInputPointer )
         return true;
 
-    return ( feof ( m_fileBuffer ) != 0 );
+    return ( feof ( m_fileInputPointer ) != 0 );
+}
+
+void
+CoreIOReader::Flush ()
+{
+    CoreAssert ( this != NULL );
+    if ( !IsOpen() ) return;
+
+#ifndef __GNUC__
+    m_ioMutex->Lock ();
+#endif
+    fflush ( m_fileInputPointer );
+#ifndef __GNUC__
+    m_ioMutex->Unlock ();
+#endif
 }
 
 bool
@@ -77,7 +98,7 @@ CoreIOReader::IsOpen ()
 {
     CoreAssert ( this != NULL );
 
-    if ( m_fileBuffer == NULL )
+    if ( m_fileInputPointer == NULL )
         return false;
 	else
 		return true;
@@ -103,11 +124,11 @@ CoreIOReader::Length ()
     m_ioMutex->Lock ();
 #endif
     fpos_t lastpos;
-    fgetpos ( m_fileBuffer, &lastpos );
-    fseek ( m_fileBuffer, 0, SEEK_END );
+    fgetpos ( m_fileInputPointer, &lastpos );
+    fseek ( m_fileInputPointer, 0, SEEK_END );
     fpos_t endpos;
-    fgetpos ( m_fileBuffer, &endpos );
-    fsetpos ( m_fileBuffer, &lastpos );
+    fgetpos ( m_fileInputPointer, &endpos );
+    fsetpos ( m_fileInputPointer, &lastpos );
 #ifndef __GNUC__
     m_ioMutex->Unlock ();
 #endif
@@ -130,7 +151,7 @@ CoreIOReader::Read ( char *_destination )
 #ifndef __GNUC__
     m_ioMutex->Lock ();
 #endif
-    *_destination = (char)fgetc ( m_fileBuffer );
+    *_destination = (char)fgetc ( m_fileInputPointer );
 #ifndef __GNUC__
     m_ioMutex->Unlock ();
 #endif
@@ -153,7 +174,7 @@ CoreIOReader::Read ( char *_buffer, int _bufferLength, int _bufferIndex,
 #ifndef __GNUC__
     m_ioMutex->Lock ();
 #endif
-    retval = fread ( &_buffer[_bufferIndex], sizeof(char), _count, m_fileBuffer );
+    retval = fread ( &_buffer[_bufferIndex], sizeof(char), _count, m_fileInputPointer );
 #ifndef __GNUC__
     m_ioMutex->Unlock ();
 #endif
@@ -169,7 +190,7 @@ CoreIOReader::ReadLine ( std::string &_string )
 #ifndef __GNUC__
     m_ioMutex->Lock ();
 #endif
-    char c = (char) fgetc ( m_fileBuffer );
+    char c = (char) fgetc ( m_fileInputPointer );
 
     if ( c == (char)EOF )
         return 0;
@@ -179,7 +200,7 @@ CoreIOReader::ReadLine ( std::string &_string )
     while ( c != (char)EOF && c != '\n' )
     {
         buffer += c;
-        c = (char)fgetc ( m_fileBuffer );
+        c = (char)fgetc ( m_fileInputPointer );
     }
 
     int len = (int)buffer.length ();
@@ -205,7 +226,7 @@ CoreIOReader::Seek ( int _position, int _origin )
 #ifndef __GNUC__
     m_ioMutex->Lock ();
 #endif
-    int res = fseek ( m_fileBuffer, _position, _origin );
+    int res = fseek ( m_fileInputPointer, _position, _origin );
 #ifndef __GNUC__
     m_ioMutex->Unlock ();
 #endif

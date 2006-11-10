@@ -42,12 +42,16 @@ using namespace CrissCross::System;
 
 CoreIOWriter::CoreIOWriter ( FILE * _fileBuffer, bool _isUnicode, LineEndingType _lnEnding ):
 m_lineEnding ( NULL ),
-m_fileBuffer ( _fileBuffer ),
+m_fileOutputPointer ( _fileBuffer ),
 m_unicode ( _isUnicode )
 #ifndef __GNUC__
 , m_ioMutex ( new CoreMutex () )
 #endif
 {
+    if ( m_fileOutputPointer )
+        m_fileOutputBuffer = new std::ofstream ( m_fileOutputPointer );
+    else
+        m_fileOutputBuffer = NULL;
 	SetLineEndings ( _lnEnding );
 }
 
@@ -55,6 +59,8 @@ CoreIOWriter::~CoreIOWriter ()
 {
     delete [] m_lineEnding;
     m_lineEnding = NULL;
+    delete m_fileOutputBuffer;
+    m_fileOutputBuffer = NULL;
 #ifndef __GNUC__
     delete m_ioMutex;
     m_ioMutex = NULL;
@@ -70,7 +76,7 @@ CoreIOWriter::Flush ()
 #ifndef __GNUC__
     m_ioMutex->Lock ();
 #endif
-    fflush ( m_fileBuffer );
+    fflush ( m_fileOutputPointer );
 #ifndef __GNUC__
     m_ioMutex->Unlock ();
 #endif
@@ -81,7 +87,7 @@ CoreIOWriter::IsOpen ()
 {
     CoreAssert ( this != NULL );
 
-    if ( m_fileBuffer == NULL )
+    if ( m_fileOutputPointer == NULL )
         return false;
 	else
 		return true;
@@ -148,9 +154,9 @@ CoreIOWriter::WriteLine ( const char *_format, ... )
     va_start ( args, _format );
 
     // Print out the string
-    vfprintf ( m_fileBuffer, _format, args );
+    vfprintf ( m_fileOutputPointer, _format, args );
 
-    if ( fprintf ( m_fileBuffer, "%s", m_lineEnding ) < 0 )
+    if ( fprintf ( m_fileOutputPointer, "%s", m_lineEnding ) < 0 )
 		return CC_ERR_WRITE;
 
     va_end ( args );
@@ -175,7 +181,7 @@ CoreIOWriter::WriteLine ( std::string _string )
     m_ioMutex->Lock ();
 #endif
     
-    if ( fprintf ( m_fileBuffer, "%s%s", _string.c_str(), m_lineEnding ) < 0 )
+    if ( fprintf ( m_fileOutputPointer, "%s%s", _string.c_str(), m_lineEnding ) < 0 )
 		return CC_ERR_WRITE;
 
 #ifndef __GNUC__    
@@ -198,7 +204,7 @@ CoreIOWriter::Write ( std::string _string )
     m_ioMutex->Lock ();
 #endif
     
-    if ( fprintf ( m_fileBuffer, "%s", _string.c_str() ) < 0 )
+    if ( fprintf ( m_fileOutputPointer, "%s", _string.c_str() ) < 0 )
 		return CC_ERR_WRITE;
 
 #ifndef __GNUC__    
@@ -219,7 +225,7 @@ CoreIOWriter::WriteLine ()
     m_ioMutex->Lock ();
 #endif
 
-    if ( fprintf ( m_fileBuffer, m_lineEnding ) < 0 )
+    if ( fprintf ( m_fileOutputPointer, m_lineEnding ) < 0 )
 	    return CC_ERR_WRITE;
 
 #ifndef __GNUC__
@@ -247,7 +253,7 @@ CoreIOWriter::Write ( const char *_format, ... )
     va_start ( args, _format );
 
     // Print out the string
-    if ( vfprintf ( m_fileBuffer, _format, args ) < 0 )
+    if ( vfprintf ( m_fileOutputPointer, _format, args ) < 0 )
 		return CC_ERR_WRITE;
 
     va_end ( args );
