@@ -41,7 +41,6 @@ using namespace CrissCross::IO;
 using namespace CrissCross::System;
 
 CoreIOWriter::CoreIOWriter ( FILE * _fileBuffer, bool _isUnicode, LineEndingType _lnEnding ):
-m_lineEnding ( NULL ),
 m_fileOutputPointer ( _fileBuffer ),
 m_unicode ( _isUnicode )
 #ifndef __GNUC__
@@ -53,8 +52,6 @@ m_unicode ( _isUnicode )
 
 CoreIOWriter::~CoreIOWriter ()
 {
-    delete [] m_lineEnding;
-    m_lineEnding = NULL;
 #ifndef __GNUC__
     delete m_ioMutex;
     m_ioMutex = NULL;
@@ -106,26 +103,15 @@ CoreIOWriter::SetLineEndings ( LineEndingType _ending )
     switch ( _ending )
     {
     case CC_LN_CR:
-        delete [] m_lineEnding;
-        m_lineEnding = NULL;
-        m_lineEnding = new char[2];
         sprintf ( m_lineEnding, "\r" );
         break;
     case CC_LN_LF:
-        delete [] m_lineEnding;
-        m_lineEnding = NULL;
-        m_lineEnding = new char[2];
         sprintf ( m_lineEnding, "\n" );
         break;
     case CC_LN_CRLF:
-        delete [] m_lineEnding;
-        m_lineEnding = NULL;
-        m_lineEnding = new char[3];
         sprintf ( m_lineEnding, "\r\n" );
         break;
     default:
-        // Don't delete m_lineEnding, or else
-        // it'll remain unassigned.
         return CC_ERR_BADPARAMETER;
     }
 	return CC_ERR_NONE;

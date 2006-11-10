@@ -54,7 +54,7 @@ namespace CrissCross
             /*!
                Stores the line ending selected by CoreIOReader::SetLineEndings.
              */
-            char *m_lineEnding;
+            char m_lineEnding[4];
 
             //! Input/output FILE pointer.
             FILE *m_fileInputPointer;

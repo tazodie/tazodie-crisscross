@@ -64,7 +64,7 @@ LIB32=xilink6.exe -lib
 # PROP Intermediate_Dir "../obj/crisscross/debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /YX /FD /GZ /c
-# ADD CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /I "." /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /Yu"crisscross/universal_include.h" /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "." /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /Yu"crisscross/universal_include.h" /FD /GZ /c
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x409 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -114,6 +114,14 @@ SOURCE=.\crisscross\core_filesystem.h
 # Begin Source File
 
 SOURCE=.\crisscross\core_io.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\crisscross\core_io_reader.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\crisscross\core_io_writer.h
 # End Source File
 # Begin Source File
 
@@ -231,6 +239,14 @@ SOURCE=.\core_debug.cpp
 # Begin Source File
 
 SOURCE=.\core_filesystem.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\core_io_reader.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\core_io_writer.cpp
 # End Source File
 # Begin Source File
 
