@@ -74,6 +74,7 @@
 #    define DS_CPL_FLAG 0x0010
 #    define EIST_FLAG 0x0080
 #    define TM2_FLAG 0x0100
+#    define SSSE3_FLAG 0x0200
 #    define CID_FLAG 0x0400
 #    define CX16_FLAG 0x2000
 #    define XTPR_FLAG 0x4000
@@ -81,6 +82,7 @@
 #    define SYSCALL_FLAG 0x00000800
 #    define XD_FLAG 0x00100000
 #    define EM64T_FLAG 0x20000000
+
 
 // AMD 8000_0001 EDX flags
 #    define _3DNOW_FLAG 0x80000000
@@ -440,6 +442,8 @@ CoreCPUID::DetectProcessorName ( int processor )
 void
 CoreCPUID::DetectCacheInfo ( int processor )
 {
+    // Compliant with Intel document #241618.
+
     if ( proc[processor]->Manufacturer )
     {
         if ( strcmp ( proc[processor]->Manufacturer, "GenuineIntel" ) == 0 )
@@ -501,258 +505,198 @@ CoreCPUID::AddCacheDescription ( int processor, const char *description )
 void
 CoreCPUID::AddCacheData ( int processor, int x )
 {
+    // Compliant with Intel document #241618.
+
     x &= 0xff;
     switch ( x )
     {
     case 0:
         break;
     case 0x1:
-        AddCacheDescription ( processor,
-                              "Instruction TLB: 4KB pages, 4-way set associative, 32 entries\n" );
+        AddCacheDescription ( processor, "Instruction TLB: 4KB pages, 4-way set associative, 32 entries\n" );
         break;
     case 0x2:
-        AddCacheDescription ( processor,
-                              "Instruction TLB: 4MB pages, fully associative, 2 entries\n" );
+        AddCacheDescription ( processor, "Instruction TLB: 4MB pages, fully associative, 2 entries\n" );
         break;
     case 0x3:
-        AddCacheDescription ( processor,
-                              "Data TLB: 4KB pages, 4-way set associative, 64 entries\n" );
+        AddCacheDescription ( processor, "Data TLB: 4KB pages, 4-way set associative, 64 entries\n" );
         break;
     case 0x4:
-        AddCacheDescription ( processor,
-                              "Data TLB: 4MB pages, 4-way set associative, 8 entries\n" );
+        AddCacheDescription ( processor, "Data TLB: 4MB pages, 4-way set associative, 8 entries\n" );
         break;
     case 0x6:
-        AddCacheDescription ( processor,
-                              "1st-level instruction cache: 8KB, 4-way set associative, 32 byte line size\n" );
+        AddCacheDescription ( processor, "1st-level instruction cache: 8KB, 4-way set associative, 32 byte line size\n" );
         break;
     case 0x8:
-        AddCacheDescription ( processor,
-                              "1st-level instruction cache: 16KB, 4-way set associative, 32 byte line size\n" );
+        AddCacheDescription ( processor, "1st-level instruction cache: 16KB, 4-way set associative, 32 byte line size\n" );
         break;
     case 0xa:
-        AddCacheDescription ( processor,
-                              "1st-level data cache: 8KB, 2-way set associative, 32 byte line size\n" );
+        AddCacheDescription ( processor, "1st-level data cache: 8KB, 2-way set associative, 32 byte line size\n" );
         break;
     case 0xc:
-        AddCacheDescription ( processor,
-                              "1st-level data cache: 16KB, 4-way set associative, 32 byte line size\n" );
+        AddCacheDescription ( processor, "1st-level data cache: 16KB, 4-way set associative, 32 byte line size\n" );
         break;
     case 0x22:
-        AddCacheDescription ( processor,
-                              "3rd-level data cache: 512KB, 4-way set associative, sectored cache, 64 byte line size\n" );
+        AddCacheDescription ( processor, "3rd-level data cache: 512KB, 4-way set associative, sectored cache, 64 byte line size\n" );
         break;
     case 0x23:
-        AddCacheDescription ( processor,
-                              "3rd-level data cache: 1MB, 8-way set associative, sectored cache, 64 byte line size\n" );
+        AddCacheDescription ( processor, "3rd-level data cache: 1MB, 8-way set associative, sectored cache, 64 byte line size\n" );
         break;
     case 0x25:
-        AddCacheDescription ( processor,
-                              "3rd-level data cache: 2MB, 8-way set associative, sectored cache, 64 byte line size\n" );
+        AddCacheDescription ( processor, "3rd-level data cache: 2MB, 8-way set associative, sectored cache, 64 byte line size\n" );
         break;
     case 0x29:
-        AddCacheDescription ( processor,
-                              "3rd-level data cache: 4MB, 8-way set associative, sectored cache, 64 byte line size\n" );
+        AddCacheDescription ( processor, "3rd-level data cache: 4MB, 8-way set associative, sectored cache, 64 byte line size\n" );
         break;
     case 0x2C:
-        AddCacheDescription ( processor,
-                              "1st-level data cache: 32KB, 8-way set associative, 64 byte line size\n" );
+        AddCacheDescription ( processor, "1st-level data cache: 32KB, 8-way set associative, 64 byte line size\n" );
         break;
     case 0x30:
-        AddCacheDescription ( processor,
-                              "1st-level instruction cache: 32KB, 8-way set associative, 64 byte line size\n" );
+        AddCacheDescription ( processor, "1st-level instruction cache: 32KB, 8-way set associative, 64 byte line size\n" );
         break;
     case 0x39:
-        AddCacheDescription ( processor,
-                              "2nd-level cache: 128KB, 4-way set associative, sectored cache, 64 byte line size\n" );
+        AddCacheDescription ( processor, "2nd-level cache: 128KB, 4-way set associative, sectored cache, 64 byte line size\n" );
         break;
     case 0x3A:
-        AddCacheDescription ( processor,
-                              "2nd-level cache: 192KB, 6-way set associative, sectored cache, 64 byte line size\n" );
+        AddCacheDescription ( processor, "2nd-level cache: 192KB, 6-way set associative, sectored cache, 64 byte line size\n" );
         break;
     case 0x3B:
-        AddCacheDescription ( processor,
-                              "2nd-level cache: 128KB, 2-way set associative, sectored cache, 64 byte line size\n" );
+        AddCacheDescription ( processor, "2nd-level cache: 128KB, 2-way set associative, sectored cache, 64 byte line size\n" );
         break;
     case 0x3C:
-        AddCacheDescription ( processor,
-                              "2nd-level cache: 256KB, 4-way set associative, sectored cache, 64 byte line size\n" );
+        AddCacheDescription ( processor, "2nd-level cache: 256KB, 4-way set associative, sectored cache, 64 byte line size\n" );
         break;
     case 0x3D:
-        AddCacheDescription ( processor,
-                              "2nd-level cache: 384KB, 6-way set associative, sectored cache, 64 byte line size\n" );
+        AddCacheDescription ( processor, "2nd-level cache: 384KB, 6-way set associative, sectored cache, 64 byte line size\n" );
         break;
     case 0x3E:
-        AddCacheDescription ( processor,
-                              "2nd-level cache: 512KB, 4-way set associative, sectored cache, 64 byte line size\n" );
+        AddCacheDescription ( processor, "2nd-level cache: 512KB, 4-way set associative, sectored cache, 64 byte line size\n" );
         break;
     case 0x40:
-        AddCacheDescription ( processor,
-                              "No 2nd-level cache, or if 2nd-level cache exists, no 3rd-level cache\n" );
+        AddCacheDescription ( processor, "No 2nd-level cache, or if 2nd-level cache exists, no 3rd-level cache\n" );
         break;
     case 0x41:
-        AddCacheDescription ( processor,
-                              "2nd-level cache: 128KB, 4-way set associative, 32 byte line size\n" );
+        AddCacheDescription ( processor, "2nd-level cache: 128KB, 4-way set associative, 32 byte line size\n" );
         break;
     case 0x42:
-        AddCacheDescription ( processor,
-                              "2nd-level cache: 256KB, 4-way set associative, 32 byte line size\n" );
+        AddCacheDescription ( processor, "2nd-level cache: 256KB, 4-way set associative, 32 byte line size\n" );
         break;
     case 0x43:
-        AddCacheDescription ( processor,
-                              "2nd-level cache: 512KB, 4-way set associative, 32 byte line size\n" );
+        AddCacheDescription ( processor, "2nd-level cache: 512KB, 4-way set associative, 32 byte line size\n" );
         break;
     case 0x44:
-        AddCacheDescription ( processor,
-                              "2nd-level cache: 1MB, 4-way set associative, 32 byte line size\n" );
+        AddCacheDescription ( processor, "2nd-level cache: 1MB, 4-way set associative, 32 byte line size\n" );
         break;
     case 0x45:
-        AddCacheDescription ( processor,
-                              "2nd-level cache: 2MB, 4-way set associative, 32 byte line size\n" );
+        AddCacheDescription ( processor, "2nd-level cache: 2MB, 4-way set associative, 32 byte line size\n" );
         break;
     case 0x46:
-        AddCacheDescription ( processor,
-                              "3rd-level cache: 4MB, 4-way set associative, 64 byte line size\n" );
+        AddCacheDescription ( processor, "3rd-level cache: 4MB, 4-way set associative, 64 byte line size\n" );
         break;
     case 0x47:
-        AddCacheDescription ( processor,
-                              "3rd-level cache: 8MB, 4-way set associative, 64 byte line size\n" );
+        AddCacheDescription ( processor, "3rd-level cache: 8MB, 4-way set associative, 64 byte line size\n" );
         break;
     case 0x49:
-        AddCacheDescription ( processor,
-                              "3rd-level cache: 4MB, 16-way set associative, 64 byte line size\n" );
+        AddCacheDescription ( processor, "3rd-level cache: 4MB, 16-way set associative, 64 byte line size\n" );
         break;
     case 0x4A:
-        AddCacheDescription ( processor,
-                              "3rd-level cache: 6MB, 12-way set associative, 64 byte line size\n" );
+        AddCacheDescription ( processor, "3rd-level cache: 6MB, 12-way set associative, 64 byte line size\n" );
         break;
     case 0x4B:
-        AddCacheDescription ( processor,
-                              "3rd-level cache: 8MB, 16-way set associative, 64 byte line size\n" );
+        AddCacheDescription ( processor, "3rd-level cache: 8MB, 16-way set associative, 64 byte line size\n" );
         break;
     case 0x4C:
-        AddCacheDescription ( processor,
-                              "3rd-level cache: 12MB, 12-way set associative, 64 byte line size\n" );
+        AddCacheDescription ( processor, "3rd-level cache: 12MB, 12-way set associative, 64 byte line size\n" );
         break;
     case 0x4D:
-        AddCacheDescription ( processor,
-                              "3rd-level cache: 16MB, 16-way set associative, 64 byte line size\n" );
+        AddCacheDescription ( processor, "3rd-level cache: 16MB, 16-way set associative, 64 byte line size\n" );
         break;
     case 0x50:
-        AddCacheDescription ( processor,
-                              "Instruction TLB: 4KB, 2MB or 4MB pages, fully associative, 64 entries\n" );
+        AddCacheDescription ( processor, "Instruction TLB: 4KB, 2MB or 4MB pages, fully associative, 64 entries\n" );
         break;
     case 0x51:
-        AddCacheDescription ( processor,
-                              "Instruction TLB: 4KB, 2MB or 4MB pages, fully associative, 128 entries\n" );
+        AddCacheDescription ( processor, "Instruction TLB: 4KB, 2MB or 4MB pages, fully associative, 128 entries\n" );
         break;
     case 0x52:
-        AddCacheDescription ( processor,
-                              "Instruction TLB: 4KB, 2MB or 4MB pages, fully associative, 256 entries\n" );
+        AddCacheDescription ( processor, "Instruction TLB: 4KB, 2MB or 4MB pages, fully associative, 256 entries\n" );
         break;
     case 0x5b:
-        AddCacheDescription ( processor,
-                              "Data TLB: 4KB or 4MB pages, fully associative, 64 entries\n" );
+        AddCacheDescription ( processor, "Data TLB: 4KB or 4MB pages, fully associative, 64 entries\n" );
         break;
     case 0x5c:
-        AddCacheDescription ( processor,
-                              "Data TLB: 4KB or 4MB pages, fully associative, 128 entries\n" );
+        AddCacheDescription ( processor, "Data TLB: 4KB or 4MB pages, fully associative, 128 entries\n" );
         break;
     case 0x5d:
-        AddCacheDescription ( processor,
-                              "Data TLB: 4KB or 4MB pages, fully associative, 256 entries\n" );
+        AddCacheDescription ( processor, "Data TLB: 4KB or 4MB pages, fully associative, 256 entries\n" );
         break;
     case 0x60:
-        AddCacheDescription ( processor,
-                              "1st-level data cache: 16KB, 8-way set associative, sectored cache, 64 byte line size\n" );
+        AddCacheDescription ( processor, "1st-level data cache: 16KB, 8-way set associative, sectored cache, 64 byte line size\n" );
         break;
     case 0x66:
-        AddCacheDescription ( processor,
-                              "1st-level data cache: 8KB, 4-way set associative, sectored cache, 64 byte line size\n" );
+        AddCacheDescription ( processor, "1st-level data cache: 8KB, 4-way set associative, sectored cache, 64 byte line size\n" );
         break;
     case 0x67:
-        AddCacheDescription ( processor,
-                              "1st-level data cache: 16KB, 4-way set associative, sectored cache, 64 byte line size\n" );
+        AddCacheDescription ( processor, "1st-level data cache: 16KB, 4-way set associative, sectored cache, 64 byte line size\n" );
         break;
     case 0x68:
-        AddCacheDescription ( processor,
-                              "1st-level data cache: 32KB, 4-way set associative, sectored cache, 64 byte line size\n" );
+        AddCacheDescription ( processor, "1st-level data cache: 32KB, 4-way set associative, sectored cache, 64 byte line size\n" );
         break;
     case 0x70:
-        AddCacheDescription ( processor,
-                              "Trace cache: 12K-uops, 8-way set associative\n" );
+        AddCacheDescription ( processor, "Trace cache: 12K-uops, 8-way set associative\n" );
         break;
     case 0x71:
-        AddCacheDescription ( processor,
-                              "Trace cache: 16K-uops, 8-way set associative\n" );
+        AddCacheDescription ( processor, "Trace cache: 16K-uops, 8-way set associative\n" );
         break;
     case 0x72:
-        AddCacheDescription ( processor,
-                              "Trace cache: 32K-uops, 8-way set associative\n" );
+        AddCacheDescription ( processor, "Trace cache: 32K-uops, 8-way set associative\n" );
         break;
     case 0x73:
-        AddCacheDescription ( processor,
-                              "Trace cache: 64K-uops, 8-way set associative\n" );
+        AddCacheDescription ( processor, "Trace cache: 64K-uops, 8-way set associative\n" );
         break;
     case 0x78:
-        AddCacheDescription ( processor,
-                              "2nd-level cache: 1MB, 4-way set associative, 64 byte line size\n" );
+        AddCacheDescription ( processor, "2nd-level cache: 1MB, 4-way set associative, 64 byte line size\n" );
         break;
     case 0x79:
-        AddCacheDescription ( processor,
-                              "2nd-level cache: 128KB, 8-way set associative, sectored cache, 64 byte line size\n" );
+        AddCacheDescription ( processor, "2nd-level cache: 128KB, 8-way set associative, sectored cache, 64 byte line size\n" );
         break;
     case 0x7a:
-        AddCacheDescription ( processor,
-                              "2nd-level cache: 256KB, 8-way set associative, sectored cache, 64 byte line size\n" );
+        AddCacheDescription ( processor, "2nd-level cache: 256KB, 8-way set associative, sectored cache, 64 byte line size\n" );
         break;
     case 0x7b:
-        AddCacheDescription ( processor,
-                              "2nd-level cache: 512KB, 8-way set associative, sectored cache, 64 byte line size\n" );
+        AddCacheDescription ( processor, "2nd-level cache: 512KB, 8-way set associative, sectored cache, 64 byte line size\n" );
         break;
     case 0x7c:
-        AddCacheDescription ( processor,
-                              "2nd-level cache: 1MB, 8-way set associative, sectored cache, 64 byte line size\n" );
+        AddCacheDescription ( processor, "2nd-level cache: 1MB, 8-way set associative, sectored cache, 64 byte line size\n" );
         break;
     case 0x7d:
-        AddCacheDescription ( processor,
-                              "2nd-level cache: 2MB, 8-way set associative, 64 byte line size\n" );
+        AddCacheDescription ( processor, "2nd-level cache: 2MB, 8-way set associative, 64 byte line size\n" );
         break;
     case 0x7f:
-        AddCacheDescription ( processor,
-                              "2nd-level cache: 512KB, 2-way set associative, 64 byte line size\n" );
+        AddCacheDescription ( processor, "2nd-level cache: 512KB, 2-way set associative, 64 byte line size\n" );
         break;
     case 0x82:
-        AddCacheDescription ( processor,
-                              "2nd-level cache: 256KB, 8-way set associative, 32 byte line size\n" );
+        AddCacheDescription ( processor, "2nd-level cache: 256KB, 8-way set associative, 32 byte line size\n" );
         break;
     case 0x83:
-        AddCacheDescription ( processor,
-                              "2nd-level cache: 512KB, 8-way set associative 32 byte line size\n" );
+        AddCacheDescription ( processor, "2nd-level cache: 512KB, 8-way set associative 32 byte line size\n" );
         break;
     case 0x84:
-        AddCacheDescription ( processor,
-                              "2nd-level cache: 1MB, 8-way set associative, 32 byte line size\n" );
+        AddCacheDescription ( processor, "2nd-level cache: 1MB, 8-way set associative, 32 byte line size\n" );
         break;
     case 0x85:
-        AddCacheDescription ( processor,
-                              "2nd-level cache: 2MB, 8-way set associative, 32 byte line size\n" );
+        AddCacheDescription ( processor, "2nd-level cache: 2MB, 8-way set associative, 32 byte line size\n" );
         break;
     case 0x86:
-        AddCacheDescription ( processor,
-                              "2nd-level cache: 512KB, 4-way set associative, 64 byte line size\n" );
+        AddCacheDescription ( processor, "2nd-level cache: 512KB, 4-way set associative, 64 byte line size\n" );
         break;
     case 0x87:
-        AddCacheDescription ( processor,
-                              "2nd-level cache: 1MB, 8-way set associative, 64 byte line size\n" );
+        AddCacheDescription ( processor, "2nd-level cache: 1MB, 8-way set associative, 64 byte line size\n" );
         break;
     case 0xB0:
-        AddCacheDescription ( processor,
-                              "Instruction TLB: 4KB pages, 4-way set associative, 128 entries\n" );
+        AddCacheDescription ( processor, "Instruction TLB: 4KB pages, 4-way set associative, 128 entries\n" );
         break;
     case 0xB3:
-        AddCacheDescription ( processor,
-                              "Data TLB: 4KB pages, 4-way set associative, 128 entries\n" );
+        AddCacheDescription ( processor, "Data TLB: 4KB pages, 4-way set associative, 128 entries\n" );
         break;
     case 0xF0:
         AddCacheDescription ( processor, "64 byte prefetching\n" );
@@ -769,35 +713,54 @@ CoreCPUID::AddCacheData ( int processor, int x )
 void
 CoreCPUID::DetectFMS ( int processor )
 {
-    proc[processor]->Family = ( Std[1].eax >> 8 ) & 0xf;
-    proc[processor]->Model = ( Std[1].eax >> 4 ) & 0xf;
+    // Compliant with Intel document #241618.
+    proc[processor]->Family = ( ( Std[1].eax >> 8 ) + ( Std[1].eax >> 20 ) ) & 0xff;
+    proc[processor]->Model = ( ( ( ( Std[1].eax >> 16 ) & 0xf ) << 4 ) +  ( ( Std[1].eax >> 4 ) & 0xf ) ) & 0xff;
     proc[processor]->Stepping = Std[1].eax & 0xf;
 }
 
 void
 CoreCPUID::DetectBrandID ( int processor )
 {
-    proc[processor]->BrandID = Std[1].ebx;
+    // Compliant with Intel document #241618.
+    proc[processor]->BrandID = Std[1].ebx & 0xff;
 }
 
 void
 CoreCPUID::DetectCount ( int processor )
 {
+    // Compliant with Intel document #241618.
+
     // AMD and Intel documentations state that if HTT is supported
     // then this the EBX:16 will reflect the logical processor count
     // otherwise the flag is reserved.
     RedBlackTree < Feature *, char *>::nodeType * HTT_node = proc[processor]->features.findNode ( "HTT" );
 	proc[processor]->PhysicalCount = ( ( ( Std[4].eax >> 26 ) & 0x03f ) + 1 );
     if ( HTT_node->data->Enabled )
+    {
         proc[processor]->LogicalCount = ( (Std[1].ebx >> 16) & 0xff );
+        if ( proc[processor]->LogicalCount > 1 )
+        {
+            // Core Multi-Processing (CMP), i.e. "Dual Core".
+            delete (Feature *)HTT_node->data;
+            proc[processor]->features.deleteNode ( "HTT" );
+            Feature *feature = new Feature();
+            feature->Enabled = 1;
+            proc[processor]->features.insert ( "CMP", feature );
+            feature = NULL;
+        }
+    }
     else
+    {
         // HTT not supported. Report logical processor count as 1.
         proc[processor]->LogicalCount = 1;
+    }
 }
 
 void
 CoreCPUID::DetectAPIC ( int processor )
 {
+    // BUGBUG: Where'd this come from? Can't find it in doc 241618.
     proc[processor]->APICID = ( Std[1].ebx >> 24 );
 }
 
@@ -805,6 +768,8 @@ void
 CoreCPUID::DetectFeature ( unsigned const int *_register, int _flag,
                            int _processor, const char *_name )
 {
+    // Compliant with Intel document #241618.
+
     Feature *feature = new Feature ();
 
     feature->Enabled = ( *_register & _flag ) > 0;
@@ -815,6 +780,8 @@ CoreCPUID::DetectFeature ( unsigned const int *_register, int _flag,
 void
 CoreCPUID::DetectFeatures ( int processor )
 {
+    // Compliant with Intel document #241618.
+
     DetectFeature ( &Std[1].edx, FPU_FLAG, processor, "FPU" );
     DetectFeature ( &Std[1].edx, VME_FLAG, processor, "VME" );
     DetectFeature ( &Std[1].edx, DE_FLAG, processor, "DE" );
@@ -866,6 +833,7 @@ CoreCPUID::DetectFeatures ( int processor )
             DetectFeature ( &Std[1].ecx, MONITOR_FLAG, processor, "MONITOR" );
             DetectFeature ( &Std[1].ecx, EIST_FLAG, processor, "EIST" );
             DetectFeature ( &Std[1].ecx, TM2_FLAG, processor, "TM2" );
+            DetectFeature ( &Std[1].ecx, SSSE3_FLAG, processor, "SSSE3" );
             DetectFeature ( &Std[1].ecx, CID_FLAG, processor, "CID" );
             DetectFeature ( &Std[1].ecx, SYSCALL_FLAG, processor, "SYSCALL" );
             DetectFeature ( &Std[1].ecx, XTPR_FLAG, processor, "XTPR" );
