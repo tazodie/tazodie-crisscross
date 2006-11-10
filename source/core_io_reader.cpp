@@ -48,7 +48,7 @@ m_unicode ( _isUnicode )
 , m_ioMutex ( new CoreMutex () )
 #endif
 {
-	SetLineEndings ( _lnEnding );
+    SetLineEndings ( _lnEnding );
 }
 
 CoreIOReader::~CoreIOReader ()
