@@ -293,8 +293,8 @@ AppPrintMemoryLeaks ( char *_filename )
 #endif
 
 
-#if 0
-int APIENTRY
+#ifdef _WINDOWS
+int WINAPI
 WinMain ( HINSTANCE hInstance,
           HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow )
 {
@@ -325,8 +325,8 @@ main ( int argc, char **argv )
 #endif
     try
     {
-#if 0
-        retval = RunApplication ( 0, NULL );
+#ifdef _WINDOWS
+        retval = RunApplication ( __argc, __argv );
 #else
         retval = RunApplication ( argc, argv );
 #endif
