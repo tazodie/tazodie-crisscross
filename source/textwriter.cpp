@@ -72,14 +72,9 @@ CrissCross::Errors TextWriter::Open ( const char *_file, FileWriteMode _writeMod
     m_fileOutputPointer = fopen ( m_filePath, openModes );
 
     if ( m_fileOutputPointer == NULL )
-    {
-        m_fileOutputBuffer = new std::ofstream ( m_fileOutputPointer );
 		return CC_ERR_FILE_OPEN;
-    }
 	else
-    {
 		return CC_ERR_NONE;
-    }
 }
 
 CrissCross::Errors TextWriter::Close ()
@@ -89,9 +84,6 @@ CrissCross::Errors TextWriter::Close ()
 	if ( m_fileOutputPointer )
 		fclose ( m_fileOutputPointer );
 	m_fileOutputPointer = NULL;
-
-    delete m_fileOutputBuffer;
-    m_fileOutputBuffer = NULL;
 
     delete [] (char *)m_filePath;
 	m_filePath = NULL;

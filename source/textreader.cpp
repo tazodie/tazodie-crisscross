@@ -67,14 +67,9 @@ CrissCross::Errors TextReader::Open ( const char *_file )
     m_fileInputPointer = fopen ( m_filePath, "rt" );
 
     if ( m_fileInputPointer == NULL )
-    {
-        m_fileInputBuffer = new std::ifstream ( m_fileInputPointer );
 		return CC_ERR_FILE_OPEN;
-    }
 	else
-    {
 		return CC_ERR_NONE;
-    }
 }
 
 CrissCross::Errors TextReader::Close ()
@@ -82,9 +77,6 @@ CrissCross::Errors TextReader::Close ()
 	if ( m_fileInputPointer )
 		fclose ( m_fileInputPointer );
 	m_fileInputPointer = NULL;
-
-    delete m_fileInputBuffer;
-    m_fileInputBuffer = NULL;
 
 	delete [] (char *)m_filePath;
 	m_filePath = NULL;

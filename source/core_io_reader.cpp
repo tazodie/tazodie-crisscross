@@ -48,10 +48,6 @@ m_unicode ( _isUnicode )
 , m_ioMutex ( new CoreMutex () )
 #endif
 {
-    if ( m_fileInputPointer )
-        m_fileInputBuffer = new std::ifstream ( m_fileInputPointer );
-    else
-        m_fileInputBuffer = NULL;
 	SetLineEndings ( _lnEnding );
 }
 
@@ -59,8 +55,6 @@ CoreIOReader::~CoreIOReader ()
 {
     delete [] m_lineEnding;
     m_lineEnding = NULL;
-    delete m_fileInputBuffer;
-    m_fileInputBuffer = NULL;
 #ifndef __GNUC__
     delete m_ioMutex;
     m_ioMutex = NULL;

@@ -189,7 +189,7 @@ CoreConsole::MoveUp ( int _lines )
 char CoreConsole::ReadChar ( char _min, char _max )
 {
     char _result = 0;
-    (*m_fileInputBuffer) >> _result;
+    fscanf ( m_fileInputPointer, "%c", &_result );
     CoreIOReader::Flush();
     if ( ( _min && _max ) && ( _min < _max ) )
     {
@@ -204,7 +204,7 @@ char CoreConsole::ReadChar ( char _min, char _max )
 int CoreConsole::ReadInt ( int _min, int _max )
 {
     int _result = 0;
-    (*m_fileInputBuffer) >> _result;
+    fscanf ( m_fileInputPointer, "%d", &_result );
     CoreIOReader::Flush();
     if ( ( _min && _max ) && ( _min < _max ) )
     {
@@ -219,7 +219,7 @@ int CoreConsole::ReadInt ( int _min, int _max )
 long CoreConsole::ReadLong ( long _min, long _max )
 {
     long _result = 0;
-    (*m_fileInputBuffer) >> _result;
+    fscanf ( m_fileInputPointer, "%ld", &_result );
     CoreIOReader::Flush();
     if ( ( _min && _max ) && ( _min < _max ) )
     {
@@ -234,7 +234,7 @@ long CoreConsole::ReadLong ( long _min, long _max )
 float CoreConsole::ReadFloat ( float _min, float _max )
 {
     float _result = 0;
-    (*m_fileInputBuffer) >> _result;
+    fscanf ( m_fileInputPointer, "%f", &_result );
     CoreIOReader::Flush();
     if ( ( _min && _max ) && ( _min < _max ) )
     {
@@ -249,7 +249,7 @@ float CoreConsole::ReadFloat ( float _min, float _max )
 double CoreConsole::ReadDouble ( double _min, double _max )
 {
     double _result = 0;
-    (*m_fileInputBuffer) >> _result;
+    fscanf ( m_fileInputPointer, "%lf", &_result );
     CoreIOReader::Flush();
     if ( ( _min && _max ) && ( _min < _max ) )
     {
@@ -264,7 +264,7 @@ double CoreConsole::ReadDouble ( double _min, double _max )
 long double CoreConsole::ReadLongDouble ( long double _min, long double _max )
 {
     long double _result = 0;
-    (*m_fileInputBuffer) >> _result;
+    fscanf ( m_fileInputPointer, "%llf", &_result );
     CoreIOReader::Flush();
     if ( ( _min && _max ) && ( _min < _max ) )
     {
