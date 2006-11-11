@@ -159,6 +159,8 @@ namespace CrissCross
              */
             double ReadDouble ( double _min = 0, double _max = 0 );
 
+#if 0
+            // BUGBUG: Causes a warning on OS X. Disabled for now.
             //! Reads a long double from the console.
             /*!
                 If both _min and _max are zero, the input will be returned, no matter what the value is (no bounds checking).
@@ -166,6 +168,7 @@ namespace CrissCross
                 \param _max The maximum input value.
              */
             long double ReadLongDouble ( long double _min = 0, long double _max = 0 );
+#endif
 
         private:
             bool EndOfFile ();
