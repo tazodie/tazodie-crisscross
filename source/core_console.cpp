@@ -261,6 +261,7 @@ double CoreConsole::ReadDouble ( double _min, double _max )
     return _result;
 }
 
+#if 0
 long double CoreConsole::ReadLongDouble ( long double _min, long double _max )
 {
     long double _result = 0;
@@ -275,6 +276,7 @@ long double CoreConsole::ReadLongDouble ( long double _min, long double _max )
     }
     return _result;
 }
+#endif
 
 int CoreConsole::Seek ( int _position ) { return 0; }
 int CoreConsole::Forward ( int _position ) { return 0; }
