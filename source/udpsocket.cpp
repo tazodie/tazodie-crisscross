@@ -68,16 +68,16 @@ CrissCross::Errors UDPSocket::Bind ( const char *_address, unsigned short _port 
     struct sockaddr_in sin;
     struct hostent *host;
 
-    if ( m_sock != INVALID_SOCKET ) return CC_ERR_SOCK_SOCKET_IN_USE;
+    if ( m_sock != INVALID_SOCKET ) return CC_ERR_ENOTSOCK;
 
     m_sock = socket ( AF_INET, SOCK_DGRAM, IPPROTO_UDP );
     if ( m_sock == INVALID_SOCKET )
-        return CC_ERR_SOCK_CREATE_SOCKET;
+        return GetError();
 
     SetAttributes ( m_sock );
 
     host = gethostbyname ( _address );
-    if ( !host ) return CC_ERR_SOCK_DNS;
+    if ( !host ) return GetError();
 
     memset ( &sin, 0, sizeof ( sin ) );
     sin.sin_family = AF_INET;
@@ -92,16 +92,16 @@ CrissCross::Errors UDPSocket::Bind ( const char *_address, unsigned short _port 
 #else
         close ( m_sock );
 #endif
-        return CC_ERR_SOCK_CONNECT;
+        return GetError();
     }
-    return CC_ERR_NONE;
+    return GetError();
 }
 
 CrissCross::Errors UDPSocket::Listen ( unsigned short _port )
 {
     struct sockaddr_in sin;
 
-    if ( m_sock != INVALID_SOCKET ) return CC_ERR_SOCK_SOCKET_IN_USE;
+    if ( m_sock != INVALID_SOCKET ) return CC_ERR_ENOTSOCK;
 
     memset ( &sin, 0, sizeof ( sin ) );
 
@@ -111,15 +111,17 @@ CrissCross::Errors UDPSocket::Listen ( unsigned short _port )
     m_sock = socket ( AF_INET, SOCK_DGRAM, IPPROTO_UDP );
 
     if ( m_sock == INVALID_SOCKET )
-        return CC_ERR_SOCK_CREATE_SOCKET;
+        return GetError();
 
     SetAttributes ( m_sock );
 
+#if defined ( ENABLE_NONBLOCKING )
     unsigned long arg = 1;
 #if defined ( TARGET_OS_WINDOWS )
     ioctlsocket ( m_sock, FIONBIO, &arg );
 #else
     ioctl ( m_sock, FIONBIO, &arg );
+#endif
 #endif
 
     if ( bind ( m_sock, (sockaddr *)&sin, sizeof ( sin ) ) == SOCKET_ERROR )
@@ -129,8 +131,8 @@ CrissCross::Errors UDPSocket::Listen ( unsigned short _port )
 #else
         close ( m_sock );
 #endif
-        return CC_ERR_SOCK_BIND;
+        return GetError();
     }
 
-    return CC_ERR_NONE;
+    return GetError();
 }

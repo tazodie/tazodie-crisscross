@@ -56,6 +56,9 @@
 #   define ENABLE_CPUID
 //#   define ENABLE_DEBUGLOG
 
+// Enables non-blocking sockets. This isn't finished yet, don't use it.
+//#   define ENABLE_NONBLOCKING
+
 //NOTE: By disabling this line, you will not be in compliance with the New BSD License.
 //      If you disable this line, you must display the copyright notice in the program
 //      elsewhere.

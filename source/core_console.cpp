@@ -281,5 +281,5 @@ long double CoreConsole::ReadLongDouble ( long double _min, long double _max )
 int CoreConsole::Seek ( int _position ) { return 0; }
 int CoreConsole::Forward ( int _position ) { return 0; }
 int CoreConsole::Length() { return 0; }
-int CoreConsole::Read ( char *_buffer, int _bufferLength, int _bufferIndex, int _count ) { return 0; };
-bool CoreConsole::EndOfFile () { return false; };
+int CoreConsole::Read ( char *_buffer, int _bufferLength, int _bufferIndex, int _count ) { return 0; }
+bool CoreConsole::EndOfFile () { return false; }

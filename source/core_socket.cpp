@@ -31,6 +31,8 @@
  *
  */
 
+//BUGBUG: Purge all MessageBox and printf/fprintf calls.
+
 #define PACKET_DEBUG
  
 #include <crisscross/universal_include.h>
@@ -152,13 +154,13 @@ CrissCross::Errors
 CoreSocket::Listen ( unsigned short _port )
 {
     /* CoreSocket::Listen does nothing. This is an abstract class. */
-    return CC_ERR_SOCK_NOT_IMPLEMENTED;
+    return CC_ERR_NOT_IMPLEMENTED;
 }
 
 int
-CoreSocket::Read ( std::string &_output ) const
+CoreSocket::Read ( std::string &_output )
 {
-    if ( m_sock == INVALID_SOCKET ) return CC_ERR_SOCK_SOCKET_NOT_INITIALISED;
+    if ( m_sock == INVALID_SOCKET ) return CC_ERR_ENOTSOCK;
 
     char *buf = new char[m_bufferSize];
     memset ( buf, 0, m_bufferSize );
@@ -175,10 +177,10 @@ CoreSocket::Read ( std::string &_output ) const
 }
 
 int
-CoreSocket::Read ( char **_output, unsigned int *_len ) const
+CoreSocket::Read ( char **_output, unsigned int *_len )
 {
-    if ( m_sock == INVALID_SOCKET ) return CC_ERR_SOCK_SOCKET_NOT_INITIALISED;
-    if ( _len == NULL ) return CC_ERR_SOCK_BAD_PARAMETER;
+    if ( m_sock == INVALID_SOCKET ) return CC_ERR_ENOTSOCK;
+    if ( _len == NULL ) return CC_ERR_BADPARAMETER;
 
     char *buf = new char[m_bufferSize];
     int ret = 0, recvlen = 0;
@@ -190,7 +192,7 @@ CoreSocket::Read ( char **_output, unsigned int *_len ) const
         *_output = NULL;
         *_len = 0;
         delete [] buf;
-        return CC_ERR_SOCK_DATA_NOTAVAIL;
+        return CC_ERR_EWOULDBLOCK;
     }
     ret = errno;
 
@@ -201,22 +203,24 @@ CoreSocket::Read ( char **_output, unsigned int *_len ) const
 }
 
 int
-CoreSocket::ReadLine ( char **_output, unsigned int *_len ) const
+CoreSocket::ReadLine ( char **_output, unsigned int *_len )
 {
-    if ( m_sock == INVALID_SOCKET ) return CC_ERR_SOCK_SOCKET_NOT_INITIALISED;
-    if ( _len == NULL ) return CC_ERR_SOCK_BAD_PARAMETER;
+    if ( m_sock == INVALID_SOCKET ) return CC_ERR_ENOTSOCK;
+    if ( _len == NULL ) return CC_ERR_BADPARAMETER;
 
     char *buf = new char[m_bufferSize];
     char temp[2];
     int recvlen = 0;
-    memset ( buf, 0, m_bufferSize );
+	CrissCross::Errors retval = CC_ERR_NONE;
+    
+	memset ( buf, 0, m_bufferSize );
     memset ( temp, 0, sizeof ( temp ) );
 
     recvlen = recv ( m_sock, temp, 1, 0 );
-    if ( recvlen == 0 )
+    if ( recvlen <= 0 )
     {
         delete [] buf;
-        return CC_ERR_SOCK_DATA_NOTAVAIL;
+		return GetError();
     }
     if ( temp[0] == '\n' || temp[0] == '\r' )
     {
@@ -230,6 +234,10 @@ CoreSocket::ReadLine ( char **_output, unsigned int *_len ) const
     while ( true )
     {
         recvlen = recv ( m_sock, temp, 1, 0 );
+		retval = GetError();
+		if ( retval != 0 )
+			printf ( "CoreSocket Error: %d\n", retval );
+
         if ( recvlen > 0 )
         {
             if ( temp[0] == '\n' || temp[0] == '\r' )
@@ -242,22 +250,36 @@ CoreSocket::ReadLine ( char **_output, unsigned int *_len ) const
             }
         } else if ( recvlen < 0 ) {
             delete [] buf;
-#if defined ( TARGET_OS_WINDOWS )
-            if ( WSAGetLastError () == WSAEWOULDBLOCK )
-#else
-            if (errno == EWOULDBLOCK)
-#endif
-                return CC_ERR_SOCK_DATA_NOTAVAIL;
-            else
-            {
-                return CC_ERR_SOCK_CONNECTIONLOST;
-            }
+			return retval;
         } else {
-            fprintf ( stdout, "CoreSocket WARNING: Packet pipeline bubble!\n" );
+            fprintf ( stderr, "CoreSocket WARNING: Packet pipeline bubble!\n" );
         }
     }
 
-    return CC_ERR_NONE;
+    return retval;
+}
+
+CrissCross::Errors
+CoreSocket::GetError ()
+{
+	CoreAssert ( m_sock != 0 );
+
+	CrissCross::Errors errorval = CC_ERR_NONE;
+	int retval = 0;
+
+#if !defined ( TARGET_OS_WINDOWS )
+	int retsize = sizeof ( int ), ret = 0;
+
+	ret = getsockopt ( m_sock, SOL_SOCKET, SO_ERROR, (char *)&retval, &retsize );
+
+	if ( ret != 0 )
+	{
+		fprintf ( stderr, "CoreSocket ERROR: getsockopt() failed, returning %d (errno %d).\n", ret, errno );
+	}
+#else
+	retval = WSAGetLastError ();
+#endif
+	return GetErrorNumber ( retval );
 }
 
 int
@@ -309,7 +331,7 @@ CoreSocket::Send ( std::string _data )
 int
 CoreSocket::SetAttributes ( socket_t _socket )
 {
-    return CC_ERR_SOCK_NOT_IMPLEMENTED;
+    return CC_ERR_NOT_IMPLEMENTED;
 }
 
 socketState

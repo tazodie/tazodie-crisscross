@@ -93,10 +93,12 @@ TCPSocket *TCPSocket::Accept()
         SetAttributes ( sock );
 
         unsigned long arg = 1;
+#if defined ( ENABLE_NONBLOCKING )
 #if defined ( TARGET_OS_WINDOWS )
         ioctlsocket ( m_sock, FIONBIO, &arg );
 #else
         ioctl ( m_sock, FIONBIO, &arg );
+#endif
 #endif
         TCPSocket *csock = new TCPSocket ( sock );
 
@@ -105,53 +107,54 @@ TCPSocket *TCPSocket::Accept()
     return NULL;
 }
 
-int TCPSocket::Connect ( const char *_address, unsigned short _port )
+CrissCross::Errors TCPSocket::Connect ( const char *_address, unsigned short _port )
 {
     struct sockaddr_in sin;
     struct hostent *host;
 
-    if ( m_sock != INVALID_SOCKET ) return CC_ERR_SOCK_SOCKET_IN_USE;
+	Close();
 
     m_sock = socket ( AF_INET, SOCK_STREAM, IPPROTO_TCP );
     if ( m_sock == INVALID_SOCKET )
-        return CC_ERR_SOCK_CREATE_SOCKET;
+        return GetError();
 
     SetAttributes ( m_sock );
 
     host = gethostbyname ( _address );
-    if ( !host ) return errno;
+    if ( !host ) return GetError();
 
     memset ( &sin, 0, sizeof ( sin ) );
     sin.sin_family = AF_INET;
     sin.sin_addr.s_addr = ( ( struct in_addr * ) ( host->h_addr ) )->s_addr;
     sin.sin_port = htons ( _port );
 
-    if ( connect ( m_sock, ( ( struct sockaddr * ) 
-        &sin ), sizeof ( sin ) ) == SOCKET_ERROR )
+    if ( connect ( m_sock, ( ( struct sockaddr * ) &sin ), sizeof ( sin ) ) == SOCKET_ERROR )
     {
 #ifdef TARGET_OS_WINDOWS
         closesocket ( m_sock );
 #else
         close ( m_sock );
 #endif
-        return CC_ERR_SOCK_CONNECT;
+		return GetError();
     }
 
+#if defined ( ENABLE_NONBLOCKING )
     unsigned long arg = 1;
 #if defined ( TARGET_OS_WINDOWS )
     ioctlsocket ( m_sock, FIONBIO, &arg );
 #else
     ioctl ( m_sock, FIONBIO, &arg );
 #endif
+#endif
 
-    return CC_ERR_NONE;
+    return GetError();
 }
 
 CrissCross::Errors TCPSocket::Listen ( unsigned short _port )
 {
     struct sockaddr_in sin;
 
-    if ( m_sock != INVALID_SOCKET ) return CC_ERR_SOCK_SOCKET_IN_USE;
+    if ( m_sock != INVALID_SOCKET ) return CC_ERR_ENOTSOCK;
 
     memset ( &sin, 0, sizeof ( sin ) );
 
@@ -161,15 +164,17 @@ CrissCross::Errors TCPSocket::Listen ( unsigned short _port )
     m_sock = socket ( AF_INET, SOCK_STREAM, IPPROTO_TCP );
 
     if ( m_sock == INVALID_SOCKET )
-        return CC_ERR_SOCK_CREATE_SOCKET;
+        return GetError();
 
     SetAttributes ( m_sock );
 
+#if defined ( ENABLE_NONBLOCKING )
     unsigned long arg = 1;
 #if defined ( TARGET_OS_WINDOWS )
     ioctlsocket ( m_sock, FIONBIO, &arg );
 #else
     ioctl ( m_sock, FIONBIO, &arg );
+#endif
 #endif
 
     if ( bind ( m_sock, (sockaddr *)&sin, sizeof ( sin ) ) == SOCKET_ERROR )
@@ -179,7 +184,7 @@ CrissCross::Errors TCPSocket::Listen ( unsigned short _port )
 #else
         close ( m_sock );
 #endif
-        return CC_ERR_SOCK_BIND;
+        return GetError();
     }
 
     if ( listen ( m_sock, 10 ) == SOCKET_ERROR )
@@ -189,7 +194,7 @@ CrissCross::Errors TCPSocket::Listen ( unsigned short _port )
 #else
         close ( m_sock );
 #endif
-        return CC_ERR_SOCK_LISTEN;
+        return GetError();
     }
 
     return CC_ERR_NONE;

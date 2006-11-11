@@ -132,6 +132,12 @@ namespace CrissCross
              */
             virtual int Close ();
 
+            //! Get the error value for the socket.
+            /*!
+                \return The error value for the socket.
+             */
+			virtual CrissCross::Errors GetError();
+
             //! Fetches the IP address of the remote host.
             /*!
                 \return The host represented in old-style sockaddr_in format.
@@ -184,7 +190,7 @@ namespace CrissCross
                 \return  If the return value is greater than zero, it is an 'errno'
                 value. If it is less than zero, it is a socketError value.
              */
-            virtual int Read ( char **_output, unsigned int *_len ) const;
+            virtual int Read ( char **_output, unsigned int *_len );
 
             //! Reads a block of data with a specified maximum size.
             /*!
@@ -192,7 +198,7 @@ namespace CrissCross
                 \return  If the return value is greater than zero, it is an 'errno'
                 value. If it is less than zero, it is a socketError value.
              */
-            virtual int Read ( std::string &_output ) const;
+            virtual int Read ( std::string &_output );
 
             //! Reads a newline or carriage return terminated line of data.
             /*!
@@ -203,7 +209,7 @@ namespace CrissCross
                 the length of the data received.
                 \return Zero on success. If negative, it is a standard CrissCross::Errors value. If positive, it is an errno value.
              */
-            virtual int ReadLine ( char **_output, unsigned int *_len ) const;
+            virtual int ReadLine ( char **_output, unsigned int *_len );
 
 
             //! Sends a block of data.
