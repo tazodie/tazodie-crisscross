@@ -57,7 +57,7 @@ namespace CrissCross
             SOCKET_STATE_UNKNOWN,           //!< The state has not yet been specified or is currently not known.
             SOCKET_STATE_NOT_CREATED,       //!< The socket is not yet instantiated.
             SOCKET_STATE_CLOSED,            //!< The socket is closed.
-            SOCKET_STATE_LISTENING,         //!< The socket is listening for incoming connections.
+            SOCKET_STATE_LISTENING,         //!< The socket is listening for incoming connections (or data, if UDP).
             SOCKET_STATE_CONNECTED          //!< The socket is connected to a remote host.
         } socketState;
 
@@ -122,7 +122,7 @@ namespace CrissCross
                 \param _host The host to ban (retrieve this with GetRemoteHost()).
                 \return Currently always returns CC_ERR_NONE.
              */
-            int Ban ( unsigned long _host );
+            CrissCross::Errors Ban ( unsigned long _host );
 
             //! Close the socket.
             /*!
@@ -130,7 +130,7 @@ namespace CrissCross
                 it is automatically called in the destructor.
                 \return Currently always returns CC_ERR_NONE.
              */
-            virtual int Close ();
+            virtual CrissCross::Errors Close ();
 
             //! Get the error value for the socket.
             /*!

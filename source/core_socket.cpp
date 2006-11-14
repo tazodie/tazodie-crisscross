@@ -87,7 +87,8 @@ CoreSocket::~CoreSocket()
     if ( m_calledInitialise == 1 )
         __cleanup_network();
 }
-int
+
+CrissCross::Errors
 CoreSocket::Ban ( unsigned long _host )
 {
 #if defined ( ENABLE_PROTECTION )
@@ -97,28 +98,37 @@ CoreSocket::Ban ( unsigned long _host )
     return CC_ERR_NONE;
 }
 
-int
+CrissCross::Errors
 CoreSocket::Close()
 {
+    // Close the socket.
 #ifdef TARGET_OS_WINDOWS
     closesocket ( m_sock );
 #else
     close ( m_sock );
 #endif
     m_sock = INVALID_SOCKET;
+    m_state = SOCKET_STATE_NOT_CREATED;
     return CC_ERR_NONE;
 }
 
 const char *
 CoreSocket::GetRemoteIP ()
 {
+    // Verify the socket.
     if ( m_sock == INVALID_SOCKET ) return NULL;
 
     static char buffer[15];
     struct sockaddr_in sock; int sock_size = sizeof(sock);
     memset ( &sock, 0, sizeof(sock) );
+
+    // Resolve the remote IP.
     getpeername ( m_sock, (sockaddr *)&sock, (socklen_t *)&sock_size );
+
+    // Print it to a buffer.
     sprintf ( buffer, inet_ntoa ( sock.sin_addr ) );
+
+    // Return it.
     return buffer;
 }
 
@@ -130,12 +140,15 @@ CoreSocket::GetRemoteHost ()
     struct sockaddr_in sock; int sock_size = sizeof(sock);
     memset ( &sock, 0, sizeof(sock) );
     getpeername ( m_sock, (sockaddr *)&sock, (socklen_t *)&sock_size );
+
+    // Return the remote host (not the IP, but the bare host).
     return sock.sin_addr.s_addr;
 }
 
 socket_t
 CoreSocket::GetSocket()
 {
+    // ugh. Allow the user to do whatever they want with the socket.
     return m_sock;
 }
 
@@ -179,49 +192,63 @@ CoreSocket::Read ( std::string &_output )
 int
 CoreSocket::Read ( char **_output, unsigned int *_len )
 {
+    // Sanity checks.
     if ( m_sock == INVALID_SOCKET ) return CC_ERR_ENOTSOCK;
     if ( _len == NULL ) return CC_ERR_BADPARAMETER;
+    if ( _output == NULL ) return CC_ERR_BADPARAMETER;
+    if ( *_output != NULL ) return CC_ERR_BADPARAMETER;
 
+    // Set up a buffer.
     char *buf = new char[m_bufferSize];
-    int ret = 0, recvlen = 0;
+    int recvlen = 0;
     memset ( buf, 0, m_bufferSize );
 
+    // Receive some data.
     recvlen = recv ( m_sock, buf, m_bufferSize - 1, 0 );
     if ( recvlen < 0 )
     {
+        // Something's wrong here...
         *_output = NULL;
         *_len = 0;
         delete [] buf;
-        return CC_ERR_EWOULDBLOCK;
+        return GetError();
     }
-    ret = errno;
 
     *_output = buf;
     *_len = recvlen;
 
-    return ( recvlen == 0 ) ? CC_ERR_NONE : errno;
+    return CC_ERR_NONE;
 }
 
 int
 CoreSocket::ReadLine ( char **_output, unsigned int *_len )
 {
+    // Sanity checks.
     if ( m_sock == INVALID_SOCKET ) return CC_ERR_ENOTSOCK;
     if ( _len == NULL ) return CC_ERR_BADPARAMETER;
+    if ( _output == NULL ) return CC_ERR_BADPARAMETER;
+    if ( *_output != NULL ) return CC_ERR_BADPARAMETER;
 
+    // Set up a buffer.
     char *buf = new char[m_bufferSize];
     char temp[2];
     int recvlen = 0;
 	CrissCross::Errors retval = CC_ERR_NONE;
     
+    // Zero the buffer.
 	memset ( buf, 0, m_bufferSize );
     memset ( temp, 0, sizeof ( temp ) );
 
+    // Receive some data.
     recvlen = recv ( m_sock, temp, 1, 0 );
     if ( recvlen <= 0 )
     {
+        // Something's wrong here...
         delete [] buf;
 		return GetError();
     }
+
+    // check for a newline at the beginning.
     if ( temp[0] == '\n' || temp[0] == '\r' )
     {
         *_output = buf;
@@ -233,6 +260,7 @@ CoreSocket::ReadLine ( char **_output, unsigned int *_len )
     
     while ( true )
     {
+        // Try some more data.
         recvlen = recv ( m_sock, temp, 1, 0 );
 		retval = GetError();
         if ( recvlen > 0 )

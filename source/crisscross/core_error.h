@@ -187,6 +187,8 @@ namespace CrissCross
 		CC_ERR_HOST_NOT_FOUND,
 		CC_ERR_TRY_AGAIN,
 		CC_ERR_NO_DATA,
+        CC_ERR_NO_SOCK,
+        CC_ERR_SOCK_BUSY,
         CC_ERR_NONE = 0                               //!< Everything is fine, nothing is ruined.
     };
 
