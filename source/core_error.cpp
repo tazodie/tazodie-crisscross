@@ -34,6 +34,8 @@
 #include <crisscross/universal_include.h>
 #include <crisscross/core_error.h>
 
+#include <netdb.h>
+
 using namespace CrissCross;
 
 struct tl
