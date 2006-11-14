@@ -63,6 +63,7 @@
 #        include <time.h>
 #else
 #        include <unistd.h>
+#		 include <errno.h>
 #        include <sys/time.h>
 #endif
     
@@ -70,7 +71,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include <errno.h>
+
     
 /* Thread_emulation.h */ 
 /* Author: Johnson M. Hart */ 
