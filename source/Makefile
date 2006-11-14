@@ -16,6 +16,7 @@ compare.cpp \
 core_console.cpp \
 core_cpuid.cpp \
 core_debug.cpp \
+core_error.cpp \
 core_filesystem.cpp \
 core_io_reader.cpp \
 core_io_writer.cpp \
