@@ -1,15 +1,18 @@
 VERSION 0.5.2
-    * Split CoreIO into CoreIOReader and CoreIOWriter
+    * Split CoreIO into CoreIOReader and CoreIOWriter.
     * CoreConsole now accepts input.
     * All unicode support removed until it is further researched.
     * Several documentation errors were corrected.
-    * CoreIO (CoreIOReader and CoreIOWriter) now checks to see if the file is open before attempting read or write operations.
+    * CoreIOReader and CoreIOWriter now check to see if the file is open before attempting read or write operations.
     * Makefiles improved to allow 'make -j#' builds.
     * Added Visual C++ 6 project files, but there's no guarantee they work perfectly.
     * Moved data structures to the main include directory.
     * Including CrissCross files with #include <crisscross/foo> now works properly without adding -I/usr/include/crisscross to the GCC command line.
     * Fixed CCDV to say 'Compiling' rather than 'Linking' for precompiled headers.
     * CPUID now detects SSSE3 (Supplemental SSE3 instructions).
+    * CPUID now properly detects CMP (Core Multi Processing, a.k.a. dual core)
+    * Sockets heavily edited, allowing for better error handling.
+    * TCPSocket::Accept() syntax changed.
 
 VERSION 0.5.1
     * Fixed Makefiles to work on any previously non-working platforms (OS X, mainly).
@@ -17,23 +20,23 @@ VERSION 0.5.1
 
 VERSION 0.5.0 ( MILESTONE 2, Codename "Loki" )
     * Cleanup
-		Much of the existing code was disorganized, and was re-categorized into other namespaces.
+        Much of the existing code was disorganized, and was re-categorized into other namespaces.
     * Documentation
           o All namespaces
           o Stopwatch class
           o LList class
           o RedBlackTree class
-		Some classes that showed up in documentation are now hidden.
+              Some classes that showed up in documentation are now hidden.
           o CrissCross::System::param
           o CrissCross::Data::LListItem< T >
           o CrissCross::Data::RedBlackTree< dataType, keyType >::nodeType
     * Conventionalization
-		Existing code is now consistent in it's conventions.
+        Existing code is now consistent in it's conventions.
     * Bugfixes
-		Bugs discovered during the v0.4.x testing cycle have been corrected (details unnecessary for pre-release code).
+        Bugs discovered during the v0.4.x testing cycle have been corrected (details unnecessary for pre-release code).
     * Examples
-		v0.5.0 is the first public release. Examples are now provided for reference.
+        v0.5.0 is the first public release. Examples are now provided for reference.
     * Cross-Platform Fixes
-		Functions in CoreConsole that previously did nothing on non-Windows platforms now do what they should.
+        Functions in CoreConsole that previously did nothing on non-Windows platforms now do what they should.
     * UTF-8 Support ( partially implemented and is untested)
-		WCHAR and so on need to be supported. We're working on this right now, so please don't #define ENABLE_UNICODE unless you're brave.
+        WCHAR and so on need to be supported. We're working on this right now, so please don't #define ENABLE_UNICODE unless you're brave.
