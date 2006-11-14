@@ -303,7 +303,6 @@ int
 main ( int argc, char **argv )
 {
 #endif
-    /* TODO: Get proper command line parameters for Windows apps */
     int retval = 0;
 
 #ifdef ENABLE_MEMLEAK_STATS

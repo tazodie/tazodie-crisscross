@@ -33,8 +33,6 @@
 
 //BUGBUG: Purge all MessageBox and printf/fprintf calls.
 
-#define PACKET_DEBUG
- 
 #include <crisscross/universal_include.h>
 #include <crisscross/core_debug.h>
 #include <crisscross/core_network.h>
@@ -60,6 +58,8 @@
 #endif
 
 using namespace CrissCross::Network;
+
+// #define PACKET_DEBUG
 
 CoreSocket::CoreSocket()
 {
@@ -235,9 +235,6 @@ CoreSocket::ReadLine ( char **_output, unsigned int *_len )
     {
         recvlen = recv ( m_sock, temp, 1, 0 );
 		retval = GetError();
-		if ( retval != 0 )
-			printf ( "CoreSocket Error: %d\n", retval );
-
         if ( recvlen > 0 )
         {
             if ( temp[0] == '\n' || temp[0] == '\r' )
@@ -271,11 +268,6 @@ CoreSocket::GetError ()
 	int retsize = sizeof ( int ), ret = 0;
 
 	ret = getsockopt ( m_sock, SOL_SOCKET, SO_ERROR, (char *)&retval, &retsize );
-
-	if ( ret != 0 )
-	{
-		fprintf ( stderr, "CoreSocket ERROR: getsockopt() failed, returning %d (errno %d).\n", ret, errno );
-	}
 #else
 	retval = WSAGetLastError ();
 #endif
@@ -298,7 +290,7 @@ CoreSocket::Send ( const char *_data, int _length )
             *p = *d;
         p++; d++;
     }
-    //fprintf ( stdout, "Writing packet: '%s'\n", temp_buf );
+    fprintf ( stdout, "<<< '%s'\n", temp_buf );
     delete [] temp_buf;
 #endif
     sent = send ( m_sock, _data, (int)_length, 0 );
@@ -321,7 +313,7 @@ CoreSocket::Send ( std::string _data )
             *p = *d;
         p++; d++;
     }
-    //fprintf ( stdout, "Writing packet: '%s'\n", temp_buf );
+    fprintf ( stdout, "<<< '%s'\n", temp_buf );
     delete [] temp_buf;
 #endif
     sent = send ( m_sock, _data.c_str(), (int)_data.size(), 0 );

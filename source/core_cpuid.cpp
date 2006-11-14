@@ -343,7 +343,6 @@ CoreCPUID::Go ()
 {
     CoreAssert ( this != NULL );
 #    ifdef TARGET_OS_WINDOWS
-    // TODO: Implement this WIN32-only part in Linux/MacOS
     DWORD dThread = NULL;
     SYSTEM_INFO siSystem;
     int iCount = 0;
