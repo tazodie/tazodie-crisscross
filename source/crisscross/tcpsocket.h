@@ -61,7 +61,7 @@ namespace CrissCross
                 \return A pointer to a newly created TCPSocket instance for the new
                 connection. If no incoming connections are pending, this returns NULL.
              */
-            TCPSocket *Accept ();
+            CrissCross::Errors TCPSocket::Accept( TCPSocket **_socket );
 
             //! Establishes an outbound connection to the specified address and port.
             /*!
