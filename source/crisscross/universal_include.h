@@ -263,13 +263,18 @@ TARGET_COMPILER_ICC
 #       if _MSC_VER > 1200 && _MSC_VER < 1400
 #           pragma warning ( disable : 4345 4100 4800 )
 #       endif
+#       if _MSC_VER <= 1100
+#           undef DETECT_MEMORY_LEAKS
+#       endif
 #       if defined ( DETECT_MEMORY_LEAKS )
 #           define _CRTDBG_MAP_ALLOC
 #       endif
 #       include <io.h>
 #       include <fcntl.h>
 #       include <windows.h>
-#       include <dbghelp.h>
+#       if defined ( DETECT_MEMORY_LEAKS )
+#           include <dbghelp.h>
+#       endif
 #       include <process.h>
 #       include <shlobj.h>
 #       define stat _stat

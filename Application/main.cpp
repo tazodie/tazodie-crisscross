@@ -126,6 +126,10 @@ RunApplication ( int argc, char **argv )
 #endif
     // End your application here.
 
+#if defined ( TARGET_OS_WINDOWS )
+	system ( "pause" );
+#endif
+
     delete console;
     return 0;
 }

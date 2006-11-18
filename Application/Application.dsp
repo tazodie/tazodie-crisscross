@@ -42,7 +42,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /MT /W3 /GX /O2 /I "../source" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /D "__STDC__" /YX /FD /c
+# ADD CPP /nologo /MT /W3 /GX /Zi /O2 /I "../source" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "__STDC__" /Yu"header.h" /FD /c
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x409 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -50,8 +50,8 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=xilink6.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
-# ADD LINK32 kernel32.lib libcpmt.lib /nologo /subsystem:console /machine:I386
-# SUBTRACT LINK32 /nodefaultlib
+# ADD LINK32 kernel32.lib libcpmt.lib /nologo /subsystem:windows /machine:I386
+# SUBTRACT LINK32 /pdb:none
 
 !ELSEIF  "$(CFG)" == "Application - Win32 Debug"
 
@@ -89,6 +89,8 @@ LINK32=xilink6.exe
 SOURCE=.\header.cpp
 
 !IF  "$(CFG)" == "Application - Win32 Release"
+
+# ADD CPP /Yc"header.h"
 
 !ELSEIF  "$(CFG)" == "Application - Win32 Debug"
 
