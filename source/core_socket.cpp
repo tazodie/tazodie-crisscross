@@ -288,8 +288,6 @@ CrissCross::Errors
 CoreSocket::GetError ()
 {
 	CoreAssert ( m_sock != 0 );
-
-	CrissCross::Errors errorval = CC_ERR_NONE;
 	int retval = 0;
 
 #if !defined ( TARGET_OS_WINDOWS )

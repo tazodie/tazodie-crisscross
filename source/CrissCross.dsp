@@ -41,7 +41,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "../obj/crisscross/release"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /YX /FD /c
-# ADD CPP /nologo /MT /W3 /GX /Zi /O2 /I "." /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /YX /FD /c
+# ADD CPP /nologo /MT /W3 /GX /Zi /O2 /I "." /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /Yu"crisscross/universal_include.h" /FD /c
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x409 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -291,15 +291,7 @@ SOURCE=.\udpsocket.cpp
 # Begin Source File
 
 SOURCE=.\universal_include.cpp
-
-!IF  "$(CFG)" == "CrissCross - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "CrissCross - Win32 Debug"
-
 # ADD CPP /Yc"crisscross/universal_include.h"
-
-!ENDIF 
-
 # End Source File
 # End Group
 # End Target

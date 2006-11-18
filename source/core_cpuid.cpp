@@ -713,16 +713,16 @@ void
 CoreCPUID::DetectFMS ( int processor )
 {
     // Compliant with Intel document #241618.
-    proc[processor]->Family = ( ( Std[1].eax >> 8 ) + ( Std[1].eax >> 20 ) ) & 0xff;
-    proc[processor]->Model = ( ( ( ( Std[1].eax >> 16 ) & 0xf ) << 4 ) +  ( ( Std[1].eax >> 4 ) & 0xf ) ) & 0xff;
-    proc[processor]->Stepping = Std[1].eax & 0xf;
+    proc[processor]->Family = (char)( ( ( Std[1].eax >> 8 ) + ( Std[1].eax >> 20 ) ) & 0xff );
+    proc[processor]->Model = (char)( ( ( ( ( Std[1].eax >> 16 ) & 0xf ) << 4 ) +  ( ( Std[1].eax >> 4 ) & 0xf ) ) & 0xff );
+    proc[processor]->Stepping = (char)(Std[1].eax & 0xf);
 }
 
 void
 CoreCPUID::DetectBrandID ( int processor )
 {
     // Compliant with Intel document #241618.
-    proc[processor]->BrandID = Std[1].ebx & 0xff;
+    proc[processor]->BrandID = (char)( Std[1].ebx & 0xff );
 }
 
 void
@@ -734,10 +734,10 @@ CoreCPUID::DetectCount ( int processor )
     // then this the EBX:16 will reflect the logical processor count
     // otherwise the flag is reserved.
     RedBlackTree < Feature *, char *>::nodeType * HTT_node = proc[processor]->features.findNode ( "HTT" );
-	proc[processor]->PhysicalCount = ( ( ( Std[4].eax >> 26 ) & 0x03f ) + 1 );
+	proc[processor]->PhysicalCount = (char)( ( ( ( Std[4].eax >> 26 ) & 0x03f ) + 1 ) & 0xff );
     if ( HTT_node->data->Enabled )
     {
-        proc[processor]->LogicalCount = ( (Std[1].ebx >> 16) & 0xff );
+        proc[processor]->LogicalCount = (char)( (Std[1].ebx >> 16) & 0xff );
         if ( proc[processor]->LogicalCount > 1 )
         {
             // Core Multi-Processing (CMP), i.e. "Dual Core".
@@ -760,7 +760,7 @@ void
 CoreCPUID::DetectAPIC ( int processor )
 {
     // BUGBUG: Where'd this come from? Can't find it in doc 241618.
-    proc[processor]->APICID = ( Std[1].ebx >> 24 );
+    proc[processor]->APICID = (char)( ( Std[1].ebx >> 24 ) & 0xff );
 }
 
 void
