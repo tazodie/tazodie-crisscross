@@ -47,7 +47,7 @@
 //#  define APP_CODENAME            "Thor"          // v0.9.0 codename ( Milestone 4 )
 //#  define APP_CODENAME            "Valhalla"      // v1.0.0 codename ( Milestone 5 )
 
-#   define APP_VERSION             "0.5.2"
+#   define APP_VERSION             "0.5.3-SVN"
 #   define APP_BRANCH_AT_VERSION   "0.6.0"
 #   define APP_URL                 "http://www.uplinklabs.net/crisscross/"
 #   define APP_COPYRIGHT           "(c) 2006 by IO.IN Research. Licensed under the New BSD License."
