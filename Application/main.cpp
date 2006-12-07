@@ -124,6 +124,7 @@ RunApplication ( int argc, char **argv )
 #else
 	console->WriteLine ( "Hello, world!" );
 #endif
+
     // End your application here.
 
 #if defined ( TARGET_OS_WINDOWS )
