@@ -47,14 +47,11 @@ namespace CrissCross
         FileExists ( std::string path )
         {
             FILE *file;
-            bool ret = false;
             file = fopen ( path.c_str(), "r" );
             if ( file == NULL )
-                ret = false;
-            else
-                ret = true;
+                return false;
             fclose ( file );
-            return ret;
+            return true;
         }
 
         bool
