@@ -99,6 +99,9 @@ namespace CrissCross
             //! The destructor.
              ~CoreConsole ();
 
+            //! Sets the console output colour to the default.
+            void SetColour ();
+
             //! Sets the console output colour.
             /*!
                Sets the console output colour using the flags specified in _flags.
@@ -120,12 +123,18 @@ namespace CrissCross
             void MoveUp ( int _lines );
 
             //! Reads a char from the console.
+            char ReadChar ();
+
+            //! Reads a char from the console.
             /*!
                 If both _min and _max are zero, the input will be returned, no matter what the value is (no bounds checking).
                 \param _min The minimum input value.
                 \param _max The maximum input value.
              */
             char ReadChar ( char _min = 0, char _max = 0 );
+
+            //! Reads an integer from the console.
+            int ReadInt ();
 
             //! Reads an integer from the console.
             /*!
@@ -136,12 +145,18 @@ namespace CrissCross
             int ReadInt ( int _min = 0, int _max = 0 );
 
             //! Reads a long integer from the console.
+            long ReadLong ();
+
+            //! Reads a long integer from the console.
             /*!
                 If both _min and _max are zero, the input will be returned, no matter what the value is (no bounds checking).
                 \param _min The minimum input value.
                 \param _max The maximum input value.
              */
             long ReadLong ( long _min = 0, long _max = 0 );
+
+            //! Reads a float from the console.
+            float ReadFloat ();
 
             //! Reads a float from the console.
             /*!
@@ -152,23 +167,15 @@ namespace CrissCross
             float ReadFloat ( float _min = 0, float _max = 0 );
 
             //! Reads a double from the console.
+            double ReadDouble ();
+
+            //! Reads a double from the console.
             /*!
                 If both _min and _max are zero, the input will be returned, no matter what the value is (no bounds checking).
                 \param _min The minimum input value.
                 \param _max The maximum input value.
              */
             double ReadDouble ( double _min = 0, double _max = 0 );
-
-#if 0
-            // BUGBUG: Causes a warning on OS X. Disabled for now.
-            //! Reads a long double from the console.
-            /*!
-                If both _min and _max are zero, the input will be returned, no matter what the value is (no bounds checking).
-                \param _min The minimum input value.
-                \param _max The maximum input value.
-             */
-            long double ReadLongDouble ( long double _min = 0, long double _max = 0 );
-#endif
 
         private:
             bool EndOfFile ();
