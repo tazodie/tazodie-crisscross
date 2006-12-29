@@ -58,7 +58,10 @@
 #endif
     
 #if defined ( TARGET_OS_WINDOWS )
-#        define _WIN32_WINNT 0x500 /* Require Windows NT5 (2K, XP, 2K3) */
+#        if _WIN32_WINNT < 0x500
+#            undef _WIN32_WINNT
+#            define _WIN32_WINNT 0x500 /* Require Windows NT5 (2K, XP, 2K3) */
+#        endif
 #        include <windows.h>
 #        include <time.h>
 #else
@@ -84,10 +87,8 @@
     
 /* Thread management macros */ 
 #    if defined ( TARGET_OS_WINDOWS )
-/* Win32 */ 
-#            define _WIN32_WINNT 0x500 /* WINBASE.H - Enable SignalObjectAndWait */
+/* Win32 */
 #            include <process.h>
-#            include <windows.h>
 #            define THREAD_FUNCTION unsigned int __stdcall
 #            define THREAD_FUNCTION_RETURN unsigned int
 #            define THREAD_SPECIFIC_INDEX DWORD
