@@ -40,24 +40,38 @@
 #    include <crisscross/core_thread.h>
 
 #    define FPU_FLAG 0x0001
+#    define LAHF_FLAG 0x0001
+#    define SSE3_FLAG 0x0001
 #    define VME_FLAG 0x0002
 #    define DE_FLAG 0x0004
+#    define MONITOR_FLAG 0x0008
 #    define PSE_FLAG 0x0008
+#    define DS_CPL_FLAG 0x0010
 #    define TSC_FLAG 0x0010
 #    define MSR_FLAG 0x0020
+#    define VMX_FLAG 0x0020
 #    define PAE_FLAG 0x0040
+#    define EIST_FLAG 0x0080
 #    define MCE_FLAG 0x0080
 #    define CX8_FLAG 0x0100
+#    define TM2_FLAG 0x0100
 #    define APIC_FLAG 0x0200
+#    define SSSE3_FLAG 0x0200
+#    define CID_FLAG 0x0400
 #    define SEP_FLAG 0x0800
+#    define SYSCALL_FLAG 0x0800
 #    define MTRR_FLAG 0x1000
+#    define CX16_FLAG 0x2000
 #    define PGE_FLAG 0x2000
 #    define MCA_FLAG 0x4000
+#    define XTPR_FLAG 0x4000
 #    define CMOV_FLAG 0x8000
 #    define PAT_FLAG 0x10000
 #    define PSE36_FLAG 0x20000
+#    define DCA_FLAG 0x40000
 #    define PSNUM_FLAG 0x40000
 #    define CLFLUSH_FLAG 0x80000
+#    define XD_FLAG 0x100000
 #    define DTS_FLAG 0x200000
 #    define ACPI_FLAG 0x400000
 #    define MMX_FLAG 0x800000
@@ -66,22 +80,10 @@
 #    define SSE2_FLAG 0x4000000
 #    define SS_FLAG 0x8000000
 #    define HTT_FLAG 0x10000000
+#    define EM64T_FLAG 0x20000000
 #    define TM1_FLAG 0x20000000
 #    define IA64_FLAG 0x40000000
 #    define PBE_FLAG 0x80000000
-#    define SSE3_FLAG 0x0001
-#    define MONITOR_FLAG 0x0008
-#    define DS_CPL_FLAG 0x0010
-#    define EIST_FLAG 0x0080
-#    define TM2_FLAG 0x0100
-#    define SSSE3_FLAG 0x0200
-#    define CID_FLAG 0x0400
-#    define CX16_FLAG 0x2000
-#    define XTPR_FLAG 0x4000
-#    define LAHF_FLAG 0x00000001
-#    define SYSCALL_FLAG 0x00000800
-#    define XD_FLAG 0x00100000
-#    define EM64T_FLAG 0x20000000
 
 
 // AMD 8000_0001 EDX flags
@@ -821,23 +823,25 @@ CoreCPUID::DetectFeatures ( int processor )
     }
 
     DetectFeature ( &Std[1].ecx, SSE3_FLAG, processor, "SSE3" );
+    DetectFeature ( &Std[1].ecx, VMX_FLAG, processor, "VMX" );
     DetectFeature ( &Std[1].ecx, CX16_FLAG, processor, "CX16" );
     if ( proc[processor]->Manufacturer )
     {
         if ( strcmp ( proc[processor]->Manufacturer, "GenuineIntel" ) == 0 )
         {
             // Intel-only flags
-            DetectFeature ( &Std[1].ecx, LAHF_FLAG, processor, "LAHF" );
+            DetectFeature ( &Ext[1].ecx, LAHF_FLAG, processor, "LAHF" );
             DetectFeature ( &Std[1].ecx, DS_CPL_FLAG, processor, "DS_CPL" );
             DetectFeature ( &Std[1].ecx, MONITOR_FLAG, processor, "MONITOR" );
             DetectFeature ( &Std[1].ecx, EIST_FLAG, processor, "EIST" );
             DetectFeature ( &Std[1].ecx, TM2_FLAG, processor, "TM2" );
             DetectFeature ( &Std[1].ecx, SSSE3_FLAG, processor, "SSSE3" );
             DetectFeature ( &Std[1].ecx, CID_FLAG, processor, "CID" );
-            DetectFeature ( &Std[1].ecx, SYSCALL_FLAG, processor, "SYSCALL" );
+            DetectFeature ( &Ext[1].edx, SYSCALL_FLAG, processor, "SYSCALL" );
             DetectFeature ( &Std[1].ecx, XTPR_FLAG, processor, "XTPR" );
-            DetectFeature ( &Std[1].ecx, XD_FLAG, processor, "XD" );
-            DetectFeature ( &Std[1].ecx, EM64T_FLAG, processor, "EM64T" );
+            DetectFeature ( &Ext[1].edx, XD_FLAG, processor, "XD" );
+            DetectFeature ( &Std[1].ecx, DCA_FLAG, processor, "DCA" );
+            DetectFeature ( &Ext[1].edx, EM64T_FLAG, processor, "EM64T" );
         }
         else if ( strcmp ( proc[processor]->Manufacturer, "AuthenticAMD" ) ==
                   0 )
