@@ -1,6 +1,1 @@
-//
-// Prefix header for all source files of the 'CrissCross' target in the 'CrissCross' project.
-//
-
-#include <Carbon/Carbon.h>
 #include <crisscross/universal_include.h>
