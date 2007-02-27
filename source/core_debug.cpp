@@ -37,12 +37,6 @@
 
 using namespace CrissCross::IO;
 
-#ifdef ENABLE_DEBUGLOG
-#include <crisscross/core_debuglog.h>
-#endif
-
-using namespace CrissCross::Debug;
-
 #ifndef ENABLE_SYMBOL_ENGINE
 #    ifdef TARGET_OS_WINDOWS
 #        pragma warning (disable: 4311)
@@ -169,22 +163,10 @@ SymbolEngine::StackTrace ( PCONTEXT _pContext, CoreIOWriter * _outputBuffer )
 }
 #endif
 
-#ifdef ENABLE_DEBUGLOG
-void
-PrintDebugLog ( CoreIO *_outputBuffer )
-{
-    g_debuglog->Print ( _outputBuffer, g_debuglog->BUG_LEVEL_INFO );
-}
-#endif
-
 void
 PrintStackTrace ( CoreIOWriter * _outputBuffer )
 {
 #if !defined ( TARGET_OS_MACOSX ) && !defined ( TARGET_OS_NETBSD ) && !defined ( TARGET_OS_FREEBSD ) && !defined ( TARGET_OS_OPENBSD )
-
-#ifdef ENABLE_DEBUGLOG
-  g_debuglog->Write ( g_debuglog->BUG_LEVEL_WARNING, "*** Printing stack trace ***" );
-#endif
 
 #    ifdef ENABLE_SYMBOL_ENGINE
 
@@ -211,10 +193,6 @@ PrintStackTrace ( CoreIOWriter * _outputBuffer )
   
     _outputBuffer->WriteLine ( "Obtained %d stack frames.", size );
 
-    #ifdef ENABLE_DEBUGLOG
-    g_debuglog->Write ( g_debuglog->BUG_LEVEL_WARNING, "Obtained %d stack frames.", size );
-    #endif
-
     std::string bt = "";
 
     for ( i = 0; i < size; i++ )
@@ -233,10 +211,6 @@ PrintStackTrace ( CoreIOWriter * _outputBuffer )
 	    if ( realname != NULL )
 	      {
 		bt += realname;
-#ifdef ENABLE_DEBUGLOG
-		g_debuglog->Write ( g_debuglog->BUG_LEVEL_ERROR,
-				    "%s", realname );
-#endif
 	      }
 	    free(realname);
 	  }
@@ -254,9 +228,6 @@ PrintStackTrace ( CoreIOWriter * _outputBuffer )
 #   else
     _outputBuffer->WriteLine ( "FAIL: backtrace() function not available." );
 #   endif
-#ifdef ENABLE_DEBUGLOG
-  g_debuglog->Write ( g_debuglog->BUG_LEVEL_WARNING, "*** Done printing stack trace ***" );
-#endif
 #endif // TARGET_OS_MACOSX
 }
 
@@ -269,11 +240,6 @@ Assert ( bool _condition, const char *_testcase, const char *_file,
         char buffer[10240];
         sprintf ( buffer, "Assertion failed : '%s'\nFile: %s\nLine: %d\n\n",
         _testcase, _file, _line );
-#ifdef ENABLE_DEBUGLOG
-        g_debuglog->Write ( g_debuglog->BUG_LEVEL_ERROR, "%s (%d): Assertion failed : '%s'",
-        _file, _line, _testcase );
-        g_debuglog->Save ( );
-#endif
         g_stderr->WriteLine ( "=== STACK TRACE ===\n" );
         PrintStackTrace ( g_stderr );
         #ifndef _DEBUG
