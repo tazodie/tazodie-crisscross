@@ -52,8 +52,6 @@
 #   define APP_URL                 "http://www.uplinklabs.net/crisscross/"
 #   define APP_COPYRIGHT           "(c) 2006 by IO.IN Research. Licensed under the New BSD License."
 
-#	define CRISSCROSS_ENTRYPOINT 
-
 // Disabling these two will save space.
 #   define ENABLE_CPUID
 
@@ -300,9 +298,8 @@ TARGET_COMPILER_ICC
 #       include <ctype.h>
 #    endif
 
-// BUGBUG: We shouldn't have to do this. Like. At all.
 #	if defined ( TARGET_OS_MACOSX )
-#		undef CRISSCROSS_ENTRYPOINT
+#		include <Carbon/Carbon.h>
 #	endif
 
 #   if defined ( TARGET_COMPILER_CYGWIN )
