@@ -52,9 +52,10 @@
 #   define APP_URL                 "http://www.uplinklabs.net/crisscross/"
 #   define APP_COPYRIGHT           "(c) 2006 by IO.IN Research. Licensed under the New BSD License."
 
+#	define CRISSCROSS_ENTRYPOINT 
+
 // Disabling these two will save space.
 #   define ENABLE_CPUID
-//#   define ENABLE_DEBUGLOG
 
 // Enables non-blocking sockets. This isn't finished yet, don't use it.
 //#   define ENABLE_NONBLOCKING
@@ -119,6 +120,11 @@ TARGET_COMPILER_ICC
 // -------------------
 // PROCESSOR DETECTION
 // -------------------
+
+// Carbon defines this for us on Mac, apparently...
+#	if defined ( TARGET_CPU_PPC )
+#		define PROCESSOR_DETECTED
+#	endif
 
 #	if !defined ( PROCESSOR_DETECTED )
 #       if defined ( _ARCH_PPC ) || defined ( __ppc__ ) || defined ( __ppc64__ ) || defined ( __PPC ) || defined ( powerpc ) || defined ( __PPC__ ) || defined ( __powerpc64__ ) || defined ( __powerpc64 )
@@ -293,6 +299,11 @@ TARGET_COMPILER_ICC
 #       include <sched.h>
 #       include <ctype.h>
 #    endif
+
+// BUGBUG: We shouldn't have to do this. Like. At all.
+#	if defined ( TARGET_OS_MACOSX )
+#		undef CRISSCROSS_ENTRYPOINT
+#	endif
 
 #   if defined ( TARGET_COMPILER_CYGWIN )
 #       undef ENABLE_BACKTRACE

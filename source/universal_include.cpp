@@ -34,11 +34,6 @@
 #include <crisscross/universal_include.h>
 #include <crisscross/core_io.h>
 #include <crisscross/core_debug.h>
-
-#if defined ( ENABLE_DEBUGLOG )
-#    include <crisscross/core_debuglog.h>
-#endif
-
 #include <crisscross/darray.h>
 #include <crisscross/rbtree.h>
 #include <crisscross/llist.h>
@@ -48,10 +43,6 @@
 using namespace std;
 using namespace CrissCross::Debug;
 using namespace CrissCross::IO;
-
-#if defined ( ENABLE_DEBUGLOG )
-CrissCross::Debug::CoreDebugLog *CrissCross::Debug::g_debuglog;
-#endif
 
 CoreConsole *g_stderr;
 CoreConsole *g_stdout;
@@ -198,14 +189,6 @@ ParseMemoryLeakFile ( const char *_inputFilename,
         // Print out our sorted list
         // 
 
-		#ifdef ENABLE_DEBUGLOG
-		g_debuglog->Write ( g_debuglog->BUG_LEVEL_INFO,
-			"Total recognised memory leaks   : %d Kbytes\n",
-			int ( totalsize / 1024 ) );
-		g_debuglog->Write ( g_debuglog->BUG_LEVEL_INFO,
-			"Total unrecognised memory leaks   : %d Kbytes\n",
-			int ( unrecognised / 1024 ) );
-		#endif
 		fprintf ( output, "Total recognised memory leaks   : %d Kbytes\n",
 			int ( totalsize / 1024 ) );
 		fprintf ( output, "Total unrecognised memory leaks : %d Kbytes\n\n",
@@ -310,10 +293,6 @@ main ( int argc, char **argv )
 #endif
     g_stderr = new CoreConsole ( stderr, NULL );
     g_stdout = new CoreConsole ( stdout, NULL );
-#ifdef ENABLE_DEBUGLOG
-    g_debuglog = new CoreDebugLog ( APP_NAME, APP_VERSION, APP_URL, "bugs@uplinklabs.net", false );
-    g_debuglog->Write ( g_debuglog->BUG_LEVEL_INFO, "Initializing" );
-#endif
 
 #ifdef ENABLE_CREDITS
     g_stdout->SetColour ( g_stdout->FG_GREEN | g_stdout->FG_INTENSITY );
@@ -344,15 +323,6 @@ main ( int argc, char **argv )
 		return -2;
 	}
 	
-#ifdef ENABLE_DEBUGLOG
-
-    g_debuglog->Write ( g_debuglog->BUG_LEVEL_INFO, "Exiting", "" );
-	// Below commented only because I hate cleaning out .log files. Uncomment if you wish. -- Steven
-	// g_debuglog->Save();
-    delete g_debuglog;
-
-#endif
-
     delete g_stderr;
     delete g_stdout;
 
