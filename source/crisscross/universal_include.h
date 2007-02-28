@@ -5,7 +5,7 @@
  *                              formerly Codename "Technetium"
  *                             project started August 14, 2006
  *
- * Copyright (c) 2006 IO.IN Research
+ * Copyright (c) 2006-2007 IO.IN Research
  *
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
@@ -50,7 +50,7 @@
 #   define APP_VERSION             "0.5.3-SVN"
 #   define APP_BRANCH_AT_VERSION   "0.6.0"
 #   define APP_URL                 "http://www.uplinklabs.net/crisscross/"
-#   define APP_COPYRIGHT           "(c) 2006 by IO.IN Research. Licensed under the New BSD License."
+#   define APP_COPYRIGHT           "(c) 2006-2007 by IO.IN Research. Licensed under the New BSD License."
 
 // Disabling these two will save space.
 #   define ENABLE_CPUID
