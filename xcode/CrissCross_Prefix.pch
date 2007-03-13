@@ -1,1 +1,13 @@
+/*
+ *
+ *                                   C R I S S C R O S S
+ *                          A multi purpose cross platform library.
+ *                             project started August 14, 2006
+ *
+ * Copyright (c) 2006-2007 IO.IN Research
+ *
+ * Licensed under the New BSD License.
+ *
+ */
+
 #include <crisscross/universal_include.h>
