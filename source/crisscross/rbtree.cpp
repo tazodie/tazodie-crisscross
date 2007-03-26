@@ -1,111 +1,103 @@
 /*
+ *   CrissCross
+ *   A multi-purpose cross-platform library.
  *
- *                                   C R I S S C R O S S
- *                          A multi purpose cross platform library.
- *                             project started August 14, 2006
+ *   A product of IO.IN Research.
  *
- * Copyright (c) 2006-2007 IO.IN Research
- *
- * Licensed under the New BSD License.
+ *   (c) 2006-2007 Steven Noonan.
+ *   Licensed under the New BSD License.
  *
  */
 
 #ifndef __included_rbtree_cpp
 #define __included_rbtree_cpp
 
-#    include <crisscross/core_debug.h>
-#    include <crisscross/rbtree.h>
+#include <stdlib.h>
+
+#include <crisscross/core_debug.h>
+#include <crisscross/rbtree.h>
 
 using namespace CrissCross::Data;
 
-#    ifndef TARGET_OS_WINDOWS
-#            define stricmp strcasecmp
-#    endif
+#ifndef TARGET_OS_WINDOWS
+#    define stricmp strcasecmp
+#endif
 
-template < class dataType, class keyType >
-    RedBlackTree < dataType, keyType >::RedBlackTree ()
+template <class T>
+    RedBlackTree<T>::RedBlackTree ()
 {
-    NULL_NODE = new nodeType ();
-    memset ( NULL_NODE, 0, sizeof ( nodeType ) );
+    NULL_NODE = new BinaryNode<T> ();
     NULL_NODE->color = BLACK;
     rootNode = NULL_NODE;
 }
 
-template < class dataType, class keyType >
-    RedBlackTree < dataType, keyType >::~RedBlackTree ()
+template <class T>
+    RedBlackTree<T>::~RedBlackTree ()
 {
     killAll ();
     delete NULL_NODE;
 }
 
-template < class dataType,
-    class keyType > inline bool RedBlackTree < dataType,
-    keyType >::compLT ( const char *a, const char *b ) const
+template <class T>
+	inline bool RedBlackTree<T>::compLT ( const char *a, const char *b ) const
 {
     return ( stricmp ( a, b ) < 0 );
 }
 
-template < class dataType,
-    class keyType > inline bool RedBlackTree < dataType,
-    keyType >::compLTEQU ( const char *a, const char *b ) const
+template <class T>
+	inline bool RedBlackTree<T>::compLTEQ ( const char *a, const char *b ) const
 {
     return ( stricmp ( a, b ) <= 0 );
 }
 
-template < class dataType,
-    class keyType > inline bool RedBlackTree < dataType,
-    keyType >::compEQ ( const char *a, const char *b ) const
+template <class T>
+	inline bool RedBlackTree<T>::compEQ ( const char *a, const char *b ) const
 {
     return ( stricmp ( a, b ) == 0 );
 }
 
-template < class dataType,
-    class keyType > inline bool RedBlackTree < dataType,
-    keyType >::compLT ( const int *a, const int *b ) const
+template <class T>
+	inline bool RedBlackTree<T>::compLT ( const int *a, const int *b ) const
 {
     return ( *a < *b );
 }
 
-template < class dataType,
-    class keyType > inline bool RedBlackTree < dataType,
-    keyType >::compLTEQU ( const int *a, const int *b ) const
+template <class T>
+	inline bool RedBlackTree<T>::compLTEQ ( const int *a, const int *b ) const
 {
     return ( *a <= *b );
 }
 
-template < class dataType,
-    class keyType > inline bool RedBlackTree < dataType,
-    keyType >::compEQ ( const int *a, const int *b ) const
+template <class T>
+	inline bool RedBlackTree<T>::compEQ ( const int *a, const int *b ) const
 {
     return ( *a == *b );
 }
 
-template < class dataType,
-    class keyType > inline bool RedBlackTree < dataType,
-    keyType >::compLT ( const unsigned long *a, const unsigned long *b ) const
+template <class T>
+	inline bool RedBlackTree<T>::compLT ( const unsigned long *a, const unsigned long *b ) const
 {
     return ( *a < *b );
 }
 
-template < class dataType,
-    class keyType > inline bool RedBlackTree < dataType,
-    keyType >::compLTEQU ( const unsigned long *a, const unsigned long *b ) const
+
+template <class T>
+	inline bool RedBlackTree<T>::compLTEQ ( const unsigned long *a, const unsigned long *b ) const
 {
     return ( *a <= *b );
 }
 
-template < class dataType,
-    class keyType > inline bool RedBlackTree < dataType,
-    keyType >::compEQ ( const unsigned long *a, const unsigned long *b ) const
+template <class T>
+	inline bool RedBlackTree<T>::compEQ ( const unsigned long *a, const unsigned long *b ) const
+
 {
     return ( *a == *b );
 }
 
-template < class dataType, class keyType >
-    inline char *RedBlackTree < dataType, keyType >::newKey ( char *a )
+template <class T>
+    inline char *RedBlackTree<T>::newKey ( const char *a )
 {
     char *b = ( char * ) malloc ( strlen ( a ) + 1 );
-
     if ( !b )
         return 0;
     memset ( b, 0, strlen ( a ) + 1 );
@@ -113,8 +105,8 @@ template < class dataType, class keyType >
     return b;
 }
 
-template < class dataType, class keyType >
-    inline int *RedBlackTree < dataType, keyType >::newKey ( int *a )
+template <class T>
+    inline int *RedBlackTree<T>::newKey ( const int *a )
 {
     int *b = ( int * ) malloc ( sizeof ( int ) );
 
@@ -125,8 +117,8 @@ template < class dataType, class keyType >
     return b;
 }
 
-template < class dataType, class keyType >
-    inline unsigned long *RedBlackTree < dataType, keyType >::newKey ( unsigned long *a )
+template <class T>
+    inline unsigned long *RedBlackTree<T>::newKey ( const unsigned long *a )
 {
     unsigned long *b = ( unsigned long * ) malloc ( sizeof ( unsigned long ) );
 
@@ -137,8 +129,8 @@ template < class dataType, class keyType >
     return b;
 }
 
-template < class dataType, class keyType >
-    inline char *RedBlackTree < dataType, keyType >::reallocKey ( char *pointer, char *a )
+template <class T>
+    inline char *RedBlackTree<T>::reallocKey ( char *pointer, char *a )
 {
     char *tmp = NULL;
 
@@ -150,28 +142,26 @@ template < class dataType, class keyType >
     return tmp;
 }
 
-template < class dataType, class keyType >
-    inline int *RedBlackTree < dataType, keyType >::reallocKey ( int *pointer,
-                                                                 int *a )
+template <class T>
+    inline int *RedBlackTree<T>::reallocKey ( int *pointer, int *a )
 {
     /* since integers don't have varying size, just overwrite */
     *pointer = *a;
     return pointer;
 }
 
-template < class dataType, class keyType >
-    inline unsigned long *RedBlackTree < dataType, keyType >::reallocKey ( unsigned long *pointer,
-                                                                 unsigned long *a )
+template <class T>
+    inline unsigned long *RedBlackTree<T>::reallocKey ( unsigned long *pointer, unsigned long *a )
 {
     /* since unsigned longs don't have varying size, just overwrite */
     *pointer = *a;
     return pointer;
 }
 
-template < class dataType, class keyType >
-    void RedBlackTree < dataType, keyType >::rotateLeft ( nodeType * x )
+template <class T>
+    void RedBlackTree<T>::rotateLeft ( BinaryNode<T> * x )
 {
-    nodeType *y = x->right;
+    BinaryNode<T> *y = x->right;
 
     /* establish x->right link */
     x->right = y->left;
@@ -199,10 +189,10 @@ template < class dataType, class keyType >
         x->parent = y;
 }
 
-template < class dataType, class keyType >
-    void RedBlackTree < dataType, keyType >::rotateRight ( nodeType * x )
+template <class T>
+    void RedBlackTree<T>::rotateRight ( BinaryNode<T> * x )
 {
-    nodeType *y = x->left;
+    BinaryNode<T> *y = x->left;
 
     /* establish x->left link */
     x->left = y->right;
@@ -230,8 +220,8 @@ template < class dataType, class keyType >
         x->parent = y;
 }
 
-template < class dataType, class keyType >
-    void RedBlackTree < dataType, keyType >::insertFixup ( nodeType * x )
+template <class T>
+    void RedBlackTree<T>::insertFixup ( BinaryNode<T> * x )
 {
     /* check Red-Black properties */
     while ( x != rootNode && x->parent->color == RED )
@@ -239,7 +229,7 @@ template < class dataType, class keyType >
         /* we have a violation */
         if ( x->parent == x->parent->parent->left )
         {
-            nodeType *y = x->parent->parent->right;
+            BinaryNode<T> *y = x->parent->parent->right;
 
             if ( y->color == RED )
             {
@@ -271,7 +261,7 @@ template < class dataType, class keyType >
         {
 
             /* mirror image of above code */
-            nodeType *y = x->parent->parent->left;
+            BinaryNode<T> *y = x->parent->parent->left;
 
             if ( y->color == RED )
             {
@@ -300,19 +290,18 @@ template < class dataType, class keyType >
     rootNode->color = BLACK;
 }
 
-template < class dataType, class keyType >
-    statusEnum RedBlackTree < dataType, keyType >::insert ( keyType key,
-                                                            dataType rec )
+template <class T>
+    statusEnum RedBlackTree<T>::insert ( const char *key, const T & rec )
 {
-    nodeType *current = NULL_NODE, *parent = NULL, *x = NULL_NODE;
+    BinaryNode<T> *current = NULL_NODE, *parent = NULL, *x = NULL_NODE;
 
     if ( !key )
     {
-        fprintf ( stderr, "WARNING: RedBlackTree < dataType, keyType >::insert() called with NULL key pointer!\n" );
+        fprintf ( stderr, "WARNING: RedBlackTree<T>::insert() called with NULL key pointer!\n" );
     }
     if ( !rec )
     {
-        fprintf ( stderr, "WARNING: RedBlackTree < dataType, keyType >::insert() called with NULL data pointer!\n" );
+        fprintf ( stderr, "WARNING: RedBlackTree<T>::insert() called with NULL data pointer!\n" );
     }
     if ( !key || !rec )
         return STATUS_NULL_POINTER;
@@ -322,16 +311,13 @@ template < class dataType, class keyType >
     while ( current != NULL_NODE )
     {
         parent = current;
-        current = compLTEQU ( key, current->id ) ?
+        current = compLTEQ ( key, current->id ) ?
             current->left : current->right;
     }
 
     /* setup new node */
-    if ( ( x = ( nodeType * ) malloc ( sizeof ( *x ) ) ) == 0 )
+    if ( (x = new BinaryNode<T>()) == 0 )
         return STATUS_MEM_EXHAUSTED;
-
-    /* no alarms and no surprises, please */
-    memset ( x, 0, sizeof ( *x ) );
 
     x->parent = parent;
     x->left = NULL_NODE;
@@ -339,11 +325,12 @@ template < class dataType, class keyType >
     x->color = RED;
     x->id = newKey ( key );
     x->data = rec;
+    x->beenThere = NODE_ITSELF_VISITED;
 
     /* insert node in tree */
     if ( parent != NULL )
     {
-        if ( compLTEQU ( key, parent->id ) )
+        if ( compLTEQ ( key, parent->id ) )
             parent->left = x;
         else
             parent->right = x;
@@ -358,14 +345,14 @@ template < class dataType, class keyType >
     return STATUS_OK;
 }
 
-template < class dataType, class keyType >
-    void RedBlackTree < dataType, keyType >::deleteFixup ( nodeType * x )
+template <class T>
+    void RedBlackTree<T>::deleteFixup ( BinaryNode<T> * x )
 {
     while ( x != rootNode && x->color == BLACK )
     {
         if ( x == x->parent->left )
         {
-            nodeType *w = x->parent->right;
+            BinaryNode<T> *w = x->parent->right;
 
             if ( w->color == RED )
             {
@@ -397,7 +384,7 @@ template < class dataType, class keyType >
         }
         else
         {
-            nodeType *w = x->parent->left;
+            BinaryNode<T> *w = x->parent->left;
 
             if ( w->color == RED )
             {
@@ -431,10 +418,10 @@ template < class dataType, class keyType >
     x->color = BLACK;
 }
 
-template < class dataType, class keyType >
-    statusEnum RedBlackTree < dataType, keyType >::deleteNode ( keyType key )
+template <class T>
+    statusEnum RedBlackTree<T>::deleteNode ( const char *key )
 {
-    nodeType *z, *parent;
+    BinaryNode<T> *z, *parent;
 
     //  delete node z from tree
 
@@ -449,7 +436,7 @@ template < class dataType, class keyType >
         else
         {
             parent = z;
-            z = compLTEQU ( key, z->id ) ? z->left : z->right;
+            z = compLTEQ ( key, z->id ) ? z->left : z->right;
         }
     }
 
@@ -459,10 +446,10 @@ template < class dataType, class keyType >
     return killNode ( z );
 }
 
-template < class dataType, class keyType >
-    statusEnum RedBlackTree < dataType, keyType >::killNode ( nodeType * z )
+template <class T>
+    statusEnum RedBlackTree<T>::killNode ( BinaryNode<T> * z )
 {
-    nodeType *x, *y;
+    BinaryNode<T> *x, *y;
 
     if ( z->left == NULL_NODE || z->right == NULL_NODE )
     {
@@ -510,7 +497,7 @@ template < class dataType, class keyType >
         deleteFixup ( x );
 
     free ( y->id );
-    free ( y );
+    delete y;
 
     return STATUS_OK;
 }
@@ -554,8 +541,8 @@ template < class dataType, class keyType >
 
    ----------------------------------------------------------------------------- */
 
-template < class dataType, class keyType >
-    void RedBlackTree < dataType, keyType >::getNext ( nodeType ** current )
+template <class T>
+    void RedBlackTree<T>::getNext ( BinaryNode<T> ** current )
 {
     if ( ( *current ) == NULL_NODE )
     {
@@ -638,18 +625,17 @@ template < class dataType, class keyType >
     }
 }
 
-template < class dataType, class keyType >
-    dataType RedBlackTree < dataType,
-    keyType >::find ( keyType key ) const
+template <class T>
+    T RedBlackTree<T>::find ( const char *key ) const
 {
-    nodeType *current = rootNode;
+    BinaryNode<T> *current = rootNode;
 
 #    ifdef SHOW_NODE_SEARCH_PROGRESS
     int hops = 0;
 #    endif
     if ( !key )
     {
-        fprintf ( stderr, "WARNING: RedBlackTree < dataType, keyType >::find() called with NULL key pointer!\n" );
+        fprintf ( stderr, "WARNING: RedBlackTree<T>::find() called with NULL key pointer!\n" );
         return NULL;
     }
 #    ifdef SHOW_NODE_SEARCH_PROGRESS
@@ -669,7 +655,7 @@ template < class dataType, class keyType >
         }
         else
         {
-            current = compLTEQU ( key, current->id ) ?
+            current = compLTEQ ( key, current->id ) ?
                 current->left : current->right;
         }
     }
@@ -677,19 +663,17 @@ template < class dataType, class keyType >
     return NULL;
 }
 
-template < class dataType, class keyType >
-    typename RedBlackTree < dataType,
-    keyType >::nodeType * RedBlackTree < dataType,
-    keyType >::findNode ( keyType key ) const
+template <class T>
+    BinaryNode<T> * RedBlackTree<T>::findNode ( const char *key ) const
 {
-    typename RedBlackTree < dataType, keyType >::nodeType * current =
-        rootNode;
+    BinaryNode<T> * current = rootNode;
+
 #    ifdef SHOW_NODE_SEARCH_PROGRESS
     int hops = 0;
 #    endif
     if ( !key )
     {
-        fprintf ( stderr, "WARNING: RedBlackTree < dataType, keyType >::findNode() called with NULL key pointer!\n" );
+        fprintf ( stderr, "WARNING: RedBlackTree<T>::findNode() called with NULL key pointer!\n" );
         return NULL;
     }
 #    ifdef SHOW_NODE_SEARCH_PROGRESS
@@ -709,19 +693,15 @@ template < class dataType, class keyType >
         }
         else
         {
-            current = compLTEQU ( key, current->id ) ?
-                ( typename RedBlackTree < dataType,
-                  keyType >::nodeType * ) current->
-                left : ( typename RedBlackTree < dataType,
-                         keyType >::nodeType * ) current->right;
+            current = compLTEQ ( key, current->id ) ? current->left : current->right;
         }
     }
 
     return NULL;
 }
 
-template < class dataType, class keyType >
-    void RedBlackTree < dataType, keyType >::killAll ( nodeType * rec )
+template <class T>
+    void RedBlackTree<T>::killAll ( BinaryNode<T> * rec )
 {
     if ( rec == NULL_NODE )
         return;
@@ -742,19 +722,19 @@ template < class dataType, class keyType >
     }
 
     free ( rec->id );
-    free ( rec );
+    delete rec;
 }
 
-template < class dataType, class keyType >
-    void RedBlackTree < dataType, keyType >::killAll ()
+template <class T>
+    void RedBlackTree<T>::killAll ()
 {
     killAll ( rootNode );
 }
 
-template < class dataType, class keyType >
-    int RedBlackTree < dataType, keyType >::size ()
+template <class T>
+    int RedBlackTree<T>::size ()
 {
-    nodeType *vNode = NULL_NODE;
+    BinaryNode<T> *vNode = NULL_NODE;
     int vCount = 0;
 
     getNext ( &vNode );
@@ -767,9 +747,8 @@ template < class dataType, class keyType >
     return vCount;
 }
 
-template < class dataType, class keyType >
-    bool RedBlackTree < dataType,
-    keyType >::ValidNode ( nodeType * node ) const
+template <class T>
+    bool RedBlackTree <T>::ValidNode ( const BinaryNode<T> * node ) const
 {
     if ( node != NULL && node != NULL_NODE )
         return true;
@@ -790,32 +769,28 @@ template < class dataType, class keyType >
  *         be removed from future versions.
  */
 
-template < class dataType, class keyType >
-    DArray < dataType > *RedBlackTree < dataType,
-    keyType >::ConvertToDArray ()
+template <class T>
+    DArray<T> *RedBlackTree <T>::ConvertToDArray ()
 {
-    DArray < dataType > *darray = new DArray < dataType > ( (int)size () );
+    DArray<T> *darray = new DArray<T> ( (int)size() );
     RecursiveConvertToDArray ( darray, rootNode );
     return darray;
 }
 
-template < class dataType, class keyType >
-    DArray < keyType > *RedBlackTree < dataType,
-    keyType >::ConvertIndexToDArray ()
+template <class T>
+    DArray<char *> *RedBlackTree <T>::ConvertIndexToDArray ()
 {
-    DArray < keyType > *darray = new DArray < keyType > ( (int)size () );
+    DArray<char *> *darray = new DArray<T> ( (int)size () );
     RecursiveConvertIndexToDArray ( darray, rootNode );
     return darray;
 }
 
-template < class dataType, class keyType >
-    void RedBlackTree < dataType,
-    keyType >::RecursiveConvertToDArray ( DArray < dataType > *darray,
-                                          nodeType *btree )
+template <class T>
+    void RedBlackTree<T>::RecursiveConvertToDArray ( DArray<T> *darray, BinaryNode<T> *btree )
 {
     // note that the btree parameter is ignored
 
-    nodeType *current = NULL_NODE;
+    BinaryNode<T> *current = NULL_NODE;
 
     CoreAssert ( darray != NULL );
 
@@ -823,19 +798,17 @@ template < class dataType, class keyType >
     while ( ValidNode ( current ) )
     {
         if ( current->data )
-            darray->PutData ( current->data );
+            darray->insert ( current->data );
         getNext ( &current );
     }
 }
 
-template < class dataType, class keyType >
-    void RedBlackTree < dataType,
-    keyType >::RecursiveConvertIndexToDArray ( DArray < keyType > *darray,
-                                               nodeType * btree )
+template <class T>
+    void RedBlackTree<T>::RecursiveConvertIndexToDArray ( DArray <char *> *darray, BinaryNode<T> * btree )
 {
     // note that the btree parameter is ignored
 
-    nodeType *current = NULL_NODE;
+    BinaryNode<T> *current = NULL_NODE;
 
     CoreAssert ( darray != NULL );
 
@@ -843,15 +816,15 @@ template < class dataType, class keyType >
     while ( ValidNode ( current ) )
     {
         if ( current->id )
-            darray->PutData ( current->id );
+            darray->insert ( current->id );
         getNext ( &current );
     }
 }
 
-template < class dataType, class keyType >
-    void RedBlackTree < dataType, keyType >::Print ()
+template <class T>
+    void RedBlackTree<T>::Print ()
 {
-    nodeType *current = NULL_NODE;
+    BinaryNode<T> *current = NULL_NODE;
 
     getNext ( &current );
     while ( ValidNode ( current ) )
@@ -862,51 +835,47 @@ template < class dataType, class keyType >
     }
 }
 
-template < class dataType, class keyType >
-    dataType RedBlackTree < dataType,
-    keyType >::GetData ( const keyType key ) const
+template <class T>
+    T RedBlackTree<T>::GetData ( const char *key ) const
 {
     if ( !key )
     {
-        fprintf ( stderr, "WARNING: RedBlackTree < dataType, keyType >::GetData() called with NULL key pointer!\n" );
+        fprintf ( stderr, "WARNING: RedBlackTree<T>::GetData() called with NULL key pointer!\n" );
         return NULL;
     }
     return find ( key );
 }
 
-template < class dataType, class keyType >
-    void RedBlackTree < dataType, keyType >::PutData ( keyType key,
-                                                       dataType rec )
+template <class T>
+    void RedBlackTree<T>::PutData ( const char *key, const T & rec )
 {
     if ( !key )
     {
-        fprintf ( stderr, "WARNING: RedBlackTree < dataType, keyType >::PutData() called with NULL key pointer!\n" );
+        fprintf ( stderr, "WARNING: RedBlackTree<T>::PutData() called with NULL key pointer!\n" );
     }
     if ( !rec )
     {
-        fprintf ( stderr, "WARNING: RedBlackTree < dataType, keyType >::PutData() called with NULL data pointer!\n" );
+        fprintf ( stderr, "WARNING: RedBlackTree<T>::PutData() called with NULL data pointer!\n" );
     }
     if ( !key || !rec )
         return;
     insert ( key, rec );
 }
 
-template < class dataType, class keyType >
-    void RedBlackTree < dataType, keyType >::RemoveData ( keyType key )
+template <class T>
+    void RedBlackTree<T>::RemoveData ( const char *key )
 {
     deleteNode ( key );
 }
 
-template < class dataType, class keyType >
-    typename RedBlackTree < dataType,
-    keyType >::nodeType * RedBlackTree < dataType,
-    keyType >::LookupTree ( keyType key )
+template <class T>
+	BinaryNode<T> *RedBlackTree<T>::LookupTree ( const char *key )
 {
     return findNode ( key );
 }
 
-template < class dataType, class keyType >
-    int RedBlackTree < dataType, keyType >::Size ()
+template <class T>
+    int RedBlackTree<T>::Size ()
 {
     return ( int ) size ();
 }

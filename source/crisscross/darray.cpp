@@ -1,12 +1,11 @@
 /*
+ *   CrissCross
+ *   A multi-purpose cross-platform library.
  *
- *                                   C R I S S C R O S S
- *                          A multi purpose cross platform library.
- *                             project started August 14, 2006
+ *   A product of IO.IN Research.
  *
- * Copyright (c) 2006-2007 IO.IN Research
- *
- * Licensed under the New BSD License.
+ *   (c) 2006-2007 Steven Noonan.
+ *   Licensed under the New BSD License.
  *
  */
 
@@ -45,12 +44,12 @@ DArray < T >::DArray ( int _newStepSize )
 template < class T >
 DArray < T >::~DArray ()
 {
-    Empty ();
+    empty ();
     delete m_emptyNodes;
 }
 
 template < class T >
-void DArray < T >::RebuildStack ()
+void DArray < T >::rebuildStack ()
 {
 	//  Reset free list
 
@@ -66,7 +65,7 @@ void DArray < T >::RebuildStack ()
 }
 
 template < class T >
-void DArray < T >::Recount()
+void DArray < T >::recount()
 {
 	m_numUsed = 0;
 	for ( int i = 0; i < m_arraySize; i++ )
@@ -75,7 +74,7 @@ void DArray < T >::Recount()
 }
 
 template < class T >
-void DArray < T >::SetSize ( int newsize )
+void DArray < T >::setSize ( int newsize )
 {
     if ( newsize > m_arraySize )
     {
@@ -120,8 +119,8 @@ void DArray < T >::SetSize ( int newsize )
         }
 
         // We may have lost more than one node. It's worth rebuilding over.
-        RebuildStack();
-        Recount();
+        rebuildStack();
+        recount();
 
         delete [] m_array;
         delete [] m_shadow;
@@ -137,44 +136,44 @@ void DArray < T >::SetSize ( int newsize )
 }
 
 template < class T >
-void DArray < T >::Grow ()
+void DArray < T >::grow ()
 {
     if ( m_stepSize == -1 )
     {
         // Double array size
         if ( m_arraySize == 0 )
         {
-            SetSize ( 1 );
+            setSize ( 1 );
         }
         else
         {
-            SetSize ( m_arraySize * 2 );
+            setSize ( m_arraySize * 2 );
         }
     }
     else
     {
         // Increase array size by fixed amount
-        SetSize ( m_arraySize + m_stepSize );
+        setSize ( m_arraySize + m_stepSize );
     }
 }
 
 template < class T >
-void DArray < T >::SetStepSize ( int _stepSize )
+void DArray < T >::setStepSize ( int _stepSize )
 {
     m_stepSize = _stepSize;
 }
 
 
 template < class T >
-void DArray < T >::SetStepDouble ()
+void DArray < T >::setStepDouble ()
 {
     m_stepSize = -1;
 }
 
 template < class T >
-int DArray < T >::PutData ( const T & newdata )
+int DArray < T >::insert ( const T & newdata )
 {
-    int freeslot = GetNextFree();
+    int freeslot = getNextFree();
 
     m_array[freeslot] = newdata;
     if ( m_shadow[freeslot] == 0 ) m_numUsed++;
@@ -184,9 +183,8 @@ int DArray < T >::PutData ( const T & newdata )
 }
 
 template < class T >
-void DArray < T >::PutData ( const T & newdata, int index )
+void DArray < T >::insert ( const T & newdata, int index )
 {
-
     CoreAssert ( index < m_arraySize && index >= 0 );
 
     m_array[index] = newdata;
@@ -195,7 +193,7 @@ void DArray < T >::PutData ( const T & newdata, int index )
 }
 
 template < class T >
-void DArray < T >::Empty ()
+void DArray < T >::empty ()
 {
 
     delete [] m_array;
@@ -213,13 +211,13 @@ void DArray < T >::Empty ()
 }
 
 template < class T >
-int DArray < T >::GetNextFree()
+int DArray < T >::getNextFree()
 {
     // WARNING: This function assumes the node returned
     //          will be used by the calling function.
 
     if ( !m_shadow )
-        Grow();
+        grow();
 
     int freeslot = -2;
 
@@ -233,7 +231,7 @@ int DArray < T >::GetNextFree()
 	{
         m_emptyNodes->push ( -1 );
         freeslot = m_arraySize;	
-		Grow();
+		grow();
 	}
     
 	if ( m_shadow[freeslot] == 0 )
@@ -245,7 +243,7 @@ int DArray < T >::GetNextFree()
 }
 
 template < class T >
-T DArray < T >::GetData ( int index )
+T DArray < T >::getData ( int index )
 {
 
     CoreAssert ( m_shadow[index] != 0 );
@@ -265,10 +263,8 @@ T & DArray < T >::operator []( int index )
     return m_array[index];
 }
 
-
-
 template < class T >
-void DArray < T >::RemoveData ( int index )
+void DArray < T >::remove ( int index )
 {
 
     CoreAssert ( m_shadow[index] != 0 );
@@ -282,19 +278,19 @@ void DArray < T >::RemoveData ( int index )
 }
 
 template < class T >
-int DArray < T >::NumUsed ()
+int DArray < T >::numUsed ()
 {
     return m_numUsed;
 }
 
 template < class T >
-int DArray < T >::Size ()
+int DArray < T >::size ()
 {
     return m_arraySize;
 }
 
 template < class T >
-bool DArray < T >::ValidIndex ( int index )
+bool DArray < T >::validIndex ( int index )
 {
 
     if ( index >= m_arraySize || index < 0 )
@@ -308,7 +304,7 @@ bool DArray < T >::ValidIndex ( int index )
 }
 
 template < class T >
-int DArray < T >::FindData ( const T & newdata )
+int DArray < T >::findData ( const T & newdata )
 {
 
     for ( int a = 0; a < m_arraySize; ++a )

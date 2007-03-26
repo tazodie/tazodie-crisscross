@@ -1,12 +1,11 @@
 /*
+ *   CrissCross
+ *   A multi-purpose cross-platform library.
  *
- *                                   C R I S S C R O S S
- *                          A multi purpose cross platform library.
- *                             project started August 14, 2006
+ *   A product of IO.IN Research.
  *
- * Copyright (c) 2006-2007 IO.IN Research
- *
- * Licensed under the New BSD License.
+ *   (c) 2006-2007 Steven Noonan.
+ *   Licensed under the New BSD License.
  *
  */
 
@@ -41,20 +40,20 @@ template < class T > LList < T >::LList ()
 
 template < class T > LList < T >::~LList ()
 {
-    Empty ();
+    empty ();
 }
 
 
 template < class T > LList < T >::LList ( const LList < T > &source ):
-m_first ( NULL ),
-m_last ( NULL ),
-m_previous ( NULL ),
-m_previousIndex ( -1 ),
-m_numItems ( 0 )
+	m_first ( NULL ),
+	m_last ( NULL ),
+	m_previous ( NULL ),
+	m_previousIndex ( -1 ),
+	m_numItems ( 0 )
 {
-    for ( int i = 0; i < source.Size (); i++ )
+    for ( int i = 0; i < source.size (); i++ )
     {
-        PutDataAtEnd ( source.GetData ( i ) );
+        insert_back ( source.GetData ( i ) );
     }
 }
 
@@ -62,23 +61,23 @@ m_numItems ( 0 )
 template < class T >
     LList < T > &LList < T >::operator = ( const LList < T > &source )
 {
-    Empty ();
-    for ( int i = 0; i < source.Size (); i++ )
+    empty ();
+    for ( int i = 0; i < source.size (); i++ )
     {
-        PutDataAtEnd ( source.GetData ( i ) );
+        insert_back ( source.getData ( i ) );
     }
 
     return *this;
 }
 
 
-template < class T > void LList < T >::PutData ( const T & newdata )
+template < class T > void LList < T >::insert ( const T & newdata )
 {
-    PutDataAtEnd ( newdata );
+    insert_back ( newdata );
 }
 
 
-template < class T > void LList < T >::PutDataAtEnd ( const T & newdata )
+template < class T > void LList < T >::insert_back ( const T & newdata )
 {
     LListItem < T > *li = new LListItem < T > ();
     li->m_data = newdata;
@@ -103,7 +102,7 @@ template < class T > void LList < T >::PutDataAtEnd ( const T & newdata )
 }
 
 
-template < class T > void LList < T >::PutDataAtStart ( const T & newdata )
+template < class T > void LList < T >::insert_front ( const T & newdata )
 {
     LListItem < T > *li = new LListItem < T > ();
     li->m_data = newdata;
@@ -131,15 +130,15 @@ template < class T > void LList < T >::PutDataAtStart ( const T & newdata )
 
 
 template < class T >
-    void LList < T >::PutDataAtIndex ( const T & newdata, int index )
+    void LList < T >::insert_at ( const T & newdata, int index )
 {
     if ( index == 0 )
     {
-        PutDataAtStart ( newdata );
+        insert_front ( newdata );
     }
     else if ( index == m_numItems )
     {
-        PutDataAtEnd ( newdata );
+        insert_back ( newdata );
     }
     else
     {
@@ -170,15 +169,15 @@ template < class T >
 }
 
 
-template < class T > int LList < T >::Size () const
+template < class T > int LList < T >::size () const
 {
     return m_numItems;
 }
 
 
-template < class T > T LList < T >::GetData ( int index ) const
+template < class T > T LList < T >::getData ( int index ) const
 {
-    LListItem < T > const *item = GetItem ( index );
+    LListItem < T > const *item = getItem ( index );
 
     if ( item )
     {
@@ -189,9 +188,9 @@ template < class T > T LList < T >::GetData ( int index ) const
 }
 
 
-template < class T > T * LList < T >::GetPointer ( int index ) const
+template < class T > T * LList < T >::getPointer ( int index ) const
 {
-    LListItem < T > *item = GetItem ( index );
+    LListItem < T > *item = getItem ( index );
     if ( item )
     {
         return &item->m_data;
@@ -201,9 +200,9 @@ template < class T > T * LList < T >::GetPointer ( int index ) const
 }
 
 
-template < class T > LListItem < T > *LList < T >::GetItem ( int index ) const
+template < class T > LListItem < T > *LList < T >::getItem ( int index ) const
 {
-    if ( !ValidIndex ( index ) )
+    if ( !validIndex ( index ) )
         return NULL;
 
 
@@ -243,12 +242,12 @@ template < class T > LListItem < T > *LList < T >::GetItem ( int index ) const
         m_previous = m_previous->m_next;
         m_previousIndex++;
     }
+	
     while ( index < m_previousIndex )
     {
         m_previous = m_previous->m_previous;
         m_previousIndex--;
     }
-
 
     return m_previous;
 }
@@ -256,17 +255,17 @@ template < class T > LListItem < T > *LList < T >::GetItem ( int index ) const
 
 template < class T > T LList < T >::operator []( int index )
 {
-    return GetData ( index );
+    return getData ( index );
 }
 
 
-template < class T > bool LList < T >::ValidIndex ( int index ) const
+template < class T > bool LList < T >::validIndex ( int index ) const
 {
     return ( index >= 0 && index < m_numItems );
 }
 
 
-template < class T > void LList < T >::Empty ()
+template < class T > void LList < T >::empty ()
 {
 
     LListItem < T > *current = m_first;
@@ -285,9 +284,9 @@ template < class T > void LList < T >::Empty ()
     m_previousIndex = -1;
 }
 
-template < class T > void LList < T >::RemoveData ( int index )
+template < class T > void LList < T >::remove ( int index )
 {
-    LListItem < T > *current = GetItem ( index );
+    LListItem < T > *current = getItem ( index );
 
     if ( current == NULL )
         return;
@@ -329,20 +328,13 @@ template < class T > void LList < T >::RemoveData ( int index )
     --m_numItems;
 }
 
-
-template < class T > void LList < T >::RemoveDataAtEnd ()
+template < class T > int LList < T >::findData ( const T & data )
 {
-    RemoveData ( m_numItems - 1 );
-}
-
-
-template < class T > int LList < T >::FindData ( const T & data )
-{
-    int const size = Size ();
+    int const size = this->size ();
 
     for ( int i = 0; i < size; ++i )
     {
-        if ( GetData ( i ) == data )
+        if ( getData ( i ) == data )
         {
             return i;
         }

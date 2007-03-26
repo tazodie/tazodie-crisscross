@@ -1,12 +1,11 @@
 /*
+ *   CrissCross
+ *   A multi-purpose cross-platform library.
  *
- *                                   C R I S S C R O S S
- *                          A multi purpose cross platform library.
- *                             project started August 14, 2006
+ *   A product of IO.IN Research.
  *
- * Copyright (c) 2006-2007 IO.IN Research
- *
- * Licensed under the New BSD License.
+ *   (c) 2006-2007 Steven Noonan.
+ *   Licensed under the New BSD License.
  *
  */
 
@@ -52,13 +51,13 @@ namespace CrissCross
             char           *m_shadow;
 
             //! Increases the size of the array.
-            void Grow			();
+            void grow			();
 
             //! Rebuilds the empty node stack.
-            void RebuildStack   ();
+            void rebuildStack   ();
 
             //! Recounts the number of used nodes.
-            void Recount        ();
+            void recount        ();
 
             //! Gets the next empty node.
             /*!
@@ -67,7 +66,7 @@ namespace CrissCross
                 automatically Grow() the array.
                 \return An index in m_array.
              */
-            int GetNextFree     ();
+            int getNextFree     ();
 
         public:
 
@@ -87,32 +86,32 @@ namespace CrissCross
             /*!
                 \param _newsize The new array size.
              */
-            void SetSize ( int _newsize );
+            void setSize ( int _newsize );
 
             //! Sets the step size used in Grow().
             /*!
                  \param _newstepsize The new step size to use.
              */
-            void SetStepSize ( int _newstepsize );
+            void setStepSize ( int _newstepsize );
 
             //! Sets the step size to double the array size when a Grow() is necessitated.
             /*!
                 \sa m_stepSize
              */
-            void SetStepDouble ();
+            void setStepDouble ();
 
             //! Gets the data at the given index.
             /*!
                 \param _index The index of the node to get data from.
                 \return The data stored at the index.
              */
-            T GetData ( int _index );
+            T getData ( int _index );
 
             //! Removes the data at the given index.
             /*!
                 \param _index The index of the node to clear.
              */
-            void RemoveData ( int _index );
+            void remove ( int _index );
 
             //! Finds the data in the array.
             /*!
@@ -120,14 +119,14 @@ namespace CrissCross
                 \param _data The data to find.
                 \return The index where the given data is located.
              */
-            int FindData ( const T & _data );
+            int findData ( const T & _data );
 
             //! Inserts data into the array at the first available index.
             /*!
                 \param _newdata The data to put into the array.
                 \return The index of the node where the data was stored.
              */
-            int PutData ( const T & _newdata );
+            int insert ( const T & _newdata );
 
             //! Inserts data into the array at the given index.
             /*!
@@ -135,19 +134,19 @@ namespace CrissCross
                 \param _index The index in the array where the data should
                     be put, regardless of existing contents.
              */
-            void PutData ( const T & _newdata, int _index );
+            void insert ( const T & _newdata, int _index );
 
             //! Indicates the number of used nodes.
             /*!
                 \return The number of used nodes.
              */
-            int NumUsed ();
+            int numUsed ();
 
             //! Indicates the total size of the array.
             /*!
                 \return The size of the array.
              */
-            inline int Size ();
+            inline int size ();
 
             //! Indicates whether a given index is valid.
             /*!
@@ -156,13 +155,13 @@ namespace CrissCross
                 \param _index The index to test.
                 \return Boolean value. True if valid, false if not.
              */
-            bool ValidIndex ( int _index );
+            bool validIndex ( int _index );
 
             //! Empties the array but does NOT free any pointers stored in the array.
             /*!
                 The array must be iterated through and any pointers must be freed manually before calling this.
              */
-            void Empty ();            // Resets the array to empty    
+            void empty ();
 
             //! Gets the data at the given index.
             /*!
@@ -175,6 +174,6 @@ namespace CrissCross
     }
 }
 
-#    include <crisscross/darray.cpp>
+#include <crisscross/darray.cpp>
 
 #endif
