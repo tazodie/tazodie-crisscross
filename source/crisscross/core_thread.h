@@ -1,21 +1,20 @@
 /*
+ *   CrissCross
+ *   A multi-purpose cross-platform library.
  *
- *                                   C R I S S C R O S S
- *                          A multi purpose cross platform library.
- *                             project started August 14, 2006
+ *   A product of IO.IN Research.
  *
- * Copyright (c) 2006-2007 IO.IN Research
- *
- * Licensed under the New BSD License.
+ *   (c) 2006-2007 Steven Noonan.
+ *   Licensed under the New BSD License.
  *
  */
 
 #ifndef __included_core_thread_h
 #define __included_core_thread_h
 
-#    include <crisscross/win32_pthread_emulate.h>
+#include <crisscross/win32_pthread_emulate.h>
 
-#    include <crisscross/core_system.h>
+#include <crisscross/core_system.h>
 
 #    if defined ( TARGET_OS_WINDOWS )
 #            include <windows.h>
