@@ -1,16 +1,14 @@
 /*
+ *   CrissCross
+ *   A multi-purpose cross-platform library.
  *
- *                                   C R I S S C R O S S
- *                          A multi purpose cross platform library.
- *                              formerly Codename "Technetium"
- *                             project started August 14, 2006
+ *   A product of IO.IN Research.
  *
- * Copyright (c) 2006-2007 IO.IN Research
+ *   (c) 2006-2007 Steven Noonan.
+ *   Licensed under the New BSD License.
  *
- * Licensed under the New BSD License.
- *
- */  
-    
+ */
+
 #ifndef __included_universal_include_h
 #define __included_universal_include_h
     

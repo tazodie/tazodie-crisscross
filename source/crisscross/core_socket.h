@@ -1,12 +1,11 @@
 /*
+ *   CrissCross
+ *   A multi-purpose cross-platform library.
  *
- *                                   C R I S S C R O S S
- *                          A multi purpose cross platform library.
- *                             project started August 14, 2006
+ *   A product of IO.IN Research.
  *
- * Copyright (c) 2006-2007 IO.IN Research
- *
- * Licensed under the New BSD License.
+ *   (c) 2006-2007 Steven Noonan.
+ *   Licensed under the New BSD License.
  *
  */
 
@@ -56,8 +55,8 @@ namespace CrissCross
         {
         protected:
 #if defined ( ENABLE_PROTECTION )
-            //! A RedBlackTree of banned hosts.
-            RedBlackTree<char*,u_long*> m_banned_hosts;
+            //! A #include of banned hosts.
+            #include<char*,u_long*> m_banned_hosts;
 #endif
 
             //! The maximum number of bytes to read per CoreSocket::Read or CoreSocket::ReadLine call.
