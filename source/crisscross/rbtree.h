@@ -1,20 +1,21 @@
 /*
+ *   CrissCross
+ *   A multi-purpose cross-platform library.
  *
- *                                   C R I S S C R O S S
- *                          A multi purpose cross platform library.
- *                             project started August 14, 2006
+ *   A product of IO.IN Research.
  *
- * Copyright (c) 2006-2007 IO.IN Research
- *
- * Licensed under the New BSD License.
+ *   (c) 2006-2007 Steven Noonan.
+ *   Licensed under the New BSD License.
  *
  */
 
 #ifndef __included_rbtree_h
 #define __included_rbtree_h
 
-#    include <crisscross/core_deprecate.h>
-#    include <crisscross/darray.h>
+#include <crisscross/core_deprecate.h>
+#include <crisscross/darray.h>
+
+#include <crisscross/tree.h>
 
 namespace CrissCross
 {
@@ -32,7 +33,7 @@ namespace CrissCross
         } statusEnum;
 
         //! A very fast red-black tree implementation.
-        template < class dataType, class keyType >
+        template < class T >
         class RedBlackTree
         {
 
@@ -45,39 +46,13 @@ namespace CrissCross
                 LEFT_CHILD_VISITED,
                 ALL_CHILDS_VISITED
             } beenThereEnum;
-
-            /*
-                This is what a node looks like in this tree.
-            */
-            struct nodeType
-            {
-                struct nodeType *left;    // Left child.
-                struct nodeType *right;    // Right child.
-                struct nodeType *parent;    // Supernode.
-                nodeColor color;        // Color of this node (Red/Black).
-
-                keyType id;                // This node's key (doesn't have to be unique).
-                dataType data;            // The actual record associated with this node.
-                beenThereEnum beenThere;    // Used for iterators.
-                struct nodeType *Left ()
-                {
-                    return left;
-                }
-                struct nodeType *Right ()
-                {
-                    return right;
-                }
-
-                nodeType(){};
-                ~nodeType(){};
-            };
             //! @endcond
 
             //! The root node at the top of the tree.
-            nodeType *rootNode;
+            BinaryNode<T> *rootNode;
             
             //! The null node at the end of every branch, etc.
-            nodeType *NULL_NODE;
+            BinaryNode<T> *NULL_NODE;
 
             //! The constructor.
             RedBlackTree ();
@@ -92,7 +67,7 @@ namespace CrissCross
                 \return A value indicating the result of the request.
                 \sa statusEnum
              */
-            statusEnum insert ( keyType _key, dataType _rec );
+            statusEnum insert ( const char *_key, const T & _rec );
 
             //! Deletes a node from the tree, specified by the node's key.
             /*!
@@ -102,7 +77,7 @@ namespace CrissCross
                 \return A value indicating the result of the request.
                 \sa statusEnum
              */
-            statusEnum deleteNode ( keyType _key );
+            statusEnum deleteNode ( const char *_key );
 
             //! Deletes a node from the tree, specified by the pointer to the node.
             /*!
@@ -112,14 +87,14 @@ namespace CrissCross
                 \return A value indicating the result of the request.
                 \sa statusEnum
              */
-            statusEnum killNode ( nodeType * _z );
+            statusEnum killNode ( BinaryNode<T> * _z );
 
             //! Finds a node in the tree and returns the data at that node.
             /*!
                 \param _key The key of the node to find.
                 \return The data at the node. NULL if not found.
              */
-            dataType find ( keyType _key ) const;
+            T find ( const char *_key ) const;
 
             //! Finds a node in the tree and returns the data at that node.
             /*!
@@ -127,40 +102,40 @@ namespace CrissCross
                 \return The node pointer. NULL or NULL_NODE if not found. Test result with ValidNode() function.
                 \sa ValidNode()
              */
-            nodeType *findNode ( keyType _key ) const;
+            BinaryNode<T> *findNode ( const char *_key ) const;
 
             //! Verifies that a node is valid.
             /*!
                 \param _node A node pointer.
                 \return True if the node is a valid node, false otherwise.
              */
-            bool ValidNode ( nodeType * _node ) const;
+            bool ValidNode ( const BinaryNode<T> *_node ) const;
 
         protected:
             inline char *reallocKey ( char *_pointer, char *_a );
             inline int *reallocKey ( int *_pointer, int *_a );
             inline unsigned long *reallocKey ( unsigned long *_pointer, unsigned long *_a );
 
-            inline char *newKey ( char *_a );
-            inline int *newKey ( int *_a );
-            inline unsigned long *newKey ( unsigned long *_a );
+            inline char *newKey ( const char *_a );
+            inline int *newKey ( const int *_a );
+            inline unsigned long *newKey ( const unsigned long *_a );
 
             inline bool compLT ( const char *_a, const char *_b ) const;
-            inline bool compLTEQU ( const char *_a, const char *_b ) const;
+            inline bool compLTEQ ( const char *_a, const char *_b ) const;
             inline bool compEQ ( const char *_a, const char *_b ) const;
 
             inline bool compLT ( const int *_a, const int *_b ) const;
-            inline bool compLTEQU ( const int *_a, const int *_b ) const;
+            inline bool compLTEQ ( const int *_a, const int *_b ) const;
             inline bool compEQ ( const int *_a, const int *_b ) const;
 
             inline bool compLT ( const unsigned long *_a, const unsigned long *_b ) const;
-            inline bool compLTEQU ( const unsigned long *_a, const unsigned long *_b ) const;
+            inline bool compLTEQ ( const unsigned long *_a, const unsigned long *_b ) const;
             inline bool compEQ ( const unsigned long *_a, const unsigned long *_b ) const;
 
             /*
             these are automatically called. no need to use them externally at all.
             */
-            void killAll ( nodeType *_rec );
+            void killAll ( BinaryNode<T> *_rec );
             void killAll ();
 
         public:
@@ -171,16 +146,16 @@ namespace CrissCross
             int size ();
 
             //! Will get the next node in the tree, useful as an iterator.
-            void getNext ( nodeType ** _current );
+            void getNext ( BinaryNode<T> ** _current );
 
             //! @cond
             /*
                 other old backward-compatible functions
             */
-            _CC_DEPRECATE_FUNCTION ( find )         dataType    GetData ( keyType _key ) const;
-            _CC_DEPRECATE_FUNCTION ( insert )       void        PutData ( keyType _key, dataType _rec );
-            _CC_DEPRECATE_FUNCTION ( deleteNode )   void        RemoveData ( keyType _key );
-            _CC_DEPRECATE_FUNCTION ( findNode )     nodeType    *LookupTree ( keyType _key );
+            _CC_DEPRECATE_FUNCTION ( find )         T           GetData ( const char *_key ) const;
+            _CC_DEPRECATE_FUNCTION ( insert )       void        PutData ( const char *_key, const T & _rec );
+            _CC_DEPRECATE_FUNCTION ( deleteNode )   void        RemoveData ( const char *_key );
+            _CC_DEPRECATE_FUNCTION ( findNode )     BinaryNode<T> *LookupTree ( const char *_key );
             _CC_DEPRECATE_FUNCTION ( size )         int         Size ();
                                                     void        Print ();
             //! @endcond
@@ -190,22 +165,22 @@ namespace CrissCross
             /*!
                 \return A DArray containing the data of the tree.
              */
-            DArray < dataType > *ConvertToDArray ();
+            DArray <T> *ConvertToDArray ();
 
             //! Converts the tree keys into a linearized DArray.
             /*!
                 \return A DArray containing the keys in the tree.
              */
-            DArray < keyType >  *ConvertIndexToDArray ();
+            DArray <char *>  *ConvertIndexToDArray ();
 
         protected:
-            void RecursiveConvertIndexToDArray ( DArray < keyType > *_darray, nodeType *_btree );
-            void RecursiveConvertToDArray ( DArray < dataType > *_darray, nodeType *_btree );
+            void RecursiveConvertIndexToDArray ( DArray <char *> *_darray, BinaryNode<T> *_btree );
+            void RecursiveConvertToDArray ( DArray <T> *_darray, BinaryNode<T> *_btree );
 
-            void rotateLeft ( nodeType * _x );
-            void rotateRight ( nodeType * _x );
-            void insertFixup ( nodeType * _x );
-            void deleteFixup ( nodeType * _x );
+            void rotateLeft ( BinaryNode<T> * _x );
+            void rotateRight ( BinaryNode<T> * _x );
+            void insertFixup ( BinaryNode<T> * _x );
+            void deleteFixup ( BinaryNode<T> * _x );
         };
     }
 }

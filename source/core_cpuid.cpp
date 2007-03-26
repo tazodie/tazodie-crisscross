@@ -1,12 +1,11 @@
 /*
+ *   CrissCross
+ *   A multi-purpose cross-platform library.
  *
- *                                   C R I S S C R O S S
- *                          A multi purpose cross platform library.
- *                             project started August 14, 2006
+ *   A product of IO.IN Research.
  *
- * Copyright (c) 2006-2007 IO.IN Research
- *
- * Licensed under the New BSD License.
+ *   (c) 2006-2007 Steven Noonan.
+ *   Licensed under the New BSD License.
  *
  */
 
@@ -120,21 +119,6 @@ call_cpuid (unsigned int request, unsigned int *eax, unsigned int *ebx, unsigned
   /* If the bit changed, then we support the CPUID instruction.  */
   if ((pre_change ^ post_change) & id_flag)
     {
-      /* The IA-32 ABI specifies that %ebx holds the address of the
-	 global offset table.  In PIC code, GCC seems to be unable to
-	 handle asms with result operands that live in %ebx; I get the
-	 message:
-
-	 error: can't find a register in class `BREG' while reloading
-	 `asm'
-	 
-	 So, to work around this, we save %ebx in %esi, restore %ebx
-	 after we've done the 'cpuid', and return %ebx's value in
-	 %esi.
-
-	 We include "memory" in the clobber list, because this is a
-	 synchronizing instruction; other processor's writes may
-	 become visible here.  */
       asm volatile ("mov %%ebx, %%esi\n\t" /* Save %ebx.  */
 		    "cpuid\n\t"
 		    "xchgl %%ebx, %%esi" /* Restore %ebx.  */
@@ -156,7 +140,7 @@ call_cpuid ( unsigned int op, unsigned int *_eax, unsigned int *_ebx,
 {
     __asm
     {
-		xor ecx, ecx;
+        xor ecx, ecx;
         mov eax, op;
         cpuid;
         mov edi,[_eax];
@@ -245,16 +229,17 @@ CoreCPUID::~CoreCPUID ()
     delete [] Ext;
     for ( i = 0; i < MAX_PROCESSORS; i++ )
     {
-        while ( proc[i]->caches.ValidIndex ( j ) )
+        while ( proc[i]->caches.validIndex ( j ) )
         {
-            delete [] proc[i]->caches.GetData ( j );
+            delete [] proc[i]->caches.getData ( j );
             j++;
         }
         j = 0;
-        RedBlackTree < Feature *, char *>::nodeType * node;
+        
+        BinaryNode<Feature *> *node;
 
         node = proc[i]->features.rootNode;
-        node->beenThere = RedBlackTree < Feature *, char *>::NODE_ITSELF_VISITED;
+        node->beenThere = RedBlackTree <Feature *>::NODE_ITSELF_VISITED;
         while ( proc[i]->features.ValidNode ( node ) )
         {
             delete ( Feature * ) node->data;
@@ -478,7 +463,7 @@ CoreCPUID::AddCacheDescription ( int processor, const char *description )
 
     CoreAssert ( temp != NULL );
     strcpy ( temp, description );
-    proc[processor]->caches.PutData ( temp );
+    proc[processor]->caches.insert ( temp );
     temp = NULL;
 }
 
@@ -714,7 +699,7 @@ CoreCPUID::DetectCount ( int processor )
     // AMD and Intel documentations state that if HTT is supported
     // then this the EBX:16 will reflect the logical processor count
     // otherwise the flag is reserved.
-    RedBlackTree < Feature *, char *>::nodeType * HTT_node = proc[processor]->features.findNode ( "HTT" );
+    BinaryNode<Feature*> * HTT_node = proc[processor]->features.findNode ( "HTT" );
 	proc[processor]->PhysicalCount = (char)( ( ( ( Std[4].eax >> 26 ) & 0x03f ) + 1 ) & 0xff );
     if ( HTT_node->data->Enabled )
     {
