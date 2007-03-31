@@ -12,9 +12,9 @@ endif
 prefix = /usr
 
 SOURCES = \
-compare.cpp \
 core_console.cpp \
 core_cpuid.cpp \
+core_databuffer.cpp \
 core_debug.cpp \
 core_error.cpp \
 core_filesystem.cpp \
