@@ -7,11 +7,10 @@ main: fastdep
 	+$(MAKE) -C source
 
 testapp: main
-	+$(MAKE) -C Application precomp
-	+$(MAKE) -C Application	
+	+$(MAKE) -C TestSuite	
 
 test: testapp
-	cd Application; LD_LIBRARY_PATH="../source" ./crisscross-test;
+	cd TestSuite; LD_LIBRARY_PATH="../source" ./crisscross-test;
 
 toolchain:
 	+$(MAKE) -C tools
@@ -22,6 +21,7 @@ install:
 clean:
 	$(MAKE) -C source clean
 	$(MAKE) -C Application clean
+	$(MAKE) -C TestSuite clean
 
 fastdep: toolchain
 	+$(MAKE) -C contrib/fastdep-0.15
