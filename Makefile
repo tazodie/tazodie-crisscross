@@ -20,7 +20,6 @@ install:
 
 clean:
 	$(MAKE) -C source clean
-	$(MAKE) -C Application clean
 	$(MAKE) -C TestSuite clean
 
 fastdep: toolchain
