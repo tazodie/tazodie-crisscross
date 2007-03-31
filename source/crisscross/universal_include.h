@@ -18,14 +18,14 @@
 //#  define APP_CODENAME            "Freya"         // v0.2.0 codename
 //#  define APP_CODENAME            "Hodur"         // v0.3.0 codename
 //#  define APP_CODENAME            "Baldur"        // v0.4.0 codename
-#    define APP_CODENAME            "Loki"          // v0.5.0 codename ( Milestone 2 )
-//#  define APP_CODENAME            "Ragnarok"      // v0.6.0 codename
+//#  define APP_CODENAME            "Loki"          // v0.5.0 codename ( Milestone 2 )
+#    define APP_CODENAME            "Ragnarok"      // v0.6.0 codename
 //#  define APP_CODENAME            "Heimdall"      // v0.7.0 codename
 //#  define APP_CODENAME            "Odin"          // v0.8.0 codename ( Milestone 3 )
 //#  define APP_CODENAME            "Thor"          // v0.9.0 codename ( Milestone 4 )
 //#  define APP_CODENAME            "Valhalla"      // v1.0.0 codename ( Milestone 5 )
 
-#   define APP_VERSION             "0.5.3-SVN"
+#   define APP_VERSION             "0.5.9999.1-SVN"
 #   define APP_BRANCH_AT_VERSION   "0.6.0"
 #   define APP_URL                 "http://www.uplinklabs.net/crisscross/"
 #   define APP_COPYRIGHT           "(c) 2006-2007 by IO.IN Research. Licensed under the New BSD License."
@@ -359,14 +359,6 @@ namespace CrissCross
      */
     namespace Data
     {
-        //! Data comparison namespace.
-        /*!
-            The functions contained here are designed to compare two items of a
-            given data type. Return values are similar to those of strcmp().
-         */
-        namespace Comparison
-        {
-        }
     }
 
     //! The debug namespace.
