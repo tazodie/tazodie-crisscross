@@ -13,25 +13,20 @@ namespace CrissCross
 {
     namespace Data
     {
-        namespace Comparison
-        {
-            //! Function for byte comparisons.
-            int Compare ( char _first, char _second );
-
-            //! Function for short integer comparisons.
-            int Compare ( short _first, short _second );
-
-            //! Function for integer comparisons.
-            int Compare ( int _first, int _second );
-
-            //! Function for long integer comparisons.
-            int Compare ( long _first, long _second );
-
-            //! Function for C-style string comparisons.
-            int Compare ( char *_first, char *_second );
-
-            //! Function for std::string comparisons.
-            int Compare ( std::string _first, std::string _second );
-        }
+		//! Function for generic data comparison.
+		/*!
+			Warning: This doesn't work for pointers. For character arrays,
+			wrap them in a CrissCross::Data::DataBuffer class first.
+		 */
+		template < class T >
+		int Compare ( const T &_first, const T &_second )
+		{
+			if ( _first < _second )
+				return -1;
+			else if ( _first > _second )
+				return 1;
+			else
+				return 0;
+		};
     }
 }

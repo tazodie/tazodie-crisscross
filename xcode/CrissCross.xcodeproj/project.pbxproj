@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B03278050BBDFCF20034D6EF /* core_databuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B03278040BBDFCF20034D6EF /* core_databuffer.cpp */; };
+		B03278090BBDFD100034D6EF /* core_databuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = B03278080BBDFD100034D6EF /* core_databuffer.h */; };
 		B08ECCB60B93D42E0029C89B /* compare.h in Headers */ = {isa = PBXBuildFile; fileRef = B08ECC960B93D42E0029C89B /* compare.h */; };
 		B08ECCB70B93D42E0029C89B /* core_console.h in Headers */ = {isa = PBXBuildFile; fileRef = B08ECC970B93D42E0029C89B /* core_console.h */; };
 		B08ECCB80B93D42E0029C89B /* core_cpuid.h in Headers */ = {isa = PBXBuildFile; fileRef = B08ECC980B93D42E0029C89B /* core_cpuid.h */; };
@@ -34,7 +36,6 @@
 		B08ECCD30B93D42E0029C89B /* udpsocket.h in Headers */ = {isa = PBXBuildFile; fileRef = B08ECCB30B93D42E0029C89B /* udpsocket.h */; };
 		B08ECCD40B93D42E0029C89B /* universal_include.h in Headers */ = {isa = PBXBuildFile; fileRef = B08ECCB40B93D42E0029C89B /* universal_include.h */; };
 		B08ECCD50B93D42E0029C89B /* win32_pthread_emulate.h in Headers */ = {isa = PBXBuildFile; fileRef = B08ECCB50B93D42E0029C89B /* win32_pthread_emulate.h */; };
-		B08ECCE30B93D4420029C89B /* compare.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B08ECCD60B93D4420029C89B /* compare.cpp */; };
 		B08ECCE40B93D4420029C89B /* core_console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B08ECCD70B93D4420029C89B /* core_console.cpp */; };
 		B08ECCE50B93D4420029C89B /* core_cpuid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B08ECCD80B93D4420029C89B /* core_cpuid.cpp */; };
 		B08ECCE60B93D4420029C89B /* core_debug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B08ECCD90B93D4420029C89B /* core_debug.cpp */; };
@@ -59,6 +60,8 @@
 /* Begin PBXFileReference section */
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		32BAE0B70371A74B00C91783 /* CrissCross_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrissCross_Prefix.pch; sourceTree = "<group>"; };
+		B03278040BBDFCF20034D6EF /* core_databuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = core_databuffer.cpp; path = ../source/core_databuffer.cpp; sourceTree = SOURCE_ROOT; };
+		B03278080BBDFD100034D6EF /* core_databuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = core_databuffer.h; path = ../source/crisscross/core_databuffer.h; sourceTree = SOURCE_ROOT; };
 		B08ECC960B93D42E0029C89B /* compare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = compare.h; path = ../source/crisscross/compare.h; sourceTree = SOURCE_ROOT; };
 		B08ECC970B93D42E0029C89B /* core_console.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = core_console.h; path = ../source/crisscross/core_console.h; sourceTree = SOURCE_ROOT; };
 		B08ECC980B93D42E0029C89B /* core_cpuid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = core_cpuid.h; path = ../source/crisscross/core_cpuid.h; sourceTree = SOURCE_ROOT; };
@@ -91,7 +94,6 @@
 		B08ECCB30B93D42E0029C89B /* udpsocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = udpsocket.h; path = ../source/crisscross/udpsocket.h; sourceTree = SOURCE_ROOT; };
 		B08ECCB40B93D42E0029C89B /* universal_include.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = universal_include.h; path = ../source/crisscross/universal_include.h; sourceTree = SOURCE_ROOT; };
 		B08ECCB50B93D42E0029C89B /* win32_pthread_emulate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = win32_pthread_emulate.h; path = ../source/crisscross/win32_pthread_emulate.h; sourceTree = SOURCE_ROOT; };
-		B08ECCD60B93D4420029C89B /* compare.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = compare.cpp; path = ../source/compare.cpp; sourceTree = SOURCE_ROOT; };
 		B08ECCD70B93D4420029C89B /* core_console.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = core_console.cpp; path = ../source/core_console.cpp; sourceTree = SOURCE_ROOT; };
 		B08ECCD80B93D4420029C89B /* core_cpuid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = core_cpuid.cpp; path = ../source/core_cpuid.cpp; sourceTree = SOURCE_ROOT; };
 		B08ECCD90B93D4420029C89B /* core_debug.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = core_debug.cpp; path = ../source/core_debug.cpp; sourceTree = SOURCE_ROOT; };
@@ -170,9 +172,9 @@
 				B08ECCF30B93D44C0029C89B /* textwriter.cpp */,
 				B08ECCF40B93D44C0029C89B /* udpsocket.cpp */,
 				B08ECCF50B93D44C0029C89B /* universal_include.cpp */,
-				B08ECCD60B93D4420029C89B /* compare.cpp */,
 				B08ECCD70B93D4420029C89B /* core_console.cpp */,
 				B08ECCD80B93D4420029C89B /* core_cpuid.cpp */,
+				B03278040BBDFCF20034D6EF /* core_databuffer.cpp */,
 				B08ECCD90B93D4420029C89B /* core_debug.cpp */,
 				B08ECCDA0B93D4420029C89B /* core_error.cpp */,
 				B08ECCDB0B93D4420029C89B /* core_filesystem.cpp */,
@@ -193,6 +195,7 @@
 				B08ECC960B93D42E0029C89B /* compare.h */,
 				B08ECC970B93D42E0029C89B /* core_console.h */,
 				B08ECC980B93D42E0029C89B /* core_cpuid.h */,
+				B03278080BBDFD100034D6EF /* core_databuffer.h */,
 				B08ECC990B93D42E0029C89B /* core_debug.h */,
 				B08ECC9A0B93D42E0029C89B /* core_deprecate.h */,
 				B08ECC9B0B93D42E0029C89B /* core_error.h */,
@@ -260,6 +263,7 @@
 				B08ECCD30B93D42E0029C89B /* udpsocket.h in Headers */,
 				B08ECCD40B93D42E0029C89B /* universal_include.h in Headers */,
 				B08ECCD50B93D42E0029C89B /* win32_pthread_emulate.h in Headers */,
+				B03278090BBDFD100034D6EF /* core_databuffer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,7 +308,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B08ECCE30B93D4420029C89B /* compare.cpp in Sources */,
 				B08ECCE40B93D4420029C89B /* core_console.cpp in Sources */,
 				B08ECCE50B93D4420029C89B /* core_cpuid.cpp in Sources */,
 				B08ECCE60B93D4420029C89B /* core_debug.cpp in Sources */,
@@ -323,6 +326,7 @@
 				B08ECCF90B93D44C0029C89B /* textwriter.cpp in Sources */,
 				B08ECCFA0B93D44C0029C89B /* udpsocket.cpp in Sources */,
 				B08ECCFB0B93D44C0029C89B /* universal_include.cpp in Sources */,
+				B03278050BBDFCF20034D6EF /* core_databuffer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

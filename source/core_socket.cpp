@@ -141,13 +141,6 @@ CoreSocket::IsBanned ( unsigned long _host ) const
         return false;
 }
 
-CrissCross::Errors
-CoreSocket::Listen ( unsigned short _port )
-{
-    /* CoreSocket::Listen does nothing. This is an abstract class. */
-    return CC_ERR_NOT_IMPLEMENTED;
-}
-
 int
 CoreSocket::Read ( std::string &_output )
 {

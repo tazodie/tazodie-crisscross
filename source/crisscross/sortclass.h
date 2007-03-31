@@ -31,12 +31,11 @@ namespace CrissCross
 
             //! The abstract sort function.
             /*!
-                Does nothing except return 0.
+                Does nothing, and cannot be called (abstract).
                 \param _array The array to sort.
                 \param _size The size of the array to sort.
-                \return Always 0. Abstract class.
              */
-            virtual int Sort ( T *_array, int _size ) { return 0; };
+            virtual int Sort ( T *_array, int _size ) = 0;
 
             //! The swap function.
             /*!

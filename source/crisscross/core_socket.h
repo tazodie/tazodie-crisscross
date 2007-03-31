@@ -156,7 +156,7 @@ namespace CrissCross
                 \return If the return value is greater than zero, it is an 'errno'
                 value. If it is less than zero, it is a socketError value.
              */
-            virtual CrissCross::Errors Listen ( unsigned short _port );
+            virtual CrissCross::Errors Listen ( unsigned short _port ) = 0;
 
             //! Reads a block of data with a specified maximum size.
             /*!
