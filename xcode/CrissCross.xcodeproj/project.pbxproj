@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		B03278050BBDFCF20034D6EF /* core_databuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B03278040BBDFCF20034D6EF /* core_databuffer.cpp */; };
 		B03278090BBDFD100034D6EF /* core_databuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = B03278080BBDFD100034D6EF /* core_databuffer.h */; };
-		B08ECCB60B93D42E0029C89B /* compare.h in Headers */ = {isa = PBXBuildFile; fileRef = B08ECC960B93D42E0029C89B /* compare.h */; };
+		B03278C00BBE090E0034D6EF /* core_compare.h in Headers */ = {isa = PBXBuildFile; fileRef = B03278BF0BBE090E0034D6EF /* core_compare.h */; };
 		B08ECCB70B93D42E0029C89B /* core_console.h in Headers */ = {isa = PBXBuildFile; fileRef = B08ECC970B93D42E0029C89B /* core_console.h */; };
 		B08ECCB80B93D42E0029C89B /* core_cpuid.h in Headers */ = {isa = PBXBuildFile; fileRef = B08ECC980B93D42E0029C89B /* core_cpuid.h */; };
 		B08ECCB90B93D42E0029C89B /* core_debug.h in Headers */ = {isa = PBXBuildFile; fileRef = B08ECC990B93D42E0029C89B /* core_debug.h */; };
@@ -62,7 +62,7 @@
 		32BAE0B70371A74B00C91783 /* CrissCross_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrissCross_Prefix.pch; sourceTree = "<group>"; };
 		B03278040BBDFCF20034D6EF /* core_databuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = core_databuffer.cpp; path = ../source/core_databuffer.cpp; sourceTree = SOURCE_ROOT; };
 		B03278080BBDFD100034D6EF /* core_databuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = core_databuffer.h; path = ../source/crisscross/core_databuffer.h; sourceTree = SOURCE_ROOT; };
-		B08ECC960B93D42E0029C89B /* compare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = compare.h; path = ../source/crisscross/compare.h; sourceTree = SOURCE_ROOT; };
+		B03278BF0BBE090E0034D6EF /* core_compare.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = core_compare.h; path = ../source/crisscross/core_compare.h; sourceTree = SOURCE_ROOT; };
 		B08ECC970B93D42E0029C89B /* core_console.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = core_console.h; path = ../source/crisscross/core_console.h; sourceTree = SOURCE_ROOT; };
 		B08ECC980B93D42E0029C89B /* core_cpuid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = core_cpuid.h; path = ../source/crisscross/core_cpuid.h; sourceTree = SOURCE_ROOT; };
 		B08ECC990B93D42E0029C89B /* core_debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = core_debug.h; path = ../source/crisscross/core_debug.h; sourceTree = SOURCE_ROOT; };
@@ -192,7 +192,7 @@
 		B08ECC950B93D41D0029C89B /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				B08ECC960B93D42E0029C89B /* compare.h */,
+				B03278BF0BBE090E0034D6EF /* core_compare.h */,
 				B08ECC970B93D42E0029C89B /* core_console.h */,
 				B08ECC980B93D42E0029C89B /* core_cpuid.h */,
 				B03278080BBDFD100034D6EF /* core_databuffer.h */,
@@ -236,7 +236,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B08ECCB60B93D42E0029C89B /* compare.h in Headers */,
 				B08ECCB70B93D42E0029C89B /* core_console.h in Headers */,
 				B08ECCB80B93D42E0029C89B /* core_cpuid.h in Headers */,
 				B08ECCB90B93D42E0029C89B /* core_debug.h in Headers */,
@@ -264,6 +263,7 @@
 				B08ECCD40B93D42E0029C89B /* universal_include.h in Headers */,
 				B08ECCD50B93D42E0029C89B /* win32_pthread_emulate.h in Headers */,
 				B03278090BBDFD100034D6EF /* core_databuffer.h in Headers */,
+				B03278C00BBE090E0034D6EF /* core_compare.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

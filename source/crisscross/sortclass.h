@@ -12,7 +12,7 @@
 #ifndef __included_sortclass_h
 #define __included_sortclass_h
 
-#include <crisscross/compare.h>
+#include <crisscross/core_compare.h>
 
 namespace CrissCross
 {

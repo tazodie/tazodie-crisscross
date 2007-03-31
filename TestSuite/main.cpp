@@ -1,6 +1,6 @@
 #include <crisscross/universal_include.h>
 
-#include <crisscross/compare.h>
+#include <crisscross/core_compare.h>
 #include <crisscross/core_console.h>
 #include <crisscross/core_databuffer.h>
 
