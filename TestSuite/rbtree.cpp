@@ -1,3 +1,4 @@
+#include "header.h"
 #include "rbtree.h"
 #include "testutils.h"
 
