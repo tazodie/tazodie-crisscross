@@ -1,6 +1,6 @@
 include common.mk
 
-all: testapp
+all: main
 
 main: fastdep
 	+$(MAKE) -C source precomp
