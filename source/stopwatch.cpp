@@ -18,17 +18,27 @@ namespace CrissCross
     {
         Stopwatch::Stopwatch()
         {
-        #if defined ( TARGET_OS_WINDOWS )
+#if defined ( TARGET_OS_WINDOWS )
             LARGE_INTEGER freq;
             QueryPerformanceFrequency ( &freq );
             m_tickInterval = 1.0 / (double)freq.QuadPart;
-        #elif defined ( TARGET_OS_MACOSX )
-	        mach_timebase_info ( &m_timebase );
-        #endif
+#elif defined ( TARGET_OS_MACOSX )
+			m_timebase = (mach_timebase_info_data_t *)malloc(sizeof(mach_timebase_info_data_t));
+	        mach_timebase_info ( m_timebase );
+#elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
+            m_start = (timeval *)malloc(sizeof(timeval));
+            m_finish = (timeval *)malloc(sizeof(timeval));
+#endif
         }
 
         Stopwatch::~Stopwatch()
         {
+#if defined ( TARGET_OS_MACOSX )
+			free ( m_timebase );
+#elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
+			free ( m_start );
+			free ( m_finish );
+#endif
         }
 
         void Stopwatch::Start()
