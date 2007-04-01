@@ -11,6 +11,7 @@ stopwatch.cpp \
 compare.cpp \
 llist.cpp \
 rbtree.cpp \
+sort.cpp \
 main.cpp
 
 OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)
