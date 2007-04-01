@@ -174,8 +174,11 @@ CoreIOReader::ReadLine ( char *_buffer, int _bufferLength )
 		*bufptr = c;
 		
 		if ( bytesRead >= lineEndingSize )
-			if ( strncmp ( bufptr - lineEndingSize, m_lineEnding, lineEndingSize ) == 0 )
+			if ( strncmp ( bufptr - (lineEndingSize - 1), m_lineEnding, lineEndingSize ) == 0 )
+			{
+				*(bufptr - (lineEndingSize - 1 )) = '\x0';
 				break;
+			}
 	}
 
 #ifndef __GNUC__
