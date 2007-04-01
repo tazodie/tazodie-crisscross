@@ -13,6 +13,7 @@
 
 #include "testutils.h"
 #include "compare.h"
+#include "stopwatch.h"
 #include "llist.h"
 #include "rbtree.h"
 
@@ -32,6 +33,8 @@ int RunApplication (int argc, char **argv) {
 	WritePrefix ( "LList" ); WriteResult ( TestLList() );
 	g_console->WriteLine ( "Running CrissCross::Data::RedBlackTree tests..." );
 	WritePrefix ( "RedBlackTree" ); WriteResult ( TestRedBlackTree() );
+	g_console->WriteLine ( "Running CrissCross::System::Stopwatch tests..." );
+	WritePrefix ( "Stopwatch" ); WriteResult ( TestStopwatch() );
 	delete g_console;
     return 0;
 }
