@@ -441,7 +441,7 @@ template <class T>
     }
 
     if ( z == NULL_NODE )
-        throw;
+        return STATUS_NOT_FOUND;
 
     return killNode ( z );
 }

@@ -9,6 +9,7 @@ SOURCES = \
 testutils.cpp \
 compare.cpp \
 llist.cpp \
+rbtree.cpp \
 main.cpp
 
 OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)

@@ -28,6 +28,7 @@ namespace CrissCross
         typedef enum
         {
             STATUS_OK,                  //!< Success.
+			STATUS_NOT_FOUND,			//!< Node couldn't be found.
             STATUS_NULL_POINTER,        //!< A null pointer was found in a parameter.
             STATUS_MEM_EXHAUSTED        //!< Out of memory.
         } statusEnum;
