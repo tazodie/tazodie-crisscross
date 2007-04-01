@@ -12,6 +12,7 @@
 #ifndef __included_core_system_h
 #define __included_core_system_h
 
+#include <crisscross/universal_include.h>
 #include <crisscross/core_cpuid.h>
 
 #    if defined ( TARGET_OS_WINDOWS )

@@ -12,6 +12,8 @@
 #ifndef __included_core_io_h
 #define __included_core_io_h
 
+#include <crisscross/universal_include.h>
+
 namespace CrissCross
 {
     namespace IO

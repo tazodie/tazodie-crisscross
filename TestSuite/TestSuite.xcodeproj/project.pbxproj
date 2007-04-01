@@ -8,6 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		8DD76F650486A84900D96B5E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.cpp */; settings = {ATTRIBUTES = (); }; };
+		B02CA40F0BC0757200E266AB /* compare.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B02CA40A0BC0757200E266AB /* compare.cpp */; };
+		B02CA4100BC0757200E266AB /* compare.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B02CA40B0BC0757200E266AB /* compare.h */; };
+		B02CA4110BC0757200E266AB /* header.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B02CA40C0BC0757200E266AB /* header.h */; };
+		B02CA4120BC0757200E266AB /* llist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B02CA40D0BC0757200E266AB /* llist.cpp */; };
+		B02CA4130BC0757200E266AB /* llist.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B02CA40E0BC0757200E266AB /* llist.h */; };
+		B02CA4180BC0757E00E266AB /* rbtree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B02CA4140BC0757E00E266AB /* rbtree.cpp */; };
+		B02CA4190BC0757E00E266AB /* rbtree.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B02CA4150BC0757E00E266AB /* rbtree.h */; };
+		B02CA41A0BC0757E00E266AB /* stopwatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B02CA4160BC0757E00E266AB /* stopwatch.cpp */; };
+		B02CA41B0BC0757E00E266AB /* stopwatch.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B02CA4170BC0757E00E266AB /* stopwatch.h */; };
+		B02CA41E0BC0758700E266AB /* testutils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B02CA41C0BC0758700E266AB /* testutils.cpp */; };
+		B02CA41F0BC0758700E266AB /* testutils.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B02CA41D0BC0758700E266AB /* testutils.h */; };
+		B02CA4760BC077DD00E266AB /* sort.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = B02CA4740BC077DD00E266AB /* sort.h */; };
+		B02CA4770BC077DD00E266AB /* sort.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B02CA4750BC077DD00E266AB /* sort.cpp */; };
 		B03277C10BBDF89F0034D6EF /* libCrissCross.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B03277C00BBDF89F0034D6EF /* libCrissCross.a */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +41,13 @@
 			dstPath = /usr/share/man/man1/;
 			dstSubfolderSpec = 0;
 			files = (
+				B02CA4100BC0757200E266AB /* compare.h in CopyFiles */,
+				B02CA4110BC0757200E266AB /* header.h in CopyFiles */,
+				B02CA4130BC0757200E266AB /* llist.h in CopyFiles */,
+				B02CA4190BC0757E00E266AB /* rbtree.h in CopyFiles */,
+				B02CA41B0BC0757E00E266AB /* stopwatch.h in CopyFiles */,
+				B02CA41F0BC0758700E266AB /* testutils.h in CopyFiles */,
+				B02CA4760BC077DD00E266AB /* sort.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
@@ -35,6 +55,19 @@
 
 /* Begin PBXFileReference section */
 		08FB7796FE84155DC02AAC07 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		B02CA40A0BC0757200E266AB /* compare.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = compare.cpp; sourceTree = "<group>"; };
+		B02CA40B0BC0757200E266AB /* compare.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = compare.h; sourceTree = "<group>"; };
+		B02CA40C0BC0757200E266AB /* header.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = header.h; sourceTree = "<group>"; };
+		B02CA40D0BC0757200E266AB /* llist.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llist.cpp; sourceTree = "<group>"; };
+		B02CA40E0BC0757200E266AB /* llist.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llist.h; sourceTree = "<group>"; };
+		B02CA4140BC0757E00E266AB /* rbtree.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = rbtree.cpp; sourceTree = "<group>"; };
+		B02CA4150BC0757E00E266AB /* rbtree.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = rbtree.h; sourceTree = "<group>"; };
+		B02CA4160BC0757E00E266AB /* stopwatch.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = stopwatch.cpp; sourceTree = "<group>"; };
+		B02CA4170BC0757E00E266AB /* stopwatch.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = stopwatch.h; sourceTree = "<group>"; };
+		B02CA41C0BC0758700E266AB /* testutils.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = testutils.cpp; sourceTree = "<group>"; };
+		B02CA41D0BC0758700E266AB /* testutils.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = testutils.h; sourceTree = "<group>"; };
+		B02CA4740BC077DD00E266AB /* sort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sort.h; sourceTree = "<group>"; };
+		B02CA4750BC077DD00E266AB /* sort.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sort.cpp; sourceTree = "<group>"; };
 		B032773C0BBDF02B0034D6EF /* CrissCross.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CrissCross.xcodeproj; path = ../xcode/CrissCross.xcodeproj; sourceTree = SOURCE_ROOT; };
 		B032776C0BBDF1450034D6EF /* TestSuite */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TestSuite; sourceTree = BUILT_PRODUCTS_DIR; };
 		B03277C00BBDF89F0034D6EF /* libCrissCross.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCrissCross.a; path = ../xcode/build/Debug/libCrissCross.a; sourceTree = SOURCE_ROOT; };
@@ -67,7 +100,20 @@
 		08FB7795FE84155DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				B02CA41C0BC0758700E266AB /* testutils.cpp */,
+				B02CA41D0BC0758700E266AB /* testutils.h */,
+				B02CA4140BC0757E00E266AB /* rbtree.cpp */,
+				B02CA4150BC0757E00E266AB /* rbtree.h */,
+				B02CA4160BC0757E00E266AB /* stopwatch.cpp */,
+				B02CA4170BC0757E00E266AB /* stopwatch.h */,
+				B02CA40A0BC0757200E266AB /* compare.cpp */,
+				B02CA40B0BC0757200E266AB /* compare.h */,
+				B02CA40C0BC0757200E266AB /* header.h */,
+				B02CA40D0BC0757200E266AB /* llist.cpp */,
+				B02CA40E0BC0757200E266AB /* llist.h */,
 				08FB7796FE84155DC02AAC07 /* main.cpp */,
+				B02CA4740BC077DD00E266AB /* sort.h */,
+				B02CA4750BC077DD00E266AB /* sort.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -153,6 +199,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DD76F650486A84900D96B5E /* main.cpp in Sources */,
+				B02CA40F0BC0757200E266AB /* compare.cpp in Sources */,
+				B02CA4120BC0757200E266AB /* llist.cpp in Sources */,
+				B02CA4180BC0757E00E266AB /* rbtree.cpp in Sources */,
+				B02CA41A0BC0757E00E266AB /* stopwatch.cpp in Sources */,
+				B02CA41E0BC0758700E266AB /* testutils.cpp in Sources */,
+				B02CA4770BC077DD00E266AB /* sort.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

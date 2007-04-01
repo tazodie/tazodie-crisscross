@@ -12,11 +12,11 @@
 #ifndef __included_core_mutex_h
 #define __included_core_mutex_h
 
-#if defined ( WIN32 )
-#	include <windows.h>
-#endif
+#include <crisscross/universal_include.h>
 
-#ifndef WIN32
+#if defined ( TARGET_OS_WINDOWS )
+#	include <windows.h>
+#else
 #	include <pthread.h>
 #endif
 
