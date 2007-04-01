@@ -80,7 +80,7 @@ void DataBuffer::setData ( const char *_data )
 {
 	if ( m_buffer ) free ( m_buffer );
 
-	m_size = strlen ( _data );
+	m_size = strlen ( _data ) + 1;
 	m_buffer = (char *)malloc ( m_size );
 	strcpy ( m_buffer, _data );
 }
