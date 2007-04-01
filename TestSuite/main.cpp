@@ -14,6 +14,7 @@
 #include "testutils.h"
 #include "compare.h"
 #include "llist.h"
+#include "rbtree.h"
 
 using namespace CrissCross;
 
@@ -29,5 +30,7 @@ int RunApplication (int argc, char **argv) {
 	WritePrefix ( "Unsigned Integer Compare" ); WriteResult ( TestComparison_UnsignedInteger() );
 	g_console->WriteLine ( "Running CrissCross::Data::LList tests..." );
 	WritePrefix ( "LList" ); WriteResult ( TestLList() );
+	g_console->WriteLine ( "Running CrissCross::Data::RedBlackTree tests..." );
+	WritePrefix ( "RedBlackTree" ); WriteResult ( TestRedBlackTree() );
     return 0;
 }
