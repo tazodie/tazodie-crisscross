@@ -12,8 +12,8 @@
 #ifndef __included_core_thread_h
 #define __included_core_thread_h
 
+#include <crisscross/universal_include.h>
 #include <crisscross/win32_pthread_emulate.h>
-
 #include <crisscross/core_system.h>
 
 #    if defined ( TARGET_OS_WINDOWS )

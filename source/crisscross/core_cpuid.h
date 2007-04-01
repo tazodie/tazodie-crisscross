@@ -12,6 +12,8 @@
 #ifndef __included_core_cpuid_h
 #define __included_core_cpuid_h
 
+#include <crisscross/universal_include.h>
+
 #    ifdef ENABLE_CPUID
 
 #        ifdef TARGET_OS_WINDOWS

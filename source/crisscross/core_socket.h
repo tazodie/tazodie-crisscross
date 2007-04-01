@@ -12,8 +12,9 @@
 #ifndef __included_core_socket_h
 #define __included_core_socket_h
 
-#include <crisscross/core_network.h>
+#include <crisscross/universal_include.h>
 
+#include <crisscross/core_network.h>
 #include <crisscross/rbtree.h>
 
 //#define ENABLE_PROTECTION

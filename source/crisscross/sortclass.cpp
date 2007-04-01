@@ -47,10 +47,10 @@ namespace CrissCross
                 for ( int j = i; j * 2 + 1 < _size; ) {
                     int k = j * 2 + 1;
 
-                    if ( k + 1 < _size && Comparison::Compare ( _array[k], _array[k + 1] ) < 0 )
+                    if ( k + 1 < _size && Compare ( _array[k], _array[k + 1] ) < 0 )
                         k++;
 
-                    if ( Comparison::Compare ( _array[j], _array[k] ) < 0 )
+                    if ( Compare ( _array[j], _array[k] ) < 0 )
                         Swap ( _array, j, k );
                     else
                         break;
@@ -66,9 +66,9 @@ namespace CrissCross
                 Swap ( _array, 0, i );
                 for ( int j = 0; j *2 + 1 < i; ) {
                     int k = (j * 2) + 1;
-                    if ( k + 1 < i && Comparison::Compare ( _array[k], _array[k + 1] ) < 0 )
+                    if ( k + 1 < i && Compare ( _array[k], _array[k + 1] ) < 0 )
                         k++;
-                    if ( Comparison::Compare ( _array[j], _array[k] ) < 0 )
+                    if ( Compare ( _array[j], _array[k] ) < 0 )
                         Swap ( _array, j, k );
                     else
                         break;
