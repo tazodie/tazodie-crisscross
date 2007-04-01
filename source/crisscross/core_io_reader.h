@@ -12,6 +12,9 @@
 #ifndef __included_core_io_reader_h
 #define __included_core_io_reader_h
 
+#include <stdio.h>
+#include <string>
+
 #include <crisscross/core_error.h>
 #include <crisscross/core_mutex.h>
 #include <crisscross/core_io.h>
