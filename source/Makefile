@@ -89,6 +89,7 @@ else
 endif
 	@$(NM) $(OUTDIR)/$(OUTBIN) > $(OUTDIR)/$(OUTBIN).map
 	@$(STRIP) $(OUTDIR)/$(OUTBIN)
+	@echo "Done."
 
 $(PCH): crisscross/universal_include.h
 	@$(CCDV) $(CXX) -c crisscross/universal_include.h -o $(PCH) $(CXXFLAGS)
