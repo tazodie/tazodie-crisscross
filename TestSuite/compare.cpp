@@ -9,8 +9,7 @@
  *
  */
 
-#include <crisscross/universal_include.h>
-
+#include "header.h"
 #include "compare.h"
 #include "testutils.h"
 

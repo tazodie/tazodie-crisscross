@@ -12,6 +12,8 @@
 #ifndef __included_stopwatch_h
 #define __included_stopwatch_h
 
+//#include <crisscross/universal_include.h>
+
 #if defined ( TARGET_OS_MACOSX )
 #   include <CoreServices/CoreServices.h>
 #   include <mach/mach.h>
@@ -39,6 +41,8 @@ namespace CrissCross
 #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
             struct timeval              m_start;
             struct timeval              m_finish;
+#else
+#error No target OS defined (did you forget to include crisscross/universal_include.h?)
 #endif
         public:
             //! The constructor.
