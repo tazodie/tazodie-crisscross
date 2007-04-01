@@ -151,6 +151,41 @@ CoreIOReader::Read ( char *_buffer, int _bufferLength, int _bufferIndex,
 }
 
 int
+CoreIOReader::ReadLine ( char *_buffer, int _bufferLength )
+{
+	CoreAssert ( this != NULL );
+	if ( !IsOpen() ) return CC_ERR_INVALID_BUFFER;
+	
+#ifndef __GNUC__
+	m_ioMutex->Lock ();
+#endif
+
+	size_t bytesRead = 0, lineEndingSize = strlen(m_lineEnding);
+	char c = '\x0';
+		
+	for ( char *bufptr = _buffer; (bufptr - _buffer) < _bufferLength; bufptr++ )
+	{
+		c = (char) fgetc ( m_fileInputPointer );
+		
+		if ( c == (char)EOF )
+			break;
+		bytesRead++;		
+		
+		*bufptr = c;
+		
+		if ( bytesRead >= lineEndingSize )
+			if ( strncmp ( bufptr - lineEndingSize, m_lineEnding, lineEndingSize ) == 0 )
+				break;
+	}
+
+#ifndef __GNUC__
+	m_ioMutex->Unlock ();
+#endif
+
+	return bytesRead;
+}
+
+int
 CoreIOReader::ReadLine ( std::string &_string )
 {
     CoreAssert ( this != NULL );
