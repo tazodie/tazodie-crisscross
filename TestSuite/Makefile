@@ -6,6 +6,9 @@ OUTNAME = crisscross-test
 OUTBIN = $(OUTNAME)
 
 SOURCES = \
+testutils.cpp \
+compare.cpp \
+llist.cpp \
 main.cpp
 
 OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)

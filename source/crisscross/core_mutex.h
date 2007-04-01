@@ -16,6 +16,10 @@
 #	include <windows.h>
 #endif
 
+#ifndef WIN32
+#	include <pthread.h>
+#endif
+
 namespace CrissCross
 {
     namespace System
