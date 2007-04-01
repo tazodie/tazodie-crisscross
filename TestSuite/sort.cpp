@@ -18,12 +18,12 @@ using namespace CrissCross::Data;
 
 int TestHeapSort()
 {
-	int int_array[] = {4, 3, 6, 2, 1, 5, 7, 9, 8 };
+	int int_array[] = {0, 4, 3, 6, 2, 1, 5, 7, 9, 8 };
 	HeapSort<int> *hs = new HeapSort<int>();
-	hs->Sort ( int_array, sizeof(int_array) );
-	for ( int i = 1; i <= 9; i++ )
+	hs->Sort ( int_array, 10 );
+	for ( int i = 0; i < 10; i++ )
 	{
-		if ( int_array[i - 1] != i )
+		if ( int_array[i] != i )
 			return i;
 	}
 	return 0;
