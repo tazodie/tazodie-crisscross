@@ -23,8 +23,8 @@ namespace CrissCross
             QueryPerformanceFrequency ( &freq );
             m_tickInterval = 1.0 / (double)freq.QuadPart;
 #elif defined ( TARGET_OS_MACOSX )
-			m_timebase = (mach_timebase_info_data_t *)malloc(sizeof(mach_timebase_info_data_t));
-	        mach_timebase_info ( m_timebase );
+            m_timebase = (mach_timebase_info_data_t *)malloc(sizeof(mach_timebase_info_data_t));
+            mach_timebase_info ( m_timebase );
 #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
             m_start = (timeval *)malloc(sizeof(timeval));
             m_finish = (timeval *)malloc(sizeof(timeval));
@@ -34,10 +34,10 @@ namespace CrissCross
         Stopwatch::~Stopwatch()
         {
 #if defined ( TARGET_OS_MACOSX )
-			free ( m_timebase );
+            free ( m_timebase );
 #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
-			free ( m_start );
-			free ( m_finish );
+            free ( m_start );
+            free ( m_finish );
 #endif
         }
 
@@ -46,9 +46,9 @@ namespace CrissCross
 #if defined ( TARGET_OS_WINDOWS )
             QueryPerformanceCounter ( &m_start );
 #elif defined ( TARGET_OS_MACOSX )
-	        m_start = mach_absolute_time ();
+            m_start = mach_absolute_time ();
 #elif defined ( TARGET_OS_LINUX )
-            gettimeofday ( &m_start, NULL );
+            gettimeofday ( m_start, NULL );
 #endif
         }
 
@@ -59,7 +59,7 @@ namespace CrissCross
 #elif defined ( TARGET_OS_MACOSX )
 	        m_finish = mach_absolute_time ();
 #elif defined ( TARGET_OS_LINUX )
-            gettimeofday ( &m_finish, NULL );
+            gettimeofday ( m_finish, NULL );
 #endif
         }
 
@@ -71,8 +71,8 @@ namespace CrissCross
             uint64_t elapsed = m_finish - m_start;
             return double(elapsed) * ( m_timebase.numer / m_timebase.denom ) / 1000000000.0;
 #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
-            return (double)(m_finish.tv_sec - m_start.tv_sec) +
-                ( (double)(m_finish.tv_usec) - (double)(m_start.tv_usec) ) / 1000000.0;
+            return (double)(m_finish->tv_sec - m_start->tv_sec) +
+                ( (double)(m_finish->tv_usec) - (double)(m_start->tv_usec) ) / 1000000.0;
 #endif
         }
     }
