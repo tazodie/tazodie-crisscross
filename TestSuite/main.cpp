@@ -32,5 +32,6 @@ int RunApplication (int argc, char **argv) {
 	WritePrefix ( "LList" ); WriteResult ( TestLList() );
 	g_console->WriteLine ( "Running CrissCross::Data::RedBlackTree tests..." );
 	WritePrefix ( "RedBlackTree" ); WriteResult ( TestRedBlackTree() );
+	delete g_console;
     return 0;
 }

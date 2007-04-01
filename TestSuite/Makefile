@@ -58,11 +58,11 @@ $(PCH): header.h
 
 $(OBJDIR)/%.o: %.cpp
 	@test -d $(dir $(OBJDIR)/$<) || mkdir -p $(dir $(OBJDIR)/$<)
-	@$(CCDV) $(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(OBJDIR)/%.o: %.c
 	@test -d $(dir $(OBJDIR)/$<) || mkdir -p $(dir $(OBJDIR)/$<)
-	@$(CCDV) $(CC) $(CXXFLAGS) -c $< -o $@
+	$(CC) $(CXXFLAGS) -c $< -o $@
 
 .depend:
 ifeq ($(GCC_ISEMULATED),yes)

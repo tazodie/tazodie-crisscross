@@ -1,11 +1,12 @@
-VERSION = 0.5.3
+VERSION = 0.5.9999
 VERSION_MAJOR = 0
 
 CXX = g++
 CC = gcc
 LINK = $(CXX)
 
-CFLAGS = -O2 -g -Wall
+CFLAGS = -O0 -g -Wall
+CXXFLAGS = $(CFLAGS)
 INCLUDES = 
 
 GCC_APPLE    := $(shell $(CXX) -v 2>&1 | \
