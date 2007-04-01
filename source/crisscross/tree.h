@@ -24,11 +24,11 @@ public:
     BinaryNode *right;
     BinaryNode *parent;
 
-    BinaryNode( ) : id ( NULL ), left( NULL ), parent ( NULL ), right( NULL ) { }
+    BinaryNode( ) : id ( NULL ), left( NULL ), right( NULL ), parent ( NULL ) { }
 
     BinaryNode( char *theKey, const T & theElement,
 		BinaryNode *pt, BinaryNode *lt, BinaryNode *rt )
-      : data ( theElement ), id ( theKey), left( lt ), parent ( pt ), right( rt ) { }
+      : data ( theElement ), id ( theKey), left( lt ), right( rt ), parent ( pt ) { }
 };
 
 #include <crisscross/rbtree.h>

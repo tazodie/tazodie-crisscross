@@ -42,7 +42,7 @@ void WriteResult ( int _result )
 
 char *newStr ( const char *_string )
 {
-	char *retval = new char[strlen(_string)];
+	char *retval = new char[strlen(_string) + 1];
 	strcpy ( retval, _string );
 	return retval;
 }
