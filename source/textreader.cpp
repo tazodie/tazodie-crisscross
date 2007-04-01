@@ -27,7 +27,6 @@ TextReader::~TextReader ()
 
 CrissCross::Errors TextReader::Open ( const char *_file )
 {
-
 	Close ();
 
     int _filePathLength = 0;

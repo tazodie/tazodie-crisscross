@@ -83,7 +83,7 @@ namespace CrissCross
             //! Reads one character from the file buffer.
             /*!
                \param _destination A pointer to where the character can be stored.
-               \return Number of total bytes read (this is here for future multibyte character support).
+               \return Number of total bytes read.
              */
             virtual int Read ( char *_destination );
 
@@ -104,6 +104,14 @@ namespace CrissCross
                \return The number of bytes read.
              */
             virtual int ReadLine ( std::string &_string );
+
+            //! Reads a line of data.
+            /*!
+               \param _buffer A character buffer for the data to be stored in.
+               \param _bufferLength The length of the buffer specified in _buffer.
+               \return The number of bytes read.
+             */
+            virtual int ReadLine ( char *_buffer, int _bufferLength );
 
             //! Sets the line ending convention used by this CoreIOReader instance.
             /*!
