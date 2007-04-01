@@ -7,6 +7,7 @@ OUTBIN = $(OUTNAME)
 
 SOURCES = \
 testutils.cpp \
+stopwatch.cpp \
 compare.cpp \
 llist.cpp \
 rbtree.cpp \
