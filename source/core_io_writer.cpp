@@ -214,10 +214,12 @@ CoreIOWriter::Write ( const char *_format, ... )
     if ( vfprintf ( m_fileOutputPointer, _format, args ) < 0 )
 		return CC_ERR_WRITE;
 
+    fflush ( m_fileOutputPointer );
+
     va_end ( args );
 #ifndef __GNUC__
     m_ioMutex->Unlock ();
 #endif
 
-	return CC_ERR_NONE;
+    return CC_ERR_NONE;
 }
