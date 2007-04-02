@@ -11,11 +11,17 @@
 
 #include "header.h"
 #include "testutils.h"
+
+#include "pass.h"
+#include "fail.h"
+
 #include "compare.h"
-#include "stopwatch.h"
+#include "darray.h"
+#include "dstack.h"
 #include "llist.h"
 #include "rbtree.h"
 #include "sort.h"
+#include "stopwatch.h"
 
 using namespace CrissCross;
 
@@ -25,12 +31,21 @@ int RunApplication (int argc, char **argv) {
 	g_console = new IO::CoreConsole();
 	g_console->WriteLine ( "CrissCross Test Suite v" APP_VERSION );
 	g_console->WriteLine ();
+    
+    g_console->WriteLine ( "Testing pass/fail detection." );
+	WritePrefix ( "Pass" ); WriteResult ( TestPass() );
+	WritePrefix ( "Fail" ); WriteResult ( TestFail() );
+    
+    g_console->WriteLine ( "Entering CrissCross test phase." );
 	WritePrefix ( "DataBuffer Compare" ); WriteResult ( TestComparison_DataBuffer() );
 	WritePrefix ( "Integer Compare" ); WriteResult ( TestComparison_Integer() );
 	WritePrefix ( "Unsigned Integer Compare" ); WriteResult ( TestComparison_UnsignedInteger() );
 	WritePrefix ( "LList" ); WriteResult ( TestLList() );
+	WritePrefix ( "DArray" ); WriteResult ( TestDArray() );
+	WritePrefix ( "DStack" ); WriteResult ( TestDStack() );
 	WritePrefix ( "RedBlackTree" ); WriteResult ( TestRedBlackTree() );
-	WritePrefix ( "HeapSort" ); WriteResult ( TestHeapSort() );
+	WritePrefix ( "HeapSort (integer array)" ); WriteResult ( TestHeapSort_IntArray() );
+	WritePrefix ( "HeapSort (integer DArray)" ); WriteResult ( TestHeapSort_DArray() );
 	WritePrefix ( "Stopwatch" ); WriteResult ( TestStopwatch() );
 	delete g_console;
     return 0;

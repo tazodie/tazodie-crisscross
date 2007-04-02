@@ -55,7 +55,7 @@ namespace CrissCross
             //! The constructor.
             HeapSort();
 
-            //! Sorts the array using the HeapSort method.
+            //! Sorts an array using the HeapSort method.
             /*!
                 \param _array The array to sort.
                 \param _size The size of the array to sort.
