@@ -15,6 +15,7 @@
 #include <crisscross/core_deprecate.h>
 #include <crisscross/darray.h>
 #include <crisscross/dstack.h>
+#include <crisscross/sortclass.h>
 
 namespace CrissCross
 {
@@ -67,6 +68,9 @@ namespace CrissCross
                 \return An index in m_array.
              */
             int getNextFree     ();
+			
+			//template<T> friend class SortClass;
+			//template<class T> friend class HeapSort;
 
         public:
 
@@ -162,6 +166,9 @@ namespace CrissCross
                 The array must be iterated through and any pointers must be freed manually before calling this.
              */
             void empty ();
+			
+			//! Sorts the array using the provided method.
+			void sort ( CrissCross::Data::SortClass<T> *_sortMethod );
 
             //! Gets the data at the given index.
             /*!

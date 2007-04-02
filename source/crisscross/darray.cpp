@@ -316,4 +316,32 @@ int DArray < T >::findData ( const T & newdata )
 
 }
 
+template < class T >
+void DArray < T >::sort ( SortClass<T> *_sortMethod )
+{
+	T *temp_array = new T[m_numUsed];
+	T *temp_ptr = temp_array;
+	for ( int i = 0; i < m_arraySize; i++ )
+	{
+		if ( validIndex ( i ) )
+		{
+			*temp_ptr = m_array[i];
+			temp_ptr++;
+		}
+	}
+	
+	_sortMethod->Sort ( temp_array, m_arraySize );
+	
+	delete [] m_shadow;
+	m_shadow = new char[m_numUsed];
+	memset ( m_shadow, 0, m_arraySize );
+	memset ( m_shadow, 1, m_numUsed );
+	
+	delete [] m_array;
+	m_array = temp_array;
+	
+	rebuildStack();
+	recount();
+}
+
 #endif

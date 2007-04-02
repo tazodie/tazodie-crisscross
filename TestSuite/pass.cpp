@@ -9,10 +9,10 @@
  *
  */
 
-#ifndef __included_sort_test_h
-#define __included_sort_test_h
+#include "header.h"
+#include "pass.h"
 
-int TestHeapSort_IntArray();
-int TestHeapSort_DArray();
-
-#endif
+int TestPass()
+{
+    return 0;
+}
