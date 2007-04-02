@@ -16,7 +16,11 @@ using namespace CrissCross;
 
 void WritePrefix ( const char *_prefix )
 {
-	g_console->Write ( "Testing %s... ", _prefix );
+	char temp[128];
+	sprintf ( temp, "Testing %s...", _prefix );
+	while ( strlen(temp) < 58 )
+		strcat ( temp, " " );
+	g_console->Write ( temp );
 }
 
 void WriteResult ( int _result )
