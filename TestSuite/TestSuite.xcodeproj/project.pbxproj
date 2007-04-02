@@ -69,7 +69,7 @@
 		B02CA4740BC077DD00E266AB /* sort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sort.h; sourceTree = "<group>"; };
 		B02CA4750BC077DD00E266AB /* sort.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sort.cpp; sourceTree = "<group>"; };
 		B032773C0BBDF02B0034D6EF /* CrissCross.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CrissCross.xcodeproj; path = ../xcode/CrissCross.xcodeproj; sourceTree = SOURCE_ROOT; };
-		B032776C0BBDF1450034D6EF /* TestSuite */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "compiled.mach-o.executable"; path = TestSuite; sourceTree = BUILT_PRODUCTS_DIR; };
+		B032776C0BBDF1450034D6EF /* TestSuite */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TestSuite; sourceTree = BUILT_PRODUCTS_DIR; };
 		B03277C00BBDF89F0034D6EF /* libCrissCross.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCrissCross.a; path = ../xcode/build/Debug/libCrissCross.a; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
