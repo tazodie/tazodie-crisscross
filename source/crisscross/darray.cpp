@@ -330,7 +330,7 @@ void DArray < T >::sort ( SortClass<T> *_sortMethod )
 		}
 	}
 	
-	_sortMethod->Sort ( temp_array, m_arraySize );
+	_sortMethod->Sort ( temp_array, m_numUsed );
 	
 	delete [] m_shadow;
 	m_shadow = new char[m_numUsed];
