@@ -20,7 +20,9 @@
 using namespace CrissCross::Data;
 
 #ifndef TARGET_OS_WINDOWS
-#    define stricmp strcasecmp
+#	define stricmp strcasecmp
+#else
+#	define stricmp _stricmp
 #endif
 
 template <class T>
