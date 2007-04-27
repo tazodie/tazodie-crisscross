@@ -36,8 +36,8 @@ int RunApplication (int argc, char **argv) {
 	int retval = 0;
 	
     g_console->WriteLine ( "Testing pass/fail detection." );
-	WritePrefix ( "Pass" ); retval = WriteResult ( TestPass() );
-	WritePrefix ( "Fail" ); retval = WriteResult ( TestFail() );
+	WritePrefix ( "Pass" ); retval = WriteResult ( TestPass() ); CoreAssert ( retval == 0 );
+	WritePrefix ( "Fail" ); retval = WriteResult ( TestFail() ); CoreAssert ( retval == 0 );
     
     g_console->WriteLine ( "Entering CrissCross test phase." );
 	WritePrefix ( "DataBuffer Compare" ); retval = WriteResult ( TestComparison_DataBuffer() ); CoreAssert ( retval == 0 );
