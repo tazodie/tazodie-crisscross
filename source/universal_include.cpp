@@ -254,7 +254,11 @@ AppPrintMemoryLeaks ( char *_filename )
 #endif
 
 int
+#ifndef TARGET_OS_MACOSX
 main ( int argc, char **argv )
+#else
+CrissCrossInitialise ( int argc, char **argv )
+#endif
 {
     int retval = 0;
 
@@ -273,11 +277,7 @@ main ( int argc, char **argv )
 #endif
     try
     {
-#ifdef _WINDOWS
-        retval = RunApplication ( __argc, __argv );
-#else
         retval = RunApplication ( argc, argv );
-#endif
 	}
 	catch ( std::exception& e )
 	{
