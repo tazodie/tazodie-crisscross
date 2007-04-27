@@ -36,7 +36,7 @@ CoreIOReader ( stdin, false, CC_LN_LF )
         i = setvbuf ( stdout, NULL, _IONBF, 0 );
     }
 
-    SetConsoleTitleA ( APP_NAME " " APP_VERSION " (Codename " APP_CODENAME ")" );
+    SetConsoleTitleA ( CC_LIB_NAME " " CC_LIB_VERSION " (Codename " CC_LIB_CODENAME ")" );
 #endif
 }
 

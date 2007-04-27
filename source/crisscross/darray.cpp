@@ -185,7 +185,8 @@ int DArray < T >::insert ( const T & newdata )
 template < class T >
 void DArray < T >::insert ( const T & newdata, int index )
 {
-    CoreAssert ( index < m_arraySize && index >= 0 );
+    CoreAssert ( index >= 0 );
+	while ( index >= m_arraySize ) grow();
 
     m_array[index] = newdata;
     if ( m_shadow[index] == 0 ) m_numUsed++;
