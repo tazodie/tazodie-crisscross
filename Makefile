@@ -7,7 +7,8 @@ main:
 	+$(MAKE) -C source
 
 testapp: main
-	+$(MAKE) -C TestSuite	
+	+$(MAKE) -C TestSuite precomp
+	+$(MAKE) -C TestSuite
 
 test: testapp
 	cd TestSuite; LD_LIBRARY_PATH="../source" ./crisscross-test;
