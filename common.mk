@@ -5,8 +5,14 @@ CXX = g++
 CC = gcc
 LINK = $(CXX)
 
-CFLAGS = -O3 -march=pentium2 -mtune=pentium2 -g -Wall
+ifeq ($(CFLAGS),)
+CFLAGS = -O3 -march=pentium2 -mtune=pentium2 -Wall -pipe
+endif
+
+ifeq ($(CXXFLAGS),)
 CXXFLAGS = $(CFLAGS)
+endif
+
 INCLUDES = 
 
 GCC_APPLE    := $(shell $(CXX) -v 2>&1 | \
