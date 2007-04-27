@@ -33,7 +33,7 @@ int RunApplication (int argc, char **argv) {
 	g_console->WriteLine ( "CrissCross Test Suite v" CC_LIB_VERSION );
 	g_console->WriteLine ();
     
-	int retval = 0
+	int retval = 0;
 	
     g_console->WriteLine ( "Testing pass/fail detection." );
 	WritePrefix ( "Pass" ); retval = WriteResult ( TestPass() );
