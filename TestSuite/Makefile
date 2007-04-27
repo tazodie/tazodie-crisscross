@@ -28,7 +28,14 @@ endif
 INCLUDES += -I. -I../source
 CXXFLAGS += $(INCLUDES)
 
+ifeq ($(GCC_MAJOR),4)
+PCH = header.h
+GCH = $(PCH).gch
+endif
+
 all: .depend $(OUTDIR)/$(OUTBIN)
+
+precomp: $(GCH)
 
 memcheck: $(OUTDIR)/$(OUTBIN)
 	LD_LIBRARY_PATH="$(OUTDIR)" valgrind --leak-check=full --db-command='gdb --nw %f %p' --db-attach=yes -v $(OUTDIR)/$(OUTBIN)
@@ -60,21 +67,20 @@ ifneq ($(GCC_ISEMULATED),yes)
 endif   
 	$(STRIP) $(OUTDIR)/$(OUTBIN)
 
-$(PCH): header.h
-	$(CXX) -c header.h -o $(PCH) $(CXXFLAGS)
-
+$(GCH): $(PCH)
+	$(CXX) $(CXXFLAGS) -c $(PCH) -o $(GCH)
 
 $(OBJDIR)/%.o: %.cpp
-	@test -d $(dir $(OBJDIR)/$<) || mkdir -p $(dir $(OBJDIR)/$<)
+	test -d $(dir $(OBJDIR)/$<) || mkdir -p $(dir $(OBJDIR)/$<)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(OBJDIR)/%.o: %.c
-	@test -d $(dir $(OBJDIR)/$<) || mkdir -p $(dir $(OBJDIR)/$<)
+	test -d $(dir $(OBJDIR)/$<) || mkdir -p $(dir $(OBJDIR)/$<)
 	$(CC) $(CXXFLAGS) -c $< -o $@
 
 .depend:
 ifeq ($(GCC_ISEMULATED),yes)
-	@../contrib/fastdep-0.15/fastdep $(INCLUDES) --remakedeptarget=.depend $(SOURCES) > .depend
+	../contrib/fastdep-0.15/fastdep $(INCLUDES) --remakedeptarget=.depend $(SOURCES) > .depend
 endif
 
 ifneq ($(MAKECMDGOALS),clean)	

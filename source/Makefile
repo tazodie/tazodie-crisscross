@@ -73,29 +73,27 @@ clean:
 	-rm -f $(OUTNAME)
 	
 $(OUTDIR)/$(OUTBIN): $(OBJECTS)
-	@echo -n "Creating library... "
 ifneq ($(CC_BUILDSTATIC),yes)
 ifneq ($(GCC_ISAPPLE),yes)
 	$(CXX) -shared -Wl,-soname,$(OUTNAME).$(VERSION_MAJOR) -o $(OUTNAME).$(VERSION) $+
 else
 	$(CXX) -dynamiclib -Wl,-install_name,$(OUTNAME).$(VERSION_MAJOR) -o $(OUTNAME).$(VERSION) $+
 endif
-	@ln -sf $(OUTNAME).$(VERSION) $(OUTNAME)
-	@ln -sf $(OUTNAME).$(VERSION) $(OUTNAME).$(VERSION_MAJOR)
+	ln -sf $(OUTNAME).$(VERSION) $(OUTNAME)
+	ln -sf $(OUTNAME).$(VERSION) $(OUTNAME).$(VERSION_MAJOR)
 else
-	@$(AR) $@ $+
-	-@($(RANLIB) $@ || true) >/dev/null 2>&1
+	$(AR) $@ $+
+	-($(RANLIB) $@ || true) >/dev/null 2>&1
 endif
-	@$(NM) $(OUTDIR)/$(OUTBIN) > $(OUTDIR)/$(OUTBIN).map
-	@$(STRIP) $(OUTDIR)/$(OUTBIN)
-	@echo "Done."
+	$(NM) $(OUTDIR)/$(OUTBIN) > $(OUTDIR)/$(OUTBIN).map
+	$(STRIP) $(OUTDIR)/$(OUTBIN)
+	echo "Done."
 
 $(GCH): $(PCH)
 	$(CXX) $(CXXFLAGS) -c $(PCH) -o $(GCH)
 
-
 $(OBJDIR)/%.o: %.cpp
-	@test -d $(dir $(OBJDIR)/$<) || mkdir -p $(dir $(OBJDIR)/$<)
+	test -d $(dir $(OBJDIR)/$<) || mkdir -p $(dir $(OBJDIR)/$<)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(OBJDIR)/%.o: %.c
