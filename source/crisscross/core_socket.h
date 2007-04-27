@@ -12,7 +12,9 @@
 #ifndef __included_core_socket_h
 #define __included_core_socket_h
 
+#ifndef __GNUC__
 #include <crisscross/universal_include.h>
+#endif
 
 #include <crisscross/core_network.h>
 #include <crisscross/rbtree.h>

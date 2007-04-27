@@ -12,7 +12,9 @@
 #ifndef __included_core_cpuid_h
 #define __included_core_cpuid_h
 
+#ifndef __GNUC__
 #include <crisscross/universal_include.h>
+#endif
 
 #    ifdef ENABLE_CPUID
 
