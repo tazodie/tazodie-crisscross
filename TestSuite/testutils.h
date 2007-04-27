@@ -17,7 +17,7 @@
 extern CrissCross::IO::CoreConsole *g_console;
 
 void WritePrefix ( const char *_prefix );
-void WriteResult ( int _result );
+int WriteResult ( int _result );
 char *newStr ( const char *_string );
 
 #endif
