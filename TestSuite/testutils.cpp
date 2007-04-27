@@ -23,7 +23,7 @@ void WritePrefix ( const char *_prefix )
 	g_console->Write ( temp );
 }
 
-void WriteResult ( int _result )
+int WriteResult ( int _result )
 {
 	g_console->Write ( "[ " );
 	if ( _result )
@@ -41,6 +41,7 @@ void WriteResult ( int _result )
 	{
 		g_console->WriteLine ( "\ton internal test number %d\n", _result );
 	}
+	return _result;
 }
 
 char *newStr ( const char *_string )

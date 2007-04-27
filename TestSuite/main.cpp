@@ -33,21 +33,23 @@ int RunApplication (int argc, char **argv) {
 	g_console->WriteLine ( "CrissCross Test Suite v" CC_LIB_VERSION );
 	g_console->WriteLine ();
     
+	int retval = 0
+	
     g_console->WriteLine ( "Testing pass/fail detection." );
-	WritePrefix ( "Pass" ); WriteResult ( TestPass() );
-	WritePrefix ( "Fail" ); WriteResult ( TestFail() );
+	WritePrefix ( "Pass" ); retval = WriteResult ( TestPass(), false );
+	WritePrefix ( "Fail" ); retval = WriteResult ( TestFail(), false );
     
     g_console->WriteLine ( "Entering CrissCross test phase." );
-	WritePrefix ( "DataBuffer Compare" ); WriteResult ( TestComparison_DataBuffer() );
-	WritePrefix ( "Integer Compare" ); WriteResult ( TestComparison_Integer() );
-	WritePrefix ( "Unsigned Integer Compare" ); WriteResult ( TestComparison_UnsignedInteger() );
-	WritePrefix ( "LList" ); WriteResult ( TestLList() );
-	WritePrefix ( "DArray" ); WriteResult ( TestDArray() );
-	WritePrefix ( "DStack" ); WriteResult ( TestDStack() );
-	WritePrefix ( "RedBlackTree" ); WriteResult ( TestRedBlackTree() );
-	WritePrefix ( "HeapSort (integer array)" ); WriteResult ( TestHeapSort_IntArray() );
-	WritePrefix ( "HeapSort (integer DArray)" ); WriteResult ( TestHeapSort_DArray() );
-	WritePrefix ( "Stopwatch" ); WriteResult ( TestStopwatch() );
+	WritePrefix ( "DataBuffer Compare" ); retval = WriteResult ( TestComparison_DataBuffer() ); CoreAssert ( retval == 0 );
+	WritePrefix ( "Integer Compare" ); retval = WriteResult ( TestComparison_Integer() ); CoreAssert ( retval == 0 );
+	WritePrefix ( "Unsigned Integer Compare" ); retval = WriteResult ( TestComparison_UnsignedInteger() ); CoreAssert ( retval == 0 );
+	WritePrefix ( "LList" ); retval = WriteResult ( TestLList() ); CoreAssert ( retval == 0 );
+	WritePrefix ( "DArray" ); retval = WriteResult ( TestDArray() ); CoreAssert ( retval == 0 );
+	WritePrefix ( "DStack" ); retval = WriteResult ( TestDStack() ); CoreAssert ( retval == 0 );
+	WritePrefix ( "RedBlackTree" ); retval = WriteResult ( TestRedBlackTree() ); CoreAssert ( retval == 0 );
+	WritePrefix ( "HeapSort (integer array)" ); retval = WriteResult ( TestHeapSort_IntArray() ); CoreAssert ( retval == 0 );
+	WritePrefix ( "HeapSort (integer DArray)" ); retval = WriteResult ( TestHeapSort_DArray() ); CoreAssert ( retval == 0 );
+	WritePrefix ( "Stopwatch" ); retval = WriteResult ( TestStopwatch() ); CoreAssert ( retval == 0 );
 
 #ifdef TARGET_OS_WINDOWS
 	system ( "pause" );
