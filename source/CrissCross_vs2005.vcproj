@@ -509,11 +509,15 @@
 			Name="Data"
 			>
 			<File
-				RelativePath=".\compare.cpp"
+				RelativePath=".\crisscross\core_compare.h"
 				>
 			</File>
 			<File
-				RelativePath=".\crisscross\compare.h"
+				RelativePath=".\core_databuffer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\crisscross\core_databuffer.h"
 				>
 			</File>
 			<File

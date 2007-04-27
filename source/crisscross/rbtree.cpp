@@ -780,7 +780,7 @@ template <class T>
 template <class T>
     DArray<char *> *RedBlackTree <T>::ConvertIndexToDArray ()
 {
-    DArray<char *> *darray = new DArray<T> ( (int)size () );
+    DArray<char *> *darray = new DArray<char *> ( (int)size () );
     RecursiveConvertIndexToDArray ( darray, rootNode );
     return darray;
 }

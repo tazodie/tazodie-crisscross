@@ -185,7 +185,7 @@ CoreIOReader::ReadLine ( char *_buffer, int _bufferLength )
 	m_ioMutex->Unlock ();
 #endif
 
-	return bytesRead;
+	return (int)bytesRead;
 }
 
 int

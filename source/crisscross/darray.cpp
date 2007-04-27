@@ -23,7 +23,7 @@ template < class T >
 DArray < T >::DArray ()
 {
     m_stepSize = -1;
-    m_arraySize = 0;
+    m_numUsed = m_arraySize = 0;
     m_shadow = NULL;
     m_array = NULL;
     m_emptyNodes = new DStack<unsigned int>;
@@ -34,7 +34,7 @@ template < class T >
 DArray < T >::DArray ( int _newStepSize )
 {
     m_stepSize = _newStepSize;
-    m_arraySize = 0;
+    m_numUsed = m_arraySize = 0;
     m_shadow = NULL;
     m_array = NULL;
     m_emptyNodes = new DStack<unsigned int> ( _newStepSize + 1 );

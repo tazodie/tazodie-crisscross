@@ -28,6 +28,7 @@ using namespace CrissCross;
 CrissCross::IO::CoreConsole *g_console;
 
 int RunApplication (int argc, char **argv) {
+	
 	g_console = new IO::CoreConsole();
 	g_console->WriteLine ( "CrissCross Test Suite v" APP_VERSION );
 	g_console->WriteLine ();
@@ -47,6 +48,12 @@ int RunApplication (int argc, char **argv) {
 	WritePrefix ( "HeapSort (integer array)" ); WriteResult ( TestHeapSort_IntArray() );
 	WritePrefix ( "HeapSort (integer DArray)" ); WriteResult ( TestHeapSort_DArray() );
 	WritePrefix ( "Stopwatch" ); WriteResult ( TestStopwatch() );
+
+#ifdef TARGET_OS_WINDOWS
+	system ( "pause" );
+#endif
+
 	delete g_console;
-    return 0;
+
+	return 0;
 }
