@@ -345,7 +345,6 @@ static char THIS_FILE[] = __FILE__;
 
 
 #            endif
-#            include <crisscross/win32_pthread_emulate.h>
 #    endif
 
 extern int RunApplication ( int argc, char **argv );
