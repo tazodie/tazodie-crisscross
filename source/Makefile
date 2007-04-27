@@ -93,7 +93,7 @@ $(GCH): $(PCH)
 	$(CXX) $(CXXFLAGS) -c $(PCH) -o $(GCH)
 
 $(OBJDIR)/%.o: %.cpp
-	test -d $(dir $(OBJDIR)/$<) || mkdir -p $(dir $(OBJDIR)/$<)
+	@test -d $(dir $(OBJDIR)/$<) || mkdir -p $(dir $(OBJDIR)/$<)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(OBJDIR)/%.o: %.c
@@ -102,7 +102,7 @@ $(OBJDIR)/%.o: %.c
 
 .depend:
 ifeq ($(GCC_ISEMULATED),yes)
-	@../contrib/fastdep-0.15/fastdep --remakedeptarget=.depend $(SOURCES) > .depend
+	../contrib/fastdep-0.15/fastdep --remakedeptarget=.depend $(SOURCES) > .depend
 endif
 
 ifneq ($(MAKECMDGOALS),clean)	

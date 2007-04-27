@@ -34,12 +34,7 @@ int RunApplication (int argc, char **argv) {
 	g_console->WriteLine ();
     
 	int retval = 0;
-	
-    g_console->WriteLine ( "Testing pass/fail detection." );
-	WritePrefix ( "Pass" ); WriteResult ( TestPass() );
-	WritePrefix ( "Fail" ); WriteResult ( TestFail() );
-    
-    g_console->WriteLine ( "Entering CrissCross test phase." );
+
 	WritePrefix ( "DataBuffer Compare" ); retval &= WriteResult ( TestComparison_DataBuffer() );
 	WritePrefix ( "Integer Compare" ); retval &= WriteResult ( TestComparison_Integer() );
 	WritePrefix ( "Unsigned Integer Compare" ); retval &= WriteResult ( TestComparison_UnsignedInteger() );
