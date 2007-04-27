@@ -48,7 +48,7 @@ clean:
 	
 $(OUTDIR)/$(OUTBIN): $(OBJECTS)
 ifneq ($(CC_BUILDSTATIC),yes)
-	@$(CCDV) $(LINK) $+ -lpthread -lstdc++ -L../source -lcrisscross -o $(OUTDIR)/$(OUTBIN)
+	@$(CCDV) $(LINK) $+ -lpthread -lstdc++ -L../source -lCrissCross -o $(OUTDIR)/$(OUTBIN)
 	@ln -sf ../source/$(LIBNAME).$(VERSION) $(LIBNAME)
 	@ln -sf ../source/$(LIBNAME).$(VERSION) $(LIBNAME).$(VERSION_MAJOR)
 	@ln -sf ../source/$(LIBNAME).$(VERSION) $(LIBNAME).$(VERSION)

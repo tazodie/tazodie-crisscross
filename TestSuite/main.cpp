@@ -30,7 +30,7 @@ CrissCross::IO::CoreConsole *g_console;
 int RunApplication (int argc, char **argv) {
 	
 	g_console = new IO::CoreConsole();
-	g_console->WriteLine ( "CrissCross Test Suite v" APP_VERSION );
+	g_console->WriteLine ( "CrissCross Test Suite v" CC_LIB_VERSION );
 	g_console->WriteLine ();
     
     g_console->WriteLine ( "Testing pass/fail detection." );
