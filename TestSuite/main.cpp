@@ -36,20 +36,20 @@ int RunApplication (int argc, char **argv) {
 	int retval = 0;
 	
     g_console->WriteLine ( "Testing pass/fail detection." );
-	WritePrefix ( "Pass" ); retval = WriteResult ( TestPass() ); CoreAssert ( retval == 0 );
-	WritePrefix ( "Fail" ); retval = WriteResult ( TestFail() ); CoreAssert ( retval == 0 );
+	WritePrefix ( "Pass" ); retval = WriteResult ( TestPass() ); g_console->Flush(); CoreAssert ( retval == 0 );
+	WritePrefix ( "Fail" ); retval = WriteResult ( TestFail() ); g_console->Flush(); CoreAssert ( retval == 0 );
     
     g_console->WriteLine ( "Entering CrissCross test phase." );
-	WritePrefix ( "DataBuffer Compare" ); retval = WriteResult ( TestComparison_DataBuffer() ); CoreAssert ( retval == 0 );
-	WritePrefix ( "Integer Compare" ); retval = WriteResult ( TestComparison_Integer() ); CoreAssert ( retval == 0 );
-	WritePrefix ( "Unsigned Integer Compare" ); retval = WriteResult ( TestComparison_UnsignedInteger() ); CoreAssert ( retval == 0 );
-	WritePrefix ( "LList" ); retval = WriteResult ( TestLList() ); CoreAssert ( retval == 0 );
-	WritePrefix ( "DArray" ); retval = WriteResult ( TestDArray() ); CoreAssert ( retval == 0 );
-	WritePrefix ( "DStack" ); retval = WriteResult ( TestDStack() ); CoreAssert ( retval == 0 );
-	WritePrefix ( "RedBlackTree" ); retval = WriteResult ( TestRedBlackTree() ); CoreAssert ( retval == 0 );
-	WritePrefix ( "HeapSort (integer array)" ); retval = WriteResult ( TestHeapSort_IntArray() ); CoreAssert ( retval == 0 );
-	WritePrefix ( "HeapSort (integer DArray)" ); retval = WriteResult ( TestHeapSort_DArray() ); CoreAssert ( retval == 0 );
-	WritePrefix ( "Stopwatch" ); retval = WriteResult ( TestStopwatch() ); CoreAssert ( retval == 0 );
+	WritePrefix ( "DataBuffer Compare" ); retval = WriteResult ( TestComparison_DataBuffer() ); g_console->Flush(); CoreAssert ( retval == 0 );
+	WritePrefix ( "Integer Compare" ); retval = WriteResult ( TestComparison_Integer() ); g_console->Flush(); CoreAssert ( retval == 0 );
+	WritePrefix ( "Unsigned Integer Compare" ); retval = WriteResult ( TestComparison_UnsignedInteger() ); g_console->Flush(); CoreAssert ( retval == 0 );
+	WritePrefix ( "LList" ); retval = WriteResult ( TestLList() ); g_console->Flush(); CoreAssert ( retval == 0 );
+	WritePrefix ( "DArray" ); retval = WriteResult ( TestDArray() ); g_console->Flush(); CoreAssert ( retval == 0 );
+	WritePrefix ( "DStack" ); retval = WriteResult ( TestDStack() ); g_console->Flush(); CoreAssert ( retval == 0 );
+	WritePrefix ( "RedBlackTree" ); retval = WriteResult ( TestRedBlackTree() ); g_console->Flush(); CoreAssert ( retval == 0 );
+	WritePrefix ( "HeapSort (integer array)" ); retval = WriteResult ( TestHeapSort_IntArray() ); g_console->Flush(); CoreAssert ( retval == 0 );
+	WritePrefix ( "HeapSort (integer DArray)" ); retval = WriteResult ( TestHeapSort_DArray() ); g_console->Flush(); CoreAssert ( retval == 0 );
+	WritePrefix ( "Stopwatch" ); retval = WriteResult ( TestStopwatch() ); g_console->Flush(); CoreAssert ( retval == 0 );
 
 #ifdef TARGET_OS_WINDOWS
 	system ( "pause" );
