@@ -85,7 +85,7 @@ LIB32=xilink6.exe -lib
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=.\crisscross\compare.h
+SOURCE=.\crisscross\core_compare.h
 # End Source File
 # Begin Source File
 
@@ -94,6 +94,10 @@ SOURCE=.\crisscross\core_console.h
 # Begin Source File
 
 SOURCE=.\crisscross\core_cpuid.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\crisscross\core_databuffer.h
 # End Source File
 # Begin Source File
 
@@ -146,7 +150,15 @@ SOURCE=.\crisscross\core_thread.h
 # Begin Source File
 
 SOURCE=.\crisscross\darray.cpp
+
+!IF  "$(CFG)" == "CrissCross - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "CrissCross - Win32 Debug"
+
 # PROP Exclude_From_Build 1
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -155,7 +167,15 @@ SOURCE=.\crisscross\darray.h
 # Begin Source File
 
 SOURCE=.\crisscross\dstack.cpp
+
+!IF  "$(CFG)" == "CrissCross - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "CrissCross - Win32 Debug"
+
 # PROP Exclude_From_Build 1
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -164,7 +184,15 @@ SOURCE=.\crisscross\dstack.h
 # Begin Source File
 
 SOURCE=.\crisscross\llist.cpp
+
+!IF  "$(CFG)" == "CrissCross - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "CrissCross - Win32 Debug"
+
 # PROP Exclude_From_Build 1
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -173,7 +201,15 @@ SOURCE=.\crisscross\llist.h
 # Begin Source File
 
 SOURCE=.\crisscross\rbtree.cpp
+
+!IF  "$(CFG)" == "CrissCross - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "CrissCross - Win32 Debug"
+
 # PROP Exclude_From_Build 1
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -182,11 +218,36 @@ SOURCE=.\crisscross\rbtree.h
 # Begin Source File
 
 SOURCE=.\crisscross\sortclass.cpp
+
+!IF  "$(CFG)" == "CrissCross - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "CrissCross - Win32 Debug"
+
 # PROP Exclude_From_Build 1
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=.\crisscross\sortclass.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\crisscross\splay.cpp
+
+!IF  "$(CFG)" == "CrissCross - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "CrissCross - Win32 Debug"
+
+# PROP Exclude_From_Build 1
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\crisscross\splay.h
 # End Source File
 # Begin Source File
 
@@ -206,6 +267,10 @@ SOURCE=.\crisscross\textwriter.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\crisscross\tree.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\crisscross\udpsocket.h
 # End Source File
 # Begin Source File
@@ -222,10 +287,6 @@ SOURCE=.\crisscross\win32_pthread_emulate.h
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=.\compare.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\core_console.cpp
 # End Source File
 # Begin Source File
@@ -234,7 +295,15 @@ SOURCE=.\core_cpuid.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\core_databuffer.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\core_debug.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\core_error.cpp
 # End Source File
 # Begin Source File
 
@@ -291,7 +360,15 @@ SOURCE=.\udpsocket.cpp
 # Begin Source File
 
 SOURCE=.\universal_include.cpp
+
+!IF  "$(CFG)" == "CrissCross - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "CrissCross - Win32 Debug"
+
 # ADD CPP /Yc"crisscross/universal_include.h"
+
+!ENDIF 
+
 # End Source File
 # End Group
 # End Target
