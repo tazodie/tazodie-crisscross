@@ -42,8 +42,8 @@ ParseMemoryLeakFile ( const char *_inputFilename,
     // Start up
     //
 
-    RedBlackTree < int, char *>combined;
-    RedBlackTree < int, char *>frequency;
+    RedBlackTree <int> combined;
+    RedBlackTree <int> frequency;
     int unrecognised = 0;
 
     //
@@ -80,14 +80,14 @@ ParseMemoryLeakFile ( const char *_inputFilename,
 
             // Put the result into our BTree
 
-            RedBlackTree < int, char *>::nodeType * btree =
+            BinaryNode<int> *node =
                 combined.findNode ( sourcelocation );
-            if ( btree )
-                ( ( int ) btree->data ) += size;
+            if ( node )
+                ( ( int ) node->data ) += size;
             else
                 combined.insert ( sourcelocation, size );
 
-            RedBlackTree < int, char *>::nodeType * freq =
+            BinaryNode<int> *freq =
                 frequency.findNode ( sourcelocation );
             if ( freq )
                 ( ( int ) freq->data )++;
@@ -125,24 +125,24 @@ ParseMemoryLeakFile ( const char *_inputFilename,
     LList < char *>sorted;
     int totalsize = 0;
 
-    for ( int i = 0; i < sources->Size (); ++i )
+    for ( int i = 0; i < sources->size (); ++i )
     {
-        char *newsource = sources->GetData ( i );
-        int newsize = sizes->GetData ( i );
+        char *newsource = sources->getData ( i );
+        int newsize = sizes->getData ( i );
 
         totalsize += newsize;
         bool inserted = false;
 
-        for ( int j = 0; j < sorted.Size (); ++j )
+        for ( int j = 0; j < sorted.size (); ++j )
         {
 
-            char *existingsource = sorted.GetData ( j );
+            char *existingsource = sorted.getData ( j );
             int existingsize = combined.find ( existingsource );
 
             if ( newsize <= existingsize )
             {
 
-                sorted.PutDataAtIndex ( newsource, j );
+                sorted.insert_at ( newsource, j );
                 inserted = true;
                 break;
 
@@ -151,7 +151,7 @@ ParseMemoryLeakFile ( const char *_inputFilename,
         }
 
         if ( !inserted )
-            sorted.PutDataAtEnd ( newsource );
+            sorted.insert_back ( newsource );
     }
 
 
@@ -159,7 +159,7 @@ ParseMemoryLeakFile ( const char *_inputFilename,
     // Open the output file
     //
 
-    if ( sorted.Size() )
+    if ( sorted.size() )
     {
         FILE *output = fopen ( _outputFilename, "wt" );
 
@@ -172,10 +172,10 @@ ParseMemoryLeakFile ( const char *_inputFilename,
 		fprintf ( output, "Total unrecognised memory leaks : %d Kbytes\n\n",
 			int ( unrecognised / 1024 ) );
 
-        for ( int k = sorted.Size () - 1; k >= 0; --k )
+        for ( int k = sorted.size () - 1; k >= 0; --k )
         {
 
-            char *source = sorted.GetData ( k );
+            char *source = sorted.getData ( k );
             int size = combined.find ( source );
             int freq = frequency.find ( source );
 
