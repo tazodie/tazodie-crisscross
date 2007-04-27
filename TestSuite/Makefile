@@ -20,7 +20,6 @@ main.cpp
 
 OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)
 
-CCDV = ../tools/ccdv/ccdv.bin
 ifneq ($(CC_BUILDSTATIC),yes)
 LINK += -rdynamic
 else
@@ -48,21 +47,21 @@ clean:
 	
 $(OUTDIR)/$(OUTBIN): $(OBJECTS)
 ifneq ($(CC_BUILDSTATIC),yes)
-	@$(CCDV) $(LINK) $+ -lpthread -lstdc++ -L../source -lCrissCross -o $(OUTDIR)/$(OUTBIN)
-	@ln -sf ../source/$(LIBNAME).$(VERSION) $(LIBNAME)
-	@ln -sf ../source/$(LIBNAME).$(VERSION) $(LIBNAME).$(VERSION_MAJOR)
-	@ln -sf ../source/$(LIBNAME).$(VERSION) $(LIBNAME).$(VERSION)
+	$(LINK) $+ -lpthread -lstdc++ -L../source -lCrissCross -o $(OUTDIR)/$(OUTBIN)
+	ln -sf ../source/$(LIBNAME).$(VERSION) $(LIBNAME)
+	ln -sf ../source/$(LIBNAME).$(VERSION) $(LIBNAME).$(VERSION_MAJOR)
+	ln -sf ../source/$(LIBNAME).$(VERSION) $(LIBNAME).$(VERSION)
 else
-	@ln -sf ../source/$(LIBNAME) $(LIBNAME)
-	@$(CCDV) $(LINK) $+ -lpthread -lstdc++ libcrisscross-$(VERSION).a -o $(OUTDIR)/$(OUTBIN)
+	ln -sf ../source/$(LIBNAME) $(LIBNAME)
+	$(LINK) $+ -lpthread -lstdc++ libcrisscross-$(VERSION).a -o $(OUTDIR)/$(OUTBIN)
 endif
 ifneq ($(GCC_ISEMULATED),yes)
-	@$(NM) $(OUTDIR)/$(OUTBIN) > $(OUTDIR)/$(OUTBIN).map
+	$(NM) $(OUTDIR)/$(OUTBIN) > $(OUTDIR)/$(OUTBIN).map
 endif   
-	@$(STRIP) $(OUTDIR)/$(OUTBIN)
+	$(STRIP) $(OUTDIR)/$(OUTBIN)
 
 $(PCH): header.h
-	@$(CXX) -c header.h -o $(PCH) $(CXXFLAGS)
+	$(CXX) -c header.h -o $(PCH) $(CXXFLAGS)
 
 
 $(OBJDIR)/%.o: %.cpp
