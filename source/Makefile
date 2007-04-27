@@ -33,7 +33,6 @@ universal_include.cpp
 
 OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)
 
-CCDV = ../tools/ccdv/ccdv.bin
 ifneq ($(GCC_ISCYGMING),yes)
 LINK += -rdynamic
 endif
@@ -77,9 +76,9 @@ $(OUTDIR)/$(OUTBIN): $(OBJECTS)
 	@echo -n "Creating library... "
 ifneq ($(CC_BUILDSTATIC),yes)
 ifneq ($(GCC_ISAPPLE),yes)
-	@$(CCDV) $(CXX) -shared -Wl,-soname,$(OUTNAME).$(VERSION_MAJOR) -o $(OUTNAME).$(VERSION) $+
+	$(CXX) -shared -Wl,-soname,$(OUTNAME).$(VERSION_MAJOR) -o $(OUTNAME).$(VERSION) $+
 else
-	@$(CCDV) $(CXX) -dynamiclib -Wl,-install_name,$(OUTNAME).$(VERSION_MAJOR) -o $(OUTNAME).$(VERSION) $+
+	$(CXX) -dynamiclib -Wl,-install_name,$(OUTNAME).$(VERSION_MAJOR) -o $(OUTNAME).$(VERSION) $+
 endif
 	@ln -sf $(OUTNAME).$(VERSION) $(OUTNAME)
 	@ln -sf $(OUTNAME).$(VERSION) $(OUTNAME).$(VERSION_MAJOR)
