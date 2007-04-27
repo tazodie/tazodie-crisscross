@@ -155,6 +155,9 @@ namespace CrissCross
              */
             double ReadDouble ( double _min = 0, double _max = 0 );
 
+            //! Flushes the input and output buffers.
+            void Flush ();
+
         private:
             bool EndOfFile ();
             int Forward ( int _position );
