@@ -12,7 +12,9 @@
 #ifndef __included_stopwatch_h
 #define __included_stopwatch_h
 
-//#include <crisscross/universal_include.h>
+#ifndef __GNUC__
+#include <crisscross/universal_include.h>
+#endif
 
 #if defined ( TARGET_OS_MACOSX )
 #   include <CoreServices/CoreServices.h>

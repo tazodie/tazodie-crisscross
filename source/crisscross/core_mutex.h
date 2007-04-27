@@ -12,7 +12,9 @@
 #ifndef __included_core_mutex_h
 #define __included_core_mutex_h
 
+#ifndef __GNUC__
 #include <crisscross/universal_include.h>
+#endif
 
 #if defined ( TARGET_OS_WINDOWS )
 #	include <windows.h>

@@ -5,7 +5,7 @@ CXX = g++
 CC = gcc
 LINK = $(CXX)
 
-CFLAGS = -O0 -g -Wall
+CFLAGS = -O3 -march=pentium2 -mtune=pentium2 -g -Wall
 CXXFLAGS = $(CFLAGS)
 INCLUDES = 
 
@@ -48,9 +48,9 @@ FPIC = -fPIC
 endif
 
 ifneq ($(CC_BUILDSTATIC),yes)
-LIBNAME = libcrisscross.so
+LIBNAME = libCrissCross.so
 else
-LIBNAME = libcrisscross-$(VERSION).a
+LIBNAME = libCrissCross-$(VERSION).a
 endif
 
 AR = ar rc

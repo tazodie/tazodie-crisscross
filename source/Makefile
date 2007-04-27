@@ -3,13 +3,13 @@ include ../common.mk
 OBJDIR = obj/linux
 OUTDIR = .
 ifneq ($(CC_BUILDSTATIC),yes)
-OUTNAME = libcrisscross.so
+OUTNAME = libCrissCross.so
 OUTBIN = $(OUTNAME).$(VERSION)
 else
-OUTNAME = libcrisscross
+OUTNAME = libCrissCross
 OUTBIN = $(OUTNAME)-$(VERSION).a
 endif
-prefix = /usr
+prefix = /usr/local
 
 SOURCES = \
 core_console.cpp \
@@ -24,7 +24,6 @@ core_mutex.cpp \
 core_network.cpp \
 core_socket.cpp \
 core_system.cpp \
-core_thread.cpp \
 stopwatch.cpp \
 tcpsocket.cpp \
 udpsocket.cpp \
@@ -42,12 +41,13 @@ INCLUDES += -I.
 CXXFLAGS += $(FPIC) $(INCLUDES)
 
 ifeq ($(GCC_MAJOR),4)
-PCH = universal_include.h.gch
+PCH = crisscross/universal_include.h
+GCH = $(PCH).gch
 endif
 
 all: .depend precomp $(OUTDIR)/$(OUTBIN)
 
-precomp: $(PCH)
+precomp: $(GCH)
 
 install: $(OUTDIR)/$(OUTBIN)
 	-rm -rf $(prefix)/include/crisscross
@@ -69,7 +69,7 @@ clean:
 	-rm -rf .libs
 	-rm -f $(OUTDIR)/$(OUTBIN)
 	-rm -f $(OUTDIR)/$(OUTBIN).map
-	-rm -f $(PCH)
+	-rm -f $(GCH)
 	-rm -f $(OUTNAME).$(VERSION_MAJOR)
 	-rm -f $(OUTNAME)
 	
@@ -91,8 +91,8 @@ endif
 	@$(STRIP) $(OUTDIR)/$(OUTBIN)
 	@echo "Done."
 
-$(PCH): crisscross/universal_include.h
-	@$(CCDV) $(CXX) -c crisscross/universal_include.h -o $(PCH) $(CXXFLAGS)
+$(GCH): $(PCH)
+	$(CXX) $(CXXFLAGS) -c $(PCH) -o $(GCH)
 
 
 $(OBJDIR)/%.o: %.cpp
