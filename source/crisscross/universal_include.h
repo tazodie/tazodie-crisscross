@@ -9,32 +9,33 @@
  *
  */
 
-#ifndef __included_universal_include_h
-#define __included_universal_include_h
+#ifndef __included_crisscross_universal_include_h
+#define __included_crisscross_universal_include_h
     
-#    define APP_NAME                "CrissCross"
+#    define CC_LIB_NAME                "CrissCross"
 
-//#  define APP_CODENAME            "Technetium"    // v0.1.0 codename ( Milestone 1 )
-//#  define APP_CODENAME            "Freya"         // v0.2.0 codename
-//#  define APP_CODENAME            "Hodur"         // v0.3.0 codename
-//#  define APP_CODENAME            "Baldur"        // v0.4.0 codename
-//#  define APP_CODENAME            "Loki"          // v0.5.0 codename ( Milestone 2 )
-#    define APP_CODENAME            "Ragnarok"      // v0.6.0 codename
-//#  define APP_CODENAME            "Heimdall"      // v0.7.0 codename
-//#  define APP_CODENAME            "Odin"          // v0.8.0 codename ( Milestone 3 )
-//#  define APP_CODENAME            "Thor"          // v0.9.0 codename ( Milestone 4 )
-//#  define APP_CODENAME            "Valhalla"      // v1.0.0 codename ( Milestone 5 )
+//#  define CC_LIB_CODENAME            "Technetium"    // v0.1.0 codename ( Milestone 1 )
+//#  define CC_LIB_CODENAME            "Freya"         // v0.2.0 codename
+//#  define CC_LIB_CODENAME            "Hodur"         // v0.3.0 codename
+//#  define CC_LIB_CODENAME            "Baldur"        // v0.4.0 codename
+//#  define CC_LIB_CODENAME            "Loki"          // v0.5.0 codename ( Milestone 2 )
+#    define CC_LIB_CODENAME            "Ragnarok"      // v0.6.0 codename
+//#  define CC_LIB_CODENAME            "Heimdall"      // v0.7.0 codename
+//#  define CC_LIB_CODENAME            "Odin"          // v0.8.0 codename ( Milestone 3 )
+//#  define CC_LIB_CODENAME            "Thor"          // v0.9.0 codename ( Milestone 4 )
+//#  define CC_LIB_CODENAME            "Valhalla"      // v1.0.0 codename ( Milestone 5 )
 
-#   define APP_VERSION             "0.5.9999.1-SVN"
-#   define APP_BRANCH_AT_VERSION   "0.6.0"
-#   define APP_URL                 "http://www.uplinklabs.net/crisscross/"
-#   define APP_COPYRIGHT           "(c) 2006-2007 by IO.IN Research. Licensed under the New BSD License."
+#   define CC_LIB_VERSION             "0.5.9999.1-SVN"
+#   define CC_LIB_BRANCH_AT_VERSION   "0.6.0"
+#   define CC_LIB_URL                 "http://www.uplinklabs.net/crisscross/"
+#   define CC_LIB_COPYRIGHT           "(c) 2006-2007 by IO.IN Research. Licensed under the New BSD License."
 
-// Disabling these two will save space.
-#   define ENABLE_CPUID
+// Disabling these will save space.
+//#   define ENABLE_CPUID
+//#   define ENABLE_POSIX_THREADING
 
 // Enables non-blocking sockets. This isn't finished yet, don't use it.
-//#   define ENABLE_NONBLOCKING
+#   define ENABLE_NONBLOCKING
 
 //NOTE: By disabling this line, you will not be in compliance with the New BSD License.
 //      If you disable this line, you must display the copyright notice in the program
@@ -234,8 +235,12 @@ TARGET_COMPILER_ICC
 #   endif
     
 #    if defined ( TARGET_COMPILER_VC )
-#       define _CRT_SECURE_NO_DEPRECATE
-#       define _CRT_NONSTDC_NO_DEPRECATE
+#		ifndef _CRT_SECURE_NO_DEPRECATE
+#	       define _CRT_SECURE_NO_DEPRECATE
+#		endif
+#		ifndef _CRT_NONSTDC_NO_DEPRECATE
+#	       define _CRT_NONSTDC_NO_DEPRECATE
+#		endif
 #       define ENABLE_SYMBOL_ENGINE
 #    endif
 

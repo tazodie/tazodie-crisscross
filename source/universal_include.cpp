@@ -253,17 +253,9 @@ AppPrintMemoryLeaks ( char *_filename )
 }
 #endif
 
-
-#ifdef _WINDOWS
-int WINAPI
-WinMain ( HINSTANCE hInstance,
-          HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow )
-{
-#else
 int
 main ( int argc, char **argv )
 {
-#endif
     int retval = 0;
 
 #ifdef ENABLE_MEMLEAK_STATS
@@ -274,9 +266,9 @@ main ( int argc, char **argv )
 
 #ifdef ENABLE_CREDITS
     g_stdout->SetColour ( g_stdout->FG_GREEN | g_stdout->FG_INTENSITY );
-    g_stdout->WriteLine ( "Powered by " APP_NAME " " APP_VERSION " (Codename " APP_CODENAME ")\n    " APP_URL );
+    g_stdout->WriteLine ( "Powered by " CC_LIB_NAME " " CC_LIB_VERSION " (Codename " CC_LIB_CODENAME ")\n    " CC_LIB_URL );
     g_stdout->SetColour ( 0 );
-    g_stdout->WriteLine ( APP_COPYRIGHT );
+    g_stdout->WriteLine ( CC_LIB_COPYRIGHT );
     g_stdout->WriteLine ();
 #endif
     try
@@ -309,3 +301,12 @@ main ( int argc, char **argv )
 #endif
     return retval;
 }
+
+#ifdef TARGET_OS_WINDOWS
+int WINAPI
+WinMain ( HINSTANCE hInstance,
+          HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow )
+{
+	main ( __argc, __argv );
+}
+#endif
