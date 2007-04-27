@@ -410,4 +410,10 @@ namespace CrissCross
     }
 }
 
+#ifdef TARGET_OS_MACOSX
+extern "C" {
+	int CrissCrossInitialise ( int argc, char **argv );
+}
+#endif
+
 #endif
