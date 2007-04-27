@@ -153,6 +153,13 @@ CoreConsole::Clear ()
 }
 
 void
+CoreConsole::Flush ()
+{
+	CoreIOReader::Flush();
+	CoreIOWriter::Flush();
+}
+
+void
 CoreConsole::MoveUp ( int _lines )
 {
 #if defined ( TARGET_OS_WINDOWS )
