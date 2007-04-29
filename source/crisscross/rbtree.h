@@ -78,7 +78,7 @@ namespace CrissCross
                 \return A value indicating the result of the request.
                 \sa statusEnum
              */
-            statusEnum deleteNode ( const Key &_key );
+            statusEnum erase ( const Key &_key );
 
             //! Deletes a node from the tree, specified by the pointer to the node.
             /*!
@@ -111,6 +111,8 @@ namespace CrissCross
                 \return True if the node is a valid node, false otherwise.
              */
             bool valid ( const BinaryNode<Key,Data> *_node ) const;
+
+			//inline Data &operator [] ( const Key &_key ) { return findNode(_key)->data; };
 
         protected:
             inline char *reallocKey ( char *_pointer, char *_a );
