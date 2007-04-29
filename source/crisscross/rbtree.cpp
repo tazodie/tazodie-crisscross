@@ -19,151 +19,25 @@
 
 using namespace CrissCross::Data;
 
-#ifndef TARGET_OS_WINDOWS
-#	define stricmp strcasecmp
-#else
-#	define stricmp _stricmp
-#endif
-
-template <class T>
-    RedBlackTree<T>::RedBlackTree ()
+template <class Key, class Data>
+    RedBlackTree<Key,Data>::RedBlackTree ()
 {
-    NULL_NODE = new BinaryNode<T> ();
+    NULL_NODE = new BinaryNode<Key,Data> ();
     NULL_NODE->color = BLACK;
     rootNode = NULL_NODE;
 }
 
-template <class T>
-    RedBlackTree<T>::~RedBlackTree ()
+template <class Key, class Data>
+    RedBlackTree<Key,Data>::~RedBlackTree ()
 {
     killAll ();
     delete NULL_NODE;
 }
 
-template <class T>
-	inline bool RedBlackTree<T>::compLT ( const char *a, const char *b ) const
+template <class Key, class Data>
+    void RedBlackTree<Key,Data>::rotateLeft ( BinaryNode<Key,Data> * x )
 {
-    return ( stricmp ( a, b ) < 0 );
-}
-
-template <class T>
-	inline bool RedBlackTree<T>::compLTEQ ( const char *a, const char *b ) const
-{
-    return ( stricmp ( a, b ) <= 0 );
-}
-
-template <class T>
-	inline bool RedBlackTree<T>::compEQ ( const char *a, const char *b ) const
-{
-    return ( stricmp ( a, b ) == 0 );
-}
-
-template <class T>
-	inline bool RedBlackTree<T>::compLT ( const int *a, const int *b ) const
-{
-    return ( *a < *b );
-}
-
-template <class T>
-	inline bool RedBlackTree<T>::compLTEQ ( const int *a, const int *b ) const
-{
-    return ( *a <= *b );
-}
-
-template <class T>
-	inline bool RedBlackTree<T>::compEQ ( const int *a, const int *b ) const
-{
-    return ( *a == *b );
-}
-
-template <class T>
-	inline bool RedBlackTree<T>::compLT ( const unsigned long *a, const unsigned long *b ) const
-{
-    return ( *a < *b );
-}
-
-
-template <class T>
-	inline bool RedBlackTree<T>::compLTEQ ( const unsigned long *a, const unsigned long *b ) const
-{
-    return ( *a <= *b );
-}
-
-template <class T>
-	inline bool RedBlackTree<T>::compEQ ( const unsigned long *a, const unsigned long *b ) const
-
-{
-    return ( *a == *b );
-}
-
-template <class T>
-    inline char *RedBlackTree<T>::newKey ( const char *a )
-{
-    char *b = ( char * ) malloc ( strlen ( a ) + 1 );
-    if ( !b )
-        return 0;
-    memset ( b, 0, strlen ( a ) + 1 );
-    strcpy ( b, a );
-    return b;
-}
-
-template <class T>
-    inline int *RedBlackTree<T>::newKey ( const int *a )
-{
-    int *b = ( int * ) malloc ( sizeof ( int ) );
-
-    if ( !b )
-        return 0;
-    memset ( b, 0, sizeof ( int ) );
-    *b = *a;
-    return b;
-}
-
-template <class T>
-    inline unsigned long *RedBlackTree<T>::newKey ( const unsigned long *a )
-{
-    unsigned long *b = ( unsigned long * ) malloc ( sizeof ( unsigned long ) );
-
-    if ( !b )
-        return 0;
-    memset ( b, 0, sizeof ( unsigned long ) );
-    *b = *a;
-    return b;
-}
-
-template <class T>
-    inline char *RedBlackTree<T>::reallocKey ( char *pointer, char *a )
-{
-    char *tmp = NULL;
-
-    tmp = ( char * ) realloc ( pointer, strlen ( a ) + 1 );
-    if ( !tmp )
-        return 0;
-    memset ( tmp, 0, strlen ( a ) + 1 );
-    strcpy ( tmp, a );
-    return tmp;
-}
-
-template <class T>
-    inline int *RedBlackTree<T>::reallocKey ( int *pointer, int *a )
-{
-    /* since integers don't have varying size, just overwrite */
-    *pointer = *a;
-    return pointer;
-}
-
-template <class T>
-    inline unsigned long *RedBlackTree<T>::reallocKey ( unsigned long *pointer, unsigned long *a )
-{
-    /* since unsigned longs don't have varying size, just overwrite */
-    *pointer = *a;
-    return pointer;
-}
-
-template <class T>
-    void RedBlackTree<T>::rotateLeft ( BinaryNode<T> * x )
-{
-    BinaryNode<T> *y = x->right;
+    BinaryNode<Key,Data> *y = x->right;
 
     /* establish x->right link */
     x->right = y->left;
@@ -191,10 +65,10 @@ template <class T>
         x->parent = y;
 }
 
-template <class T>
-    void RedBlackTree<T>::rotateRight ( BinaryNode<T> * x )
+template <class Key, class Data>
+void RedBlackTree<Key,Data>::rotateRight ( BinaryNode<Key,Data> * x )
 {
-    BinaryNode<T> *y = x->left;
+    BinaryNode<Key,Data> *y = x->left;
 
     /* establish x->left link */
     x->left = y->right;
@@ -222,8 +96,8 @@ template <class T>
         x->parent = y;
 }
 
-template <class T>
-    void RedBlackTree<T>::insertFixup ( BinaryNode<T> * x )
+template <class Key, class Data>
+void RedBlackTree<Key,Data>::insertFixup ( BinaryNode<Key,Data> * x )
 {
     /* check Red-Black properties */
     while ( x != rootNode && x->parent->color == RED )
@@ -231,7 +105,7 @@ template <class T>
         /* we have a violation */
         if ( x->parent == x->parent->parent->left )
         {
-            BinaryNode<T> *y = x->parent->parent->right;
+            BinaryNode<Key,Data> *y = x->parent->parent->right;
 
             if ( y->color == RED )
             {
@@ -263,7 +137,7 @@ template <class T>
         {
 
             /* mirror image of above code */
-            BinaryNode<T> *y = x->parent->parent->left;
+            BinaryNode<Key,Data> *y = x->parent->parent->left;
 
             if ( y->color == RED )
             {
@@ -292,47 +166,36 @@ template <class T>
     rootNode->color = BLACK;
 }
 
-template <class T>
-    statusEnum RedBlackTree<T>::insert ( const char *key, const T & rec )
+template <class Key, class Data>
+    statusEnum RedBlackTree<Key,Data>::insert ( const Key &key, const Data & rec )
 {
-    BinaryNode<T> *current = NULL_NODE, *parent = NULL, *x = NULL_NODE;
-
-    if ( !key )
-    {
-        fprintf ( stderr, "WARNING: RedBlackTree<T>::insert() called with NULL key pointer!\n" );
-    }
-    if ( !rec )
-    {
-        fprintf ( stderr, "WARNING: RedBlackTree<T>::insert() called with NULL data pointer!\n" );
-    }
-    if ( !key || !rec )
-        return STATUS_NULL_POINTER;
+    BinaryNode<Key,Data> *current = NULL_NODE, *parent = NULL, *x = NULL_NODE;
 
     /* find future parent */
     current = rootNode;
     while ( current != NULL_NODE )
     {
         parent = current;
-        current = compLTEQ ( key, current->id ) ?
+        current = ( key <= current->id ) ?
             current->left : current->right;
     }
 
     /* setup new node */
-    if ( (x = new BinaryNode<T>()) == 0 )
+    if ( (x = new BinaryNode<Key,Data>()) == 0 )
         return STATUS_MEM_EXHAUSTED;
 
     x->parent = parent;
     x->left = NULL_NODE;
     x->right = NULL_NODE;
     x->color = RED;
-    x->id = newKey ( key );
+    x->id = key;
     x->data = rec;
     x->beenThere = NODE_ITSELF_VISITED;
 
     /* insert node in tree */
     if ( parent != NULL )
     {
-        if ( compLTEQ ( key, parent->id ) )
+        if ( key <= parent->id )
             parent->left = x;
         else
             parent->right = x;
@@ -347,14 +210,14 @@ template <class T>
     return STATUS_OK;
 }
 
-template <class T>
-    void RedBlackTree<T>::deleteFixup ( BinaryNode<T> * x )
+template <class Key, class Data>
+void RedBlackTree<Key,Data>::deleteFixup ( BinaryNode<Key,Data> * x )
 {
     while ( x != rootNode && x->color == BLACK )
     {
         if ( x == x->parent->left )
         {
-            BinaryNode<T> *w = x->parent->right;
+            BinaryNode<Key,Data> *w = x->parent->right;
 
             if ( w->color == RED )
             {
@@ -386,7 +249,7 @@ template <class T>
         }
         else
         {
-            BinaryNode<T> *w = x->parent->left;
+            BinaryNode<Key,Data> *w = x->parent->left;
 
             if ( w->color == RED )
             {
@@ -420,10 +283,10 @@ template <class T>
     x->color = BLACK;
 }
 
-template <class T>
-    statusEnum RedBlackTree<T>::deleteNode ( const char *key )
+template <class Key, class Data>
+    statusEnum RedBlackTree<Key,Data>::deleteNode ( const Key &key )
 {
-    BinaryNode<T> *z, *parent;
+    BinaryNode<Key,Data> *z, *parent;
 
     //  delete node z from tree
 
@@ -433,12 +296,12 @@ template <class T>
 
     while ( z != NULL_NODE )
     {
-        if ( compEQ ( key, z->id ) )
+        if ( key == z->id )
             break;
         else
         {
             parent = z;
-            z = compLTEQ ( key, z->id ) ? z->left : z->right;
+            z = ( key <= z->id ) ? z->left : z->right;
         }
     }
 
@@ -448,10 +311,10 @@ template <class T>
     return killNode ( z );
 }
 
-template <class T>
-    statusEnum RedBlackTree<T>::killNode ( BinaryNode<T> * z )
+template <class Key, class Data>
+    statusEnum RedBlackTree<Key,Data>::killNode ( BinaryNode<Key,Data> * z )
 {
-    BinaryNode<T> *x, *y;
+    BinaryNode<Key,Data> *x, *y;
 
     if ( z->left == NULL_NODE || z->right == NULL_NODE )
     {
@@ -487,18 +350,13 @@ template <class T>
 
     if ( y != z )
     {
-        if ( !z->id )
-            z->id = newKey ( y->id );
-        else
-            z->id = reallocKey ( z->id, y->id );
-
+        z->id = y->id;
         z->data = y->data;
     }
 
     if ( y->color == BLACK )
         deleteFixup ( x );
 
-    free ( y->id );
     delete y;
 
     return STATUS_OK;
@@ -543,8 +401,8 @@ template <class T>
 
    ----------------------------------------------------------------------------- */
 
-template <class T>
-    void RedBlackTree<T>::getNext ( BinaryNode<T> ** current )
+template <class Key, class Data>
+    void RedBlackTree<Key,Data>::getNext ( BinaryNode<Key,Data> ** current )
 {
     if ( ( *current ) == NULL_NODE )
     {
@@ -627,37 +485,20 @@ template <class T>
     }
 }
 
-template <class T>
-    T RedBlackTree<T>::find ( const char *key ) const
+template <class Key, class Data>
+    Data RedBlackTree<Key,Data>::find ( const Key &key ) const
 {
-    BinaryNode<T> *current = rootNode;
+    BinaryNode<Key,Data> *current = rootNode;
 
-#    ifdef SHOW_NODE_SEARCH_PROGRESS
-    int hops = 0;
-#    endif
-    if ( !key )
-    {
-        fprintf ( stderr, "WARNING: RedBlackTree<T>::find() called with NULL key pointer!\n" );
-        return NULL;
-    }
-#    ifdef SHOW_NODE_SEARCH_PROGRESS
-    printf ( "Searching for '%s'... ", ( char * ) key );
-#    endif
     while ( current != NULL_NODE )
     {
-#    ifdef SHOW_NODE_SEARCH_PROGRESS
-        hops++;
-#    endif
-        if ( compEQ ( key, current->id ) )
+        if ( key == current->id )
         {
-#    ifdef SHOW_NODE_SEARCH_PROGRESS
-            printf ( "Found in %d hops.\n", hops );
-#    endif
             return current->data;
         }
         else
         {
-            current = compLTEQ ( key, current->id ) ?
+            current = ( key <= current->id ) ?
                 current->left : current->right;
         }
     }
@@ -665,45 +506,27 @@ template <class T>
     return NULL;
 }
 
-template <class T>
-    BinaryNode<T> * RedBlackTree<T>::findNode ( const char *key ) const
+template <class Key, class Data>
+    BinaryNode<Key,Data> * RedBlackTree<Key,Data>::findNode ( const Key &key ) const
 {
-    BinaryNode<T> * current = rootNode;
-
-#    ifdef SHOW_NODE_SEARCH_PROGRESS
-    int hops = 0;
-#    endif
-    if ( !key )
-    {
-        fprintf ( stderr, "WARNING: RedBlackTree<T>::findNode() called with NULL key pointer!\n" );
-        return NULL;
-    }
-#    ifdef SHOW_NODE_SEARCH_PROGRESS
-    printf ( "Searching for '%s'...", ( char * ) key );
-#    endif
+    BinaryNode<Key,Data> * current = rootNode;
     while ( current != NULL_NODE )
     {
-#    ifdef SHOW_NODE_SEARCH_PROGRESS
-        hops++;
-#    endif
-        if ( compEQ ( key, current->id ) )
+        if ( key == current->id )
         {
-#    ifdef SHOW_NODE_SEARCH_PROGRESS
-            printf ( "Found in %d hops!\n", hops );
-#    endif
             return current;
         }
         else
         {
-            current = compLTEQ ( key, current->id ) ? current->left : current->right;
+            current = ( key <= current->id ) ? current->left : current->right;
         }
     }
 
     return NULL;
 }
 
-template <class T>
-    void RedBlackTree<T>::killAll ( BinaryNode<T> * rec )
+template <class Key, class Data>
+    void RedBlackTree<Key,Data>::killAll ( BinaryNode<Key,Data> *rec )
 {
     if ( rec == NULL_NODE )
         return;
@@ -723,24 +546,23 @@ template <class T>
             rec->parent->right = NULL_NODE;
     }
 
-    free ( rec->id );
     delete rec;
 }
 
-template <class T>
-    void RedBlackTree<T>::killAll ()
+template <class Key, class Data>
+    void RedBlackTree<Key,Data>::killAll ()
 {
     killAll ( rootNode );
 }
 
-template <class T>
-    int RedBlackTree<T>::size ()
+template <class Key, class Data>
+    int RedBlackTree<Key,Data>::size ()
 {
-    BinaryNode<T> *vNode = NULL_NODE;
+    BinaryNode<Key,Data> *vNode = NULL_NODE;
     int vCount = 0;
 
     getNext ( &vNode );
-    while ( ValidNode ( vNode ) )
+    while ( valid ( vNode ) )
     {
         vCount++;
         getNext ( &vNode );
@@ -749,8 +571,8 @@ template <class T>
     return vCount;
 }
 
-template <class T>
-    bool RedBlackTree <T>::ValidNode ( const BinaryNode<T> * node ) const
+template <class Key, class Data>
+    bool RedBlackTree<Key,Data>::valid ( const BinaryNode<Key,Data> * node ) const
 {
     if ( node != NULL && node != NULL_NODE )
         return true;
@@ -758,46 +580,33 @@ template <class T>
         return false;
 }
 
-/* ******************************************************
- *            RedBlackTree backward-compatibility
- * ******************************************************
- *
- * These functions are only here to make the transition
- * to the RedBlackTree class easier.
- *
- * NOTE: Most of the functions below this comment
- *         block are deprecated. Do not use these
- *         functions in new software, as they may
- *         be removed from future versions.
- */
-
-template <class T>
-    DArray<T> *RedBlackTree <T>::ConvertToDArray ()
+template <class Key, class Data>
+    DArray<Data> *RedBlackTree<Key,Data>::ConvertToDArray ()
 {
-    DArray<T> *darray = new DArray<T> ( (int)size() );
+    DArray<Data> *darray = new DArray<Data> ( (int)size() );
     RecursiveConvertToDArray ( darray, rootNode );
     return darray;
 }
 
-template <class T>
-    DArray<char *> *RedBlackTree <T>::ConvertIndexToDArray ()
+template <class Key, class Data>
+    DArray<char *> *RedBlackTree<Key,Data>::ConvertIndexToDArray ()
 {
     DArray<char *> *darray = new DArray<char *> ( (int)size () );
     RecursiveConvertIndexToDArray ( darray, rootNode );
     return darray;
 }
 
-template <class T>
-    void RedBlackTree<T>::RecursiveConvertToDArray ( DArray<T> *darray, BinaryNode<T> *btree )
+template <class Key, class Data>
+    void RedBlackTree<Key,Data>::RecursiveConvertToDArray ( DArray<Data> *darray, BinaryNode<Key,Data> *btree )
 {
     // note that the btree parameter is ignored
 
-    BinaryNode<T> *current = NULL_NODE;
+    BinaryNode<Key,Data> *current = NULL_NODE;
 
     CoreAssert ( darray != NULL );
 
     getNext ( &current );
-    while ( ValidNode ( current ) )
+    while ( valid ( current ) )
     {
         if ( current->data )
             darray->insert ( current->data );
@@ -805,81 +614,22 @@ template <class T>
     }
 }
 
-template <class T>
-    void RedBlackTree<T>::RecursiveConvertIndexToDArray ( DArray <char *> *darray, BinaryNode<T> * btree )
+template <class Key, class Data>
+    void RedBlackTree<Key,Data>::RecursiveConvertIndexToDArray ( DArray<char *> *darray, BinaryNode<Key,Data> *btree )
 {
     // note that the btree parameter is ignored
 
-    BinaryNode<T> *current = NULL_NODE;
+    BinaryNode<Key,Data> *current = NULL_NODE;
 
     CoreAssert ( darray != NULL );
 
     getNext ( &current );
-    while ( ValidNode ( current ) )
+    while ( valid ( current ) )
     {
         if ( current->id )
             darray->insert ( current->id );
         getNext ( &current );
     }
-}
-
-template <class T>
-    void RedBlackTree<T>::Print ()
-{
-    BinaryNode<T> *current = NULL_NODE;
-
-    getNext ( &current );
-    while ( ValidNode ( current ) )
-    {
-        if ( current->id )
-            printf ( "%s : %s\n", current->key, current->data );
-        getNext ( &current );
-    }
-}
-
-template <class T>
-    T RedBlackTree<T>::GetData ( const char *key ) const
-{
-    if ( !key )
-    {
-        fprintf ( stderr, "WARNING: RedBlackTree<T>::GetData() called with NULL key pointer!\n" );
-        return NULL;
-    }
-    return find ( key );
-}
-
-template <class T>
-    void RedBlackTree<T>::PutData ( const char *key, const T & rec )
-{
-    if ( !key )
-    {
-        fprintf ( stderr, "WARNING: RedBlackTree<T>::PutData() called with NULL key pointer!\n" );
-    }
-    if ( !rec )
-    {
-        fprintf ( stderr, "WARNING: RedBlackTree<T>::PutData() called with NULL data pointer!\n" );
-    }
-    if ( !key || !rec )
-        return;
-    insert ( key, rec );
-}
-
-template <class T>
-    void RedBlackTree<T>::RemoveData ( const char *key )
-{
-    deleteNode ( key );
-}
-
-template <class T>
-	BinaryNode<T> *RedBlackTree<T>::LookupTree ( const char *key )
-{
-    return findNode ( key );
-}
-
-template <class T>
-    int RedBlackTree<T>::Size ()
-{
-    return ( int ) size ();
 }
 
 #endif

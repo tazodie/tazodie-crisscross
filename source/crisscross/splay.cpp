@@ -11,39 +11,39 @@
 
 #include <stdlib.h>
 
-template <class T>
-SplayTree<T>::SplayTree( )
+template <class Key, class Data>
+SplayTree<Key,Data>::SplayTree( )
 {
-    nullNode = new BinaryNode<T>;
+    nullNode = new BinaryNode<Key,Data>;
     nullNode->left = nullNode->right = nullNode;
     root = nullNode;
 }
 
-template <class T>
-SplayTree<T>::SplayTree( const SplayTree<T> & rhs )
+template <class Key, class Data>
+SplayTree<Key,Data>::SplayTree( const SplayTree<Key,Data> & rhs )
 {
-    nullNode = new BinaryNode<T>;
+    nullNode = new BinaryNode<Key,Data>;
     nullNode->left = nullNode->right = nullNode;
     root = nullNode;
     *this = rhs;
 }
 
-template <class T>
-SplayTree<T>::~SplayTree( )
+template <class Key, class Data>
+SplayTree<Key,Data>::~SplayTree( )
 {
     makeEmpty( );
     delete nullNode;
 }
 
-template <class T>
-int SplayTree<T>::insert( const char *key, const T & x )
+template <class Key, class Data>
+int SplayTree<Key,Data>::insert( const Key &key, const Data &x )
 {
-    static BinaryNode<T> *newNode = NULL;
+    static BinaryNode<Key,Data> *newNode = NULL;
 
     if( newNode == NULL )
-        newNode = new BinaryNode<T>;
-    newNode->key = strdup ( key );
-    newNode->element = x;
+        newNode = new BinaryNode<Key,Data>;
+    newNode->id = key;
+    newNode->data = x;
 
     if( root == nullNode )
     {
@@ -53,7 +53,7 @@ int SplayTree<T>::insert( const char *key, const T & x )
     else
     {
         splay( key, root );
-        if( strcmp(key, root->key) < 0 )
+        if ( key < root->id )
         {
             newNode->left = root->left;
             newNode->right = root;
@@ -61,7 +61,7 @@ int SplayTree<T>::insert( const char *key, const T & x )
             root = newNode;
         }
         else
-        if( strcmp ( root->key, key ) < 0 )
+        if ( root->id < key )
         {
             newNode->right = root->right;
             newNode->left = root;
@@ -75,14 +75,14 @@ int SplayTree<T>::insert( const char *key, const T & x )
     return 0;
 }
 
-template <class T>
-int SplayTree<T>::remove( const char *key, bool deleteData )
+template <class Key, class Data>
+int SplayTree<Key,Data>::remove( const Key &key )
 {
-    BinaryNode<T> *newTree;
+    BinaryNode<Key,Data> *newTree;
 
     // If key is found, it will be at the root
     splay( key, root );
-    if( strcmp ( root->key, key ) != 0 )
+    if( root->id != key )
         return 1;
 
 	if( root == nullNode )
@@ -98,76 +98,84 @@ int SplayTree<T>::remove( const char *key, bool deleteData )
         splay( key, newTree );
         newTree->right = root->right;
     }
-    free ( (char*)root->key );
-	if ( deleteData )
-		delete root->element;
+
     delete root;
     root = newTree;
+
     return 0;
 }
 
-template <class T>
-T SplayTree<T>::elementAt( BinaryNode<T> *t ) const
+template <class Key, class Data>
+Data SplayTree<Key,Data>::elementAt( BinaryNode<Key,Data> *t ) const
 {
-    return t == NULL ? NULL : t->element;
+    return t == NULL ? NULL : t->data;
 }
 
-template <class T>
-const char *SplayTree<T>::findMin( )
+template <class Key, class Data>
+const Key &SplayTree<Key,Data>::findMin( )
 {
     if( isEmpty( ) )
         return elementAt( NULL );
 
-    BinaryNode<T> *ptr = root;
+    BinaryNode<Key,Data> *ptr = root;
 
     while( ptr->left != nullNode )
         ptr = ptr->left;
 
-    splay( ptr->element, root );
-    return root->key;
+    splay( ptr->id, root );
+    return root->id;
 }
 
-template <class T>
-const char *SplayTree<T>::findMax( )
+template <class Key, class Data>
+const Key &SplayTree<Key,Data>::findMax( )
 {
-    if( isEmpty( ) )
-        return NULL;
-
-    BinaryNode<T> *ptr = root;
+    BinaryNode<Key,Data> *ptr = root;
 
     while( ptr->right != nullNode )
         ptr = ptr->right;
 
-    splay( ptr->key, root );
-    return root->key;
+    splay( ptr->id, root );
+    return root->id;
 }
 
-template <class T>
-T SplayTree<T>::find( char *key )
+template <class Key, class Data>
+Data SplayTree<Key,Data>::find( const Key &key )
 {
     splay( key, root );
-    if( isEmpty( ) || strcmp ( root->key, key ) != 0 )
+
+	if ( isEmpty( ) || root->id != key )
         return elementAt( NULL );
 
     return elementAt( root );
 }
 
-template <class T>
-void SplayTree<T>::makeEmpty( bool deleteData )
+template <class Key, class Data>
+BinaryNode<Key,Data> *SplayTree<Key,Data>::findNode( const Key &key )
+{
+    splay( key, root );
+
+	if ( isEmpty( ) || root->id != key )
+        return NULL;
+
+    return root;
+}
+
+template <class Key, class Data>
+void SplayTree<Key,Data>::makeEmpty ()
 {
     findMax( );
     while( !isEmpty( ) )
-        remove( root->key, deleteData );
+        remove( root->id );
 }
 
-template <class T>
-bool SplayTree<T>::isEmpty( ) const
+template <class Key, class Data>
+bool SplayTree<Key,Data>::isEmpty( ) const
 {
     return root == nullNode;
 }
 
-template <class T>
-const SplayTree<T> &SplayTree<T> :: operator=( const SplayTree<T> & rhs )
+template <class Key, class Data>
+const SplayTree<Key,Data> &SplayTree<Key,Data> :: operator=( const SplayTree<Key,Data> & rhs )
 {
     if( this != &rhs )
     {
@@ -178,34 +186,34 @@ const SplayTree<T> &SplayTree<T> :: operator=( const SplayTree<T> & rhs )
     return *this;
 }
 
-template <class T>
-void SplayTree<T>::splay( const char *key, BinaryNode<T> * & t ) const
+template <class Key, class Data>
+void SplayTree<Key,Data>::splay( const Key &key, BinaryNode<Key,Data> * & t ) const
 {
-    BinaryNode<T> *leftTreeMax, *rightTreeMin;
-    static BinaryNode<T> header;
+    BinaryNode<Key,Data> *leftTreeMax, *rightTreeMin;
+    static BinaryNode<Key,Data> header;
 
     header.left = header.right = nullNode;
     leftTreeMax = rightTreeMin = &header;
 
-    nullNode->key = (char *)key;   // Guarantee a match
+    nullNode->id = key;   // Guarantee a match
 
     for( ; ; )
-        if( strcmp ( key, t->key ) < 0 )
+        if ( key < t->id )
         {
-            if( strcmp ( key, t->left->key ) < 0 )
+            if ( key < t->left->id )
                 rotateWithLeftChild( t );
-            if( t->left == nullNode )
+            if ( t->left == nullNode )
                 break;
               // Link Right
             rightTreeMin->left = t;
             rightTreeMin = t;
             t = t->left;
         }
-        else if( strcmp ( t->key, key ) < 0 )
+        else if ( t->id < key  )
         {
-            if( strcmp ( t->right->key, key ) < 0 )
+            if ( t->right->id < key )
                 rotateWithRightChild( t );
-            if( t->right == nullNode )
+            if ( t->right == nullNode )
                 break;
               // Link Left
             leftTreeMax->right = t;
@@ -222,26 +230,26 @@ void SplayTree<T>::splay( const char *key, BinaryNode<T> * & t ) const
 }
 
 
-template <class T>
-void SplayTree<T>::rotateWithLeftChild( BinaryNode<T> * & k2 ) const
+template <class Key, class Data>
+void SplayTree<Key,Data>::rotateWithLeftChild( BinaryNode<Key,Data> * & k2 ) const
 {
-    BinaryNode<T> *k1 = k2->left;
+    BinaryNode<Key,Data> *k1 = k2->left;
     k2->left = k1->right;
     k1->right = k2;
     k2 = k1;
 }
 
-template <class T>
-void SplayTree<T>::rotateWithRightChild( BinaryNode<T> * & k1 ) const
+template <class Key, class Data>
+void SplayTree<Key,Data>::rotateWithRightChild( BinaryNode<Key,Data> * & k1 ) const
 {
-    BinaryNode<T> *k2 = k1->right;
+    BinaryNode<Key,Data> *k2 = k1->right;
     k1->right = k2->left;
     k2->left = k1;
     k1 = k2;
 }
 
-template <class T>
-void SplayTree<T>::reclaimMemory( BinaryNode<T> * t ) const
+template <class Key, class Data>
+void SplayTree<Key,Data>::reclaimMemory( BinaryNode<Key,Data> * t ) const
 {
     if( t != t->left )
     {
@@ -252,11 +260,11 @@ void SplayTree<T>::reclaimMemory( BinaryNode<T> * t ) const
     }
 }
 
-template <class T>
-BinaryNode<T> *SplayTree<T>::clone( BinaryNode<T> * t ) const
+template <class Key, class Data>
+BinaryNode<Key,Data> *SplayTree<Key,Data>::clone( BinaryNode<Key,Data> * t ) const
 {
     if( t == t->left )  // Cannot test against nullNode!!!
         return nullNode;
     else
-        return new BinaryNode<T>( t->element, clone( t->left ), clone( t->right ) );
+        return new BinaryNode<Key,Data>( t->element, clone( t->left ), clone( t->right ) );
 }

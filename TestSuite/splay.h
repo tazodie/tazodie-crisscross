@@ -9,11 +9,11 @@
  *
  */
 
-#ifndef __included_rbtree_test_h
-#define __included_rbtree_test_h
+#ifndef __included_splay_test_h
+#define __included_splay_test_h
 
-int TestRedBlackTree_DataBuffer();
-int TestRedBlackTree_stdstring();
-int TestRedBlackTree_Int();
+int TestSplayTree_DataBuffer();
+int TestSplayTree_stdstring();
+int TestSplayTree_Int();
 
 #endif

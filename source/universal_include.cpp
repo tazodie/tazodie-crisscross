@@ -42,8 +42,8 @@ ParseMemoryLeakFile ( const char *_inputFilename,
     // Start up
     //
 
-    RedBlackTree <int> combined;
-    RedBlackTree <int> frequency;
+    RedBlackTree<char *,int> combined;
+    RedBlackTree<char *,int> frequency;
     int unrecognised = 0;
 
     //
@@ -80,14 +80,14 @@ ParseMemoryLeakFile ( const char *_inputFilename,
 
             // Put the result into our BTree
 
-            BinaryNode<int> *node =
+            BinaryNode<char *,int> *node =
                 combined.findNode ( sourcelocation );
             if ( node )
                 ( ( int ) node->data ) += size;
             else
                 combined.insert ( sourcelocation, size );
 
-            BinaryNode<int> *freq =
+            BinaryNode<char *,int> *freq =
                 frequency.findNode ( sourcelocation );
             if ( freq )
                 ( ( int ) freq->data )++;

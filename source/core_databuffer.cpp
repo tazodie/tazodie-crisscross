@@ -29,16 +29,23 @@ DataBuffer::DataBuffer ( size_t _initialCapacity )
 	setSize ( _initialCapacity );
 }
 
-DataBuffer::DataBuffer ( const char *_initialData )
+DataBuffer::DataBuffer ( const char *_initialString )
 	: m_buffer ( NULL ), m_size ( -1 )
 {
-	setData ( _initialData );
+	setDataString ( _initialString );
+}
+
+
+DataBuffer::DataBuffer ( const char *_initialData, size_t _size )
+	: m_buffer ( NULL ), m_size ( -1 )
+{
+	setData ( _initialData, _size );
 }
 
 DataBuffer::DataBuffer ( const DataBuffer &_initialData )
 	: m_buffer ( NULL ), m_size ( -1 )
 {
-	setData ( _initialData.getData() );
+	setData ( _initialData.getData(), _initialData.getSize() );
 }
 
 DataBuffer::~DataBuffer ()
@@ -76,13 +83,25 @@ void DataBuffer::setSize ( size_t _capacity )
 	memset ( m_buffer, 0, m_size );
 }
 
-void DataBuffer::setData ( const char *_data )
+int DataBuffer::setData ( const char *_data, size_t _size )
+{
+	if ( _size < 0 ) return 1;
+	if ( m_buffer ) free ( m_buffer );
+
+	m_size = _size;
+	m_buffer = (char *)malloc ( _size );
+	memcpy ( m_buffer, _data, _size );
+	return 0;
+}
+
+int DataBuffer::setDataString ( const char *_data )
 {
 	if ( m_buffer ) free ( m_buffer );
 
 	m_size = strlen ( _data ) + 1;
 	m_buffer = (char *)malloc ( m_size );
 	strcpy ( m_buffer, _data );
+	return 0;
 }
 
 size_t DataBuffer::getSize () const
@@ -93,6 +112,12 @@ size_t DataBuffer::getSize () const
 const char *DataBuffer::getData () const
 {
 	return m_buffer;
+}
+
+DataBuffer &DataBuffer::operator= ( const DataBuffer &_buffer )
+{
+	setData ( _buffer.getData(), _buffer.getSize() );
+	return *this;
 }
 
 bool DataBuffer::operator> ( const DataBuffer &_buffer ) const
