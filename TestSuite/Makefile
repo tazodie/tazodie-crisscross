@@ -68,7 +68,7 @@ ifneq ($(GCC_ISEMULATED),yes)
 endif   
 	$(STRIP) $(OUTDIR)/$(OUTBIN)
 
-$(GCH): $(PCH)
+$(GCH):
 	$(CXX) $(CXXFLAGS) -c $(PCH) -o $(GCH)
 
 $(OBJDIR)/%.o: %.cpp
