@@ -47,7 +47,7 @@ clean:
 	-rm -rf .libs
 	-rm -f $(OUTDIR)/$(OUTBIN)
 	-rm -f $(OUTDIR)/$(OUTBIN).map
-	-rm -f $(PCH)
+	-rm -f $(GCH)
 	-rm -f $(LIBNAME)
 	-rm -f $(LIBNAME).$(VERSION_MAJOR)
 	-rm -f $(LIBNAME).$(VERSION)
