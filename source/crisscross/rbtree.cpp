@@ -284,7 +284,7 @@ void RedBlackTree<Key,Data>::deleteFixup ( BinaryNode<Key,Data> * x )
 }
 
 template <class Key, class Data>
-    statusEnum RedBlackTree<Key,Data>::deleteNode ( const Key &key )
+    statusEnum RedBlackTree<Key,Data>::erase ( const Key &key )
 {
     BinaryNode<Key,Data> *z, *parent;
 
