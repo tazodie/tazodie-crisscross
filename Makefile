@@ -24,6 +24,4 @@ fastdep:
 	+$(MAKE) -C contrib/fastdep-0.15
 	
 distclean: clean
-	$(MAKE) -C contrib/fastdep-0.15 distclean
-	$(MAKE) -C tools clean
 	
