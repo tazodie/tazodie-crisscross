@@ -437,6 +437,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\core_error.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\crisscross\core_error.h"
 				>
 			</File>
