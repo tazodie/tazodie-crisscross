@@ -12,22 +12,21 @@
 #ifndef __included_tree_h
 #define __included_tree_h
 
-template <class T>
+template <class Key, class Data>
 class BinaryNode
 {
 public:
     char        beenThere;
     char        color;
-    char       *id;
-    T           data;
+    Key			id;
+    Data        data;
     BinaryNode *left;
     BinaryNode *right;
     BinaryNode *parent;
 
-    BinaryNode( ) : id ( NULL ), left( NULL ), right( NULL ), parent ( NULL ) { }
+    BinaryNode( ) : id (), left( NULL ), right( NULL ), parent ( NULL ) { }
 
-    BinaryNode( char *theKey, const T & theElement,
-		BinaryNode *pt, BinaryNode *lt, BinaryNode *rt )
+    BinaryNode( const Key &theKey, const Data &theElement, BinaryNode *pt, BinaryNode *lt, BinaryNode *rt )
       : data ( theElement ), id ( theKey), left( lt ), right( rt ), parent ( pt ) { }
 };
 

@@ -13,25 +13,26 @@
 #include "rbtree.h"
 #include "testutils.h"
 
+#include <crisscross/core_databuffer.h>
 #include <crisscross/rbtree.h>
 
 using namespace CrissCross::Data;
 
-int TestRedBlackTree()
+int TestRedBlackTree_DataBuffer()
 {
-	RedBlackTree<char *> *rbtree = new RedBlackTree<char *>();
-	BinaryNode<char *> *node = NULL;
-	char *ptr = NULL;
+	RedBlackTree<DataBuffer,DataBuffer*> *rbtree = new RedBlackTree<DataBuffer,DataBuffer*>();
+	BinaryNode<DataBuffer,DataBuffer*> *node = NULL;
+	DataBuffer *buffer = NULL;
 	
-	rbtree->insert ( "first", newStr ("one") );
-	rbtree->insert ( "second", newStr ("two") );
-	rbtree->insert ( "third", newStr ("three") );
-	rbtree->insert ( "fourth", newStr ("four") );
+	rbtree->insert ( "first", new DataBuffer ("one") );
+	rbtree->insert ( "second", new DataBuffer ("two") );
+	rbtree->insert ( "third", new DataBuffer ("three") );
+	rbtree->insert ( "fourth", new DataBuffer ("four") );
 	
 	if ( (node = rbtree->findNode ( "FiRSt" ) ) == NULL )
 		return 1;
 
-	if ( strcmp ( node->data, "one" ) != 0 )
+	if ( *node->data != "one" )
 		return 2;
 
 	if ( (node = rbtree->findNode ( "fifth" ) ) != NULL )
@@ -40,40 +41,40 @@ int TestRedBlackTree()
 	if ( (node = rbtree->findNode ( "SeCoND" ) ) == NULL )
 		return 4;
 
-	if ( strcmp ( node->data, "two" ) != 0 )
+	if ( *node->data != "two" )
 		return 5;
 		
 	if ( rbtree->deleteNode ("fifth") == STATUS_OK )
 		return 6;
 	
-	if ( (ptr = rbtree->find ( "first")) == NULL )
+	if ( ( buffer = rbtree->find ( "first") ) == NULL )
 		return 7;
 	else
-		delete [] ptr;
+		delete buffer;
 	
 	if ( rbtree->deleteNode ("first") != STATUS_OK )
 		return 8;
 	
-	if ( (ptr = rbtree->find ( "second")) == NULL )
+	if ( ( buffer = rbtree->find ( "second") ) == NULL )
 		return 9;
 	else
-		delete [] ptr;
+		delete buffer;
 	
 	if ( rbtree->deleteNode ("second") != STATUS_OK )
 		return 10;
 	
-	if ( (ptr = rbtree->find ( "third")) == NULL )
+	if ( ( buffer = rbtree->find ( "third") ) == NULL )
 		return 11;
 	else
-		delete [] ptr;
+		delete buffer;
 	
 	if ( rbtree->deleteNode ("third") != STATUS_OK )
 		return 12;
 	
-	if ( (ptr = rbtree->find ( "fourth")) == NULL )
+	if ( ( buffer = rbtree->find ( "fourth") ) == NULL )
 		return 13;
 	else
-		delete [] ptr;
+		delete buffer;
 	
 	if ( rbtree->deleteNode ("fourth") != STATUS_OK )
 		return 14;
@@ -81,3 +82,116 @@ int TestRedBlackTree()
 	delete rbtree;
 	return 0;
 }
+
+int TestRedBlackTree_stdstring()
+{
+	RedBlackTree<std::string,std::string> *rbtree = new RedBlackTree<std::string,std::string>();
+	BinaryNode<std::string,std::string> *node = NULL;
+	
+	rbtree->insert ( "first", "one" );
+	rbtree->insert ( "second", "two" );
+	rbtree->insert ( "third", "three" );
+	rbtree->insert ( "fourth", "four" );
+	
+	if ( (node = rbtree->findNode ( "first" ) ) == NULL )
+		return 1;
+
+	if ( node->data != "one" )
+		return 2;
+
+	if ( (node = rbtree->findNode ( "fifth" ) ) != NULL )
+		return 3;
+
+	if ( (node = rbtree->findNode ( "second" ) ) == NULL )
+		return 4;
+
+	if ( node->data != "two" )
+		return 5;
+		
+	if ( rbtree->deleteNode ("fifth") == STATUS_OK )
+		return 6;
+	
+	if ( rbtree->find ( "first") == "" )
+		return 7;
+	
+	if ( rbtree->deleteNode ("first") != STATUS_OK )
+		return 8;
+	
+	if ( rbtree->find ( "second") == "" )
+		return 9;
+	
+	if ( rbtree->deleteNode ("second") != STATUS_OK )
+		return 10;
+	
+	if ( rbtree->find ( "third") == "" )
+		return 11;
+	
+	if ( rbtree->deleteNode ("third") != STATUS_OK )
+		return 12;
+	
+	if ( rbtree->find ( "fourth") == "" )
+		return 13;
+	
+	if ( rbtree->deleteNode ("fourth") != STATUS_OK )
+		return 14;
+
+	delete rbtree;
+	return 0;
+}
+
+int TestRedBlackTree_Int()
+{
+	RedBlackTree<int,int> *rbtree = new RedBlackTree<int,int>();
+	BinaryNode<int,int> *node = NULL;
+	
+	rbtree->insert ( 1, 1 );
+	rbtree->insert ( 2, 2 );
+	rbtree->insert ( 3, 3 );
+	rbtree->insert ( 4, 4 );
+	
+	if ( (node = rbtree->findNode ( 1 ) ) == NULL )
+		return 1;
+
+	if ( node->data != 1 )
+		return 2;
+
+	if ( (node = rbtree->findNode ( 5 ) ) != NULL )
+		return 3;
+
+	if ( (node = rbtree->findNode ( 2 ) ) == NULL )
+		return 4;
+
+	if ( node->data != 2 )
+		return 5;
+		
+	if ( rbtree->deleteNode ( 5 ) == STATUS_OK )
+		return 6;
+	
+	if ( rbtree->find ( 1 ) == NULL )
+		return 7;
+	
+	if ( rbtree->deleteNode ( 1 ) != STATUS_OK )
+		return 8;
+	
+	if ( rbtree->find ( 2 ) == NULL )
+		return 9;
+	
+	if ( rbtree->deleteNode ( 2 ) != STATUS_OK )
+		return 10;
+	
+	if ( rbtree->find ( 3 ) == NULL )
+		return 11;
+	
+	if ( rbtree->deleteNode ( 3 ) != STATUS_OK )
+		return 12;
+	
+	if ( rbtree->find ( 4 ) == NULL )
+		return 13;
+	
+	if ( rbtree->deleteNode ( 4 ) != STATUS_OK )
+		return 14;
+
+	delete rbtree;
+	return 0;
+}
+

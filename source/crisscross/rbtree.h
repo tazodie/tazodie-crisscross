@@ -34,7 +34,7 @@ namespace CrissCross
         } statusEnum;
 
         //! A very fast red-black tree implementation.
-        template < class T >
+        template < class Key, class Data >
         class RedBlackTree
         {
 
@@ -50,10 +50,10 @@ namespace CrissCross
             //! @endcond
 
             //! The root node at the top of the tree.
-            BinaryNode<T> *rootNode;
+            BinaryNode<Key,Data> *rootNode;
             
             //! The null node at the end of every branch, etc.
-            BinaryNode<T> *NULL_NODE;
+            BinaryNode<Key,Data> *NULL_NODE;
 
             //! The constructor.
             RedBlackTree ();
@@ -68,7 +68,7 @@ namespace CrissCross
                 \return A value indicating the result of the request.
                 \sa statusEnum
              */
-            statusEnum insert ( const char *_key, const T & _rec );
+            statusEnum insert ( const Key &_key, const Data & _rec );
 
             //! Deletes a node from the tree, specified by the node's key.
             /*!
@@ -78,7 +78,7 @@ namespace CrissCross
                 \return A value indicating the result of the request.
                 \sa statusEnum
              */
-            statusEnum deleteNode ( const char *_key );
+            statusEnum deleteNode ( const Key &_key );
 
             //! Deletes a node from the tree, specified by the pointer to the node.
             /*!
@@ -88,14 +88,14 @@ namespace CrissCross
                 \return A value indicating the result of the request.
                 \sa statusEnum
              */
-            statusEnum killNode ( BinaryNode<T> * _z );
+            statusEnum killNode ( BinaryNode<Key,Data> * _z );
 
             //! Finds a node in the tree and returns the data at that node.
             /*!
                 \param _key The key of the node to find.
                 \return The data at the node. NULL if not found.
              */
-            T find ( const char *_key ) const;
+            Data find ( const Key &_key ) const;
 
             //! Finds a node in the tree and returns the data at that node.
             /*!
@@ -103,14 +103,14 @@ namespace CrissCross
                 \return The node pointer. NULL or NULL_NODE if not found. Test result with ValidNode() function.
                 \sa ValidNode()
              */
-            BinaryNode<T> *findNode ( const char *_key ) const;
+            BinaryNode<Key,Data> *findNode ( const Key &_key ) const;
 
             //! Verifies that a node is valid.
             /*!
                 \param _node A node pointer.
                 \return True if the node is a valid node, false otherwise.
              */
-            bool ValidNode ( const BinaryNode<T> *_node ) const;
+            bool valid ( const BinaryNode<Key,Data> *_node ) const;
 
         protected:
             inline char *reallocKey ( char *_pointer, char *_a );
@@ -136,7 +136,7 @@ namespace CrissCross
             /*
             these are automatically called. no need to use them externally at all.
             */
-            void killAll ( BinaryNode<T> *_rec );
+            void killAll ( BinaryNode<Key,Data> *_rec );
             void killAll ();
 
         public:
@@ -147,26 +147,13 @@ namespace CrissCross
             int size ();
 
             //! Will get the next node in the tree, useful as an iterator.
-            void getNext ( BinaryNode<T> ** _current );
+            void getNext ( BinaryNode<Key,Data> ** _current );
 
-            //! @cond
-            /*
-                other old backward-compatible functions
-            */
-            _CC_DEPRECATE_FUNCTION ( find )         T           GetData ( const char *_key ) const;
-            _CC_DEPRECATE_FUNCTION ( insert )       void        PutData ( const char *_key, const T & _rec );
-            _CC_DEPRECATE_FUNCTION ( deleteNode )   void        RemoveData ( const char *_key );
-            _CC_DEPRECATE_FUNCTION ( findNode )     BinaryNode<T> *LookupTree ( const char *_key );
-            _CC_DEPRECATE_FUNCTION ( size )         int         Size ();
-                                                    void        Print ();
-            //! @endcond
-
-        public:
             //! Converts the tree data into a linearized DArray.
             /*!
                 \return A DArray containing the data of the tree.
              */
-            DArray <T> *ConvertToDArray ();
+            DArray <Data> *ConvertToDArray ();
 
             //! Converts the tree keys into a linearized DArray.
             /*!
@@ -175,13 +162,13 @@ namespace CrissCross
             DArray <char *>  *ConvertIndexToDArray ();
 
         protected:
-            void RecursiveConvertIndexToDArray ( DArray <char *> *_darray, BinaryNode<T> *_btree );
-            void RecursiveConvertToDArray ( DArray <T> *_darray, BinaryNode<T> *_btree );
+			void RecursiveConvertIndexToDArray ( DArray <char *> *_darray, BinaryNode<Key,Data> *_btree );
+			void RecursiveConvertToDArray ( DArray <Data> *_darray, BinaryNode<Key,Data> *_btree );
 
-            void rotateLeft ( BinaryNode<T> * _x );
-            void rotateRight ( BinaryNode<T> * _x );
-            void insertFixup ( BinaryNode<T> * _x );
-            void deleteFixup ( BinaryNode<T> * _x );
+            void rotateLeft ( BinaryNode<Key,Data> * _x );
+            void rotateRight ( BinaryNode<Key,Data> * _x );
+            void insertFixup ( BinaryNode<Key,Data> * _x );
+            void deleteFixup ( BinaryNode<Key,Data> * _x );
         };
     }
 }

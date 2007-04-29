@@ -14,39 +14,40 @@
 
 #include <crisscross/tree.h>
 
-template <class T>
+template <class Key, class Data>
 class SplayTree
 {
   public:
     SplayTree( );
     SplayTree( const SplayTree & rhs );
     ~SplayTree( );
-    T find( char *key );
+    Data find( const Key &key );
+    BinaryNode<Key,Data> *findNode( const Key &key );
     bool isEmpty( ) const;
 
-    void makeEmpty( bool deleteData = false );
-    int insert( const char *key, const T & x );
-    int remove( const char *key, bool deleteData = false );
+    void makeEmpty();
+    int insert( const Key &key, const Data &x );
+    int remove( const Key &key );
 
     const SplayTree & operator=( const SplayTree & rhs );
 
-    const char *findMin( );
-    const char *findMax( );
+    const Key &findMin( );
+    const Key &findMax( );
 
   private:
-    BinaryNode<T> *root;
-    BinaryNode<T> *nullNode;
+    BinaryNode<Key,Data> *root;
+    BinaryNode<Key,Data> *nullNode;
 
-    T elementAt( BinaryNode<T> *t ) const;
+    Data elementAt( BinaryNode<Key,Data> *t ) const;
 
-    void reclaimMemory( BinaryNode<T> * t ) const;
-    void printTree( BinaryNode<T> *t ) const;
-    BinaryNode<T> * clone( BinaryNode<T> *t ) const;
+    void reclaimMemory( BinaryNode<Key,Data> * t ) const;
+    void printTree( BinaryNode<Key,Data> *t ) const;
+    BinaryNode<Key,Data> * clone( BinaryNode<Key,Data> *t ) const;
 
     // Tree manipulations
-    void rotateWithLeftChild( BinaryNode<T> * & k2 ) const;
-    void rotateWithRightChild( BinaryNode<T> * & k1 ) const;
-    void splay( const char *key, BinaryNode<T> * & t ) const;
+    void rotateWithLeftChild( BinaryNode<Key,Data> * & k2 ) const;
+    void rotateWithRightChild( BinaryNode<Key,Data> * & k1 ) const;
+    void splay( const Key &key, BinaryNode<Key,Data> * & t ) const;
 };
 
 #include "splay.cpp"
