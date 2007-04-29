@@ -503,7 +503,7 @@ template <class Key, class Data>
         }
     }
 
-    return NULL;
+    return (Data)0;
 }
 
 template <class Key, class Data>

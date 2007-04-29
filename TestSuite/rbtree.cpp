@@ -44,7 +44,7 @@ int TestRedBlackTree_DataBuffer()
 	if ( *node->data != "two" )
 		return 5;
 		
-	if ( rbtree->deleteNode ("fifth") == STATUS_OK )
+	if ( rbtree->erase ("fifth") == STATUS_OK )
 		return 6;
 	
 	if ( ( buffer = rbtree->find ( "first") ) == NULL )
@@ -52,7 +52,7 @@ int TestRedBlackTree_DataBuffer()
 	else
 		delete buffer;
 	
-	if ( rbtree->deleteNode ("first") != STATUS_OK )
+	if ( rbtree->erase ("first") != STATUS_OK )
 		return 8;
 	
 	if ( ( buffer = rbtree->find ( "second") ) == NULL )
@@ -60,7 +60,7 @@ int TestRedBlackTree_DataBuffer()
 	else
 		delete buffer;
 	
-	if ( rbtree->deleteNode ("second") != STATUS_OK )
+	if ( rbtree->erase ("second") != STATUS_OK )
 		return 10;
 	
 	if ( ( buffer = rbtree->find ( "third") ) == NULL )
@@ -68,7 +68,7 @@ int TestRedBlackTree_DataBuffer()
 	else
 		delete buffer;
 	
-	if ( rbtree->deleteNode ("third") != STATUS_OK )
+	if ( rbtree->erase ("third") != STATUS_OK )
 		return 12;
 	
 	if ( ( buffer = rbtree->find ( "fourth") ) == NULL )
@@ -76,7 +76,7 @@ int TestRedBlackTree_DataBuffer()
 	else
 		delete buffer;
 	
-	if ( rbtree->deleteNode ("fourth") != STATUS_OK )
+	if ( rbtree->erase ("fourth") != STATUS_OK )
 		return 14;
 
 	delete rbtree;
@@ -108,31 +108,31 @@ int TestRedBlackTree_stdstring()
 	if ( node->data != "two" )
 		return 5;
 		
-	if ( rbtree->deleteNode ("fifth") == STATUS_OK )
+	if ( rbtree->erase ("fifth") == STATUS_OK )
 		return 6;
 	
 	if ( rbtree->find ( "first") == "" )
 		return 7;
 	
-	if ( rbtree->deleteNode ("first") != STATUS_OK )
+	if ( rbtree->erase ("first") != STATUS_OK )
 		return 8;
 	
 	if ( rbtree->find ( "second") == "" )
 		return 9;
 	
-	if ( rbtree->deleteNode ("second") != STATUS_OK )
+	if ( rbtree->erase ("second") != STATUS_OK )
 		return 10;
 	
 	if ( rbtree->find ( "third") == "" )
 		return 11;
 	
-	if ( rbtree->deleteNode ("third") != STATUS_OK )
+	if ( rbtree->erase ("third") != STATUS_OK )
 		return 12;
 	
 	if ( rbtree->find ( "fourth") == "" )
 		return 13;
 	
-	if ( rbtree->deleteNode ("fourth") != STATUS_OK )
+	if ( rbtree->erase ("fourth") != STATUS_OK )
 		return 14;
 
 	delete rbtree;
@@ -164,31 +164,31 @@ int TestRedBlackTree_Int()
 	if ( node->data != 2 )
 		return 5;
 		
-	if ( rbtree->deleteNode ( 5 ) == STATUS_OK )
+	if ( rbtree->erase ( 5 ) == STATUS_OK )
 		return 6;
 	
-	if ( rbtree->find ( 1 ) == NULL )
+	if ( !rbtree->find ( 1 ) )
 		return 7;
 	
-	if ( rbtree->deleteNode ( 1 ) != STATUS_OK )
+	if ( rbtree->erase ( 1 ) != STATUS_OK )
 		return 8;
 	
-	if ( rbtree->find ( 2 ) == NULL )
+	if ( !rbtree->find ( 2 ) )
 		return 9;
 	
-	if ( rbtree->deleteNode ( 2 ) != STATUS_OK )
+	if ( rbtree->erase ( 2 ) != STATUS_OK )
 		return 10;
 	
-	if ( rbtree->find ( 3 ) == NULL )
+	if ( !rbtree->find ( 3 ) )
 		return 11;
 	
-	if ( rbtree->deleteNode ( 3 ) != STATUS_OK )
+	if ( rbtree->erase ( 3 ) != STATUS_OK )
 		return 12;
 	
-	if ( rbtree->find ( 4 ) == NULL )
+	if ( !rbtree->find ( 4 ) )
 		return 13;
 	
-	if ( rbtree->deleteNode ( 4 ) != STATUS_OK )
+	if ( rbtree->erase ( 4 ) != STATUS_OK )
 		return 14;
 
 	delete rbtree;
