@@ -12,7 +12,9 @@
 #include <crisscross/universal_include.h>
 #include <crisscross/core_error.h>
 
-#include <netdb.h>
+#ifndef TARGET_OS_WINDOWS
+#	include <netdb.h>
+#endif
 
 using namespace CrissCross;
 
