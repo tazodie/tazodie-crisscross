@@ -167,25 +167,25 @@ int TestSplayTree_Int()
 	if ( stree->remove ( 5 ) == STATUS_OK )
 		return 6;
 	
-	if ( stree->find ( 1 ) == NULL )
+	if ( !stree->find ( 1 ) )
 		return 7;
 	
 	if ( stree->remove ( 1 ) != STATUS_OK )
 		return 8;
 	
-	if ( stree->find ( 2 ) == NULL )
+	if ( !stree->find ( 2 ) )
 		return 9;
 	
 	if ( stree->remove ( 2 ) != STATUS_OK )
 		return 10;
 	
-	if ( stree->find ( 3 ) == NULL )
+	if ( !stree->find ( 3 ) )
 		return 11;
 	
 	if ( stree->remove ( 3 ) != STATUS_OK )
 		return 12;
 	
-	if ( stree->find ( 4 ) == NULL )
+	if ( !stree->find ( 4 ) )
 		return 13;
 	
 	if ( stree->remove ( 4 ) != STATUS_OK )
