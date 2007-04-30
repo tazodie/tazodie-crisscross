@@ -20,12 +20,12 @@ int TestDStack()
 {
     DStack<int> *dstack = new DStack<int>();
     
-    for ( int i = 0; i < 64; i++ )
+    for ( int i = 0; i < 16; i++ )
     {
         dstack->push ( i );
     }
     
-    for ( int i = 63; i >= 0; i-- )
+    for ( int i = 15; i >= 0; i-- )
     {
         if ( dstack->pop() != i )
             return i + 1;

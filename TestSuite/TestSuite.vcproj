@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="8.00"
 	Name="TestSuite"
-	ProjectGUID="{15E48C36-E1EB-41A3-9347-B0461790EC45}"
+	ProjectGUID="{E445B4EF-9B58-41CE-B68A-EA56DDFF5746}"
 	RootNamespace="TestSuite"
 	Keyword="Win32Proj"
 	>
@@ -196,14 +196,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\fail.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\fail.h"
-			>
-		</File>
-		<File
 			RelativePath=".\header.cpp"
 			>
 			<FileConfiguration
@@ -229,14 +221,6 @@
 		</File>
 		<File
 			RelativePath=".\main.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\pass.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\pass.h"
 			>
 		</File>
 		<File
