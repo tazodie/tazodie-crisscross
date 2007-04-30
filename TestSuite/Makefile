@@ -11,8 +11,6 @@ stopwatch.cpp \
 compare.cpp \
 llist.cpp \
 rbtree.cpp \
-pass.cpp \
-fail.cpp \
 dstack.cpp \
 darray.cpp \
 sort.cpp \
