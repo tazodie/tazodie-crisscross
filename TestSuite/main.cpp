@@ -12,9 +12,6 @@
 #include "header.h"
 #include "testutils.h"
 
-#include "pass.h"
-#include "fail.h"
-
 #include "compare.h"
 #include "darray.h"
 #include "dstack.h"

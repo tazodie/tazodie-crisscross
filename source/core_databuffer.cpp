@@ -11,6 +11,7 @@
 
 #include <crisscross/universal_include.h>
 #include <crisscross/core_databuffer.h>
+#include <crisscross/core_debug.h>
 
 #ifndef stricmp
 #define stricmp strcasecmp
@@ -66,7 +67,7 @@ void DataBuffer::resize ( size_t _capacity )
 		return;
 	}
 	
-	char *newBuffer = new char[_capacity];
+	char *newBuffer = (char *)malloc(_capacity);
 	memcpy ( newBuffer, m_buffer, m_size );
 	free ( m_buffer );
 	m_buffer = newBuffer;
