@@ -82,11 +82,11 @@ template < class T > void LList < T >::insert_back ( const T & newdata )
     LListItem < T > *li = new LListItem < T > ();
     li->m_data = newdata;
     li->m_next = NULL;
+	li->m_previous = m_last;
     ++m_numItems;
 
     if ( m_last == NULL )
     {
-        li->m_previous = NULL;
         m_first = li;
         m_last = li;
 
@@ -96,7 +96,6 @@ template < class T > void LList < T >::insert_back ( const T & newdata )
     else
     {
         m_last->m_next = li;
-        li->m_previous = m_last;
         m_last = li;
     }
 }
