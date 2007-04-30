@@ -27,6 +27,6 @@ namespace CrissCross
 				return 1;
 			else
 				return 0;
-		};
+		}
     }
 }
