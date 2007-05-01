@@ -9,8 +9,6 @@
  *
  */
 
-//BUGBUG: Purge all MessageBox and printf/fprintf calls.
-
 #include <crisscross/universal_include.h>
 #include <crisscross/core_debug.h>
 #include <crisscross/core_network.h>

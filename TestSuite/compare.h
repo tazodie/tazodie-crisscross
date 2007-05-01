@@ -12,9 +12,6 @@
 #ifndef __included_compare_h
 #define __included_compare_h
 
-#include <crisscross/core_compare.h>
-#include <crisscross/core_databuffer.h>
-
 int TestComparison_DataBuffer();
 int TestComparison_Integer();
 int TestComparison_UnsignedInteger();
