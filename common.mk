@@ -6,7 +6,7 @@ CC = gcc
 LINK = $(CXX)
 
 ifeq ($(CFLAGS),)
-CFLAGS = -O3 -march=pentium2 -mtune=pentium2 -Wall -std=c++98 -pedantic -pipe -g
+CFLAGS = -O3 -march=pentium2 -mtune=pentium2 -Wall -Wno-long-long -std=c++98 -pedantic -pipe -g
 endif
 
 ifeq ($(CXXFLAGS),)
