@@ -60,7 +60,7 @@ ifneq ($(CC_BUILDSTATIC),yes)
 	ln -sf ../source/$(LIBNAME).$(VERSION) $(LIBNAME).$(VERSION)
 else
 	ln -sf ../source/$(LIBNAME) $(LIBNAME)
-	$(LINK) $+ -lpthread -lstdc++ libcrisscross-$(VERSION).a -o $(OUTDIR)/$(OUTBIN)
+	$(LINK) $+ -lpthread -lstdc++ libCrissCross-$(VERSION).a -o $(OUTDIR)/$(OUTBIN)
 endif
 ifneq ($(GCC_ISEMULATED),yes)
 	$(NM) $(OUTDIR)/$(OUTBIN) > $(OUTDIR)/$(OUTBIN).map
