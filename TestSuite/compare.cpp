@@ -13,6 +13,9 @@
 #include "compare.h"
 #include "testutils.h"
 
+#include <crisscross/core_compare.h>
+#include <crisscross/core_databuffer.h>
+
 using namespace CrissCross;
 
 int TestComparison_DataBuffer()

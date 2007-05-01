@@ -445,6 +445,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\crisscross\platform_detect.h"
+				>
+			</File>
+			<File
 				RelativePath=".\universal_include.cpp"
 				>
 				<FileConfiguration

@@ -13,6 +13,7 @@
 #include "testutils.h"
 
 #include "compare.h"
+#include "datatypes.h"
 #include "darray.h"
 #include "dstack.h"
 #include "llist.h"
@@ -32,6 +33,15 @@ int RunApplication (int argc, char **argv) {
 	g_console->WriteLine ();
     
 	int retval = 0;
+
+	WritePrefix ( "Size of Uint8" ); retval &= WriteResult ( TestDatatypes_Uint8() );
+	WritePrefix ( "Size of Uint16" ); retval &= WriteResult ( TestDatatypes_Uint16() );
+	WritePrefix ( "Size of Uint32" ); retval &= WriteResult ( TestDatatypes_Uint32() );
+	WritePrefix ( "Size of Uint64" ); retval &= WriteResult ( TestDatatypes_Uint64() );
+	WritePrefix ( "Size of Bool" ); retval &= WriteResult ( TestDatatypes_Bool() );
+	WritePrefix ( "Size of Float" ); retval &= WriteResult ( TestDatatypes_Float() );
+	WritePrefix ( "Size of Double" ); retval &= WriteResult ( TestDatatypes_Double() );
+	WritePrefix ( "Size of void *" ); retval &= WriteResult ( TestDatatypes_Pointer() );
 
 	WritePrefix ( "DataBuffer Compare" ); retval &= WriteResult ( TestComparison_DataBuffer() );
 	WritePrefix ( "Integer Compare" ); retval &= WriteResult ( TestComparison_Integer() );
