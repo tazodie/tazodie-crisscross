@@ -29,6 +29,7 @@ int TestHeapSort_IntArray()
 		if ( int_array[i] != i )
 			return i + 1;
 	}
+	delete hs;
 	return 0;
 }
 
@@ -51,6 +52,7 @@ int TestHeapSort_DArray()
         if ( darray->getData(i) != i )
             return i + 1;
     }
-    
+
+    delete darray;    
     return 0;
 }

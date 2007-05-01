@@ -58,7 +58,7 @@ void DArray < T >::rebuildStack ()
 
 	// Step through, rebuilding
 
-	for ( int i = m_arraySize; i >= 0; i-- )
+	for ( int i = m_arraySize - 1; i >= 0; i-- )
 		if ( m_shadow[i] == 0 )
 			m_emptyNodes->push ( i );
 
@@ -70,7 +70,7 @@ void DArray < T >::recount()
 	m_numUsed = 0;
 	for ( int i = 0; i < m_arraySize; i++ )
 		if ( m_shadow[i] == 1 )
-            m_numUsed++;
+			m_numUsed++;
 }
 
 template < class T >
@@ -335,11 +335,13 @@ void DArray < T >::sort ( SortClass<T> *_sortMethod )
 	
 	delete [] m_shadow;
 	m_shadow = new char[m_numUsed];
-	memset ( m_shadow, 0, m_arraySize );
+	memset ( m_shadow, 0, m_numUsed );
 	memset ( m_shadow, 1, m_numUsed );
 	
 	delete [] m_array;
 	m_array = temp_array;
+
+	m_arraySize = m_numUsed;
 	
 	rebuildStack();
 	recount();
