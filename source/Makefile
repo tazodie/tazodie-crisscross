@@ -87,7 +87,6 @@ else
 endif
 	$(NM) $(OUTDIR)/$(OUTBIN) > $(OUTDIR)/$(OUTBIN).map
 	$(STRIP) $(OUTDIR)/$(OUTBIN)
-	echo "Done."
 
 $(GCH): $(PCH)
 	$(CXX) $(CXXFLAGS) -c $(PCH) -o $(GCH)
