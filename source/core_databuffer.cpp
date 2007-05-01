@@ -77,7 +77,7 @@ void DataBuffer::resize ( size_t _capacity )
 
 void DataBuffer::setSize ( size_t _capacity )
 {
-	if ( m_buffer ) free ( m_buffer );
+	if ( m_buffer ) { free ( m_buffer ); m_buffer = NULL; }
 
 	m_size = _capacity;
 	m_buffer = (char *)malloc ( m_size );
@@ -86,21 +86,14 @@ void DataBuffer::setSize ( size_t _capacity )
 
 int DataBuffer::setData ( const char *_data, size_t _size )
 {
-	if ( _size < 0 ) return 1;
-	if ( m_buffer ) free ( m_buffer );
-
-	m_size = _size;
-	m_buffer = (char *)malloc ( _size );
+	setSize ( _size );
 	memcpy ( m_buffer, _data, _size );
 	return 0;
 }
 
 int DataBuffer::setDataString ( const char *_data )
 {
-	if ( m_buffer ) free ( m_buffer );
-
-	m_size = strlen ( _data ) + 1;
-	m_buffer = (char *)malloc ( m_size );
+	setSize ( strlen ( _data ) + 1 );
 	strcpy ( m_buffer, _data );
 	return 0;
 }
@@ -117,6 +110,7 @@ const char *DataBuffer::getData () const
 
 DataBuffer &DataBuffer::operator= ( const DataBuffer &_buffer )
 {
+	if ( &_buffer == this ) return *this;
 	setData ( _buffer.getData(), _buffer.getSize() );
 	return *this;
 }

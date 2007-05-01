@@ -13,6 +13,9 @@ testapp: main
 test: testapp
 	cd TestSuite; LD_LIBRARY_PATH="../source" ./crisscross-test;
 
+memcheck: testapp
+	$(MAKE) -C TestSuite memcheck
+
 install:
 	$(MAKE) -C source install
 
