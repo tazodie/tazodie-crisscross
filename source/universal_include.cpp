@@ -42,8 +42,8 @@ ParseMemoryLeakFile ( const char *_inputFilename,
     // Start up
     //
 
-    RedBlackTree<char *,int> combined;
-    RedBlackTree<char *,int> frequency;
+	RedBlackTree<std::string,int> combined;
+	RedBlackTree<std::string,int> frequency;
     int unrecognised = 0;
 
     //
@@ -52,11 +52,11 @@ ParseMemoryLeakFile ( const char *_inputFilename,
 
     std::ifstream memoryfile ( _inputFilename );
 
-    while ( !memoryfile.eof () )
+    while ( !memoryfile.eof () && !memoryfile.fail() )
     {
-        char thisline[256];
+        char thisline[1024];
 
-        memoryfile.getline ( thisline, 256 );
+        memoryfile.getline ( thisline, 1024 );
 
         if ( !strncmp ( thisline, " Data:", 6 ) == 0 &&    // This line is a data line - useless to us
              strchr ( thisline, ':' ) )
@@ -80,14 +80,14 @@ ParseMemoryLeakFile ( const char *_inputFilename,
 
             // Put the result into our BTree
 
-            BinaryNode<char *,int> *node =
+			BinaryNode<std::string,int> *node =
                 combined.findNode ( sourcelocation );
             if ( node )
                 ( ( int ) node->data ) += size;
             else
                 combined.insert ( sourcelocation, size );
 
-            BinaryNode<char *,int> *freq =
+			BinaryNode<std::string,int> *freq =
                 frequency.findNode ( sourcelocation );
             if ( freq )
                 ( ( int ) freq->data )++;
@@ -120,14 +120,14 @@ ParseMemoryLeakFile ( const char *_inputFilename,
     // Sort the results into a list
     //
 
-    DArray < int >*sizes = combined.ConvertToDArray ();
-    DArray < char *>*sources = combined.ConvertIndexToDArray ();
-    LList < char *>sorted;
+    DArray <int> *sizes = combined.ConvertToDArray ();
+	DArray <std::string> *sources = combined.ConvertIndexToDArray ();
+    LList <std::string> sorted;
     int totalsize = 0;
 
     for ( int i = 0; i < sources->size (); ++i )
     {
-        char *newsource = sources->getData ( i );
+        std::string newsource = sources->getData ( i );
         int newsize = sizes->getData ( i );
 
         totalsize += newsize;
@@ -136,7 +136,7 @@ ParseMemoryLeakFile ( const char *_inputFilename,
         for ( int j = 0; j < sorted.size (); ++j )
         {
 
-            char *existingsource = sorted.getData ( j );
+            std::string existingsource = sorted.getData ( j );
             int existingsize = combined.find ( existingsource );
 
             if ( newsize <= existingsize )
@@ -175,18 +175,18 @@ ParseMemoryLeakFile ( const char *_inputFilename,
         for ( int k = sorted.size () - 1; k >= 0; --k )
         {
 
-            char *source = sorted.getData ( k );
+            std::string source = sorted.getData ( k );
             int size = combined.find ( source );
             int freq = frequency.find ( source );
 
             if ( size > 2048 )
             {
-                fprintf ( output, "%-95s (%d Kbytes in %d leaks)\n", source,
+                fprintf ( output, "%-95s (%d Kbytes in %d leaks)\n", source.c_str(),
                         int ( size / 1024 ), freq );
             }
             else
             {
-                fprintf ( output, "%-95s (%d  bytes in %d leaks)\n", source, size,
+                fprintf ( output, "%-95s (%d  bytes in %d leaks)\n", source.c_str(), size,
                         freq );
             }
         }
@@ -275,9 +275,12 @@ CrissCrossInitialise ( int argc, char **argv )
     g_stdout->WriteLine ( CC_LIB_COPYRIGHT );
     g_stdout->WriteLine ();
 #endif
+#ifndef NO_CPP_EXCEPTION_HANDLER
     try
     {
+#endif
         retval = RunApplication ( argc, argv );
+#ifndef NO_CPP_EXCEPTION_HANDLER
 	}
 	catch ( std::exception& e )
 	{
@@ -292,9 +295,10 @@ CrissCrossInitialise ( int argc, char **argv )
 			  _exception );
 		return -2;
 	}
+#endif
 	
-    delete g_stderr;
-    delete g_stdout;
+    delete g_stderr; g_stderr = NULL;
+    delete g_stdout; g_stdout = NULL;
 
 #ifdef DETECT_MEMORY_LEAKS
     AppPrintMemoryLeaks ( "memleak.txt" );

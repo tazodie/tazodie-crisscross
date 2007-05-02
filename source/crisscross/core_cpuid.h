@@ -51,10 +51,10 @@ class Processor
     char Stepping;
     char BrandID;
     char APICID;
-    RedBlackTree<Feature *> features;
+	RedBlackTree<std::string, Feature *> features;
     DArray <char *> caches;
   public:
-      Processor ()
+    Processor ()
     {
     };
 

@@ -589,9 +589,9 @@ template <class Key, class Data>
 }
 
 template <class Key, class Data>
-    DArray<char *> *RedBlackTree<Key,Data>::ConvertIndexToDArray ()
+    DArray<Key> *RedBlackTree<Key,Data>::ConvertIndexToDArray ()
 {
-    DArray<char *> *darray = new DArray<char *> ( (int)size () );
+    DArray<Key> *darray = new DArray<Key> ( (int)size () );
     RecursiveConvertIndexToDArray ( darray, rootNode );
     return darray;
 }
@@ -608,14 +608,13 @@ template <class Key, class Data>
     getNext ( &current );
     while ( valid ( current ) )
     {
-        if ( current->data )
-            darray->insert ( current->data );
+        darray->insert ( current->data );
         getNext ( &current );
     }
 }
 
 template <class Key, class Data>
-    void RedBlackTree<Key,Data>::RecursiveConvertIndexToDArray ( DArray<char *> *darray, BinaryNode<Key,Data> *btree )
+    void RedBlackTree<Key,Data>::RecursiveConvertIndexToDArray ( DArray<Key> *darray, BinaryNode<Key,Data> *btree )
 {
     // note that the btree parameter is ignored
 
@@ -626,8 +625,7 @@ template <class Key, class Data>
     getNext ( &current );
     while ( valid ( current ) )
     {
-        if ( current->id )
-            darray->insert ( current->id );
+        darray->insert ( current->id );
         getNext ( &current );
     }
 }
