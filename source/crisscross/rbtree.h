@@ -161,10 +161,10 @@ namespace CrissCross
             /*!
                 \return A DArray containing the keys in the tree.
              */
-            DArray <char *>  *ConvertIndexToDArray ();
+            DArray <Key>  *ConvertIndexToDArray ();
 
         protected:
-			void RecursiveConvertIndexToDArray ( DArray <char *> *_darray, BinaryNode<Key,Data> *_btree );
+			void RecursiveConvertIndexToDArray ( DArray <Key> *_darray, BinaryNode<Key,Data> *_btree );
 			void RecursiveConvertToDArray ( DArray <Data> *_darray, BinaryNode<Key,Data> *_btree );
 
             void rotateLeft ( BinaryNode<Key,Data> * _x );

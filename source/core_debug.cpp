@@ -218,8 +218,11 @@ Assert ( bool _condition, const char *_testcase, const char *_file,
         char buffer[10240];
         sprintf ( buffer, "Assertion failed : '%s'\nFile: %s\nLine: %d\n\n",
         _testcase, _file, _line );
-        g_stderr->WriteLine ( "=== STACK TRACE ===\n" );
-        PrintStackTrace ( g_stderr );
+		fprintf ( stderr, "%s", buffer );
+        fprintf ( stderr, "=== STACK TRACE ===\n" );
+		CoreIOWriter *stderror = new CoreIOWriter ( stderr, false, CC_LN_LF );
+        PrintStackTrace ( stderror );
+		delete stderror;
         #ifndef _DEBUG
             abort();
         #else

@@ -15,7 +15,6 @@
 
 #    include <crisscross/core_cpuid.h>
 #    include <crisscross/core_io.h>
-#    include <crisscross/core_thread.h>
 
 #    define FPU_FLAG 0x0001
 #    define LAHF_FLAG 0x0001
@@ -236,11 +235,11 @@ CoreCPUID::~CoreCPUID ()
         }
         j = 0;
         
-        BinaryNode<Feature *> *node;
+		BinaryNode<std::string, Feature *> *node;
 
         node = proc[i]->features.rootNode;
-        node->beenThere = RedBlackTree <Feature *>::NODE_ITSELF_VISITED;
-        while ( proc[i]->features.ValidNode ( node ) )
+		node->beenThere = RedBlackTree <std::string, Feature *>::NODE_ITSELF_VISITED;
+        while ( proc[i]->features.valid ( node ) )
         {
             delete ( Feature * ) node->data;
             node->data = NULL;
@@ -699,7 +698,7 @@ CoreCPUID::DetectCount ( int processor )
     // AMD and Intel documentations state that if HTT is supported
     // then this the EBX:16 will reflect the logical processor count
     // otherwise the flag is reserved.
-    BinaryNode<Feature*> * HTT_node = proc[processor]->features.findNode ( "HTT" );
+	BinaryNode<std::string, Feature*> * HTT_node = proc[processor]->features.findNode ( "HTT" );
 	proc[processor]->PhysicalCount = (char)( ( ( ( Std[4].eax >> 26 ) & 0x03f ) + 1 ) & 0xff );
     if ( HTT_node->data->Enabled )
     {
@@ -708,7 +707,7 @@ CoreCPUID::DetectCount ( int processor )
         {
             // Core Multi-Processing (CMP), i.e. "Dual Core".
             delete (Feature *)HTT_node->data;
-            proc[processor]->features.deleteNode ( "HTT" );
+            proc[processor]->features.erase ( "HTT" );
             Feature *feature = new Feature();
             feature->Enabled = 1;
             proc[processor]->features.insert ( "CMP", feature );

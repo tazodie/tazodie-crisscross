@@ -30,9 +30,9 @@
 #   define CC_LIB_URL                 "http://www.uplinklabs.net/crisscross/"
 #   define CC_LIB_COPYRIGHT           "(c) 2006-2007 by IO.IN Research. Licensed under the New BSD License."
 
-// Disabling these will save space.
+// Disabling these will save space but limit functionality.
 //#   define ENABLE_CPUID
-//#   define ENABLE_POSIX_THREADING
+//#   define NO_CPP_EXCEPTION_HANDLER
 
 // Enables non-blocking sockets. This isn't finished yet, don't use it.
 #   define ENABLE_NONBLOCKING
@@ -44,6 +44,7 @@
 
 // Sorry, this is Windows-only... (Use Valgrind on Linux)
 #   define DETECT_MEMORY_LEAKS
+//#	define ENABLE_MEMLEAK_STATS // DO NOT USE. WILL CAUSE HORRIBLE BLOODY DEATH ON EXIT.
 
 // Linux backtrace()
 #   define ENABLE_BACKTRACE
