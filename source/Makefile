@@ -53,6 +53,7 @@ install: $(OUTDIR)/$(OUTBIN)
 	mkdir -p $(prefix)/include/crisscross
 	mkdir -p $(prefix)/lib
 	cp crisscross/*.h $(prefix)/include/crisscross/
+	cp crisscross/*.cpp $(prefix)/include/crisscross/
 	cp $(OUTBIN) $(prefix)/lib/
 	cd $(prefix)/lib; chmod 755 $(OUTBIN)
 	cd $(prefix)/lib; if test -f $(OUTBIN); then \
