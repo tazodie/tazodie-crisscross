@@ -52,25 +52,16 @@ TARGET_COMPILER_ICC
 #   undef COMPILER_DETECTED
 #   undef OS_DETECTED
 
-// -------------------
-// PROCESSOR DETECTION
-// -------------------
+/* ------------------- *
+ * PROCESSOR DETECTION *
+ * ------------------- */
 
-// Carbon defines this for us on Mac, apparently...
+/* Carbon defines this for us on Mac, apparently... */
 #	if defined ( TARGET_CPU_PPC )
 #		define PROCESSOR_DETECTED
 #	endif
 
-// Alpha
-// What the hell are these anyway?
-//#	if !defined ( PROCESSOR_DETECTED )
-//#       if defined ( __alpha ) || defined ( __alpha__ ) || defined ( _M_ALPHA )
-//#           define PROCESSOR_DETECTED
-//#           define TARGET_CPU_ALPHA
-//#       endif
-//#   endif
-
-// PowerPC
+/* PowerPC */
 #	if !defined ( PROCESSOR_DETECTED )
 #       if defined ( _ARCH_PPC ) || defined ( __ppc__ ) || defined ( __ppc64__ ) || defined ( __PPC ) || defined ( powerpc ) || defined ( __PPC__ ) || defined ( __powerpc64__ ) || defined ( __powerpc64 )
 #           define PROCESSOR_DETECTED
@@ -82,7 +73,7 @@ TARGET_COMPILER_ICC
 #       endif
 #   endif
 
-// Intel x86
+/* Intel x86 */
 #   if !defined ( PROCESSOR_DETECTED )
 #       if defined ( __i386__ ) || defined ( __i386 ) || defined ( i386 ) || defined ( _X86_ ) || defined ( _M_IX86 )
 #           define PROCESSOR_DETECTED
@@ -90,7 +81,7 @@ TARGET_COMPILER_ICC
 #       endif
 #   endif
 
-// x64/AMD64
+/* x64/AMD64 */
 #	if !defined ( PROCESSOR_DETECTED )
 #       if defined ( __x86_64__ ) || defined ( __x86_64 ) || defined ( __amd64 ) || defined ( __amd64__ ) || defined ( _AMD64_ ) || defined ( _M_X64 )
 #           define PROCESSOR_DETECTED
@@ -98,7 +89,7 @@ TARGET_COMPILER_ICC
 #       endif
 #   endif
 
-// IA64
+/* IA64 */
 #	if !defined ( PROCESSOR_DETECTED )
 #       if defined ( __ia64__ ) || defined ( _IA64 ) || defined ( __ia64 ) || defined ( _M_IA64 )
 #           define PROCESSOR_DETECTED
@@ -106,9 +97,9 @@ TARGET_COMPILER_ICC
 #       endif
 #   endif
 
-// -------------------
-// COMPILER DETECTION
-// -------------------
+/* ------------------- *
+ * COMPILER DETECTION  *
+ * ------------------- */
 
 #   if !defined ( COMPILER_DETECTED )
 #       if defined ( __GNUC__ )
@@ -134,9 +125,9 @@ TARGET_COMPILER_ICC
 #       endif
 #   endif
 
-// ------------
-// OS DETECTION
-// ------------
+/* ------------ *
+ * OS DETECTION *
+ * ------------ */
 
 #   if !defined ( OS_DETECTED )
 #       if defined ( TARGET_COMPILER_VC ) || defined ( _WIN32 ) || defined ( _WIN64 )
