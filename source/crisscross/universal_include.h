@@ -25,7 +25,7 @@
 //#  define CC_LIB_CODENAME            "Thor"          // v0.9.0 codename ( Milestone 4 )
 //#  define CC_LIB_CODENAME            "Valhalla"      // v1.0.0 codename ( Milestone 5 )
 
-#   define CC_LIB_VERSION             "0.5.9999.1-SVN"
+#   define CC_LIB_VERSION             "0.5.9999"
 #   define CC_LIB_BRANCH_AT_VERSION   "0.6.0"
 #   define CC_LIB_URL                 "http://www.uplinklabs.net/crisscross/"
 #   define CC_LIB_COPYRIGHT           "(c) 2006-2007 by IO.IN Research. Licensed under the New BSD License."
@@ -60,18 +60,6 @@
 // -----------------------
 // RESULTANT CONFIGURATION
 // -----------------------
-
-#   if !defined ( PROCESSOR_DETECTED )
-#       error "Could not detect target CPU."
-#   endif
-
-#   if !defined ( COMPILER_DETECTED )
-#       error "Could not detect target compiler."
-#   endif
-
-#   if !defined ( OS_DETECTED )
-#       error "Could not detect target OS."
-#   endif
 
 #   if !defined ( TARGET_COMPILER_VC )
 #       undef DETECT_MEMORY_LEAKS
@@ -195,6 +183,7 @@ static char THIS_FILE[] = __FILE__;
 #            endif
 #    endif
 
+//! The application entry point.
 extern int RunApplication ( int argc, char **argv );
 
 // Namespace Definitions
@@ -257,11 +246,5 @@ namespace CrissCross
     {
     }
 }
-
-#ifdef TARGET_OS_MACOSX
-extern "C" {
-	int CrissCrossInitialise ( int argc, char **argv );
-}
-#endif
 
 #endif

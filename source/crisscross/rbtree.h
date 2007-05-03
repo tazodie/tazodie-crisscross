@@ -50,10 +50,10 @@ namespace CrissCross
             //! @endcond
 
             //! The root node at the top of the tree.
-            BinaryNode<Key,Data> *rootNode;
+            RedBlackNode<Key,Data> *rootNode;
             
             //! The null node at the end of every branch, etc.
-            BinaryNode<Key,Data> *NULL_NODE;
+            RedBlackNode<Key,Data> *NULL_NODE;
 
             //! The constructor.
             RedBlackTree ();
@@ -88,7 +88,7 @@ namespace CrissCross
                 \return A value indicating the result of the request.
                 \sa statusEnum
              */
-            statusEnum killNode ( BinaryNode<Key,Data> * _z );
+            statusEnum killNode ( RedBlackNode<Key,Data> * _z );
 
             //! Finds a node in the tree and returns the data at that node.
             /*!
@@ -103,14 +103,14 @@ namespace CrissCross
                 \return The node pointer. NULL or NULL_NODE if not found. Test result with ValidNode() function.
                 \sa ValidNode()
              */
-            BinaryNode<Key,Data> *findNode ( const Key &_key ) const;
+            RedBlackNode<Key,Data> *findNode ( const Key &_key ) const;
 
             //! Verifies that a node is valid.
             /*!
                 \param _node A node pointer.
                 \return True if the node is a valid node, false otherwise.
              */
-            bool valid ( const BinaryNode<Key,Data> *_node ) const;
+            bool valid ( const RedBlackNode<Key,Data> *_node ) const;
 
 			//inline Data &operator [] ( const Key &_key ) { return findNode(_key)->data; };
 
@@ -138,7 +138,7 @@ namespace CrissCross
             /*
             these are automatically called. no need to use them externally at all.
             */
-            void killAll ( BinaryNode<Key,Data> *_rec );
+            void killAll ( RedBlackNode<Key,Data> *_rec );
             void killAll ();
 
         public:
@@ -149,7 +149,7 @@ namespace CrissCross
             int size ();
 
             //! Will get the next node in the tree, useful as an iterator.
-            void getNext ( BinaryNode<Key,Data> ** _current );
+            void getNext ( RedBlackNode<Key,Data> ** _current );
 
             //! Converts the tree data into a linearized DArray.
             /*!
@@ -164,13 +164,13 @@ namespace CrissCross
             DArray <Key>  *ConvertIndexToDArray ();
 
         protected:
-			void RecursiveConvertIndexToDArray ( DArray <Key> *_darray, BinaryNode<Key,Data> *_btree );
-			void RecursiveConvertToDArray ( DArray <Data> *_darray, BinaryNode<Key,Data> *_btree );
+			void RecursiveConvertIndexToDArray ( DArray <Key> *_darray, RedBlackNode<Key,Data> *_btree );
+			void RecursiveConvertToDArray ( DArray <Data> *_darray, RedBlackNode<Key,Data> *_btree );
 
-            void rotateLeft ( BinaryNode<Key,Data> * _x );
-            void rotateRight ( BinaryNode<Key,Data> * _x );
-            void insertFixup ( BinaryNode<Key,Data> * _x );
-            void deleteFixup ( BinaryNode<Key,Data> * _x );
+            void rotateLeft ( RedBlackNode<Key,Data> * _x );
+            void rotateRight ( RedBlackNode<Key,Data> * _x );
+            void insertFixup ( RedBlackNode<Key,Data> * _x );
+            void deleteFixup ( RedBlackNode<Key,Data> * _x );
         };
     }
 }

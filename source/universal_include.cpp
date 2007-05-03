@@ -254,11 +254,7 @@ AppPrintMemoryLeaks ( char *_filename )
 #endif
 
 int
-#ifndef TARGET_OS_MACOSX
 main ( int argc, char **argv )
-#else
-CrissCrossInitialise ( int argc, char **argv )
-#endif
 {
     int retval = 0;
 

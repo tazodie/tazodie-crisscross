@@ -16,18 +16,40 @@ namespace CrissCross
 {
 	namespace Data
 	{
+		//! A sort of basic string class, but can hold other types of data as well.
 		class DataBuffer
 		{
 			protected:
+				//! The internal memory buffer which contains the data.
 				char *m_buffer;
+
+				//! The size of the internal buffer.
 				size_t m_size;
 				
 			public:
+				//! The default constructor.
 				DataBuffer ();
+
+				/*!
+					\param _initialCapacity Amount of memory to allocate for the internal buffer.
+				 */
 				DataBuffer ( size_t _initialCapacity );
+
+				/*!
+					\param _initialStirng A string to put into the buffer.
+				 */
 				DataBuffer ( const char *_initialString );
+
+				/*!
+					\param _initialData A pointer to the data which should be inside the buffer.
+					\param _size The size of the data to be copied (in bytes).
+				 */
 				DataBuffer ( const char *_initialData, size_t _size );
+
+				//! The copy constructor.
 				DataBuffer ( const DataBuffer &_initialData );
+
+				//! The destructor.
 				virtual ~DataBuffer ();
 				
 				//! Resize the data buffer while preserving the contents.
@@ -42,9 +64,13 @@ namespace CrissCross
 				//! Set the data buffer contents.
 				virtual int setDataString ( const char *_newData );
 				
+				//! Returns a pointer to the internal data buffer.
 				virtual const char *getData() const;
+
+				//! Returns the current buffer size, in bytes.
 				virtual size_t getSize() const;
 
+				//! Implicit assignment operator.
 				DataBuffer &operator=  ( const DataBuffer &_buffer );
 
 				bool operator>  ( const DataBuffer &_buffer ) const;
