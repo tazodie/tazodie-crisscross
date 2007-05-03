@@ -61,7 +61,7 @@ public:
     RedBlackNode *parent;
 
 	//! The default constructor.
-	RedBlackNode () : BinaryNode() {};
+	RedBlackNode () : BinaryNode<Key,Data>() {};
 };
 
 #include <crisscross/rbtree.h>
