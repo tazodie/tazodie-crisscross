@@ -22,7 +22,7 @@ using namespace CrissCross::Data;
 template <class Key, class Data>
     RedBlackTree<Key,Data>::RedBlackTree ()
 {
-    NULL_NODE = new BinaryNode<Key,Data> ();
+    NULL_NODE = new RedBlackNode<Key,Data> ();
     NULL_NODE->color = BLACK;
     rootNode = NULL_NODE;
 }
@@ -35,9 +35,9 @@ template <class Key, class Data>
 }
 
 template <class Key, class Data>
-    void RedBlackTree<Key,Data>::rotateLeft ( BinaryNode<Key,Data> * x )
+    void RedBlackTree<Key,Data>::rotateLeft ( RedBlackNode<Key,Data> * x )
 {
-    BinaryNode<Key,Data> *y = x->right;
+    RedBlackNode<Key,Data> *y = x->right;
 
     /* establish x->right link */
     x->right = y->left;
@@ -66,9 +66,9 @@ template <class Key, class Data>
 }
 
 template <class Key, class Data>
-void RedBlackTree<Key,Data>::rotateRight ( BinaryNode<Key,Data> * x )
+void RedBlackTree<Key,Data>::rotateRight ( RedBlackNode<Key,Data> * x )
 {
-    BinaryNode<Key,Data> *y = x->left;
+    RedBlackNode<Key,Data> *y = x->left;
 
     /* establish x->left link */
     x->left = y->right;
@@ -97,7 +97,7 @@ void RedBlackTree<Key,Data>::rotateRight ( BinaryNode<Key,Data> * x )
 }
 
 template <class Key, class Data>
-void RedBlackTree<Key,Data>::insertFixup ( BinaryNode<Key,Data> * x )
+void RedBlackTree<Key,Data>::insertFixup ( RedBlackNode<Key,Data> * x )
 {
     /* check Red-Black properties */
     while ( x != rootNode && x->parent->color == RED )
@@ -105,7 +105,7 @@ void RedBlackTree<Key,Data>::insertFixup ( BinaryNode<Key,Data> * x )
         /* we have a violation */
         if ( x->parent == x->parent->parent->left )
         {
-            BinaryNode<Key,Data> *y = x->parent->parent->right;
+            RedBlackNode<Key,Data> *y = x->parent->parent->right;
 
             if ( y->color == RED )
             {
@@ -137,7 +137,7 @@ void RedBlackTree<Key,Data>::insertFixup ( BinaryNode<Key,Data> * x )
         {
 
             /* mirror image of above code */
-            BinaryNode<Key,Data> *y = x->parent->parent->left;
+            RedBlackNode<Key,Data> *y = x->parent->parent->left;
 
             if ( y->color == RED )
             {
@@ -169,7 +169,7 @@ void RedBlackTree<Key,Data>::insertFixup ( BinaryNode<Key,Data> * x )
 template <class Key, class Data>
     statusEnum RedBlackTree<Key,Data>::insert ( const Key &key, const Data & rec )
 {
-    BinaryNode<Key,Data> *current = NULL_NODE, *parent = NULL, *x = NULL_NODE;
+    RedBlackNode<Key,Data> *current = NULL_NODE, *parent = NULL, *x = NULL_NODE;
 
     /* find future parent */
     current = rootNode;
@@ -181,7 +181,7 @@ template <class Key, class Data>
     }
 
     /* setup new node */
-    if ( (x = new BinaryNode<Key,Data>()) == 0 )
+    if ( (x = new RedBlackNode<Key,Data>()) == 0 )
         return STATUS_MEM_EXHAUSTED;
 
     x->parent = parent;
@@ -211,13 +211,13 @@ template <class Key, class Data>
 }
 
 template <class Key, class Data>
-void RedBlackTree<Key,Data>::deleteFixup ( BinaryNode<Key,Data> * x )
+void RedBlackTree<Key,Data>::deleteFixup ( RedBlackNode<Key,Data> * x )
 {
     while ( x != rootNode && x->color == BLACK )
     {
         if ( x == x->parent->left )
         {
-            BinaryNode<Key,Data> *w = x->parent->right;
+            RedBlackNode<Key,Data> *w = x->parent->right;
 
             if ( w->color == RED )
             {
@@ -249,7 +249,7 @@ void RedBlackTree<Key,Data>::deleteFixup ( BinaryNode<Key,Data> * x )
         }
         else
         {
-            BinaryNode<Key,Data> *w = x->parent->left;
+            RedBlackNode<Key,Data> *w = x->parent->left;
 
             if ( w->color == RED )
             {
@@ -286,7 +286,7 @@ void RedBlackTree<Key,Data>::deleteFixup ( BinaryNode<Key,Data> * x )
 template <class Key, class Data>
     statusEnum RedBlackTree<Key,Data>::erase ( const Key &key )
 {
-    BinaryNode<Key,Data> *z, *parent;
+    RedBlackNode<Key,Data> *z, *parent;
 
     //  delete node z from tree
 
@@ -312,9 +312,9 @@ template <class Key, class Data>
 }
 
 template <class Key, class Data>
-    statusEnum RedBlackTree<Key,Data>::killNode ( BinaryNode<Key,Data> * z )
+    statusEnum RedBlackTree<Key,Data>::killNode ( RedBlackNode<Key,Data> * z )
 {
-    BinaryNode<Key,Data> *x, *y;
+    RedBlackNode<Key,Data> *x, *y;
 
     if ( z->left == NULL_NODE || z->right == NULL_NODE )
     {
@@ -402,7 +402,7 @@ template <class Key, class Data>
    ----------------------------------------------------------------------------- */
 
 template <class Key, class Data>
-    void RedBlackTree<Key,Data>::getNext ( BinaryNode<Key,Data> ** current )
+    void RedBlackTree<Key,Data>::getNext ( RedBlackNode<Key,Data> ** current )
 {
     if ( ( *current ) == NULL_NODE )
     {
@@ -488,7 +488,7 @@ template <class Key, class Data>
 template <class Key, class Data>
     Data RedBlackTree<Key,Data>::find ( const Key &key ) const
 {
-    BinaryNode<Key,Data> *current = rootNode;
+    RedBlackNode<Key,Data> *current = rootNode;
 
     while ( current != NULL_NODE )
     {
@@ -507,9 +507,9 @@ template <class Key, class Data>
 }
 
 template <class Key, class Data>
-    BinaryNode<Key,Data> * RedBlackTree<Key,Data>::findNode ( const Key &key ) const
+    RedBlackNode<Key,Data> * RedBlackTree<Key,Data>::findNode ( const Key &key ) const
 {
-    BinaryNode<Key,Data> * current = rootNode;
+    RedBlackNode<Key,Data> * current = rootNode;
     while ( current != NULL_NODE )
     {
         if ( key == current->id )
@@ -526,7 +526,7 @@ template <class Key, class Data>
 }
 
 template <class Key, class Data>
-    void RedBlackTree<Key,Data>::killAll ( BinaryNode<Key,Data> *rec )
+    void RedBlackTree<Key,Data>::killAll ( RedBlackNode<Key,Data> *rec )
 {
     if ( rec == NULL_NODE )
         return;
@@ -558,7 +558,7 @@ template <class Key, class Data>
 template <class Key, class Data>
     int RedBlackTree<Key,Data>::size ()
 {
-    BinaryNode<Key,Data> *vNode = NULL_NODE;
+    RedBlackNode<Key,Data> *vNode = NULL_NODE;
     int vCount = 0;
 
     getNext ( &vNode );
@@ -572,7 +572,7 @@ template <class Key, class Data>
 }
 
 template <class Key, class Data>
-    bool RedBlackTree<Key,Data>::valid ( const BinaryNode<Key,Data> * node ) const
+    bool RedBlackTree<Key,Data>::valid ( const RedBlackNode<Key,Data> * node ) const
 {
     if ( node != NULL && node != NULL_NODE )
         return true;
@@ -597,11 +597,11 @@ template <class Key, class Data>
 }
 
 template <class Key, class Data>
-    void RedBlackTree<Key,Data>::RecursiveConvertToDArray ( DArray<Data> *darray, BinaryNode<Key,Data> *btree )
+    void RedBlackTree<Key,Data>::RecursiveConvertToDArray ( DArray<Data> *darray, RedBlackNode<Key,Data> *btree )
 {
     // note that the btree parameter is ignored
 
-    BinaryNode<Key,Data> *current = NULL_NODE;
+    RedBlackNode<Key,Data> *current = NULL_NODE;
 
     CoreAssert ( darray != NULL );
 
@@ -614,11 +614,11 @@ template <class Key, class Data>
 }
 
 template <class Key, class Data>
-    void RedBlackTree<Key,Data>::RecursiveConvertIndexToDArray ( DArray<Key> *darray, BinaryNode<Key,Data> *btree )
+    void RedBlackTree<Key,Data>::RecursiveConvertIndexToDArray ( DArray<Key> *darray, RedBlackNode<Key,Data> *btree )
 {
     // note that the btree parameter is ignored
 
-    BinaryNode<Key,Data> *current = NULL_NODE;
+    RedBlackNode<Key,Data> *current = NULL_NODE;
 
     CoreAssert ( darray != NULL );
 

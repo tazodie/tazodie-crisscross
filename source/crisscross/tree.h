@@ -12,22 +12,56 @@
 #ifndef __included_tree_h
 #define __included_tree_h
 
+//! A binary tree node. Used by SplayTree.
+/*!
+	\sa RedBlackNode
+ */
 template <class Key, class Data>
 class BinaryNode
 {
 public:
-    char        beenThere;
-    char        color;
+	//! The key for this node.
     Key			id;
+
+	//! The data held at this node.
     Data        data;
+
+	//! The left branch of the tree from this node.
     BinaryNode *left;
+
+	//! The right branch of the tree from this node.
     BinaryNode *right;
-    BinaryNode *parent;
 
-    BinaryNode( ) : id (), left( NULL ), right( NULL ), parent ( NULL ) { }
+    //! The default constructor.
+	BinaryNode () : left(NULL), right(NULL) {}
 
-    BinaryNode( const Key &theKey, const Data &theElement, BinaryNode *pt, BinaryNode *lt, BinaryNode *rt )
-      : data ( theElement ), id ( theKey), left( lt ), right( rt ), parent ( pt ) { }
+};
+
+//! A binary tree node used for RedBlackTree.
+/*!
+	\sa BinaryNode
+ */
+template <class Key, class Data>
+class RedBlackNode: public BinaryNode<Key,Data>
+{
+public:
+	//! Indicates whether or not the node has been visited in an iteration sequence.
+    char        beenThere;
+
+	//! The color of the node (either red or black).
+    char        color;
+
+	//! The left branch of the tree from this node.
+    RedBlackNode *left;
+
+	//! The right branch of the tree from this node.
+    RedBlackNode *right;
+
+	//! The parent node.
+    RedBlackNode *parent;
+
+	//! The default constructor.
+	RedBlackNode () : BinaryNode() {};
 };
 
 #include <crisscross/rbtree.h>
