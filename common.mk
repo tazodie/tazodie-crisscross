@@ -1,18 +1,26 @@
 VERSION = 0.5.9999
 VERSION_MAJOR = 0
 
+ifeq ($(CXX),)
 CXX = g++
+endif
+
+ifeq ($(CC),)
 CC = gcc
+endif
+
 LINK = $(CXX)
 
 ifeq ($(CFLAGS),)
 CFLAGS = -O3 -march=pentium2 -mtune=pentium2 -Wall -ansi -pedantic -Wno-long-long -pipe -g
 else
-CFLAGS += -ansi -pedantic -Wno-long-long
+CFLAGS := -ansi -pedantic -Wno-long-long
 endif
 
 ifeq ($(CXXFLAGS),)
 CXXFLAGS = $(CFLAGS)
+else
+CXXFLAGS := -ansi -pedantic -Wno-long-long
 endif
 
 INCLUDES = 
