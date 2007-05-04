@@ -36,7 +36,7 @@ namespace CrissCross
 				DataBuffer ( size_t _initialCapacity );
 
 				/*!
-					\param _initialStirng A string to put into the buffer.
+					\param _initialString A string to put into the buffer.
 				 */
 				DataBuffer ( const char *_initialString );
 
@@ -82,19 +82,31 @@ namespace CrissCross
 				bool operator== ( const DataBuffer &_buffer ) const;
 				bool operator!= ( const DataBuffer &_buffer ) const;
 
+				/*!
+					\return Returns 'true' if the data buffer has been allocated.
+				 */
 				inline bool operator! () const { return ( m_buffer == NULL ); };
 				
-				inline char &operator[] ( unsigned int index ) {
+				//! Returns a pointer to a given location in the data buffer.
+				/*!
+					\param _index The index of the data requested.
+				 */
+				inline char &operator[] ( unsigned int _index ) {
 						static char c = '\x0';
-						if ( m_buffer && m_size > index )
-							return m_buffer[index];
+						if ( m_buffer && m_size > _index )
+							return m_buffer[_index];
 						else
 							return c;
 				};
-				inline const char &operator[] ( unsigned int index ) const {
+
+				//! Returns a pointer to a given location in the data buffer.
+				/*!
+					\param _index The index of the data requested.
+				 */
+				inline const char &operator[] ( unsigned int _index ) const {
 						static const char c = '\x0';
-						if ( m_buffer && m_size > index )
-							return m_buffer[index];
+						if ( m_buffer && m_size > _index )
+							return m_buffer[_index];
 						else
 							return c;
 				};
