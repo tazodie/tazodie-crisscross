@@ -254,7 +254,7 @@ AppPrintMemoryLeaks ( char *_filename )
 #endif
 
 int
-main ( int argc, char **argv )
+CrissCrossInitialize ( int argc, char **argv )
 {
     int retval = 0;
 
@@ -300,6 +300,13 @@ main ( int argc, char **argv )
     AppPrintMemoryLeaks ( "memleak.txt" );
 #endif
     return retval;
+}
+
+extern "C" {
+	int SDL_main ( int argc, char **argv )
+	{
+		return CrissCrossInitialize(argc,argv);
+	}
 }
 
 #ifdef TARGET_OS_WINDOWS
