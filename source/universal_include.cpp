@@ -253,8 +253,11 @@ AppPrintMemoryLeaks ( char *_filename )
 }
 #endif
 
-int
-CrissCrossInitialize ( int argc, char **argv )
+#ifdef SDL_APPLICATION
+int CrissCrossInitialize ( int argc, char **argv )
+#else
+int main ( int argc, char **argv )
+#endif
 {
     int retval = 0;
 
@@ -302,18 +305,20 @@ CrissCrossInitialize ( int argc, char **argv )
     return retval;
 }
 
+#ifdef SDL_APPLICATION
 extern "C" {
 	int SDL_main ( int argc, char **argv )
 	{
 		return CrissCrossInitialize(argc,argv);
 	}
 }
+#endif
 
-#ifdef TARGET_OS_WINDOWS
+#if defined ( TARGET_OS_WINDOWS ) && !defined ( SDL_APPLICATION )
 int WINAPI
 WinMain ( HINSTANCE hInstance,
           HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow )
 {
-	main ( __argc, __argv );
+	return main ( __argc, __argv );
 }
 #endif

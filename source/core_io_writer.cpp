@@ -21,19 +21,12 @@ using namespace CrissCross::System;
 CoreIOWriter::CoreIOWriter ( FILE * _fileBuffer, bool _isUnicode, LineEndingType _lnEnding ):
 m_fileOutputPointer ( _fileBuffer ),
 m_unicode ( _isUnicode )
-#ifndef __GNUC__
-, m_ioMutex ( new CoreMutex () )
-#endif
 {
 	SetLineEndings ( _lnEnding );
 }
 
 CoreIOWriter::~CoreIOWriter ()
 {
-#ifndef __GNUC__
-    delete m_ioMutex;
-    m_ioMutex = NULL;
-#endif
 }
 
 void
@@ -43,11 +36,11 @@ CoreIOWriter::Flush ()
     if ( !IsOpen() ) return;
 
 #ifndef __GNUC__
-    m_ioMutex->Lock ();
+    m_ioMutex.Lock ();
 #endif
     fflush ( m_fileOutputPointer );
 #ifndef __GNUC__
-    m_ioMutex->Unlock ();
+    m_ioMutex.Unlock ();
 #endif
 }
 
@@ -104,7 +97,7 @@ CoreIOWriter::WriteLine ( const char *_format, ... )
     if ( _format == NULL )
         return CC_ERR_BADPARAMETER;
 #ifndef __GNUC__
-    m_ioMutex->Lock ();
+    m_ioMutex.Lock ();
 #endif
 
     va_list args;
@@ -120,7 +113,7 @@ CoreIOWriter::WriteLine ( const char *_format, ... )
     va_end ( args );
 
 #ifndef __GNUC__
-    m_ioMutex->Unlock ();
+    m_ioMutex.Unlock ();
 #endif
 
 	return CC_ERR_NONE;
@@ -136,14 +129,14 @@ CoreIOWriter::WriteLine ( std::string _string )
         return CC_ERR_BADPARAMETER;
 
 #ifndef __GNUC__        
-    m_ioMutex->Lock ();
+    m_ioMutex.Lock ();
 #endif
     
     if ( fprintf ( m_fileOutputPointer, "%s%s", _string.c_str(), m_lineEnding ) < 0 )
 		return CC_ERR_WRITE;
 
 #ifndef __GNUC__    
-    m_ioMutex->Unlock ();
+    m_ioMutex.Unlock ();
 #endif
 
 	return CC_ERR_NONE;
@@ -159,14 +152,14 @@ CoreIOWriter::Write ( std::string _string )
         return CC_ERR_BADPARAMETER;
 
 #ifndef __GNUC__        
-    m_ioMutex->Lock ();
+    m_ioMutex.Lock ();
 #endif
     
     if ( fprintf ( m_fileOutputPointer, "%s", _string.c_str() ) < 0 )
 		return CC_ERR_WRITE;
 
 #ifndef __GNUC__    
-    m_ioMutex->Unlock ();
+    m_ioMutex.Unlock ();
 #endif
 
 	return CC_ERR_NONE;
@@ -180,14 +173,14 @@ CoreIOWriter::WriteLine ()
     if ( !IsOpen() ) return CC_ERR_INVALID_BUFFER;
 
 #ifndef __GNUC__
-    m_ioMutex->Lock ();
+    m_ioMutex.Lock ();
 #endif
 
     if ( fprintf ( m_fileOutputPointer, m_lineEnding ) < 0 )
 	    return CC_ERR_WRITE;
 
 #ifndef __GNUC__
-    m_ioMutex->Unlock ();
+    m_ioMutex.Unlock ();
 #endif
 
 	return CC_ERR_NONE;
@@ -203,7 +196,7 @@ CoreIOWriter::Write ( const char *_format, ... )
         return CC_ERR_BADPARAMETER;
 
 #ifndef __GNUC__
-    m_ioMutex->Lock ();
+    m_ioMutex.Lock ();
 #endif
 
     va_list args;
@@ -218,7 +211,7 @@ CoreIOWriter::Write ( const char *_format, ... )
 
     va_end ( args );
 #ifndef __GNUC__
-    m_ioMutex->Unlock ();
+    m_ioMutex.Unlock ();
 #endif
 
     return CC_ERR_NONE;
