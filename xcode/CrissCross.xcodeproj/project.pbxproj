@@ -119,7 +119,7 @@
 		B0BD2BCD0BE2542600F71A26 /* tree.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = tree.h; path = ../source/crisscross/tree.h; sourceTree = SOURCE_ROOT; };
 		B0BD2BCE0BE2542600F71A26 /* udpsocket.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = udpsocket.h; path = ../source/crisscross/udpsocket.h; sourceTree = SOURCE_ROOT; };
 		B0BD2BCF0BE2542600F71A26 /* universal_include.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = universal_include.h; path = ../source/crisscross/universal_include.h; sourceTree = SOURCE_ROOT; };
-		B0BD2C480BE26BDC00F71A26 /* libCrissCross Static.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libCrissCross Static.a"; path = "build/Release/libCrissCross Static.a"; sourceTree = "<group>"; };
+		B0BD2C480BE26BDC00F71A26 /* libCrissCross Static.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libCrissCross Static.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
