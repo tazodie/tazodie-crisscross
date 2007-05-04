@@ -21,19 +21,12 @@ using namespace CrissCross::System;
 CoreIOReader::CoreIOReader ( FILE * _fileBuffer, bool _isUnicode, LineEndingType _lnEnding ):
 m_fileInputPointer ( _fileBuffer ),
 m_unicode ( _isUnicode )
-#ifndef __GNUC__
-, m_ioMutex ( new CoreMutex () )
-#endif
 {
     SetLineEndings ( _lnEnding );
 }
 
 CoreIOReader::~CoreIOReader ()
 {
-#ifndef __GNUC__
-    delete m_ioMutex;
-    m_ioMutex = NULL;
-#endif
 }
 
 bool
@@ -54,11 +47,11 @@ CoreIOReader::Flush ()
     if ( !IsOpen() ) return;
 
 #ifndef __GNUC__
-    m_ioMutex->Lock ();
+    m_ioMutex.Lock ();
 #endif
     fflush ( m_fileInputPointer );
 #ifndef __GNUC__
-    m_ioMutex->Unlock ();
+    m_ioMutex.Unlock ();
 #endif
 }
 
@@ -90,7 +83,7 @@ CoreIOReader::Length ()
     if ( !IsOpen() ) return CC_ERR_INVALID_BUFFER;
 
 #ifndef __GNUC__
-    m_ioMutex->Lock ();
+    m_ioMutex.Lock ();
 #endif
     fpos_t lastpos;
     fgetpos ( m_fileInputPointer, &lastpos );
@@ -99,7 +92,7 @@ CoreIOReader::Length ()
     fgetpos ( m_fileInputPointer, &endpos );
     fsetpos ( m_fileInputPointer, &lastpos );
 #ifndef __GNUC__
-    m_ioMutex->Unlock ();
+    m_ioMutex.Unlock ();
 #endif
 
 #if defined ( TARGET_OS_WINDOWS ) || defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_FREEBSD ) || \
@@ -118,11 +111,11 @@ CoreIOReader::Read ( char *_destination )
     if ( !IsOpen() ) return CC_ERR_INVALID_BUFFER;
 
 #ifndef __GNUC__
-    m_ioMutex->Lock ();
+    m_ioMutex.Lock ();
 #endif
     *_destination = (char)fgetc ( m_fileInputPointer );
 #ifndef __GNUC__
-    m_ioMutex->Unlock ();
+    m_ioMutex.Unlock ();
 #endif
     return sizeof(char);
 }
@@ -141,11 +134,11 @@ CoreIOReader::Read ( char *_buffer, int _bufferLength, int _bufferIndex,
     CoreAssert ( _bufferIndex > 0 );
     CoreAssert ( _count > 0 );
 #ifndef __GNUC__
-    m_ioMutex->Lock ();
+    m_ioMutex.Lock ();
 #endif
     retval = fread ( &_buffer[_bufferIndex], sizeof(char), _count, m_fileInputPointer );
 #ifndef __GNUC__
-    m_ioMutex->Unlock ();
+    m_ioMutex.Unlock ();
 #endif
     return (int)retval;
 }
@@ -157,7 +150,7 @@ CoreIOReader::ReadLine ( char *_buffer, int _bufferLength )
 	if ( !IsOpen() ) return CC_ERR_INVALID_BUFFER;
 	
 #ifndef __GNUC__
-	m_ioMutex->Lock ();
+	m_ioMutex.Lock ();
 #endif
 
 	size_t bytesRead = 0, lineEndingSize = strlen(m_lineEnding);
@@ -182,7 +175,7 @@ CoreIOReader::ReadLine ( char *_buffer, int _bufferLength )
 	}
 
 #ifndef __GNUC__
-	m_ioMutex->Unlock ();
+	m_ioMutex.Unlock ();
 #endif
 
 	return (int)bytesRead;
@@ -195,7 +188,7 @@ CoreIOReader::ReadLine ( std::string &_string )
     if ( !IsOpen() ) return CC_ERR_INVALID_BUFFER;
 
 #ifndef __GNUC__
-    m_ioMutex->Lock ();
+    m_ioMutex.Lock ();
 #endif
     char c = (char) fgetc ( m_fileInputPointer );
 
@@ -216,7 +209,7 @@ CoreIOReader::ReadLine ( std::string &_string )
         buffer.resize ( len - 1 );
 
 #ifndef __GNUC__
-    m_ioMutex->Unlock ();
+    m_ioMutex.Unlock ();
 #endif
 
     _string = buffer;
@@ -231,11 +224,11 @@ CoreIOReader::Seek ( int _position, int _origin )
     if ( !IsOpen() ) return CC_ERR_INVALID_BUFFER;
 
 #ifndef __GNUC__
-    m_ioMutex->Lock ();
+    m_ioMutex.Lock ();
 #endif
     int res = fseek ( m_fileInputPointer, _position, _origin );
 #ifndef __GNUC__
-    m_ioMutex->Unlock ();
+    m_ioMutex.Unlock ();
 #endif
     return res;
 }

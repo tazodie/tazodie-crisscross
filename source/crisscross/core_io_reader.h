@@ -45,7 +45,7 @@ namespace CrissCross
             /*!
                Prevents more than one read from occurring simultaneously.
              */
-            CrissCross::System::CoreMutex *m_ioMutex;
+            CrissCross::System::CoreMutex m_ioMutex;
         #endif
 
           public:

@@ -11,6 +11,8 @@
 
 #ifndef __included_crisscross_universal_include_h
 #define __included_crisscross_universal_include_h
+
+//#  define SDL_APPLICATION // Define if your application uses SDLmain.
     
 #    define CC_LIB_NAME                "CrissCross"
 
