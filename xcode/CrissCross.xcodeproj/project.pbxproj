@@ -60,6 +60,7 @@
 		B0BD2C910BE26C7C00F71A26 /* rbtree.cpp in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BC30BE2542600F71A26 /* rbtree.cpp */; };
 		B0BD2C920BE26C7C00F71A26 /* sortclass.cpp in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BC50BE2542600F71A26 /* sortclass.cpp */; };
 		B0BD2C930BE26C7C00F71A26 /* splay.cpp in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BC70BE2542600F71A26 /* splay.cpp */; };
+		B0ED57BE0BEAF76A00F6033B /* platform_detect.h in Headers */ = {isa = PBXBuildFile; fileRef = B0ED57BD0BEAF76A00F6033B /* platform_detect.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -120,6 +121,7 @@
 		B0BD2BCE0BE2542600F71A26 /* udpsocket.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = udpsocket.h; path = ../source/crisscross/udpsocket.h; sourceTree = SOURCE_ROOT; };
 		B0BD2BCF0BE2542600F71A26 /* universal_include.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = universal_include.h; path = ../source/crisscross/universal_include.h; sourceTree = SOURCE_ROOT; };
 		B0BD2C480BE26BDC00F71A26 /* libCrissCross Static.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libCrissCross Static.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0ED57BD0BEAF76A00F6033B /* platform_detect.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = platform_detect.h; path = ../source/crisscross/platform_detect.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +174,7 @@
 		08FB77ACFE841707C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				B0ED57BD0BEAF76A00F6033B /* platform_detect.h */,
 				B0BD2BAE0BE2542600F71A26 /* core_compare.h */,
 				B0BD2BAF0BE2542600F71A26 /* core_console.h */,
 				B0BD2BB00BE2542600F71A26 /* core_cpuid.h */,
@@ -271,6 +274,7 @@
 				B0BD2C800BE26C3200F71A26 /* tcpsocket.h in Headers */,
 				B0BD2C820BE26C3300F71A26 /* stopwatch.h in Headers */,
 				B0BD2C8A0BE26C3700F71A26 /* CrissCross_Prefix.pch in Headers */,
+				B0ED57BE0BEAF76A00F6033B /* platform_detect.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

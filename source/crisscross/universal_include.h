@@ -185,6 +185,7 @@ static char THIS_FILE[] = __FILE__;
 
 //! The application entry point.
 extern int RunApplication ( int argc, char **argv );
+int CrissCrossInitialize ( int argc, char **argv );
 
 // Namespace Definitions
 //! The CrissCross main namespace.
