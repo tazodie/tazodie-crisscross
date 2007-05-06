@@ -96,6 +96,7 @@
 #       endif
 #       include <io.h>
 #       include <fcntl.h>
+#       include <winsock2.h>
 #       include <windows.h>
 #       if defined ( DETECT_MEMORY_LEAKS )
 #           include <dbghelp.h>

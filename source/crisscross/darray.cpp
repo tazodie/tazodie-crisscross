@@ -244,7 +244,7 @@ int DArray < T >::getNextFree()
 }
 
 template < class T >
-T DArray < T >::getData ( int index )
+T DArray < T >::getData ( int index ) const
 {
 
     CoreAssert ( m_shadow[index] != 0 );
@@ -256,6 +256,16 @@ T DArray < T >::getData ( int index )
 
 template < class T >
 T & DArray < T >::operator []( int index )
+{
+
+    CoreAssert ( m_shadow[index] != 0 );
+    CoreAssert ( index < m_arraySize && index >= 0 );
+
+    return m_array[index];
+}
+
+template < class T >
+const T & DArray < T >::operator []( int index ) const
 {
 
     CoreAssert ( m_shadow[index] != 0 );
@@ -279,19 +289,19 @@ void DArray < T >::remove ( int index )
 }
 
 template < class T >
-int DArray < T >::numUsed ()
+int DArray < T >::numUsed () const
 {
     return m_numUsed;
 }
 
 template < class T >
-int DArray < T >::size ()
+int DArray < T >::size () const
 {
     return m_arraySize;
 }
 
 template < class T >
-bool DArray < T >::validIndex ( int index )
+bool DArray < T >::validIndex ( int index ) const
 {
 
     if ( index >= m_arraySize || index < 0 )

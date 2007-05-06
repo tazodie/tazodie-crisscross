@@ -133,6 +133,20 @@ namespace CrissCross
              */
             const char *GetRemoteIP ();
 
+            //! Fetches the IP address of the remote host.
+            /*!
+                \return The host represented in old-style sockaddr_in format.
+             */
+            u_long GetLocalHost ();
+
+            //! Fetches the IP address of the remote host.
+            /*!
+                \return A pointer to the IP address string in dot notation. Note that the
+                pointer this returns will be reused on the next GetRemoteIP call, so the
+                data pointed at by the return value should be copied into another buffer.
+             */
+            const char *GetLocalIP ();
+
             //! Gives access to the socket itself (for extensibility only).
             /*!
                 \return CoreSocket::m_sock
@@ -199,7 +213,7 @@ namespace CrissCross
                 \param _length The number of bytes of _data to send (must NOT exceed the size of _data).
                 \return The actual number of bytes sent.
              */
-            virtual int Send ( const char *_data, int _length );
+            virtual int Send ( const void *_data, size_t _length );
             
             //! Sends a string.
             /*!

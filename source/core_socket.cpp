@@ -39,7 +39,9 @@ using namespace CrissCross::Network;
 
 CoreSocket::CoreSocket()
 {
-    __initialise_network(); m_calledInitialise = 1;
+	CrissCross::Errors retval = __initialise_network();
+	m_calledInitialise = 1;
+	CoreAssert ( retval == CC_ERR_NONE );
     memset ( &m_sock, 0, sizeof ( socket_t ) );
     m_sock = INVALID_SOCKET;
     m_state = SOCKET_STATE_NOT_CREATED;
@@ -109,16 +111,39 @@ CoreSocket::GetRemoteIP ()
 }
 
 u_long
+CoreSocket::GetLocalHost ()
+{
+    char str[512];
+    u_long result = gethostname( str, sizeof(str) );
+    if (result < 0) 
+    {
+        return 0;
+    }
+
+    struct hostent *lpHostEnt;
+    lpHostEnt = gethostbyname (str);
+
+    struct sockaddr_in addr;
+    memcpy( &addr.sin_addr, lpHostEnt->h_addr_list[0], sizeof(addr.sin_addr) );
+    addr.sin_port = 0;
+
+    const unsigned char *a = (const unsigned char *) &addr.sin_addr;
+    result = (a[0] << 24) + (a[1] << 16) + (a[2] << 8) + a[3];
+
+    return result;
+}
+
+u_long
 CoreSocket::GetRemoteHost ()
 {
     if ( m_sock == INVALID_SOCKET ) return 0;
 
-    struct sockaddr_in sock; int sock_size = sizeof(sock);
-    memset ( &sock, 0, sizeof(sock) );
-    getpeername ( m_sock, (sockaddr *)&sock, (socklen_t *)&sock_size );
+    struct sockaddr_in addr; int sock_size = sizeof(addr);
+    memset ( &addr, 0, sizeof(addr) );
+    getpeername ( m_sock, (sockaddr *)&addr, (socklen_t *)&sock_size );
 
     // Return the remote host (not the IP, but the bare host).
-    return sock.sin_addr.s_addr;
+    return addr.sin_addr.s_addr;
 }
 
 socket_t
@@ -270,7 +295,7 @@ CoreSocket::GetError ()
 }
 
 int
-CoreSocket::Send ( const char *_data, int _length )
+CoreSocket::Send ( const void *_data, size_t _length )
 {
     CoreAssert ( m_sock != 0 );
 
@@ -288,7 +313,7 @@ CoreSocket::Send ( const char *_data, int _length )
     fprintf ( stdout, "<<< '%s'\n", temp_buf );
     delete [] temp_buf;
 #endif
-    sent = send ( m_sock, _data, (int)_length, 0 );
+    sent = send ( m_sock, (const char *)_data, (int)_length, 0 );
     return sent;
 }
 

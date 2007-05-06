@@ -20,31 +20,31 @@
 using namespace CrissCross::Data;
 
 DataBuffer::DataBuffer()
-	: m_buffer ( NULL ), m_size ( -1 )
+	: m_buffer ( NULL ), m_size ( -1 ), m_isString(false)
 {
 }
 
 DataBuffer::DataBuffer ( size_t _initialCapacity )
-	: m_buffer ( NULL ), m_size ( -1 )
+	: m_buffer ( NULL ), m_size ( -1 ), m_isString(false)
 {
 	setSize ( _initialCapacity );
 }
 
 DataBuffer::DataBuffer ( const char *_initialString )
-	: m_buffer ( NULL ), m_size ( -1 )
+	: m_buffer ( NULL ), m_size ( -1 ), m_isString(false)
 {
 	setDataString ( _initialString );
 }
 
 
-DataBuffer::DataBuffer ( const char *_initialData, size_t _size )
-	: m_buffer ( NULL ), m_size ( -1 )
+DataBuffer::DataBuffer ( const void *_initialData, size_t _size )
+	: m_buffer ( NULL ), m_size ( -1 ), m_isString(false)
 {
 	setData ( _initialData, _size );
 }
 
 DataBuffer::DataBuffer ( const DataBuffer &_initialData )
-	: m_buffer ( NULL ), m_size ( -1 )
+	: m_buffer ( NULL ), m_size ( -1 ), m_isString(false)
 {
 	setData ( _initialData.getData(), _initialData.getSize() );
 }
@@ -84,7 +84,7 @@ void DataBuffer::setSize ( size_t _capacity )
 	memset ( m_buffer, 0, m_size );
 }
 
-int DataBuffer::setData ( const char *_data, size_t _size )
+int DataBuffer::setData ( const void *_data, size_t _size )
 {
 	setSize ( _size );
 	memcpy ( m_buffer, _data, _size );
@@ -94,8 +94,14 @@ int DataBuffer::setData ( const char *_data, size_t _size )
 int DataBuffer::setDataString ( const char *_data )
 {
 	setSize ( strlen ( _data ) + 1 );
+	m_isString = true;
 	strcpy ( m_buffer, _data );
 	return 0;
+}
+
+bool DataBuffer::isString() const
+{
+	return m_isString;
 }
 
 size_t DataBuffer::getSize () const
