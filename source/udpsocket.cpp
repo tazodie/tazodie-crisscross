@@ -62,8 +62,7 @@ CrissCross::Errors UDPSocket::Bind ( const char *_address, unsigned short _port 
     sin.sin_addr.s_addr = ( ( struct in_addr * ) ( host->h_addr ) )->s_addr;
     sin.sin_port = htons ( _port );
 
-    if ( connect ( m_sock, ( ( struct sockaddr * ) 
-        &sin ), sizeof ( sin ) ) == SOCKET_ERROR )
+    if ( connect ( m_sock, ( ( struct sockaddr * )&sin ), sizeof ( sin ) ) != 0 )
     {
 #ifdef TARGET_OS_WINDOWS
         closesocket ( m_sock );
@@ -102,7 +101,7 @@ CrissCross::Errors UDPSocket::Listen ( unsigned short _port )
 #endif
 #endif
 
-    if ( bind ( m_sock, (sockaddr *)&sin, sizeof ( sin ) ) == SOCKET_ERROR )
+    if ( bind ( m_sock, (sockaddr *)&sin, sizeof ( sin ) ) != 0 )
     {
 #ifdef TARGET_OS_WINDOWS
         closesocket ( m_sock );
