@@ -27,8 +27,10 @@ namespace CrissCross
         private:
             int SetAttributes ( socket_t _socket );
         public:
-            //! The default constructor.
+            //! The default constructor (streaming socket).
             TCPSocket ();
+            //! The constructor for existing sockets.
+            TCPSocket ( bool _streamingSocket );
             //! The constructor for existing sockets.
             TCPSocket ( socket_t _socket );
             //! The destructor.
