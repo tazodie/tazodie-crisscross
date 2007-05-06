@@ -46,8 +46,7 @@ namespace CrissCross
         typedef enum
         {
             PROTOCOL_NONE,                          //!< No protocol specified.
-            PROTOCOL_TCPSTREAM,                     //!< Transmission Control Protocol (streaming).
-            PROTOCOL_TCPSEQ,                        //!< Transmission Control Protocol (sequential packet).
+            PROTOCOL_TCP,							//!< Transmission Control Protocol.
             PROTOCOL_UDP                            //!< User Datagram Protocol.
         } socketProtocol;
 
@@ -84,7 +83,7 @@ namespace CrissCross
                 \param _socket The socket to modify.
                 \return CC_ERR_NONE if no error is encountered, otherwise returns 'errno'.
              */
-            int SetAttributes ( socket_t _socket );
+            virtual int SetAttributes ( socket_t _socket ) = 0;
         public:
 
             //! The default constructor.

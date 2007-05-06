@@ -48,7 +48,7 @@ CrissCross::Errors UDPSocket::Bind ( const char *_address, unsigned short _port 
 
     if ( m_sock != INVALID_SOCKET ) return CC_ERR_ENOTSOCK;
 
-    m_sock = socket ( AF_INET, SOCK_DGRAM, IPPROTO_UDP );
+    m_sock = socket ( AF_INET, SOCK_DGRAM, IPPROTO_IP );
     if ( m_sock == INVALID_SOCKET )
         return GetError();
 
@@ -89,7 +89,7 @@ CrissCross::Errors UDPSocket::Listen ( unsigned short _port )
     sin.sin_family = PF_INET;
     sin.sin_addr.s_addr = INADDR_ANY;
     sin.sin_port = htons ( _port );
-    m_sock = socket ( AF_INET, SOCK_DGRAM, IPPROTO_UDP );
+    m_sock = socket ( AF_INET, SOCK_DGRAM, IPPROTO_IP );
 
     if ( m_sock == INVALID_SOCKET )
         return GetError();

@@ -33,19 +33,13 @@ using namespace CrissCross::Network;
 TCPSocket::TCPSocket()
     : CoreSocket()
 {
-    m_proto = PROTOCOL_TCPSTREAM;
-}
-
-TCPSocket::TCPSocket ( bool _streamingSocket )
-    : CoreSocket()
-{
-	m_proto = ( _streamingSocket ) ? PROTOCOL_TCPSTREAM : PROTOCOL_TCPSEQ;
+    m_proto = PROTOCOL_TCP;
 }
 
 TCPSocket::TCPSocket ( socket_t _socket )
     : CoreSocket ( _socket )
 {
-    m_proto = PROTOCOL_TCPSTREAM;
+    m_proto = PROTOCOL_TCP;
     m_state = SOCKET_STATE_CONNECTED; // Assumed.
 }
 
@@ -139,12 +133,7 @@ CrissCross::Errors TCPSocket::Connect ( const char *_address, unsigned short _po
 	Close();
 
     // Open a new TCP/IP socket.
-	if ( m_proto == PROTOCOL_TCPSTREAM )
-		m_sock = socket ( AF_INET, SOCK_STREAM, IPPROTO_TCP );
-	else if ( m_proto == PROTOCOL_TCPSEQ )
-		m_sock = socket ( AF_INET, SOCK_SEQPACKET, IPPROTO_TCP );
-	else
-		return CC_ERR_INTERNAL;
+    m_sock = socket ( AF_INET, SOCK_STREAM, IPPROTO_TCP );
 
     // Verify the socket.
     if ( m_sock == INVALID_SOCKET )
@@ -282,21 +271,6 @@ int TCPSocket::SetAttributes ( socket_t _socket )
     err = setsockopt ( _socket, SOL_SOCKET,
           SO_KEEPALIVE, (char *) &optval, optlen );
     if ( err == -1 ) return errno;
-	
-	/* SO_SNDTIMEO and SO_RCVTIMEO */
-	struct timeval timeoutVal;
-	timeoutVal.tv_sec = 5;
-	timeoutVal.tv_usec = 0;
-	optlen = sizeof timeoutVal;
-	
-    err = setsockopt ( _socket, SOL_SOCKET,
-          SO_SNDTIMEO, (char *) &timeoutVal, optlen );
-    if ( err == -1 ) return errno;
-	
-    err = setsockopt ( _socket, SOL_SOCKET,
-          SO_RCVTIMEO, (char *) &timeoutVal, optlen );
-    if ( err == -1 ) return errno;
-	
 
     return CC_ERR_NONE;
 }
