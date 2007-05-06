@@ -29,7 +29,10 @@ namespace CrissCross
         public:
             //! The default constructor (streaming socket).
             TCPSocket ();
-            //! The constructor for existing sockets.
+            //! The constructor for optional streaming.
+			/*!
+				\param _streamingSocket If 'true', the socket uses SOCK_STREAM. If 'false', the socket uses SOCK_SEQPACKET.
+			 */
             TCPSocket ( bool _streamingSocket );
             //! The constructor for existing sockets.
             TCPSocket ( socket_t _socket );
