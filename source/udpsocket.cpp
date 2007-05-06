@@ -28,7 +28,6 @@
      typedef int socklen_t;
 #endif
 
-
 using namespace CrissCross::Network;
 
 UDPSocket::UDPSocket()
@@ -76,6 +75,11 @@ CrissCross::Errors UDPSocket::Bind ( const char *_address, unsigned short _port 
 		return err;
     }
     return GetError();
+}
+
+int UDPSocket::SetAttributes ( SOCKET _socket )
+{
+	return 0;
 }
 
 CrissCross::Errors UDPSocket::Listen ( unsigned short _port )
