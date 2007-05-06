@@ -20,6 +20,9 @@ namespace CrissCross
 		class DataBuffer
 		{
 			protected:
+				//! Indicates whether or not the DataBuffer was set to contain a string.
+				bool m_isString;
+
 				//! The internal memory buffer which contains the data.
 				char *m_buffer;
 
@@ -44,7 +47,7 @@ namespace CrissCross
 					\param _initialData A pointer to the data which should be inside the buffer.
 					\param _size The size of the data to be copied (in bytes).
 				 */
-				DataBuffer ( const char *_initialData, size_t _size );
+				DataBuffer ( const void *_initialData, size_t _size );
 
 				//! The copy constructor.
 				DataBuffer ( const DataBuffer &_initialData );
@@ -59,7 +62,7 @@ namespace CrissCross
 				virtual void setSize ( size_t _capacity );
 
 				//! Set the data buffer contents.
-				virtual int setData ( const char *_newData, size_t _size );
+				virtual int setData ( const void *_newData, size_t _size );
 
 				//! Set the data buffer contents.
 				virtual int setDataString ( const char *_newData );
@@ -69,6 +72,8 @@ namespace CrissCross
 
 				//! Returns the current buffer size, in bytes.
 				virtual size_t getSize() const;
+
+				virtual bool isString() const;
 
 				//! Implicit assignment operator.
 				DataBuffer &operator=  ( const DataBuffer &_buffer );

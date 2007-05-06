@@ -109,7 +109,7 @@ namespace CrissCross
                 \param _index The index of the node to get data from.
                 \return The data stored at the index.
              */
-            T getData ( int _index );
+            T getData ( int _index ) const;
 
             //! Removes the data at the given index.
             /*!
@@ -144,13 +144,13 @@ namespace CrissCross
             /*!
                 \return The number of used nodes.
              */
-            int numUsed ();
+            int numUsed () const;
 
             //! Indicates the total size of the array.
             /*!
                 \return The size of the array.
              */
-            inline int size ();
+            inline int size () const;
 
             //! Indicates whether a given index is valid.
             /*!
@@ -159,7 +159,7 @@ namespace CrissCross
                 \param _index The index to test.
                 \return Boolean value. True if valid, false if not.
              */
-            bool validIndex ( int _index );
+            bool validIndex ( int _index ) const;
 
             //! Empties the array but does NOT free any pointers stored in the array.
             /*!
@@ -176,6 +176,13 @@ namespace CrissCross
                 \return The data stored at the index.
              */
             T & operator []( int _index );
+
+            //! Gets the data at the given index.
+            /*!
+                \param _index The index of the node to get data from.
+                \return The data stored at the index.
+             */
+            const T & operator []( int _index ) const;
 
         };
     }

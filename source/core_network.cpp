@@ -25,12 +25,14 @@ CrissCross::Network::__initialise_network()
     if ( !s_initialised ) {
 #ifdef TARGET_OS_WINDOWS
         /* Start up the windows networking */
-        WORD version_wanted = MAKEWORD ( 2, 0 );
+        WORD version_wanted = MAKEWORD ( 2, 2 );
         WSADATA wsaData;
 
-        if ( WSAStartup(version_wanted, &wsaData) != 0 ) {
+        if ( WSAStartup(version_wanted, &wsaData) != 0 )
             return CC_ERR_INTERNAL;
-        }
+
+		if ( LOBYTE(wsaData.wVersion) != 2 || HIBYTE(wsaData.wVersion) != 2 )
+			return CC_ERR_INTERNAL;
 #else
         /* SIGPIPE is generated when a remote socket is closed */
         void (*handler)(int);
