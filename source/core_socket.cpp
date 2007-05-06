@@ -341,12 +341,6 @@ CoreSocket::Send ( std::string _data )
     return sent;
 }
 
-int
-CoreSocket::SetAttributes ( socket_t _socket )
-{
-    return CC_ERR_NOT_IMPLEMENTED;
-}
-
 socketState
 CoreSocket::State() const
 {
