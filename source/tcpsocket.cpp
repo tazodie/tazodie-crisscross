@@ -153,7 +153,7 @@ CrissCross::Errors TCPSocket::Connect ( const char *_address, unsigned short _po
     sin.sin_port = htons ( _port );
 
     // Attempt a connection.
-    if ( connect ( m_sock, ( ( struct sockaddr * ) &sin ), sizeof ( sin ) ) == SOCKET_ERROR )
+    if ( connect ( m_sock, ( ( struct sockaddr * ) &sin ), sizeof ( sin ) ) != 0 )
     {
         // Close the connection, it failed.
 #ifdef TARGET_OS_WINDOWS
@@ -216,7 +216,7 @@ CrissCross::Errors TCPSocket::Listen ( unsigned short _port )
 #endif
 
     // Bind our socket to our given port number.
-    if ( bind ( m_sock, (sockaddr *)&sin, sizeof ( sin ) ) == SOCKET_ERROR )
+    if ( bind ( m_sock, (sockaddr *)&sin, sizeof ( sin ) ) != 0 )
     {
         // Bind failure, for some reason.
 #ifdef TARGET_OS_WINDOWS
