@@ -133,7 +133,7 @@ CrissCross::Errors TCPSocket::Connect ( const char *_address, unsigned short _po
 	Close();
 
     // Open a new TCP/IP socket.
-    m_sock = socket ( AF_INET, SOCK_STREAM, IPPROTO_TCP );
+    m_sock = socket ( AF_INET, SOCK_STREAM, IPPROTO_IP );
 
     // Verify the socket.
     if ( m_sock == INVALID_SOCKET )
@@ -197,7 +197,7 @@ CrissCross::Errors TCPSocket::Listen ( unsigned short _port )
     sin.sin_port = htons ( _port );
 
     // Open a new TCP/IP socket.
-    m_sock = socket ( AF_INET, SOCK_STREAM, IPPROTO_TCP );
+    m_sock = socket ( AF_INET, SOCK_STREAM, IPPROTO_IP );
 
     // Verify the socket.
     if ( m_sock == INVALID_SOCKET )
