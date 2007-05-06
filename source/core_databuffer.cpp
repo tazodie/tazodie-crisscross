@@ -19,32 +19,42 @@
 
 using namespace CrissCross::Data;
 
-DataBuffer::DataBuffer()
-	: m_buffer ( NULL ), m_size ( -1 ), m_isString(false)
+DataBuffer::DataBuffer() :
+	m_isString(false),
+	m_buffer ( NULL ),
+	m_size ( -1 )
 {
 }
 
-DataBuffer::DataBuffer ( size_t _initialCapacity )
-	: m_buffer ( NULL ), m_size ( -1 ), m_isString(false)
+DataBuffer::DataBuffer ( size_t _initialCapacity ) :
+	m_isString(false),
+	m_buffer ( NULL ),
+	m_size ( -1 )
 {
 	setSize ( _initialCapacity );
 }
 
-DataBuffer::DataBuffer ( const char *_initialString )
-	: m_buffer ( NULL ), m_size ( -1 ), m_isString(false)
+DataBuffer::DataBuffer ( const char *_initialString ) :
+	m_isString(false),
+	m_buffer ( NULL ),
+	m_size ( -1 )
 {
 	setDataString ( _initialString );
 }
 
 
-DataBuffer::DataBuffer ( const void *_initialData, size_t _size )
-	: m_buffer ( NULL ), m_size ( -1 ), m_isString(false)
+DataBuffer::DataBuffer ( const void *_initialData, size_t _size ) :
+	m_isString(false),
+	m_buffer ( NULL ),
+	m_size ( -1 )
 {
 	setData ( _initialData, _size );
 }
 
-DataBuffer::DataBuffer ( const DataBuffer &_initialData )
-	: m_buffer ( NULL ), m_size ( -1 ), m_isString(false)
+DataBuffer::DataBuffer ( const DataBuffer &_initialData ) :
+	m_isString(false),
+	m_buffer ( NULL ),
+	m_size ( -1 )
 {
 	setData ( _initialData.getData(), _initialData.getSize() );
 }
