@@ -285,9 +285,10 @@ CoreSocket::GetError ()
 	int retval = 0;
 
 #if !defined ( TARGET_OS_WINDOWS )
-	int retsize = sizeof ( int ), ret = 0;
-
-	ret = getsockopt ( m_sock, SOL_SOCKET, SO_ERROR, (char *)&retval, (socklen_t*)&retsize );
+	//int retsize = sizeof ( int ), ret = 0;
+	//ret = getsockopt ( m_sock, SOL_SOCKET, SO_ERROR, (char *)&retval, (socklen_t*)&retsize );
+	//if ( ret != 0 ) return CC_ERR_INTERNAL;
+	retval = errno;
 #else
 	retval = WSAGetLastError ();
 #endif

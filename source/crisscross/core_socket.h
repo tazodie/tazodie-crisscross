@@ -46,7 +46,8 @@ namespace CrissCross
         typedef enum
         {
             PROTOCOL_NONE,                          //!< No protocol specified.
-            PROTOCOL_TCP,                           //!< Transmission Control Protocol.
+            PROTOCOL_TCPSTREAM,                     //!< Transmission Control Protocol (streaming).
+            PROTOCOL_TCPSEQ,                        //!< Transmission Control Protocol (sequential packet).
             PROTOCOL_UDP                            //!< User Datagram Protocol.
         } socketProtocol;
 
