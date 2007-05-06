@@ -26,10 +26,6 @@ using namespace CrissCross;
 
 CrissCross::IO::CoreConsole *g_console;
 
-int main ( int argc, char **argv ) {
-	return CrissCrossInitialize ( argc, argv );
-}
-
 int RunApplication (int argc, char **argv) {
 	
 	g_console = new IO::CoreConsole();
