@@ -79,6 +79,8 @@ CoreSocket::Ban ( unsigned long _host )
 CrissCross::Errors
 CoreSocket::Close()
 {
+    if ( m_sock == INVALID_SOCKET ) return CC_ERR_ENOTSOCK;
+
     // Close the socket.
 #ifdef TARGET_OS_WINDOWS
     closesocket ( m_sock );
