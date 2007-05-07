@@ -39,9 +39,9 @@ using namespace CrissCross::Network;
 
 CoreSocket::CoreSocket()
 {
-	CrissCross::Errors retval = __initialise_network();
-	m_calledInitialise = 1;
-	CoreAssert ( retval == CC_ERR_NONE );
+    CrissCross::Errors retval = __initialise_network();
+    m_calledInitialise = 1;
+    CoreAssert ( retval == CC_ERR_NONE );
     memset ( &m_sock, 0, sizeof ( socket_t ) );
     m_sock = INVALID_SOCKET;
     m_state = SOCKET_STATE_NOT_CREATED;
@@ -217,6 +217,32 @@ CoreSocket::Read ( char **_output, unsigned int *_len )
 }
 
 int
+CoreSocket::Read ( char *_output, unsigned int _len )
+{
+    // Sanity checks.
+    if ( m_sock == INVALID_SOCKET ) return CC_ERR_ENOTSOCK;
+    if ( _len == NULL ) return CC_ERR_BADPARAMETER;
+    if ( _output == NULL ) return CC_ERR_BADPARAMETER;
+
+    // Set up a buffer.
+    int recvlen = 0;
+    memset ( _output, 0, _len );
+
+    // Receive some data.
+    recvlen = recv ( m_sock, _output, _len, 0 );
+    if ( recvlen < 0 )
+    {
+        // Something's wrong here...
+        return GetError();
+    }
+
+    *_output = buf;
+    *_len = recvlen;
+
+    return CC_ERR_NONE;
+}
+
+int
 CoreSocket::ReadLine ( char **_output, unsigned int *_len )
 {
     // Sanity checks.
@@ -229,10 +255,10 @@ CoreSocket::ReadLine ( char **_output, unsigned int *_len )
     char *buf = new char[m_bufferSize];
     char temp[2];
     int recvlen = 0;
-	CrissCross::Errors retval = CC_ERR_NONE;
+    CrissCross::Errors retval = CC_ERR_NONE;
     
     // Zero the buffer.
-	memset ( buf, 0, m_bufferSize );
+    memset ( buf, 0, m_bufferSize );
     memset ( temp, 0, sizeof ( temp ) );
 
     // Receive some data.
@@ -241,7 +267,7 @@ CoreSocket::ReadLine ( char **_output, unsigned int *_len )
     {
         // Something's wrong here...
         delete [] buf;
-		return GetError();
+        return GetError();
     }
 
     // check for a newline at the beginning.
@@ -258,7 +284,7 @@ CoreSocket::ReadLine ( char **_output, unsigned int *_len )
     {
         // Try some more data.
         recvlen = recv ( m_sock, temp, 1, 0 );
-		retval = GetError();
+        retval = GetError();
         if ( recvlen > 0 )
         {
             if ( temp[0] == '\n' || temp[0] == '\r' )
@@ -271,7 +297,7 @@ CoreSocket::ReadLine ( char **_output, unsigned int *_len )
             }
         } else if ( recvlen < 0 ) {
             delete [] buf;
-			return retval;
+            return retval;
         } else {
             fprintf ( stderr, "CoreSocket WARNING: Packet pipeline bubble!\n" );
         }
@@ -283,18 +309,18 @@ CoreSocket::ReadLine ( char **_output, unsigned int *_len )
 CrissCross::Errors
 CoreSocket::GetError ()
 {
-	CoreAssert ( m_sock != 0 );
-	int retval = 0;
+    CoreAssert ( m_sock != 0 );
+    int retval = 0;
 
 #if !defined ( TARGET_OS_WINDOWS )
-	//int retsize = sizeof ( int ), ret = 0;
-	//ret = getsockopt ( m_sock, SOL_SOCKET, SO_ERROR, (char *)&retval, (socklen_t*)&retsize );
-	//if ( ret != 0 ) return CC_ERR_INTERNAL;
-	retval = errno;
+    //int retsize = sizeof ( int ), ret = 0;
+    //ret = getsockopt ( m_sock, SOL_SOCKET, SO_ERROR, (char *)&retval, (socklen_t*)&retsize );
+    //if ( ret != 0 ) return CC_ERR_INTERNAL;
+    retval = errno;
 #else
-	retval = WSAGetLastError ();
+    retval = WSAGetLastError ();
 #endif
-	return GetErrorNumber ( retval );
+    return GetErrorNumber ( retval );
 }
 
 int

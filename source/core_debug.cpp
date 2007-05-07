@@ -176,22 +176,22 @@ PrintStackTrace ( CoreIOWriter * _outputBuffer )
     for ( i = 0; i < size; i++ )
       {
 #if 1
-	bt += strings[i];
-	int status;
-	// extract the identifier from strings[i].  It's inside of parens.
-	char* firstparen = ::strchr(strings[i], '(');
-	char* lastparen = ::strchr(strings[i], '+');
-	if (firstparen != 0 && lastparen != 0 && firstparen < lastparen)
-	  {
-	    bt += ": ";
-	    *lastparen = '\0';
-	    char* realname = abi::__cxa_demangle(firstparen+1, 0, 0, &status);
-	    if ( realname != NULL )
-	      {
-		bt += realname;
-	      }
-	    free(realname);
-	  }
+    bt += strings[i];
+    int status;
+    // extract the identifier from strings[i].  It's inside of parens.
+    char* firstparen = ::strchr(strings[i], '(');
+    char* lastparen = ::strchr(strings[i], '+');
+    if (firstparen != 0 && lastparen != 0 && firstparen < lastparen)
+      {
+        bt += ": ";
+        *lastparen = '\0';
+        char* realname = abi::__cxa_demangle(firstparen+1, 0, 0, &status);
+        if ( realname != NULL )
+          {
+        bt += realname;
+          }
+        free(realname);
+      }
 #else
         bt += "  ";
         bt += strings[i];
@@ -218,11 +218,11 @@ Assert ( bool _condition, const char *_testcase, const char *_file,
         char buffer[10240];
         sprintf ( buffer, "Assertion failed : '%s'\nFile: %s\nLine: %d\n\n",
         _testcase, _file, _line );
-		fprintf ( stderr, "%s", buffer );
+        fprintf ( stderr, "%s", buffer );
         fprintf ( stderr, "=== STACK TRACE ===\n" );
-		CoreIOWriter *stderror = new CoreIOWriter ( stderr, false, CC_LN_LF );
+        CoreIOWriter *stderror = new CoreIOWriter ( stderr, false, CC_LN_LF );
         PrintStackTrace ( stderror );
-		delete stderror;
+        delete stderror;
         #ifndef _DEBUG
             abort();
         #else

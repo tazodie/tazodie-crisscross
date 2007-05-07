@@ -62,8 +62,8 @@ CoreIOReader::IsOpen ()
 
     if ( m_fileInputPointer == NULL )
         return false;
-	else
-		return true;
+    else
+        return true;
 }
 
 int
@@ -146,39 +146,39 @@ CoreIOReader::Read ( char *_buffer, int _bufferLength, int _bufferIndex,
 int
 CoreIOReader::ReadLine ( char *_buffer, int _bufferLength )
 {
-	CoreAssert ( this != NULL );
-	if ( !IsOpen() ) return CC_ERR_INVALID_BUFFER;
-	
+    CoreAssert ( this != NULL );
+    if ( !IsOpen() ) return CC_ERR_INVALID_BUFFER;
+    
 #ifndef __GNUC__
-	m_ioMutex.Lock ();
+    m_ioMutex.Lock ();
 #endif
 
-	size_t bytesRead = 0, lineEndingSize = strlen(m_lineEnding);
-	char c = '\x0';
-		
-	for ( char *bufptr = _buffer; (bufptr - _buffer) < _bufferLength; bufptr++ )
-	{
-		c = (char) fgetc ( m_fileInputPointer );
-		
-		if ( c == (char)EOF )
-			break;
-		bytesRead++;		
-		
-		*bufptr = c;
-		
-		if ( bytesRead >= lineEndingSize )
-			if ( strncmp ( bufptr - (lineEndingSize - 1), m_lineEnding, lineEndingSize ) == 0 )
-			{
-				*(bufptr - (lineEndingSize - 1 )) = '\x0';
-				break;
-			}
-	}
+    size_t bytesRead = 0, lineEndingSize = strlen(m_lineEnding);
+    char c = '\x0';
+        
+    for ( char *bufptr = _buffer; (bufptr - _buffer) < _bufferLength; bufptr++ )
+    {
+        c = (char) fgetc ( m_fileInputPointer );
+        
+        if ( c == (char)EOF )
+            break;
+        bytesRead++;        
+        
+        *bufptr = c;
+        
+        if ( bytesRead >= lineEndingSize )
+            if ( strncmp ( bufptr - (lineEndingSize - 1), m_lineEnding, lineEndingSize ) == 0 )
+            {
+                *(bufptr - (lineEndingSize - 1 )) = '\x0';
+                break;
+            }
+    }
 
 #ifndef __GNUC__
-	m_ioMutex.Unlock ();
+    m_ioMutex.Unlock ();
 #endif
 
-	return (int)bytesRead;
+    return (int)bytesRead;
 }
 
 int
@@ -249,16 +249,16 @@ CoreIOReader::SetLineEndings ( LineEndingType _ending )
 {
     CoreAssert ( this != NULL );
 
-	if ( _ending == CC_LN_NATIVE )
-	{
+    if ( _ending == CC_LN_NATIVE )
+    {
 #if defined ( TARGET_OS_WINDOWS )
-		_ending = CC_LN_CRLF;
+        _ending = CC_LN_CRLF;
 #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
-		_ending = CC_LN_LF;
+        _ending = CC_LN_LF;
 #else
-#		error You are not using a supported OS.
+#        error You are not using a supported OS.
 #endif
-	}
+    }
     
     switch ( _ending )
     {
@@ -274,5 +274,5 @@ CoreIOReader::SetLineEndings ( LineEndingType _ending )
     default:
         return CC_ERR_BADPARAMETER;
     }
-	return CC_ERR_NONE;
+    return CC_ERR_NONE;
 }

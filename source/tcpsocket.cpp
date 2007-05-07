@@ -130,7 +130,7 @@ CrissCross::Errors TCPSocket::Connect ( const char *_address, unsigned short _po
     struct hostent *host;
 
     // Close any existing connections on this socket.
-	Close();
+    Close();
 
     // Open a new TCP/IP socket.
     m_sock = socket ( AF_INET, SOCK_STREAM, IPPROTO_IP );
@@ -155,7 +155,7 @@ CrissCross::Errors TCPSocket::Connect ( const char *_address, unsigned short _po
     // Attempt a connection.
     if ( connect ( m_sock, ( ( struct sockaddr * ) &sin ), sizeof ( sin ) ) != 0 )
     {
-		CrissCross::Errors err = GetError();
+        CrissCross::Errors err = GetError();
 
         // Close the connection, it failed.
 #ifdef TARGET_OS_WINDOWS
@@ -163,8 +163,8 @@ CrissCross::Errors TCPSocket::Connect ( const char *_address, unsigned short _po
 #else
         close ( m_sock );
 #endif
-		
-		return err;
+        
+        return err;
     }
 
 #if defined ( ENABLE_NONBLOCKING )
@@ -222,15 +222,15 @@ CrissCross::Errors TCPSocket::Listen ( unsigned short _port )
     if ( bind ( m_sock, (sockaddr *)&sin, sizeof ( sin ) ) != 0 )
     {
         // Bind failure, for some reason.
-		CrissCross::Errors err = GetError();
+        CrissCross::Errors err = GetError();
 
 #ifdef TARGET_OS_WINDOWS
         closesocket ( m_sock );
 #else
         close ( m_sock );
 #endif
-		
-		return err;
+        
+        return err;
     }
 
     // Listen on the given port, with a maximum of 10 half-open connections.

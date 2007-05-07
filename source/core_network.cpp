@@ -31,8 +31,8 @@ CrissCross::Network::__initialise_network()
         if ( WSAStartup(version_wanted, &wsaData) != 0 )
             return CC_ERR_INTERNAL;
 
-		if ( LOBYTE(wsaData.wVersion) != 2 || HIBYTE(wsaData.wVersion) != 2 )
-			return CC_ERR_INTERNAL;
+        if ( LOBYTE(wsaData.wVersion) != 2 || HIBYTE(wsaData.wVersion) != 2 )
+            return CC_ERR_INTERNAL;
 #else
         /* SIGPIPE is generated when a remote socket is closed */
         void (*handler)(int);
@@ -70,5 +70,5 @@ CrissCross::Network::__cleanup_network()
         }
 #endif
     }
-	return CC_ERR_NONE;
+    return CC_ERR_NONE;
 }

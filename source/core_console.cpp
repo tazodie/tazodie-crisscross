@@ -57,7 +57,7 @@ CoreConsole::~CoreConsole ()
 void
 CoreConsole::SetColour ()
 {
-	SetColour ( 0 );
+    SetColour ( 0 );
 }
 
 void
@@ -155,8 +155,8 @@ CoreConsole::Clear ()
 void
 CoreConsole::Flush ()
 {
-	CoreIOReader::Flush();
-	CoreIOWriter::Flush();
+    CoreIOReader::Flush();
+    CoreIOWriter::Flush();
 }
 
 void

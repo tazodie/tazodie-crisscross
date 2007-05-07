@@ -102,16 +102,16 @@ call_cpuid (unsigned int request, unsigned int *eax, unsigned int *ebx, unsigned
      instruction is supported: try to change the ID bit in the EFLAGS
      register.  If we can change it, then the CPUID instruction is
      implemented.  */
-  asm ("pushfl\n\t"		/* Save %eflags to restore later.  */
-       "pushfl\n\t"		/* Push second copy, for manipulation.  */
-       "popl %1\n\t"		/* Pop it into post_change.  */
-       "movl %1,%0\n\t"		/* Save copy in pre_change.   */
-       "xorl %2,%1\n\t"		/* Tweak bit in post_change.  */
-       "pushl %1\n\t"		/* Push tweaked copy... */
-       "popfl\n\t"		/* ... and pop it into %eflags.  */
-       "pushfl\n\t"		/* Did it change?  Push new %eflags... */
-       "popl %1\n\t"		/* ... and pop it into post_change.  */
-       "popfl"			/* Restore original value.  */
+  asm ("pushfl\n\t"        /* Save %eflags to restore later.  */
+       "pushfl\n\t"        /* Push second copy, for manipulation.  */
+       "popl %1\n\t"        /* Pop it into post_change.  */
+       "movl %1,%0\n\t"        /* Save copy in pre_change.   */
+       "xorl %2,%1\n\t"        /* Tweak bit in post_change.  */
+       "pushl %1\n\t"        /* Push tweaked copy... */
+       "popfl\n\t"        /* ... and pop it into %eflags.  */
+       "pushfl\n\t"        /* Did it change?  Push new %eflags... */
+       "popl %1\n\t"        /* ... and pop it into post_change.  */
+       "popfl"            /* Restore original value.  */
        : "=&r" (pre_change), "=&r" (post_change)
        : "ir" (id_flag));
 
@@ -119,11 +119,11 @@ call_cpuid (unsigned int request, unsigned int *eax, unsigned int *ebx, unsigned
   if ((pre_change ^ post_change) & id_flag)
     {
       asm volatile ("mov %%ebx, %%esi\n\t" /* Save %ebx.  */
-		    "cpuid\n\t"
-		    "xchgl %%ebx, %%esi" /* Restore %ebx.  */
-		    : "=a" (*eax), "=S" (*ebx), "=c" (*ecx), "=d" (*edx)
-		    : "0" (request)
-		    : "memory");
+            "cpuid\n\t"
+            "xchgl %%ebx, %%esi" /* Restore %ebx.  */
+            : "=a" (*eax), "=S" (*ebx), "=c" (*ecx), "=d" (*edx)
+            : "0" (request)
+            : "memory");
 
       return true;
     }
@@ -206,7 +206,7 @@ CoreCPUID::CoreCPUID ()
 
     if ( Ext[0].eax < 0x80000004 )
     {
-	return;
+    return;
     }
     else
     {
@@ -235,10 +235,10 @@ CoreCPUID::~CoreCPUID ()
         }
         j = 0;
         
-		BinaryNode<std::string, Feature *> *node;
+        BinaryNode<std::string, Feature *> *node;
 
         node = proc[i]->features.rootNode;
-		node->beenThere = RedBlackTree <std::string, Feature *>::NODE_ITSELF_VISITED;
+        node->beenThere = RedBlackTree <std::string, Feature *>::NODE_ITSELF_VISITED;
         while ( proc[i]->features.valid ( node ) )
         {
             delete ( Feature * ) node->data;
@@ -698,8 +698,8 @@ CoreCPUID::DetectCount ( int processor )
     // AMD and Intel documentations state that if HTT is supported
     // then this the EBX:16 will reflect the logical processor count
     // otherwise the flag is reserved.
-	BinaryNode<std::string, Feature*> * HTT_node = proc[processor]->features.findNode ( "HTT" );
-	proc[processor]->PhysicalCount = (char)( ( ( ( Std[4].eax >> 26 ) & 0x03f ) + 1 ) & 0xff );
+    BinaryNode<std::string, Feature*> * HTT_node = proc[processor]->features.findNode ( "HTT" );
+    proc[processor]->PhysicalCount = (char)( ( ( ( Std[4].eax >> 26 ) & 0x03f ) + 1 ) & 0xff );
     if ( HTT_node->data->Enabled )
     {
         proc[processor]->LogicalCount = (char)( (Std[1].ebx >> 16) & 0xff );

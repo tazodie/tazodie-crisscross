@@ -45,11 +45,11 @@ template < class T > LList < T >::~LList ()
 
 
 template < class T > LList < T >::LList ( const LList < T > &source ):
-	m_first ( NULL ),
-	m_last ( NULL ),
-	m_previous ( NULL ),
-	m_previousIndex ( -1 ),
-	m_numItems ( 0 )
+    m_first ( NULL ),
+    m_last ( NULL ),
+    m_previous ( NULL ),
+    m_previousIndex ( -1 ),
+    m_numItems ( 0 )
 {
     for ( int i = 0; i < source.size (); i++ )
     {
@@ -82,7 +82,7 @@ template < class T > void LList < T >::insert_back ( const T & newdata )
     LListItem < T > *li = new LListItem < T > ();
     li->m_data = newdata;
     li->m_next = NULL;
-	li->m_previous = m_last;
+    li->m_previous = m_last;
     ++m_numItems;
 
     if ( m_last == NULL )
@@ -241,7 +241,7 @@ template < class T > LListItem < T > *LList < T >::getItem ( int index ) const
         m_previous = m_previous->m_next;
         m_previousIndex++;
     }
-	
+    
     while ( index < m_previousIndex )
     {
         m_previous = m_previous->m_previous;

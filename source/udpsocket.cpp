@@ -71,15 +71,15 @@ CrissCross::Errors UDPSocket::Bind ( const char *_address, unsigned short _port 
 #else
         close ( m_sock );
 #endif
-		
-		return err;
+        
+        return err;
     }
     return CC_ERR_NONE;
 }
 
 int UDPSocket::SetAttributes ( socket_t _socket )
 {
-	return 0;
+    return 0;
 }
 
 CrissCross::Errors UDPSocket::Listen ( unsigned short _port )
@@ -111,7 +111,7 @@ CrissCross::Errors UDPSocket::Listen ( unsigned short _port )
 
     if ( bind ( m_sock, (sockaddr *)&sin, sizeof ( sin ) ) != 0 )
     {
-		CrissCross::Errors err = GetError();
+        CrissCross::Errors err = GetError();
 
         // Close the connection, it failed.
 #ifdef TARGET_OS_WINDOWS
@@ -119,8 +119,8 @@ CrissCross::Errors UDPSocket::Listen ( unsigned short _port )
 #else
         close ( m_sock );
 #endif
-		
-		return err;
+        
+        return err;
     }
 
     return CC_ERR_NONE;

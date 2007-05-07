@@ -46,7 +46,7 @@
 
 // Sorry, this is Windows-only... (Use Valgrind on Linux)
 #   define DETECT_MEMORY_LEAKS
-//#	define ENABLE_MEMLEAK_STATS // DO NOT USE. WILL CAUSE HORRIBLE BLOODY DEATH ON EXIT.
+//#    define ENABLE_MEMLEAK_STATS // DO NOT USE. WILL CAUSE HORRIBLE BLOODY DEATH ON EXIT.
 
 // Linux backtrace()
 #   define ENABLE_BACKTRACE
@@ -73,12 +73,12 @@
 #   endif
     
 #    if defined ( TARGET_COMPILER_VC )
-#		ifndef _CRT_SECURE_NO_DEPRECATE
-#	       define _CRT_SECURE_NO_DEPRECATE
-#		endif
-#		ifndef _CRT_NONSTDC_NO_DEPRECATE
-#	       define _CRT_NONSTDC_NO_DEPRECATE
-#		endif
+#        ifndef _CRT_SECURE_NO_DEPRECATE
+#           define _CRT_SECURE_NO_DEPRECATE
+#        endif
+#        ifndef _CRT_NONSTDC_NO_DEPRECATE
+#           define _CRT_NONSTDC_NO_DEPRECATE
+#        endif
 #       define ENABLE_SYMBOL_ENGINE
 #    endif
 
@@ -120,9 +120,9 @@
 #       include <ctype.h>
 #    endif
 
-#	if defined ( TARGET_OS_MACOSX )
-#		include <Carbon/Carbon.h>
-#	endif
+#    if defined ( TARGET_OS_MACOSX )
+#        include <Carbon/Carbon.h>
+#    endif
 
 #   if defined ( TARGET_COMPILER_CYGWIN )
 #       undef ENABLE_BACKTRACE

@@ -20,13 +20,13 @@ namespace CrissCross
 {
     namespace IO
     {
-		//! File write modes.
-		/*!
-		   Provides the choice of creating a file when opening it or appending to it.
-	     */
+        //! File write modes.
+        /*!
+           Provides the choice of creating a file when opening it or appending to it.
+         */
         enum FileWriteMode
         {
-			CC_FILE_CREATE,                   /*!< Default. Will create a new file if the one opened does not exist. */
+            CC_FILE_CREATE,                   /*!< Default. Will create a new file if the one opened does not exist. */
             CC_FILE_APPEND                    /*!< Write operations will append data to the end of the file. */
         };
         

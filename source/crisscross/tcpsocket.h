@@ -36,7 +36,7 @@ namespace CrissCross
 
             //! Accepts an incoming connection. Only good when listening for a connection.
             /*!
-		\param _socket A pointer to a NULL TCPSocket pointer variable. (e.g. TCPSocket *blah = NULL; socket->Accept ( &blah ); ) 
+        \param _socket A pointer to a NULL TCPSocket pointer variable. (e.g. TCPSocket *blah = NULL; socket->Accept ( &blah ); ) 
                 \return A pointer to a newly created TCPSocket instance for the new
                 connection. If no incoming connections are pending, this returns NULL.
              */
@@ -47,14 +47,14 @@ namespace CrissCross
                 \param _address The remote address to connect to. Can be a hostname, as it will be resolved by gethostbyname().
                 \param _port The remote port to connect to.
              */
-			CrissCross::Errors Connect ( const char *_address, unsigned short _port );
+            CrissCross::Errors Connect ( const char *_address, unsigned short _port );
 
             //! Listens for connections on the specified port.
             /*!
                 You need to Accept() connections after calling this.
                 \param _port The local port to listen on.
              */
-			CrissCross::Errors Listen ( unsigned short _port );
+            CrissCross::Errors Listen ( unsigned short _port );
 
         };
     }

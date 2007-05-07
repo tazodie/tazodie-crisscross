@@ -57,12 +57,12 @@ TARGET_COMPILER_ICC
  * ------------------- */
 
 /* Carbon defines this for us on Mac, apparently... */
-#	if defined ( TARGET_CPU_PPC )
-#		define PROCESSOR_DETECTED
-#	endif
+#    if defined ( TARGET_CPU_PPC )
+#        define PROCESSOR_DETECTED
+#    endif
 
 /* PowerPC */
-#	if !defined ( PROCESSOR_DETECTED )
+#    if !defined ( PROCESSOR_DETECTED )
 #       if defined ( _ARCH_PPC ) || defined ( __ppc__ ) || defined ( __ppc64__ ) || defined ( __PPC ) || defined ( powerpc ) || defined ( __PPC__ ) || defined ( __powerpc64__ ) || defined ( __powerpc64 )
 #           define PROCESSOR_DETECTED
 #           if defined ( __ppc64__ ) || defined ( __powerpc64__ ) || defined ( __powerpc64 )
@@ -82,7 +82,7 @@ TARGET_COMPILER_ICC
 #   endif
 
 /* x64/AMD64 */
-#	if !defined ( PROCESSOR_DETECTED )
+#    if !defined ( PROCESSOR_DETECTED )
 #       if defined ( __x86_64__ ) || defined ( __x86_64 ) || defined ( __amd64 ) || defined ( __amd64__ ) || defined ( _AMD64_ ) || defined ( _M_X64 )
 #           define PROCESSOR_DETECTED
 #           define TARGET_CPU_X64
@@ -90,7 +90,7 @@ TARGET_COMPILER_ICC
 #   endif
 
 /* IA64 */
-#	if !defined ( PROCESSOR_DETECTED )
+#    if !defined ( PROCESSOR_DETECTED )
 #       if defined ( __ia64__ ) || defined ( _IA64 ) || defined ( __ia64 ) || defined ( _M_IA64 )
 #           define PROCESSOR_DETECTED
 #           define TARGET_CPU_IA64
@@ -171,19 +171,19 @@ TARGET_COMPILER_ICC
 #       endif
 #   endif
 
-#	if defined(TARGET_CPU_IA64) || defined(TARGET_CPU_X64)
-#		define TARGET_CPU_BITS 64
-#	elif defined(TARGET_CPU_X86)
-#		define TARGET_CPU_BITS 32
-#	endif
+#    if defined(TARGET_CPU_IA64) || defined(TARGET_CPU_X64)
+#        define TARGET_CPU_BITS 64
+#    elif defined(TARGET_CPU_X86)
+#        define TARGET_CPU_BITS 32
+#    endif
 
-#	if defined(TARGET_CPU_PPC)
-#		if TARGET_CPU_PPC == 32
-#			define TARGET_CPU_BITS 32
-#		elif TARGET_CPU_PPC == 64
-#			define TARGET_CPU_BITS 64
-#		endif
-#	endif
+#    if defined(TARGET_CPU_PPC)
+#        if TARGET_CPU_PPC == 32
+#            define TARGET_CPU_BITS 32
+#        elif TARGET_CPU_PPC == 64
+#            define TARGET_CPU_BITS 64
+#        endif
+#    endif
 
 #   if !defined ( PROCESSOR_DETECTED )
 #       error "Could not detect target CPU."
