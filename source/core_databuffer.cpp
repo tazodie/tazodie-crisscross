@@ -133,30 +133,36 @@ DataBuffer &DataBuffer::operator= ( const DataBuffer &_buffer )
 
 bool DataBuffer::operator> ( const DataBuffer &_buffer ) const
 {
+	if ( &_buffer == this ) return false;
     return stricmp ( m_buffer, _buffer.getData() ) > 0;
 }
 
 bool DataBuffer::operator>= ( const DataBuffer &_buffer ) const
 {
+	if ( &_buffer == this ) return true;
     return stricmp ( m_buffer, _buffer.getData() ) >= 0;
 }
 
 bool DataBuffer::operator< ( const DataBuffer &_buffer ) const
 {
+	if ( &_buffer == this ) return false;
     return stricmp ( m_buffer, _buffer.getData() ) < 0;
 }
 
 bool DataBuffer::operator<= ( const DataBuffer &_buffer ) const
 {
+	if ( &_buffer == this ) return true;
     return stricmp ( m_buffer, _buffer.getData() ) <= 0;
 }
 
 bool DataBuffer::operator== ( const DataBuffer &_buffer ) const
 {
+	if ( &_buffer == this ) return true;
     return stricmp ( m_buffer, _buffer.getData() ) == 0;
 }
 
 bool DataBuffer::operator!= ( const DataBuffer &_buffer ) const
 {
+	if ( &_buffer == this ) return false;
     return stricmp ( m_buffer, _buffer.getData() ) != 0;
 }
