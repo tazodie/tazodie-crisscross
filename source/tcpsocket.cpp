@@ -255,8 +255,8 @@ int TCPSocket::SetAttributes ( socket_t _socket )
 {
     /* TCP_NODELAY */
     int err, optval = 1, optlen = sizeof optval;
-    err = setsockopt ( _socket, IPPROTO_TCP,
-          TCP_NODELAY, (char *) &optval, optlen );
+    err = setsockopt ( _socket, IPPROTO_TCP, TCP_NODELAY,
+		(char *)&optval, optlen );
     if ( err == -1 ) return errno; 
 
     /* SO_LINGER */
@@ -264,23 +264,27 @@ int TCPSocket::SetAttributes ( socket_t _socket )
     linger_opts.l_onoff = 1;
     linger_opts.l_linger = 10;
     optlen = sizeof linger_opts;
-    err = setsockopt ( _socket, SOL_SOCKET,
-          SO_LINGER, (char *) &linger_opts, optlen );
+    err = setsockopt ( _socket, SOL_SOCKET, SO_LINGER,
+		(char *)&linger_opts, optlen );
     if ( err == -1 ) return errno;
 
     /* SO_KEEPALIVE */
     optlen = sizeof optval;
-    err = setsockopt ( _socket, SOL_SOCKET,
-          SO_KEEPALIVE, (char *) &optval, optlen );
+    err = setsockopt ( _socket, SOL_SOCKET, SO_KEEPALIVE,
+		(char *)&optval, optlen );
     if ( err == -1 ) return errno;
 	
 	/* SO_SNDTIMEO and SO_RCVTIMEO */
 	struct timeval tv;
 	tv.tv_sec = 7;
 	tv.tv_usec = 0;
-	err = setsockopt ( m_sock, SOL_SOCKET, SO_SNDTIMEO, (void *)&tv, sizeof ( tv  ) );
+	
+	err = setsockopt ( _socket, SOL_SOCKET, SO_SNDTIMEO,
+		(char *)&tv, sizeof ( tv  ) );
 	if ( err == -1 ) return errno;
-	err = setsockopt ( m_sock, SOL_SOCKET, SO_RCVTIMEO, (void *)&tv, sizeof ( tv  ) );
+
+	err = setsockopt ( _socket, SOL_SOCKET, SO_RCVTIMEO,
+		(char *)&tv, sizeof ( tv  ) );
 	if ( err == -1 ) return errno;
 
     return CC_ERR_NONE;
