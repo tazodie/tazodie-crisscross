@@ -140,7 +140,9 @@ CrissCross::Errors TCPSocket::Connect ( const char *_address, unsigned short _po
         return GetError();
 
     // Set up the typical transmission attributes.
-    SetAttributes ( m_sock );
+	int retval = SetAttributes ( m_sock );
+    if ( retval != CC_ERR_NONE )
+		fprintf ( stderr, "TCPSocket::SetAttributes failed with %d", retval );
 
     // Resolve the IP of the host we're trying to connect to.
     host = gethostbyname ( _address );
@@ -271,6 +273,15 @@ int TCPSocket::SetAttributes ( socket_t _socket )
     err = setsockopt ( _socket, SOL_SOCKET,
           SO_KEEPALIVE, (char *) &optval, optlen );
     if ( err == -1 ) return errno;
+	
+	/* SO_SNDTIMEO and SO_RCVTIMEO */
+	struct timeval tv;
+	tv.tv_sec = 7;
+	tv.tv_usec = 0;
+	err = setsockopt ( m_sock, SOL_SOCKET, SO_SNDTIMEO, (void *)&tv, sizeof ( tv  ) );
+	if ( err == -1 ) return errno;
+	err = setsockopt ( m_sock, SOL_SOCKET, SO_RCVTIMEO, (void *)&tv, sizeof ( tv  ) );
+	if ( err == -1 ) return errno;
 
     return CC_ERR_NONE;
 }
