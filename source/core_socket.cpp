@@ -186,38 +186,7 @@ CoreSocket::Read ( std::string &_output )
 }
 
 int
-CoreSocket::Read ( char **_output, unsigned int *_len )
-{
-    // Sanity checks.
-    if ( m_sock == INVALID_SOCKET ) return CC_ERR_ENOTSOCK;
-    if ( _len == NULL ) return CC_ERR_BADPARAMETER;
-    if ( _output == NULL ) return CC_ERR_BADPARAMETER;
-    if ( *_output != NULL ) return CC_ERR_BADPARAMETER;
-
-    // Set up a buffer.
-    char *buf = new char[m_bufferSize];
-    int recvlen = 0;
-    memset ( buf, 0, m_bufferSize );
-
-    // Receive some data.
-    recvlen = recv ( m_sock, buf, m_bufferSize - 1, 0 );
-    if ( recvlen < 0 )
-    {
-        // Something's wrong here...
-        *_output = NULL;
-        *_len = 0;
-        delete [] buf;
-        return GetError();
-    }
-
-    *_output = buf;
-    *_len = recvlen;
-
-    return CC_ERR_NONE;
-}
-
-int
-CoreSocket::Read ( char *_output, unsigned int _len )
+CoreSocket::Read ( char *_output, unsigned int *_len )
 {
     // Sanity checks.
     if ( m_sock == INVALID_SOCKET ) return CC_ERR_ENOTSOCK;
@@ -226,84 +195,19 @@ CoreSocket::Read ( char *_output, unsigned int _len )
 
     // Set up a buffer.
     int recvlen = 0;
-    memset ( _output, 0, _len );
+    memset ( _output, 0, *_len );
 
     // Receive some data.
-    recvlen = recv ( m_sock, _output, _len, 0 );
+    recvlen = recv ( m_sock, _output, *_len, 0 );
     if ( recvlen < 0 )
     {
         // Something's wrong here...
         return GetError();
     }
 
-    *_output = buf;
     *_len = recvlen;
 
     return CC_ERR_NONE;
-}
-
-int
-CoreSocket::ReadLine ( char **_output, unsigned int *_len )
-{
-    // Sanity checks.
-    if ( m_sock == INVALID_SOCKET ) return CC_ERR_ENOTSOCK;
-    if ( _len == NULL ) return CC_ERR_BADPARAMETER;
-    if ( _output == NULL ) return CC_ERR_BADPARAMETER;
-    if ( *_output != NULL ) return CC_ERR_BADPARAMETER;
-
-    // Set up a buffer.
-    char *buf = new char[m_bufferSize];
-    char temp[2];
-    int recvlen = 0;
-    CrissCross::Errors retval = CC_ERR_NONE;
-    
-    // Zero the buffer.
-    memset ( buf, 0, m_bufferSize );
-    memset ( temp, 0, sizeof ( temp ) );
-
-    // Receive some data.
-    recvlen = recv ( m_sock, temp, 1, 0 );
-    if ( recvlen <= 0 )
-    {
-        // Something's wrong here...
-        delete [] buf;
-        return GetError();
-    }
-
-    // check for a newline at the beginning.
-    if ( temp[0] == '\n' || temp[0] == '\r' )
-    {
-        *_output = buf;
-        *_len = (unsigned int)strlen ( buf );
-        return CC_ERR_NONE;
-    } else {
-        strcat ( buf, temp );
-    }
-    
-    while ( true )
-    {
-        // Try some more data.
-        recvlen = recv ( m_sock, temp, 1, 0 );
-        retval = GetError();
-        if ( recvlen > 0 )
-        {
-            if ( temp[0] == '\n' || temp[0] == '\r' )
-            {
-                *_output = buf;
-                *_len = (unsigned int)strlen ( buf );
-                break;
-            } else {
-                strcat ( buf, temp );
-            }
-        } else if ( recvlen < 0 ) {
-            delete [] buf;
-            return retval;
-        } else {
-            fprintf ( stderr, "CoreSocket WARNING: Packet pipeline bubble!\n" );
-        }
-    }
-
-    return retval;
 }
 
 CrissCross::Errors

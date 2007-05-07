@@ -177,15 +177,14 @@ namespace CrissCross
 
             //! Reads a block of data with a specified maximum size.
             /*!
-                \param _output Input should be the address of a NULL char * pointer.
-                The _output will point to the internal data buffer after the function
-                executes. The data in _output should be copied somewhere else if it
-                is needed longer than until the next Read() call.
-                \param _len The maximum number of bytes to read.
+                \param _output A buffer with size _len. Will contain the received
+                data on return.
+                \param _len The maximum number of bytes to read. On return, this
+                will contain the size of data received.
                 \return  If the return value is greater than zero, it is an 'errno'
                 value. If it is less than zero, it is a socketError value.
              */
-            virtual int Read ( char **_output, unsigned int *_len );
+            virtual int Read ( char *_output, unsigned int *_len );
 
             //! Reads a block of data with a specified maximum size.
             /*!
@@ -194,18 +193,6 @@ namespace CrissCross
                 value. If it is less than zero, it is a socketError value.
              */
             virtual int Read ( std::string &_output );
-
-            //! Reads a newline or carriage return terminated line of data.
-            /*!
-                WARNING: ReadLine is a blocking call, so you MUST only use this in
-                cases where a new line is sure to happen (string-based communications).
-                \param _output A pointer to the location of a NULL char* variable. Will be overwritten.
-                \param _len A pointer to an unsigned integer. Upon function return, this will contain
-                the length of the data received.
-                \return Zero on success. If negative, it is a standard CrissCross::Errors value. If positive, it is an errno value.
-             */
-            virtual int ReadLine ( char **_output, unsigned int *_len );
-
 
             //! Sends a block of data.
             /*!
