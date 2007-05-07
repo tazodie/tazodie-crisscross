@@ -313,12 +313,3 @@ extern "C" {
     }
 }
 #endif
-
-#if defined ( TARGET_OS_WINDOWS ) && !defined ( SDL_APPLICATION )
-int WINAPI
-WinMain ( HINSTANCE hInstance,
-          HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow )
-{
-    return main ( __argc, __argv );
-}
-#endif
