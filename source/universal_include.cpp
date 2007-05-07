@@ -42,8 +42,8 @@ ParseMemoryLeakFile ( const char *_inputFilename,
     // Start up
     //
 
-	RedBlackTree<std::string,int> combined;
-	RedBlackTree<std::string,int> frequency;
+    RedBlackTree<std::string,int> combined;
+    RedBlackTree<std::string,int> frequency;
     int unrecognised = 0;
 
     //
@@ -80,14 +80,14 @@ ParseMemoryLeakFile ( const char *_inputFilename,
 
             // Put the result into our BTree
 
-			BinaryNode<std::string,int> *node =
+            BinaryNode<std::string,int> *node =
                 combined.findNode ( sourcelocation );
             if ( node )
                 ( ( int ) node->data ) += size;
             else
                 combined.insert ( sourcelocation, size );
 
-			BinaryNode<std::string,int> *freq =
+            BinaryNode<std::string,int> *freq =
                 frequency.findNode ( sourcelocation );
             if ( freq )
                 ( ( int ) freq->data )++;
@@ -121,7 +121,7 @@ ParseMemoryLeakFile ( const char *_inputFilename,
     //
 
     DArray <int> *sizes = combined.ConvertToDArray ();
-	DArray <std::string> *sources = combined.ConvertIndexToDArray ();
+    DArray <std::string> *sources = combined.ConvertIndexToDArray ();
     LList <std::string> sorted;
     int totalsize = 0;
 
@@ -167,10 +167,10 @@ ParseMemoryLeakFile ( const char *_inputFilename,
         // Print out our sorted list
         // 
 
-		fprintf ( output, "Total recognised memory leaks   : %d Kbytes\n",
-			int ( totalsize / 1024 ) );
-		fprintf ( output, "Total unrecognised memory leaks : %d Kbytes\n\n",
-			int ( unrecognised / 1024 ) );
+        fprintf ( output, "Total recognised memory leaks   : %d Kbytes\n",
+            int ( totalsize / 1024 ) );
+        fprintf ( output, "Total unrecognised memory leaks : %d Kbytes\n\n",
+            int ( unrecognised / 1024 ) );
 
         for ( int k = sorted.size () - 1; k >= 0; --k )
         {
@@ -280,22 +280,22 @@ int main ( int argc, char **argv )
 #endif
         retval = RunApplication ( argc, argv );
 #ifndef NO_CPP_EXCEPTION_HANDLER
-	}
-	catch ( std::exception& e )
-	{
-		cout << e.what() << endl;
-		return -3;
-	}
-	catch ( const char *_exception )
-	{
-		g_stderr->
-			WriteLine
-			( "An unknown exception has been raised:\n\tDescription: %s",
-			  _exception );
-		return -2;
-	}
+    }
+    catch ( std::exception& e )
+    {
+        cout << e.what() << endl;
+        return -3;
+    }
+    catch ( const char *_exception )
+    {
+        g_stderr->
+            WriteLine
+            ( "An unknown exception has been raised:\n\tDescription: %s",
+              _exception );
+        return -2;
+    }
 #endif
-	
+    
     delete g_stderr; g_stderr = NULL;
     delete g_stdout; g_stdout = NULL;
 
@@ -307,10 +307,10 @@ int main ( int argc, char **argv )
 
 #ifdef SDL_APPLICATION
 extern "C" {
-	int SDL_main ( int argc, char **argv )
-	{
-		return CrissCrossInitialize(argc,argv);
-	}
+    int SDL_main ( int argc, char **argv )
+    {
+        return CrissCrossInitialize(argc,argv);
+    }
 }
 #endif
 
@@ -319,6 +319,6 @@ int WINAPI
 WinMain ( HINSTANCE hInstance,
           HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow )
 {
-	return main ( __argc, __argv );
+    return main ( __argc, __argv );
 }
 #endif

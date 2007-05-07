@@ -46,7 +46,7 @@ namespace CrissCross
         typedef enum
         {
             PROTOCOL_NONE,                          //!< No protocol specified.
-            PROTOCOL_TCP,							//!< Transmission Control Protocol.
+            PROTOCOL_TCP,                            //!< Transmission Control Protocol.
             PROTOCOL_UDP                            //!< User Datagram Protocol.
         } socketProtocol;
 
@@ -117,7 +117,7 @@ namespace CrissCross
             /*!
                 \return The error value for the socket.
              */
-			virtual CrissCross::Errors GetError();
+            virtual CrissCross::Errors GetError();
 
             //! Fetches the IP address of the remote host.
             /*!

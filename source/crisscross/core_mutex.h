@@ -17,9 +17,9 @@
 #endif
 
 #if defined ( TARGET_OS_WINDOWS )
-#	include <windows.h>
+#    include <windows.h>
 #else
-#	include <pthread.h>
+#    include <pthread.h>
 #endif
 
 namespace CrissCross

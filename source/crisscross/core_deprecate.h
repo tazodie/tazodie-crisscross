@@ -15,19 +15,19 @@
 //#   define _CC_NO_DEPRECATE
 //#   define _CC_ONLY_DEPRECATE_SLOW
 
-#	if defined(TARGET_COMPILER_GCC)
-#		if (__GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 1))
-#			define _CC_DEPRECATE_TEXT(_Text)  __attribute__((__deprecated__))
-#		endif
-#	elif defined(TARGET_COMPILER_VC)
+#    if defined(TARGET_COMPILER_GCC)
+#        if (__GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 1))
+#            define _CC_DEPRECATE_TEXT(_Text)  __attribute__((__deprecated__))
+#        endif
+#    elif defined(TARGET_COMPILER_VC)
 #       if _MSC_FULL_VER >= 140050320
 #           define _CC_DEPRECATE_TEXT(_Text) __declspec(deprecated(_Text))
 #       else
 #           define _CC_DEPRECATE_TEXT(_Text) __declspec(deprecated)
 #       endif
-#	else
-#		define _CC_DEPRECATE_TEXT(_Text)
-#	endif
+#    else
+#        define _CC_DEPRECATE_TEXT(_Text)
+#    endif
 
 #   if !defined(_CC_NO_DEPRECATE)
 #       ifndef _CC_SLOW_NO_DEPRECATE

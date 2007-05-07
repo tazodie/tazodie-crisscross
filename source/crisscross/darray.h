@@ -52,7 +52,7 @@ namespace CrissCross
             char           *m_shadow;
 
             //! Increases the size of the array.
-            void grow			();
+            void grow            ();
 
             //! Rebuilds the empty node stack.
             void rebuildStack   ();
@@ -68,9 +68,9 @@ namespace CrissCross
                 \return An index in m_array.
              */
             int getNextFree     ();
-			
-			//template<T> friend class SortClass;
-			//template<class T> friend class HeapSort;
+            
+            //template<T> friend class SortClass;
+            //template<class T> friend class HeapSort;
 
         public:
 
@@ -166,9 +166,9 @@ namespace CrissCross
                 The array must be iterated through and any pointers must be freed manually before calling this.
              */
             void empty ();
-			
-			//! Sorts the array using the provided method.
-			void sort ( CrissCross::Data::SortClass<T> *_sortMethod );
+            
+            //! Sorts the array using the provided method.
+            void sort ( CrissCross::Data::SortClass<T> *_sortMethod );
 
             //! Gets the data at the given index.
             /*!

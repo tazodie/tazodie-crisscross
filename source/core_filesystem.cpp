@@ -35,7 +35,7 @@ namespace CrissCross
         bool
         IsFile ( std::string path )
         {
-	            struct stat fileInfo;
+                struct stat fileInfo;
             if ( stat ( path.c_str (), &fileInfo ) == -1) // Doesn't exist
                 return false;
             if ( ( fileInfo.st_mode & S_IFMT ) != S_IFDIR ) // It's a file

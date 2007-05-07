@@ -28,7 +28,7 @@ namespace CrissCross
         typedef enum
         {
             STATUS_OK,                  //!< Success.
-			STATUS_NOT_FOUND,			//!< Node couldn't be found.
+            STATUS_NOT_FOUND,            //!< Node couldn't be found.
             STATUS_NULL_POINTER,        //!< A null pointer was found in a parameter.
             STATUS_MEM_EXHAUSTED        //!< Out of memory.
         } statusEnum;
@@ -112,7 +112,7 @@ namespace CrissCross
              */
             bool valid ( const RedBlackNode<Key,Data> *_node ) const;
 
-			//inline Data &operator [] ( const Key &_key ) { return findNode(_key)->data; };
+            //inline Data &operator [] ( const Key &_key ) { return findNode(_key)->data; };
 
         protected:
             inline char *reallocKey ( char *_pointer, char *_a );
@@ -164,8 +164,8 @@ namespace CrissCross
             DArray <Key>  *ConvertIndexToDArray ();
 
         protected:
-			void RecursiveConvertIndexToDArray ( DArray <Key> *_darray, RedBlackNode<Key,Data> *_btree );
-			void RecursiveConvertToDArray ( DArray <Data> *_darray, RedBlackNode<Key,Data> *_btree );
+            void RecursiveConvertIndexToDArray ( DArray <Key> *_darray, RedBlackNode<Key,Data> *_btree );
+            void RecursiveConvertToDArray ( DArray <Data> *_darray, RedBlackNode<Key,Data> *_btree );
 
             void rotateLeft ( RedBlackNode<Key,Data> * _x );
             void rotateRight ( RedBlackNode<Key,Data> * _x );

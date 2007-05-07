@@ -37,9 +37,9 @@ namespace CrissCross
             LARGE_INTEGER               m_start, m_finish;
             double                      m_tickInterval;
 #elif defined ( TARGET_OS_MACOSX )
-            uint64_t					m_start;
-            uint64_t					m_finish;
-            mach_timebase_info_data_t 	m_timebase;
+            uint64_t                    m_start;
+            uint64_t                    m_finish;
+            mach_timebase_info_data_t     m_timebase;
 #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
             struct timeval              m_start;
             struct timeval              m_finish;

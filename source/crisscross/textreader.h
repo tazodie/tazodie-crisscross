@@ -42,17 +42,17 @@ namespace CrissCross
 
             //! Opens the provided file for read access.
             /*!
-				\param _file The path of the file to be read.
-				\return Standard CrissCross::Errors values.
+                \param _file The path of the file to be read.
+                \return Standard CrissCross::Errors values.
              */ 
-			CrissCross::Errors Open ( const char *_file );
+            CrissCross::Errors Open ( const char *_file );
 
             //! Closes the file.
             /*!
                 Closes the file and deallocates memory used by TextReader.
-				\return Standard CrissCross::Errors values.
+                \return Standard CrissCross::Errors values.
              */ 
-			CrissCross::Errors Close ();
+            CrissCross::Errors Close ();
 
         };
     }

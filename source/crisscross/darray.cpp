@@ -51,26 +51,26 @@ DArray < T >::~DArray ()
 template < class T >
 void DArray < T >::rebuildStack ()
 {
-	//  Reset free list
+    //  Reset free list
 
     m_emptyNodes->empty();
     m_emptyNodes->push ( -1 );
 
-	// Step through, rebuilding
+    // Step through, rebuilding
 
-	for ( int i = m_arraySize - 1; i >= 0; i-- )
-		if ( m_shadow[i] == 0 )
-			m_emptyNodes->push ( i );
+    for ( int i = m_arraySize - 1; i >= 0; i-- )
+        if ( m_shadow[i] == 0 )
+            m_emptyNodes->push ( i );
 
 }
 
 template < class T >
 void DArray < T >::recount()
 {
-	m_numUsed = 0;
-	for ( int i = 0; i < m_arraySize; i++ )
-		if ( m_shadow[i] == 1 )
-			m_numUsed++;
+    m_numUsed = 0;
+    for ( int i = 0; i < m_arraySize; i++ )
+        if ( m_shadow[i] == 1 )
+            m_numUsed++;
 }
 
 template < class T >
@@ -93,10 +93,10 @@ void DArray < T >::setSize ( int newsize )
         memset ( &temparray[oldarraysize], 0, sizeof ( temparray[0] ) * ( m_arraySize - oldarraysize ) );
         memset ( &tempshadow[oldarraysize], 0, sizeof ( tempshadow[0] ) * ( m_arraySize - oldarraysize ) );
 
-		for ( int a = m_arraySize - 1; a >= oldarraysize; a-- ) 
-		{
-			m_emptyNodes->push ( a );
-		}
+        for ( int a = m_arraySize - 1; a >= oldarraysize; a-- ) 
+        {
+            m_emptyNodes->push ( a );
+        }
 
         delete [] m_array;
         delete [] m_shadow;
@@ -186,7 +186,7 @@ template < class T >
 void DArray < T >::insert ( const T & newdata, int index )
 {
     CoreAssert ( index >= 0 );
-	while ( index >= m_arraySize ) grow();
+    while ( index >= m_arraySize ) grow();
 
     m_array[index] = newdata;
     if ( m_shadow[index] == 0 ) m_numUsed++;
@@ -229,14 +229,14 @@ int DArray < T >::getNextFree()
     }
 
     if ( freeslot == -1 )
-	{
+    {
         m_emptyNodes->push ( -1 );
-        freeslot = m_arraySize;	
-		grow();
-	}
+        freeslot = m_arraySize;    
+        grow();
+    }
     
-	if ( m_shadow[freeslot] == 0 )
-		m_numUsed++;
+    if ( m_shadow[freeslot] == 0 )
+        m_numUsed++;
 
     m_shadow[freeslot] = 1;
 
@@ -330,31 +330,31 @@ int DArray < T >::findData ( const T & newdata )
 template < class T >
 void DArray < T >::sort ( SortClass<T> *_sortMethod )
 {
-	T *temp_array = new T[m_numUsed];
-	T *temp_ptr = temp_array;
-	for ( int i = 0; i < m_arraySize; i++ )
-	{
-		if ( validIndex ( i ) )
-		{
-			*temp_ptr = m_array[i];
-			temp_ptr++;
-		}
-	}
-	
-	_sortMethod->Sort ( temp_array, m_numUsed );
-	
-	delete [] m_shadow;
-	m_shadow = new char[m_numUsed];
-	memset ( m_shadow, 0, m_numUsed );
-	memset ( m_shadow, 1, m_numUsed );
-	
-	delete [] m_array;
-	m_array = temp_array;
+    T *temp_array = new T[m_numUsed];
+    T *temp_ptr = temp_array;
+    for ( int i = 0; i < m_arraySize; i++ )
+    {
+        if ( validIndex ( i ) )
+        {
+            *temp_ptr = m_array[i];
+            temp_ptr++;
+        }
+    }
+    
+    _sortMethod->Sort ( temp_array, m_numUsed );
+    
+    delete [] m_shadow;
+    m_shadow = new char[m_numUsed];
+    memset ( m_shadow, 0, m_numUsed );
+    memset ( m_shadow, 1, m_numUsed );
+    
+    delete [] m_array;
+    m_array = temp_array;
 
-	m_arraySize = m_numUsed;
-	
-	rebuildStack();
-	recount();
+    m_arraySize = m_numUsed;
+    
+    rebuildStack();
+    recount();
 }
 
 #endif

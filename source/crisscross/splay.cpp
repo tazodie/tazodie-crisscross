@@ -85,8 +85,8 @@ int SplayTree<Key,Data>::remove( const Key &key )
     if( root->id != key )
         return 1;
 
-	if( root == nullNode )
-		return 1;
+    if( root == nullNode )
+        return 1;
 
     if( root->left == nullNode )
         newTree = root->right;
@@ -143,7 +143,7 @@ Data SplayTree<Key,Data>::find( const Key &key )
 {
     splay( key, root );
 
-	if ( isEmpty( ) || root->id != key )
+    if ( isEmpty( ) || root->id != key )
         return elementAt( NULL );
 
     return elementAt( root );
@@ -154,7 +154,7 @@ BinaryNode<Key,Data> *SplayTree<Key,Data>::findNode( const Key &key )
 {
     splay( key, root );
 
-	if ( isEmpty( ) || root->id != key )
+    if ( isEmpty( ) || root->id != key )
         return NULL;
 
     return root;
