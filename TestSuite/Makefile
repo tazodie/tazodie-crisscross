@@ -15,7 +15,6 @@ rbtree.cpp \
 dstack.cpp \
 darray.cpp \
 sort.cpp \
-splay.cpp \
 main.cpp
 
 OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)
