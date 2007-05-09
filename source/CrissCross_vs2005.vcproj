@@ -643,30 +643,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\crisscross\splay.cpp"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\crisscross\splay.h"
-				>
-			</File>
-			<File
 				RelativePath=".\crisscross\tree.h"
 				>
 			</File>
