@@ -264,14 +264,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\splay.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\splay.h"
-			>
-		</File>
-		<File
 			RelativePath=".\stopwatch.cpp"
 			>
 		</File>
