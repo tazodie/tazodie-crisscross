@@ -12,7 +12,7 @@ endif
 LINK = $(CXX)
 
 ifeq ($(CFLAGS),)
-CFLAGS = -O3 -march=pentium2 -mtune=pentium2 -Wall -ansi -pedantic -Wno-long-long -pipe -g
+CFLAGS = -O3 -march=pentium2 -mtune=pentium2 -Wall -Wextra -ansi -pedantic -Wno-long-long -pipe -g
 else
 CFLAGS := -ansi -pedantic -Wno-long-long
 endif
