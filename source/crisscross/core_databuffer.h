@@ -90,7 +90,7 @@ namespace CrissCross
                 /*!
                     \return Returns 'true' if the data buffer has been allocated.
                  */
-                inline bool operator! () const { return ( m_buffer == NULL ); };
+                inline bool operator! () const { return ( m_buffer == NULL ); }
                 
                 //! Returns a pointer to a given location in the data buffer.
                 /*!
@@ -102,7 +102,7 @@ namespace CrissCross
                             return m_buffer[_index];
                         else
                             return c;
-                };
+                }
 
                 //! Returns a pointer to a given location in the data buffer.
                 /*!
@@ -114,7 +114,7 @@ namespace CrissCross
                             return m_buffer[_index];
                         else
                             return c;
-                };
+                }
         };
     }
 }

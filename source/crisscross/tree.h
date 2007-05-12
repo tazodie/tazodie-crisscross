@@ -65,7 +65,7 @@ namespace CrissCross
             RedBlackNode *parent;
 
             //! The default constructor.
-            RedBlackNode () : BinaryNode<Key,Data>() {};
+            RedBlackNode () : BinaryNode<Key,Data>() {}
         };
     }
 }
