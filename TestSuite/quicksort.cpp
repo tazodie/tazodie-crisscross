@@ -11,18 +11,18 @@
 
 #include "header.h"
 #include "testutils.h"
-#include "sort.h"
+#include "quicksort.h"
 
 #include <crisscross/universal_include.h>
 #include <crisscross/darray.h>
-#include <crisscross/sort.h>
+#include <crisscross/quicksort.h>
 
 using namespace CrissCross::Data;
 
-int TestHeapSort_IntArray()
+int TestQuickSort_IntArray()
 {
 	int int_array[] = {0, 4, 3, 6, 2, 1, 5, 7, 9, 8 };
-	HeapSort<int> *hs = new HeapSort<int>();
+	QuickSort<int> *hs = new QuickSort<int>();
 	hs->Sort ( int_array, 10 );
 	for ( int i = 0; i < 10; i++ )
 	{
@@ -33,7 +33,7 @@ int TestHeapSort_IntArray()
 	return 0;
 }
 
-int TestHeapSort_DArray()
+int TestQuickSort_DArray()
 {
     DArray<int> *darray = new DArray<int>();
     
@@ -43,8 +43,8 @@ int TestHeapSort_DArray()
     darray->insert ( 3 );
     darray->insert ( 1 );
     
-    HeapSort<int> *hs = new HeapSort<int>();
-    darray->sort ( hs );
+    QuickSort<int> *hs = new QuickSort<int>();
+    darray->Sort ( hs );
     delete hs;
     
     for ( int i = 0; i < 5; i++ )

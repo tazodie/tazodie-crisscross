@@ -329,7 +329,7 @@ int DArray < T >::findData ( const T & newdata )
 }
 
 template < class T >
-void DArray < T >::sort ( SortClass<T> *_sortMethod )
+void DArray < T >::Sort ( Sorter<T> *_sortMethod )
 {
     T *temp_array = new T[m_numUsed];
     T *temp_ptr = temp_array;

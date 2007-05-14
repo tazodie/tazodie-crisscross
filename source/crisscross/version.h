@@ -1,0 +1,41 @@
+/*
+ *   CrissCross
+ *   A multi-purpose cross-platform library.
+ *
+ *   A product of IO.IN Research.
+ *
+ *   (c) 2006-2007 Steven Noonan.
+ *   Licensed under the New BSD License.
+ *
+ */
+
+#ifndef __included_version_h
+#define __included_version_h
+
+namespace CrissCross
+{
+    namespace Version
+    {
+        /*!
+            \return A C string containing the version number of the CrissCross library.
+         */
+        const char *Version();
+
+        /*!
+            \return The major version number (i.e. in v1.2.3, it would be '1').
+         */
+        int Major();
+
+        /*!
+            \return The minor version number (i.e. in v1.2.3, it would be '2').
+         */
+        int Minor();
+
+        /*!
+            \return The revision version number (i.e. in v1.2.3, it would be '3').
+         */
+        int Revision();
+    }
+}
+
+#endif

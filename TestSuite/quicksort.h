@@ -9,10 +9,10 @@
  *
  */
 
-#ifndef __included_sort_test_h
-#define __included_sort_test_h
+#ifndef __included_quicksort_test_h
+#define __included_quicksort_test_h
 
-int TestHeapSort_IntArray();
-int TestHeapSort_DArray();
+int TestQuickSort_IntArray();
+int TestQuickSort_DArray();
 
 #endif

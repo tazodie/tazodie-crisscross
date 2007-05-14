@@ -20,14 +20,14 @@ namespace CrissCross
     {
         //! Sorting abstract class.
         template <class T>
-        class SortClass
+        class Sorter
         {
         public:
             //! The constructor.
-            SortClass();
+            Sorter();
 
             //! The destructor.
-            virtual ~SortClass();
+            virtual ~Sorter();
 
             //! The abstract sort function.
             /*!
@@ -35,7 +35,7 @@ namespace CrissCross
                 \param _array The array to sort.
                 \param _size The size of the array to sort.
              */
-            virtual int Sort ( T *_array, int _size ) = 0;
+            virtual int Sort ( T *_array, size_t _size ) = 0;
 
             //! The swap function.
             /*!
@@ -44,24 +44,7 @@ namespace CrissCross
                 \param _first The first item to swap.
                 \param _second The second item to swap.
              */
-            virtual void Swap ( T *_array, int _first, int _second );
-        };
-
-        //! A HeapSort implementation for sorting arrays.
-        template <class T>
-        class HeapSort : public SortClass<T>
-        {
-        public:
-            //! The constructor.
-            HeapSort();
-
-            //! Sorts an array using the HeapSort method.
-            /*!
-                \param _array The array to sort.
-                \param _size The size of the array to sort.
-                \return Always 0, for the time being.
-             */
-            int Sort ( T *_array, int _size );
+            virtual void Swap ( T *_array, size_t _first, size_t _second );
         };
     }
 }

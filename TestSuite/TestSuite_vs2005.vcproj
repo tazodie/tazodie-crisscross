@@ -236,6 +236,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\heapsort.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\heapsort.h"
+			>
+		</File>
+		<File
 			RelativePath=".\llist.cpp"
 			>
 		</File>
@@ -248,19 +256,19 @@
 			>
 		</File>
 		<File
+			RelativePath=".\quicksort.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\quicksort.h"
+			>
+		</File>
+		<File
 			RelativePath=".\rbtree.cpp"
 			>
 		</File>
 		<File
 			RelativePath=".\rbtree.h"
-			>
-		</File>
-		<File
-			RelativePath=".\sort.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\sort.h"
 			>
 		</File>
 		<File
