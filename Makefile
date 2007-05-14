@@ -2,13 +2,16 @@ include common.mk
 
 all: main
 
-main:
+main: toolchain
 	+$(MAKE) -C source precomp
 	+$(MAKE) -C source
 
 testapp: main
 	+$(MAKE) -C TestSuite precomp
 	+$(MAKE) -C TestSuite
+
+toolchain:
+	$(MAKE) -C tools
 
 test: testapp
 	cd TestSuite; LD_LIBRARY_PATH="../source" ./crisscross-test;
@@ -23,8 +26,5 @@ clean:
 	$(MAKE) -C source clean
 	$(MAKE) -C TestSuite clean
 
-fastdep:
-	+$(MAKE) -C contrib/fastdep-0.15
-	
 distclean: clean
-	
+	$(MAKE) -C tools clean	
