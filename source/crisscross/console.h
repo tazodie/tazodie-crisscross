@@ -109,7 +109,7 @@ namespace CrissCross
                 \param _min The minimum input value.
                 \param _max The maximum input value.
              */
-            char ReadChar ( char _min = 0, char _max = 0 );
+            char ReadChar ( char _min, char _max );
 
             //! Reads an integer from the console.
             int ReadInt ();

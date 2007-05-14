@@ -37,5 +37,9 @@ namespace CrissCross
             return CC_LIB_VERSION_REVISION;
         }
 
+        int Build()
+        {
+            return CC_LIB_BUILD_NUMBER;
+        }
     }
 }

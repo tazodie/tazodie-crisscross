@@ -12,6 +12,8 @@
 #ifndef __included_crisscross_universal_include_h
 #define __included_crisscross_universal_include_h
 
+#include <crisscross/build_number.h>
+
 #ifndef SDL_APPLICATION
 //#  define SDL_APPLICATION // Define if your application uses SDLmain.
 #endif
@@ -30,10 +32,13 @@
 //#  define CC_LIB_CODENAME            "Valhalla"      // v1.0.0 codename ( Milestone 5 )
 
 #   define CC_LIB_VERSION             "0.5.9999"
+#   define CC_LIB_BRANCH_AT_VERSION   "0.6.0"
 #   define CC_LIB_VERSION_MAJOR       0
 #   define CC_LIB_VERSION_MINOR       5
 #   define CC_LIB_VERSION_REVISION    9999
-#   define CC_LIB_BRANCH_AT_VERSION   "0.6.0"
+const int CC_LIB_BUILD_NUMBER       = BUILD_NUMBER;
+#   undef BUILD_NUMBER
+
 #   define CC_LIB_URL                 "http://www.uplinklabs.net/crisscross/"
 #   define CC_LIB_COPYRIGHT           "(c) 2006-2007 by IO.IN Research. Licensed under the New BSD License."
 
