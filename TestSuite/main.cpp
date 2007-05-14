@@ -20,6 +20,7 @@
 #include "rbtree.h"
 #include "heapsort.h"
 #include "quicksort.h"
+#include "combsort.h"
 #include "stopwatch.h"
 
 using namespace CrissCross;
@@ -43,6 +44,8 @@ int RunApplication (int argc, char **argv) {
 	WritePrefix ( "Size of Double" ); retval |= WriteResult ( TestDatatypes_Double() );
 	WritePrefix ( "Size of void *" ); retval |= WriteResult ( TestDatatypes_Pointer() );
 
+	WritePrefix ( "Stopwatch" ); retval |= WriteResult ( TestStopwatch() );
+
 	WritePrefix ( "DataBuffer Compare" ); retval |= WriteResult ( TestComparison_DataBuffer() );
 	WritePrefix ( "Integer Compare" ); retval |= WriteResult ( TestComparison_Integer() );
 	WritePrefix ( "Unsigned Integer Compare" ); retval |= WriteResult ( TestComparison_UnsignedInteger() );
@@ -54,20 +57,18 @@ int RunApplication (int argc, char **argv) {
 	WritePrefix ( "RedBlackTree<std::string, std::string>" ); retval |= WriteResult ( TestRedBlackTree_stdstring() );
 	WritePrefix ( "RedBlackTree<int, int>" ); retval |= WriteResult ( TestRedBlackTree_Int() );
 
+	WritePrefix ( "CombSort (integer array)" ); retval |= WriteResult ( TestCombSort_IntArray() );
+	WritePrefix ( "CombSort (integer DArray)" ); retval |= WriteResult ( TestCombSort_DArray() );
+
 	WritePrefix ( "HeapSort (integer array)" ); retval |= WriteResult ( TestHeapSort_IntArray() );
 	WritePrefix ( "HeapSort (integer DArray)" ); retval |= WriteResult ( TestHeapSort_DArray() );
 
 	WritePrefix ( "QuickSort (integer array)" ); retval |= WriteResult ( TestQuickSort_IntArray() );
 	WritePrefix ( "QuickSort (integer DArray)" ); retval |= WriteResult ( TestQuickSort_DArray() );
 
-	WritePrefix ( "Stopwatch" ); retval |= WriteResult ( TestStopwatch() );
 	g_console->Flush();
 
     CoreAssert ( retval == 0 );
-
-#ifdef TARGET_OS_WINDOWS
-	system ( "pause" );
-#endif
 
 	delete g_console;
 

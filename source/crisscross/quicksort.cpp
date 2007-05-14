@@ -31,22 +31,21 @@ namespace CrissCross
         template <class T>
         void QuickSort<T>::InternalSort ( T *_array, size_t _beginning, size_t _end )
         {
-          if ( _end > _beginning + 1 )
-          {
-            const T &piv = _array[_beginning];
-            size_t l = _beginning + 1, r = _end;
-            while ( l < r )
+            if ( _end > _beginning + 1 )
             {
-              if ( Compare ( _array[l], piv ) <= 0 )
-                l++;
-              else
-                Swap ( _array, l, --r );
+                const T &piv = _array[_beginning];
+                size_t l = _beginning + 1, r = _end;
+                while ( l < r )
+                {
+                    if ( Compare ( _array[l], piv ) <= 0 )
+                        l++;
+                    else
+                        Swap ( _array, l, --r );
+                }
+                Swap ( _array, --l, _beginning );
+                InternalSort ( _array, _beginning, l );
+                InternalSort ( _array, r, _end );
             }
-            Swap ( _array, --l, _beginning );
-            InternalSort ( _array, _beginning, l );
-            InternalSort ( _array, r, _end );
-          }
         }
-
     }
 }

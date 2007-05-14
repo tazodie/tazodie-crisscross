@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="TestSuite"
-	ProjectGUID="{E445B4EF-9B58-41CE-B68A-EA56DDFF5746}"
-	RootNamespace="TestSuite"
+	Name="GenerateBuildNumber"
+	ProjectGUID="{8D5DF97D-B5E3-4685-A409-2E8486FD532D}"
+	RootNamespace="GenerateBuildNumber"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -17,10 +17,10 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)/bin/$(ProjectName)/$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)/obj/$(ProjectName)/$(ConfigurationName)"
+			OutputDirectory="..\"
+			IntermediateDirectory="obj\$(ConfigurationName)"
 			ConfigurationType="1"
-			CharacterSet="0"
+			CharacterSet="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -40,14 +40,11 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../source"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="header.h"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="4"
@@ -95,11 +92,11 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)/bin/$(ProjectName)/$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)/obj/$(ProjectName)/$(ConfigurationName)"
+			OutputDirectory="..\"
+			IntermediateDirectory="obj\$(ConfigurationName)"
 			ConfigurationType="1"
-			CharacterSet="0"
-			WholeProgramOptimization="0"
+			CharacterSet="1"
+			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -118,16 +115,9 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="2"
-				InlineFunctionExpansion="1"
-				EnableIntrinsicFunctions="true"
-				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="../source"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE"
 				RuntimeLibrary="2"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="header.h"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="3"
@@ -180,119 +170,15 @@
 	</References>
 	<Files>
 		<File
-			RelativePath=".\combsort.cpp"
+			RelativePath=".\crc.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\combsort.h"
+			RelativePath=".\crc.h"
 			>
 		</File>
 		<File
-			RelativePath=".\compare.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\compare.h"
-			>
-		</File>
-		<File
-			RelativePath=".\darray.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\darray.h"
-			>
-		</File>
-		<File
-			RelativePath=".\datatypes.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\datatypes.h"
-			>
-		</File>
-		<File
-			RelativePath=".\dstack.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\dstack.h"
-			>
-		</File>
-		<File
-			RelativePath=".\header.cpp"
-			>
-			<FileConfiguration
-				Name="Debug|Win32"
-				>
-				<Tool
-					Name="VCCLCompilerTool"
-					UsePrecompiledHeader="1"
-				/>
-			</FileConfiguration>
-			<FileConfiguration
-				Name="Release|Win32"
-				>
-				<Tool
-					Name="VCCLCompilerTool"
-					UsePrecompiledHeader="1"
-				/>
-			</FileConfiguration>
-		</File>
-		<File
-			RelativePath=".\header.h"
-			>
-		</File>
-		<File
-			RelativePath=".\heapsort.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\heapsort.h"
-			>
-		</File>
-		<File
-			RelativePath=".\llist.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\llist.h"
-			>
-		</File>
-		<File
-			RelativePath=".\main.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\quicksort.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\quicksort.h"
-			>
-		</File>
-		<File
-			RelativePath=".\rbtree.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\rbtree.h"
-			>
-		</File>
-		<File
-			RelativePath=".\stopwatch.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\stopwatch.h"
-			>
-		</File>
-		<File
-			RelativePath=".\testutils.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\testutils.h"
+			RelativePath=".\GenerateBuildNumber.cpp"
 			>
 		</File>
 	</Files>
