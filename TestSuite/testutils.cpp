@@ -28,10 +28,10 @@ int WriteResult ( int _result )
 	g_console->Write ( "[ " );
 	if ( _result )
 	{
-		g_console->SetColour ( IO::CoreConsole::FG_RED | IO::CoreConsole::FG_INTENSITY );
+		g_console->SetColour ( IO::Console::FG_RED | IO::Console::FG_INTENSITY );
 		g_console->Write ( "FAILED" );
 	} else {
-		g_console->SetColour ( IO::CoreConsole::FG_GREEN | IO::CoreConsole::FG_INTENSITY );
+		g_console->SetColour ( IO::Console::FG_GREEN | IO::Console::FG_INTENSITY );
 		g_console->Write ( "PASSED" );
 	}
 	g_console->SetColour();

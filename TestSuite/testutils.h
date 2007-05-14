@@ -12,9 +12,9 @@
 #ifndef __included_testutils_h
 #define __included_testutils_h
 
-#include <crisscross/core_console.h>
+#include <crisscross/console.h>
 
-extern CrissCross::IO::CoreConsole *g_console;
+extern CrissCross::IO::Console *g_console;
 
 void WritePrefix ( const char *_prefix );
 int WriteResult ( int _result );

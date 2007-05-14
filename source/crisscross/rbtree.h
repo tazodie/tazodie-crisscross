@@ -12,7 +12,7 @@
 #ifndef __included_rbtree_h
 #define __included_rbtree_h
 
-#include <crisscross/core_deprecate.h>
+#include <crisscross/deprecate.h>
 #include <crisscross/darray.h>
 
 #include <crisscross/tree.h>

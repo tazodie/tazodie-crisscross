@@ -9,10 +9,10 @@
  *
  */
 
-#ifndef __included_sortclass_h
-#define __included_sortclass_h
+#ifndef __included_sort_h
+#define __included_sort_h
 
-#include <crisscross/core_compare.h>
+#include <crisscross/compare.h>
 
 namespace CrissCross
 {
@@ -66,6 +66,6 @@ namespace CrissCross
     }
 }
 
-#include <crisscross/sortclass.cpp>
+#include <crisscross/sort.cpp>
 
 #endif

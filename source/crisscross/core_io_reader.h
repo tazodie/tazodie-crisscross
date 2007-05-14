@@ -12,8 +12,8 @@
 #ifndef __included_core_io_reader_h
 #define __included_core_io_reader_h
 
-#include <crisscross/core_error.h>
-#include <crisscross/core_mutex.h>
+#include <crisscross/error.h>
+#include <crisscross/mutex.h>
 #include <crisscross/core_io.h>
 
 namespace CrissCross
@@ -22,7 +22,7 @@ namespace CrissCross
     {
         //! The core input class.
         /*!
-            A class inherited by most I/O classes, including CoreConsole and TextReader.
+            A class inherited by most I/O classes, including Console and TextReader.
         */
         class CoreIOReader
         {
@@ -45,7 +45,7 @@ namespace CrissCross
             /*!
                Prevents more than one read from occurring simultaneously.
              */
-            CrissCross::System::CoreMutex m_ioMutex;
+            CrissCross::System::Mutex m_ioMutex;
         #endif
 
           public:

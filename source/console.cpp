@@ -10,12 +10,12 @@
  */
 
 #include <crisscross/universal_include.h>
-#include <crisscross/core_debug.h>
-#include <crisscross/core_console.h>
+#include <crisscross/debug.h>
+#include <crisscross/console.h>
 
 using namespace CrissCross::IO;
 
-CoreConsole::CoreConsole ():
+Console::Console ():
 CoreIOWriter ( stdout, false, CC_LN_LF ),
 CoreIOReader ( stdin, false, CC_LN_LF )
 {
@@ -40,13 +40,13 @@ CoreIOReader ( stdin, false, CC_LN_LF )
 #endif
 }
 
-CoreConsole::CoreConsole ( FILE * _outputBuffer, FILE *_inputBuffer ):
+Console::Console ( FILE * _outputBuffer, FILE *_inputBuffer ):
 CoreIOWriter ( _outputBuffer, false, CC_LN_LF ),
 CoreIOReader ( _inputBuffer, false, CC_LN_LF )
 {
 }
 
-CoreConsole::~CoreConsole ()
+Console::~Console ()
 {
     SetColour ( 0 );
 #ifdef TARGET_OS_WINDOWS
@@ -55,13 +55,13 @@ CoreConsole::~CoreConsole ()
 }
 
 void
-CoreConsole::SetColour ()
+Console::SetColour ()
 {
     SetColour ( 0 );
 }
 
 void
-CoreConsole::SetColour ( short _flags )
+Console::SetColour ( short _flags )
 {
     CoreAssert ( this != NULL );
 
@@ -128,7 +128,7 @@ CoreConsole::SetColour ( short _flags )
 }
 
 void
-CoreConsole::Clear ()
+Console::Clear ()
 {
     CoreAssert ( this != NULL );
 
@@ -153,14 +153,14 @@ CoreConsole::Clear ()
 }
 
 void
-CoreConsole::Flush ()
+Console::Flush ()
 {
     CoreIOReader::Flush();
     CoreIOWriter::Flush();
 }
 
 void
-CoreConsole::MoveUp ( int _lines )
+Console::MoveUp ( int _lines )
 {
 #if defined ( TARGET_OS_WINDOWS )
     COORD coordScreen = { 0, 0 };
@@ -177,7 +177,7 @@ CoreConsole::MoveUp ( int _lines )
 #endif
 }
 
-char CoreConsole::ReadChar ()
+char Console::ReadChar ()
 {
     char _result = 0;
     fscanf ( m_fileInputPointer, "%c", &_result );
@@ -185,7 +185,7 @@ char CoreConsole::ReadChar ()
     return _result;
 }
 
-int CoreConsole::ReadInt ()
+int Console::ReadInt ()
 {
     int _result = 0;
     fscanf ( m_fileInputPointer, "%d", &_result );
@@ -193,7 +193,7 @@ int CoreConsole::ReadInt ()
     return _result;
 }
 
-long CoreConsole::ReadLong ()
+long Console::ReadLong ()
 {
     long _result = 0;
     fscanf ( m_fileInputPointer, "%ld", &_result );
@@ -201,7 +201,7 @@ long CoreConsole::ReadLong ()
     return _result;
 }
 
-float CoreConsole::ReadFloat ()
+float Console::ReadFloat ()
 {
     float _result = 0;
     fscanf ( m_fileInputPointer, "%f", &_result );
@@ -209,7 +209,7 @@ float CoreConsole::ReadFloat ()
     return _result;
 }
 
-double CoreConsole::ReadDouble ()
+double Console::ReadDouble ()
 {
     double _result = 0;
     fscanf ( m_fileInputPointer, "%lf", &_result );
@@ -217,7 +217,7 @@ double CoreConsole::ReadDouble ()
     return _result;
 }
 
-char CoreConsole::ReadChar ( char _min, char _max )
+char Console::ReadChar ( char _min, char _max )
 {
     char _result = 0;
     fscanf ( m_fileInputPointer, "%c", &_result );
@@ -232,7 +232,7 @@ char CoreConsole::ReadChar ( char _min, char _max )
     return _result;
 }
 
-int CoreConsole::ReadInt ( int _min, int _max )
+int Console::ReadInt ( int _min, int _max )
 {
     int _result = 0;
     fscanf ( m_fileInputPointer, "%d", &_result );
@@ -247,7 +247,7 @@ int CoreConsole::ReadInt ( int _min, int _max )
     return _result;
 }
 
-long CoreConsole::ReadLong ( long _min, long _max )
+long Console::ReadLong ( long _min, long _max )
 {
     long _result = 0;
     fscanf ( m_fileInputPointer, "%ld", &_result );
@@ -262,7 +262,7 @@ long CoreConsole::ReadLong ( long _min, long _max )
     return _result;
 }
 
-float CoreConsole::ReadFloat ( float _min, float _max )
+float Console::ReadFloat ( float _min, float _max )
 {
     float _result = 0;
     fscanf ( m_fileInputPointer, "%f", &_result );
@@ -277,7 +277,7 @@ float CoreConsole::ReadFloat ( float _min, float _max )
     return _result;
 }
 
-double CoreConsole::ReadDouble ( double _min, double _max )
+double Console::ReadDouble ( double _min, double _max )
 {
     double _result = 0;
     fscanf ( m_fileInputPointer, "%lf", &_result );
@@ -292,8 +292,8 @@ double CoreConsole::ReadDouble ( double _min, double _max )
     return _result;
 }
 
-int CoreConsole::Seek ( int _position ) { return 0; }
-int CoreConsole::Forward ( int _position ) { return 0; }
-int CoreConsole::Length() { return 0; }
-int CoreConsole::Read ( char *_buffer, int _bufferLength, int _bufferIndex, int _count ) { return 0; }
-bool CoreConsole::EndOfFile () { return false; }
+int Console::Seek ( int _position ) { return 0; }
+int Console::Forward ( int _position ) { return 0; }
+int Console::Length() { return 0; }
+int Console::Read ( char *_buffer, int _bufferLength, int _bufferIndex, int _count ) { return 0; }
+bool Console::EndOfFile () { return false; }

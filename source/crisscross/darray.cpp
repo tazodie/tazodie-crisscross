@@ -9,10 +9,11 @@
  *
  */
 
-#ifndef __included_darray_cpp
-#define __included_darray_cpp
+#ifndef __included_darray_h
+#   error This file shouldn't be compiled directly.
+#endif
 
-#include <crisscross/core_debug.h>
+#include <crisscross/debug.h>
 
 #include <crisscross/darray.h>
 #include <crisscross/dstack.h>
@@ -356,5 +357,3 @@ void DArray < T >::sort ( SortClass<T> *_sortMethod )
     rebuildStack();
     recount();
 }
-
-#endif

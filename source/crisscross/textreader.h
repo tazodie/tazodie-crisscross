@@ -12,7 +12,7 @@
 #ifndef __included_textreader_h
 #define __included_textreader_h
 
-#include <crisscross/core_error.h>
+#include <crisscross/error.h>
    
 namespace CrissCross
 {

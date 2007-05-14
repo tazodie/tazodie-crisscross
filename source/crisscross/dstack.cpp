@@ -9,8 +9,9 @@
  *
  */
 
-#ifndef __included_dstack_cpp
-#define __included_dstack_cpp
+#ifndef __included_dstack_h
+#   error This file shouldn't be compiled directly.
+#endif
 
 #include <crisscross/dstack.h>
 
@@ -74,5 +75,3 @@ void DStack<dataType>::empty ()
     m_top = m_bottom = NULL;
     m_size = m_origSize = 0;
 }
-
-#endif

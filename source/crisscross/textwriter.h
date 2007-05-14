@@ -12,7 +12,7 @@
 #ifndef __included_textwriter_h
 #define __included_textwriter_h
 
-#include <crisscross/core_error.h>
+#include <crisscross/error.h>
 
 namespace CrissCross
 {

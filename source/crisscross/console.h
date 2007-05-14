@@ -19,7 +19,7 @@ namespace CrissCross
     namespace IO
     {
         //! The core console input/output class.
-        class CoreConsole : public CoreIOWriter, public CoreIOReader
+        class Console : public CoreIOWriter, public CoreIOReader
         {
           public:
 
@@ -63,19 +63,19 @@ namespace CrissCross
 
             //! The default constructor.
             /*! Allocates a new console for stdout and stderr output. */
-            CoreConsole ();
+            Console ();
 
             //! The alternate constructor
             /*!
                Does not allocate a new console, and instead uses the specified FILE* parameters for input/output.
-               \param _outputBuffer The buffer for CoreConsole output.
-               \param _inputBuffer The buffer for CoreConsole input.
-               \sa CoreConsole()
+               \param _outputBuffer The buffer for Console output.
+               \param _inputBuffer The buffer for Console input.
+               \sa Console()
              */
-            CoreConsole ( FILE * _outputBuffer, FILE *_inputBuffer );
+            Console ( FILE * _outputBuffer, FILE *_inputBuffer );
 
             //! The destructor.
-             ~CoreConsole ();
+             ~Console ();
 
             //! Sets the console output colour to the default.
             void SetColour ();
@@ -83,7 +83,7 @@ namespace CrissCross
             //! Sets the console output colour.
             /*!
                Sets the console output colour using the flags specified in _flags.
-               \param _flags A bitmask created by OR-ing CoreConsole::ColourTypes flags.
+               \param _flags A bitmask created by OR-ing Console::ColourTypes flags.
              */
             void SetColour ( short _flags );
 

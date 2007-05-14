@@ -64,7 +64,7 @@ class Processor
 };
 
 
-class CoreCPUID
+class CPUID
 {
 
   protected:
@@ -73,7 +73,7 @@ class CoreCPUID
 
     struct GoThreadProc_Params
     {
-        CoreCPUID *cpuid_class;
+        CPUID *cpuid_class;
         int processor;
     };
 
@@ -102,8 +102,8 @@ class CoreCPUID
                          int _processor, const char *_name );
 
   public:
-      CoreCPUID ();
-     ~CoreCPUID ();
+      CPUID ();
+     ~CPUID ();
     void Go ();
     int GetLogicalCPUCount ();
     int GetPhysicalCPUCount ();

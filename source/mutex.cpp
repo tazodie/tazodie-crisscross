@@ -10,12 +10,12 @@
  */
 
 #include <crisscross/universal_include.h>
-#include <crisscross/core_debug.h>
-#include <crisscross/core_mutex.h>
+#include <crisscross/debug.h>
+#include <crisscross/mutex.h>
 
 using namespace CrissCross::System;
 
-CoreMutex::CoreMutex ()
+Mutex::Mutex ()
 {
 #ifdef TARGET_OS_WINDOWS
     InitializeCriticalSection(&m_criticalSection);
@@ -25,7 +25,7 @@ CoreMutex::CoreMutex ()
 #endif
 }
 
-CoreMutex::~CoreMutex ()
+Mutex::~Mutex ()
 {
     Unlock();
 #ifdef TARGET_OS_WINDOWS
@@ -36,7 +36,7 @@ CoreMutex::~CoreMutex ()
 }
 
 void
-CoreMutex::Lock ()
+Mutex::Lock ()
 {
 #ifdef TARGET_OS_WINDOWS
     EnterCriticalSection(&m_criticalSection);
@@ -47,7 +47,7 @@ CoreMutex::Lock ()
 }
 
 void
-CoreMutex::Unlock ()
+Mutex::Unlock ()
 {
 #ifdef TARGET_OS_WINDOWS
     LeaveCriticalSection(&m_criticalSection);

@@ -12,7 +12,7 @@
 #ifndef __included_core_network_h
 #define __included_core_network_h
 
-#include <crisscross/core_error.h>
+#include <crisscross/error.h>
 
 namespace CrissCross
 {

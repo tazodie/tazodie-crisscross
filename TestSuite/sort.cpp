@@ -15,7 +15,7 @@
 
 #include <crisscross/universal_include.h>
 #include <crisscross/darray.h>
-#include <crisscross/sortclass.h>
+#include <crisscross/sort.h>
 
 using namespace CrissCross::Data;
 

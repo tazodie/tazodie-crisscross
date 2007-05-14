@@ -12,7 +12,7 @@
 #ifndef __included_udpsocket_h
 #define __included_udpsocket_h
 
-#include <crisscross/core_error.h>
+#include <crisscross/error.h>
 #include <crisscross/core_socket.h>
 
 namespace CrissCross

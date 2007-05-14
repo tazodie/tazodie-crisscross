@@ -13,7 +13,7 @@
 #define __included_header_h
 
 #include <crisscross/universal_include.h>
-#include <crisscross/core_debug.h>
+#include <crisscross/debug.h>
 
 #endif
 

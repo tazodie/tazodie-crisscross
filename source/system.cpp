@@ -11,7 +11,7 @@
 
 #include <crisscross/universal_include.h>
 
-#include <crisscross/core_system.h>
+#include <crisscross/system.h>
 
 namespace CrissCross
 {

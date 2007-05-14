@@ -10,7 +10,7 @@
  */
 
 #include <crisscross/universal_include.h>
-#include <crisscross/core_error.h>
+#include <crisscross/error.h>
 
 #ifndef TARGET_OS_WINDOWS
 #    include <netdb.h>

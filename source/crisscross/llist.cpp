@@ -9,8 +9,9 @@
  *
  */
 
-#ifndef __included_llist_cpp
-#define __included_llist_cpp
+#ifndef __included_llist_h
+#   error This file shouldn't be compiled directly.
+#endif
 
 #include <crisscross/llist.h>
 
@@ -341,5 +342,3 @@ template < class T > int LList < T >::findData ( const T & data )
 
     return -1;
 }
-
-#endif

@@ -12,7 +12,7 @@
 #ifndef __included_core_debug_h
 #define __included_core_debug_h
 
-#include <crisscross/core_console.h>
+#include <crisscross/console.h>
 
 //! An assertion function.
 /*!
@@ -43,7 +43,7 @@ void PrintStackTrace ( CrissCross::IO::CoreIOWriter * _outputBuffer );
 */
 #    define CoreAssert(x)       Assert((x), #x, __FILE__, __LINE__ )
 
-extern CrissCross::IO::CoreConsole *g_stderr;
-extern CrissCross::IO::CoreConsole *g_stdout;
+extern CrissCross::IO::Console *g_stderr;
+extern CrissCross::IO::Console *g_stdout;
 
 #endif
