@@ -14,6 +14,7 @@
 
 #include <crisscross/universal_include.h>
 #include <crisscross/debug.h>
+#include <crisscross/version.h>
 
 #endif
 
