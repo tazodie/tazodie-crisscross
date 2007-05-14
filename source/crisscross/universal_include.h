@@ -38,6 +38,7 @@
 #   define CC_LIB_VERSION_REVISION    9999
 const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #   undef BUILD_NUMBER
+#   undef __included_build_number_h
 
 #   define CC_LIB_URL                 "http://www.uplinklabs.net/crisscross/"
 #   define CC_LIB_COPYRIGHT           "(c) 2006-2007 by IO.IN Research. Licensed under the New BSD License."
