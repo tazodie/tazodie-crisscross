@@ -90,6 +90,7 @@ endif
 	$(STRIP) $(OUTDIR)/$(OUTBIN)
 
 $(GCH): $(PCH)
+	$(shell pwd)/../tools/GenerateBuildNumber $(shell pwd)/crisscross
 	$(CXX) $(CXXFLAGS) -c $(PCH) -o $(GCH)
 
 $(OBJDIR)/%.o: %.cpp

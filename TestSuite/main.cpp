@@ -66,6 +66,14 @@ int RunApplication (int argc, char **argv) {
 	WritePrefix ( "QuickSort (integer array)" ); retval |= WriteResult ( TestQuickSort_IntArray() );
 	WritePrefix ( "QuickSort (integer DArray)" ); retval |= WriteResult ( TestQuickSort_DArray() );
 
+
+	if ( retval == 0 )
+	{
+		g_console->WriteLine ();
+		g_console->WriteLine ( "All tests passed." );
+		g_console->WriteLine ();
+	}
+
 	g_console->Flush();
 
     CoreAssert ( retval == 0 );

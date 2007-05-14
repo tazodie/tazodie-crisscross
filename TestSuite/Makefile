@@ -14,7 +14,9 @@ llist.cpp \
 rbtree.cpp \
 dstack.cpp \
 darray.cpp \
-sort.cpp \
+combsort.cpp \
+heapsort.cpp \
+quicksort.cpp \
 main.cpp
 
 OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)
