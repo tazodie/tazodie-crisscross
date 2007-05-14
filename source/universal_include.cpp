@@ -267,13 +267,6 @@ int main ( int argc, char **argv )
     g_stderr = new Console ( stderr, NULL );
     g_stdout = new Console ( stdout, NULL );
 
-#ifdef ENABLE_CREDITS
-    g_stdout->SetColour ( g_stdout->FG_GREEN | g_stdout->FG_INTENSITY );
-    g_stdout->WriteLine ( "Powered by " CC_LIB_NAME " " CC_LIB_VERSION " (Codename " CC_LIB_CODENAME ")\n    " CC_LIB_URL );
-    g_stdout->SetColour ( 0 );
-    g_stdout->WriteLine ( CC_LIB_COPYRIGHT );
-    g_stdout->WriteLine ();
-#endif
 #ifndef NO_CPP_EXCEPTION_HANDLER
     try
     {

@@ -38,6 +38,13 @@ CoreIOReader ( stdin, false, CC_LN_LF )
 
     SetConsoleTitleA ( CC_LIB_NAME " " CC_LIB_VERSION " (Codename " CC_LIB_CODENAME ")" );
 #endif
+#ifdef ENABLE_CREDITS
+    g_stdout->SetColour ( g_stdout->FG_GREEN | g_stdout->FG_INTENSITY );
+    g_stdout->WriteLine ( "Powered by " CC_LIB_NAME " " CC_LIB_VERSION " (Codename " CC_LIB_CODENAME ")\n    " CC_LIB_URL );
+    g_stdout->SetColour ( 0 );
+    g_stdout->WriteLine ( CC_LIB_COPYRIGHT );
+    g_stdout->WriteLine ();
+#endif
 }
 
 Console::Console ( FILE * _outputBuffer, FILE *_inputBuffer ):
