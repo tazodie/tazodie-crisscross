@@ -29,6 +29,7 @@ tcpsocket.cpp \
 udpsocket.cpp \
 textreader.cpp \
 textwriter.cpp \
+version.cpp \
 universal_include.cpp
 
 OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)
@@ -67,6 +68,7 @@ clean:
 	-rm -rf obj
 	-rm -f .depend
 	-rm -rf .libs
+	-rm -f crisscross/build_number.h
 	-rm -f $(OUTDIR)/$(OUTBIN)
 	-rm -f $(OUTDIR)/$(OUTBIN).map
 	-rm -f $(GCH)
@@ -90,7 +92,7 @@ endif
 	$(STRIP) $(OUTDIR)/$(OUTBIN)
 
 $(GCH): $(PCH)
-	$(shell pwd)/../tools/GenerateBuildNumber $(shell pwd)/crisscross
+	$(shell pwd)/../tools/GenerateBuildNumber.sh "$(shell pwd)/crisscross"
 	$(CXX) $(CXXFLAGS) -c $(PCH) -o $(GCH)
 
 $(OBJDIR)/%.o: %.cpp
