@@ -11,7 +11,7 @@
 
 
 #ifndef __included_rbtree_h
-#   error This file shouldn't be compiled directly.
+#   error "This file shouldn't be compiled directly."
 #endif
 
 #include <stdlib.h>

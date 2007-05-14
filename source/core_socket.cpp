@@ -116,7 +116,7 @@ u_long
 CoreSocket::GetLocalHost ()
 {
     char str[512];
-    u_long result = gethostname( str, sizeof(str) );
+    long result = gethostname( str, sizeof(str) );
     if (result < 0) 
     {
         return 0;

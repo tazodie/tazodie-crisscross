@@ -10,7 +10,7 @@
  */
 
 #ifndef __included_sort_h
-#   error This file shouldn't be compiled directly.
+#   error "This file shouldn't be compiled directly."
 #endif
 
 namespace CrissCross
