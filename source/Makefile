@@ -12,18 +12,18 @@ endif
 prefix = /usr/local
 
 SOURCES = \
-core_console.cpp \
-core_cpuid.cpp \
-core_databuffer.cpp \
-core_debug.cpp \
-core_error.cpp \
-core_filesystem.cpp \
 core_io_reader.cpp \
 core_io_writer.cpp \
-core_mutex.cpp \
 core_network.cpp \
 core_socket.cpp \
-core_system.cpp \
+console.cpp \
+cpuid.cpp \
+databuffer.cpp \
+debug.cpp \
+error.cpp \
+filesystem.cpp \
+mutex.cpp \
+system.cpp \
 stopwatch.cpp \
 tcpsocket.cpp \
 udpsocket.cpp \
