@@ -11,7 +11,7 @@
 
 #include <crisscross/universal_include.h>
 #include <crisscross/core_io.h>
-#include <crisscross/core_debug.h>
+#include <crisscross/debug.h>
 #include <crisscross/darray.h>
 #include <crisscross/rbtree.h>
 #include <crisscross/llist.h>
@@ -22,8 +22,8 @@ using namespace std;
 using namespace CrissCross::Debug;
 using namespace CrissCross::IO;
 
-CoreConsole *g_stderr;
-CoreConsole *g_stdout;
+Console *g_stderr;
+Console *g_stdout;
 
 #ifdef DETECT_MEMORY_LEAKS
 
@@ -264,8 +264,8 @@ int main ( int argc, char **argv )
 #ifdef ENABLE_MEMLEAK_STATS
     _CrtMemCheckpoint ( &s1 );
 #endif
-    g_stderr = new CoreConsole ( stderr, NULL );
-    g_stdout = new CoreConsole ( stdout, NULL );
+    g_stderr = new Console ( stderr, NULL );
+    g_stdout = new Console ( stdout, NULL );
 
 #ifdef ENABLE_CREDITS
     g_stdout->SetColour ( g_stdout->FG_GREEN | g_stdout->FG_INTENSITY );

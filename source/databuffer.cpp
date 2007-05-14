@@ -10,8 +10,8 @@
  */
 
 #include <crisscross/universal_include.h>
-#include <crisscross/core_databuffer.h>
-#include <crisscross/core_debug.h>
+#include <crisscross/databuffer.h>
+#include <crisscross/debug.h>
 
 #ifndef stricmp
 #define stricmp strcasecmp

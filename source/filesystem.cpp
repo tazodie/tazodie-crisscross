@@ -11,7 +11,7 @@
 
 #include <crisscross/universal_include.h>
 
-#include <crisscross/core_filesystem.h>
+#include <crisscross/filesystem.h>
 
 /*============================================*/
 /*|MAINTAINER: Rudolf Olah <omouse@gmail.com>|*/

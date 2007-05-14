@@ -185,7 +185,7 @@
 			Name="IO"
 			>
 			<File
-				RelativePath=".\core_console.cpp"
+				RelativePath=".\console.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -210,7 +210,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\crisscross\core_console.h"
+				RelativePath=".\crisscross\console.h"
 				>
 			</File>
 			<File
@@ -296,7 +296,7 @@
 			Name="System"
 			>
 			<File
-				RelativePath=".\core_cpuid.cpp"
+				RelativePath=".\cpuid.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -321,48 +321,11 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\crisscross\core_cpuid.h"
+				RelativePath=".\crisscross\cpuid.h"
 				>
 			</File>
 			<File
-				RelativePath=".\core_debug.cpp"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\crisscross\core_debug.h"
-				>
-			</File>
-			<File
-				RelativePath=".\core_filesystem.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\crisscross\core_filesystem.h"
-				>
-			</File>
-			<File
-				RelativePath=".\core_mutex.cpp"
+				RelativePath=".\debug.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -387,11 +350,19 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\crisscross\core_mutex.h"
+				RelativePath=".\crisscross\debug.h"
 				>
 			</File>
 			<File
-				RelativePath=".\core_system.cpp"
+				RelativePath=".\filesystem.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\crisscross\filesystem.h"
+				>
+			</File>
+			<File
+				RelativePath=".\mutex.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -416,7 +387,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\crisscross\core_system.h"
+				RelativePath=".\crisscross\mutex.h"
 				>
 			</File>
 			<File
@@ -427,20 +398,49 @@
 				RelativePath=".\crisscross\stopwatch.h"
 				>
 			</File>
+			<File
+				RelativePath=".\system.cpp"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\crisscross\system.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Include"
 			>
 			<File
-				RelativePath=".\crisscross\core_deprecate.h"
+				RelativePath=".\crisscross\deprecate.h"
 				>
 			</File>
 			<File
-				RelativePath=".\core_error.cpp"
+				RelativePath=".\error.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\crisscross\core_error.h"
+				RelativePath=".\crisscross\error.h"
 				>
 			</File>
 			<File
@@ -483,15 +483,7 @@
 			Name="Data"
 			>
 			<File
-				RelativePath=".\crisscross\core_compare.h"
-				>
-			</File>
-			<File
-				RelativePath=".\core_databuffer.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\crisscross\core_databuffer.h"
+				RelativePath=".\crisscross\compare.h"
 				>
 			</File>
 			<File
@@ -523,6 +515,14 @@
 			</File>
 			<File
 				RelativePath=".\crisscross\darray.h"
+				>
+			</File>
+			<File
+				RelativePath=".\databuffer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\crisscross\databuffer.h"
 				>
 			</File>
 			<File
@@ -619,7 +619,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\crisscross\sortclass.cpp"
+				RelativePath=".\crisscross\sort.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -639,7 +639,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\crisscross\sortclass.h"
+				RelativePath=".\crisscross\sort.h"
 				>
 			</File>
 			<File

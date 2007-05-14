@@ -11,9 +11,9 @@
 
 #include <crisscross/universal_include.h>
 
-#include <crisscross/core_debug.h>
+#include <crisscross/debug.h>
 #include <crisscross/core_io.h>
-#include <crisscross/core_system.h>
+#include <crisscross/system.h>
 
 using namespace CrissCross::IO;
 using namespace CrissCross::System;

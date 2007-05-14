@@ -13,7 +13,7 @@
 #include "rbtree.h"
 #include "testutils.h"
 
-#include <crisscross/core_databuffer.h>
+#include <crisscross/databuffer.h>
 #include <crisscross/rbtree.h>
 
 using namespace CrissCross::Data;

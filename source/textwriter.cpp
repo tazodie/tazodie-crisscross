@@ -10,7 +10,7 @@
  */
 
 #include <crisscross/universal_include.h>
-#include <crisscross/core_debug.h>
+#include <crisscross/debug.h>
 #include <crisscross/textwriter.h>
 
 using namespace CrissCross::IO;

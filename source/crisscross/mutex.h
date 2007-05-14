@@ -30,7 +30,7 @@ namespace CrissCross
         /*!
             Allows for safe threading by locking via thread ID.
         */
-        class CoreMutex
+        class Mutex
         {
           protected:
 
@@ -47,10 +47,10 @@ namespace CrissCross
           public:
 
             //! The constructor.
-              CoreMutex ();
+              Mutex ();
 
             //! The destructor.
-             ~CoreMutex ();
+             ~Mutex ();
 
             //! Locks the mutex.
             void Lock ();

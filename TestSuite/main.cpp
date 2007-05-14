@@ -23,11 +23,11 @@
 
 using namespace CrissCross;
 
-CrissCross::IO::CoreConsole *g_console;
+CrissCross::IO::Console *g_console;
 
 int RunApplication (int argc, char **argv) {
 	
-	g_console = new IO::CoreConsole();
+	g_console = new IO::Console();
 	g_console->WriteLine ( "CrissCross Test Suite v" CC_LIB_VERSION );
 	g_console->WriteLine ();
     

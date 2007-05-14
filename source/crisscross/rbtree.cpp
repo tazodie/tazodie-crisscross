@@ -9,12 +9,14 @@
  *
  */
 
-#ifndef __included_rbtree_cpp
-#define __included_rbtree_cpp
+
+#ifndef __included_rbtree_h
+#   error This file shouldn't be compiled directly.
+#endif
 
 #include <stdlib.h>
 
-#include <crisscross/core_debug.h>
+#include <crisscross/debug.h>
 #include <crisscross/rbtree.h>
 
 using namespace CrissCross::Data;
@@ -629,5 +631,3 @@ template <class Key, class Data>
         getNext ( &current );
     }
 }
-
-#endif

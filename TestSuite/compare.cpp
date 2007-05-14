@@ -13,8 +13,8 @@
 #include "compare.h"
 #include "testutils.h"
 
-#include <crisscross/core_compare.h>
-#include <crisscross/core_databuffer.h>
+#include <crisscross/compare.h>
+#include <crisscross/databuffer.h>
 
 using namespace CrissCross;
 

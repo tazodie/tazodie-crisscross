@@ -155,7 +155,7 @@ call_cpuid ( unsigned int op, unsigned int *_eax, unsigned int *_ebx,
 
 #endif
 
-CoreCPUID::CoreCPUID ()
+CPUID::CPUID ()
 {
     unsigned int i = 0;
 
@@ -219,7 +219,7 @@ CoreCPUID::CoreCPUID ()
     }
 }
 
-CoreCPUID::~CoreCPUID ()
+CPUID::~CPUID ()
 {
     // Time to deallocate all the memory we allocated.
     int i = 0, j = 0;
@@ -252,7 +252,7 @@ CoreCPUID::~CoreCPUID ()
 }
 
 int
-CoreCPUID::GetVirtualCPUCount ()
+CPUID::GetVirtualCPUCount ()
 {
     int count = 0, i;
 
@@ -265,23 +265,23 @@ CoreCPUID::GetVirtualCPUCount ()
 }
 
 int
-CoreCPUID::GetLogicalCPUCount ()
+CPUID::GetLogicalCPUCount ()
 {
     return proc[0]->LogicalCount;
 }
 
 int
-CoreCPUID::GetPhysicalCPUCount ()
+CPUID::GetPhysicalCPUCount ()
 {
     return proc[0]->PhysicalCount;
 }
 
 #    ifdef TARGET_OS_WINDOWS
 DWORD WINAPI
-CoreCPUID::GoThread ( LPVOID * params )
+CPUID::GoThread ( LPVOID * params )
 #    else
 long int
-CoreCPUID::GoThread ( int processor )
+CPUID::GoThread ( int processor )
 #    endif
 {
 #    ifdef TARGET_OS_WINDOWS
@@ -304,7 +304,7 @@ CoreCPUID::GoThread ( int processor )
 }
 
 void
-CoreCPUID::Go ()
+CPUID::Go ()
 {
     CoreAssert ( this != NULL );
 #    ifdef TARGET_OS_WINDOWS
@@ -354,7 +354,7 @@ CoreCPUID::Go ()
 }
 
 void
-CoreCPUID::DetectManufacturer ( int processor )
+CPUID::DetectManufacturer ( int processor )
 {
     char *manufacturer = new char[( 4 * 3 ) + 1];
     char *_man = &manufacturer[0];
@@ -370,7 +370,7 @@ CoreCPUID::DetectManufacturer ( int processor )
 }
 
 void
-CoreCPUID::DetectProcessorName ( int processor )
+CPUID::DetectProcessorName ( int processor )
 {
     char *processorname = new char[( 4 * 12 ) + 1];
     char *_proc = &processorname[0];
@@ -404,7 +404,7 @@ CoreCPUID::DetectProcessorName ( int processor )
 }
 
 void
-CoreCPUID::DetectCacheInfo ( int processor )
+CPUID::DetectCacheInfo ( int processor )
 {
     // Compliant with Intel document #241618.
 
@@ -456,7 +456,7 @@ CoreCPUID::DetectCacheInfo ( int processor )
 }
 
 void
-CoreCPUID::AddCacheDescription ( int processor, const char *description )
+CPUID::AddCacheDescription ( int processor, const char *description )
 {
     char *temp = new char[strlen ( description ) + 1];
 
@@ -467,7 +467,7 @@ CoreCPUID::AddCacheDescription ( int processor, const char *description )
 }
 
 void
-CoreCPUID::AddCacheData ( int processor, int x )
+CPUID::AddCacheData ( int processor, int x )
 {
     // Compliant with Intel document #241618.
 
@@ -675,7 +675,7 @@ CoreCPUID::AddCacheData ( int processor, int x )
 }
 
 void
-CoreCPUID::DetectFMS ( int processor )
+CPUID::DetectFMS ( int processor )
 {
     // Compliant with Intel document #241618.
     proc[processor]->Family = (char)( ( ( Std[1].eax >> 8 ) + ( Std[1].eax >> 20 ) ) & 0xff );
@@ -684,14 +684,14 @@ CoreCPUID::DetectFMS ( int processor )
 }
 
 void
-CoreCPUID::DetectBrandID ( int processor )
+CPUID::DetectBrandID ( int processor )
 {
     // Compliant with Intel document #241618.
     proc[processor]->BrandID = (char)( Std[1].ebx & 0xff );
 }
 
 void
-CoreCPUID::DetectCount ( int processor )
+CPUID::DetectCount ( int processor )
 {
     // Compliant with Intel document #241618.
 
@@ -722,14 +722,14 @@ CoreCPUID::DetectCount ( int processor )
 }
 
 void
-CoreCPUID::DetectAPIC ( int processor )
+CPUID::DetectAPIC ( int processor )
 {
     // BUGBUG: Where'd this come from? Can't find it in doc 241618.
     proc[processor]->APICID = (char)( ( Std[1].ebx >> 24 ) & 0xff );
 }
 
 void
-CoreCPUID::DetectFeature ( unsigned const int *_register, int _flag,
+CPUID::DetectFeature ( unsigned const int *_register, int _flag,
                            int _processor, const char *_name )
 {
     // Compliant with Intel document #241618.
@@ -742,7 +742,7 @@ CoreCPUID::DetectFeature ( unsigned const int *_register, int _flag,
 }
 
 void
-CoreCPUID::DetectFeatures ( int processor )
+CPUID::DetectFeatures ( int processor )
 {
     // Compliant with Intel document #241618.
 
