@@ -10,7 +10,7 @@
  */
 
 #ifndef __included_llist_h
-#   error This file shouldn't be compiled directly.
+#   error "This file shouldn't be compiled directly."
 #endif
 
 #include <crisscross/llist.h>
