@@ -52,7 +52,6 @@ install: $(OUTDIR)/$(OUTBIN)
 	-rm -rf $(prefix)/include/crisscross
 	mkdir -p $(prefix)/include/crisscross
 	mkdir -p $(prefix)/lib
-	cp crisscross/*.gch $(prefix)/include/crisscross/
 	cp crisscross/*.h $(prefix)/include/crisscross/
 	cp crisscross/*.cpp $(prefix)/include/crisscross/
 	cp $(OUTBIN) $(prefix)/lib/
