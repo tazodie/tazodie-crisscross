@@ -7,33 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B0BD2C4C0BE26BF600F71A26 /* core_cpuid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0BD2B8B0BE2540900F71A26 /* core_cpuid.cpp */; };
-		B0BD2C4D0BE26BF600F71A26 /* core_databuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0BD2B8C0BE2540900F71A26 /* core_databuffer.cpp */; };
-		B0BD2C4E0BE26BF700F71A26 /* core_debug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0BD2B8D0BE2540900F71A26 /* core_debug.cpp */; };
-		B0BD2C4F0BE26BF700F71A26 /* core_error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0BD2B8E0BE2540900F71A26 /* core_error.cpp */; };
-		B0BD2C500BE26BF800F71A26 /* core_filesystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0BD2B8F0BE2540900F71A26 /* core_filesystem.cpp */; };
+		B0BD2C4C0BE26BF600F71A26 /* cpuid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0BD2B8B0BE2540900F71A26 /* cpuid.cpp */; };
+		B0BD2C4D0BE26BF600F71A26 /* databuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0BD2B8C0BE2540900F71A26 /* databuffer.cpp */; };
+		B0BD2C4E0BE26BF700F71A26 /* debug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0BD2B8D0BE2540900F71A26 /* debug.cpp */; };
+		B0BD2C4F0BE26BF700F71A26 /* error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0BD2B8E0BE2540900F71A26 /* error.cpp */; };
+		B0BD2C500BE26BF800F71A26 /* filesystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0BD2B8F0BE2540900F71A26 /* filesystem.cpp */; };
 		B0BD2C510BE26BF800F71A26 /* core_io_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0BD2B900BE2540900F71A26 /* core_io_reader.cpp */; };
 		B0BD2C520BE26BF800F71A26 /* core_io_writer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0BD2B910BE2540900F71A26 /* core_io_writer.cpp */; };
-		B0BD2C540BE26BFE00F71A26 /* core_console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0BD2B8A0BE2540900F71A26 /* core_console.cpp */; };
-		B0BD2C550BE26C0400F71A26 /* core_compare.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BAE0BE2542600F71A26 /* core_compare.h */; };
-		B0BD2C560BE26C0500F71A26 /* core_console.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BAF0BE2542600F71A26 /* core_console.h */; };
-		B0BD2C570BE26C0500F71A26 /* core_cpuid.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BB00BE2542600F71A26 /* core_cpuid.h */; };
-		B0BD2C580BE26C0600F71A26 /* core_databuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BB10BE2542600F71A26 /* core_databuffer.h */; };
-		B0BD2C590BE26C0600F71A26 /* core_debug.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BB20BE2542600F71A26 /* core_debug.h */; };
-		B0BD2C5A0BE26C0600F71A26 /* core_deprecate.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BB30BE2542600F71A26 /* core_deprecate.h */; };
-		B0BD2C5B0BE26C0700F71A26 /* core_error.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BB40BE2542600F71A26 /* core_error.h */; };
-		B0BD2C5C0BE26C0700F71A26 /* core_filesystem.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BB50BE2542600F71A26 /* core_filesystem.h */; };
+		B0BD2C540BE26BFE00F71A26 /* console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0BD2B8A0BE2540900F71A26 /* console.cpp */; };
+		B0BD2C550BE26C0400F71A26 /* compare.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BAE0BE2542600F71A26 /* compare.h */; };
+		B0BD2C560BE26C0500F71A26 /* console.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BAF0BE2542600F71A26 /* console.h */; };
+		B0BD2C570BE26C0500F71A26 /* cpuid.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BB00BE2542600F71A26 /* cpuid.h */; };
+		B0BD2C580BE26C0600F71A26 /* databuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BB10BE2542600F71A26 /* databuffer.h */; };
+		B0BD2C590BE26C0600F71A26 /* debug.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BB20BE2542600F71A26 /* debug.h */; };
+		B0BD2C5A0BE26C0600F71A26 /* deprecate.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BB30BE2542600F71A26 /* deprecate.h */; };
+		B0BD2C5B0BE26C0700F71A26 /* error.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BB40BE2542600F71A26 /* error.h */; };
+		B0BD2C5C0BE26C0700F71A26 /* filesystem.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BB50BE2542600F71A26 /* filesystem.h */; };
 		B0BD2C5D0BE26C0800F71A26 /* core_io.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BB80BE2542600F71A26 /* core_io.h */; };
 		B0BD2C5E0BE26C0800F71A26 /* core_io_reader.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BB60BE2542600F71A26 /* core_io_reader.h */; };
 		B0BD2C5F0BE26C0900F71A26 /* core_io_writer.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BB70BE2542600F71A26 /* core_io_writer.h */; };
-		B0BD2C600BE26C0900F71A26 /* core_mutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0BD2B920BE2540900F71A26 /* core_mutex.cpp */; };
-		B0BD2C610BE26C0A00F71A26 /* core_mutex.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BB90BE2542600F71A26 /* core_mutex.h */; };
+		B0BD2C600BE26C0900F71A26 /* mutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0BD2B920BE2540900F71A26 /* mutex.cpp */; };
+		B0BD2C610BE26C0A00F71A26 /* mutex.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BB90BE2542600F71A26 /* mutex.h */; };
 		B0BD2C620BE26C0A00F71A26 /* core_network.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0BD2B930BE2540900F71A26 /* core_network.cpp */; };
 		B0BD2C630BE26C0B00F71A26 /* core_network.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BBA0BE2542600F71A26 /* core_network.h */; };
 		B0BD2C680BE26C0D00F71A26 /* core_socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0BD2B940BE2540900F71A26 /* core_socket.cpp */; };
 		B0BD2C690BE26C0E00F71A26 /* core_socket.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BBB0BE2542600F71A26 /* core_socket.h */; };
-		B0BD2C6A0BE26C0E00F71A26 /* core_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0BD2B950BE2540900F71A26 /* core_system.cpp */; };
-		B0BD2C6B0BE26C0F00F71A26 /* core_system.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BBC0BE2542600F71A26 /* core_system.h */; };
+		B0BD2C6A0BE26C0E00F71A26 /* system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0BD2B950BE2540900F71A26 /* system.cpp */; };
+		B0BD2C6B0BE26C0F00F71A26 /* system.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BBC0BE2542600F71A26 /* system.h */; };
 		B0BD2C730BE26C2200F71A26 /* darray.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BBE0BE2542600F71A26 /* darray.h */; };
 		B0BD2C750BE26C2300F71A26 /* dstack.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BC00BE2542600F71A26 /* dstack.h */; };
 		B0BD2C770BE26C2F00F71A26 /* universal_include.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BCF0BE2542600F71A26 /* universal_include.h */; };
@@ -68,39 +68,39 @@
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		32BAE0B70371A74B00C91783 /* CrissCross_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrissCross_Prefix.pch; sourceTree = "<group>"; };
 		8D07F2C70486CC7A007CD1D0 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		B0BD2B8A0BE2540900F71A26 /* core_console.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = core_console.cpp; path = ../source/core_console.cpp; sourceTree = SOURCE_ROOT; };
-		B0BD2B8B0BE2540900F71A26 /* core_cpuid.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = core_cpuid.cpp; path = ../source/core_cpuid.cpp; sourceTree = SOURCE_ROOT; };
-		B0BD2B8C0BE2540900F71A26 /* core_databuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = core_databuffer.cpp; path = ../source/core_databuffer.cpp; sourceTree = SOURCE_ROOT; };
-		B0BD2B8D0BE2540900F71A26 /* core_debug.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = core_debug.cpp; path = ../source/core_debug.cpp; sourceTree = SOURCE_ROOT; };
-		B0BD2B8E0BE2540900F71A26 /* core_error.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = core_error.cpp; path = ../source/core_error.cpp; sourceTree = SOURCE_ROOT; };
-		B0BD2B8F0BE2540900F71A26 /* core_filesystem.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = core_filesystem.cpp; path = ../source/core_filesystem.cpp; sourceTree = SOURCE_ROOT; };
+		B0BD2B8A0BE2540900F71A26 /* console.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = console.cpp; path = ../source/console.cpp; sourceTree = SOURCE_ROOT; };
+		B0BD2B8B0BE2540900F71A26 /* cpuid.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = cpuid.cpp; path = ../source/cpuid.cpp; sourceTree = SOURCE_ROOT; };
+		B0BD2B8C0BE2540900F71A26 /* databuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = databuffer.cpp; path = ../source/databuffer.cpp; sourceTree = SOURCE_ROOT; };
+		B0BD2B8D0BE2540900F71A26 /* debug.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = debug.cpp; path = ../source/debug.cpp; sourceTree = SOURCE_ROOT; };
+		B0BD2B8E0BE2540900F71A26 /* error.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = error.cpp; path = ../source/error.cpp; sourceTree = SOURCE_ROOT; };
+		B0BD2B8F0BE2540900F71A26 /* filesystem.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = filesystem.cpp; path = ../source/filesystem.cpp; sourceTree = SOURCE_ROOT; };
 		B0BD2B900BE2540900F71A26 /* core_io_reader.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = core_io_reader.cpp; path = ../source/core_io_reader.cpp; sourceTree = SOURCE_ROOT; };
 		B0BD2B910BE2540900F71A26 /* core_io_writer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = core_io_writer.cpp; path = ../source/core_io_writer.cpp; sourceTree = SOURCE_ROOT; };
-		B0BD2B920BE2540900F71A26 /* core_mutex.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = core_mutex.cpp; path = ../source/core_mutex.cpp; sourceTree = SOURCE_ROOT; };
+		B0BD2B920BE2540900F71A26 /* mutex.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = mutex.cpp; path = ../source/mutex.cpp; sourceTree = SOURCE_ROOT; };
 		B0BD2B930BE2540900F71A26 /* core_network.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = core_network.cpp; path = ../source/core_network.cpp; sourceTree = SOURCE_ROOT; };
 		B0BD2B940BE2540900F71A26 /* core_socket.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = core_socket.cpp; path = ../source/core_socket.cpp; sourceTree = SOURCE_ROOT; };
-		B0BD2B950BE2540900F71A26 /* core_system.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = core_system.cpp; path = ../source/core_system.cpp; sourceTree = SOURCE_ROOT; };
+		B0BD2B950BE2540900F71A26 /* system.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = system.cpp; path = ../source/system.cpp; sourceTree = SOURCE_ROOT; };
 		B0BD2BA20BE2541300F71A26 /* stopwatch.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = stopwatch.cpp; path = ../source/stopwatch.cpp; sourceTree = SOURCE_ROOT; };
 		B0BD2BA30BE2541300F71A26 /* tcpsocket.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = tcpsocket.cpp; path = ../source/tcpsocket.cpp; sourceTree = SOURCE_ROOT; };
 		B0BD2BA40BE2541300F71A26 /* textreader.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = textreader.cpp; path = ../source/textreader.cpp; sourceTree = SOURCE_ROOT; };
 		B0BD2BA50BE2541300F71A26 /* textwriter.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = textwriter.cpp; path = ../source/textwriter.cpp; sourceTree = SOURCE_ROOT; };
 		B0BD2BA60BE2541300F71A26 /* udpsocket.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = udpsocket.cpp; path = ../source/udpsocket.cpp; sourceTree = SOURCE_ROOT; };
 		B0BD2BA70BE2541300F71A26 /* universal_include.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = universal_include.cpp; path = ../source/universal_include.cpp; sourceTree = SOURCE_ROOT; };
-		B0BD2BAE0BE2542600F71A26 /* core_compare.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = core_compare.h; path = ../source/crisscross/core_compare.h; sourceTree = SOURCE_ROOT; };
-		B0BD2BAF0BE2542600F71A26 /* core_console.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = core_console.h; path = ../source/crisscross/core_console.h; sourceTree = SOURCE_ROOT; };
-		B0BD2BB00BE2542600F71A26 /* core_cpuid.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = core_cpuid.h; path = ../source/crisscross/core_cpuid.h; sourceTree = SOURCE_ROOT; };
-		B0BD2BB10BE2542600F71A26 /* core_databuffer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = core_databuffer.h; path = ../source/crisscross/core_databuffer.h; sourceTree = SOURCE_ROOT; };
-		B0BD2BB20BE2542600F71A26 /* core_debug.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = core_debug.h; path = ../source/crisscross/core_debug.h; sourceTree = SOURCE_ROOT; };
-		B0BD2BB30BE2542600F71A26 /* core_deprecate.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = core_deprecate.h; path = ../source/crisscross/core_deprecate.h; sourceTree = SOURCE_ROOT; };
-		B0BD2BB40BE2542600F71A26 /* core_error.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = core_error.h; path = ../source/crisscross/core_error.h; sourceTree = SOURCE_ROOT; };
-		B0BD2BB50BE2542600F71A26 /* core_filesystem.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = core_filesystem.h; path = ../source/crisscross/core_filesystem.h; sourceTree = SOURCE_ROOT; };
+		B0BD2BAE0BE2542600F71A26 /* compare.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = compare.h; path = ../source/crisscross/compare.h; sourceTree = SOURCE_ROOT; };
+		B0BD2BAF0BE2542600F71A26 /* console.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = console.h; path = ../source/crisscross/console.h; sourceTree = SOURCE_ROOT; };
+		B0BD2BB00BE2542600F71A26 /* cpuid.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = cpuid.h; path = ../source/crisscross/cpuid.h; sourceTree = SOURCE_ROOT; };
+		B0BD2BB10BE2542600F71A26 /* databuffer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = databuffer.h; path = ../source/crisscross/databuffer.h; sourceTree = SOURCE_ROOT; };
+		B0BD2BB20BE2542600F71A26 /* debug.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = debug.h; path = ../source/crisscross/debug.h; sourceTree = SOURCE_ROOT; };
+		B0BD2BB30BE2542600F71A26 /* deprecate.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = deprecate.h; path = ../source/crisscross/deprecate.h; sourceTree = SOURCE_ROOT; };
+		B0BD2BB40BE2542600F71A26 /* error.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = error.h; path = ../source/crisscross/error.h; sourceTree = SOURCE_ROOT; };
+		B0BD2BB50BE2542600F71A26 /* filesystem.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = filesystem.h; path = ../source/crisscross/filesystem.h; sourceTree = SOURCE_ROOT; };
 		B0BD2BB60BE2542600F71A26 /* core_io_reader.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = core_io_reader.h; path = ../source/crisscross/core_io_reader.h; sourceTree = SOURCE_ROOT; };
 		B0BD2BB70BE2542600F71A26 /* core_io_writer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = core_io_writer.h; path = ../source/crisscross/core_io_writer.h; sourceTree = SOURCE_ROOT; };
 		B0BD2BB80BE2542600F71A26 /* core_io.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = core_io.h; path = ../source/crisscross/core_io.h; sourceTree = SOURCE_ROOT; };
-		B0BD2BB90BE2542600F71A26 /* core_mutex.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = core_mutex.h; path = ../source/crisscross/core_mutex.h; sourceTree = SOURCE_ROOT; };
+		B0BD2BB90BE2542600F71A26 /* mutex.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = mutex.h; path = ../source/crisscross/mutex.h; sourceTree = SOURCE_ROOT; };
 		B0BD2BBA0BE2542600F71A26 /* core_network.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = core_network.h; path = ../source/crisscross/core_network.h; sourceTree = SOURCE_ROOT; };
 		B0BD2BBB0BE2542600F71A26 /* core_socket.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = core_socket.h; path = ../source/crisscross/core_socket.h; sourceTree = SOURCE_ROOT; };
-		B0BD2BBC0BE2542600F71A26 /* core_system.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = core_system.h; path = ../source/crisscross/core_system.h; sourceTree = SOURCE_ROOT; };
+		B0BD2BBC0BE2542600F71A26 /* system.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = system.h; path = ../source/crisscross/system.h; sourceTree = SOURCE_ROOT; };
 		B0BD2BBD0BE2542600F71A26 /* darray.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = darray.cpp; path = ../source/crisscross/darray.cpp; sourceTree = SOURCE_ROOT; };
 		B0BD2BBE0BE2542600F71A26 /* darray.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = darray.h; path = ../source/crisscross/darray.h; sourceTree = SOURCE_ROOT; };
 		B0BD2BBF0BE2542600F71A26 /* dstack.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = dstack.cpp; path = ../source/crisscross/dstack.cpp; sourceTree = SOURCE_ROOT; };
@@ -175,21 +175,21 @@
 			isa = PBXGroup;
 			children = (
 				B0ED57BD0BEAF76A00F6033B /* platform_detect.h */,
-				B0BD2BAE0BE2542600F71A26 /* core_compare.h */,
-				B0BD2BAF0BE2542600F71A26 /* core_console.h */,
-				B0BD2BB00BE2542600F71A26 /* core_cpuid.h */,
-				B0BD2BB10BE2542600F71A26 /* core_databuffer.h */,
-				B0BD2BB20BE2542600F71A26 /* core_debug.h */,
-				B0BD2BB30BE2542600F71A26 /* core_deprecate.h */,
-				B0BD2BB40BE2542600F71A26 /* core_error.h */,
-				B0BD2BB50BE2542600F71A26 /* core_filesystem.h */,
+				B0BD2BAE0BE2542600F71A26 /* compare.h */,
+				B0BD2BAF0BE2542600F71A26 /* console.h */,
+				B0BD2BB00BE2542600F71A26 /* cpuid.h */,
+				B0BD2BB10BE2542600F71A26 /* databuffer.h */,
+				B0BD2BB20BE2542600F71A26 /* debug.h */,
+				B0BD2BB30BE2542600F71A26 /* deprecate.h */,
+				B0BD2BB40BE2542600F71A26 /* error.h */,
+				B0BD2BB50BE2542600F71A26 /* filesystem.h */,
 				B0BD2BB60BE2542600F71A26 /* core_io_reader.h */,
 				B0BD2BB70BE2542600F71A26 /* core_io_writer.h */,
 				B0BD2BB80BE2542600F71A26 /* core_io.h */,
-				B0BD2BB90BE2542600F71A26 /* core_mutex.h */,
+				B0BD2BB90BE2542600F71A26 /* mutex.h */,
 				B0BD2BBA0BE2542600F71A26 /* core_network.h */,
 				B0BD2BBB0BE2542600F71A26 /* core_socket.h */,
-				B0BD2BBC0BE2542600F71A26 /* core_system.h */,
+				B0BD2BBC0BE2542600F71A26 /* system.h */,
 				B0BD2BBD0BE2542600F71A26 /* darray.cpp */,
 				B0BD2BBE0BE2542600F71A26 /* darray.h */,
 				B0BD2BBF0BE2542600F71A26 /* dstack.cpp */,
@@ -215,18 +215,18 @@
 				B0BD2BA50BE2541300F71A26 /* textwriter.cpp */,
 				B0BD2BA60BE2541300F71A26 /* udpsocket.cpp */,
 				B0BD2BA70BE2541300F71A26 /* universal_include.cpp */,
-				B0BD2B8A0BE2540900F71A26 /* core_console.cpp */,
-				B0BD2B8B0BE2540900F71A26 /* core_cpuid.cpp */,
-				B0BD2B8C0BE2540900F71A26 /* core_databuffer.cpp */,
-				B0BD2B8D0BE2540900F71A26 /* core_debug.cpp */,
-				B0BD2B8E0BE2540900F71A26 /* core_error.cpp */,
-				B0BD2B8F0BE2540900F71A26 /* core_filesystem.cpp */,
+				B0BD2B8A0BE2540900F71A26 /* console.cpp */,
+				B0BD2B8B0BE2540900F71A26 /* cpuid.cpp */,
+				B0BD2B8C0BE2540900F71A26 /* databuffer.cpp */,
+				B0BD2B8D0BE2540900F71A26 /* debug.cpp */,
+				B0BD2B8E0BE2540900F71A26 /* error.cpp */,
+				B0BD2B8F0BE2540900F71A26 /* filesystem.cpp */,
 				B0BD2B900BE2540900F71A26 /* core_io_reader.cpp */,
 				B0BD2B910BE2540900F71A26 /* core_io_writer.cpp */,
-				B0BD2B920BE2540900F71A26 /* core_mutex.cpp */,
+				B0BD2B920BE2540900F71A26 /* mutex.cpp */,
 				B0BD2B930BE2540900F71A26 /* core_network.cpp */,
 				B0BD2B940BE2540900F71A26 /* core_socket.cpp */,
-				B0BD2B950BE2540900F71A26 /* core_system.cpp */,
+				B0BD2B950BE2540900F71A26 /* system.cpp */,
 				32BAE0B70371A74B00C91783 /* CrissCross_Prefix.pch */,
 			);
 			name = Source;
@@ -251,21 +251,21 @@
 				B0BD2C860BE26C3400F71A26 /* sortclass.h in Headers */,
 				B0BD2C930BE26C7C00F71A26 /* splay.cpp in Headers */,
 				B0BD2C840BE26C3400F71A26 /* splay.h in Headers */,
-				B0BD2C550BE26C0400F71A26 /* core_compare.h in Headers */,
-				B0BD2C560BE26C0500F71A26 /* core_console.h in Headers */,
-				B0BD2C570BE26C0500F71A26 /* core_cpuid.h in Headers */,
-				B0BD2C580BE26C0600F71A26 /* core_databuffer.h in Headers */,
-				B0BD2C590BE26C0600F71A26 /* core_debug.h in Headers */,
-				B0BD2C5A0BE26C0600F71A26 /* core_deprecate.h in Headers */,
-				B0BD2C5B0BE26C0700F71A26 /* core_error.h in Headers */,
-				B0BD2C5C0BE26C0700F71A26 /* core_filesystem.h in Headers */,
+				B0BD2C550BE26C0400F71A26 /* compare.h in Headers */,
+				B0BD2C560BE26C0500F71A26 /* console.h in Headers */,
+				B0BD2C570BE26C0500F71A26 /* cpuid.h in Headers */,
+				B0BD2C580BE26C0600F71A26 /* databuffer.h in Headers */,
+				B0BD2C590BE26C0600F71A26 /* debug.h in Headers */,
+				B0BD2C5A0BE26C0600F71A26 /* deprecate.h in Headers */,
+				B0BD2C5B0BE26C0700F71A26 /* error.h in Headers */,
+				B0BD2C5C0BE26C0700F71A26 /* filesystem.h in Headers */,
 				B0BD2C5D0BE26C0800F71A26 /* core_io.h in Headers */,
 				B0BD2C5E0BE26C0800F71A26 /* core_io_reader.h in Headers */,
 				B0BD2C5F0BE26C0900F71A26 /* core_io_writer.h in Headers */,
-				B0BD2C610BE26C0A00F71A26 /* core_mutex.h in Headers */,
+				B0BD2C610BE26C0A00F71A26 /* mutex.h in Headers */,
 				B0BD2C630BE26C0B00F71A26 /* core_network.h in Headers */,
 				B0BD2C690BE26C0E00F71A26 /* core_socket.h in Headers */,
-				B0BD2C6B0BE26C0F00F71A26 /* core_system.h in Headers */,
+				B0BD2C6B0BE26C0F00F71A26 /* system.h in Headers */,
 				B0BD2C770BE26C2F00F71A26 /* universal_include.h in Headers */,
 				B0BD2C790BE26C3000F71A26 /* udpsocket.h in Headers */,
 				B0BD2C7B0BE26C3000F71A26 /* tree.h in Headers */,
@@ -319,18 +319,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0BD2C4C0BE26BF600F71A26 /* core_cpuid.cpp in Sources */,
-				B0BD2C4D0BE26BF600F71A26 /* core_databuffer.cpp in Sources */,
-				B0BD2C4E0BE26BF700F71A26 /* core_debug.cpp in Sources */,
-				B0BD2C4F0BE26BF700F71A26 /* core_error.cpp in Sources */,
-				B0BD2C500BE26BF800F71A26 /* core_filesystem.cpp in Sources */,
+				B0BD2C4C0BE26BF600F71A26 /* cpuid.cpp in Sources */,
+				B0BD2C4D0BE26BF600F71A26 /* databuffer.cpp in Sources */,
+				B0BD2C4E0BE26BF700F71A26 /* debug.cpp in Sources */,
+				B0BD2C4F0BE26BF700F71A26 /* error.cpp in Sources */,
+				B0BD2C500BE26BF800F71A26 /* filesystem.cpp in Sources */,
 				B0BD2C510BE26BF800F71A26 /* core_io_reader.cpp in Sources */,
 				B0BD2C520BE26BF800F71A26 /* core_io_writer.cpp in Sources */,
-				B0BD2C540BE26BFE00F71A26 /* core_console.cpp in Sources */,
-				B0BD2C600BE26C0900F71A26 /* core_mutex.cpp in Sources */,
+				B0BD2C540BE26BFE00F71A26 /* console.cpp in Sources */,
+				B0BD2C600BE26C0900F71A26 /* mutex.cpp in Sources */,
 				B0BD2C620BE26C0A00F71A26 /* core_network.cpp in Sources */,
 				B0BD2C680BE26C0D00F71A26 /* core_socket.cpp in Sources */,
-				B0BD2C6A0BE26C0E00F71A26 /* core_system.cpp in Sources */,
+				B0BD2C6A0BE26C0E00F71A26 /* system.cpp in Sources */,
 				B0BD2C780BE26C2F00F71A26 /* universal_include.cpp in Sources */,
 				B0BD2C7A0BE26C3000F71A26 /* udpsocket.cpp in Sources */,
 				B0BD2C7E0BE26C3200F71A26 /* textwriter.cpp in Sources */,
