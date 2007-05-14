@@ -36,7 +36,7 @@
 #   define CC_LIB_VERSION_MAJOR       0
 #   define CC_LIB_VERSION_MINOR       5
 #   define CC_LIB_VERSION_REVISION    9999
-const int CC_LIB_BUILD_NUMBER       = BUILD_NUMBER;
+const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #   undef BUILD_NUMBER
 
 #   define CC_LIB_URL                 "http://www.uplinklabs.net/crisscross/"
