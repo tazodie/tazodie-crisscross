@@ -69,7 +69,7 @@ namespace CrissCross
              */
             int getNextFree     ();
             
-            //template<T> friend class SortClass;
+            //template<T> friend class Sort;
             //template<class T> friend class HeapSort;
 
         public:
@@ -168,7 +168,7 @@ namespace CrissCross
             void empty ();
             
             //! Sorts the array using the provided method.
-            void sort ( CrissCross::Data::SortClass<T> *_sortMethod );
+            void Sort ( CrissCross::Data::Sorter<T> *_sortMethod );
 
             //! Gets the data at the given index.
             /*!

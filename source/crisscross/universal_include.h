@@ -30,6 +30,9 @@
 //#  define CC_LIB_CODENAME            "Valhalla"      // v1.0.0 codename ( Milestone 5 )
 
 #   define CC_LIB_VERSION             "0.5.9999"
+#   define CC_LIB_VERSION_MAJOR       0
+#   define CC_LIB_VERSION_MINOR       5
+#   define CC_LIB_VERSION_REVISION    9999
 #   define CC_LIB_BRANCH_AT_VERSION   "0.6.0"
 #   define CC_LIB_URL                 "http://www.uplinklabs.net/crisscross/"
 #   define CC_LIB_COPYRIGHT           "(c) 2006-2007 by IO.IN Research. Licensed under the New BSD License."
@@ -193,6 +196,8 @@ extern int RunApplication ( int argc, char **argv );
 int CrissCrossInitialize ( int argc, char **argv );
 
 // Namespace Definitions
+// Primarily here for centralised documentation
+
 //! The CrissCross main namespace.
 /*!
     All CrissCross classes and functions are kept in this namespace.
@@ -249,6 +254,15 @@ namespace CrissCross
         platforms.
      */
     namespace System
+    {
+    }
+
+    //! The library version namespace.
+    /*!
+        Contains some simple functions for identifying the compiled CrissCross
+        library version.
+     */
+    namespace Version
     {
     }
 }

@@ -18,7 +18,8 @@
 #include "dstack.h"
 #include "llist.h"
 #include "rbtree.h"
-#include "sort.h"
+#include "heapsort.h"
+#include "quicksort.h"
 #include "stopwatch.h"
 
 using namespace CrissCross;
@@ -56,8 +57,13 @@ int RunApplication (int argc, char **argv) {
 	WritePrefix ( "HeapSort (integer array)" ); retval |= WriteResult ( TestHeapSort_IntArray() );
 	WritePrefix ( "HeapSort (integer DArray)" ); retval |= WriteResult ( TestHeapSort_DArray() );
 
+	WritePrefix ( "QuickSort (integer array)" ); retval |= WriteResult ( TestQuickSort_IntArray() );
+	WritePrefix ( "QuickSort (integer DArray)" ); retval |= WriteResult ( TestQuickSort_DArray() );
+
 	WritePrefix ( "Stopwatch" ); retval |= WriteResult ( TestStopwatch() );
 	g_console->Flush();
+
+    CoreAssert ( retval == 0 );
 
 #ifdef TARGET_OS_WINDOWS
 	system ( "pause" );
@@ -65,7 +71,5 @@ int RunApplication (int argc, char **argv) {
 
 	delete g_console;
 
-    CoreAssert ( retval == 0 );
-
-	return 0;
+    return 0;
 }
