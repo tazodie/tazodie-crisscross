@@ -55,14 +55,13 @@ int RunApplication (int argc, char **argv) {
 
 	WritePrefix ( "Stopwatch" ); retval |= WriteResult ( TestStopwatch() );
 
-	WritePrefix ( "DataBuffer Compare" ); retval |= WriteResult ( TestComparison_DataBuffer() );
+    WritePrefix ( "std::string Compare" ); retval |= WriteResult ( TestComparison_String() );
 	WritePrefix ( "Integer Compare" ); retval |= WriteResult ( TestComparison_Integer() );
 	WritePrefix ( "Unsigned Integer Compare" ); retval |= WriteResult ( TestComparison_UnsignedInteger() );
 	WritePrefix ( "LList" ); retval |= WriteResult ( TestLList() );
 	WritePrefix ( "DArray" ); retval |= WriteResult ( TestDArray() );
 	WritePrefix ( "DStack" ); retval |= WriteResult ( TestDStack() );
 
-	WritePrefix ( "RedBlackTree<DataBuffer, DataBuffer *>" ); retval |= WriteResult ( TestRedBlackTree_DataBuffer() );
 	WritePrefix ( "RedBlackTree<std::string, std::string>" ); retval |= WriteResult ( TestRedBlackTree_stdstring() );
 	WritePrefix ( "RedBlackTree<int, int>" ); retval |= WriteResult ( TestRedBlackTree_Int() );
 

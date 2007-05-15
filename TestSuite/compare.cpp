@@ -14,15 +14,14 @@
 #include "testutils.h"
 
 #include <crisscross/compare.h>
-#include <crisscross/databuffer.h>
 
 using namespace CrissCross;
 
-int TestComparison_DataBuffer()
+int TestComparison_String()
 {	
-	Data::DataBuffer greaterString("beta");
-	Data::DataBuffer lesserString("alpha");
-	Data::DataBuffer dupLesserString(lesserString);
+    std::string greaterString("beta");
+	std::string lesserString("alpha");
+	std::string dupLesserString(lesserString);
 	
 	if ( Data::Compare ( lesserString, greaterString ) != -1 )
 		return 1;
