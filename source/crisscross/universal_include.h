@@ -44,10 +44,10 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #   define CC_LIB_COPYRIGHT           "(c) 2006-2007 by IO.IN Research. Licensed under the New BSD License."
 
 // Disabling these will save space but limit functionality.
-//#   define ENABLE_CPUID
+#   define ENABLE_CPUID
 //#   define NO_CPP_EXCEPTION_HANDLER
 
-// Enables non-blocking sockets. This isn't finished yet, don't use it.
+// Enables non-blocking sockets.
 #   define ENABLE_NONBLOCKING
 
 //NOTE: By disabling this line, you will not be in compliance with the New BSD License.
@@ -57,7 +57,9 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 
 // Sorry, this is Windows-only... (Use Valgrind on Linux)
 #   define DETECT_MEMORY_LEAKS
-//#    define ENABLE_MEMLEAK_STATS // DO NOT USE. WILL CAUSE HORRIBLE BLOODY DEATH ON EXIT.
+
+// Don't use it. It doesn't do anything except potentially screw up memory leak detection.
+//# define ENABLE_MEMLEAK_STATS 
 
 // Linux backtrace()
 #   define ENABLE_BACKTRACE
@@ -129,11 +131,11 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #       include <errno.h>
 #       include <sched.h>
 #       include <ctype.h>
-#    endif
+#   endif
 
-#    if defined ( TARGET_OS_MACOSX )
-#        include <Carbon/Carbon.h>
-#    endif
+#   if defined ( TARGET_OS_MACOSX )
+#       include <Carbon/Carbon.h>
+#   endif
 
 #   if defined ( TARGET_COMPILER_CYGWIN )
 #       undef ENABLE_BACKTRACE
@@ -143,26 +145,29 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #       include <execinfo.h>
 #   endif
 
-#    include <string.h>
-#    include <assert.h>
-#    include <math.h>
-#    include <memory.h>
-#    include <stdarg.h>
-#    include <stdio.h>
-#    include <stdlib.h>
-#    if _MSC_VER < 1300 && defined ( TARGET_COMPILER_VC )
+#   include <string.h>
+#   include <assert.h>
+#   include <math.h>
+#   include <memory.h>
+#   include <stdarg.h>
+#   include <stdio.h>
+#   include <stdlib.h>
+#   if _MSC_VER < 1300 && defined ( TARGET_COMPILER_VC )
 #       include <xstring>
         typedef long intptr_t;
-#    endif
-#    include <iostream>
-#    include <istream>
-#    include <fstream>
-#    include <sstream>
+#   endif
+#   include <exception>
+#   include <iostream>
+#   include <istream>
+#   include <fstream>
+#   include <list>
+#   include <map>
+#   include <sstream>
 
-#    if defined ( TARGET_OS_WINDOWS )
-#            if defined ( DETECT_MEMORY_LEAKS )
-#                ifndef _DBG_NEW
-#                    include <crtdbg.h>
+#   if defined ( TARGET_OS_WINDOWS )
+#       if defined ( DETECT_MEMORY_LEAKS )
+#           ifndef _DBG_NEW
+#                include <crtdbg.h>
      inline void *
      __operator_new ( size_t __n )
 {
