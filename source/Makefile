@@ -43,6 +43,8 @@ CXXFLAGS += $(FPIC) $(INCLUDES)
 ifeq ($(GCC_MAJOR),4)
 PCH = crisscross/universal_include.h
 GCH = $(PCH).gch
+else
+GCH = build_number.h
 endif
 
 all: .depend precomp $(OUTDIR)/$(OUTBIN)
@@ -93,7 +95,9 @@ endif
 
 $(GCH): $(PCH)
 	$(shell pwd)/../tools/GenerateBuildNumber.sh "$(shell pwd)/crisscross"
+ifeq ($(GCC_MAJOR),4)
 	$(CXX) $(CXXFLAGS) -c $(PCH) -o $(GCH)
+endif
 
 $(OBJDIR)/%.o: %.cpp
 	@test -d $(dir $(OBJDIR)/$<) || mkdir -p $(dir $(OBJDIR)/$<)
