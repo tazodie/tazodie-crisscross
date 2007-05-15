@@ -13,75 +13,9 @@
 #include "rbtree.h"
 #include "testutils.h"
 
-#include <crisscross/databuffer.h>
 #include <crisscross/rbtree.h>
 
 using namespace CrissCross::Data;
-
-int TestRedBlackTree_DataBuffer()
-{
-	RedBlackTree<DataBuffer,DataBuffer*> *rbtree = new RedBlackTree<DataBuffer,DataBuffer*>();
-	BinaryNode<DataBuffer,DataBuffer*> *node = NULL;
-	DataBuffer *buffer = NULL;
-	
-	rbtree->insert ( "first", new DataBuffer ("one") );
-	rbtree->insert ( "second", new DataBuffer ("two") );
-	rbtree->insert ( "third", new DataBuffer ("three") );
-	rbtree->insert ( "fourth", new DataBuffer ("four") );
-	
-	if ( (node = rbtree->findNode ( "FiRSt" ) ) == NULL )
-		return 1;
-
-	if ( *node->data != "one" )
-		return 2;
-
-	if ( (node = rbtree->findNode ( "fifth" ) ) != NULL )
-		return 3;
-
-	if ( (node = rbtree->findNode ( "SeCoND" ) ) == NULL )
-		return 4;
-
-	if ( *node->data != "two" )
-		return 5;
-		
-	if ( rbtree->erase ("fifth") == STATUS_OK )
-		return 6;
-	
-	if ( ( buffer = rbtree->find ( "first") ) == NULL )
-		return 7;
-	else
-		delete buffer;
-	
-	if ( rbtree->erase ("first") != STATUS_OK )
-		return 8;
-	
-	if ( ( buffer = rbtree->find ( "second") ) == NULL )
-		return 9;
-	else
-		delete buffer;
-	
-	if ( rbtree->erase ("second") != STATUS_OK )
-		return 10;
-	
-	if ( ( buffer = rbtree->find ( "third") ) == NULL )
-		return 11;
-	else
-		delete buffer;
-	
-	if ( rbtree->erase ("third") != STATUS_OK )
-		return 12;
-	
-	if ( ( buffer = rbtree->find ( "fourth") ) == NULL )
-		return 13;
-	else
-		delete buffer;
-	
-	if ( rbtree->erase ("fourth") != STATUS_OK )
-		return 14;
-
-	delete rbtree;
-	return 0;
-}
 
 int TestRedBlackTree_stdstring()
 {

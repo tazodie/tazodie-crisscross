@@ -12,7 +12,7 @@
 #ifndef __included_compare_h
 #define __included_compare_h
 
-int TestComparison_DataBuffer();
+int TestComparison_String();
 int TestComparison_Integer();
 int TestComparison_UnsignedInteger();
 

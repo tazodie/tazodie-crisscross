@@ -12,7 +12,6 @@
 #ifndef __included_rbtree_test_h
 #define __included_rbtree_test_h
 
-int TestRedBlackTree_DataBuffer();
 int TestRedBlackTree_stdstring();
 int TestRedBlackTree_Int();
 
