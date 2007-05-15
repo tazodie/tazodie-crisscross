@@ -32,11 +32,11 @@ class Feature
     Feature ()
     {
         Enabled = 0;
-    };
+    }
 
     ~Feature ()
     {
-    };
+    }
 };
 
 class Processor
@@ -56,11 +56,11 @@ class Processor
   public:
     Processor ()
     {
-    };
+    }
 
     ~Processor ()
     {
-    };
+    }
 };
 
 
