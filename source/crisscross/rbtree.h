@@ -14,8 +14,7 @@
 
 #include <crisscross/deprecate.h>
 #include <crisscross/darray.h>
-
-#include <crisscross/tree.h>
+#include <crisscross/node.h>
 
 namespace CrissCross
 {
@@ -155,13 +154,13 @@ namespace CrissCross
             /*!
                 \return A DArray containing the data of the tree.
              */
-            DArray <Data> *ConvertToDArray ();
+            _CC_DEPRECATE_SLOW DArray <Data> *ConvertToDArray ();
 
             //! Converts the tree keys into a linearized DArray.
             /*!
                 \return A DArray containing the keys in the tree.
              */
-            DArray <Key>  *ConvertIndexToDArray ();
+            _CC_DEPRECATE_SLOW DArray <Key>  *ConvertIndexToDArray ();
 
         protected:
             void RecursiveConvertIndexToDArray ( DArray <Key> *_darray, RedBlackNode<Key,Data> *_btree );

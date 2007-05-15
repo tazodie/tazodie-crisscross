@@ -358,14 +358,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\filesystem.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\crisscross\filesystem.h"
-				>
-			</File>
-			<File
 				RelativePath=".\mutex.cpp"
 				>
 				<FileConfiguration
@@ -640,6 +632,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\crisscross\node.h"
+				>
+			</File>
+			<File
 				RelativePath=".\crisscross\quicksort.cpp"
 				>
 				<FileConfiguration
@@ -716,10 +712,6 @@
 			</File>
 			<File
 				RelativePath=".\crisscross\sort.h"
-				>
-			</File>
-			<File
-				RelativePath=".\crisscross\tree.h"
 				>
 			</File>
 		</Filter>
