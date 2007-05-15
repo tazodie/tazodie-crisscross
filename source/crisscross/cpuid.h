@@ -16,14 +16,14 @@
 #include <crisscross/universal_include.h>
 #endif
 
-#    ifdef ENABLE_CPUID
+#ifdef ENABLE_CPUID
 
-#        ifdef TARGET_OS_WINDOWS
-#            include <windows.h>
-#        endif
+#   ifdef TARGET_OS_WINDOWS
+#       include <windows.h>
+#   endif
 
-#        include "darray.h"
-#        include "rbtree.h"
+#   include "darray.h"
+#   include "rbtree.h"
 
 class Feature
 {
@@ -69,7 +69,7 @@ class CPUID
 
   protected:
 
-#        ifdef TARGET_OS_WINDOWS
+#ifdef TARGET_OS_WINDOWS
 
     struct GoThreadProc_Params
     {
@@ -84,9 +84,9 @@ class CPUID
                        ( ( GoThreadProc_Params * ) lpParameter )->processor );
     };
     DWORD WINAPI GoThread ( LPVOID * params );
-#        else
+#else
     long int GoThread ( int processor );
-#        endif
+#endif
 
     void AddCacheDescription ( int processor, const char *description );
     void AddCacheData ( int processor, int x );
@@ -113,6 +113,6 @@ class CPUID
 
 };
 
-#    endif
+#endif
 
 #endif

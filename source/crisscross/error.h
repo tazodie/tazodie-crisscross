@@ -170,8 +170,10 @@ namespace CrissCross
         CC_ERR_NONE = 0                               //!< Everything is fine, nothing is ruined.
     };
 
+    //! Converts an errno number to a CrissCross::Errors value.
     CrissCross::Errors GetErrorNumber (int why);
 
+    //! Gets the name of the CrissCross::Errors value.
     const char *GetErrorDescription (CrissCross::Errors why);
 }
 

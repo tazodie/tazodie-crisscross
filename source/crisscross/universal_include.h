@@ -249,7 +249,7 @@ namespace CrissCross
     {
     }
     
-    //! The network communication class.
+    //! The network input/output namespace.
     /*!
         Contains classes which enable programmers to use TCP, UDP,
         and other network protocols to transfer data.

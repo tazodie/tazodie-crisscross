@@ -36,10 +36,15 @@ namespace CrissCross
             //! The size by which to increase the size of the array when there are no more empty nodes.
             /*!
                 If set to -1, it will double the size of the array each time the array grows.
+                \sa setStepSize
+                \sa setStepDouble
              */
             int            m_stepSize;
 
             //! The current size of the array.
+            /*!
+                \sa setSize
+             */
             int            m_arraySize;
 
             //! The number of used items in the array.
@@ -91,7 +96,8 @@ namespace CrissCross
 
             //! Sets the step size used in Grow().
             /*!
-                 \param _newstepsize The new step size to use.
+                \param _newstepsize The new step size to use.
+                \sa m_stepSize
              */
             void setStepSize ( int _newstepsize );
 
