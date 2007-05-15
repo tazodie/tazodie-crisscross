@@ -68,9 +68,6 @@ namespace CrissCross
                 \return An index in m_array.
              */
             int getNextFree     ();
-            
-            //template<T> friend class Sort;
-            //template<class T> friend class HeapSort;
 
         public:
 

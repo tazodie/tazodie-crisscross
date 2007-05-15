@@ -16,8 +16,6 @@
 #include <crisscross/rbtree.h>
 #include <crisscross/llist.h>
 
-#include <exception>
-
 using namespace std;
 using namespace CrissCross::Debug;
 using namespace CrissCross::IO;
@@ -42,8 +40,8 @@ ParseMemoryLeakFile ( const char *_inputFilename,
     // Start up
     //
 
-    RedBlackTree<std::string,int> combined;
-    RedBlackTree<std::string,int> frequency;
+    std::map<std::string,int> combined;
+    std::map<std::string,int> frequency;
     int unrecognised = 0;
 
     //
@@ -65,6 +63,7 @@ ParseMemoryLeakFile ( const char *_inputFilename,
             // Get the size
 
             char *lastcomma = strrchr ( thisline, ',' );
+            if ( lastcomma == 0 ) continue;
             char *ssize = lastcomma + 2;
             int size;
             char unused[32];
@@ -73,26 +72,22 @@ ParseMemoryLeakFile ( const char *_inputFilename,
 
             // Get the source file name
 
-            char *sourcelocation = thisline;
+            std::string sourcelocation = string(thisline);
             char *colon = strrchr ( thisline, ':' );
 
             *( colon - 1 ) = '\x0';
 
             // Put the result into our BTree
 
-            BinaryNode<std::string,int> *node =
-                combined.findNode ( sourcelocation );
-            if ( node )
-                ( ( int ) node->data ) += size;
+            if ( combined.find(sourcelocation) != combined.end() )
+                combined[sourcelocation] += size;
             else
-                combined.insert ( sourcelocation, size );
+                combined[sourcelocation] = size;
 
-            BinaryNode<std::string,int> *freq =
-                frequency.findNode ( sourcelocation );
-            if ( freq )
-                ( ( int ) freq->data )++;
+            if ( frequency.find(sourcelocation) != frequency.end() )
+                frequency[sourcelocation]++;
             else
-                frequency.insert ( sourcelocation, 1 );
+                frequency[sourcelocation] = 1;
 
         }
         else
@@ -120,38 +115,38 @@ ParseMemoryLeakFile ( const char *_inputFilename,
     // Sort the results into a list
     //
 
-    DArray <int> *sizes = combined.ConvertToDArray ();
-    DArray <std::string> *sources = combined.ConvertIndexToDArray ();
-    LList <std::string> sorted;
+    //DArray <int> *sizes = combined.ConvertToDArray ();
+    //DArray <std::string> *sources = combined.ConvertIndexToDArray ();
+    std::list<std::string> sorted;
+
     int totalsize = 0;
 
-    for ( int i = 0; i < sources->size (); ++i )
+    std::map<std::string,int>::iterator cit;
+    for ( cit = combined.begin(); cit != combined.end (); ++cit )
     {
-        std::string newsource = sources->getData ( i );
-        int newsize = sizes->getData ( i );
+        std::string newsource = cit->first;
+        int newsize = cit->second;
 
         totalsize += newsize;
         bool inserted = false;
 
-        for ( int j = 0; j < sorted.size (); ++j )
+        std::list<std::string>::iterator sit;
+        for ( sit = sorted.begin(); sit != sorted.end(); ++sit )
         {
 
-            std::string existingsource = sorted.getData ( j );
-            int existingsize = combined.find ( existingsource );
+            std::string existingsource = *sit;
+            int existingsize = combined.find ( existingsource )->second;
 
             if ( newsize <= existingsize )
             {
-
-                sorted.insert_at ( newsource, j );
+                sorted.insert ( sit, newsource );
                 inserted = true;
                 break;
-
             }
-
         }
 
         if ( !inserted )
-            sorted.insert_back ( newsource );
+            sorted.push_back ( newsource );
     }
 
 
@@ -172,12 +167,13 @@ ParseMemoryLeakFile ( const char *_inputFilename,
         fprintf ( output, "Total unrecognised memory leaks : %d Kbytes\n\n",
             int ( unrecognised / 1024 ) );
 
-        for ( int k = sorted.size () - 1; k >= 0; --k )
+        std::list<std::string>::reverse_iterator k;
+        for ( k = sorted.rbegin(); k != sorted.rend(); ++k )
         {
 
-            std::string source = sorted.getData ( k );
-            int size = combined.find ( source );
-            int freq = frequency.find ( source );
+            std::string source = *k;
+            int size = combined.find ( source )->second;
+            int freq = frequency.find ( source )->second;
 
             if ( size > 2048 )
             {
@@ -197,9 +193,6 @@ ParseMemoryLeakFile ( const char *_inputFilename,
 
         fclose ( output );
     }
-
-    delete sources;
-    delete sizes;
 }
 
 

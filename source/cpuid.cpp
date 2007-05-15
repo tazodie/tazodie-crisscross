@@ -13,7 +13,7 @@
 
 #ifdef ENABLE_CPUID
 
-#    include <crisscross/core_cpuid.h>
+#    include <crisscross/cpuid.h>
 #    include <crisscross/core_io.h>
 
 #    define FPU_FLAG 0x0001
@@ -235,7 +235,7 @@ CPUID::~CPUID ()
         }
         j = 0;
         
-        BinaryNode<std::string, Feature *> *node;
+        RedBlackNode<std::string, Feature *> *node;
 
         node = proc[i]->features.rootNode;
         node->beenThere = RedBlackTree <std::string, Feature *>::NODE_ITSELF_VISITED;
