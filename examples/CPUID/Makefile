@@ -28,6 +28,9 @@ all: $(OUTDIR)/$(OUTBIN)
 
 precomp: $(GCH)
 
+test: $(OUTDIR)/$(OUTBIN)
+	LD_LIBRARY_PATH="$(OUTDIR)" $(OUTDIR)/$(OUTBIN)
+
 memcheck: $(OUTDIR)/$(OUTBIN)
 	LD_LIBRARY_PATH="$(OUTDIR)" valgrind --leak-check=full --db-command='gdb --nw %f %p' --db-attach=yes -v $(OUTDIR)/$(OUTBIN)
 

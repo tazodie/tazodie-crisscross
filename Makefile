@@ -16,7 +16,7 @@ testsuite: main
 	+$(MAKE) -C TestSuite
 
 test: testsuite
-	cd TestSuite; LD_LIBRARY_PATH="../source" ./crisscross-test;
+	$(MAKE) -C TestSuite test
 
 memcheck: testsuite
 	$(MAKE) -C TestSuite memcheck
