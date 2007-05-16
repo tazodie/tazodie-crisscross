@@ -1,3 +1,5 @@
+# CrissCross makefile
+
 include common.mk
 
 all: main

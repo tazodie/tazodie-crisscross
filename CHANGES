@@ -2,6 +2,7 @@ VERSION 0.6.0
     * CrissCross test suite added (tests a majority of the features).
 	* Added QuickSort and CombSort.
 	* Doxygen config updated to v1.5.2
+	* Enabled man page generation on Doxygen config.
 	* Documentation updated and clarified.
 	* Fastdep and CCDV removed.
 	* New build number system added (based on SVN revision number).
@@ -10,7 +11,7 @@ VERSION 0.6.0
 	* Visual C++ 6.0 project removed.
 	* Headers in all files reduced in size.
 	* New CoreIOReader ReadLine added.
-	* Flush added in CoreIOWriter::Write (some platforms wouldn't display it until a newline).
+	* Flush added in CoreIOWriter::Write (some platforms wouldn't display written data until a newline).
 	* Winsock 2.2 is now used in Windows builds (instead of 2.0)
 	* CoreSocket::Close no longer attempts to close an invalid socket (which would cause errno to give an error value).
 	* Various UDPSocket functions no longer return false errors.
@@ -26,6 +27,7 @@ VERSION 0.6.0
 	* A dangerous flaw in the Stopwatch class causing a crash and a bad compile was corrected.
 	* Platform detection improved and cleaned up.
 	* Made several changes for GCC 4.3.0 (SVN) compatibility.
+	* Gentoo ebuild is available on uplinklabs.net portage overlay.
 
 VERSION 0.5.2
     * Split CoreIO into CoreIOReader and CoreIOWriter.
