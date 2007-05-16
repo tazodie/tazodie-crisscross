@@ -44,7 +44,7 @@ int TestCombSort_DArray()
     darray->insert ( 1 );
     
     CombSort<int> *hs = new CombSort<int>();
-    darray->Sort ( hs );
+    darray->sort ( hs );
     delete hs;
     
     for ( int i = 0; i < 5; i++ )

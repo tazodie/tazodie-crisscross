@@ -44,7 +44,7 @@ int TestQuickSort_DArray()
     darray->insert ( 1 );
     
     QuickSort<int> *hs = new QuickSort<int>();
-    darray->Sort ( hs );
+    darray->sort ( hs );
     delete hs;
     
     for ( int i = 0; i < 5; i++ )

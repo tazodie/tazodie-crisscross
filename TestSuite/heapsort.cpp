@@ -44,7 +44,7 @@ int TestHeapSort_DArray()
     darray->insert ( 1 );
     
     HeapSort<int> *hs = new HeapSort<int>();
-    darray->Sort ( hs );
+    darray->sort ( hs );
     delete hs;
     
     for ( int i = 0; i < 5; i++ )
