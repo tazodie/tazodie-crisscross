@@ -45,7 +45,7 @@ else
 GCH = build_number.h
 endif
 
-all: .depend precomp $(OUTDIR)/$(OUTBIN)
+all: precomp $(OUTDIR)/$(OUTBIN)
 
 precomp: $(GCH)
 
@@ -66,7 +66,6 @@ install: $(OUTDIR)/$(OUTBIN)
 
 clean:
 	-rm -rf obj
-	-rm -f .depend
 	-rm -rf .libs
 	-rm -f crisscross/build_number.h
 	-rm -f $(OUTDIR)/$(OUTBIN)
@@ -104,12 +103,3 @@ $(OBJDIR)/%.o: %.cpp
 $(OBJDIR)/%.o: %.c
 	@test -d $(dir $(OBJDIR)/$<) || mkdir -p $(dir $(OBJDIR)/$<)
 	$(CC) $(CXXFLAGS) -c $< -o $@
-
-.depend:
-ifeq ($(GCC_ISEMULATED),yes)
-	../contrib/fastdep-0.15/fastdep --remakedeptarget=.depend $(SOURCES) > .depend
-endif
-
-ifneq ($(MAKECMDGOALS),clean)	
--include .depend
-endif

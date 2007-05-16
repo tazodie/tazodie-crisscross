@@ -1,6 +1,6 @@
 # CrissCross common makefile options.
 
-VERSION = 0.5.9999
+VERSION = 0.6.0
 VERSION_MAJOR = 0
 
 ifeq ($(CXX),)
