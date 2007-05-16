@@ -7,15 +7,18 @@ all: main
 main:
 	+$(MAKE) -C source precomp
 	+$(MAKE) -C source
+	
+example:
+	+$(MAKE) -C examples
 
-testapp: main
+testsuite: main
 	+$(MAKE) -C TestSuite precomp
 	+$(MAKE) -C TestSuite
 
-test: testapp
+test: testsuite
 	cd TestSuite; LD_LIBRARY_PATH="../source" ./crisscross-test;
 
-memcheck: testapp
+memcheck: testsuite
 	$(MAKE) -C TestSuite memcheck
 
 install:
@@ -23,6 +26,7 @@ install:
 
 clean:
 	$(MAKE) -C source clean
+	$(MAKE) -C examples clean
 	$(MAKE) -C TestSuite clean
 
 distclean: clean

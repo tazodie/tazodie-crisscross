@@ -1,33 +1,33 @@
 VERSION 0.6.0
     * CrissCross test suite added (tests a majority of the features).
-	* Added QuickSort and CombSort.
-	* Doxygen config updated to v1.5.2
-	* Enabled man page generation on Doxygen config.
-	* Documentation updated and clarified.
-	* Fastdep and CCDV removed.
-	* New build number system added (based on SVN revision number).
-	* Visual C++ 2003 project added.
-	* XCode project added.
-	* Visual C++ 6.0 project removed.
-	* Headers in all files reduced in size.
-	* New CoreIOReader ReadLine added.
-	* Flush added in CoreIOWriter::Write (some platforms wouldn't display written data until a newline).
-	* Winsock 2.2 is now used in Windows builds (instead of 2.0)
-	* CoreSocket::Close no longer attempts to close an invalid socket (which would cause errno to give an error value).
-	* Various UDPSocket functions no longer return false errors.
-	* SDL_APPLICATION preprocessor definition available for SDL applications with the SDLmain entry point.
-	* Windows memory leak checking improved and no longer causes weird crashes.
-	* Switched to STL for memory leak check file parsing.
-	* Stale ENABLE_DEBUGLOG #ifdefs removed.
-	* Option to disable C++ exception handler (decreases executable size among other things) available now.
-	* CrissCross::Data::Compare is now a template function.
-	* CoreMutex is now called Mutex.
-	* CoreConsole is now called Console.
-	* DArray, LList and RedBlackTree function calls are converted to a more standard naming system.
-	* A dangerous flaw in the Stopwatch class causing a crash and a bad compile was corrected.
-	* Platform detection improved and cleaned up.
-	* Made several changes for GCC 4.3.0 (SVN) compatibility.
-	* Gentoo ebuild is available on uplinklabs.net portage overlay.
+    * Added QuickSort and CombSort.
+    * Doxygen config updated to v1.5.2
+    * Enabled man page generation on Doxygen config.
+    * Documentation updated and clarified.
+    * Fastdep and CCDV removed.
+    * New build number system added (based on SVN revision number).
+    * Visual C++ 2003 project added.
+    * XCode project added.
+    * Visual C++ 6.0 project removed.
+    * Headers in all files reduced in size.
+    * New CoreIOReader ReadLine added.
+    * Flush added in CoreIOWriter::Write (some platforms wouldn't display written data until a newline).
+    * Winsock 2.2 is now used in Windows builds (instead of 2.0)
+    * CoreSocket::Close no longer attempts to close an invalid socket (which would cause errno to give an error value).
+    * Various UDPSocket functions no longer return false errors.
+    * SDL_APPLICATION preprocessor definition available for SDL applications with the SDLmain entry point.
+    * Windows memory leak checking improved and no longer causes weird crashes.
+    * Switched to STL for memory leak check file parsing.
+    * Stale ENABLE_DEBUGLOG #ifdefs removed.
+    * Option to disable C++ exception handler (decreases executable size among other things) available now.
+    * CrissCross::Data::Compare is now a template function.
+    * CoreMutex is now called Mutex.
+    * CoreConsole is now called Console.
+    * DArray, LList and RedBlackTree function calls are converted to a more standard naming system.
+    * A dangerous flaw in the Stopwatch class causing a crash and a bad compile was corrected.
+    * Platform detection improved and cleaned up.
+    * Made several changes for GCC 4.3.0 (SVN) compatibility.
+    * Gentoo ebuild is available on uplinklabs.net portage overlay.
 
 VERSION 0.5.2
     * Split CoreIO into CoreIOReader and CoreIOWriter.

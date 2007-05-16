@@ -1,22 +1,12 @@
-include ../common.mk
+include ../../common.mk
 
 OBJDIR = obj/linux
 OUTDIR = .
-OUTNAME = crisscross-test
+OUTNAME = cpuid
 OUTBIN = $(OUTNAME)
 
 SOURCES = \
-testutils.cpp \
-stopwatch.cpp \
-datatypes.cpp \
-compare.cpp \
-llist.cpp \
-rbtree.cpp \
-dstack.cpp \
-darray.cpp \
-combsort.cpp \
-heapsort.cpp \
-quicksort.cpp \
+header.cpp \
 main.cpp
 
 OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)
@@ -24,9 +14,9 @@ OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)
 ifneq ($(CC_BUILDSTATIC),yes)
 LINK += -rdynamic
 else
-LINK += -L../source
+LINK += -L../../source
 endif
-INCLUDES += -I. -I../source
+INCLUDES += -I. -I../../source
 CXXFLAGS += $(INCLUDES)
 
 ifeq ($(GCC_MAJOR),4)
@@ -55,12 +45,12 @@ clean:
 	
 $(OUTDIR)/$(OUTBIN): $(OBJECTS)
 ifneq ($(CC_BUILDSTATIC),yes)
-	$(LINK) $+ -lpthread -lstdc++ -L../source -lCrissCross -o $(OUTDIR)/$(OUTBIN)
-	ln -sf ../source/$(LIBNAME).$(VERSION) $(LIBNAME)
-	ln -sf ../source/$(LIBNAME).$(VERSION) $(LIBNAME).$(VERSION_MAJOR)
-	ln -sf ../source/$(LIBNAME).$(VERSION) $(LIBNAME).$(VERSION)
+	$(LINK) $+ -lpthread -lstdc++ -L../../source -lCrissCross -o $(OUTDIR)/$(OUTBIN)
+	ln -sf ../../source/$(LIBNAME).$(VERSION) $(LIBNAME)
+	ln -sf ../../source/$(LIBNAME).$(VERSION) $(LIBNAME).$(VERSION_MAJOR)
+	ln -sf ../../source/$(LIBNAME).$(VERSION) $(LIBNAME).$(VERSION)
 else
-	ln -sf ../source/$(LIBNAME) $(LIBNAME)
+	ln -sf ../../source/$(LIBNAME) $(LIBNAME)
 	$(LINK) $+ -lpthread -lstdc++ libCrissCross-$(VERSION).a -o $(OUTDIR)/$(OUTBIN)
 endif
 ifneq ($(GCC_ISEMULATED),yes)
