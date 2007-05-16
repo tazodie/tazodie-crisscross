@@ -13,8 +13,8 @@ cd $1
 BUILD=`svn info | grep "Revision" | sed 's/Revision: //g'`
 
 if [ "${BUILD}x" == "x" ]; then
-	echo "Build number couldn't be detected!"
-	exit 1
+	echo "Build number couldn't be detected, defaulting to 0!"
+	BUILD=0
 else
 	echo "Build number ${BUILD} detected, creating header..."
 fi
