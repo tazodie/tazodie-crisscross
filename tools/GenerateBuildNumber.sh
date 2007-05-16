@@ -4,7 +4,7 @@ echo "Generating build_number.h..."
 
 if [ "$#" -lt "1" ]; then
 	echo "No path specified."
-	exit 1;
+	exit 1
 fi
 
 echo "Changing directory to '$1'..."
@@ -13,8 +13,8 @@ cd $1
 BUILD=`svn info | grep "Revision" | sed 's/Revision: //g'`
 
 if [ "${BUILD}x" == "x" ]; then
-	echo "Build number couldn't be detected, defaulting to 0!"
-	BUILD=0
+	echo "Build number couldn't be detected!"
+	exit 1
 else
 	echo "Build number ${BUILD} detected, creating header..."
 fi
