@@ -8,6 +8,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestSuite", "TestSuite\Test
 		{9520273D-42A8-4E63-A2DC-C209AAAC2B6A} = {9520273D-42A8-4E63-A2DC-C209AAAC2B6A}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CPUID", "examples\CPUID\CPUID_vs2003.vcproj", "{FD12E5A5-E163-4337-AD48-0B5A1F093CB9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9520273D-42A8-4E63-A2DC-C209AAAC2B6A} = {9520273D-42A8-4E63-A2DC-C209AAAC2B6A}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(DPCodeReviewSolutionGUID) = preSolution
 		DPCodeReviewSolutionGUID = {00000000-0000-0000-0000-000000000000}
@@ -27,6 +32,10 @@ Global
 		{E445B4EF-9B58-41CE-B68A-EA56DDFF5746}.Debug.Build.0 = Debug|Win32
 		{E445B4EF-9B58-41CE-B68A-EA56DDFF5746}.Release.ActiveCfg = Release|Win32
 		{E445B4EF-9B58-41CE-B68A-EA56DDFF5746}.Release.Build.0 = Release|Win32
+		{FD12E5A5-E163-4337-AD48-0B5A1F093CB9}.Debug.ActiveCfg = Debug|Win32
+		{FD12E5A5-E163-4337-AD48-0B5A1F093CB9}.Debug.Build.0 = Debug|Win32
+		{FD12E5A5-E163-4337-AD48-0B5A1F093CB9}.Release.ActiveCfg = Release|Win32
+		{FD12E5A5-E163-4337-AD48-0B5A1F093CB9}.Release.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
