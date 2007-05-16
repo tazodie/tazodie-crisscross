@@ -329,7 +329,7 @@ int DArray < T >::findData ( const T & newdata )
 }
 
 template < class T >
-void DArray < T >::Sort ( Sorter<T> *_sortMethod )
+void DArray < T >::sort ( Sorter<T> *_sortMethod )
 {
     T *temp_array = new T[m_numUsed];
     T *temp_ptr = temp_array;
@@ -346,7 +346,6 @@ void DArray < T >::Sort ( Sorter<T> *_sortMethod )
     
     delete [] m_shadow;
     m_shadow = new char[m_numUsed];
-    memset ( m_shadow, 0, m_numUsed );
     memset ( m_shadow, 1, m_numUsed );
     
     delete [] m_array;
