@@ -57,9 +57,8 @@ ParseMemoryLeakFile ( const char *_inputFilename,
         memoryfile.getline ( thisline, 1024 );
 
         if ( !strncmp ( thisline, " Data:", 6 ) == 0 &&    // This line is a data line - useless to us
-             strchr ( thisline, ':' ) )
-        {                        // This line does not have a source file location - useless to us
-
+             strchr ( thisline, ':' ) )                    // This line does not have a source file location - useless to us
+        {
             // Get the size
 
             char *lastcomma = strrchr ( thisline, ',' );
@@ -115,8 +114,6 @@ ParseMemoryLeakFile ( const char *_inputFilename,
     // Sort the results into a list
     //
 
-    //DArray <int> *sizes = combined.ConvertToDArray ();
-    //DArray <std::string> *sources = combined.ConvertIndexToDArray ();
     std::list<std::string> sorted;
 
     int totalsize = 0;
