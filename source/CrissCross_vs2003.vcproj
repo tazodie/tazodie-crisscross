@@ -271,12 +271,6 @@
 				RelativePath=".\crisscross\debug.h">
 			</File>
 			<File
-				RelativePath=".\filesystem.cpp">
-			</File>
-			<File
-				RelativePath=".\crisscross\filesystem.h">
-			</File>
-			<File
 				RelativePath=".\mutex.cpp">
 				<FileConfiguration
 					Name="Release|Win32">
