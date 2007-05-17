@@ -12,10 +12,7 @@
 #ifndef __included_cc_crisscross_h
 #define __included_cc_crisscross_h
 
-#include <stdio.h>
-#include <stdlib.h>
-
-#include <crisscross/platform_detect.h>
+#include <crisscross/universal_include.h>
 
 #include <crisscross/sort.h>
 #include <crisscross/heapsort.h>
