@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __included_version_h
-#define __included_version_h
+#ifndef __included_cc_version_h
+#define __included_cc_version_h
 
 namespace CrissCross
 {

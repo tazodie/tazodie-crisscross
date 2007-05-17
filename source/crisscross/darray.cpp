@@ -9,7 +9,7 @@
  *
  */
 
-#ifndef __included_darray_h
+#ifndef __included_cc_darray_h
 #   error "This file shouldn't be compiled directly."
 #endif
 

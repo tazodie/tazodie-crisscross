@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __included_tree_h
-#define __included_tree_h
+#ifndef __included_cc_node_h
+#define __included_cc_node_h
 
 namespace CrissCross
 {

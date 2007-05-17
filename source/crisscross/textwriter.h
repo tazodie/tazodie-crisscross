@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __included_textwriter_h
-#define __included_textwriter_h
+#ifndef __included_cc_textwriter_h
+#define __included_cc_textwriter_h
 
 #include <crisscross/error.h>
 

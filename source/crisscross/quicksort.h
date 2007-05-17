@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __included_quicksort_h
-#define __included_quicksort_h
+#ifndef __included_cc_quicksort_h
+#define __included_cc_quicksort_h
 
 #include <crisscross/sort.h>
 

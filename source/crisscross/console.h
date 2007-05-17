@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __included_core_console_h
-#define __included_core_console_h
+#ifndef __included_cc_console_h
+#define __included_cc_console_h
 
 #include <crisscross/core_io.h>
 

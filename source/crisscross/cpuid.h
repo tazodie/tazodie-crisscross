@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __included_core_cpuid_h
-#define __included_core_cpuid_h
+#ifndef __included_cc_cpuid_h
+#define __included_cc_cpuid_h
 
 #ifndef __GNUC__
 #include <crisscross/universal_include.h>

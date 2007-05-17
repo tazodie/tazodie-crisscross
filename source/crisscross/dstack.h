@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __included_dstack_h
-#define __included_dstack_h
+#ifndef __included_cc_dstack_h
+#define __included_cc_dstack_h
 
 namespace CrissCross
 {

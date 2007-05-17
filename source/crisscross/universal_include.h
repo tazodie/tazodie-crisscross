@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __included_crisscross_universal_include_h
-#define __included_crisscross_universal_include_h
+#ifndef __included_cc_universal_include_h
+#define __included_cc_universal_include_h
 
 #include <crisscross/build_number.h>
 

@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __included_deprecate_h
-#define __included_deprecate_h
+#ifndef __included_cc_deprecate_h
+#define __included_cc_deprecate_h
 
 //#   define _CC_NO_DEPRECATE
 //#   define _CC_ONLY_DEPRECATE_SLOW

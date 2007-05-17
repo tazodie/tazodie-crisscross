@@ -9,7 +9,7 @@
  *
  */
 
-#ifndef __included_heapsort_h
+#ifndef __included_cc_heapsort_h
 #   error "This file shouldn't be compiled directly."
 #endif
 

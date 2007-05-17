@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __included_udpsocket_h
-#define __included_udpsocket_h
+#ifndef __included_cc_udpsocket_h
+#define __included_cc_udpsocket_h
 
 #include <crisscross/error.h>
 #include <crisscross/core_socket.h>

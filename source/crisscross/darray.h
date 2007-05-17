@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __included_darray_h
-#define __included_darray_h
+#ifndef __included_cc_darray_h
+#define __included_cc_darray_h
 
 #include <crisscross/deprecate.h>
 #include <crisscross/darray.h>

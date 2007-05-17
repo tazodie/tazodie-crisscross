@@ -9,8 +9,7 @@
  *
  */
 
-
-#ifndef __included_rbtree_h
+#ifndef __included_cc_rbtree_h
 #   error "This file shouldn't be compiled directly."
 #endif
 

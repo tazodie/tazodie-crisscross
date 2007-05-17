@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __included_core_io_reader_h
-#define __included_core_io_reader_h
+#ifndef __included_cc_core_io_reader_h
+#define __included_cc_core_io_reader_h
 
 #include <crisscross/error.h>
 #include <crisscross/mutex.h>
