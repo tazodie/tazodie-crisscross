@@ -45,8 +45,8 @@ TARGET_COMPILER_ICC
 
  */
 
-#ifndef __crisscross_platform_detect_h_included
-#define __crisscross_platform_detect_h_included
+#ifndef __included_cc_platform_detect_h
+#define __included_cc_platform_detect_h
 
 #   undef PROCESSOR_DETECTED
 #   undef COMPILER_DETECTED

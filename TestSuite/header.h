@@ -12,9 +12,7 @@
 #ifndef __included_header_h
 #define __included_header_h
 
-#include <crisscross/universal_include.h>
-#include <crisscross/debug.h>
-#include <crisscross/version.h>
+#include <crisscross/crisscross.h>
 
 #endif
 

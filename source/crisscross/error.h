@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __included_core_error_h
-#define __included_core_error_h
+#ifndef __included_cc_error_h
+#define __included_cc_error_h
 
 namespace CrissCross
 {

@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __included_core_debug_h
-#define __included_core_debug_h
+#ifndef __included_cc_debug_h
+#define __included_cc_debug_h
 
 #include <crisscross/console.h>
 

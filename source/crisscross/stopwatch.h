@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __included_stopwatch_h
-#define __included_stopwatch_h
+#ifndef __included_cc_stopwatch_h
+#define __included_cc_stopwatch_h
 
 #ifndef __GNUC__
 #include <crisscross/universal_include.h>

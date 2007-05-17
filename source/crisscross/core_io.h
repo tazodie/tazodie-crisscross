@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __included_core_io_h
-#define __included_core_io_h
+#ifndef __included_cc_core_io_h
+#define __included_cc_core_io_h
 
 #ifndef __GNUC__
 #include <crisscross/universal_include.h>

@@ -9,6 +9,9 @@
  *
  */
 
+#ifndef __included_cc_compare_h
+#define __included_cc_compare_h
+
 namespace CrissCross
 {
     namespace Data
@@ -32,3 +35,5 @@ namespace CrissCross
         }
     }
 }
+
+#endif

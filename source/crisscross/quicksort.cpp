@@ -9,7 +9,7 @@
  *
  */
 
-#ifndef __included_quicksort_h
+#ifndef __included_cc_quicksort_h
 #   error "This file shouldn't be compiled directly."
 #endif
 

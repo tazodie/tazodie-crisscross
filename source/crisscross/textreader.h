@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __included_textreader_h
-#define __included_textreader_h
+#ifndef __included_cc_textreader_h
+#define __included_cc_textreader_h
 
 #include <crisscross/error.h>
    

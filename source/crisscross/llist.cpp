@@ -9,7 +9,7 @@
  *
  */
 
-#ifndef __included_llist_h
+#ifndef __included_cc_llist_h
 #   error "This file shouldn't be compiled directly."
 #endif
 

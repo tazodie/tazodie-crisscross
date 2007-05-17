@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __included_core_io_writer_h
-#define __included_core_io_writer_h
+#ifndef __included_cc_core_io_writer_h
+#define __included_cc_core_io_writer_h
 
 #include <crisscross/error.h>
 #include <crisscross/mutex.h>

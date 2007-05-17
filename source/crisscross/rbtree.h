@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __included_rbtree_h
-#define __included_rbtree_h
+#ifndef __included_cc_rbtree_h
+#define __included_cc_rbtree_h
 
 #include <crisscross/deprecate.h>
 #include <crisscross/darray.h>

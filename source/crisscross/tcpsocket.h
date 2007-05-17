@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __included_tcpsocket_h
-#define __included_tcpsocket_h
+#ifndef __included_cc_tcpsocket_h
+#define __included_cc_tcpsocket_h
 
 #include <crisscross/core_socket.h>
 

@@ -18,8 +18,6 @@
 #include <math.h>
 #include <time.h>
 
-#include <crisscross/universal_include.h>
-#include <crisscross/console.h>
-#include <crisscross/cpuid.h>
+#include <crisscross/crisscross.h>
 
 #endif

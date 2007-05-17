@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __included_core_network_h
-#define __included_core_network_h
+#ifndef __included_cc_core_network_h
+#define __included_cc_core_network_h
 
 #include <crisscross/error.h>
 

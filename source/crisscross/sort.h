@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __included_sort_h
-#define __included_sort_h
+#ifndef __included_cc_sort_h
+#define __included_cc_sort_h
 
 #include <crisscross/compare.h>
 
