@@ -17,6 +17,27 @@
 
 using namespace CrissCross;
 
+int TestComparison_CString()
+{	
+    char *greaterString = "beta";
+	char *lesserString = "alpha";
+	char *dupLesserString = new char[strlen(lesserString) + 1];
+    strcpy ( dupLesserString, lesserString );
+	
+	if ( Data::Compare ( lesserString, greaterString ) != -1 )
+		return 1;
+	
+	if ( Data::Compare ( greaterString, lesserString ) != 1 )
+		return 2;
+	
+	if ( Data::Compare ( lesserString, dupLesserString ) != 0 )
+		return 3;
+        
+    delete [] dupLesserString;
+	
+	return 0;
+}
+
 int TestComparison_String()
 {	
     std::string greaterString("beta");
