@@ -80,7 +80,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = B0A626150BFA9088006F2B68 /* GenerateBuildNumber */;
+			remoteGlobalIDString = B0A626150BFA9088006F2B68;
 			remoteInfo = GenerateBuildNumber;
 		};
 /* End PBXContainerItemProxy section */
@@ -367,7 +367,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/bash\n\necho \"Generating build_number.h...\";\n\necho \"Changing directory to '$PROJECT_DIR/../source/crisscross/'...\";\ncd $PROJECT_DIR/../source/crisscross/\n\nBUILD=`/usr/local/bin/svn info | grep \"Revision\" | sed 's/Revision: //g'`\n\nif [ \"${BUILD}x\" == \"x\" ]; then\n        echo \"Build number couldn't be detected, defaulting to 0!\"\n        BUILD=0\nelse\n        echo \"Build number ${BUILD} detected, creating header...\"\nfi\n\necho \"#ifndef __included_build_number_h\" > build_number.h\necho \"#define __included_build_number_h\" >> build_number.h\necho \"\" >> build_number.h\necho \"#define BUILD_NUMBER ${BUILD}\" >> build_number.h\necho \"\" >> build_number.h\necho \"#endif\" >> build_number.h\necho \"\" >> build_number.h\n\nexit 0";
+			shellScript = "#!/bin/bash\n\necho \"Generating build_number.h...\";\n\necho \"Changing directory to '$PROJECT_DIR/../source/crisscross/'...\";\ncd $PROJECT_DIR/../source/crisscross/\n\nBUILD=`/usr/local/bin/svn info | grep \"Revision\" | sed 's/Revision: //g'`\n\nif [ \"${BUILD}x\" == \"x\" ]; then\n\techo \"Build number couldn't be detected, defaulting to 0!\"\n\tBUILD=0\nelse\n\techo \"Build number ${BUILD} detected, creating header...\"\nfi\n\necho \"#ifndef __included_build_number_h\" > build_number.h.tmp\necho \"#define __included_build_number_h\" >> build_number.h.tmp\necho \"\" >> build_number.h.tmp\necho \"#define BUILD_NUMBER ${BUILD}\" >> build_number.h.tmp\necho \"\" >> build_number.h.tmp\necho \"#endif\" >> build_number.h.tmp\necho \"\" >> build_number.h.tmp\n\nTEMPHEADERMD5=`md5 -q build_number.h.tmp`\nHEADERMD5=`md5 -q build_number.h`\n\nif [ \"${TEMPHEADERMD5}\" != \"${HEADERMD5}\" ]; then\n\techo \"Header updated.\"\n\tmv build_number.h.tmp build_number.h\nelse\n\techo \"Header is already up to date. Skipping update...\"\n\trm build_number.h.tmp\nfi\n\nexit 0";
 		};
 /* End PBXShellScriptBuildPhase section */
 
