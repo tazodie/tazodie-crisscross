@@ -10,7 +10,7 @@ fi
 echo "Changing directory to '$1'..."
 cd $1
 
-BUILD=`svn info | grep "Revision" | sed 's/Revision: //g'`
+BUILD=`svn --xml info | tr -d '\r\n' | sed -e 's/.*<commit.*revision="\([0-9]*\)".*<\/commit>.*/\1/'`
 
 if [ "${BUILD}x" == "x" ]; then
 	echo "Build number couldn't be detected, defaulting to 1!"
@@ -19,8 +19,10 @@ else
 	echo "Build number ${BUILD} detected, creating header..."
 fi
 
-echo "#ifndef __included_build_number_h" > build_number.h
-echo "#define __included_build_number_h" >> build_number.h
+PREINCLUDED="__included_build_number_h_${RANDOM}_${RANDOM}"
+
+echo "#ifndef ${PREINCLUDED}" > build_number.h
+echo "#define ${PREINCLUDED}" >> build_number.h
 echo "" >> build_number.h
 echo "#define BUILD_NUMBER ${BUILD}" >> build_number.h
 echo "" >> build_number.h
