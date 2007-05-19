@@ -17,7 +17,70 @@
 
 using namespace CrissCross::Data;
 
-int TestRedBlackTree_stdstring()
+int TestRedBlackTree_CString()
+{
+	RedBlackTree<char *, char*> *rbtree = new RedBlackTree<char *, char*>();
+	BinaryNode<char *, char*> *node = NULL;
+    char *tmp;
+	
+    // If the tree is properly encapsulated, this won't cause an error on test #1.
+    tmp = strdup ( "first" );
+	rbtree->insert ( tmp, "one" );
+    memset ( tmp, 0, 6 );
+    
+	rbtree->insert ( "second", "two" );
+	rbtree->insert ( "third", "three" );
+	rbtree->insert ( "fourth", "four" );
+	
+	if ( (node = rbtree->findNode ( "first" ) ) == NULL )
+		return 1;
+
+    tmp = "one";
+	if ( Compare ( node->data, tmp ) != 0 )
+		return 2;
+
+	if ( (node = rbtree->findNode ( "fifth" ) ) != NULL )
+		return 3;
+
+	if ( (node = rbtree->findNode ( "second" ) ) == NULL )
+		return 4;
+
+    tmp = "two";
+	if ( Compare ( node->data, tmp ) != 0 )
+		return 5;
+		
+	if ( rbtree->erase ( "fifth" ) == STATUS_OK )
+		return 6;
+	
+	if ( rbtree->find ( "first" ) == NULL )
+		return 7;
+	
+	if ( rbtree->erase ( "first" ) != STATUS_OK )
+		return 8;
+	
+    if ( rbtree->find ( "second" ) == NULL )
+		return 9;
+	
+	if ( rbtree->erase ("second") != STATUS_OK )
+		return 10;
+	
+	if ( rbtree->find ( "third") == NULL )
+		return 11;
+	
+	if ( rbtree->erase ("third") != STATUS_OK )
+		return 12;
+	
+	if ( rbtree->find ( "fourth") == NULL )
+		return 13;
+	
+	if ( rbtree->erase ("fourth") != STATUS_OK )
+		return 14;
+
+	delete rbtree;
+	return 0;
+}
+
+int TestRedBlackTree_String()
 {
 	RedBlackTree<std::string,std::string> *rbtree = new RedBlackTree<std::string,std::string>();
 	BinaryNode<std::string,std::string> *node = NULL;
