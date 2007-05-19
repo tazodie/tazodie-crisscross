@@ -15,6 +15,7 @@
 
 #include <stdlib.h>
 
+#include <crisscross/compare.h>
 #include <crisscross/debug.h>
 #include <crisscross/rbtree.h>
 
@@ -177,7 +178,7 @@ template <class Key, class Data>
     while ( current != NULL_NODE )
     {
         parent = current;
-        current = ( key <= current->id ) ?
+        current = ( Compare ( key, current->id ) <= 0 ) ?
             current->left : current->right;
     }
 
@@ -189,14 +190,14 @@ template <class Key, class Data>
     x->left = NULL_NODE;
     x->right = NULL_NODE;
     x->color = RED;
-    x->id = key;
+	Duplicate ( (Key &)key, x->id );
     x->data = rec;
     x->beenThere = NODE_ITSELF_VISITED;
 
     /* insert node in tree */
     if ( parent != NULL )
     {
-        if ( key <= parent->id )
+        if ( Compare ( key, parent->id ) <= 0 )
             parent->left = x;
         else
             parent->right = x;
@@ -297,12 +298,12 @@ template <class Key, class Data>
 
     while ( z != NULL_NODE )
     {
-        if ( key == z->id )
+        if ( Compare ( key, z->id ) == 0 )
             break;
         else
         {
             parent = z;
-            z = ( key <= z->id ) ? z->left : z->right;
+            z = ( Compare ( key, z->id ) <= 0 ) ? z->left : z->right;
         }
     }
 
@@ -358,6 +359,7 @@ template <class Key, class Data>
     if ( y->color == BLACK )
         deleteFixup ( x );
 
+	Dealloc ( y->id );
     delete y;
 
     return STATUS_OK;
@@ -493,13 +495,13 @@ template <class Key, class Data>
 
     while ( current != NULL_NODE )
     {
-        if ( key == current->id )
+        if ( Compare ( key, current->id ) == 0 )
         {
             return current->data;
         }
         else
         {
-            current = ( key <= current->id ) ?
+            current = ( Compare ( key, current->id ) <= 0 ) ?
                 current->left : current->right;
         }
     }
@@ -513,13 +515,13 @@ template <class Key, class Data>
     RedBlackNode<Key,Data> * current = rootNode;
     while ( current != NULL_NODE )
     {
-        if ( key == current->id )
+        if ( Compare ( key, current->id ) == 0 )
         {
             return current;
         }
         else
         {
-            current = ( key <= current->id ) ? current->left : current->right;
+            current = ( Compare ( key, current->id ) <= 0 ) ? current->left : current->right;
         }
     }
 
@@ -547,6 +549,7 @@ template <class Key, class Data>
             rec->parent->right = NULL_NODE;
     }
 
+	Dealloc ( rec->id );
     delete rec;
 }
 
