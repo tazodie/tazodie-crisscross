@@ -32,6 +32,38 @@ namespace CrissCross
             STATUS_MEM_EXHAUSTED        //!< Out of memory.
         } statusEnum;
 
+		template <class T>
+			__inline void Duplicate ( T &_data, T &_destination )
+		{
+			_destination = _data;
+		}
+
+		template <>
+			__inline void Duplicate<char *> ( char *&_data, char *&_destination )
+		{
+			_destination = strdup ( _data );
+		}
+
+		template <>
+			__inline void Duplicate<const char *> ( const char *&_data, const char *&_destination )
+		{
+			_destination = strdup ( _data );
+		}
+
+		template <class T>
+			__inline void Dealloc ( T &key )
+		{
+			return;
+		}
+
+		template <>
+			__inline void Dealloc<char *> ( char *&key )
+		{
+			// Deallocates char* keys.
+			free ( key );
+			key = NULL;
+		}
+
         //! A very fast red-black tree implementation.
         template < class Key, class Data >
         class RedBlackTree
@@ -114,25 +146,6 @@ namespace CrissCross
             //inline Data &operator [] ( const Key &_key ) { return findNode(_key)->data; };
 
         protected:
-            inline char *reallocKey ( char *_pointer, char *_a );
-            inline int *reallocKey ( int *_pointer, int *_a );
-            inline unsigned long *reallocKey ( unsigned long *_pointer, unsigned long *_a );
-
-            inline char *newKey ( const char *_a );
-            inline int *newKey ( const int *_a );
-            inline unsigned long *newKey ( const unsigned long *_a );
-
-            inline bool compLT ( const char *_a, const char *_b ) const;
-            inline bool compLTEQ ( const char *_a, const char *_b ) const;
-            inline bool compEQ ( const char *_a, const char *_b ) const;
-
-            inline bool compLT ( const int *_a, const int *_b ) const;
-            inline bool compLTEQ ( const int *_a, const int *_b ) const;
-            inline bool compEQ ( const int *_a, const int *_b ) const;
-
-            inline bool compLT ( const unsigned long *_a, const unsigned long *_b ) const;
-            inline bool compLTEQ ( const unsigned long *_a, const unsigned long *_b ) const;
-            inline bool compEQ ( const unsigned long *_a, const unsigned long *_b ) const;
 
             /*
             these are automatically called. no need to use them externally at all.
