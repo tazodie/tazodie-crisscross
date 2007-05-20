@@ -32,38 +32,6 @@ namespace CrissCross
             STATUS_MEM_EXHAUSTED        //!< Out of memory.
         } statusEnum;
 
-		template <class T>
-			__inline void Duplicate ( T &_data, T &_destination )
-		{
-			_destination = _data;
-		}
-
-		template <>
-			__inline void Duplicate<char *> ( char *&_data, char *&_destination )
-		{
-			_destination = strdup ( _data );
-		}
-
-		template <>
-			__inline void Duplicate<const char *> ( const char *&_data, const char *&_destination )
-		{
-			_destination = strdup ( _data );
-		}
-
-		template <class T>
-			__inline void Dealloc ( T &key )
-		{
-			return;
-		}
-
-		template <>
-			__inline void Dealloc<char *> ( char *&key )
-		{
-			// Deallocates char* keys.
-			free ( key );
-			key = NULL;
-		}
-
         //! A very fast red-black tree implementation.
         template < class Key, class Data >
         class RedBlackTree
