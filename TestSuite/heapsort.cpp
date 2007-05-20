@@ -21,16 +21,16 @@ using namespace CrissCross::Data;
 
 int TestHeapSort_IntArray()
 {
-	int int_array[] = {0, 4, 3, 6, 2, 1, 5, 7, 9, 8 };
-	HeapSort<int> *hs = new HeapSort<int>();
-	hs->Sort ( int_array, 10 );
-	for ( int i = 0; i < 10; i++ )
-	{
-		if ( int_array[i] != i )
-			return i + 1;
-	}
-	delete hs;
-	return 0;
+    int int_array[] = {0, 4, 3, 6, 2, 1, 5, 7, 9, 8 };
+    HeapSort<int> *hs = new HeapSort<int>();
+    hs->Sort ( int_array, 10 );
+    for ( int i = 0; i < 10; i++ )
+    {
+        if ( int_array[i] != i )
+            return i + 1;
+    }
+    delete hs;
+    return 0;
 }
 
 int TestHeapSort_DArray()
