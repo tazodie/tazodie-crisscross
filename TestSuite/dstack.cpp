@@ -25,6 +25,8 @@ int TestDStack()
         dstack->push ( i );
     }
     
+    if ( dstack->peek() != 15 ) return 1;
+    
     for ( int i = 15; i >= 0; i-- )
     {
         if ( dstack->pop() != i )
