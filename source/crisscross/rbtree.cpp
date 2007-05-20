@@ -190,7 +190,7 @@ template <class Key, class Data>
     x->left = NULL_NODE;
     x->right = NULL_NODE;
     x->color = RED;
-	Duplicate ( (Key &)key, x->id );
+	x->id = key;
     x->data = rec;
     x->beenThere = NODE_ITSELF_VISITED;
 
@@ -359,7 +359,6 @@ template <class Key, class Data>
     if ( y->color == BLACK )
         deleteFixup ( x );
 
-	Dealloc ( y->id );
     delete y;
 
     return STATUS_OK;
@@ -549,7 +548,6 @@ template <class Key, class Data>
             rec->parent->right = NULL_NODE;
     }
 
-	Dealloc ( rec->id );
     delete rec;
 }
 
