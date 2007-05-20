@@ -7,7 +7,7 @@ OUTNAME = libCrissCross.so
 OUTBIN = $(OUTNAME).$(VERSION)
 else
 OUTNAME = libCrissCross
-OUTBIN = $(OUTNAME)-$(VERSION).a
+OUTBIN = $(OUTNAME).a
 endif
 prefix = /usr/local
 
@@ -71,7 +71,9 @@ clean:
 	-rm -f $(OUTDIR)/$(OUTBIN)
 	-rm -f $(OUTDIR)/$(OUTBIN).map
 	-rm -f $(GCH)
+ifneq ($(CC_BUILDSTATIC),yes)
 	-rm -f $(OUTNAME).$(VERSION_MAJOR)
+endif
 	-rm -f $(OUTNAME)
 	
 $(OUTDIR)/$(OUTBIN): $(OBJECTS)

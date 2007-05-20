@@ -1,6 +1,6 @@
 # CrissCross common makefile options.
 
-VERSION = 0.6.0
+VERSION = 0.6.1
 VERSION_MAJOR = 0
 
 ifeq ($(CXX),)
@@ -41,7 +41,7 @@ GCC_MINOR    := $(shell $(CXX) -v 2>&1 | \
 GCC_ISEMULATED = no
 GCC_ISCYGMING = no
 GCC_ISMINGW = no
-CC_BUILDSTATIC = no
+CC_BUILDSTATIC = yes
 
 ifneq ($(GCC_MINGW),)
 GCC_ISMINGW = yes
