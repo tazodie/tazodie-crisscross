@@ -57,12 +57,18 @@ install: $(OUTDIR)/$(OUTBIN)
 	cp crisscross/*.cpp $(prefix)/include/crisscross/
 	cp $(OUTBIN) $(prefix)/lib/
 	cd $(prefix)/lib; chmod 755 $(OUTBIN)
+ifneq ($(CC_BUILDSTATIC),yes)
 	cd $(prefix)/lib; if test -f $(OUTBIN); then \
 		rm -f $(OUTNAME) $(OUTNAME).$(VERSION_MAJOR); \
 		ln -s $(OUTBIN) $(OUTNAME); \
 		ln -s $(OUTBIN) $(OUTNAME).$(VERSION_MAJOR); \
 		(ldconfig || true)  >/dev/null 2>&1; \
 	fi
+else
+	cd $(prefix)/lib; if test -f $(OUTBIN); then \
+		(ldconfig || true)  >/dev/null 2>&1; \
+	fi
+endif
 
 clean:
 	-rm -rf obj
