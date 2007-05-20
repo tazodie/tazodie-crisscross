@@ -60,6 +60,12 @@ namespace CrissCross
                 \return The topmost value on the stack.
              */
             dataType pop    ();
+			
+			//! Returns whatever value is on the top of the stack without removing it from the stack.
+			/*!
+				\return The topmost value on the stack.
+			 */
+			dataType peek	();
 
             //! Indicates the number of items on the stack.
             /*!
