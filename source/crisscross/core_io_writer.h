@@ -84,7 +84,7 @@ namespace CrissCross
             /*!
                \param _string The string to be written.
              */
-            virtual CrissCross::Errors Write ( std::string _string );
+            virtual CrissCross::Errors Write ( std::string &_string );
 
             //! Writes an empty line to the buffer.
             /*!
@@ -108,7 +108,7 @@ namespace CrissCross
                \param _string The std::string to write.
                \return Standard CrissCross::Errors values.
              */
-            virtual CrissCross::Errors WriteLine ( std::string _string );
+            virtual CrissCross::Errors WriteLine ( std::string &_string );
 
             //! Flushes the output buffer.
             void Flush ();

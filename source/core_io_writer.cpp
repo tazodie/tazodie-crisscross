@@ -120,7 +120,7 @@ CoreIOWriter::WriteLine ( const char *_format, ... )
 }
 
 CrissCross::Errors
-CoreIOWriter::WriteLine ( std::string _string )
+CoreIOWriter::WriteLine ( std::string &_string )
 {
     CoreAssert ( this != NULL );
     if ( !IsOpen() ) return CC_ERR_INVALID_BUFFER;
@@ -143,7 +143,7 @@ CoreIOWriter::WriteLine ( std::string _string )
 }
 
 CrissCross::Errors
-CoreIOWriter::Write ( std::string _string )
+CoreIOWriter::Write ( std::string &_string )
 {
     CoreAssert ( this != NULL );
     if ( !IsOpen() ) return CC_ERR_INVALID_BUFFER;
