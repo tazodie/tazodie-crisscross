@@ -51,9 +51,11 @@ clean:
 	-rm -f $(OUTDIR)/$(OUTBIN)
 	-rm -f $(OUTDIR)/$(OUTBIN).map
 	-rm -f $(GCH)
+ifneq ($(CC_BUILDSTATIC),yes)
 	-rm -f $(LIBNAME)
 	-rm -f $(LIBNAME).$(VERSION_MAJOR)
 	-rm -f $(LIBNAME).$(VERSION)
+endif
 
 	
 $(OUTDIR)/$(OUTBIN): $(OBJECTS)
@@ -62,9 +64,9 @@ ifneq ($(CC_BUILDSTATIC),yes)
 	ln -sf ../source/$(LIBNAME).$(VERSION) $(LIBNAME)
 	ln -sf ../source/$(LIBNAME).$(VERSION) $(LIBNAME).$(VERSION_MAJOR)
 	ln -sf ../source/$(LIBNAME).$(VERSION) $(LIBNAME).$(VERSION)
-else
 	ln -sf ../source/$(LIBNAME) $(LIBNAME)
-	$(LINK) $+ -lpthread -lstdc++ libCrissCross-$(VERSION).a -o $(OUTDIR)/$(OUTBIN)
+else
+	$(LINK) $+ -lpthread -lstdc++ -lCrissCross -o $(OUTDIR)/$(OUTBIN)
 endif
 ifneq ($(GCC_ISEMULATED),yes)
 	$(NM) $(OUTDIR)/$(OUTBIN) > $(OUTDIR)/$(OUTBIN).map
