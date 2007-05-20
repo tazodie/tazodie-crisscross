@@ -35,24 +35,24 @@ namespace CrissCross
         template < class T >
         __inline T Duplicate ( T const &_data )
         {
-			return _data;
+            return _data;
         }
-		
+        
         template <>
         __inline char *Duplicate ( char * const &_data )
         {
-			return strdup ( _data );
+            return strdup ( _data );
         }
 
         template < class T >
         __inline void Dealloc ( T const &_data )
         {
         }
-		
+        
         template <>
         __inline void Dealloc ( char * const &_data )
         {
-			if ( _data ) free ( _data );
+            if ( _data ) free ( _data );
         }
 
         //! A very fast red-black tree implementation.

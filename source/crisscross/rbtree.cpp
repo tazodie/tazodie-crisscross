@@ -26,10 +26,10 @@ template <class Key, class Data>
 {
     NULL_NODE = new RedBlackNode<Key,Data> ();
     NULL_NODE->color = BLACK;
-	NULL_NODE->beenThere = 0;
-	NULL_NODE->left =
-		NULL_NODE->right =
-		NULL_NODE->parent = NULL;
+    NULL_NODE->beenThere = 0;
+    NULL_NODE->left =
+        NULL_NODE->right =
+        NULL_NODE->parent = NULL;
     rootNode = NULL_NODE;
 }
 
@@ -194,7 +194,7 @@ template <class Key, class Data>
     x->left = NULL_NODE;
     x->right = NULL_NODE;
     x->color = RED;
-	x->id = Duplicate ( key );
+    x->id = Duplicate ( key );
     x->data = rec;
     x->beenThere = NODE_ITSELF_VISITED;
 
@@ -356,12 +356,12 @@ template <class Key, class Data>
 
     if ( y != z )
     {
-		Dealloc ( z->id );
+        Dealloc ( z->id );
         z->id = y->id;
         z->data = y->data;
-	} else {
-		Dealloc ( y->id );
-	}
+    } else {
+        Dealloc ( y->id );
+    }
 
     if ( y->color == BLACK )
         deleteFixup ( x );
@@ -555,7 +555,7 @@ template <class Key, class Data>
             rec->parent->right = NULL_NODE;
     }
 
-	Dealloc ( rec->id );
+    Dealloc ( rec->id );
     delete rec;
 }
 
