@@ -157,4 +157,6 @@ namespace CrissCross
 
 #    include <crisscross/rbtree.cpp>
 
+#define BTree RedBlackTree
+
 #endif
