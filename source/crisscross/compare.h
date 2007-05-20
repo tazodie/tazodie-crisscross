@@ -24,7 +24,7 @@ namespace CrissCross
             \return 0 if the items are equal, -1 if _first is less than _second, and 1 if _first is greater than _second.
          */
         template < class T >
-        __inline int Compare ( const T &_first, const T &_second )
+        __inline int Compare ( T const &_first, T const &_second )
         {
             if ( _first < _second )
                 return -1;
@@ -33,6 +33,18 @@ namespace CrissCross
             else
                 return 0;
         }
+
+        template <>
+        __inline int Compare<char *> ( char * const &_first, char * const&_second )
+        {
+            return strcmp ( _first, _second );
+        }
+
+        /*template <>
+        __inline int Compare<const char *> ( char const* const &_first, char const* const&_second )
+        {
+            return strcmp ( _first, _second );
+        }*/
     }
 }
 

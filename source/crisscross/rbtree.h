@@ -32,6 +32,29 @@ namespace CrissCross
             STATUS_MEM_EXHAUSTED        //!< Out of memory.
         } statusEnum;
 
+        template < class T >
+        __inline T Duplicate ( T const &_data )
+        {
+			return _data;
+        }
+		
+        template <>
+        __inline char *Duplicate ( char * const &_data )
+        {
+			return strdup ( _data );
+        }
+
+        template < class T >
+        __inline void Dealloc ( T const &_data )
+        {
+        }
+		
+        template <>
+        __inline void Dealloc ( char * const &_data )
+        {
+			if ( _data ) free ( _data );
+        }
+
         //! A very fast red-black tree implementation.
         template < class Key, class Data >
         class RedBlackTree
@@ -67,7 +90,7 @@ namespace CrissCross
                 \return A value indicating the result of the request.
                 \sa statusEnum
              */
-            statusEnum insert ( const Key &_key, const Data & _rec );
+            statusEnum insert ( Key const &_key, Data const & _rec );
 
             //! Deletes a node from the tree, specified by the node's key.
             /*!
@@ -77,7 +100,7 @@ namespace CrissCross
                 \return A value indicating the result of the request.
                 \sa statusEnum
              */
-            statusEnum erase ( const Key &_key );
+            statusEnum erase ( Key const &_key );
 
             //! Deletes a node from the tree, specified by the pointer to the node.
             /*!
@@ -94,7 +117,7 @@ namespace CrissCross
                 \param _key The key of the node to find.
                 \return The data at the node. NULL if not found.
              */
-            Data find ( const Key &_key ) const;
+            Data find ( Key const &_key ) const;
 
             //! Finds a node in the tree and returns the data at that node.
             /*!
@@ -102,7 +125,7 @@ namespace CrissCross
                 \return The node pointer. NULL or NULL_NODE if not found. Test result with ValidNode() function.
                 \sa ValidNode()
              */
-            RedBlackNode<Key,Data> *findNode ( const Key &_key ) const;
+            RedBlackNode<Key,Data> *findNode ( Key const &_key ) const;
 
             //! Verifies that a node is valid.
             /*!

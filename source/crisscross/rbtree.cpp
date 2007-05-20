@@ -26,6 +26,10 @@ template <class Key, class Data>
 {
     NULL_NODE = new RedBlackNode<Key,Data> ();
     NULL_NODE->color = BLACK;
+	NULL_NODE->beenThere = 0;
+	NULL_NODE->left =
+		NULL_NODE->right =
+		NULL_NODE->parent = NULL;
     rootNode = NULL_NODE;
 }
 
@@ -169,7 +173,7 @@ void RedBlackTree<Key,Data>::insertFixup ( RedBlackNode<Key,Data> * x )
 }
 
 template <class Key, class Data>
-    statusEnum RedBlackTree<Key,Data>::insert ( const Key &key, const Data & rec )
+    statusEnum RedBlackTree<Key,Data>::insert ( Key const &key, Data const & rec )
 {
     RedBlackNode<Key,Data> *current = NULL_NODE, *parent = NULL, *x = NULL_NODE;
 
@@ -190,7 +194,7 @@ template <class Key, class Data>
     x->left = NULL_NODE;
     x->right = NULL_NODE;
     x->color = RED;
-	x->id = key;
+	x->id = Duplicate ( key );
     x->data = rec;
     x->beenThere = NODE_ITSELF_VISITED;
 
@@ -286,7 +290,7 @@ void RedBlackTree<Key,Data>::deleteFixup ( RedBlackNode<Key,Data> * x )
 }
 
 template <class Key, class Data>
-    statusEnum RedBlackTree<Key,Data>::erase ( const Key &key )
+    statusEnum RedBlackTree<Key,Data>::erase ( Key const &key )
 {
     RedBlackNode<Key,Data> *z, *parent;
 
@@ -352,9 +356,12 @@ template <class Key, class Data>
 
     if ( y != z )
     {
+		Dealloc ( z->id );
         z->id = y->id;
         z->data = y->data;
-    }
+	} else {
+		Dealloc ( y->id );
+	}
 
     if ( y->color == BLACK )
         deleteFixup ( x );
@@ -488,7 +495,7 @@ template <class Key, class Data>
 }
 
 template <class Key, class Data>
-    Data RedBlackTree<Key,Data>::find ( const Key &key ) const
+    Data RedBlackTree<Key,Data>::find ( Key const &key ) const
 {
     RedBlackNode<Key,Data> *current = rootNode;
 
@@ -509,7 +516,7 @@ template <class Key, class Data>
 }
 
 template <class Key, class Data>
-    RedBlackNode<Key,Data> * RedBlackTree<Key,Data>::findNode ( const Key &key ) const
+    RedBlackNode<Key,Data> * RedBlackTree<Key,Data>::findNode ( Key const &key ) const
 {
     RedBlackNode<Key,Data> * current = rootNode;
     while ( current != NULL_NODE )
@@ -548,6 +555,7 @@ template <class Key, class Data>
             rec->parent->right = NULL_NODE;
     }
 
+	Dealloc ( rec->id );
     delete rec;
 }
 
