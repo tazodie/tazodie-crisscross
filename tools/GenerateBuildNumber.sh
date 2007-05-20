@@ -19,7 +19,7 @@ else
 	echo "Build number ${BUILD} detected, creating header..."
 fi
 
-PREINCLUDED="__included_build_number_h_${RANDOM}_${RANDOM}"
+PREINCLUDED="__included_build_number_h"
 
 echo "#ifndef ${PREINCLUDED}" > build_number.h
 echo "#define ${PREINCLUDED}" >> build_number.h
