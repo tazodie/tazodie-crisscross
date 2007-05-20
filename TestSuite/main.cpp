@@ -55,7 +55,7 @@ int RunApplication (int argc, char **argv) {
 
 	WritePrefix ( "Stopwatch" ); retval |= WriteResult ( TestStopwatch() );
 
-    //WritePrefix ( "char* Compare" ); retval |= WriteResult ( TestComparison_CString() );
+    WritePrefix ( "char* Compare" ); retval |= WriteResult ( TestComparison_CString() );
     WritePrefix ( "std::string Compare" ); retval |= WriteResult ( TestComparison_String() );
 	WritePrefix ( "Integer Compare" ); retval |= WriteResult ( TestComparison_Integer() );
 	WritePrefix ( "Unsigned Integer Compare" ); retval |= WriteResult ( TestComparison_UnsignedInteger() );
@@ -64,6 +64,7 @@ int RunApplication (int argc, char **argv) {
 	WritePrefix ( "DArray" ); retval |= WriteResult ( TestDArray() );
 	WritePrefix ( "DStack" ); retval |= WriteResult ( TestDStack() );
 
+	WritePrefix ( "RedBlackTree<char *, char *>" ); retval |= WriteResult ( TestRedBlackTree_CString() );
 	WritePrefix ( "RedBlackTree<std::string, std::string>" ); retval |= WriteResult ( TestRedBlackTree_String() );
 	WritePrefix ( "RedBlackTree<int, int>" ); retval |= WriteResult ( TestRedBlackTree_Int() );
 
@@ -85,6 +86,10 @@ int RunApplication (int argc, char **argv) {
 	}
 
 	g_console->Flush();
+
+#ifdef TARGET_OS_WINDOWS
+	system ( "pause" );
+#endif
 
     CoreAssert ( retval == 0 );
 

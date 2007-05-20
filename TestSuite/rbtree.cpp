@@ -26,7 +26,7 @@ int TestRedBlackTree_CString()
     // If the tree is properly encapsulated, this won't cause an error on test #1.
     tmp = strdup ( "first" );
 	rbtree->insert ( tmp, "one" );
-    memset ( tmp, 0, 6 );
+    free ( tmp ); tmp = NULL;
     
 	rbtree->insert ( "second", "two" );
 	rbtree->insert ( "third", "three" );
@@ -61,19 +61,19 @@ int TestRedBlackTree_CString()
     if ( rbtree->find ( "second" ) == NULL )
 		return 9;
 	
-	if ( rbtree->erase ("second") != STATUS_OK )
+	if ( rbtree->erase ( "second" ) != STATUS_OK )
 		return 10;
 	
-	if ( rbtree->find ( "third") == NULL )
+	if ( rbtree->find ( "third" ) == NULL )
 		return 11;
 	
-	if ( rbtree->erase ("third") != STATUS_OK )
+	if ( rbtree->erase ( "third" ) != STATUS_OK )
 		return 12;
 	
-	if ( rbtree->find ( "fourth") == NULL )
+	if ( rbtree->find ( "fourth" ) == NULL )
 		return 13;
 	
-	if ( rbtree->erase ("fourth") != STATUS_OK )
+	if ( rbtree->erase ( "fourth" ) != STATUS_OK )
 		return 14;
 
 	delete rbtree;
