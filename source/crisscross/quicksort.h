@@ -12,6 +12,7 @@
 #ifndef __included_cc_quicksort_h
 #define __included_cc_quicksort_h
 
+#include <crisscross/deprecate.h>
 #include <crisscross/sort.h>
 
 namespace CrissCross
@@ -35,7 +36,7 @@ namespace CrissCross
                 \param _size The size of the array to sort.
                 \return Always 0, for the time being.
              */
-            int Sort ( T *_array, size_t _size );
+            _CC_DEPRECATE_SLOW int Sort ( T *_array, size_t _size );
         };
     }
 }
