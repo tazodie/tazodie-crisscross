@@ -51,7 +51,7 @@
 				AssemblerListingLocation="../../obj/CPUID/$(ConfigurationName)/"
 				ObjectFile="../../obj/CPUID/$(ConfigurationName)/"
 				ProgramDataBaseFileName="../../obj/CPUID/$(ConfigurationName)/"
-				WarningLevel="4"
+				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="4"
 			/>
@@ -126,7 +126,7 @@
 				InlineFunctionExpansion="1"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="../../source,../source/datastructures,../CrissCross_net"
+				AdditionalIncludeDirectories="../../source"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				StringPooling="true"
 				RuntimeLibrary="2"

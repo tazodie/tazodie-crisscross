@@ -28,7 +28,7 @@ DArray < T >::DArray ()
     m_shadow = NULL;
     m_array = NULL;
     m_emptyNodes = new DStack<unsigned int>;
-    m_emptyNodes->push ( -1 );
+    m_emptyNodes->push ( (size_t)-1 );
 }
 
 template < class T >
@@ -205,7 +205,7 @@ void DArray < T >::empty ()
     m_shadow = NULL;
 
     m_emptyNodes->empty ();
-    m_emptyNodes->push ( -1 );
+    m_emptyNodes->push ( (size_t)-1 );
 
     m_arraySize = 0;
     m_numUsed = 0;

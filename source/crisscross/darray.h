@@ -30,7 +30,7 @@ namespace CrissCross
             /*!
                 Vastly speeds up insertions.
              */
-            DStack<unsigned int>    *m_emptyNodes;
+            DStack<size_t>    *m_emptyNodes;
 
         protected:
             //! The size by which to increase the size of the array when there are no more empty nodes.
