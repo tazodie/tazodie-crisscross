@@ -20,8 +20,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)/bin/$(ProjectName)/$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)/obj/$(ProjectName)/$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)/bin/$(ProjectFileName)/$(PlatformName)/$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)/obj/$(ProjectFileName)/$(PlatformName)/$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="0"
 			>
@@ -51,9 +51,8 @@
 				BufferSecurityCheck="false"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="header.h"
-				AssemblerListingLocation="../../obj/CPUID/$(ConfigurationName)/"
-				ObjectFile="../../obj/CPUID/$(ConfigurationName)/"
-				ProgramDataBaseFileName="../../obj/CPUID/$(ConfigurationName)/"
+				AssemblerOutput="2"
+				ProgramDataBaseFileName="$(OutDir)\$(ProjectName).pdb"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="4"
@@ -102,8 +101,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|x64"
-			OutputDirectory="$(SolutionDir)/bin/$(ProjectName)/$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)/obj/$(ProjectName)/$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)/bin/$(ProjectFileName)/$(PlatformName)/$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)/obj/$(ProjectFileName)/$(PlatformName)/$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="0"
 			>
@@ -134,9 +133,8 @@
 				BufferSecurityCheck="false"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="header.h"
-				AssemblerListingLocation="../../obj/CPUID/$(ConfigurationName)/"
-				ObjectFile="../../obj/CPUID/$(ConfigurationName)/"
-				ProgramDataBaseFileName="../../obj/CPUID/$(ConfigurationName)/"
+				AssemblerOutput="2"
+				ProgramDataBaseFileName="$(OutDir)\$(ProjectName).pdb"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="3"
@@ -185,8 +183,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)/bin/$(ProjectName)/$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)/obj/$(ProjectName)/$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)/bin/$(ProjectFileName)/$(PlatformName)/$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)/obj/$(ProjectFileName)/$(PlatformName)/$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="0"
 			WholeProgramOptimization="0"
@@ -219,10 +217,8 @@
 				BufferSecurityCheck="false"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="header.h"
-				AssemblerOutput="4"
-				AssemblerListingLocation="../../obj/CPUID/$(ConfigurationName)/"
-				ObjectFile="../../obj/CPUID/$(ConfigurationName)/"
-				ProgramDataBaseFileName="../../obj/CPUID/$(ConfigurationName)/"
+				AssemblerOutput="2"
+				ProgramDataBaseFileName="$(OutDir)\$(ProjectName).pdb"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="3"
@@ -273,8 +269,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|x64"
-			OutputDirectory="$(SolutionDir)/bin/$(ProjectName)/$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)/obj/$(ProjectName)/$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)/bin/$(ProjectFileName)/$(PlatformName)/$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)/obj/$(ProjectFileName)/$(PlatformName)/$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="0"
 			WholeProgramOptimization="0"
@@ -308,10 +304,8 @@
 				BufferSecurityCheck="false"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="header.h"
-				AssemblerOutput="4"
-				AssemblerListingLocation="../../obj/CPUID/$(ConfigurationName)/"
-				ObjectFile="../../obj/CPUID/$(ConfigurationName)/"
-				ProgramDataBaseFileName="../../obj/CPUID/$(ConfigurationName)/"
+				AssemblerOutput="2"
+				ProgramDataBaseFileName="$(OutDir)\$(ProjectName).pdb"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="3"
