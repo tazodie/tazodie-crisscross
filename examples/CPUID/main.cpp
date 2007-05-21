@@ -72,7 +72,7 @@ RunApplication ( int argc, char **argv )
             if ( cpuid->proc[i]->caches.size () > 0 )
             {
                 console->WriteLine ( "CPU[%d] Caches:", i );
-                for ( int j = 0; j < cpuid->proc[i]->caches.size (); j++ )
+                for ( size_t j = 0; j < cpuid->proc[i]->caches.size (); j++ )
                 {
                     if ( cpuid->proc[i]->caches.validIndex ( j ) )
                         console->Write ( "  %s",
