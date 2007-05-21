@@ -86,13 +86,18 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #   endif
     
 #    if defined ( TARGET_COMPILER_VC )
-#        ifndef _CRT_SECURE_NO_DEPRECATE
+#       ifndef _CRT_SECURE_NO_DEPRECATE
 #           define _CRT_SECURE_NO_DEPRECATE
-#        endif
-#        ifndef _CRT_NONSTDC_NO_DEPRECATE
+#       endif
+#       ifndef _CRT_NONSTDC_NO_DEPRECATE
 #           define _CRT_NONSTDC_NO_DEPRECATE
-#        endif
-#       define ENABLE_SYMBOL_ENGINE
+#       endif
+#       if TARGET_CPU_BITS == 32
+#           define ENABLE_SYMBOL_ENGINE
+#       else
+#           undef ENABLE_SYMBOL_ENGINE
+#           undef ENABLE_BACKTRACE
+#       endif
 #    endif
 
 #   include <sys/stat.h>
