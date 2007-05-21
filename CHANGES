@@ -1,3 +1,13 @@
+VERSION 0.6.1
+    * CrissCross::Data::Compare now can compare C-style strings.
+	* RedBlackTree now works with char* string keys.
+    * No longer needlessly recompiles on Mac OS X (build_number.h regeneration caused a recompile).
+    * QuickSort::Sort is now marked deprecated with _CC_DEPRECATE_SLOW as a warning to those who use it.
+    * CoreIOWriter had a few functions which had std::string passed by value rather than by reference.
+    * DStack::peek() function added.
+    * FastestSort and MemoryEfficientSort aliases added by request.
+    * BTree alias for RedBlackTree added.
+
 VERSION 0.6.0
     * CrissCross test suite added (tests a majority of the features).
     * Added QuickSort and CombSort.
