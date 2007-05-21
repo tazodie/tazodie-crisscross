@@ -32,6 +32,11 @@ namespace CrissCross
             STATUS_MEM_EXHAUSTED        //!< Out of memory.
         } statusEnum;
 
+        //! @cond
+
+        // These functions are designed for RedBlackTree internal use.
+        // You generally shouldn't use them unless you know what you're doing.
+
         template < class T >
         __inline T Duplicate ( T const &_data )
         {
@@ -54,6 +59,8 @@ namespace CrissCross
         {
             if ( _data ) free ( _data );
         }
+
+        //! @endcond
 
         //! A very fast red-black tree implementation.
         template < class Key, class Data >
