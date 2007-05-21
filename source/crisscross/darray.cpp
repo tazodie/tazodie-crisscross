@@ -249,7 +249,7 @@ T DArray < T >::getData ( size_t index ) const
 {
 
     CoreAssert ( m_shadow[index] != 0 );
-    CoreAssert ( index < m_arraySize && index >= 0 );
+    CoreAssert ( index < m_arraySize );
 
     return m_array[index];
 
@@ -260,7 +260,7 @@ T & DArray < T >::operator []( size_t index )
 {
 
     CoreAssert ( m_shadow[index] != 0 );
-    CoreAssert ( index < m_arraySize && index >= 0 );
+    CoreAssert ( index < m_arraySize );
 
     return m_array[index];
 }
@@ -270,7 +270,7 @@ const T & DArray < T >::operator []( size_t index ) const
 {
 
     CoreAssert ( m_shadow[index] != 0 );
-    CoreAssert ( index < m_arraySize && index >= 0 );
+    CoreAssert ( index < m_arraySize );
 
     return m_array[index];
 }
@@ -280,7 +280,7 @@ void DArray < T >::remove ( size_t index )
 {
 
     CoreAssert ( m_shadow[index] != 0 );
-    CoreAssert ( index < m_arraySize && index >= 0 );
+    CoreAssert ( index < m_arraySize );
 
     m_emptyNodes->push ( index );
 
