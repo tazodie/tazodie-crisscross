@@ -59,7 +59,7 @@ void DArray < T >::rebuildStack ()
 
     // Step through, rebuilding
 
-    for ( size_t i = m_arraySize - 1; i >= 0; i-- )
+    for ( size_t i = m_arraySize - 1; (int)i >= 0; i-- )
         if ( m_shadow[i] == 0 )
             m_emptyNodes->push ( i );
 
@@ -94,7 +94,7 @@ void DArray < T >::setSize ( size_t newsize )
         memset ( &temparray[oldarraysize], 0, sizeof ( temparray[0] ) * ( m_arraySize - oldarraysize ) );
         memset ( &tempshadow[oldarraysize], 0, sizeof ( tempshadow[0] ) * ( m_arraySize - oldarraysize ) );
 
-        for ( size_t a = m_arraySize - 1; a >= oldarraysize; a-- ) 
+        for ( size_t a = m_arraySize - 1; (int)a >= (int)oldarraysize; a-- ) 
         {
             m_emptyNodes->push ( a );
         }
