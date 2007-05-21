@@ -45,10 +45,10 @@ namespace CrissCross
             /*!
                 \sa setSize
              */
-            int            m_arraySize;
+            size_t          m_arraySize;
 
             //! The number of used items in the array.
-            int            m_numUsed;
+            size_t          m_numUsed;
 
             //! The actual array which stores our data.
             T              *m_array;
@@ -72,7 +72,7 @@ namespace CrissCross
                 automatically Grow() the array.
                 \return An index in m_array.
              */
-            int getNextFree     ();
+            size_t getNextFree     ();
 
         public:
 
@@ -92,7 +92,7 @@ namespace CrissCross
             /*!
                 \param _newsize The new array size.
              */
-            void setSize ( int _newsize );
+            void setSize ( size_t _newsize );
 
             //! Sets the step size used in Grow().
             /*!
@@ -112,13 +112,13 @@ namespace CrissCross
                 \param _index The index of the node to get data from.
                 \return The data stored at the index.
              */
-            T getData ( int _index ) const;
+            T getData ( size_t _index ) const;
 
             //! Removes the data at the given index.
             /*!
                 \param _index The index of the node to clear.
              */
-            void remove ( int _index );
+            void remove ( size_t _index );
 
             //! Finds the data in the array.
             /*!
@@ -126,14 +126,14 @@ namespace CrissCross
                 \param _data The data to find.
                 \return The index where the given data is located.
              */
-            int findData ( const T & _data );
+            size_t findData ( T const & _data );
 
             //! Inserts data into the array at the first available index.
             /*!
                 \param _newdata The data to put into the array.
                 \return The index of the node where the data was stored.
              */
-            int insert ( const T & _newdata );
+            size_t insert ( T const & _newdata );
 
             //! Inserts data into the array at the given index.
             /*!
@@ -141,19 +141,19 @@ namespace CrissCross
                 \param _index The index in the array where the data should
                     be put, regardless of existing contents.
              */
-            void insert ( const T & _newdata, int _index );
+            void insert ( T const & _newdata, size_t _index );
 
             //! Indicates the number of used nodes.
             /*!
                 \return The number of used nodes.
              */
-            int numUsed () const;
+            size_t numUsed () const;
 
             //! Indicates the total size of the array.
             /*!
                 \return The size of the array.
              */
-            inline int size () const;
+            inline size_t size () const;
 
             //! Indicates whether a given index is valid.
             /*!
@@ -162,7 +162,7 @@ namespace CrissCross
                 \param _index The index to test.
                 \return Boolean value. True if valid, false if not.
              */
-            bool validIndex ( int _index ) const;
+            bool validIndex ( size_t _index ) const;
 
             //! Empties the array but does NOT free any pointers stored in the array.
             /*!
@@ -178,14 +178,14 @@ namespace CrissCross
                 \param _index The index of the node to get data from.
                 \return The data stored at the index.
              */
-            T & operator []( int _index );
+            T & operator []( size_t _index );
 
             //! Gets the data at the given index.
             /*!
                 \param _index The index of the node to get data from.
                 \return The data stored at the index.
              */
-            const T & operator []( int _index ) const;
+            T const & operator []( size_t _index ) const;
 
         };
     }
