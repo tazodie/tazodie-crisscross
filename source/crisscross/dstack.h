@@ -65,7 +65,7 @@ namespace CrissCross
             /*!
                 \return The topmost value on the stack.
              */
-            dataType peek    ();
+            const dataType &peek    ();
 
             //! Indicates the number of items on the stack.
             /*!
