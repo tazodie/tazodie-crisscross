@@ -63,7 +63,7 @@ template < class T >
     LList < T > &LList < T >::operator = ( const LList < T > &source )
 {
     empty ();
-    for ( int i = 0; i < source.size (); i++ )
+    for ( size_t i = 0; i < source.size (); i++ )
     {
         insert_back ( source.getData ( i ) );
     }
@@ -130,7 +130,7 @@ template < class T > void LList < T >::insert_front ( const T & newdata )
 
 
 template < class T >
-    void LList < T >::insert_at ( const T & newdata, int index )
+    void LList < T >::insert_at ( const T & newdata, size_t index )
 {
     if ( index == 0 )
     {
@@ -144,7 +144,7 @@ template < class T >
     {
         LListItem < T > *current = m_first;
 
-        for ( int i = 0; i < index - 1; ++i )
+        for ( size_t i = 0; i < index - 1; ++i )
         {
             if ( !current )
                 return;
@@ -169,13 +169,13 @@ template < class T >
 }
 
 
-template < class T > int LList < T >::size () const
+template < class T > size_t LList < T >::size () const
 {
     return m_numItems;
 }
 
 
-template < class T > T LList < T >::getData ( int index ) const
+template < class T > T LList < T >::getData ( size_t index ) const
 {
     LListItem < T > const *item = getItem ( index );
 
@@ -188,7 +188,7 @@ template < class T > T LList < T >::getData ( int index ) const
 }
 
 
-template < class T > T * LList < T >::getPointer ( int index ) const
+template < class T > T * LList < T >::getPointer ( size_t index ) const
 {
     LListItem < T > *item = getItem ( index );
     if ( item )
@@ -200,7 +200,7 @@ template < class T > T * LList < T >::getPointer ( int index ) const
 }
 
 
-template < class T > LListItem < T > *LList < T >::getItem ( int index ) const
+template < class T > LListItem < T > *LList < T >::getItem ( size_t index ) const
 {
     if ( !validIndex ( index ) )
         return NULL;
@@ -253,13 +253,13 @@ template < class T > LListItem < T > *LList < T >::getItem ( int index ) const
 }
 
 
-template < class T > T LList < T >::operator []( int index )
+template < class T > T LList < T >::operator []( size_t index )
 {
     return getData ( index );
 }
 
 
-template < class T > bool LList < T >::validIndex ( int index ) const
+template < class T > bool LList < T >::validIndex ( size_t index ) const
 {
     return ( index >= 0 && index < m_numItems );
 }
@@ -284,7 +284,7 @@ template < class T > void LList < T >::empty ()
     m_previousIndex = -1;
 }
 
-template < class T > void LList < T >::remove ( int index )
+template < class T > void LList < T >::remove ( size_t index )
 {
     LListItem < T > *current = getItem ( index );
 
@@ -328,7 +328,7 @@ template < class T > void LList < T >::remove ( int index )
     --m_numItems;
 }
 
-template < class T > int LList < T >::findData ( const T & data )
+template < class T > size_t LList < T >::find ( const T & data )
 {
     int const size = this->size ();
 

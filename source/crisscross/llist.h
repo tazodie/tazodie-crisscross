@@ -51,13 +51,13 @@ namespace CrissCross
             /*!
                 Speeds up searches and sequential access.
              */
-            mutable int m_previousIndex;    // for sequential reads (common)
+            mutable size_t m_previousIndex;    // for sequential reads (common)
 
             //! The number of nodes in the list.
-            int m_numItems;
+            size_t m_numItems;
 
         protected:
-            inline LListItem < T > *getItem ( int index ) const;
+            inline LListItem < T > *getItem ( size_t index ) const;
 
         public:
 
@@ -96,7 +96,7 @@ namespace CrissCross
                 \param _newdata The data to add to the list.
                 \param _index The index where the node should be added.
              */
-            void insert_at ( const T & _newdata, int _index );
+            void insert_at ( const T & _newdata, size_t _index );
 
             //! Gets the data at the specified index.
             /*!
@@ -104,7 +104,7 @@ namespace CrissCross
                 \param _index The index of the data to fetch.
                 \return The data contained in the node at the index.
              */
-            inline T getData ( int _index ) const;
+            inline T getData ( size_t _index ) const;
 
             //! Gets the address of where the data at the specified index is stored.
             /*!
@@ -112,7 +112,7 @@ namespace CrissCross
                 \param _index The index of the node to find.
                 \return The pointer to where the data record is stored.
              */
-            inline T *getPointer ( int _index ) const;
+            inline T *getPointer ( size_t _index ) const;
 
             //! Removes the node at the given index.
             /*!
@@ -120,7 +120,7 @@ namespace CrissCross
                 WARNING: Slow unless you're sequentially iterating through.
                 \param _index The index of the node to delete.
              */
-            void remove ( int _index );
+            void remove ( size_t _index );
 
             //! Removes the node at the end of the list.
             /*!
@@ -134,20 +134,20 @@ namespace CrissCross
                 \param _data The data to find.
                 \return -1 if not found, otherwise returns the index.
              */
-            int findData ( const T & _data );
+            size_t find ( const T & _data );
 
             //! Indicates the size of the linked list.
             /*!
                 \return The size of the linked list.
              */
-            inline int size () const;
+            inline size_t size () const;
 
             //! Determines whether a given index is within the bounds of the list.
             /*!
                 \param _index The index to validate.
                 \return True if the index is valid, false otherwise.
              */
-            inline bool validIndex ( int _index ) const;
+            inline bool validIndex ( size_t _index ) const;
 
             //! Deletes all nodes in the list, but does not free memory allocated by data.
             void empty();
@@ -158,7 +158,7 @@ namespace CrissCross
                 \param _index The index of the data to fetch.
                 \return The data contained in the node at the index.
              */
-            inline T operator [] ( int _index );
+            inline T operator [] ( size_t _index );
         };
     }
 }
