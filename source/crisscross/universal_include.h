@@ -76,7 +76,7 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 // RESULTANT CONFIGURATION
 // -----------------------
 
-#   if !defined ( TARGET_COMPILER_VC )
+#   if !defined ( TARGET_COMPILER_VC ) && !defined ( TARGET_COMPILER_ICC )
 #       undef DETECT_MEMORY_LEAKS
 #   endif
 
@@ -84,8 +84,10 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #   if !defined ( TARGET_CPU_X86 ) || defined ( TARGET_COMPILER_CYGWIN ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD ) || defined ( TARGET_OS_MACOSX )
 #       undef ENABLE_CPUID
 #   endif
+
+#   include <sys/stat.h>
     
-#    if defined ( TARGET_COMPILER_VC )
+#    if defined ( TARGET_OS_WINDOWS ) && ( defined ( TARGET_COMPILER_VC ) || defined ( TARGET_COMPILER_ICC ) )
 #       ifndef _CRT_SECURE_NO_DEPRECATE
 #           define _CRT_SECURE_NO_DEPRECATE
 #       endif
@@ -98,11 +100,6 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #           undef ENABLE_SYMBOL_ENGINE
 #           undef ENABLE_BACKTRACE
 #       endif
-#    endif
-
-#   include <sys/stat.h>
-    
-#   if defined ( TARGET_COMPILER_VC )
 #       if _MSC_VER > 1200 && _MSC_VER < 1400
 #           pragma warning ( disable : 4345 4100 4800 )
 #       endif
