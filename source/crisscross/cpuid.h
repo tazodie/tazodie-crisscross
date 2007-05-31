@@ -25,93 +25,111 @@
 #   include "darray.h"
 #   include "rbtree.h"
 
-class Feature
+namespace CrissCross
 {
-  public:
-    bool Enabled;
-    Feature ()
-    {
-        Enabled = 0;
-    }
+	namespace System
+	{
 
-    ~Feature ()
-    {
-    }
-};
+		typedef enum
+		{
+			SINGLE_CORE_AND_HT_ENABLED,
+			SINGLE_CORE_AND_HT_DISABLED,
+			SINGLE_CORE_AND_HT_NOT_CAPABLE,
+			MULTI_CORE_AND_HT_NOT_CAPABLE,
+			MULTI_CORE_AND_HT_ENABLED,
+			MULTI_CORE_AND_HT_DISABLED,
+			USER_CONFIG_ISSUE
+		} CoreSetupType;
 
-class Processor
-{
-  public:
-    const char *Manufacturer;
-    const char *ProcessorName;
-    char LogicalCount;
-    char PhysicalCount;
-    char Family;
-    char Model;
-    char Stepping;
-    char BrandID;
-    char APICID;
-    RedBlackTree<std::string, Feature *> features;
-    DArray <char *> caches;
-  public:
-    Processor ()
-    {
-    }
+		class Feature
+		{
+		  public:
+			bool Enabled;
+			Feature ()
+			{
+				Enabled = 0;
+			}
 
-    ~Processor ()
-    {
-    }
-};
+			~Feature ()
+			{
+			}
+		};
+
+		class Processor
+		{
+		  public:
+			const char *Manufacturer;
+			const char *ProcessorName;
+			char LogicalCount;
+			char PhysicalCount;
+			char Family;
+			char Model;
+			char Stepping;
+			char BrandID;
+			char APICID;
+			RedBlackTree<std::string, Feature *> features;
+			DArray <char *> caches;
+		  public:
+			Processor ()
+			{
+			}
+
+			~Processor ()
+			{
+			}
+		};
 
 
-class CPUID
-{
+		class CPUID
+		{
 
-  protected:
+		  protected:
 
-#ifdef TARGET_OS_WINDOWS
+		#ifdef TARGET_OS_WINDOWS
 
-    struct GoThreadProc_Params
-    {
-        CPUID *cpuid_class;
-        int processor;
-    };
+			struct GoThreadProc_Params
+			{
+				CPUID *cpuid_class;
+				int processor;
+			};
 
-    static DWORD CALLBACK s_GoThreadProc ( LPVOID lpParameter )
-    {
-        return ( ( GoThreadProc_Params * ) lpParameter )->cpuid_class->
-            GoThread ( ( LPVOID * ) &
-                       ( ( GoThreadProc_Params * ) lpParameter )->processor );
-    };
-    DWORD WINAPI GoThread ( LPVOID * params );
-#else
-    long int GoThread ( int processor );
-#endif
+			static DWORD CALLBACK s_GoThreadProc ( LPVOID lpParameter )
+			{
+				return ( ( GoThreadProc_Params * ) lpParameter )->cpuid_class->
+					GoThread ( ( LPVOID * ) &
+							   ( ( GoThreadProc_Params * ) lpParameter )->processor );
+			};
+			DWORD WINAPI GoThread ( LPVOID * params );
+		#else
+			long int GoThread ( int processor );
+		#endif
 
-    void AddCacheDescription ( int processor, const char *description );
-    void AddCacheData ( int processor, int x );
-    void DetectManufacturer ( int processor );
-    void DetectProcessorName ( int processor );
-    void DetectCacheInfo ( int processor );
-    void DetectFMS ( int processor );
-    void DetectBrandID ( int processor );
-    void DetectCount ( int processor );
-    void DetectAPIC ( int processor );
-    void DetectFeatures ( int processor );
-    void DetectFeature ( unsigned const int *_register, int _flag,
-                         int _processor, const char *_name );
+			void AddCacheDescription ( int processor, const char *description );
+			void AddCacheData ( int processor, int x );
+			void DetectManufacturer ( int processor );
+			void DetectProcessorName ( int processor );
+			void DetectCacheInfo ( int processor );
+			void DetectFMS ( int processor );
+			void DetectHTTCMP ();
+			void DetectBrandID ( int processor );
+			void DetectAPIC ( int processor );
+			void DetectFeatures ( int processor );
+			void DetectFeature ( unsigned const int *_register, int _flag,
+								 int _processor, const char *_name );
+			unsigned int MaxLogicalProcPerPhysicalProc();
+			unsigned int MaxCorePerPhysicalProc();
 
-  public:
-      CPUID ();
-     ~CPUID ();
-    void Go ();
-    int GetLogicalCPUCount ();
-    int GetPhysicalCPUCount ();
-    int GetVirtualCPUCount ();
+		  public:
+			  CPUID ();
+			 ~CPUID ();
+			void Go ();
+			unsigned char Count ( unsigned int *_logical, unsigned int *_core, unsigned int *_physical );
 
-    Processor *proc[MAX_PROCESSORS];    // Support up to MAX_PROCESSORS
+			Processor *proc[MAX_PROCESSORS];    // Support up to MAX_PROCESSORS
 
-};
+		};
+	}
+}
 
 #endif
 
