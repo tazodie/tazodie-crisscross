@@ -18,6 +18,10 @@
 
 using namespace CrissCross::System;
 
+#ifdef TARGET_OS_LINUX
+#	define DWORD unsigned long
+#endif
+
 #    define FPU_FLAG 0x0001
 #    define LAHF_FLAG 0x0001
 #    define SSE3_FLAG 0x0001
@@ -755,29 +759,8 @@ CPUID::DetectBrandID ( int processor )
 unsigned int HWD_MTSupported(void)
 {
    
-
-	unsigned int Regedx      = 0;
-
-#ifdef TARGET_OS_LINUX
-	asm 
-	(
-		"movl $1,%%eax\n\t"
-		"cpuid"
-		: "=d" (Regedx)
-		:
-		: "%eax","%ebx","%ecx"
-	);
-#elif defined ( TARGET_OS_WINDOWS )
-	__asm
-	{
-		mov eax, 1
-		cpuid
-		mov Regedx, edx
-	}
-#endif
-
+	unsigned int Regedx      = Std[1].edx;
 	return (Regedx & HTT_FLAG);  
-
   
 }
 
@@ -788,79 +771,16 @@ CPUID::MaxLogicalProcPerPhysicalProc()
 	unsigned int Regebx = 0;
 
 	if (!HWD_MTSupported()) return (unsigned int) 1;
-#ifdef TARGET_OS_LINUX
-		asm 
-		(
-			"movl $1,%%eax\n\t"
-			"cpuid"
-			: "=b" (Regebx)
-			:
-			: "%eax","%ecx","%edx"
-		);
-#elif defined ( TARGET_OS_WINDOWS )
-		__asm
-		{
-			mov eax, 1
-			cpuid
-			mov Regebx, ebx
-		}
-#else
-#error	N
-#endif
-		return (unsigned int) ((Regebx & 0x00FF0000) >> 16);
+
+	Regebx = Std[1].ebx;
+	return (unsigned int) ((Regebx & 0x00FF0000) >> 16);
 
 }
 
 unsigned int
 CPUID::MaxCorePerPhysicalProc()
 {
-	unsigned int Regeax        = 0;
-#ifdef TARGET_OS_LINUX
-	{
-		asm
-			(
-			"xorl %eax, %eax\n\t"
-			"cpuid\n\t"
-			"cmpl $4, %eax\n\t"			// check if cpuid supports leaf 4
-			"jl .single_core\n\t"		// Single core
-			"movl $4, %eax\n\t"		
-			"movl $0, %ecx\n\t"			// start with index = 0; Leaf 4 reports
-			);								// at least one valid cache level
-		asm
-			(
-			"cpuid"
-			: "=a" (Regeax)
-			:
-		: "%ebx", "%ecx", "%edx"
-			);		
-		asm
-			(
-			"jmp .multi_core\n"
-			".single_core:\n\t"
-			"xor %eax, %eax\n"
-			".multi_core:"
-			);		
-	}
-#else
-	__asm
-	{
-		xor eax, eax
-			cpuid
-			cmp eax, 4			// check if cpuid supports leaf 4
-			jl single_core		// Single core
-			mov eax, 4			
-			mov ecx, 0			// start with index = 0; Leaf 4 reports
-			cpuid				// at least one valid cache level
-			mov Regeax, eax
-			jmp multi_core
-
-single_core:
-		xor eax, eax		
-
-multi_core:
-
-	}
-#endif
+	unsigned int Regeax = Std[4].eax;
 	return (unsigned int)((Regeax & 0xFC000000) >> 26)+1;
 
 }
@@ -869,7 +789,7 @@ unsigned int find_maskwidth(unsigned int CountItem)
 {
 	unsigned int MaskWidth,
 				 count = CountItem;
-#ifdef LINUX
+#ifdef TARGET_OS_LINUX
 	asm
 	(
 #ifdef __x86_64__		// define constant to compile  
@@ -930,7 +850,7 @@ next:
 //
 // Extract the subset of bit field from the 8-bit value FullID.  It returns the 8-bit sub ID value
 //
-unsigned char GetNzbSubID(unsigned char FullID,
+static unsigned char GetNzbSubID(unsigned char FullID,
 						  unsigned char MaxSubIDValue,
 						  unsigned char ShiftCount)
 {
@@ -947,28 +867,7 @@ unsigned char GetNzbSubID(unsigned char FullID,
 unsigned char GetAPIC_ID(void)
 {
 
-	unsigned int Regebx = 0;
-#ifdef TARGET_OS_LINUX
-	asm
-		(
-		"movl $1, %%eax\n\t"	
-		"cpuid"
-		: "=b" (Regebx) 
-		:
-	: "%eax","%ecx","%edx" 
-		);
-
-#elif defined ( TARGET_OS_WINDOWS )
-	__asm
-	{
-		mov eax, 1
-			cpuid
-			mov Regebx, ebx
-	}
-#else
-#	error Not defined for this platform.
-#endif                                
-
+	unsigned int Regebx = Std[1].ebx;
 	return (unsigned char) ((Regebx & 0xFF000000) >> 24);
 
 }

@@ -8,7 +8,7 @@ main:
 	+$(MAKE) -C source precomp
 	+$(MAKE) -C source
 	
-example:
+example: main
 	+$(MAKE) -C examples
 
 testsuite: main
