@@ -752,22 +752,69 @@ CPUID::DetectBrandID ( int processor )
     proc[processor]->BrandID = (char)( Std[1].ebx & 0xff );
 }
 
+unsigned int HWD_MTSupported(void)
+{
+   
+
+	unsigned int Regedx      = 0;
+
+#ifdef TARGET_OS_LINUX
+	asm 
+	(
+		"movl $1,%%eax\n\t"
+		"cpuid"
+		: "=d" (Regedx)
+		:
+		: "%eax","%ebx","%ecx"
+	);
+#elif defined ( TARGET_OS_WINDOWS )
+	__asm
+	{
+		mov eax, 1
+		cpuid
+		mov Regedx, edx
+	}
+#endif
+
+	return (Regedx & HTT_FLAG);  
+
+  
+}
 
 unsigned int
 CPUID::MaxLogicalProcPerPhysicalProc()
 {
-	Feature *HTT = proc[0]->features.find("HTT");
-	if ( HTT == NULL || !HTT->Enabled ) return (unsigned int) 1;
-	return (unsigned int) ((Std[1].ebx & 0x00FF0000) >> 16);
+
+	unsigned int Regebx = 0;
+
+	if (!HWD_MTSupported()) return (unsigned int) 1;
+#ifdef TARGET_OS_LINUX
+		asm 
+		(
+			"movl $1,%%eax\n\t"
+			"cpuid"
+			: "=b" (Regebx)
+			:
+			: "%eax","%ecx","%edx"
+		);
+#elif defined ( TARGET_OS_WINDOWS )
+		__asm
+		{
+			mov eax, 1
+			cpuid
+			mov Regebx, ebx
+		}
+#else
+#error	N
+#endif
+		return (unsigned int) ((Regebx & 0x00FF0000) >> 16);
+
 }
 
 unsigned int
 CPUID::MaxCorePerPhysicalProc()
 {
-	Feature *HTT = proc[0]->features.find("HTT");
 	unsigned int Regeax        = 0;
-
-	if ( HTT == NULL || !HTT->Enabled ) return (unsigned int) 1;  // Single core
 #ifdef TARGET_OS_LINUX
 	{
 		asm
@@ -901,7 +948,7 @@ unsigned char GetAPIC_ID(void)
 {
 
 	unsigned int Regebx = 0;
-#ifdef LINUX
+#ifdef TARGET_OS_LINUX
 	asm
 		(
 		"movl $1, %%eax\n\t"	
@@ -911,13 +958,15 @@ unsigned char GetAPIC_ID(void)
 	: "%eax","%ecx","%edx" 
 		);
 
-#else
+#elif defined ( TARGET_OS_WINDOWS )
 	__asm
 	{
 		mov eax, 1
 			cpuid
 			mov Regebx, ebx
 	}
+#else
+#	error Not defined for this platform.
 #endif                                
 
 	return (unsigned char) ((Regebx & 0xFF000000) >> 24);
