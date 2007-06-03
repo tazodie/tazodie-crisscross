@@ -10,7 +10,7 @@ fi
 echo "Changing directory to '$1'..."
 cd $1
 
-BUILD=`svn --xml info | tr -d '\r\n' | sed -e 's/.*<entry.*revision="\([0-9]*\)".*<\/entry>.*/\1/'`
+BUILD=`svn --xml info | tr -d '\r\n' | tr -d '\n' | sed -e 's/.*<entry.*revision="\([0-9]*\)".*<\/entry>.*/\1/'`
 
 if [ "${BUILD}x" == "x" ]; then
 	echo "Build number couldn't be detected, defaulting to 1!"
