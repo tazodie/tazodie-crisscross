@@ -38,7 +38,10 @@ namespace CrissCross
         template <>
         __inline int Compare<char *> ( char * const &_first, char * const&_second )
         {
-            return strcmp ( _first, _second );
+            int ret = strcmp ( _first, _second );
+            if ( ret < 0 ) return -1;
+            else if ( ret > 0 ) return 1;
+            else return 0;
         }
     }
 }
