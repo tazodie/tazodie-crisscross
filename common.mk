@@ -74,13 +74,19 @@ ifeq ($(GCC_ISAPPLE),yes)
     else
     ifeq ($(GCC_ISPPC),yes)
         ARCH = -mtune=g4
+    else
+        ARCH =
     endif
     endif
 else
     ifeq ($(GCC_ISX86),yes)
         ARCH = -march=pentium2 -mtune=pentium2
     else
+    ifeq ($(GCC_ISPPC),yes)
+        ARCH = -mtune=g4
+    else
         ARCH =
+    endif
     endif
 endif
 
