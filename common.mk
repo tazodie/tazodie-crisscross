@@ -73,7 +73,7 @@ ifeq ($(GCC_ISAPPLE),yes)
         ARCH = -march=prescott -mtune=prescott
     else
     ifeq ($(GCC_ISPPC),yes)
-        ARCH = -mtune=g4
+        ARCH = -mtune=G4
     else
         ARCH =
     endif
@@ -83,7 +83,7 @@ else
         ARCH = -march=pentium2 -mtune=pentium2
     else
     ifeq ($(GCC_ISPPC),yes)
-        ARCH = -mtune=g4
+        ARCH = -mtune=G4
     else
         ARCH =
     endif
