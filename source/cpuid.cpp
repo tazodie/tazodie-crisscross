@@ -867,7 +867,26 @@ static unsigned char GetNzbSubID(unsigned char FullID,
 unsigned char GetAPIC_ID(void)
 {
 
-	unsigned int Regebx = Std[1].ebx;
+	unsigned int Regebx = 0;
+#ifdef TARGET_OS_LINUX
+	asm
+	(
+		"movl $1, %%eax\n\t"	
+		"cpuid"
+		: "=b" (Regebx) 
+		:
+		: "%eax","%ecx","%edx" 
+	);
+	
+#else
+	__asm
+	{
+		mov eax, 1
+		cpuid
+		mov Regebx, ebx
+	}
+#endif                                
+
 	return (unsigned char) ((Regebx & 0xFF000000) >> 24);
 
 }
