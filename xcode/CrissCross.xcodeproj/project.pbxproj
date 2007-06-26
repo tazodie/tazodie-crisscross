@@ -87,7 +87,6 @@
 
 /* Begin PBXFileReference section */
 		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		32BAE0B70371A74B00C91783 /* CrissCross_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrissCross_Prefix.pch; sourceTree = "<group>"; };
 		8D07F2C70486CC7A007CD1D0 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		B0A6251B0BFA8FA1006F2B68 /* version.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = version.cpp; path = ../source/version.cpp; sourceTree = SOURCE_ROOT; };
@@ -172,18 +171,9 @@
 			children = (
 				08FB77ACFE841707C02AAC07 /* Source */,
 				089C1665FE841158C02AAC07 /* Resources */,
-				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DDFF38A45A11DB9C8B /* Products */,
 			);
 			name = CrissCross;
-			sourceTree = "<group>";
-		};
-		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
-			isa = PBXGroup;
-			children = (
-				08FB77AAFE841565C02AAC07 /* Carbon.framework */,
-			);
-			name = "External Frameworks and Libraries";
 			sourceTree = "<group>";
 		};
 		089C1665FE841158C02AAC07 /* Resources */ = {
@@ -331,10 +321,12 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = 4FADC24608B4156D00ABE55E /* Build configuration list for PBXProject "CrissCross" */;
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			mainGroup = 0867D691FE84028FC02AAC07 /* CrissCross */;
 			productRefGroup = 034768DDFF38A45A11DB9C8B /* Products */;
 			projectDirPath = "";
+			projectRoot = ..;
 			targets = (
 				B0BD2C470BE26BDB00F71A26 /* CrissCross Static */,
 				B0A626150BFA9088006F2B68 /* GenerateBuildNumber */,
@@ -367,7 +359,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/bash\n\necho \"Generating build_number.h...\";\n\necho \"Changing directory to '$PROJECT_DIR/../source/crisscross/'...\";\ncd $PROJECT_DIR/../source/crisscross/\n\nBUILD=`/usr/local/bin/svn info | grep \"Revision\" | sed 's/Revision: //g'`\n\nif [ \"${BUILD}x\" == \"x\" ]; then\n\techo \"Build number couldn't be detected, defaulting to 0!\"\n\tBUILD=0\nelse\n\techo \"Build number ${BUILD} detected, creating header...\"\nfi\n\necho \"#ifndef __included_build_number_h\" > build_number.h.tmp\necho \"#define __included_build_number_h\" >> build_number.h.tmp\necho \"\" >> build_number.h.tmp\necho \"#define BUILD_NUMBER ${BUILD}\" >> build_number.h.tmp\necho \"\" >> build_number.h.tmp\necho \"#endif\" >> build_number.h.tmp\necho \"\" >> build_number.h.tmp\n\nTEMPHEADERMD5=`md5 -q build_number.h.tmp`\nHEADERMD5=`md5 -q build_number.h`\n\nif [ \"${TEMPHEADERMD5}\" != \"${HEADERMD5}\" ]; then\n\techo \"Header updated.\"\n\tmv build_number.h.tmp build_number.h\nelse\n\techo \"Header is already up to date. Skipping update...\"\n\trm build_number.h.tmp\nfi\n\nexit 0";
+			shellScript = "#!/bin/bash\n\necho \"Generating build_number.h...\";\n\necho \"Changing directory to '$PROJECT_DIR/../source/crisscross/'...\";\ncd $PROJECT_DIR/../source/crisscross/\n\nBUILD=`/usr/local/bin/svn info | grep \"Revision\" | sed 's/Revision: //g'`\n\nif [ \"${BUILD}x\" == \"x\" ]; then\n\techo \"Build number couldn't be detected, defaulting to 0!\"\n\tBUILD=0\nelse\n\techo \"Build number ${BUILD} detected, creating header...\"\nfi\n\necho \"#ifndef __included_build_number_h\" > build_number.h.tmp\necho \"#define __included_build_number_h\" >> build_number.h.tmp\necho \"\" >> build_number.h.tmp\necho \"#define BUILD_NUMBER ${BUILD}\" >> build_number.h.tmp\necho \"\" >> build_number.h.tmp\necho \"#endif\" >> build_number.h.tmp\necho \"\" >> build_number.h.tmp\n\ntouch build_number.h\n\nTEMPHEADERMD5=`md5 -q build_number.h.tmp`\nHEADERMD5=`md5 -q build_number.h`\n\nif [ \"${TEMPHEADERMD5}\" != \"${HEADERMD5}\" ]; then\n\techo \"Header updated.\"\n\tmv build_number.h.tmp build_number.h\nelse\n\techo \"Header is already up to date. Skipping update...\"\n\trm build_number.h.tmp\nfi\n\nexit 0";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -425,6 +417,8 @@
 					ppc,
 					i386,
 				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/CrissCross_Prefix.pch";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../source/";
@@ -437,9 +431,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = (
-					ppc,
+					ppc64,
 					i386,
+					ppc,
+					x86_64,
 				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/CrissCross_Prefix.pch";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../source/";
@@ -480,12 +478,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
 				INSTALL_PATH = /usr/local/lib;
-				OTHER_LDFLAGS = (
-					"-framework",
-					Carbon,
-				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "CrissCross Static";
 				ZERO_LINK = YES;
@@ -500,12 +493,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
 				INSTALL_PATH = /usr/local/lib;
-				OTHER_LDFLAGS = (
-					"-framework",
-					Carbon,
-				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "CrissCross Static";
 				ZERO_LINK = NO;
