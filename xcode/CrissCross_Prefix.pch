@@ -9,5 +9,4 @@
  *
  */
 
-#include <Carbon/Carbon.h>
 #include <crisscross/universal_include.h>
