@@ -135,10 +135,6 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #       include <ctype.h>
 #   endif
 
-#   if defined ( TARGET_OS_MACOSX ) && TARGET_CPU_BITS != 64
-#       include <Carbon/Carbon.h>
-#   endif
-
 #   if defined ( TARGET_COMPILER_CYGWIN )
 #       undef ENABLE_BACKTRACE
 #   endif
