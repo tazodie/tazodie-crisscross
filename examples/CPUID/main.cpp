@@ -37,6 +37,8 @@ RunApplication ( int argc, char **argv )
 
     cpuid->Go ();
     
+// Disabled until properly integrated... Intel had very sloppy code.
+#if 0
 	unsigned int LogicalCPU, CoreCPU, PhysicalCPU;
 	char statusFlag = cpuid->Count ( &LogicalCPU, &CoreCPU, &PhysicalCPU );
 
@@ -77,6 +79,7 @@ RunApplication ( int argc, char **argv )
 	
 	console->WriteLine ( "System wide availability: %d physical processors, %d cores, %d logical processors\n", 
 	       PhysicalCPU, CoreCPU, LogicalCPU);
+#endif
 
     for ( int i = 0; i < MAX_PROCESSORS; i++ )
     {
