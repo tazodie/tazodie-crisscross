@@ -114,8 +114,8 @@ namespace CrissCross
 			void DetectBrandID ( int processor );
 			void DetectAPIC ( int processor );
 			void DetectFeatures ( int processor );
-			void DetectFeature ( unsigned const int *_register, int _flag,
-								 int _processor, const char *_name );
+			void DetectFeature ( const unsigned long *_register, long _flag,
+					     int _processor, const char *_name );
 			unsigned int MaxLogicalProcPerPhysicalProc();
 			unsigned int MaxCorePerPhysicalProc();
 

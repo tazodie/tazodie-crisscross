@@ -81,10 +81,10 @@ using namespace CrissCross::System;
 
 struct Registers
 {
-    unsigned int eax;
-    unsigned int ebx;
-    unsigned int ecx;
-    unsigned int edx;
+    unsigned long eax;
+    unsigned long ebx;
+    unsigned long ecx;
+    unsigned long edx;
 };
 
 struct Registers *Std;
@@ -99,15 +99,18 @@ unsigned int ExtMax;
    the values the 'cpuid' stored in those registers.  Return true if
    the current processor supports CPUID, false otherwise.  */
 static bool
-call_cpuid (unsigned int request, unsigned int *eax, unsigned int *ebx, unsigned int *ecx, unsigned int *edx)
+call_cpuid (unsigned int request, unsigned long *eax, unsigned long *ebx, unsigned long *ecx, unsigned long *edx)
 {
+#ifndef TARGET_CPU_X64
   unsigned int pre_change, post_change;
   const unsigned int id_flag = 0x200000;
+#endif
 
   /* This is pretty much the standard way to detect whether the CPUID
      instruction is supported: try to change the ID bit in the EFLAGS
      register.  If we can change it, then the CPUID instruction is
      implemented.  */
+#ifndef TARGET_CPU_X64
   asm ("pushfl\n\t"        /* Save %eflags to restore later.  */
        "pushfl\n\t"        /* Push second copy, for manipulation.  */
        "popl %1\n\t"        /* Pop it into post_change.  */
@@ -120,10 +123,13 @@ call_cpuid (unsigned int request, unsigned int *eax, unsigned int *ebx, unsigned
        "popfl"            /* Restore original value.  */
        : "=&r" (pre_change), "=&r" (post_change)
        : "ir" (id_flag));
+#endif
 
   /* If the bit changed, then we support the CPUID instruction.  */
+#ifndef TARGET_CPU_X64
   if ((pre_change ^ post_change) & id_flag)
     {
+#endif
       asm volatile ("mov %%ebx, %%esi\n\t" /* Save %ebx.  */
             "cpuid\n\t"
             "xchgl %%ebx, %%esi" /* Restore %ebx.  */
@@ -132,16 +138,18 @@ call_cpuid (unsigned int request, unsigned int *eax, unsigned int *ebx, unsigned
             : "memory");
 
       return true;
+#ifndef TARGET_CPU_X64
     }
   else
     return false;
+#endif
 }
 
 #else
 
 static void
-call_cpuid ( unsigned int op, unsigned int *_eax, unsigned int *_ebx,
-             unsigned int *_ecx, unsigned int *_edx )
+call_cpuid ( unsigned int op, unsigned long *_eax, unsigned long *_ebx,
+             unsigned long *_ecx, unsigned long *_edx )
 {
     __asm
     {
@@ -362,7 +370,8 @@ CPUID::Go ()
     sched_setaffinity ( 0, sizeof ( originalmask ), &originalmask );
 #    endif
 
-	DetectHTTCMP ();
+    // Disabled until properly integrated.
+    //DetectHTTCMP ();
 }
 
 void
@@ -1117,7 +1126,7 @@ CPUID::DetectAPIC ( int processor )
 }
 
 void
-CPUID::DetectFeature ( unsigned const int *_register, int _flag,
+CPUID::DetectFeature ( const unsigned long *_register, long _flag,
                            int _processor, const char *_name )
 {
     // Compliant with Intel document #241618.
