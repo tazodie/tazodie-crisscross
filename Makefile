@@ -15,6 +15,8 @@ testsuite: main
 	+$(MAKE) -C TestSuite precomp
 	+$(MAKE) -C TestSuite
 
+check: test
+
 test: testsuite
 	$(MAKE) -C TestSuite test
 
