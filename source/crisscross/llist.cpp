@@ -175,7 +175,7 @@ template < class T > size_t LList < T >::size () const
 }
 
 
-template < class T > T LList < T >::getData ( size_t index ) const
+template < class T > T const &LList < T >::get ( size_t index ) const
 {
     LListItem < T > const *item = getItem ( index );
 
@@ -252,18 +252,15 @@ template < class T > LListItem < T > *LList < T >::getItem ( size_t index ) cons
     return m_previous;
 }
 
-
-template < class T > T LList < T >::operator []( size_t index )
+template < class T > T const & LList < T >::operator []( size_t index ) const
 {
-    return getData ( index );
+    return get ( index );
 }
 
-
-template < class T > bool LList < T >::validIndex ( size_t index ) const
+template < class T > bool LList < T >::valid ( size_t index ) const
 {
     return ( index >= 0 && index < m_numItems );
 }
-
 
 template < class T > void LList < T >::empty ()
 {

@@ -22,7 +22,7 @@ DStack<dataType>::DStack ( int N )
 {
     m_stepSize = N;
     m_top = m_bottom = NULL;
-    m_size = m_origSize = 0;
+    m_size = m_origSize = 1;
 }
 
 template < class dataType >

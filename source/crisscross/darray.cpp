@@ -245,7 +245,7 @@ size_t DArray < T >::getNextFree()
 }
 
 template < class T >
-T DArray < T >::getData ( size_t index ) const
+T DArray < T >::get ( size_t index ) const
 {
 
     CoreAssert ( m_shadow[index] != 0 );
@@ -290,7 +290,7 @@ void DArray < T >::remove ( size_t index )
 }
 
 template < class T >
-size_t DArray < T >::numUsed () const
+size_t DArray < T >::used () const
 {
     return m_numUsed;
 }
@@ -302,7 +302,7 @@ size_t DArray < T >::size () const
 }
 
 template < class T >
-bool DArray < T >::validIndex ( size_t index ) const
+bool DArray < T >::valid ( size_t index ) const
 {
 
     if ( index >= m_arraySize || index < 0 )
@@ -355,4 +355,28 @@ void DArray < T >::sort ( Sorter<T> *_sortMethod )
     
     rebuildStack();
     recount();
+}
+
+/* BELOW ARE DEPRECATED FUNCTIONS */
+
+template <class T>
+void DArray<T>::EmptyAndDelete()
+{
+    for (int i = 0; i < m_arraySize; ++i)
+    {
+        if (ValidIndex(i))
+        {
+            delete m_array[i];
+        }
+    }
+
+    Empty();
+}
+
+template <class T>
+void DArray<T>::ChangeData ( T const & _rec, size_t index )
+{
+    CoreAssert ( m_shadow[index] == 1 );
+
+    m_array[index] = _rec;
 }

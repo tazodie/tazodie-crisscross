@@ -49,6 +49,12 @@ namespace CrissCross
             return strdup ( _data );
         }
 
+        template <>
+        __inline const char *Duplicate ( const char * const &_data )
+        {
+            return strdup ( _data );
+        }
+
         template < class T >
         __inline void Dealloc ( T const &_data )
         {
@@ -58,6 +64,12 @@ namespace CrissCross
         __inline void Dealloc ( char * const &_data )
         {
             if ( _data ) free ( _data );
+        }
+        
+        template <>
+        __inline void Dealloc ( const char * const &_data )
+        {
+            if ( _data ) free ( (char *)_data );
         }
 
         //! @endcond
@@ -109,6 +121,17 @@ namespace CrissCross
              */
             statusEnum erase ( Key const &_key );
 
+            //! Deletes a node from the tree, specified by the node's key and data.
+            /*!
+                This won't free the memory occupied by the data, so the data must be freed
+                seperately.
+                \param _key The key of the node to delete.
+                \param _rec The data of the node to delete.
+                \return A value indicating the result of the request.
+                \sa statusEnum
+             */
+            statusEnum erase ( Key const &_key, Data const & _rec );
+
             //! Deletes a node from the tree, specified by the pointer to the node.
             /*!
                 This won't free the memory occupied by the data, so the data must be freed
@@ -156,26 +179,36 @@ namespace CrissCross
             /*!
                 \return Size of the tree.
              */
-            int size ();
+            size_t size () const;
 
             //! Will get the next node in the tree, useful as an iterator.
-            void getNext ( RedBlackNode<Key,Data> ** _current );
+            void getNext ( RedBlackNode<Key,Data> ** _current ) const;
 
             //! Converts the tree data into a linearized DArray.
             /*!
                 \return A DArray containing the data of the tree.
              */
-            _CC_DEPRECATE_SLOW DArray <Data> *ConvertToDArray ();
+            _CC_DEPRECATE_SLOW DArray <Data> *ConvertToDArray () const;
 
             //! Converts the tree keys into a linearized DArray.
             /*!
                 \return A DArray containing the keys in the tree.
              */
-            _CC_DEPRECATE_SLOW DArray <Key>  *ConvertIndexToDArray ();
+            _CC_DEPRECATE_SLOW DArray <Key>  *ConvertIndexToDArray () const;
+
+			/* --- TOSSER I COMPATIBILITY --- */
+			_CC_DEPRECATE_FUNCTION(insert) inline statusEnum PutData ( Key const &_key, Data const & _rec ) { insert ( _key, _rec ); };
+			_CC_DEPRECATE_FUNCTION(erase) inline statusEnum RemoveData ( Key const &_key ) { return erase ( _key ); };
+            _CC_DEPRECATE_FUNCTION(erase) inline statusEnum remove ( Key const &_key ) { return erase ( _key ); };
+            _CC_DEPRECATE_FUNCTION(erase) inline statusEnum remove ( Key const &_key, Data const & _rec  ) { return erase ( _key, _rec ); };
+			_CC_DEPRECATE_FUNCTION(size) inline size_t Size () const { return size(); };
+			_CC_DEPRECATE_FUNCTION_N inline void Empty () { killAll(); };
+			_CC_DEPRECATE_FUNCTION_N inline void empty () { killAll(); };
+			/* ------------------------------ */
 
         protected:
-            void RecursiveConvertIndexToDArray ( DArray <Key> *_darray, RedBlackNode<Key,Data> *_btree );
-            void RecursiveConvertToDArray ( DArray <Data> *_darray, RedBlackNode<Key,Data> *_btree );
+            void RecursiveConvertIndexToDArray ( DArray <Key> *_darray, RedBlackNode<Key,Data> *_btree ) const;
+            void RecursiveConvertToDArray ( DArray <Data> *_darray, RedBlackNode<Key,Data> *_btree ) const;
 
             void rotateLeft ( RedBlackNode<Key,Data> * _x );
             void rotateRight ( RedBlackNode<Key,Data> * _x );
