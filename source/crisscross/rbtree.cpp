@@ -581,6 +581,7 @@ template <class Key, class Data>
     void RedBlackTree<Key,Data>::killAll ()
 {
     killAll ( rootNode );
+	rootNode = NULL_NODE;
 }
 
 template <class Key, class Data>
