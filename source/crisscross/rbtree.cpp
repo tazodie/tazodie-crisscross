@@ -318,6 +318,24 @@ template <class Key, class Data>
 }
 
 template <class Key, class Data>
+	statusEnum RedBlackTree<Key,Data>::erase ( Key const &key, Data const &rec)
+{
+    RedBlackNode<Key,Data>        *node = findNode(key);
+
+    node->beenThere = NODE_ITSELF_VISITED;
+
+    while ( node != NULL )
+    {
+        if ( node->data == rec )
+            break;
+
+        getNext ( &node );
+    }
+    
+    return killNode( node );
+}
+
+template <class Key, class Data>
     statusEnum RedBlackTree<Key,Data>::killNode ( RedBlackNode<Key,Data> * z )
 {
     RedBlackNode<Key,Data> *x, *y;
@@ -411,7 +429,7 @@ template <class Key, class Data>
    ----------------------------------------------------------------------------- */
 
 template <class Key, class Data>
-    void RedBlackTree<Key,Data>::getNext ( RedBlackNode<Key,Data> ** current )
+    void RedBlackTree<Key,Data>::getNext ( RedBlackNode<Key,Data> ** current ) const
 {
     if ( ( *current ) == NULL_NODE )
     {
@@ -566,10 +584,10 @@ template <class Key, class Data>
 }
 
 template <class Key, class Data>
-    int RedBlackTree<Key,Data>::size ()
+    size_t RedBlackTree<Key,Data>::size () const
 {
     RedBlackNode<Key,Data> *vNode = NULL_NODE;
-    int vCount = 0;
+    size_t vCount = 0;
 
     getNext ( &vNode );
     while ( valid ( vNode ) )
@@ -591,7 +609,7 @@ template <class Key, class Data>
 }
 
 template <class Key, class Data>
-    DArray<Data> *RedBlackTree<Key,Data>::ConvertToDArray ()
+    DArray<Data> *RedBlackTree<Key,Data>::ConvertToDArray () const
 {
     DArray<Data> *darray = new DArray<Data> ( (int)size() );
     RecursiveConvertToDArray ( darray, rootNode );
@@ -599,7 +617,7 @@ template <class Key, class Data>
 }
 
 template <class Key, class Data>
-    DArray<Key> *RedBlackTree<Key,Data>::ConvertIndexToDArray ()
+    DArray<Key> *RedBlackTree<Key,Data>::ConvertIndexToDArray () const
 {
     DArray<Key> *darray = new DArray<Key> ( (int)size () );
     RecursiveConvertIndexToDArray ( darray, rootNode );
@@ -607,7 +625,7 @@ template <class Key, class Data>
 }
 
 template <class Key, class Data>
-    void RedBlackTree<Key,Data>::RecursiveConvertToDArray ( DArray<Data> *darray, RedBlackNode<Key,Data> *btree )
+    void RedBlackTree<Key,Data>::RecursiveConvertToDArray ( DArray<Data> *darray, RedBlackNode<Key,Data> *btree ) const
 {
     // note that the btree parameter is ignored
 
@@ -624,7 +642,7 @@ template <class Key, class Data>
 }
 
 template <class Key, class Data>
-    void RedBlackTree<Key,Data>::RecursiveConvertIndexToDArray ( DArray<Key> *darray, RedBlackNode<Key,Data> *btree )
+    void RedBlackTree<Key,Data>::RecursiveConvertIndexToDArray ( DArray<Key> *darray, RedBlackNode<Key,Data> *btree ) const
 {
     // note that the btree parameter is ignored
 

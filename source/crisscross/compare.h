@@ -43,6 +43,16 @@ namespace CrissCross
             else if ( ret > 0 ) return 1;
             else return 0;
         }
+        
+        //! C-style string CrissCross::Data::Compare function.
+        template <>
+        __inline int Compare<const char *> ( const char * const &_first, const char * const&_second )
+        {
+            int ret = strcmp ( _first, _second );
+            if ( ret < 0 ) return -1;
+            else if ( ret > 0 ) return 1;
+            else return 0;
+        }
     }
 }
 

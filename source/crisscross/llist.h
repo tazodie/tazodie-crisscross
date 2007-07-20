@@ -104,7 +104,7 @@ namespace CrissCross
                 \param _index The index of the data to fetch.
                 \return The data contained in the node at the index.
              */
-            inline T getData ( size_t _index ) const;
+            inline T const &get ( size_t _index ) const;
 
             //! Gets the address of where the data at the specified index is stored.
             /*!
@@ -147,7 +147,7 @@ namespace CrissCross
                 \param _index The index to validate.
                 \return True if the index is valid, false otherwise.
              */
-            inline bool validIndex ( size_t _index ) const;
+            inline bool valid ( size_t _index ) const;
 
             //! Deletes all nodes in the list, but does not free memory allocated by data.
             void empty();
@@ -158,7 +158,24 @@ namespace CrissCross
                 \param _index The index of the data to fetch.
                 \return The data contained in the node at the index.
              */
-            inline T operator [] ( size_t _index );
+            inline T const &operator [] ( size_t _index ) const;
+
+
+			/* --- TOSSER I COMPATIBILITY --- */
+			_CC_DEPRECATE_FUNCTION(insert) inline void PutData ( T const & _rec ) { insert ( _rec ); };
+            _CC_DEPRECATE_FUNCTION(insert_back) inline void PutDataAtStart ( T const & _rec ) { insert_front ( _rec ); };
+            _CC_DEPRECATE_FUNCTION(insert_back) inline void PutDataAtEnd ( T const & _rec ) { insert_back ( _rec ); };
+            _CC_DEPRECATE_FUNCTION(insert_at) inline void PutDataAtIndex ( T const & _rec, size_t _index ) { insert_at ( _rec, _index ); };
+			_CC_DEPRECATE_FUNCTION(find) inline size_t FindData ( T const & _rec ) { return find ( _rec ); };
+			_CC_DEPRECATE_FUNCTION(remove) inline void RemoveData ( size_t _index ) { remove ( _index ); };
+            _CC_DEPRECATE_FUNCTION(remove) void ChangeData ( T const & _rec, size_t _index );
+			_CC_DEPRECATE_FUNCTION(size) inline size_t Size () const { return size(); };
+			_CC_DEPRECATE_FUNCTION_N inline void Empty () { empty(); };
+			_CC_DEPRECATE_FUNCTION(get) inline T getData ( size_t _index ) const { return get ( _index ); };
+            _CC_DEPRECATE_FUNCTION(get) inline T GetData ( size_t _index ) const { return get ( _index ); };
+            _CC_DEPRECATE_FUNCTION(valid) inline bool validIndex ( size_t _index ) const { return valid ( _index ); };
+			_CC_DEPRECATE_FUNCTION(valid) inline bool ValidIndex ( size_t _index ) const { return valid ( _index ); };
+			/* ------------------------------ */
         };
     }
 }

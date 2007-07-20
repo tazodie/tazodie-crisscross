@@ -112,7 +112,7 @@ namespace CrissCross
                 \param _index The index of the node to get data from.
                 \return The data stored at the index.
              */
-            T getData ( size_t _index ) const;
+            T get ( size_t _index ) const;
 
             //! Removes the data at the given index.
             /*!
@@ -147,7 +147,7 @@ namespace CrissCross
             /*!
                 \return The number of used nodes.
              */
-            size_t numUsed () const;
+            size_t used () const;
 
             //! Indicates the total size of the array.
             /*!
@@ -162,7 +162,7 @@ namespace CrissCross
                 \param _index The index to test.
                 \return Boolean value. True if valid, false if not.
              */
-            bool validIndex ( size_t _index ) const;
+            bool valid ( size_t _index ) const;
 
             //! Empties the array but does NOT free any pointers stored in the array.
             /*!
@@ -186,6 +186,30 @@ namespace CrissCross
                 \return The data stored at the index.
              */
             T const & operator []( size_t _index ) const;
+
+
+			/* --- TOSSER I COMPATIBILITY --- */
+			_CC_DEPRECATE_FUNCTION(insert) inline size_t PutData ( T const & _rec ) { return insert ( _rec ); };
+			_CC_DEPRECATE_FUNCTION(insert) inline void PutData ( T const & _rec, size_t _index ) { insert ( _rec, _index ); };
+			_CC_DEPRECATE_FUNCTION(remove) inline void RemoveData ( size_t _index ) { remove ( _index ); };
+            _CC_DEPRECATE_FUNCTION_N void ChangeData ( T const & _rec, size_t _index );
+			_CC_DEPRECATE_FUNCTION(size) inline size_t Size () const { return size(); };
+			_CC_DEPRECATE_FUNCTION(valid) inline bool validIndex ( size_t _index ) const { return valid ( _index ); };
+            _CC_DEPRECATE_FUNCTION(valid) inline bool ValidIndex ( size_t _index ) const { return valid ( _index ); };
+			_CC_DEPRECATE_FUNCTION(empty) inline void Empty () { empty(); };
+            _CC_DEPRECATE_FUNCTION_N void EmptyAndDelete ();
+			_CC_DEPRECATE_FUNCTION(get) inline  T getData ( size_t _index ) const { return get ( _index ); };
+            _CC_DEPRECATE_FUNCTION(get) inline  T GetData ( size_t _index ) const { return get ( _index ); };
+			_CC_DEPRECATE_FUNCTION(used) inline  size_t numUsed () const { return used(); };
+			_CC_DEPRECATE_FUNCTION(used) inline  size_t NumUsed () const { return used(); };
+			_CC_DEPRECATE_FUNCTION(setSize) inline void SetSize ( size_t _newsize ) { setSize ( _newsize ); };
+			_CC_DEPRECATE_FUNCTION(setStepSize) inline void SetStepSize ( int _newstepsize ) { setStepSize ( _newstepsize ); };
+			_CC_DEPRECATE_FUNCTION(sort) inline void Sort () {
+				CrissCross::Data::Sorter<T> *s = new CrissCross::Data::HeapSort<T>();
+				sort ( s );
+				delete s;
+			};
+			/* ------------------------------ */
 
         };
     }

@@ -15,7 +15,7 @@
 #include <crisscross/build_number.h>
 
 #ifndef SDL_APPLICATION
-//#  define SDL_APPLICATION // Define if your application uses SDLmain.
+#  define SDL_APPLICATION // Define if your application uses SDLmain.
 #endif
     
 #    define CC_LIB_NAME                "CrissCross"
@@ -88,6 +88,9 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #   include <sys/stat.h>
     
 #    if defined ( TARGET_OS_WINDOWS ) && ( defined ( TARGET_COMPILER_VC ) || defined ( TARGET_COMPILER_ICC ) )
+#       ifndef _CRT_SECURE_NO_WARNINGS
+#           define _CRT_SECURE_NO_WARNINGS
+#       endif
 #       ifndef _CRT_SECURE_NO_DEPRECATE
 #           define _CRT_SECURE_NO_DEPRECATE
 #       endif
