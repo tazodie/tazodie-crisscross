@@ -129,7 +129,9 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
     
 #   if defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
 #       define ANSI_COLOUR
-#       include <cxxabi.h>
+#		ifdef __cplusplus
+#			include <cxxabi.h>
+#		endif
 #       include <pthread.h>
 #       include <sys/types.h>
 #       include <unistd.h>
@@ -157,13 +159,15 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #       include <xstring>
         typedef long intptr_t;
 #   endif
-#   include <exception>
-#   include <iostream>
-#   include <istream>
-#   include <fstream>
-#   include <list>
-#   include <map>
-#   include <sstream>
+#	ifdef __cplusplus
+#       include <exception>
+#       include <iostream>
+#       include <istream>
+#       include <fstream>
+#       include <list>
+#       include <map>
+#       include <sstream>
+#   endif
 
 #   if defined ( TARGET_OS_WINDOWS )
 #       if defined ( DETECT_MEMORY_LEAKS )
