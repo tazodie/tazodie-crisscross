@@ -18,7 +18,7 @@
 //! @cond
 void Assert ( bool _condition, const char *_testcase, const char *_file,
               int _line );
-#    define CoreAssert(x)       Assert((x), #x, __FILE__, __LINE__ )
+#    define CoreAssert(x)       Assert((x != NULL), #x, __FILE__, __LINE__ )
 //! @endcond
 
 //! Prints a stack trace to _outputBuffer.

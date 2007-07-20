@@ -50,7 +50,7 @@ namespace CrissCross
         {
         public:
             //! Indicates whether or not the node has been visited in an iteration sequence.
-            char        beenThere;
+            mutable char beenThere;
 
             //! The color of the node (either red or black).
             char        color;
