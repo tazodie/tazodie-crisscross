@@ -184,7 +184,9 @@ template < class T > T const &LList < T >::get ( size_t index ) const
         return item->m_data;
     }
 
-    return ( T ) 0;
+	// Below wastes memory -- need a cleaner way to error out.
+	static T nullVar(0);
+    return nullVar;
 }
 
 

@@ -209,6 +209,7 @@ PrintStackTrace ( CoreIOWriter * _outputBuffer )
 #endif // TARGET_OS_MACOSX
 }
 
+#ifndef USE_FAST_ASSERT
 void
 Assert ( bool _condition, const char *_testcase, const char *_file,
          int _line )
@@ -230,3 +231,4 @@ Assert ( bool _condition, const char *_testcase, const char *_file,
         #endif
     }
 }
+#endif
