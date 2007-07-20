@@ -248,7 +248,7 @@ template < class T >
 T DArray < T >::get ( size_t index ) const
 {
 
-    CoreAssert ( m_shadow[index] != 0 );
+    CoreAssert ( m_shadow[index] );
     CoreAssert ( index < m_arraySize );
 
     return m_array[index];
@@ -259,7 +259,7 @@ template < class T >
 T & DArray < T >::operator []( size_t index )
 {
 
-    CoreAssert ( m_shadow[index] != 0 );
+    CoreAssert ( m_shadow[index] );
     CoreAssert ( index < m_arraySize );
 
     return m_array[index];
@@ -269,7 +269,7 @@ template < class T >
 const T & DArray < T >::operator []( size_t index ) const
 {
 
-    CoreAssert ( m_shadow[index] != 0 );
+    CoreAssert ( m_shadow[index] );
     CoreAssert ( index < m_arraySize );
 
     return m_array[index];
