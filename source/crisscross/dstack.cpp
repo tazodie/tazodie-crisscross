@@ -20,9 +20,10 @@ using namespace CrissCross::Data;
 template < class dataType >
 DStack<dataType>::DStack ( int N )
 {
+	if ( N < 1 ) N = 1;
     m_stepSize = N;
     m_top = m_bottom = NULL;
-    m_size = m_origSize = 1;
+    m_size = m_origSize = 0;
 }
 
 template < class dataType >
