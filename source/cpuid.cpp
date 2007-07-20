@@ -176,7 +176,7 @@ CPUID::CPUID ()
     for ( i = 0; i < MAX_PROCESSORS; i++ )
     {
         proc[i] = new Processor ();
-        CoreAssert ( proc[i] != NULL );
+        CoreAssert ( proc[i] );
         proc[i]->Manufacturer = NULL;
         proc[i]->ProcessorName = NULL;
     }
@@ -242,9 +242,9 @@ CPUID::~CPUID ()
     delete [] Ext;
     for ( i = 0; i < MAX_PROCESSORS; i++ )
     {
-        while ( proc[i]->caches.validIndex ( j ) )
+        while ( proc[i]->caches.valid ( j ) )
         {
-            delete [] proc[i]->caches.getData ( j );
+            delete [] proc[i]->caches.get ( j );
             j++;
         }
         j = 0;
@@ -322,7 +322,7 @@ CPUID::GoThread ( int processor )
 void
 CPUID::Go ()
 {
-    CoreAssert ( this != NULL );
+    CoreAssert ( this );
 #    ifdef TARGET_OS_WINDOWS
     DWORD dThread = NULL;
     SYSTEM_INFO siSystem;
@@ -535,7 +535,7 @@ CPUID::AddCacheDescription ( int processor, const char *description )
 {
     char *temp = new char[strlen ( description ) + 1];
 
-    CoreAssert ( temp != NULL );
+    CoreAssert ( temp );
     strcpy ( temp, description );
     proc[processor]->caches.insert ( temp );
     temp = NULL;
@@ -878,15 +878,15 @@ unsigned char GetAPIC_ID(void)
 
 	unsigned int Regebx = 0;
 #ifdef TARGET_OS_LINUX
-	asm
-	(
-		"movl $1, %%eax\n\t"	
-		"cpuid"
-		: "=b" (Regebx) 
-		:
-		: "%eax","%ecx","%edx" 
-	);
-	
+
+      asm volatile ("mov $1, %%eax\n\t"
+            "mov %%ebx, %%esi\n\t" /* Save %ebx.  */
+            "cpuid\n\t"
+            "xchgl %%ebx, %%esi" /* Restore %ebx.  */
+            : "=S" (Regebx)
+            :
+            : "%eax","%ecx","%edx","memory");
+
 #else
 	__asm
 	{
