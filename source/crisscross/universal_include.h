@@ -76,6 +76,10 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 // RESULTANT CONFIGURATION
 // -----------------------
 
+#	if defined ( _OPENMP )
+#		include <omp.h>
+#	endif
+
 #   if !defined ( TARGET_COMPILER_VC ) && !defined ( TARGET_COMPILER_ICC )
 #       undef DETECT_MEMORY_LEAKS
 #   endif
