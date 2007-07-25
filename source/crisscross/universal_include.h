@@ -85,18 +85,19 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #       undef ENABLE_CPUID
 #   endif
 
+#   ifndef _CRT_SECURE_NO_WARNINGS
+#       define _CRT_SECURE_NO_WARNINGS
+#   endif
+#   ifndef _CRT_SECURE_NO_DEPRECATE
+#       define _CRT_SECURE_NO_DEPRECATE
+#   endif
+#   ifndef _CRT_NONSTDC_NO_DEPRECATE
+#       define _CRT_NONSTDC_NO_DEPRECATE
+#   endif
+
 #   include <sys/stat.h>
     
 #    if defined ( TARGET_OS_WINDOWS ) && ( defined ( TARGET_COMPILER_VC ) || defined ( TARGET_COMPILER_ICC ) )
-#       ifndef _CRT_SECURE_NO_WARNINGS
-#           define _CRT_SECURE_NO_WARNINGS
-#       endif
-#       ifndef _CRT_SECURE_NO_DEPRECATE
-#           define _CRT_SECURE_NO_DEPRECATE
-#       endif
-#       ifndef _CRT_NONSTDC_NO_DEPRECATE
-#           define _CRT_NONSTDC_NO_DEPRECATE
-#       endif
 #       if TARGET_CPU_BITS == 32
 #           define ENABLE_SYMBOL_ENGINE
 #       else
