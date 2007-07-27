@@ -14,8 +14,11 @@
 
 #include <crisscross/build_number.h>
 
+// Until we figure out the XCrashReports issue...
+#pragma warning (disable:4530)
+
 #ifndef SDL_APPLICATION
-#  define SDL_APPLICATION // Define if your application uses SDLmain.
+//#  define SDL_APPLICATION // Define if your application uses SDLmain.
 #endif
     
 #    define CC_LIB_NAME                "CrissCross"
@@ -45,7 +48,7 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 
 // Disabling these will save space but limit functionality.
 #   define ENABLE_CPUID
-//#   define NO_CPP_EXCEPTION_HANDLER
+#	define ENABLE_CRASHREPORTS // Enables XCrashReports on Windows.
 
 // Enables non-blocking sockets.
 #   define ENABLE_NONBLOCKING
@@ -117,6 +120,9 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #       if defined ( DETECT_MEMORY_LEAKS )
 #           define _CRTDBG_MAP_ALLOC
 #       endif
+#		if defined ( ENABLE_CRASHREPORTS )
+#			include "XCrashReports/exception_handler.h"
+#		endif
 #       include <io.h>
 #       include <fcntl.h>
 #       include <winsock2.h>
@@ -130,6 +136,7 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #       define strcasecmp stricmp
 #   else
 #       undef ENABLE_SYMBOL_ENGINE
+#		undef ENABLE_CRASHREPORTS
 #   endif
     
 #   if defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )

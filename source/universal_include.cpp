@@ -246,53 +246,54 @@ AppPrintMemoryLeaks ( char *_filename )
 #ifdef SDL_APPLICATION
 int CrissCrossInitialize ( int argc, char **argv )
 #else
-int main ( int argc, char **argv )
+	#ifndef TARGET_OS_WINDOWS
+		int main ( int argc, char **argv )
+	#else
+		#ifndef _WINDOWS
+			int main ( int argc, char **argv )
+		#else
+			int WINAPI WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, 
+							   LPSTR _cmdLine, int _iCmdShow)
+		#endif
+	#endif
 #endif
 {
-    int retval = 0;
+	int retval = 0;
 
 #ifdef ENABLE_MEMLEAK_STATS
-    _CrtMemCheckpoint ( &s1 );
+	_CrtMemCheckpoint ( &s1 );
 #endif
-    g_stderr = new Console ( stderr, NULL );
-    g_stdout = new Console ( stdout, NULL );
+	g_stderr = new Console ( stderr, NULL );
+	g_stdout = new Console ( stdout, NULL );
 
-#ifndef NO_CPP_EXCEPTION_HANDLER
-    try
-    {
+#ifdef ENABLE_CRASHREPORTS
+	__try
 #endif
-        retval = RunApplication ( argc, argv );
-#ifndef NO_CPP_EXCEPTION_HANDLER
-    }
-    catch ( std::exception& e )
-    {
-        cout << e.what() << endl;
-        return -3;
-    }
-    catch ( const char *_exception )
-    {
-        g_stderr->
-            WriteLine
-            ( "An unknown exception has been raised:\n\tDescription: %s",
-              _exception );
-        return -2;
-    }
+	{
+#ifndef _WINDOWS
+		retval = RunApplication ( argc, argv );
+#else
+		retval = RunApplication ( __argc, __argv );
+#endif
+	}
+#ifdef ENABLE_CRASHREPORTS
+	__except ( RecordExceptionInfo ( GetExceptionInformation(), "WinMain", CC_LIB_NAME, CC_LIB_VERSION ) ) {}
 #endif
     
-    delete g_stderr; g_stderr = NULL;
-    delete g_stdout; g_stdout = NULL;
+	delete g_stderr; g_stderr = NULL;
+	delete g_stdout; g_stdout = NULL;
 
 #ifdef DETECT_MEMORY_LEAKS
-    AppPrintMemoryLeaks ( "memleak.txt" );
+	AppPrintMemoryLeaks ( "memleak.txt" );
 #endif
-    return retval;
+	return retval;
 }
 
 #ifdef SDL_APPLICATION
 extern "C" {
-    int SDL_main ( int argc, char **argv )
-    {
-        return CrissCrossInitialize(argc,argv);
-    }
+	int SDL_main ( int argc, char **argv )
+	{
+		return CrissCrossInitialize(argc,argv);
+	}
 }
 #endif

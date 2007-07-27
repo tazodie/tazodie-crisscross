@@ -17,6 +17,8 @@ int TestDatatypes_Uint16();
 int TestDatatypes_Uint32();
 int TestDatatypes_Uint64();
 
+int TestDatatypes_Ulong();
+
 int TestDatatypes_Bool();
 
 int TestDatatypes_Float();

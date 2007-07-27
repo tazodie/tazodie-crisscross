@@ -57,11 +57,11 @@
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
 				AdditionalIncludeDirectories="."
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				StringPooling="true"
+				ExceptionHandling="0"
 				RuntimeLibrary="2"
 				BufferSecurityCheck="false"
-				RuntimeTypeInfo="false"
 				OpenMP="true"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="crisscross/universal_include.h"
@@ -223,12 +223,13 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="."
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
+				ExceptionHandling="2"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				BufferSecurityCheck="false"
-				RuntimeTypeInfo="false"
+				RuntimeTypeInfo="true"
 				OpenMP="true"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="crisscross/universal_include.h"
@@ -1250,6 +1251,34 @@
 			</File>
 			<File
 				RelativePath=".\crisscross\udpsocket.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="XCrashReports"
+			>
+			<File
+				RelativePath=".\XCrashReports\exception_handler.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XCrashReports\exception_handler.h"
+				>
+			</File>
+			<File
+				RelativePath=".\XCrashReports\GetWinVer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XCrashReports\GetWinVer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\XCrashReports\MiniVersion.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XCrashReports\MiniVersion.h"
 				>
 			</File>
 		</Filter>
