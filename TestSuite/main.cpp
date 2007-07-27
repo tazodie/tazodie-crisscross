@@ -48,6 +48,7 @@ int RunApplication (int argc, char **argv) {
     WritePrefix ( "Size of Uint16" ); retval |= WriteResult ( TestDatatypes_Uint16() );
     WritePrefix ( "Size of Uint32" ); retval |= WriteResult ( TestDatatypes_Uint32() );
     WritePrefix ( "Size of Uint64" ); retval |= WriteResult ( TestDatatypes_Uint64() );
+    WritePrefix ( "Size of Ulong" ); retval |= WriteResult ( TestDatatypes_Ulong() );
     WritePrefix ( "Size of Bool" ); retval |= WriteResult ( TestDatatypes_Bool() );
     WritePrefix ( "Size of Float" ); retval |= WriteResult ( TestDatatypes_Float() );
     WritePrefix ( "Size of Double" ); retval |= WriteResult ( TestDatatypes_Double() );
@@ -77,7 +78,6 @@ int RunApplication (int argc, char **argv) {
     WritePrefix ( "QuickSort (integer array)" ); retval |= WriteResult ( TestQuickSort_IntArray() );
     WritePrefix ( "QuickSort (integer DArray)" ); retval |= WriteResult ( TestQuickSort_DArray() );
 
-
     if ( retval == 0 )
     {
         g_console->WriteLine ();
@@ -86,14 +86,12 @@ int RunApplication (int argc, char **argv) {
     }
 
     g_console->Flush();
-
+ 
 #ifdef TARGET_OS_WINDOWS
     system ( "pause" );
 #endif
 
-    CoreAssert ( retval == 0 );
-
     delete g_console;
 
-    return 0;
+    return retval;
 }

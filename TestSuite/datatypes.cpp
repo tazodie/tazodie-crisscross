@@ -35,6 +35,14 @@ int TestDatatypes_Uint64()
         return 0;
 }
 
+int TestDatatypes_Ulong()
+{
+    if ( sizeof ( unsigned long ) != ( TARGET_CPU_BITS / 8 ) )
+        return 1;
+    else
+        return 0;
+}
+
 int TestDatatypes_Bool()
 {
     if ( sizeof ( bool ) != 1 )
