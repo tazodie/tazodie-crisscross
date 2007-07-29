@@ -106,9 +106,9 @@ RunApplication ( int argc, char **argv )
                 console->WriteLine ( "CPU[%d] Caches:", i );
                 for ( size_t j = 0; j < cpuid->proc[i]->caches.size (); j++ )
                 {
-                    if ( cpuid->proc[i]->caches.validIndex ( j ) )
+                    if ( cpuid->proc[i]->caches.valid ( j ) )
                         console->Write ( "  %s",
-                                         cpuid->proc[i]->caches.getData ( j ) );
+                                         cpuid->proc[i]->caches.get ( j ) );
                 }
                 console->WriteLine ();
             }

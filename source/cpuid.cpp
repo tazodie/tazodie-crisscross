@@ -1203,8 +1203,7 @@ CPUID::DetectFeatures ( int processor )
             DetectFeature ( &Std[1].ecx, DCA_FLAG, processor, "DCA" );
             DetectFeature ( &Ext[1].edx, EM64T_FLAG, processor, "EM64T" );
         }
-        else if ( strcmp ( proc[processor]->Manufacturer, "AuthenticAMD" ) ==
-                  0 )
+        else if ( strcmp ( proc[processor]->Manufacturer, "AuthenticAMD" ) == 0 )
         {
             // AMD-only flags, EDX 8000_0001
             DetectFeature ( &Ext[1].edx, NX_FLAG, processor, "NX" );

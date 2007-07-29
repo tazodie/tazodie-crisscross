@@ -49,7 +49,7 @@ int TestCombSort_DArray()
     
     for ( int i = 0; i < 5; i++ )
     {
-        if ( darray->getData(i) != i )
+        if ( darray->get(i) != i )
             return i + 1;
     }
 

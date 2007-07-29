@@ -25,13 +25,13 @@ int TestDArray()
     darray->insert ( 5 );
     darray->insert ( 7 );
     
-    if ( darray->getData(0) != 1 )
+    if ( darray->get(0) != 1 )
         return 1;
 
-    if ( darray->getData(3) != 7 )
+    if ( darray->get(3) != 7 )
         return 2;
 
-    if ( darray->getData(1) != 3 )
+    if ( darray->get(1) != 3 )
         return 3;
         
     delete darray;
