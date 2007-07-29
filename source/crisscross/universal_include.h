@@ -117,6 +117,9 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #       if _MSC_VER <= 1100
 #           undef DETECT_MEMORY_LEAKS
 #       endif
+#		if defined ( _DEBUG )
+#			undef ENABLE_CRASHREPORTS
+#		endif
 #       if defined ( DETECT_MEMORY_LEAKS )
 #           define _CRTDBG_MAP_ALLOC
 #       endif

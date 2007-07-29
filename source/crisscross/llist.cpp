@@ -329,11 +329,11 @@ template < class T > void LList < T >::remove ( size_t index )
 
 template < class T > size_t LList < T >::find ( const T & data )
 {
-    int const size = this->size ();
+    size_t const size = this->size ();
 
-    for ( int i = 0; i < size; ++i )
+    for ( size_t i = 0; i < size; ++i )
     {
-        if ( getData ( i ) == data )
+        if ( get ( i ) == data )
         {
             return i;
         }

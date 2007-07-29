@@ -13,7 +13,7 @@
 #define __included_cc_deprecate_h
 
 // TODO: Comment this line to re-add deprecation for release builds.
-#   define _CC_NO_DEPRECATE
+//#   define _CC_NO_DEPRECATE
 //#   define _CC_ONLY_DEPRECATE_SLOW
 
 #    if defined(TARGET_COMPILER_GCC)
