@@ -195,7 +195,6 @@ namespace CrissCross
             _CC_DEPRECATE_FUNCTION_N void ChangeData ( T const & _rec, size_t _index );
 			_CC_DEPRECATE_FUNCTION(size) inline size_t Size () const { return size(); };
 			_CC_DEPRECATE_FUNCTION(valid) inline bool validIndex ( size_t _index ) const { return valid ( _index ); };
-            _CC_DEPRECATE_FUNCTION(valid) inline bool ValidIndex ( size_t _index ) const { return valid ( _index ); };
 			_CC_DEPRECATE_FUNCTION(empty) inline void Empty () { empty(); };
             _CC_DEPRECATE_FUNCTION_N void EmptyAndDelete ();
 			_CC_DEPRECATE_FUNCTION(get) inline  T getData ( size_t _index ) const { return get ( _index ); };

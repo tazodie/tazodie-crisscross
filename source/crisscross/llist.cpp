@@ -204,7 +204,7 @@ template < class T > T * LList < T >::getPointer ( size_t index ) const
 
 template < class T > LListItem < T > *LList < T >::getItem ( size_t index ) const
 {
-    if ( !validIndex ( index ) )
+    if ( !valid ( index ) )
         return NULL;
 
 
