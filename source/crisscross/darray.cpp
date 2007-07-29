@@ -335,7 +335,7 @@ void DArray < T >::sort ( Sorter<T> *_sortMethod )
     T *temp_ptr = temp_array;
     for ( size_t i = 0; i < m_arraySize; i++ )
     {
-        if ( validIndex ( i ) )
+        if ( valid ( i ) )
         {
             *temp_ptr = m_array[i];
             temp_ptr++;
@@ -364,7 +364,7 @@ void DArray<T>::EmptyAndDelete()
 {
     for (int i = 0; i < m_arraySize; ++i)
     {
-        if (ValidIndex(i))
+        if (valid(i))
         {
             delete m_array[i];
         }
