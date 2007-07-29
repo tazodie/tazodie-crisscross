@@ -81,6 +81,7 @@ namespace CrissCross
         void
         ThreadSleep ( int _msec )
         {
+			if ( _msec < 0 ) return;
             /* TODO: Mac OS X port of this function. */
     #if defined ( TARGET_OS_WINDOWS )
             Sleep ( _msec );
