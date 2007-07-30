@@ -164,7 +164,7 @@ namespace CrissCross
              */
             bool valid ( const RedBlackNode<Key,Data> *_node ) const;
 
-            //inline Data &operator [] ( const Key &_key ) { return findNode(_key)->data; };
+			inline void empty () { killAll(); };
 
         protected:
 
@@ -203,7 +203,6 @@ namespace CrissCross
 			_CC_DEPRECATE_FUNCTION(erase) inline statusEnum remove ( Key const &_key, Data const & _rec  ) { return erase ( _key, _rec ); };
 			_CC_DEPRECATE_FUNCTION(size) inline size_t Size () const { return size(); };
 			_CC_DEPRECATE_FUNCTION_N inline void Empty () { killAll(); };
-			_CC_DEPRECATE_FUNCTION_N inline void empty () { killAll(); };
 			/* ------------------------------ */
 
         protected:
