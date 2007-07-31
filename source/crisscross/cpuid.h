@@ -30,17 +30,6 @@ namespace CrissCross
 	namespace System
 	{
 
-		typedef enum
-		{
-			SINGLE_CORE_AND_HT_ENABLED,
-			SINGLE_CORE_AND_HT_DISABLED,
-			SINGLE_CORE_AND_HT_NOT_CAPABLE,
-			MULTI_CORE_AND_HT_NOT_CAPABLE,
-			MULTI_CORE_AND_HT_ENABLED,
-			MULTI_CORE_AND_HT_DISABLED,
-			USER_CONFIG_ISSUE
-		} CoreSetupType;
-
 		class Feature
 		{
 		  public:
@@ -110,20 +99,19 @@ namespace CrissCross
 			void DetectProcessorName ( int processor );
 			void DetectCacheInfo ( int processor );
 			void DetectFMS ( int processor );
-			void DetectHTTCMP ();
 			void DetectBrandID ( int processor );
+			void DetectCount ( int processor );
 			void DetectAPIC ( int processor );
 			void DetectFeatures ( int processor );
-			void DetectFeature ( const unsigned long *_register, long _flag,
-					     int _processor, const char *_name );
-			unsigned int MaxLogicalProcPerPhysicalProc();
-			unsigned int MaxCorePerPhysicalProc();
+			void DetectFeature ( const unsigned long *_register, long _flag, int _processor, const char *_name );
 
 		  public:
 			  CPUID ();
 			 ~CPUID ();
 			void Go ();
-			unsigned char Count ( unsigned int *_logical, unsigned int *_core, unsigned int *_physical );
+			int GetLogicalCPUCount ();
+			int GetPhysicalCPUCount ();
+			int GetVirtualCPUCount ();
 
 			Processor *proc[MAX_PROCESSORS];    // Support up to MAX_PROCESSORS
 

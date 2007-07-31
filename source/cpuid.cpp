@@ -18,10 +18,6 @@
 
 using namespace CrissCross::System;
 
-#ifdef TARGET_OS_LINUX
-#	define DWORD unsigned long
-#endif
-
 #    define FPU_FLAG 0x0001
 #    define LAHF_FLAG 0x0001
 #    define SSE3_FLAG 0x0001
@@ -265,8 +261,6 @@ CPUID::~CPUID ()
     }
 }
 
-#if 0
-// Theoretically obsoleted.
 int
 CPUID::GetVirtualCPUCount ()
 {
@@ -291,7 +285,6 @@ CPUID::GetPhysicalCPUCount ()
 {
     return proc[0]->PhysicalCount;
 }
-#endif
 
 #    ifdef TARGET_OS_WINDOWS
 DWORD WINAPI
@@ -311,11 +304,12 @@ CPUID::GoThread ( int processor )
     }
     DetectManufacturer ( processor );
     DetectProcessorName ( processor );
-    DetectAPIC ( processor );
     DetectFeatures ( processor );
     DetectCacheInfo ( processor );
     DetectFMS ( processor );
     DetectBrandID ( processor );
+    DetectCount ( processor );
+    DetectAPIC ( processor );
     return 0;
 }
 
@@ -369,63 +363,6 @@ CPUID::Go ()
     }
     sched_setaffinity ( 0, sizeof ( originalmask ), &originalmask );
 #    endif
-
-    // Disabled until properly integrated.
-    //DetectHTTCMP ();
-}
-
-void
-CPUID::DetectHTTCMP()
-{
-	unsigned int l, c, p;
-	char retval = Count ( &l, &c, &p );
-	for ( unsigned int i = 0; i < l; i++ )
-	{
-		if ( proc[i]->features.find("HTT") == NULL )
-		{
-			Feature *htt = new Feature();
-			htt->Enabled = false;
-			proc[i]->features.insert ( "HTT", htt );
-		}
-		if ( proc[i]->features.find("CMP") == NULL )
-		{
-			Feature *cmp = new Feature();
-			cmp->Enabled = false;
-			proc[i]->features.insert ( "CMP", cmp );
-		}
-		switch ( retval )
-		{
-		case MULTI_CORE_AND_HT_NOT_CAPABLE:
-			proc[i]->features.find ( "HTT" )->Enabled = false;
-			proc[i]->features.find ( "CMP" )->Enabled = true;
-			break;
-
-		case SINGLE_CORE_AND_HT_NOT_CAPABLE:
-			proc[i]->features.find ( "HTT" )->Enabled = false;
-			proc[i]->features.find ( "CMP" )->Enabled = false;
-			break;
-
-		case SINGLE_CORE_AND_HT_DISABLED:
-			proc[i]->features.find ( "HTT" )->Enabled = false;
-			proc[i]->features.find ( "CMP" )->Enabled = false;
-			break;
-
-		case SINGLE_CORE_AND_HT_ENABLED:
-			proc[i]->features.find ( "HTT" )->Enabled = true;
-			proc[i]->features.find ( "CMP" )->Enabled = false;
-			break;
-
-		case MULTI_CORE_AND_HT_DISABLED:
-			proc[i]->features.find ( "HTT" )->Enabled = false;
-			proc[i]->features.find ( "CMP" )->Enabled = true;
-			break;
-
-		case MULTI_CORE_AND_HT_ENABLED:
-			proc[i]->features.find ( "HTT" )->Enabled = true;
-			proc[i]->features.find ( "CMP" )->Enabled = true;
-			break;
-		}
-	}
 }
 
 void
@@ -765,357 +702,35 @@ CPUID::DetectBrandID ( int processor )
     proc[processor]->BrandID = (char)( Std[1].ebx & 0xff );
 }
 
-unsigned int HWD_MTSupported(void)
+void
+CPUID::DetectCount ( int processor )
 {
-   
-	unsigned int Regedx      = Std[1].edx;
-	return (Regedx & HTT_FLAG);  
-  
-}
+    // Compliant with Intel document #241618.
 
-unsigned int
-CPUID::MaxLogicalProcPerPhysicalProc()
-{
-
-	unsigned int Regebx = 0;
-
-	if (!HWD_MTSupported()) return (unsigned int) 1;
-
-	Regebx = Std[1].ebx;
-	return (unsigned int) ((Regebx & 0x00FF0000) >> 16);
-
-}
-
-unsigned int
-CPUID::MaxCorePerPhysicalProc()
-{
-	unsigned int Regeax = Std[4].eax;
-	return (unsigned int)((Regeax & 0xFC000000) >> 26)+1;
-
-}
-
-unsigned int find_maskwidth(unsigned int CountItem)
-{
-	unsigned int MaskWidth,
-				 count = CountItem;
-#ifdef TARGET_OS_LINUX
-	asm
-	(
-#ifdef __x86_64__		// define constant to compile  
-		"push %%rcx\n\t"		// under 64-bit Linux
-		"push %%rax\n\t"
-#else
-		"pushl %%ecx\n\t"
-		"pushl %%eax\n\t"
-#endif
-//		"movl $count, %%eax\n\t" //done by Assembler below
-		"xorl %%ecx, %%ecx"
-//		"movl %%ecx, MaskWidth\n\t" //done by Assembler below
-		: "=c" (MaskWidth)
-		: "a" (count)
-//		: "%ecx", "%eax" We don't list these as clobbered because we don't want the assembler
-			//to put them back when we are done
-	);
-	asm
-	(
-		"decl %%eax\n\t"
-		"bsrw %%ax,%%cx\n\t"
-		"jz next\n\t"
-		"incw %%cx\n\t"
-//		"movl %%ecx, MaskWidth\n" //done by Assembler below
-		: "=c" (MaskWidth)
-		:
-	);
-	asm
-	(
-		"next:\n\t"
-#ifdef __x86_64__
-		"pop %rax\n\t"
-		"pop %rcx"		
-#else
-		"popl %eax\n\t"
-		"popl %ecx"		
-#endif
-	);
-
-#else
-	__asm
-	{
-		mov eax, count
-		mov ecx, 0
-		mov MaskWidth, ecx
-		dec eax
-		bsr cx, ax
-		jz next
-		inc cx
-		mov MaskWidth, ecx
-next:
-		
-	}
-#endif
-	return MaskWidth;
-}
-
-//
-// Extract the subset of bit field from the 8-bit value FullID.  It returns the 8-bit sub ID value
-//
-static unsigned char GetNzbSubID(unsigned char FullID,
-						  unsigned char MaxSubIDValue,
-						  unsigned char ShiftCount)
-{
-	unsigned int MaskWidth;
-	unsigned char MaskBits;
-
-	MaskWidth = find_maskwidth((unsigned int) MaxSubIDValue);
-	MaskBits  = (0xff << ShiftCount) ^ 
-				((unsigned char) (0xff << (ShiftCount + MaskWidth)));
-
-	return (FullID & MaskBits);
-}
-
-unsigned char GetAPIC_ID(void)
-{
-
-	unsigned int Regebx = 0;
-#ifdef TARGET_OS_LINUX
-
-      asm volatile ("mov $1, %%eax\n\t"
-            "mov %%ebx, %%esi\n\t" /* Save %ebx.  */
-            "cpuid\n\t"
-            "xchgl %%ebx, %%esi" /* Restore %ebx.  */
-            : "=S" (Regebx)
-            :
-            : "%eax","%ecx","%edx","memory");
-
-#else
-	__asm
-	{
-		mov eax, 1
-		cpuid
-		mov Regebx, ebx
-	}
-#endif                                
-
-	return (unsigned char) ((Regebx & 0xFF000000) >> 24);
-
-}
-
-unsigned char
-CPUID::Count (	unsigned int *TotAvailLogical,
-				unsigned int *TotAvailCore,
-				unsigned int *PhysicalNum )
-{
-	unsigned char StatusFlag = 0;
-	unsigned int numLPEnabled = 0;
-	DWORD dwAffinityMask;
-	int j = 0, MaxLPPerCore;
-	unsigned char apicID, PackageIDMask;
-	unsigned char tblPkgID[256], tblCoreID[256], tblSMTID[256];
-	*TotAvailCore = 1;
-	*PhysicalNum  = 1;
-
-#ifdef TARGET_OS_LINUX
-	//we need to make sure that this process is allowed to run on 
-	//all of the logical processors that the OS itself can run on.
-	//A process could acquire/inherit affinity settings that restricts the 
-	// current process to run on a subset of all logical processor visible to OS.
-
-	// Linux doesn't easily allow us to look at the Affinity Bitmask directly,
-	// but it does provide an API to test affinity maskbits of the current process 
-	// against each logical processor visible under OS.
-	int sysNumProcs = sysconf(_SC_NPROCESSORS_CONF); //This will tell us how many 
-	//CPUs are currently enabled.
-
-	//this will tell us which processors this process can run on. 
-	cpu_set_t allowedCPUs;	 
-	sched_getaffinity(0, sizeof(allowedCPUs), &allowedCPUs);
-
-	for (int i = 0; i < sysNumProcs; i++ )
-	{
-		if ( CPU_ISSET(i, &allowedCPUs) == 0 )
-		{
-			StatusFlag = USER_CONFIG_ISSUE;		
-			return StatusFlag;
-		}
-	}
-#elif defined ( TARGET_OS_WINDOWS )
-	DWORD dwProcessAffinity, dwSystemAffinity;
-	GetProcessAffinityMask(GetCurrentProcess(), 
-		&dwProcessAffinity,
-		&dwSystemAffinity);
-	if (dwProcessAffinity != dwSystemAffinity)  // not all CPUs are enabled
-	{
-		StatusFlag = USER_CONFIG_ISSUE;		
-		return StatusFlag;
-	}
-#else
-#	error Not defined for this platform.
-#endif
-
-	// Assume that cores within a package have the SAME number of 
-	// logical processors.  Also, values returned by
-	// MaxLogicalProcPerPhysicalProc and MaxCorePerPhysicalProc do not have
-	// to be power of 2.
-
-	MaxLPPerCore = MaxLogicalProcPerPhysicalProc() / MaxCorePerPhysicalProc();
-	dwAffinityMask = 1;
-
-#ifdef TARGET_OS_LINUX
-	cpu_set_t currentCPU;
-	while ( j < sysNumProcs )
-	{
-		CPU_ZERO(&currentCPU);
-		CPU_SET(j, &currentCPU);
-		if ( sched_setaffinity (0, sizeof(currentCPU), &currentCPU) == 0 )
-		{
-			sleep(0);  // Ensure system to switch to the right CPU
-#elif defined ( TARGET_OS_WINDOWS )
-	while (dwAffinityMask && dwAffinityMask <= dwSystemAffinity)
-	{
-		if (SetThreadAffinityMask(GetCurrentThread(), dwAffinityMask))
-		{
-			Sleep(0);  // Ensure system to switch to the right CPU
-#else
-#	error Not defined for this platform.
-#endif
-			apicID = GetAPIC_ID();
-
-
-			// Store SMT ID and core ID of each logical processor
-			// Shift vlaue for SMT ID is 0
-			// Shift value for core ID is the mask width for maximum logical
-			// processors per core
-
-			tblSMTID[j]  = GetNzbSubID(apicID, MaxLPPerCore, 0);
-			tblCoreID[j] = GetNzbSubID(apicID, 
-				MaxCorePerPhysicalProc(),
-				(unsigned char) find_maskwidth(MaxLPPerCore));
-
-			// Extract package ID, assume single cluster.
-			// Shift value is the mask width for max Logical per package
-
-			PackageIDMask = (unsigned char) (0xff << 
-				find_maskwidth(MaxLogicalProcPerPhysicalProc()));
-
-			tblPkgID[j] = apicID & PackageIDMask;
-
-			numLPEnabled ++;   // Number of available logical processors in the system.
-
-		} // if
-
-		j++;
-		dwAffinityMask = 1 << j;
-	} // while
-
-	// restore the affinity setting to its original state
-#ifdef TARGET_OS_LINUX
-	sched_setaffinity (0, sizeof(allowedCPUs), &allowedCPUs);
-	sleep(0);
-#elif defined ( TARGET_OS_WINDOWS )
-	SetThreadAffinityMask(GetCurrentThread(), dwProcessAffinity);
-	Sleep(0);
-#else
-#	error Not defined for this platform.
-#endif
-	*TotAvailLogical = numLPEnabled;
-
-	//
-	// Count available cores (TotAvailCore) in the system
-	//
-	unsigned char CoreIDBucket[256];
-	DWORD ProcessorMask, pCoreMask[256];
-	unsigned int i, ProcessorNum;
-
-	CoreIDBucket[0] = tblPkgID[0] | tblCoreID[0];
-	ProcessorMask = 1;
-	pCoreMask[0] = ProcessorMask;
-
-	for (ProcessorNum = 1; ProcessorNum < numLPEnabled; ProcessorNum++)
-	{
-		ProcessorMask <<= 1;
-		for (i = 0; i < *TotAvailCore; i++)
-		{
-			// Comparing bit-fields of logical processors residing in different packages
-			// Assuming the bit-masks are the same on all processors in the system.
-			if ((tblPkgID[ProcessorNum] | tblCoreID[ProcessorNum]) == CoreIDBucket[i])
-			{
-				pCoreMask[i] |= ProcessorMask;
-				break;
-			}
-
-		}  // for i
-
-		if (i == *TotAvailCore)   // did not match any bucket.  Start a new one.
-		{
-			CoreIDBucket[i] = tblPkgID[ProcessorNum] | tblCoreID[ProcessorNum];
-			pCoreMask[i] = ProcessorMask;
-
-			(*TotAvailCore)++;	// Number of available cores in the system
-
-		}
-
-	}  // for ProcessorNum
-
-
-	//
-	// Count physical processor (PhysicalNum) in the system
-	//
-	unsigned char PackageIDBucket[256];
-	DWORD pPackageMask[256];
-
-	PackageIDBucket[0] = tblPkgID[0];
-	ProcessorMask = 1;
-	pPackageMask[0] = ProcessorMask;
-
-	for (ProcessorNum = 1; ProcessorNum < numLPEnabled; ProcessorNum++)
-	{
-		ProcessorMask <<= 1;
-		for (i = 0; i < *PhysicalNum; i++)
-		{
-			// Comparing bit-fields of logical processors residing in different packages
-			// Assuming the bit-masks are the same on all processors in the system.
-			if (tblPkgID[ProcessorNum]== PackageIDBucket[i])
-			{
-				pPackageMask[i] |= ProcessorMask;
-				break;
-			}
-
-		}  // for i
-
-		if (i == *PhysicalNum)   // did not match any bucket.  Start a new one.
-		{
-			PackageIDBucket[i] = tblPkgID[ProcessorNum];
-			pPackageMask[i] = ProcessorMask;
-
-			(*PhysicalNum)++;	// Total number of physical processors in the system
-
-		}
-
-	}  // for ProcessorNum
-
-	//
-	// Check to see if the system is multi-core 
-	// Check if the system is hyper-threading
-	//
-	if (*TotAvailCore > *PhysicalNum) 
-	{
-		// Multi-core
-		if (MaxLPPerCore == 1)
-			StatusFlag = MULTI_CORE_AND_HT_NOT_CAPABLE;
-		else if (numLPEnabled > *TotAvailCore)
-			StatusFlag = MULTI_CORE_AND_HT_ENABLED;
-		else StatusFlag = MULTI_CORE_AND_HT_DISABLED;
-	}
-	else
-	{
-		// Single-core
-		if (MaxLPPerCore == 1)
-			StatusFlag = SINGLE_CORE_AND_HT_NOT_CAPABLE;
-		else if (numLPEnabled > *TotAvailCore)
-			StatusFlag = SINGLE_CORE_AND_HT_ENABLED;
-		else StatusFlag = SINGLE_CORE_AND_HT_DISABLED;
-	}
-	return StatusFlag;
+    // AMD and Intel documentations state that if HTT is supported
+    // then this the EBX:16 will reflect the logical processor count
+    // otherwise the flag is reserved.
+    BinaryNode<std::string, Feature*> * HTT_node = proc[processor]->features.findNode ( "HTT" );
+    proc[processor]->PhysicalCount = (char)( ( ( ( Std[4].eax >> 26 ) & 0x03f ) + 1 ) & 0xff );
+    if ( HTT_node->data->Enabled )
+    {
+        proc[processor]->LogicalCount = (char)( (Std[1].ebx >> 16) & 0xff );
+        if ( proc[processor]->LogicalCount > 1 )
+        {
+            // Core Multi-Processing (CMP), i.e. "Dual Core".
+            delete (Feature *)HTT_node->data;
+            proc[processor]->features.erase ( "HTT" );
+            Feature *feature = new Feature();
+            feature->Enabled = 1;
+            proc[processor]->features.insert ( "CMP", feature );
+            feature = NULL;
+        }
+    }
+    else
+    {
+        // HTT not supported. Report logical processor count as 1.
+        proc[processor]->LogicalCount = 1;
+    }
 }
 
 void
