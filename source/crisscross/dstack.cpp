@@ -75,7 +75,7 @@ dataType DStack<dataType>::pop ()
 template < class dataType >
 const dataType &DStack<dataType>::peek ()
 {
-	static dataType nullItem(NULL);
+    static dataType nullItem(0);
     if ( !m_top ) return nullItem;
     return *(m_top - 1);
 }

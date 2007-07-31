@@ -1,6 +1,6 @@
 # CrissCross common makefile options.
 
-VERSION = 0.6.1
+VERSION = 0.6.5
 VERSION_MAJOR = 0
 
 OPTLEVEL = 3
