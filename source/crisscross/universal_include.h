@@ -15,7 +15,9 @@
 #include <crisscross/build_number.h>
 
 // Until we figure out the XCrashReports issue...
-#pragma warning (disable:4530)
+#ifdef _MSC_VER
+#	pragma warning (disable:4530)
+#endif
 
 #ifndef SDL_APPLICATION
 //#  define SDL_APPLICATION // Define if your application uses SDLmain.
