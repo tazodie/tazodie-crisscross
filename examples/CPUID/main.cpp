@@ -37,49 +37,17 @@ RunApplication ( int argc, char **argv )
 
     cpuid->Go ();
     
-// Disabled until properly integrated... Intel had very sloppy code.
-#if 0
-	unsigned int LogicalCPU, CoreCPU, PhysicalCPU;
-	char statusFlag = cpuid->Count ( &LogicalCPU, &CoreCPU, &PhysicalCPU );
-
-	switch ( statusFlag )
-	{
-
-	case MULTI_CORE_AND_HT_NOT_CAPABLE:
-		console->Write ( "Hyper-Threading Technology: Incapable\nMulti-core: Yes\nMulti-processor: " );
-		if (PhysicalCPU > 1) console->WriteLine("Yes"); else console->WriteLine("No");
-		break;
-
-	case SINGLE_CORE_AND_HT_NOT_CAPABLE:
-		console->Write ( "Hyper-Threading Technology: Incapable\nMulti-core: No\nMulti-processor: " );
-		if (PhysicalCPU > 1) console->WriteLine("Yes"); else console->WriteLine("No");
-		break;
-
-	case SINGLE_CORE_AND_HT_DISABLED:
-		console->Write ( "Hyper-Threading Technology: Disabled\nMulti-core: No\nMulti-processor: " );
-		if (PhysicalCPU > 1) console->WriteLine("Yes"); else console->WriteLine("No");
-		break;
-
-	case SINGLE_CORE_AND_HT_ENABLED:
-		console->Write ( "Hyper-Threading Technology: Enabled\nMulti-core: No\nMulti-processor: " );
-		if (PhysicalCPU > 1) console->WriteLine("Yes"); else console->WriteLine("No");
-		break;
-
-	case MULTI_CORE_AND_HT_DISABLED:
-		console->Write ( "Hyper-Threading Technology: Disabled\nMulti-core: Yes\nMulti-processor: " );
-		if (PhysicalCPU > 1) console->WriteLine("Yes"); else console->WriteLine("No");
-		break;
-
-	case MULTI_CORE_AND_HT_ENABLED:
-		console->Write ( "Hyper-Threading Technology: Enabled\nMulti-core: Yes\nMulti-processor: " );
-		if (PhysicalCPU > 1) console->WriteLine("Yes"); else console->WriteLine("No");
-		break;
-
-	}
-	
-	console->WriteLine ( "System wide availability: %d physical processors, %d cores, %d logical processors\n", 
-	       PhysicalCPU, CoreCPU, LogicalCPU);
-#endif
+    // NOTES
+    // The Virtual count is the number of processors that the operating system sees,
+    // but does not take into account whether any of the processors counted are
+    // hyperthreads, cores, or truly physical CPUs.
+    //
+    // If the Physical and Logical counts are equal, the number of Physical/Logical is the 
+    // core count, because it's a dual core system.
+    console->WriteLine ( "There are %d processors in the system (%d physical, %d logical).",
+                         cpuid->GetVirtualCPUCount (),
+                         cpuid->GetPhysicalCPUCount (),
+                         cpuid->GetLogicalCPUCount () );
 
     for ( int i = 0; i < MAX_PROCESSORS; i++ )
     {
