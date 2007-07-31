@@ -53,10 +53,28 @@ namespace CrissCross
             ~Stopwatch();
 
             //! Starts the timer counter.
-            void Start();
+			inline void Start()
+			{
+			#if defined ( TARGET_OS_WINDOWS )
+				QueryPerformanceCounter ( &m_start );
+			#elif defined ( TARGET_OS_MACOSX )
+				m_start = mach_absolute_time ();
+			#elif defined ( TARGET_OS_LINUX )
+				gettimeofday ( &m_start, NULL );
+			#endif
+			};
 
             //! Stops the timer counter.
-            void Stop();
+            inline void Stop()
+			{
+			#if defined ( TARGET_OS_WINDOWS )
+				QueryPerformanceCounter ( &m_finish );
+			#elif defined ( TARGET_OS_MACOSX )
+				m_finish = mach_absolute_time ();
+			#elif defined ( TARGET_OS_LINUX )
+				gettimeofday ( &m_finish, NULL );
+			#endif
+			};
 
             //! Indicates the number of seconds elapsed.
             /*!

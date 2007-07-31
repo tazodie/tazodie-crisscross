@@ -370,7 +370,7 @@ void DArray<T>::EmptyAndDelete()
         }
     }
 
-    Empty();
+    empty();
 }
 
 template <class T>

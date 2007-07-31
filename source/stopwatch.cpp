@@ -31,28 +31,6 @@ namespace CrissCross
         {
         }
 
-        void Stopwatch::Start()
-        {
-#if defined ( TARGET_OS_WINDOWS )
-            QueryPerformanceCounter ( &m_start );
-#elif defined ( TARGET_OS_MACOSX )
-            m_start = mach_absolute_time ();
-#elif defined ( TARGET_OS_LINUX )
-            gettimeofday ( &m_start, NULL );
-#endif
-        }
-
-        void Stopwatch::Stop()
-        {
-#if defined ( TARGET_OS_WINDOWS )
-            QueryPerformanceCounter ( &m_finish );
-#elif defined ( TARGET_OS_MACOSX )
-            m_finish = mach_absolute_time ();
-#elif defined ( TARGET_OS_LINUX )
-            gettimeofday ( &m_finish, NULL );
-#endif
-        }
-
         double Stopwatch::Elapsed()
         {
 #if defined ( TARGET_OS_WINDOWS )
