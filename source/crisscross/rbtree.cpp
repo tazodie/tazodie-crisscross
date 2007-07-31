@@ -31,6 +31,7 @@ template <class Key, class Data>
         NULL_NODE->right =
         NULL_NODE->parent = NULL;
     rootNode = NULL_NODE;
+	m_cachedSize = 0;
 }
 
 template <class Key, class Data>
@@ -211,6 +212,8 @@ template <class Key, class Data>
         rootNode = x;
     }
 
+	m_cachedSize++;
+
     insertFixup ( x );
 
     return STATUS_OK;
@@ -331,7 +334,7 @@ template <class Key, class Data>
 
         getNext ( &node );
     }
-    
+
     return killNode( node );
 }
 
@@ -384,6 +387,7 @@ template <class Key, class Data>
     if ( y->color == BLACK )
         deleteFixup ( x );
 
+	m_cachedSize--;
     delete y;
 
     return STATUS_OK;
@@ -575,6 +579,8 @@ template <class Key, class Data>
 
     Dealloc ( rec->id );
     delete rec;
+
+	m_cachedSize = 0;
 }
 
 template <class Key, class Data>
@@ -584,9 +590,12 @@ template <class Key, class Data>
 	rootNode = NULL_NODE;
 }
 
+#ifdef _DEBUG
 template <class Key, class Data>
     size_t RedBlackTree<Key,Data>::size () const
 {
+	// Debug builds verify that the cached size is accurate.
+	// Release builds will get a speed gain.
     RedBlackNode<Key,Data> *vNode = NULL_NODE;
     size_t vCount = 0;
 
@@ -597,17 +606,10 @@ template <class Key, class Data>
         getNext ( &vNode );
     }
 
-    return vCount;
+	CoreAssert ( m_cachedSize == vCount );
+	return m_cachedSize;
 }
-
-template <class Key, class Data>
-    bool RedBlackTree<Key,Data>::valid ( const RedBlackNode<Key,Data> * node ) const
-{
-    if ( node != NULL && node != NULL_NODE )
-        return true;
-    else
-        return false;
-}
+#endif
 
 template <class Key, class Data>
     DArray<Data> *RedBlackTree<Key,Data>::ConvertToDArray () const

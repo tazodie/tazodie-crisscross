@@ -162,7 +162,8 @@ namespace CrissCross
                 \param _node A node pointer.
                 \return True if the node is a valid node, false otherwise.
              */
-            bool valid ( const RedBlackNode<Key,Data> *_node ) const;
+            inline bool valid ( const RedBlackNode<Key,Data> *_node ) const
+			{ return ( _node != NULL && _node != NULL_NODE ); };
 
 			inline void empty () { killAll(); };
 
@@ -179,7 +180,11 @@ namespace CrissCross
             /*!
                 \return Size of the tree.
              */
-            size_t size () const;
+#ifndef _DEBUG
+			inline size_t size () const { return m_cachedSize; };
+#else
+			size_t size () const;
+#endif
 
             //! Will get the next node in the tree, useful as an iterator.
             void getNext ( RedBlackNode<Key,Data> ** _current ) const;
@@ -188,13 +193,13 @@ namespace CrissCross
             /*!
                 \return A DArray containing the data of the tree.
              */
-            _CC_DEPRECATE_SLOW DArray <Data> *ConvertToDArray () const;
+            _CC_DEPRECATE_SLOW("MODERATE") DArray <Data> *ConvertToDArray () const;
 
             //! Converts the tree keys into a linearized DArray.
             /*!
                 \return A DArray containing the keys in the tree.
              */
-            _CC_DEPRECATE_SLOW DArray <Key>  *ConvertIndexToDArray () const;
+            _CC_DEPRECATE_SLOW("MODERATE") DArray <Key>  *ConvertIndexToDArray () const;
 
 			/* --- TOSSER I COMPATIBILITY --- */
 			_CC_DEPRECATE_FUNCTION(insert) inline statusEnum PutData ( Key const &_key, Data const & _rec ) { return insert ( _key, _rec ); };
@@ -206,6 +211,8 @@ namespace CrissCross
 			/* ------------------------------ */
 
         protected:
+			size_t m_cachedSize;
+
             void RecursiveConvertIndexToDArray ( DArray <Key> *_darray, RedBlackNode<Key,Data> *_btree ) const;
             void RecursiveConvertToDArray ( DArray <Data> *_darray, RedBlackNode<Key,Data> *_btree ) const;
 
