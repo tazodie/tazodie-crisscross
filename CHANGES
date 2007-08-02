@@ -9,6 +9,14 @@ VERSION 0.6.5
     * DStack::peek() function added.
     * FastestSort and MemoryEfficientSort aliases added by request.
     * BTree alias for RedBlackTree added.
+    * Cleaned data structure function names a bit (getData() is now simply get(), etc).
+    * Added compatibility with Tosser data structure library, allowing CrissCross to be used with the Onlink project.
+    * Added XCrashReports support for release builds.
+    * _CC_DEPRECATE_SLOW changed for Windows builds to indicate severity of the slowdown.
+    * Improved speed and size of CoreAssert and made it more CrissCross-like for its stderr output.
+    * Major time-critical Stopwatch functions are now inlined (Start/Stop functions).
+    * Corrected an error with ThreadSleep which caused it to sleep forever if a value less than zero was passed to it.
+	* crisscross/sort.h is now all that needs to be included for use of CombSort, QuickSort, and HeapSort.
 
 VERSION 0.6.0
     * CrissCross test suite added (tests a majority of the features).

@@ -23,8 +23,6 @@ namespace CrissCross
         class HeapSort : public Sorter<T>
         {
         public:
-            //! The constructor.
-            HeapSort();
 
             //! Sorts an array using the HeapSort method.
             /*!

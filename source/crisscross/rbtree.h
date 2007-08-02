@@ -201,14 +201,18 @@ namespace CrissCross
              */
             _CC_DEPRECATE_SLOW("MODERATE") DArray <Key>  *ConvertIndexToDArray () const;
 
-			/* --- TOSSER I COMPATIBILITY --- */
+			/*
+				Deprecated Compatibility Functions
+				Provided for compatibility with Tosser I
+			*/
+			//! @cond
 			_CC_DEPRECATE_FUNCTION(insert) inline statusEnum PutData ( Key const &_key, Data const & _rec ) { return insert ( _key, _rec ); };
 			_CC_DEPRECATE_FUNCTION(erase) inline statusEnum RemoveData ( Key const &_key ) { return erase ( _key ); };
 			_CC_DEPRECATE_FUNCTION(erase) inline statusEnum remove ( Key const &_key ) { return erase ( _key ); };
 			_CC_DEPRECATE_FUNCTION(erase) inline statusEnum remove ( Key const &_key, Data const & _rec  ) { return erase ( _key, _rec ); };
 			_CC_DEPRECATE_FUNCTION(size) inline size_t Size () const { return size(); };
 			_CC_DEPRECATE_FUNCTION_N inline void Empty () { killAll(); };
-			/* ------------------------------ */
+			//! @endcond
 
         protected:
 			size_t m_cachedSize;

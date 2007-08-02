@@ -18,10 +18,6 @@ namespace CrissCross
     namespace Data
     {
         template <class T>
-        HeapSort<T>::HeapSort()
-        {}
-
-        template <class T>
         int HeapSort<T>::Sort ( T *_array, size_t _size )
         {
             // Phase 1: make a heap by sifting down all non-leaf 

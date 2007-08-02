@@ -26,9 +26,6 @@ namespace CrissCross
             size_t NewGap ( size_t gap );
 
         public:
-            //! The constructor.
-            CombSort();
-
             //! Sorts an array using the CombSort method.
             /*!
                 \param _array The array to sort.

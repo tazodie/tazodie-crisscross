@@ -28,7 +28,7 @@ namespace CrissCross
         private:
             //! A DStack containing indices of empty nodes in the array.
             /*!
-                Vastly speeds up insertions.
+                Vastly speeds up insertions by keeping track of where empty spaces are.
              */
             DStack<size_t>    *m_emptyNodes;
 
@@ -81,7 +81,12 @@ namespace CrissCross
 
             //! The secondary constructor.
             /*!
-                \param _newStepSize The step size to use in Grow().
+				Parameter _newStepSize should be larger than 1. A step size of 1 forces
+				the DArray to resize way too often. A step size of -1 is a magic value
+				which makes the DArray double in size on each grow() call (offers a pretty
+				good speedup).
+                \param _newStepSize The step size to use in grow().
+                \sa m_stepSize
              */
             DArray ( int _newStepSize );
 
@@ -96,7 +101,11 @@ namespace CrissCross
 
             //! Sets the step size used in Grow().
             /*!
-                \param _newstepsize The new step size to use.
+				Parameter _newStepSize should be larger than 1. A step size of 1 forces
+				the DArray to resize way too often. A step size of -1 is a magic value
+				which makes the DArray double in size on each grow() call (offers a pretty
+				good speedup).
+                \param _newstepsize The step size to use in grow().
                 \sa m_stepSize
              */
             void setStepSize ( int _newstepsize );
@@ -188,7 +197,11 @@ namespace CrissCross
             T const & operator []( size_t _index ) const;
 
 
-			/* --- TOSSER I COMPATIBILITY --- */
+			/*
+				Deprecated Compatibility Functions
+				Provided for compatibility with Tosser I
+			*/
+			//! @cond
 			_CC_DEPRECATE_FUNCTION(insert) inline size_t PutData ( T const & _rec ) { return insert ( _rec ); };
 			_CC_DEPRECATE_FUNCTION(insert) inline void PutData ( T const & _rec, size_t _index ) { insert ( _rec, _index ); };
 			_CC_DEPRECATE_FUNCTION(remove) inline void RemoveData ( size_t _index ) { remove ( _index ); };
@@ -209,7 +222,7 @@ namespace CrissCross
 				sort ( s );
 				delete s;
 			};
-			/* ------------------------------ */
+			//! @endcond
 
         };
     }
