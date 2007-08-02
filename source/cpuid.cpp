@@ -281,6 +281,18 @@ CPUID::GetVirtualCPUCount ()
 }
 
 int
+CPUID::CoresPerPackage()
+{
+	return proc[0]->CoresPerPackage;
+}
+
+int
+CPUID::ThreadsSharingCache()
+{
+	return proc[0]->ThreadsSharingCache;
+}
+
+int
 CPUID::GetLogicalCPUCount ()
 {
     return proc[0]->LogicalCount;
@@ -311,6 +323,7 @@ CPUID::GoThread ( int processor )
     DetectManufacturer ( processor );
     DetectProcessorName ( processor );
     DetectFeatures ( processor );
+    DetectCores ( processor );
     DetectCacheInfo ( processor );
     DetectFMS ( processor );
     DetectBrandID ( processor );
@@ -508,12 +521,9 @@ CPUID::AddCacheData ( int processor, int x )
     case 0x4:
         AddCacheDescription ( processor, "Data TLB: 4MB pages, 4-way set associative, 8 entries\n" );
         break;
-#if defined ( ENABLE_SANDPILE )
     case 0x5:
-		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
         AddCacheDescription ( processor, "Data TLB: 4MB pages, 4-way set associative, 32 entries\n" );
         break;
-#endif
     case 0x6:
         AddCacheDescription ( processor, "1st-level code cache: 8KB, 4-way set associative, 32 byte line size\n" );
         break;
@@ -642,16 +652,12 @@ CPUID::AddCacheData ( int processor, int x )
     case 0x52:
         AddCacheDescription ( processor, "Code TLB: 4KB, 2MB or 4MB pages, fully associative, 256 entries\n" );
         break;
-#if defined ( ENABLE_SANDPILE )
     case 0x56:
-		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
         AddCacheDescription ( processor, "L0 Data TLB: 4MB pages, 4-way set associative, 16 entries\n" );
         break;
     case 0x57:
-		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
-        AddCacheDescription ( processor, "L0 Data TLB: 4KB pages, 4-way set associative, 16 entries\n" );
+        AddCacheDescription ( processor, "L0 Data TLB: 4MB pages, 4-way set associative, 16 entries\n" );
         break;
-#endif
     case 0x5b:
         AddCacheDescription ( processor, "Data TLB: 4KB or 4MB pages, fully associative, 64 entries\n" );
         break;
@@ -775,28 +781,29 @@ CPUID::AddCacheData ( int processor, int x )
     case 0xB0:
         AddCacheDescription ( processor, "Code TLB: 4KB pages, 4-way set associative, 128 entries\n" );
         break;
-#if defined ( ENABLE_SANDPILE )
     case 0xB1:
-		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
         AddCacheDescription ( processor, "Code TLB: 4MB pages, 4-way set associative, 4 entries\n" );
         AddCacheDescription ( processor, "Code TLB: 2MB pages, 4-way set associative, 8 entries\n" );
         break;
-#endif
     case 0xB3:
         AddCacheDescription ( processor, "Data TLB: 4KB pages, 4-way set associative, 128 entries\n" );
         break;
-#if defined ( ENABLE_SANDPILE )
     case 0xB4:
-		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
         AddCacheDescription ( processor, "Data TLB: 4KB pages, 4-way set associative, 256 entries\n" );
         break;
-#endif
     case 0xF0:
         AddCacheDescription ( processor, "64 byte prefetching\n" );
         break;
     case 0xF1:
         AddCacheDescription ( processor, "128 byte prefetching\n" );
         break;
+	default:
+		{
+			char temp[256];
+			sprintf ( temp, "Unknown cache descriptor 0x%02x\n", x );
+			AddCacheDescription ( processor, temp );
+		}
+		break;
     }
 }
 
@@ -807,6 +814,13 @@ CPUID::DetectFMS ( int processor )
     proc[processor]->Family = (char)( ( ( Std[1].eax >> 8 ) + ( Std[1].eax >> 20 ) ) & 0xff );
     proc[processor]->Model = (char)( ( ( ( ( Std[1].eax >> 16 ) & 0xf ) << 4 ) +  ( ( Std[1].eax >> 4 ) & 0xf ) ) & 0xff );
     proc[processor]->Stepping = (char)(Std[1].eax & 0xf);
+}
+
+void
+CPUID::DetectCores ( int processor )
+{
+	proc[processor]->CoresPerPackage = ( ( Std[4].eax >> 26 ) & 0xff ) + 1;
+	proc[processor]->ThreadsSharingCache = ( ( Std[4].eax >> 14 ) & 0xff ) + 1;
 }
 
 void

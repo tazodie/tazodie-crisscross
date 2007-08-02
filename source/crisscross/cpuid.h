@@ -49,6 +49,8 @@ namespace CrissCross
 		  public:
 			const char *Manufacturer;
 			const char *ProcessorName;
+			char CoresPerPackage;
+			char ThreadsSharingCache;
 			char LogicalCount;
 			char PhysicalCount;
 			char Family;
@@ -100,6 +102,7 @@ namespace CrissCross
 			void DetectCacheInfo ( int processor );
 			void DetectFMS ( int processor );
 			void DetectBrandID ( int processor );
+			void DetectCores ( int processor );
 			void DetectCount ( int processor );
 			void DetectAPIC ( int processor );
 			void DetectFeatures ( int processor );
@@ -112,6 +115,9 @@ namespace CrissCross
 			int GetLogicalCPUCount ();
 			int GetPhysicalCPUCount ();
 			int GetVirtualCPUCount ();
+
+			int CoresPerPackage ();
+			int ThreadsSharingCache ();
 
 			Processor *proc[MAX_PROCESSORS];    // Support up to MAX_PROCESSORS
 

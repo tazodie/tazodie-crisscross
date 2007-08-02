@@ -49,6 +49,11 @@ RunApplication ( int argc, char **argv )
                          cpuid->GetPhysicalCPUCount (),
                          cpuid->GetLogicalCPUCount () );
 
+	console->WriteLine ( "There are %d cores and %d hardware threads.",
+		cpuid->CoresPerPackage(), cpuid->ThreadsSharingCache() );
+
+	console->WriteLine ();
+
     for ( int i = 0; i < MAX_PROCESSORS; i++ )
     {
         // Go through each Virtual processor.

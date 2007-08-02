@@ -16,7 +16,8 @@ VERSION 0.6.5
     * Improved speed and size of CoreAssert and made it more CrissCross-like for its stderr output.
     * Major time-critical Stopwatch functions are now inlined (Start/Stop functions).
     * Corrected an error with ThreadSleep which caused it to sleep forever if a value less than zero was passed to it.
-	* crisscross/sort.h is now all that needs to be included for use of CombSort, QuickSort, and HeapSort.
+    * crisscross/sort.h is now all that needs to be included for use of CombSort, QuickSort, and HeapSort.
+    * Added core/thread detection to CPUID, as well as a few more cache descriptors (Core 2 related ones).
 
 VERSION 0.6.0
     * CrissCross test suite added (tests a majority of the features).
