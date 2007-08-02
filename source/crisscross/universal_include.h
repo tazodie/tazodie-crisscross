@@ -2,7 +2,7 @@
  *   CrissCross
  *   A multi-purpose cross-platform library.
  *
- *   A product of IO.IN Research.
+ *   A product of Uplink Laboratories.
  *
  *   (c) 2006-2007 Steven Noonan.
  *   Licensed under the New BSD License.
@@ -46,7 +46,7 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #   undef __included_build_number_h
 
 #   define CC_LIB_URL                 "http://www.uplinklabs.net/crisscross/"
-#   define CC_LIB_COPYRIGHT           "(c) 2006-2007 by IO.IN Research. Licensed under the New BSD License."
+#   define CC_LIB_COPYRIGHT           "(c) 2006-2007 by Uplink Laboratories. Licensed under the New BSD License."
 
 // Disabling these will save space but limit functionality.
 #   define ENABLE_CPUID
