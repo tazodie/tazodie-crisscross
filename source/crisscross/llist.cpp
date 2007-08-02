@@ -324,6 +324,18 @@ template < class T > void LList < T >::remove ( size_t index )
     --m_numItems;
 }
 
+template < class T > T const & LList < T >::operator []( size_t index ) const
+{
+    LListItem<T> *item = getItem ( index );
+	return item->m_data;
+}
+
+template < class T > T & LList < T >::operator []( size_t index )
+{
+    LListItem<T> *item = getItem ( index );
+	return item->m_data;
+}
+
 template < class T > size_t LList < T >::find ( const T & data )
 {
     size_t const size = this->size ();

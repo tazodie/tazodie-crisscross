@@ -482,10 +482,9 @@ CPUID::DetectCacheInfo ( int processor )
                 }
             }
         }
-        else if ( strcmp ( proc[processor]->Manufacturer, "AuthenticAMD" ) ==
-                  0 )
+        else if ( strcmp ( proc[processor]->Manufacturer, "AuthenticAMD" ) == 0 )
         {
-
+			// TODO: Finish this...
         }
     }
 

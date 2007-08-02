@@ -152,6 +152,20 @@ namespace CrissCross
             //! Deletes all nodes in the list, but does not free memory allocated by data.
             void empty();
 
+            //! Gets the data at the given index.
+            /*!
+                \param _index The index of the node to get data from.
+                \return The data stored at the index.
+             */
+            T & operator []( size_t _index );
+
+            //! Gets the data at the given index.
+            /*!
+                \param _index The index of the node to get data from.
+                \return The data stored at the index.
+             */
+            T const & operator []( size_t _index ) const;
+
 			/*
 				Deprecated Compatibility Functions
 				Provided for compatibility with Tosser I
