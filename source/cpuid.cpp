@@ -267,6 +267,7 @@ CPUID::~CPUID ()
     }
 }
 
+#if 0
 int
 CPUID::GetVirtualCPUCount ()
 {
@@ -304,6 +305,8 @@ CPUID::GetPhysicalCPUCount ()
     return proc[0]->PhysicalCount;
 }
 
+#endif
+
 #    ifdef TARGET_OS_WINDOWS
 DWORD WINAPI
 CPUID::GoThread ( LPVOID * params )
@@ -323,11 +326,13 @@ CPUID::GoThread ( int processor )
     DetectManufacturer ( processor );
     DetectProcessorName ( processor );
     DetectFeatures ( processor );
-    DetectCores ( processor );
     DetectCacheInfo ( processor );
     DetectFMS ( processor );
     DetectBrandID ( processor );
+#if 0
+	DetectCores ( processor );
     DetectCount ( processor );
+#endif
     DetectAPIC ( processor );
     return 0;
 }
@@ -816,12 +821,14 @@ CPUID::DetectFMS ( int processor )
     proc[processor]->Stepping = (char)(Std[1].eax & 0xf);
 }
 
+#if 0
 void
 CPUID::DetectCores ( int processor )
 {
 	proc[processor]->CoresPerPackage = ( ( Std[4].eax >> 26 ) & 0xff ) + 1;
 	proc[processor]->ThreadsSharingCache = ( ( Std[4].eax >> 14 ) & 0xff ) + 1;
 }
+#endif
 
 void
 CPUID::DetectBrandID ( int processor )
@@ -830,6 +837,7 @@ CPUID::DetectBrandID ( int processor )
     proc[processor]->BrandID = (char)( Std[1].ebx & 0xff );
 }
 
+#if 0
 void
 CPUID::DetectCount ( int processor )
 {
@@ -860,6 +868,7 @@ CPUID::DetectCount ( int processor )
         proc[processor]->LogicalCount = 1;
     }
 }
+#endif
 
 void
 CPUID::DetectAPIC ( int processor )

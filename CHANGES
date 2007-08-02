@@ -17,7 +17,8 @@ VERSION 0.6.5
     * Major time-critical Stopwatch functions are now inlined (Start/Stop functions).
     * Corrected an error with ThreadSleep which caused it to sleep forever if a value less than zero was passed to it.
     * crisscross/sort.h is now all that needs to be included for use of CombSort, QuickSort, and HeapSort.
-    * Added core/thread detection to CPUID, as well as a few more cache descriptors (Core 2 related ones).
+    * Disabled core/thread detection in CPUID, because of varying results (can't yet interpret what they mean.
+    * Added a few more cache descriptors to CPUID (Core 2 related ones).
 
 VERSION 0.6.0
     * CrissCross test suite added (tests a majority of the features).

@@ -37,13 +37,21 @@ RunApplication ( int argc, char **argv )
 
     cpuid->Go ();
     
-    // NOTES
+#if 0
+
+	// Everything in this #if block is considered unpredictable. We've seen varying results
+	// and will reimplement this later if we feel that we've found a better way to detect
+	// the processor count (including cores and hyperthreads).
+	// For now, just ignore this part.
+
+	// NOTES (old, may be inaccurate)
     // The Virtual count is the number of processors that the operating system sees,
     // but does not take into account whether any of the processors counted are
     // hyperthreads, cores, or truly physical CPUs.
     //
     // If the Physical and Logical counts are equal, the number of Physical/Logical is the 
     // core count, because it's a dual core system.
+
     console->WriteLine ( "There are %d processors in the system (%d physical, %d logical).",
                          cpuid->GetVirtualCPUCount (),
                          cpuid->GetPhysicalCPUCount (),
@@ -53,6 +61,8 @@ RunApplication ( int argc, char **argv )
 		cpuid->CoresPerPackage(), cpuid->ThreadsSharingCache() );
 
 	console->WriteLine ();
+
+#endif
 
     for ( int i = 0; i < MAX_PROCESSORS; i++ )
     {
