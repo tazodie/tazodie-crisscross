@@ -357,6 +357,35 @@ void DArray < T >::sort ( Sorter<T> *_sortMethod )
     recount();
 }
 
+template < class T >
+void DArray < T >::sort ( Sorter<T> &_sortMethod )
+{
+    T *temp_array = new T[m_numUsed];
+    T *temp_ptr = temp_array;
+    for ( size_t i = 0; i < m_arraySize; i++ )
+    {
+        if ( valid ( i ) )
+        {
+            *temp_ptr = m_array[i];
+            temp_ptr++;
+        }
+    }
+    
+    _sortMethod.Sort ( temp_array, m_numUsed );
+    
+    delete [] m_shadow;
+    m_shadow = new char[m_numUsed];
+    memset ( m_shadow, 1, m_numUsed );
+    
+    delete [] m_array;
+    m_array = temp_array;
+
+    m_arraySize = m_numUsed;
+    
+    rebuildStack();
+    recount();
+}
+
 /* BELOW ARE DEPRECATED FUNCTIONS */
 
 template <class T>

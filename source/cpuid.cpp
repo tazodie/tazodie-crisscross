@@ -13,6 +13,10 @@
 
 #ifdef ENABLE_CPUID
 
+// The following definition enables some rather suspicious cache descriptors
+// from sandpile.org which haven't been verified with Intel's docs.
+//#    define ENABLE_SANDPILE
+
 #    include <crisscross/cpuid.h>
 #    include <crisscross/core_io.h>
 
@@ -50,6 +54,8 @@ using namespace CrissCross::System;
 #    define DCA_FLAG 0x40000
 #    define PSNUM_FLAG 0x40000
 #    define CLFLUSH_FLAG 0x80000
+#    define SSE4_1_FLAG 0x80000
+#    define SSE4_2_FLAG 0x100000
 #    define XD_FLAG 0x100000
 #    define DTS_FLAG 0x200000
 #    define ACPI_FLAG 0x400000
@@ -475,13 +481,14 @@ CPUID::AddCacheDescription ( int processor, const char *description )
     CoreAssert ( temp );
     strcpy ( temp, description );
     proc[processor]->caches.insert ( temp );
+	proc[processor]->caches.sort ( CrissCross::Data::HeapSort<char *>() );
     temp = NULL;
 }
 
 void
 CPUID::AddCacheData ( int processor, int x )
 {
-    // Compliant with Intel document #241618.
+    // Mostly compliant with Intel document #241618.
 
     x &= 0xff;
     switch ( x )
@@ -489,10 +496,10 @@ CPUID::AddCacheData ( int processor, int x )
     case 0:
         break;
     case 0x1:
-        AddCacheDescription ( processor, "Instruction TLB: 4KB pages, 4-way set associative, 32 entries\n" );
+        AddCacheDescription ( processor, "Code TLB: 4KB pages, 4-way set associative, 32 entries\n" );
         break;
     case 0x2:
-        AddCacheDescription ( processor, "Instruction TLB: 4MB pages, fully associative, 2 entries\n" );
+        AddCacheDescription ( processor, "Code TLB: 4MB pages, fully associative, 2 entries\n" );
         break;
     case 0x3:
         AddCacheDescription ( processor, "Data TLB: 4KB pages, 4-way set associative, 64 entries\n" );
@@ -500,35 +507,61 @@ CPUID::AddCacheData ( int processor, int x )
     case 0x4:
         AddCacheDescription ( processor, "Data TLB: 4MB pages, 4-way set associative, 8 entries\n" );
         break;
+#if defined ( ENABLE_SANDPILE )
+    case 0x5:
+		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
+        AddCacheDescription ( processor, "Data TLB: 4MB pages, 4-way set associative, 32 entries\n" );
+        break;
+#endif
     case 0x6:
-        AddCacheDescription ( processor, "1st-level instruction cache: 8KB, 4-way set associative, 32 byte line size\n" );
+        AddCacheDescription ( processor, "1st-level code cache: 8KB, 4-way set associative, 32 byte line size\n" );
         break;
     case 0x8:
-        AddCacheDescription ( processor, "1st-level instruction cache: 16KB, 4-way set associative, 32 byte line size\n" );
+        AddCacheDescription ( processor, "1st-level code cache: 16KB, 4-way set associative, 32 byte line size\n" );
         break;
     case 0xa:
         AddCacheDescription ( processor, "1st-level data cache: 8KB, 2-way set associative, 32 byte line size\n" );
         break;
+#if defined ( ENABLE_SANDPILE )
+    case 0xb:
+		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
+		AddCacheDescription ( processor, "Code TLB: 4MB pages, 4-way set associative, 4 entries\n" );
+        break;
+#endif
     case 0xc:
         AddCacheDescription ( processor, "1st-level data cache: 16KB, 4-way set associative, 32 byte line size\n" );
         break;
+#if defined ( ENABLE_SANDPILE )
+    case 0x10:
+		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
+        AddCacheDescription ( processor, "1st-level data cache: 16KB, 4-way set associative, 32 byte line size (IA-64)\n" );
+        break;
+    case 0x15:
+		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
+        AddCacheDescription ( processor, "1st-level code cache: 16KB, 4-way set associative, 32 byte line size (IA-64)\n" );
+        break;
+    case 0x1A:
+		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
+        AddCacheDescription ( processor, "2nd-level cache: 96KB, 6-way set associative, 64 byte line size (IA-64)\n" );
+        break;
+#endif
     case 0x22:
-        AddCacheDescription ( processor, "3rd-level data cache: 512KB, 4-way set associative, sectored cache, 64 byte line size\n" );
+        AddCacheDescription ( processor, "3rd-level cache: 512KB, 4-way set associative, sectored cache, 64 byte line size\n" );
         break;
     case 0x23:
-        AddCacheDescription ( processor, "3rd-level data cache: 1MB, 8-way set associative, sectored cache, 64 byte line size\n" );
+        AddCacheDescription ( processor, "3rd-level cache: 1MB, 8-way set associative, sectored cache, 64 byte line size\n" );
         break;
     case 0x25:
-        AddCacheDescription ( processor, "3rd-level data cache: 2MB, 8-way set associative, sectored cache, 64 byte line size\n" );
+        AddCacheDescription ( processor, "3rd-level cache: 2MB, 8-way set associative, sectored cache, 64 byte line size\n" );
         break;
     case 0x29:
-        AddCacheDescription ( processor, "3rd-level data cache: 4MB, 8-way set associative, sectored cache, 64 byte line size\n" );
+        AddCacheDescription ( processor, "3rd-level cache: 4MB, 8-way set associative, sectored cache, 64 byte line size\n" );
         break;
     case 0x2C:
         AddCacheDescription ( processor, "1st-level data cache: 32KB, 8-way set associative, 64 byte line size\n" );
         break;
     case 0x30:
-        AddCacheDescription ( processor, "1st-level instruction cache: 32KB, 8-way set associative, 64 byte line size\n" );
+        AddCacheDescription ( processor, "1st-level code cache: 32KB, 8-way set associative, 64 byte line size\n" );
         break;
     case 0x39:
         AddCacheDescription ( processor, "2nd-level cache: 128KB, 4-way set associative, sectored cache, 64 byte line size\n" );
@@ -572,8 +605,14 @@ CPUID::AddCacheData ( int processor, int x )
     case 0x47:
         AddCacheDescription ( processor, "3rd-level cache: 8MB, 4-way set associative, 64 byte line size\n" );
         break;
+#if defined ( ENABLE_SANDPILE )
+    case 0x48:
+		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
+        AddCacheDescription ( processor, "2nd-level cache: 3MB, 12-way set associative, 64 byte line size\n" );
+        break;
+#endif
     case 0x49:
-        AddCacheDescription ( processor, "3rd-level cache: 4MB, 16-way set associative, 64 byte line size\n" );
+        AddCacheDescription ( processor, "3rd-level (Pentium 4) or 2nd-level (Core 2) cache: 4MB, 16-way set associative, 64 byte line size\n" );
         break;
     case 0x4A:
         AddCacheDescription ( processor, "3rd-level cache: 6MB, 12-way set associative, 64 byte line size\n" );
@@ -587,15 +626,31 @@ CPUID::AddCacheData ( int processor, int x )
     case 0x4D:
         AddCacheDescription ( processor, "3rd-level cache: 16MB, 16-way set associative, 64 byte line size\n" );
         break;
+#if defined ( ENABLE_SANDPILE )
+    case 0x4E:
+		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
+        AddCacheDescription ( processor, "2nd-level cache: 6MB, 24-way set associative, 64 byte line size\n" );
+        break;
+#endif
     case 0x50:
-        AddCacheDescription ( processor, "Instruction TLB: 4KB, 2MB or 4MB pages, fully associative, 64 entries\n" );
+        AddCacheDescription ( processor, "Code TLB: 4KB, 2MB or 4MB pages, fully associative, 64 entries\n" );
         break;
     case 0x51:
-        AddCacheDescription ( processor, "Instruction TLB: 4KB, 2MB or 4MB pages, fully associative, 128 entries\n" );
+        AddCacheDescription ( processor, "Code TLB: 4KB, 2MB or 4MB pages, fully associative, 128 entries\n" );
         break;
     case 0x52:
-        AddCacheDescription ( processor, "Instruction TLB: 4KB, 2MB or 4MB pages, fully associative, 256 entries\n" );
+        AddCacheDescription ( processor, "Code TLB: 4KB, 2MB or 4MB pages, fully associative, 256 entries\n" );
         break;
+#if defined ( ENABLE_SANDPILE )
+    case 0x56:
+		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
+        AddCacheDescription ( processor, "L0 Data TLB: 4MB pages, 4-way set associative, 16 entries\n" );
+        break;
+    case 0x57:
+		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
+        AddCacheDescription ( processor, "L0 Data TLB: 4KB pages, 4-way set associative, 16 entries\n" );
+        break;
+#endif
     case 0x5b:
         AddCacheDescription ( processor, "Data TLB: 4KB or 4MB pages, fully associative, 64 entries\n" );
         break;
@@ -629,6 +684,12 @@ CPUID::AddCacheData ( int processor, int x )
     case 0x73:
         AddCacheDescription ( processor, "Trace cache: 64K-uops, 8-way set associative\n" );
         break;
+#if defined ( ENABLE_SANDPILE )
+    case 0x77:
+		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
+        AddCacheDescription ( processor, "1st-level code cache: 16KB, 4-way set associative, sectored cache, 64 byte line size (IA-64)\n" );
+        break;
+#endif
     case 0x78:
         AddCacheDescription ( processor, "2nd-level cache: 1MB, 4-way set associative, 64 byte line size\n" );
         break;
@@ -647,9 +708,21 @@ CPUID::AddCacheData ( int processor, int x )
     case 0x7d:
         AddCacheDescription ( processor, "2nd-level cache: 2MB, 8-way set associative, 64 byte line size\n" );
         break;
+#if defined ( ENABLE_SANDPILE )
+    case 0x7e:
+		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
+        AddCacheDescription ( processor, "2nd-level cache: 256KB, 8-way set associative, sectored cache, 128 byte line size (IA-64)\n" );
+        break;
+#endif
     case 0x7f:
         AddCacheDescription ( processor, "2nd-level cache: 512KB, 2-way set associative, 64 byte line size\n" );
         break;
+#if defined ( ENABLE_SANDPILE )
+    case 0x81:
+		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
+        AddCacheDescription ( processor, "2nd-level cache: 128KB, 8-way set associative, sectored cache, 128 byte line size (IA-64)\n" );
+        break;
+#endif
     case 0x82:
         AddCacheDescription ( processor, "2nd-level cache: 256KB, 8-way set associative, 32 byte line size\n" );
         break;
@@ -668,20 +741,60 @@ CPUID::AddCacheData ( int processor, int x )
     case 0x87:
         AddCacheDescription ( processor, "2nd-level cache: 1MB, 8-way set associative, 64 byte line size\n" );
         break;
-    case 0xB0:
-        AddCacheDescription ( processor, "Instruction TLB: 4KB pages, 4-way set associative, 128 entries\n" );
+#if defined ( ENABLE_SANDPILE )
+    case 0x88:
+		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
+        AddCacheDescription ( processor, "3rd-level cache: 2MB, 4-way set associative, 64 byte line size (IA-64)\n" );
         break;
+    case 0x89:
+		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
+        AddCacheDescription ( processor, "3rd-level cache: 4MB, 4-way set associative, 64 byte line size (IA-64)\n" );
+        break;
+    case 0x8A:
+		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
+        AddCacheDescription ( processor, "3rd-level cache: 8MB, 4-way set associative, 64 byte line size (IA-64)\n" );
+        break;
+    case 0x8D:
+		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
+        AddCacheDescription ( processor, "3rd-level cache: 3MB, 12-way set associative, 128 byte line size (IA-64)\n" );
+        break;
+    case 0x90:
+		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
+        AddCacheDescription ( processor, "Code TLB: 4KB, 256MB pages, fully associative, 64 entries (IA-64)\n" );
+        break;
+    case 0x96:
+		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
+        AddCacheDescription ( processor, "L1 Data TLB: 4KB, 256MB pages, fully associative, 32 entries (IA-64)\n" );
+        break;
+    case 0x9B:
+		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
+        AddCacheDescription ( processor, "L2 Data TLB: 4KB, 256MB pages, fully associative, 96 entries (IA-64)\n" );
+        break;
+#endif
+    case 0xB0:
+        AddCacheDescription ( processor, "Code TLB: 4KB pages, 4-way set associative, 128 entries\n" );
+        break;
+#if defined ( ENABLE_SANDPILE )
+    case 0xB1:
+		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
+        AddCacheDescription ( processor, "Code TLB: 4MB pages, 4-way set associative, 4 entries\n" );
+        AddCacheDescription ( processor, "Code TLB: 2MB pages, 4-way set associative, 8 entries\n" );
+        break;
+#endif
     case 0xB3:
         AddCacheDescription ( processor, "Data TLB: 4KB pages, 4-way set associative, 128 entries\n" );
         break;
+#if defined ( ENABLE_SANDPILE )
+    case 0xB4:
+		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
+        AddCacheDescription ( processor, "Data TLB: 4KB pages, 4-way set associative, 256 entries\n" );
+        break;
+#endif
     case 0xF0:
         AddCacheDescription ( processor, "64 byte prefetching\n" );
         break;
     case 0xF1:
         AddCacheDescription ( processor, "128 byte prefetching\n" );
-        break;
-    default:
-        //printf("unknown TLB/cache descriptor\n");
         break;
     }
 }
@@ -798,6 +911,8 @@ CPUID::DetectFeatures ( int processor )
     }
 
     DetectFeature ( &Std[1].ecx, SSE3_FLAG, processor, "SSE3" );
+    DetectFeature ( &Std[1].ecx, SSE4_1_FLAG, processor, "SSE4.1" );
+    DetectFeature ( &Std[1].ecx, SSE4_2_FLAG, processor, "SSE4.2" );
     DetectFeature ( &Std[1].ecx, VMX_FLAG, processor, "VMX" );
     DetectFeature ( &Std[1].ecx, CX16_FLAG, processor, "CX16" );
     if ( proc[processor]->Manufacturer )

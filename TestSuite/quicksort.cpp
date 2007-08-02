@@ -22,14 +22,14 @@ using namespace CrissCross::Data;
 int TestQuickSort_IntArray()
 {
     int int_array[] = {0, 4, 3, 6, 2, 1, 5, 7, 9, 8 };
-    QuickSort<int> *hs = new QuickSort<int>();
-    hs->Sort ( int_array, 10 );
+    QuickSort<int> *qs = new QuickSort<int>();
+    qs->Sort ( int_array, 10 );
     for ( int i = 0; i < 10; i++ )
     {
         if ( int_array[i] != i )
             return i + 1;
     }
-    delete hs;
+    delete qs;
     return 0;
 }
 
@@ -43,9 +43,9 @@ int TestQuickSort_DArray()
     darray->insert ( 3 );
     darray->insert ( 1 );
     
-    QuickSort<int> *hs = new QuickSort<int>();
-    darray->sort ( hs );
-    delete hs;
+    QuickSort<int> *qs = new QuickSort<int>();
+    darray->sort ( qs );
+    delete qs;
     
     for ( int i = 0; i < 5; i++ )
     {
