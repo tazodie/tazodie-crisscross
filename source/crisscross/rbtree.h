@@ -165,7 +165,8 @@ namespace CrissCross
             inline bool valid ( const RedBlackNode<Key,Data> *_node ) const
 			{ return ( _node != NULL && _node != NULL_NODE ); };
 
-			inline void empty () { killAll(); };
+			//! Empties the entire tree.
+			inline void empty () { killAll(); rootNode = NULL_NODE; };
 
         protected:
 
