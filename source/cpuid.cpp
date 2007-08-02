@@ -481,7 +481,8 @@ CPUID::AddCacheDescription ( int processor, const char *description )
     CoreAssert ( temp );
     strcpy ( temp, description );
     proc[processor]->caches.insert ( temp );
-	proc[processor]->caches.sort ( CrissCross::Data::HeapSort<char *>() );
+    CrissCross::Data::HeapSort<char *> sorter;
+    proc[processor]->caches.sort ( sorter );
     temp = NULL;
 }
 
