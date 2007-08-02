@@ -181,6 +181,9 @@ namespace CrissCross
             
             //! Sorts the array using the provided method.
             void sort ( CrissCross::Data::Sorter<T> *_sortMethod );
+            
+            //! Sorts the array using the provided method.
+            void sort ( CrissCross::Data::Sorter<T> &_sortMethod );
 
             //! Gets the data at the given index.
             /*!

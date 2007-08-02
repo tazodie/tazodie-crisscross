@@ -22,14 +22,14 @@ using namespace CrissCross::Data;
 int TestCombSort_IntArray()
 {
     int int_array[] = {0, 4, 3, 6, 2, 1, 5, 7, 9, 8 };
-    CombSort<int> *hs = new CombSort<int>();
-    hs->Sort ( int_array, 10 );
+    CombSort<int> *cs = new CombSort<int>();
+    cs->Sort ( int_array, 10 );
     for ( int i = 0; i < 10; i++ )
     {
         if ( int_array[i] != i )
             return i + 1;
     }
-    delete hs;
+    delete cs;
     return 0;
 }
 
@@ -43,9 +43,9 @@ int TestCombSort_DArray()
     darray->insert ( 3 );
     darray->insert ( 1 );
     
-    CombSort<int> *hs = new CombSort<int>();
-    darray->sort ( hs );
-    delete hs;
+    CombSort<int> *cs = new CombSort<int>();
+    darray->sort ( cs );
+    delete cs;
     
     for ( int i = 0; i < 5; i++ )
     {
