@@ -27,8 +27,6 @@ namespace CrissCross
             void InternalSort ( T *_array, size_t _beginning, size_t _end );
 
         public:
-            //! The constructor.
-            QuickSort();
 
             //! Sorts an array using the QuickSort method.
             /*!

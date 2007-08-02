@@ -17,8 +17,7 @@
 namespace CrissCross
 {
     namespace IO
-    {
-            
+    {       
         //! The text file output class.
         /*!
             Inherits CoreIO, so functions like CoreIO::Write and CoreIO::WriteLine are accessible to the programmer.

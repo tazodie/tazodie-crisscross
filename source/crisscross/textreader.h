@@ -18,7 +18,6 @@ namespace CrissCross
 {
     namespace IO
     {
-
         //! The text file input class.
         /*!
             Inherits CoreIO, so functions like CoreIO::Read and CoreIO::ReadLine are accessible to the programmer.

@@ -18,10 +18,6 @@ namespace CrissCross
     namespace Data
     {
         template <class T>
-        QuickSort<T>::QuickSort()
-        {}
-
-        template <class T>
         int QuickSort<T>::Sort ( T *_array, size_t _size )
         {
             InternalSort ( _array, 0, _size );

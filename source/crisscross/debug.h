@@ -28,15 +28,10 @@ void Assert ( bool _condition, const char *_testcase, const char *_file,
 
 #	define CoreAssert(x) { \
 		if ( !(x) ) { \
-			char buffer[10240]; \
-			sprintf ( buffer, "\nAssertion failed : '%s'\nFile: %s\nLine: %d\n\n", \
+			g_stderr->WriteLine ( "\nAssertion failed : '%s'\nFile: %s\nLine: %d\n", \
 			#x, __FILE__, __LINE__ ); \
-			fprintf ( stderr, "%s", buffer ); \
-			fprintf ( stderr, "=== STACK TRACE ===\n" ); \
-			CrissCross::IO::CoreIOWriter *stderror = \
-				new	CrissCross::IO::CoreIOWriter ( stderr, false, CrissCross::IO::CC_LN_LF ); \
-			PrintStackTrace ( stderror ); \
-			delete stderror; \
+			g_stderr->WriteLine ( "===== STACK TRACE =====" ); \
+			PrintStackTrace ( g_stderr ); \
 			abort(); \
 		} \
 	}

@@ -18,10 +18,6 @@ namespace CrissCross
     namespace Data
     {
         template <class T>
-        CombSort<T>::CombSort()
-        {}
-
-        template <class T>
         int CombSort<T>::Sort ( T *_array, size_t _size )
         {
             size_t gap = _size;

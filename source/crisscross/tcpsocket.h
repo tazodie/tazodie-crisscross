@@ -25,7 +25,9 @@ namespace CrissCross
         class TCPSocket : public CoreSocket
         {
         private:
+
             int SetAttributes ( socket_t _socket );
+
         public:
             //! The default constructor.
             TCPSocket ();
@@ -36,7 +38,7 @@ namespace CrissCross
 
             //! Accepts an incoming connection. Only good when listening for a connection.
             /*!
-        \param _socket A pointer to a NULL TCPSocket pointer variable. (e.g. TCPSocket *blah = NULL; socket->Accept ( &blah ); ) 
+                \param _socket A pointer to a NULL TCPSocket pointer variable. (e.g. TCPSocket *blah = NULL; socket->Accept ( &blah ); ) 
                 \return A pointer to a newly created TCPSocket instance for the new
                 connection. If no incoming connections are pending, this returns NULL.
              */

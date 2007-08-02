@@ -160,8 +160,11 @@ namespace CrissCross
              */
             inline T const &operator [] ( size_t _index ) const;
 
-
-			/* --- TOSSER I COMPATIBILITY --- */
+			/*
+				Deprecated Compatibility Functions
+				Provided for compatibility with Tosser I
+			*/
+			//! @cond
 			_CC_DEPRECATE_FUNCTION(insert) inline void PutData ( T const & _rec ) { insert ( _rec ); };
             _CC_DEPRECATE_FUNCTION(insert_back) inline void PutDataAtStart ( T const & _rec ) { insert_front ( _rec ); };
             _CC_DEPRECATE_FUNCTION(insert_back) inline void PutDataAtEnd ( T const & _rec ) { insert_back ( _rec ); };
@@ -175,7 +178,7 @@ namespace CrissCross
             _CC_DEPRECATE_FUNCTION(get) inline T GetData ( size_t _index ) const { return get ( _index ); };
             _CC_DEPRECATE_FUNCTION(valid) inline bool validIndex ( size_t _index ) const { return valid ( _index ); };
 			_CC_DEPRECATE_FUNCTION(valid) inline bool ValidIndex ( size_t _index ) const { return valid ( _index ); };
-			/* ------------------------------ */
+			//! @endcond
         };
     }
 }
