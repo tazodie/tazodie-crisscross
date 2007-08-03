@@ -156,13 +156,13 @@ namespace CrissCross
             /*!
                 \return The number of used nodes.
              */
-            size_t used () const;
+			inline size_t used () const { return m_numUsed; };
 
             //! Indicates the total size of the array.
             /*!
                 \return The size of the array.
              */
-            inline size_t size () const;
+			inline size_t size () const { return m_arraySize; };
 
             //! Indicates whether a given index is valid.
             /*!
@@ -171,7 +171,8 @@ namespace CrissCross
                 \param _index The index to test.
                 \return Boolean value. True if valid, false if not.
              */
-            bool valid ( size_t _index ) const;
+			inline bool valid ( size_t _index ) const
+				{ return ( _index < m_arraySize && _index >= 0 && m_shadow[_index] ); };
 
             //! Empties the array but does NOT free any pointers stored in the array.
             /*!

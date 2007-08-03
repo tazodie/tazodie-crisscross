@@ -20,7 +20,7 @@
 #endif
 
 #ifndef SDL_APPLICATION
-//#  define SDL_APPLICATION // Define if your application uses SDLmain.
+#  define SDL_APPLICATION // Define if your application uses SDLmain.
 #endif
     
 #    define CC_LIB_NAME                "CrissCross"
