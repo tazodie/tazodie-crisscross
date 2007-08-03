@@ -94,6 +94,15 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #       undef ENABLE_CPUID
 #   endif
 
+#	if ! ( defined ( TARGET_CPU_X86 ) && defined ( TARGET_OS_WINDOWS ) )
+#		undef ENABLE_CRASHREPORTS
+#	endif
+
+// FIXME: This is disabled due to inline asm complications.
+#	if defined ( TARGET_OS_WINDOWS ) && !defined ( TARGET_CPU_X86 )
+#		undef ENABLE_CPUID
+#	endif
+
 #   ifndef _CRT_SECURE_NO_WARNINGS
 #       define _CRT_SECURE_NO_WARNINGS
 #   endif
