@@ -290,32 +290,6 @@ void DArray < T >::remove ( size_t index )
 }
 
 template < class T >
-size_t DArray < T >::used () const
-{
-    return m_numUsed;
-}
-
-template < class T >
-size_t DArray < T >::size () const
-{
-    return m_arraySize;
-}
-
-template < class T >
-bool DArray < T >::valid ( size_t index ) const
-{
-
-    if ( index >= m_arraySize || index < 0 )
-        return false;
-
-    if ( !m_shadow[index] )
-        return false;
-
-    return true;
-
-}
-
-template < class T >
 size_t DArray < T >::findData ( T const & newdata )
 {
 
@@ -332,7 +306,10 @@ template < class T >
 void DArray < T >::sort ( Sorter<T> *_sortMethod )
 {
     T *temp_array = new T[m_numUsed];
-    T *temp_ptr = temp_array;
+	T *temp_ptr = temp_array;
+
+	memset ( temp_array, 0, m_numUsed * sizeof(T) );
+
     for ( size_t i = 0; i < m_arraySize; i++ )
     {
         if ( valid ( i ) )

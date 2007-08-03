@@ -27,7 +27,7 @@ namespace CrissCross
         typedef enum
         {
             STATUS_OK,                  //!< Success.
-            STATUS_NOT_FOUND,            //!< Node couldn't be found.
+            STATUS_NOT_FOUND,           //!< Node couldn't be found.
             STATUS_NULL_POINTER,        //!< A null pointer was found in a parameter.
             STATUS_MEM_EXHAUSTED        //!< Out of memory.
         } statusEnum;
@@ -194,13 +194,13 @@ namespace CrissCross
             /*!
                 \return A DArray containing the data of the tree.
              */
-            _CC_DEPRECATE_SLOW("MODERATE") DArray <Data> *ConvertToDArray () const;
+            _CC_DEPRECATE_SLOW("MINOR") DArray <Data> *ConvertToDArray () const;
 
             //! Converts the tree keys into a linearized DArray.
             /*!
                 \return A DArray containing the keys in the tree.
              */
-            _CC_DEPRECATE_SLOW("MODERATE") DArray <Key>  *ConvertIndexToDArray () const;
+            _CC_DEPRECATE_SLOW("MINOR") DArray <Key>  *ConvertIndexToDArray () const;
 
 			/*
 				Deprecated Compatibility Functions
