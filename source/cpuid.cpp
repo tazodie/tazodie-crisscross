@@ -101,7 +101,7 @@ unsigned int ExtMax;
    the values the 'cpuid' stored in those registers.  Return true if
    the current processor supports CPUID, false otherwise.  */
 static bool
-call_cpuid (unsigned int request, unsigned long *eax, unsigned long *ebx, unsigned long *ecx, unsigned long *edx)
+call_cpuid (unsigned int request, unsigned int *eax, unsigned int *ebx, unsigned int *ecx, unsigned int *edx)
 {
 #ifndef TARGET_CPU_X64
   unsigned int pre_change, post_change;
