@@ -83,10 +83,10 @@ using namespace CrissCross::System;
 
 struct Registers
 {
-    unsigned long eax;
-    unsigned long ebx;
-    unsigned long ecx;
-    unsigned long edx;
+    unsigned int eax;
+    unsigned int ebx;
+    unsigned int ecx;
+    unsigned int edx;
 };
 
 struct Registers *Std;
@@ -150,8 +150,8 @@ call_cpuid (unsigned int request, unsigned long *eax, unsigned long *ebx, unsign
 #else
 
 static void
-call_cpuid ( unsigned int op, unsigned long *_eax, unsigned long *_ebx,
-             unsigned long *_ecx, unsigned long *_edx )
+call_cpuid ( unsigned int op, unsigned int *_eax, unsigned int *_ebx,
+             unsigned int *_ecx, unsigned int *_edx )
 {
     __asm
     {
@@ -878,7 +878,7 @@ CPUID::DetectAPIC ( int processor )
 }
 
 void
-CPUID::DetectFeature ( const unsigned long *_register, long _flag,
+CPUID::DetectFeature ( const unsigned int *_register, long _flag,
                            int _processor, const char *_name )
 {
     // Compliant with Intel document #241618.

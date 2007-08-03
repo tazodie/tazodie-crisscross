@@ -32,6 +32,8 @@
 
 #include <crisscross/universal_include.h>
 
+#ifdef ENABLE_CRASHREPORTS
+
 #include "windows.h"
 #include <tchar.h>
 #include "GetWinVer.h"
@@ -864,3 +866,5 @@ int __cdecl RecordExceptionInfo(PEXCEPTION_POINTERS pExceptPtrs,
 #endif	// XCRASHREPORT_PRESENT
 
 }
+
+#endif

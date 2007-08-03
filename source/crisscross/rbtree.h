@@ -194,13 +194,13 @@ namespace CrissCross
             /*!
                 \return A DArray containing the data of the tree.
              */
-            _CC_DEPRECATE_SLOW("MINOR") DArray <Data> *ConvertToDArray () const;
+            DArray <Data> *ConvertToDArray () const;
 
             //! Converts the tree keys into a linearized DArray.
             /*!
                 \return A DArray containing the keys in the tree.
              */
-            _CC_DEPRECATE_SLOW("MINOR") DArray <Key>  *ConvertIndexToDArray () const;
+            DArray <Key>  *ConvertIndexToDArray () const;
 
 			/*
 				Deprecated Compatibility Functions
