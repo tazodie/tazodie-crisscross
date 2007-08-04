@@ -11,9 +11,6 @@
 
 #include "header.h"
 
-#ifndef ENABLE_CPUID
-#   error "CPUID isn't supported on your platform or isn't enabled in CrissCross. Sorry!"
-#endif
 
 using namespace CrissCross::IO;
 using namespace CrissCross::System;
@@ -25,6 +22,8 @@ RunApplication ( int argc, char **argv )
     Console *console = new Console ();
 
     // Begin your application here.
+
+#ifdef ENABLE_CPUID
 
     CPUID *cpuid = new CPUID ();
 
@@ -115,6 +114,13 @@ RunApplication ( int argc, char **argv )
     }
 
     delete cpuid;
+
+#else
+
+    console->WriteLine ( "CPUID isn't supported on your platform or compiler." );
+
+#endif
+
     // End your application here.
 
 #ifdef TARGET_OS_WINDOWS

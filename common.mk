@@ -91,15 +91,15 @@ else
 endif
 
 ifeq ($(CFLAGS),)
-CFLAGS = -O$(OPTLEVEL) $(ARCH) -Wall -ansi -pedantic -Wno-long-long -pipe -ggdb
+CFLAGS = -O$(OPTLEVEL) $(ARCH) -Wall -pedantic -Wno-long-long -pipe -ggdb
 else
-CFLAGS := -Wall -ansi -pedantic -Wno-long-long
+CFLAGS := -Wall -pedantic -Wno-long-long
 endif
 
 ifeq ($(CXXFLAGS),)
 CXXFLAGS = $(CFLAGS)
 else
-CXXFLAGS := -Wall -ansi -pedantic -Wno-long-long
+CXXFLAGS := -Wall -pedantic -Wno-long-long
 endif
 
 ifneq ($(CC_BUILDSTATIC),yes)
