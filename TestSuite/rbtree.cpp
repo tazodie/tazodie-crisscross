@@ -19,8 +19,8 @@ using namespace CrissCross::Data;
 
 int TestRedBlackTree_CString()
 {
-    RedBlackTree<char *, char*> *rbtree = new RedBlackTree<char *, char*>();
-    BinaryNode<char *, char*> *node = NULL;
+    RedBlackTree<const char *, const char *> *rbtree = new RedBlackTree<const char *, const char *>();
+    BinaryNode<const char *, const char *> *node = NULL;
     char *tmp;
     
     // If the tree is properly encapsulated, this won't cause an error on test #1.
@@ -35,8 +35,8 @@ int TestRedBlackTree_CString()
     if ( (node = rbtree->findNode ( "first" ) ) == NULL )
         return 1;
 
-    tmp = "one";
-    if ( Compare ( node->data, tmp ) != 0 )
+    const char *tmp1 = "one";
+    if ( Compare ( node->data, tmp1 ) != 0 )
         return 2;
 
     if ( (node = rbtree->findNode ( "fifth" ) ) != NULL )
@@ -45,8 +45,8 @@ int TestRedBlackTree_CString()
     if ( (node = rbtree->findNode ( "second" ) ) == NULL )
         return 4;
 
-    tmp = "two";
-    if ( Compare ( node->data, tmp ) != 0 )
+    tmp1 = "two";
+    if ( Compare ( node->data, tmp1 ) != 0 )
         return 5;
         
     if ( rbtree->erase ( "fifth" ) == STATUS_OK )
