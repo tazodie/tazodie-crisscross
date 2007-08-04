@@ -2,7 +2,7 @@ include ../../common.mk
 
 OBJDIR = obj/linux
 OUTDIR = .
-OUTNAME = cpuid
+OUTNAME = genprime
 OUTBIN = $(OUTNAME)
 
 SOURCES = \

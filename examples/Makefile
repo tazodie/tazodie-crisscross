@@ -2,13 +2,13 @@
 
 include ../common.mk
 
-all: cpuid genprime
+all: cpuid-e genprime-e
 
-cpuid:
+cpuid-e:
 	+$(MAKE) -C CPUID precomp
 	+$(MAKE) -C CPUID
 
-genprime:
+genprime-e:
 	+$(MAKE) -C GenPrime precomp
 	+$(MAKE) -C GenPrime
 
