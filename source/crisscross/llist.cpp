@@ -257,7 +257,7 @@ template < class T > LListItem < T > *LList < T >::getItem ( size_t index ) cons
 
 template < class T > bool LList < T >::valid ( size_t index ) const
 {
-    return ( index >= 0 && index < m_numItems );
+    return ( index < m_numItems );
 }
 
 
