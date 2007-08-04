@@ -65,7 +65,7 @@ int RunApplication (int argc, char **argv) {
     WritePrefix ( "DArray" ); retval |= WriteResult ( TestDArray() );
     WritePrefix ( "DStack" ); retval |= WriteResult ( TestDStack() );
 
-    WritePrefix ( "RedBlackTree<char *, char *>" ); retval |= WriteResult ( TestRedBlackTree_CString() );
+    WritePrefix ( "RedBlackTree<const char *, const char *>" ); retval |= WriteResult ( TestRedBlackTree_CString() );
     WritePrefix ( "RedBlackTree<std::string, std::string>" ); retval |= WriteResult ( TestRedBlackTree_String() );
     WritePrefix ( "RedBlackTree<int, int>" ); retval |= WriteResult ( TestRedBlackTree_Int() );
 
