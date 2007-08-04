@@ -251,10 +251,10 @@ CPUID::~CPUID ()
         }
         j = 0;
         
-        RedBlackNode<std::string, Feature *> *node;
+        RedBlackNode<const char *, Feature *> *node;
 
         node = proc[i]->features.rootNode;
-        node->beenThere = RedBlackTree <std::string, Feature *>::NODE_ITSELF_VISITED;
+        node->beenThere = RedBlackTree <const char *, Feature *>::NODE_ITSELF_VISITED;
         while ( proc[i]->features.valid ( node ) )
         {
             delete ( Feature * ) node->data;
@@ -886,7 +886,7 @@ CPUID::DetectFeature ( const unsigned int *_register, long _flag,
     Feature *feature = new Feature ();
 
     feature->Enabled = ( *_register & _flag ) > 0;
-    proc[_processor]->features.insert ( ( char * ) _name, feature );
+	proc[_processor]->features.insert ( _name, feature );
     feature = NULL;
 }
 

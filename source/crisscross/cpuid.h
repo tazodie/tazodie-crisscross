@@ -60,7 +60,7 @@ namespace CrissCross
 			char Stepping;
 			char BrandID;
 			char APICID;
-			RedBlackTree<std::string, Feature *> features;
+			RedBlackTree<const char *, Feature *> features;
 			DArray <char *> caches;
 		  public:
 			Processor ()
