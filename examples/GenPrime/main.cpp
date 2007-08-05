@@ -15,31 +15,45 @@ using namespace CrissCross::IO;
 using namespace CrissCross::System;
 using namespace std;
 
+//
+// NOTE: The '__asm nop;' lines keep the compiler from marking the function
+//		 as a waste of time and optimizing it out.
+//
+
 bool
-isPrime ( int _number )
+isPrime ( unsigned long _number )
 {
-  if ( _number == 2 ) return true;
-  for ( int div = 2; div < _number; div++ )
-  {
-    if ( _number % div == 0 )
-      return false;
-  }
-  return true;
+	if ( _number == 1 ) return false;
+	if ( _number == 2 ) return true;
+
+	for ( unsigned long div = 3; div < _number; div++ )
+	{
+		if ( _number % div == 0 )
+			return false;
+	}
+
+	return true;
+#ifdef TARGET_OS_WINDOWS
+	__asm nop;
+#endif
 }
 
-int
-genPrime ( int _maxToFind )
+unsigned long
+genPrime ( unsigned long _maxToFind )
 {
-  int count = 0;
-  for ( int num = 2; count < _maxToFind; num++ )
-  {
-    if ( isPrime ( num ) )
-    {
-      count++;
-      continue;
-    }
-  }
-  return count;
+	unsigned long count = 0;
+	for ( unsigned long num = 1; count < _maxToFind; num++ )
+	{
+		if ( isPrime ( num ) )
+		{
+			count++;
+			continue;
+		}
+	}
+	return count;
+#ifdef TARGET_OS_WINDOWS
+	__asm nop;
+#endif
 }
 
 int
@@ -50,7 +64,7 @@ RunApplication ( int argc, char **argv )
     // Begin your application here.
 
 	Stopwatch sw;
-	for ( int i = 10000; i < 500000; i += 10000 )
+	for ( unsigned long i = 100000; i <= 1000000; i += 100000 )
 	{
 		sw.Start();
 		genPrime ( i );
