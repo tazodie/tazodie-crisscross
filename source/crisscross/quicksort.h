@@ -24,17 +24,38 @@ namespace CrissCross
         class QuickSort : public Sorter<T>
         {
         private:
-            void InternalSort ( T *_array, size_t _beginning, size_t _end );
+            void InternalSort ( T *_array, size_t _beginning, size_t _end )
+	        {
+	            InternalSort ( _array, 0, _size );
+	            return 0;
+	        };
 
         public:
 
             //! Sorts an array using the QuickSort method.
             /*!
-                \param _array The array to sort.
-                \param _size The size of the array to sort.
-                \return Always 0, for the time being.
-             */
-            _CC_DEPRECATE_SLOW("SEVERE") int Sort ( T *_array, size_t _size );
+				\param _array The array to sort.
+				\param _size The size of the array to sort.
+				\return Always 0, for the time being.
+			 */
+            _CC_DEPRECATE_SLOW("SEVERE") int Sort ( T *_array, size_t _size )
+	        {
+	            if ( _end > _beginning + 1 )
+	            {
+	                const T &piv = _array[_beginning];
+	                size_t l = _beginning + 1, r = _end;
+	                while ( l < r )
+	                {
+	                    if ( Compare ( _array[l], piv ) <= 0 )
+	                        l++;
+	                    else
+	                        Swap ( _array, l, --r );
+	                }
+	                Swap ( _array, --l, _beginning );
+	                InternalSort ( _array, _beginning, l );
+	                InternalSort ( _array, r, _end );
+	            }
+	        };
         };
     }
 }
