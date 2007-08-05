@@ -1,3 +1,7 @@
+VERSION ?????
+    * Added ShellSort
+	* Added InsertionSort
+
 VERSION 0.6.5
     * CrissCross::Data::Compare now can compare C-style strings.
     * x64 target added for Visual Studio 2005 projects.
