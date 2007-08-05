@@ -34,7 +34,7 @@ namespace CrissCross
                 \param _size The size of the array to sort.
                 \return Always 0, for the time being.
              */
-            int _CC_DEPRECATE_SLOW("POTENTIALLY SEVERE") Sort ( T *_array, size_t _size );
+            int Sort ( T *_array, size_t _size );
         };
     }
 }

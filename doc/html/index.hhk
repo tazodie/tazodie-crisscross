@@ -4,7 +4,6 @@
 <param name="FrameName" value="right">
 </OBJECT>
 <UL>
-  <LI><OBJECT type="text/sitemap"><param name="Local" value="classCrissCross_1_1Data_1_1QuickSort.html#e1a8f49dc30d5a06135e7e152ff6e43e"><param name="Name" value="_CC_DEPRECATE_SLOW"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classCrissCross_1_1Network_1_1TCPSocket.html#190f806b755f0a7cce0bd6edfbf74029"><param name="Name" value="Accept"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classCrissCross_1_1Network_1_1CoreSocket.html#c85e27955e3cd409570d832b1efadebf"><param name="Name" value="Ban"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classCrissCross_1_1IO_1_1Console.html#ee23e6a386ba76fad959839f64fa0a5508af1caa00ddd904d5cb6568c9c06289"><param name="Name" value="BG_BLUE"></OBJECT>
@@ -676,6 +675,7 @@
   <UL>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classCrissCross_1_1Data_1_1CombSort.html#5c3f0559f25553fc81c5b2d1eeb26d10"><param name="Name" value="CrissCross::Data::CombSort"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classCrissCross_1_1Data_1_1HeapSort.html#9bb3bccdb719d9e987be07a11ec8dadf"><param name="Name" value="CrissCross::Data::HeapSort"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classCrissCross_1_1Data_1_1QuickSort.html#55719307d464bec5ef79892c94ca9215"><param name="Name" value="CrissCross::Data::QuickSort"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Local" value="classCrissCross_1_1Data_1_1Sorter.html#9fb148621db9afb1a9d66065041a969a"><param name="Name" value="CrissCross::Data::Sorter"></OBJECT>
   </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="classCrissCross_1_1Network_1_1CoreSocket.html#8040925ec63ff6535a9bb0f9086b8107"><param name="Name" value="State"></OBJECT>

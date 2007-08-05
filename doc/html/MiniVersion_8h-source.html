@@ -40,54 +40,56 @@
 <a name="l00016"></a>00016 <span class="preprocessor">#ifndef MINIVERSION_H</span>
 <a name="l00017"></a>00017 <span class="preprocessor"></span><span class="preprocessor">#define MINIVERSION_H</span>
 <a name="l00018"></a>00018 <span class="preprocessor"></span>
-<a name="l00019"></a><a class="code" href="classCMiniVersion.html">00019</a> <span class="keyword">class </span><a class="code" href="classCMiniVersion.html">CMiniVersion</a>
-<a name="l00020"></a>00020 {
-<a name="l00021"></a>00021 <span class="comment">// constructors</span>
-<a name="l00022"></a>00022 <span class="keyword">public</span>:
-<a name="l00023"></a>00023     <a class="code" href="classCMiniVersion.html">CMiniVersion</a>(LPCTSTR lpszPath = NULL);
-<a name="l00024"></a>00024     BOOL Init();
-<a name="l00025"></a>00025     <span class="keywordtype">void</span> Release();
-<a name="l00026"></a>00026 
-<a name="l00027"></a>00027 <span class="comment">// operations</span>
-<a name="l00028"></a>00028 <span class="keyword">public</span>:
-<a name="l00029"></a>00029 
-<a name="l00030"></a>00030 <span class="comment">// attributes</span>
-<a name="l00031"></a>00031 <span class="keyword">public</span>:
-<a name="l00032"></a>00032     <span class="comment">// fixed info</span>
-<a name="l00033"></a>00033     BOOL GetFileVersion(WORD *pwVersion);
-<a name="l00034"></a>00034     BOOL GetProductVersion(WORD* pwVersion);
-<a name="l00035"></a>00035     BOOL GetFileFlags(DWORD&amp; rdwFlags);
-<a name="l00036"></a>00036     BOOL GetFileOS(DWORD&amp; rdwOS);
-<a name="l00037"></a>00037     BOOL GetFileType(DWORD&amp; rdwType);
-<a name="l00038"></a>00038     BOOL GetFileSubtype(DWORD&amp; rdwType);    
-<a name="l00039"></a>00039 
-<a name="l00040"></a>00040     <span class="comment">// string info</span>
-<a name="l00041"></a>00041     BOOL GetCompanyName(LPTSTR lpszCompanyName, <span class="keywordtype">int</span> nSize);
-<a name="l00042"></a>00042     BOOL GetFileDescription(LPTSTR lpszFileDescription, <span class="keywordtype">int</span> nSize);
-<a name="l00043"></a>00043     BOOL GetProductName(LPTSTR lpszProductName, <span class="keywordtype">int</span> nSize);
-<a name="l00044"></a>00044 
-<a name="l00045"></a>00045 <span class="comment">// implementation</span>
-<a name="l00046"></a>00046 <span class="keyword">protected</span>:
-<a name="l00047"></a>00047     BOOL GetFixedInfo(VS_FIXEDFILEINFO&amp; rFixedInfo);
-<a name="l00048"></a>00048     BOOL GetStringInfo(LPCTSTR lpszKey, LPTSTR lpszValue);
-<a name="l00049"></a>00049 
-<a name="l00050"></a><a class="code" href="classCMiniVersion.html#d54ca8d42698ebf4563d8026e5c84e39">00050</a>     BYTE*       <a class="code" href="classCMiniVersion.html#d54ca8d42698ebf4563d8026e5c84e39">m_pData</a>;
-<a name="l00051"></a><a class="code" href="classCMiniVersion.html#e4b84b16915f33d169b1a3f2024a2c1c">00051</a>     DWORD       <a class="code" href="classCMiniVersion.html#e4b84b16915f33d169b1a3f2024a2c1c">m_dwHandle</a>;
-<a name="l00052"></a><a class="code" href="classCMiniVersion.html#aa827fc2ccce2a21caa653db5a1195ae">00052</a>     WORD        <a class="code" href="classCMiniVersion.html#aa827fc2ccce2a21caa653db5a1195ae">m_wFileVersion</a>[4];
-<a name="l00053"></a><a class="code" href="classCMiniVersion.html#304213eee1bce2356c1ae71588b9d47a">00053</a>     WORD        <a class="code" href="classCMiniVersion.html#304213eee1bce2356c1ae71588b9d47a">m_wProductVersion</a>[4];
-<a name="l00054"></a><a class="code" href="classCMiniVersion.html#763f30df0c5cb9ce7a4df482f01a677f">00054</a>     DWORD       <a class="code" href="classCMiniVersion.html#763f30df0c5cb9ce7a4df482f01a677f">m_dwFileFlags</a>;
-<a name="l00055"></a><a class="code" href="classCMiniVersion.html#10ea3906cc39b27ca9bd9b48f06db8b2">00055</a>     DWORD       <a class="code" href="classCMiniVersion.html#10ea3906cc39b27ca9bd9b48f06db8b2">m_dwFileOS</a>;
-<a name="l00056"></a><a class="code" href="classCMiniVersion.html#e9b225704f1e354d190c13ad390883b6">00056</a>     DWORD       <a class="code" href="classCMiniVersion.html#e9b225704f1e354d190c13ad390883b6">m_dwFileType</a>;
-<a name="l00057"></a><a class="code" href="classCMiniVersion.html#aab2f07e8ea33fbbdea0ea06a449a7c6">00057</a>     DWORD       <a class="code" href="classCMiniVersion.html#aab2f07e8ea33fbbdea0ea06a449a7c6">m_dwFileSubtype</a>;
-<a name="l00058"></a>00058 
-<a name="l00059"></a><a class="code" href="classCMiniVersion.html#fd75f765ce983e395ee2730bb5b89689">00059</a>     TCHAR       <a class="code" href="classCMiniVersion.html#fd75f765ce983e395ee2730bb5b89689">m_szPath</a>[MAX_PATH*2];
-<a name="l00060"></a><a class="code" href="classCMiniVersion.html#3ec76daf5474f37e535758e41e7c3d86">00060</a>     TCHAR       <a class="code" href="classCMiniVersion.html#3ec76daf5474f37e535758e41e7c3d86">m_szCompanyName</a>[MAX_PATH*2];
-<a name="l00061"></a><a class="code" href="classCMiniVersion.html#661a7dc224975da150b0ac4a726c8459">00061</a>     TCHAR       <a class="code" href="classCMiniVersion.html#661a7dc224975da150b0ac4a726c8459">m_szProductName</a>[MAX_PATH*2];
-<a name="l00062"></a><a class="code" href="classCMiniVersion.html#9ce4c220768a82c792a9a91aef622ab6">00062</a>     TCHAR       <a class="code" href="classCMiniVersion.html#9ce4c220768a82c792a9a91aef622ab6">m_szFileDescription</a>[MAX_PATH*2];
-<a name="l00063"></a>00063 };
-<a name="l00064"></a>00064 
-<a name="l00065"></a>00065 <span class="preprocessor">#endif</span>
-</pre></div><hr size="1"><address style="text-align: right;"><small>Generated on Sun Aug 5 05:06:27 2007 for CrissCross by&nbsp;
+<a name="l00020"></a>00020 
+<a name="l00021"></a>00021 <span class="keyword">class </span>CMiniVersion
+<a name="l00022"></a>00022 {
+<a name="l00023"></a>00023 <span class="comment">// constructors</span>
+<a name="l00024"></a>00024 <span class="keyword">public</span>:
+<a name="l00025"></a>00025     CMiniVersion(LPCTSTR lpszPath = NULL);
+<a name="l00026"></a>00026     BOOL Init();
+<a name="l00027"></a>00027     <span class="keywordtype">void</span> Release();
+<a name="l00028"></a>00028 
+<a name="l00029"></a>00029 <span class="comment">// operations</span>
+<a name="l00030"></a>00030 <span class="keyword">public</span>:
+<a name="l00031"></a>00031 
+<a name="l00032"></a>00032 <span class="comment">// attributes</span>
+<a name="l00033"></a>00033 <span class="keyword">public</span>:
+<a name="l00034"></a>00034     <span class="comment">// fixed info</span>
+<a name="l00035"></a>00035     BOOL GetFileVersion(WORD *pwVersion);
+<a name="l00036"></a>00036     BOOL GetProductVersion(WORD* pwVersion);
+<a name="l00037"></a>00037     BOOL GetFileFlags(DWORD&amp; rdwFlags);
+<a name="l00038"></a>00038     BOOL GetFileOS(DWORD&amp; rdwOS);
+<a name="l00039"></a>00039     BOOL GetFileType(DWORD&amp; rdwType);
+<a name="l00040"></a>00040     BOOL GetFileSubtype(DWORD&amp; rdwType);    
+<a name="l00041"></a>00041 
+<a name="l00042"></a>00042     <span class="comment">// string info</span>
+<a name="l00043"></a>00043     BOOL GetCompanyName(LPTSTR lpszCompanyName, <span class="keywordtype">int</span> nSize);
+<a name="l00044"></a>00044     BOOL GetFileDescription(LPTSTR lpszFileDescription, <span class="keywordtype">int</span> nSize);
+<a name="l00045"></a>00045     BOOL GetProductName(LPTSTR lpszProductName, <span class="keywordtype">int</span> nSize);
+<a name="l00046"></a>00046 
+<a name="l00047"></a>00047 <span class="comment">// implementation</span>
+<a name="l00048"></a>00048 <span class="keyword">protected</span>:
+<a name="l00049"></a>00049     BOOL GetFixedInfo(VS_FIXEDFILEINFO&amp; rFixedInfo);
+<a name="l00050"></a>00050     BOOL GetStringInfo(LPCTSTR lpszKey, LPTSTR lpszValue);
+<a name="l00051"></a>00051 
+<a name="l00052"></a>00052     BYTE*       m_pData;
+<a name="l00053"></a>00053     DWORD       m_dwHandle;
+<a name="l00054"></a>00054     WORD        m_wFileVersion[4];
+<a name="l00055"></a>00055     WORD        m_wProductVersion[4];
+<a name="l00056"></a>00056     DWORD       m_dwFileFlags;
+<a name="l00057"></a>00057     DWORD       m_dwFileOS;
+<a name="l00058"></a>00058     DWORD       m_dwFileType;
+<a name="l00059"></a>00059     DWORD       m_dwFileSubtype;
+<a name="l00060"></a>00060 
+<a name="l00061"></a>00061     TCHAR       m_szPath[MAX_PATH*2];
+<a name="l00062"></a>00062     TCHAR       m_szCompanyName[MAX_PATH*2];
+<a name="l00063"></a>00063     TCHAR       m_szProductName[MAX_PATH*2];
+<a name="l00064"></a>00064     TCHAR       m_szFileDescription[MAX_PATH*2];
+<a name="l00065"></a>00065 };
+<a name="l00066"></a>00066 
+<a name="l00068"></a>00068 
+<a name="l00069"></a>00069 <span class="preprocessor">#endif</span>
+</pre></div><hr size="1"><address style="text-align: right;"><small>Generated on Sun Aug 5 05:21:38 2007 for CrissCross by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.3 </small></address>
 </body>
