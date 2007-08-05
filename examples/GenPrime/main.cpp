@@ -33,7 +33,7 @@ isPrime ( unsigned long _number )
 	}
 
 	return true;
-#ifdef TARGET_OS_WINDOWS
+#if defined ( TARGET_OS_WINDOWS ) && defined ( TARGET_CPU_X86 )
 	__asm nop;
 #endif
 }
@@ -51,7 +51,7 @@ genPrime ( unsigned long _maxToFind )
 		}
 	}
 	return count;
-#ifdef TARGET_OS_WINDOWS
+#if defined ( TARGET_OS_WINDOWS ) && defined ( TARGET_CPU_X86 )
 	__asm nop;
 #endif
 }
