@@ -22,7 +22,7 @@ namespace CrissCross
 		//! @cond
         CrissCross::Errors __initialise_network();
         CrissCross::Errors __cleanup_network();
-		//! @encond
+		//! @endcond
     }
 }
 

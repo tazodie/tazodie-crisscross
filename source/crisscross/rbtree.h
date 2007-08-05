@@ -216,6 +216,7 @@ namespace CrissCross
 			//! @endcond
 
         protected:
+			//! The cached size() return value. Changes on each tree modification (insertions and deletions).
 			size_t m_cachedSize;
 
             void RecursiveConvertIndexToDArray ( DArray <Key> *_darray, RedBlackNode<Key,Data> *_btree ) const;
