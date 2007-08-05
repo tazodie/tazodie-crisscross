@@ -35,7 +35,7 @@ namespace CrissCross
 				{
 					long j = i;
 					T b = _array[i];
-					while ( ( j > 0 ) && ( _array[j-1] > b ) )
+					while ( ( j > 0 ) && ( Compare ( _array[j-1], b ) > 0 ) )
 					{
 						_array[j] = _array[j-1];
 						j--;

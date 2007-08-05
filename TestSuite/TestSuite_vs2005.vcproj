@@ -481,6 +481,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\shellsort.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\shellsort.h"
+			>
+		</File>
+		<File
 			RelativePath=".\stopwatch.cpp"
 			>
 		</File>

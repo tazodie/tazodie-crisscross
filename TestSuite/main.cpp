@@ -20,6 +20,7 @@
 #include "rbtree.h"
 #include "heapsort.h"
 #include "quicksort.h"
+#include "shellsort.h"
 #include "insertionsort.h"
 #include "combsort.h"
 #include "stopwatch.h"
@@ -78,6 +79,9 @@ int RunApplication (int argc, char **argv) {
 
     WritePrefix ( "InsertionSort (integer array)" ); retval |= WriteResult ( TestInsertionSort_IntArray() );
     WritePrefix ( "InsertionSort (integer DArray)" ); retval |= WriteResult ( TestInsertionSort_DArray() );
+
+    WritePrefix ( "ShellSort (integer array)" ); retval |= WriteResult ( TestShellSort_IntArray() );
+    WritePrefix ( "ShellSort (integer DArray)" ); retval |= WriteResult ( TestShellSort_DArray() );
 
     WritePrefix ( "QuickSort (integer array)" ); retval |= WriteResult ( TestQuickSort_IntArray() );
     WritePrefix ( "QuickSort (integer DArray)" ); retval |= WriteResult ( TestQuickSort_DArray() );
