@@ -18,6 +18,7 @@ combsort.cpp \
 heapsort.cpp \
 insertionsort.cpp \
 quicksort.cpp \
+shellsort.cpp \
 main.cpp
 
 OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)

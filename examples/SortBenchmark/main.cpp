@@ -109,12 +109,16 @@ RunApplication ( int argc, char **argv )
 	HeapSort<char *> hs;
 	InsertionSort<char *> is;
 	CombSort<char *> cs;
+	ShellSort<char *> ss;
 
 	console->WriteLine ( "Benchmarking HeapSort..." );
 	Benchmark ( hs );
 	console->WriteLine ();
 	console->WriteLine ( "Benchmarking CombSort..." );
 	Benchmark ( cs );
+	console->WriteLine ();
+	console->WriteLine ( "Benchmarking ShellSort..." );
+	Benchmark ( ss );
 	console->WriteLine ();
 	console->WriteLine ( "Benchmarking InsertionSort..." );
 	Benchmark ( is );
