@@ -16,6 +16,7 @@ dstack.cpp \
 darray.cpp \
 combsort.cpp \
 heapsort.cpp \
+insertionsort.cpp \
 quicksort.cpp \
 main.cpp
 

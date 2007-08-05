@@ -20,7 +20,7 @@ using namespace CrissCross::Data;
 template < class dataType >
 DStack<dataType>::DStack ( size_t N )
 {
-	if ( N < 1 && N != -1 )
+	if ( N < 1 && N != (size_t)-1 )
 		m_stepSize = -1;
 	else
 		m_stepSize = N;
@@ -40,7 +40,7 @@ void DStack<dataType>::grow ()
 {
 	dataType *newstack_;
 
-	if ( m_stepSize == -1 )
+	if ( m_stepSize == (size_t)-1 )
 		newstack_ = new dataType[m_size * 2];
 	else
 		newstack_ = new dataType[m_size + m_stepSize];
@@ -51,7 +51,7 @@ void DStack<dataType>::grow ()
     m_bottom = newstack_;
     m_top = m_bottom + m_size;
 
-	if ( m_stepSize == -1 )
+	if ( m_stepSize == (size_t)-1 )
 		m_size *= 2;
 	else
 		m_size += m_stepSize;
