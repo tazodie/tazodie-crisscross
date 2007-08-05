@@ -11,6 +11,8 @@
 
 #include "header.h"
 
+//#define ENABLE_SLOWSORTS
+
 using namespace CrissCross::Data;
 using namespace CrissCross::IO;
 using namespace CrissCross::System;
@@ -119,12 +121,17 @@ RunApplication ( int argc, char **argv )
 	console->WriteLine ();
 	console->WriteLine ( "Benchmarking ShellSort..." );
 	Benchmark ( ss );
+#ifdef ENABLE_SLOWSORTS
 	console->WriteLine ();
 	console->WriteLine ( "Benchmarking InsertionSort..." );
 	Benchmark ( is );
 	console->WriteLine ();
 	console->WriteLine ( "Benchmarking QuickSort..." );
 	Benchmark ( qs );
+#else
+	console->WriteLine ( "Skipping InsertionSort benchmark (ENABLE_SLOWSORTS not defined)..." );
+	console->WriteLine ( "Skipping QuickSort benchmark (ENABLE_SLOWSORTS not defined)..." );
+#endif
 	console->WriteLine ();
 
 
