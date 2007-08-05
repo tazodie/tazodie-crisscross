@@ -14,11 +14,6 @@
 
 #include <crisscross/build_number.h>
 
-// Until we figure out the XCrashReports issue...
-#ifdef _MSC_VER
-#	pragma warning (disable:4530)
-#endif
-
 #ifndef SDL_APPLICATION
 //#  define SDL_APPLICATION // Define if your application uses SDLmain.
 #endif
@@ -102,16 +97,6 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #	if defined ( TARGET_OS_WINDOWS ) && !defined ( TARGET_CPU_X86 )
 #		undef ENABLE_CPUID
 #	endif
-
-#   ifndef _CRT_SECURE_NO_WARNINGS
-#       define _CRT_SECURE_NO_WARNINGS
-#   endif
-#   ifndef _CRT_SECURE_NO_DEPRECATE
-#       define _CRT_SECURE_NO_DEPRECATE
-#   endif
-#   ifndef _CRT_NONSTDC_NO_DEPRECATE
-#       define _CRT_NONSTDC_NO_DEPRECATE
-#   endif
 
 #   include <sys/stat.h>
     
