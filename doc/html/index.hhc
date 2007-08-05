@@ -7,7 +7,6 @@
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Class List"><param name="Local" value="annotated.html"><param name="ImageNumber" value="1"></OBJECT>
   <UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="CrissCross::Data::BinaryNode< Key, Data >"><param name="Local" value="classCrissCross_1_1Data_1_1BinaryNode.html"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="CMiniVersion"><param name="Local" value="classCMiniVersion.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="CrissCross::Data::CombSort< T >"><param name="Local" value="classCrissCross_1_1Data_1_1CombSort.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="CrissCross::IO::Console"><param name="Local" value="classCrissCross_1_1IO_1_1Console.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="CrissCross::IO::CoreIOReader"><param name="Local" value="classCrissCross_1_1IO_1_1CoreIOReader.html"><param name="ImageNumber" value="11"></OBJECT>
@@ -34,7 +33,6 @@
     <UL>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="CrissCross::Data::RedBlackNode< Key, Data >"><param name="Local" value="classCrissCross_1_1Data_1_1RedBlackNode.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="CMiniVersion"><param name="Local" value="classCMiniVersion.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="CrissCross::IO::CoreIOReader"><param name="Local" value="classCrissCross_1_1IO_1_1CoreIOReader.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="CrissCross::IO::Console"><param name="Local" value="classCrissCross_1_1IO_1_1Console.html"><param name="ImageNumber" value="11"></OBJECT>

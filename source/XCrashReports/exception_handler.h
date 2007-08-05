@@ -19,6 +19,8 @@
 // We forward declare PEXCEPTION_POINTERS so that the function
 // prototype doesn't needlessly require windows.h.
 
+//! @cond
+
 typedef struct _EXCEPTION_POINTERS EXCEPTION_POINTERS, *PEXCEPTION_POINTERS;
 
 int __cdecl RecordExceptionInfo(PEXCEPTION_POINTERS pExceptPtrs,
@@ -26,6 +28,7 @@ int __cdecl RecordExceptionInfo(PEXCEPTION_POINTERS pExceptPtrs,
 								const char *lpszAppMagic,
 								const char *lpszAppVersion);
 
+//! @endcond
 
 /*
 // Sample usage - put the code that used to be in main into HandledMain.

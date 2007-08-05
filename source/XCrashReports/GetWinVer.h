@@ -58,6 +58,10 @@
 #define WCE			201
 #define WCELAST		299
 
+//! @cond
+
 BOOL GetWinVer(LPTSTR pszVersion, int *nVersion, LPTSTR pszMajorMinorBuild);
+
+//! @endcond
 
 #endif //GETWINVER_H

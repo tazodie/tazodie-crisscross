@@ -16,6 +16,8 @@
 #ifndef MINIVERSION_H
 #define MINIVERSION_H
 
+//! @cond
+
 class CMiniVersion
 {
 // constructors
@@ -61,6 +63,8 @@ protected:
 	TCHAR		m_szProductName[MAX_PATH*2];
 	TCHAR		m_szFileDescription[MAX_PATH*2];
 };
+
+//! @endcond
 
 #endif
 ///////////////////////////////////////////////////////////////////////////////

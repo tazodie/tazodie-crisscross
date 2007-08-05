@@ -51,7 +51,6 @@ MiniVersion_8h-source.html
 annotated.html
 hierarchy.html
 functions.html
-functions_0x61.html
 functions_0x62.html
 functions_0x63.html
 functions_0x64.html
@@ -76,8 +75,6 @@ functions_func.html
 functions_vars.html
 functions_enum.html
 functions_eval.html
-classCMiniVersion.html
-classCMiniVersion-members.html
 namespaces.html
 namespaceCrissCross.html
 namespaceCrissCross_1_1Data.html
