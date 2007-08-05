@@ -617,6 +617,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\crisscross\insertionsort.h"
+				>
+			</File>
+			<File
 				RelativePath=".\crisscross\llist.cpp"
 				>
 				<FileConfiguration
