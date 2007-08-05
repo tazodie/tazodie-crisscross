@@ -363,48 +363,6 @@
 			<File
 				RelativePath=".\console.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|x64"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|x64"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\crisscross\console.h"
@@ -433,48 +391,6 @@
 			<File
 				RelativePath=".\textreader.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|x64"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|x64"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\crisscross\textreader.h"
@@ -483,48 +399,6 @@
 			<File
 				RelativePath=".\textwriter.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|x64"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|x64"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\crisscross\textwriter.h"
@@ -537,48 +411,6 @@
 			<File
 				RelativePath=".\cpuid.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|x64"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|x64"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\crisscross\cpuid.h"
@@ -587,48 +419,6 @@
 			<File
 				RelativePath=".\debug.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|x64"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|x64"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\crisscross\debug.h"
@@ -637,48 +427,6 @@
 			<File
 				RelativePath=".\mutex.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|x64"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|x64"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\crisscross\mutex.h"
@@ -695,48 +443,6 @@
 			<File
 				RelativePath=".\system.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|x64"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|x64"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\crisscross\system.h"
@@ -782,8 +488,6 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions=""
 						UsePrecompiledHeader="1"
 					/>
 				</FileConfiguration>
@@ -792,8 +496,6 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions=""
 						UsePrecompiledHeader="1"
 					/>
 				</FileConfiguration>
@@ -802,12 +504,7 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
 						UsePrecompiledHeader="1"
-						BrowseInformation="1"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -815,12 +512,7 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
 						UsePrecompiledHeader="1"
-						BrowseInformation="1"
 					/>
 				</FileConfiguration>
 			</File>
@@ -885,8 +577,6 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions=""
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -895,8 +585,6 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions=""
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -905,11 +593,6 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -918,11 +601,6 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"
 					/>
 				</FileConfiguration>
 			</File>
@@ -939,8 +617,6 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions=""
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -949,8 +625,6 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions=""
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -959,11 +633,6 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -972,11 +641,6 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"
 					/>
 				</FileConfiguration>
 			</File>
@@ -1033,8 +697,6 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions=""
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -1043,8 +705,6 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions=""
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -1053,11 +713,6 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -1066,11 +721,6 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"
 					/>
 				</FileConfiguration>
 			</File>
@@ -1131,8 +781,6 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions=""
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -1141,8 +789,6 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions=""
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -1151,11 +797,6 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -1164,11 +805,6 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"
 					/>
 				</FileConfiguration>
 			</File>
