@@ -57,6 +57,7 @@ namespace CrissCross
 #include <crisscross/quicksort.h>
 #include <crisscross/heapsort.h>
 #include <crisscross/combsort.h>
+#include <crisscross/insertionsort.h>
 
 #define FastestSort                HeapSort
 #define MemoryEfficientSort        HeapSort
