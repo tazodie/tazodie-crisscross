@@ -80,6 +80,10 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #		include <omp.h>
 #	endif
 
+#	ifndef _CRT_SECURE_NO_WARNINGS
+#		define _CRT_SECURE_NO_WARNINGS
+#	endif
+
 #   if !defined ( TARGET_COMPILER_VC ) && !defined ( TARGET_COMPILER_ICC )
 #       undef DETECT_MEMORY_LEAKS
 #   endif
