@@ -97,7 +97,7 @@ RunApplication ( int argc, char **argv )
 
             // Print out CPU features (MMX, SSE, and so on).
             console->Write ( "CPU[%d] Features: ", i );
-            RedBlackNode <std::string, Feature *> *node = cpuid->proc[i]->features.rootNode;
+            RedBlackNode <const char *, Feature *> *node = cpuid->proc[i]->features.rootNode;
             node->beenThere = RedBlackTree <std::string, Feature *>::NODE_ITSELF_VISITED;
             while ( cpuid->proc[i]->features.valid ( node ) )
             {

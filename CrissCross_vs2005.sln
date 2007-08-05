@@ -12,6 +12,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CPUID", "examples\CPUID\CPU
 		{9520273D-42A8-4E63-A2DC-C209AAAC2B6A} = {9520273D-42A8-4E63-A2DC-C209AAAC2B6A}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GenPrime", "examples\GenPrime\GenPrime_vs2005.vcproj", "{A657FAD6-E144-4F64-A85C-13562E0EF85E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9520273D-42A8-4E63-A2DC-C209AAAC2B6A} = {9520273D-42A8-4E63-A2DC-C209AAAC2B6A}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -44,6 +49,14 @@ Global
 		{FD12E5A5-E163-4337-AD48-0B5A1F093CB9}.Release|Win32.Build.0 = Release|Win32
 		{FD12E5A5-E163-4337-AD48-0B5A1F093CB9}.Release|x64.ActiveCfg = Release|x64
 		{FD12E5A5-E163-4337-AD48-0B5A1F093CB9}.Release|x64.Build.0 = Release|x64
+		{A657FAD6-E144-4F64-A85C-13562E0EF85E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A657FAD6-E144-4F64-A85C-13562E0EF85E}.Debug|Win32.Build.0 = Debug|Win32
+		{A657FAD6-E144-4F64-A85C-13562E0EF85E}.Debug|x64.ActiveCfg = Debug|x64
+		{A657FAD6-E144-4F64-A85C-13562E0EF85E}.Debug|x64.Build.0 = Debug|x64
+		{A657FAD6-E144-4F64-A85C-13562E0EF85E}.Release|Win32.ActiveCfg = Release|Win32
+		{A657FAD6-E144-4F64-A85C-13562E0EF85E}.Release|Win32.Build.0 = Release|Win32
+		{A657FAD6-E144-4F64-A85C-13562E0EF85E}.Release|x64.ActiveCfg = Release|x64
+		{A657FAD6-E144-4F64-A85C-13562E0EF85E}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

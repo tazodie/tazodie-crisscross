@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="CPUID"
-	ProjectGUID="{FD12E5A5-E163-4337-AD48-0B5A1F093CB9}"
-	RootNamespace="CPUID"
+	Name="GenPrime"
+	ProjectGUID="{A657FAD6-E144-4F64-A85C-13562E0EF85E}"
+	RootNamespace="GenPrime"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -208,10 +208,11 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
+				Optimization="2"
 				InlineFunctionExpansion="1"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
+				WholeProgramOptimization="false"
 				AdditionalIncludeDirectories="../../source"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				StringPooling="true"
