@@ -23,7 +23,7 @@ using namespace CrissCross::Data;
 template < class T >
 DArray < T >::DArray ()
 {
-    m_stepSize = 1;
+    m_stepSize = -1;
     m_numUsed = m_arraySize = 0;
     m_shadow = NULL;
     m_array = NULL;
@@ -34,7 +34,10 @@ DArray < T >::DArray ()
 template < class T >
 DArray < T >::DArray ( int _newStepSize )
 {
-    m_stepSize = _newStepSize;
+	if ( _newStepSize < 1 && _newStepSize != -1 )
+		m_stepSize = -1;
+	else
+		m_stepSize = _newStepSize;
     m_numUsed = m_arraySize = 0;
     m_shadow = NULL;
     m_array = NULL;
