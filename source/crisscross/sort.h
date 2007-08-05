@@ -46,15 +46,13 @@ namespace CrissCross
 			 */
             virtual void Swap ( T *_array, size_t _first, size_t _second )
 	        {
-	            T old = a[_first];
-	            a[_first] = a[_second];
-	            a[_second] = old;
+	            T old = _array[_first];
+	            _array[_first] = _array[_second];
+	            _array[_second] = old;
 	        };
         };
     }
 }
-
-#include <crisscross/sort.cpp>
 
 #include <crisscross/quicksort.h>
 #include <crisscross/heapsort.h>

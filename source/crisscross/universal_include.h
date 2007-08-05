@@ -189,7 +189,9 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #   endif
 
 #	ifdef TARGET_COMPILER_VC
+#	ifndef strdup
 #		define strdup _strdup
+#	endif
 #	endif
 
 #   if defined ( TARGET_OS_WINDOWS )
