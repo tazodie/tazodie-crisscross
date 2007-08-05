@@ -31,16 +31,16 @@ namespace CrissCross
 			 */
             int Sort ( T *_array, size_t _size )
 			{
-				for ( int i = 1; i < _size; i++ )
+				for ( long i = 1; i < (long)_size; i++ )
 				{
-					int j = i;
+					long j = i;
 					T b = _array[i];
-					while ( ( j > 0 ) && ( a[j-1] > b ) )
+					while ( ( j > 0 ) && ( _array[j-1] > b ) )
 					{
-						a[j] = a[j-1];
+						_array[j] = _array[j-1];
 						j--;
 					}
-					a[j] = b;
+					_array[j] = b;
 				}
 	            return 0;
 			};

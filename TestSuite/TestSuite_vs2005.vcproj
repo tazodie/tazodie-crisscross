@@ -445,6 +445,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\insertionsort.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\insertionsort.h"
+			>
+		</File>
+		<File
 			RelativePath=".\llist.cpp"
 			>
 		</File>

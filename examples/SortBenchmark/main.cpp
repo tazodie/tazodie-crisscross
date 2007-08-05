@@ -115,6 +115,9 @@ RunApplication ( int argc, char **argv )
 	console->WriteLine ( "Benchmarking CombSort..." );
 	Benchmark ( cs );
 	console->WriteLine ();
+	console->WriteLine ( "Benchmarking InsertionSort..." );
+	Benchmark ( is );
+	console->WriteLine ();
 	console->WriteLine ( "Benchmarking QuickSort..." );
 	Benchmark ( qs );
 	console->WriteLine ();
