@@ -26,20 +26,6 @@ namespace CrissCross
         private:
             void InternalSort ( T *_array, size_t _beginning, size_t _end )
 	        {
-	            InternalSort ( _array, 0, _size );
-	            return 0;
-	        };
-
-        public:
-
-            //! Sorts an array using the QuickSort method.
-            /*!
-				\param _array The array to sort.
-				\param _size The size of the array to sort.
-				\return Always 0, for the time being.
-			 */
-            _CC_DEPRECATE_SLOW("SEVERE") int Sort ( T *_array, size_t _size )
-	        {
 	            if ( _end > _beginning + 1 )
 	            {
 	                const T &piv = _array[_beginning];
@@ -56,10 +42,22 @@ namespace CrissCross
 	                InternalSort ( _array, r, _end );
 	            }
 	        };
+
+        public:
+
+            //! Sorts an array using the QuickSort method.
+            /*!
+				\param _array The array to sort.
+				\param _size The size of the array to sort.
+				\return Always 0, for the time being.
+			 */
+            _CC_DEPRECATE_SLOW("SEVERE") int Sort ( T *_array, size_t _size )
+	        {
+	            InternalSort ( _array, 0, _size );
+	            return 0;
+	        };
         };
     }
 }
-
-#include <crisscross/quicksort.cpp>
 
 #endif
