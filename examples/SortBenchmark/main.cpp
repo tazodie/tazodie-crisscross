@@ -107,6 +107,7 @@ RunApplication ( int argc, char **argv )
 
 	QuickSort<char *> qs;
 	HeapSort<char *> hs;
+	InsertionSort<char *> is;
 	CombSort<char *> cs;
 
 	console->WriteLine ( "Benchmarking HeapSort..." );
