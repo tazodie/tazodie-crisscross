@@ -12,6 +12,10 @@
 #ifndef __included_cc_universal_include_h
 #define __included_cc_universal_include_h
 
+#ifdef _MSC_VER
+#	pragma warning (disable:4530)
+#endif
+
 #include <crisscross/build_number.h>
 
 #ifndef SDL_APPLICATION
@@ -183,6 +187,10 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #       include <map>
 #       include <sstream>
 #   endif
+
+#	ifdef TARGET_COMPILER_VC
+#		define strdup _strdup
+#	endif
 
 #   if defined ( TARGET_OS_WINDOWS )
 #       if defined ( DETECT_MEMORY_LEAKS )

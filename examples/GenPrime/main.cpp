@@ -26,7 +26,9 @@ isPrime ( unsigned long _number )
 	if ( _number == 1 ) return false;
 	if ( _number == 2 ) return true;
 
-	for ( unsigned long div = 3; div < _number; div++ )
+	if ( _number % 2 == 0 ) return false;
+
+	for ( unsigned long div = 3; div < (unsigned long)sqrt((double)_number); div++ )
 	{
 		if ( _number % div == 0 )
 			return false;
