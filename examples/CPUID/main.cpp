@@ -11,7 +11,6 @@
 
 #include "header.h"
 
-
 using namespace CrissCross::IO;
 using namespace CrissCross::System;
 using namespace std;

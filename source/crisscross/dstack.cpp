@@ -20,8 +20,8 @@ using namespace CrissCross::Data;
 template < class dataType >
 DStack<dataType>::DStack ( size_t N )
 {
-	if ( N < 32 || (int)N == -1 )
-		m_stepSize = 32;
+	if ( N < 1 && N != -1 )
+		m_stepSize = -1;
 	else
 		m_stepSize = N;
     m_top = m_bottom = NULL;
@@ -38,13 +38,23 @@ DStack<dataType>::~DStack ()
 template < class dataType >
 void DStack<dataType>::grow ()
 {
-    dataType *newstack_ = new dataType[m_size + m_stepSize];
+	dataType *newstack_;
+
+	if ( m_stepSize == -1 )
+		newstack_ = new dataType[m_size * 2];
+	else
+		newstack_ = new dataType[m_size + m_stepSize];
+
     if ( m_bottom )
         memcpy ( newstack_, m_bottom, sizeof ( dataType ) * m_size );
-    delete [] m_bottom;
+	delete [] m_bottom;
     m_bottom = newstack_;
     m_top = m_bottom + m_size;
-    m_size += m_stepSize;
+
+	if ( m_stepSize == -1 )
+		m_size *= 2;
+	else
+		m_size += m_stepSize;
 }
 
 template < class dataType >
