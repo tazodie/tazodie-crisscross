@@ -17,6 +17,7 @@ darray.cpp \
 combsort.cpp \
 heapsort.cpp \
 insertionsort.cpp \
+mergesort.cpp \
 quicksort.cpp \
 shellsort.cpp \
 main.cpp
