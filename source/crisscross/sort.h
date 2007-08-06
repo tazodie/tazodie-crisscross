@@ -58,6 +58,7 @@ namespace CrissCross
 #include <crisscross/combsort.h>
 #include <crisscross/heapsort.h>
 #include <crisscross/insertionsort.h>
+#include <crisscross/mergesort.h>
 #include <crisscross/quicksort.h>
 #include <crisscross/shellSort.h>
 

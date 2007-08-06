@@ -465,6 +465,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\mergesort.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\mergesort.h"
+			>
+		</File>
+		<File
 			RelativePath=".\quicksort.cpp"
 			>
 		</File>

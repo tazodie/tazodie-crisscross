@@ -110,6 +110,7 @@ RunApplication ( int argc, char **argv )
 	QuickSort<char *> qs;
 	HeapSort<char *> hs;
 	InsertionSort<char *> is;
+	MergeSort<char *> ms;
 	CombSort<char *> cs;
 	ShellSort<char *> ss;
 
@@ -121,6 +122,9 @@ RunApplication ( int argc, char **argv )
 	console->WriteLine ();
 	console->WriteLine ( "Benchmarking ShellSort..." );
 	Benchmark ( ss );
+	console->WriteLine ();
+	console->WriteLine ( "Benchmarking MergeSort..." );
+	Benchmark ( ms );
 #ifdef ENABLE_SLOWSORTS
 	console->WriteLine ();
 	console->WriteLine ( "Benchmarking InsertionSort..." );
