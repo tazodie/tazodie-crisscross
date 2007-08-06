@@ -38,10 +38,15 @@ DStack<dataType>::~DStack ()
 template < class dataType >
 void DStack<dataType>::grow ()
 {
-	dataType *newstack_;
+	dataType *newstack_ = NULL;
 
 	if ( m_stepSize == (size_t)-1 )
-		newstack_ = new dataType[m_size * 2];
+	{
+		if ( m_size == 0 )
+			newstack_ = new dataType[32];
+		else
+			newstack_ = new dataType[m_size * 2];
+	}
 	else
 		newstack_ = new dataType[m_size + m_stepSize];
 
@@ -52,7 +57,12 @@ void DStack<dataType>::grow ()
     m_top = m_bottom + m_size;
 
 	if ( m_stepSize == (size_t)-1 )
-		m_size *= 2;
+	{
+		if ( m_size == 0 )
+			m_size = 32;
+		else
+			m_size *= 2;
+	}
 	else
 		m_size += m_stepSize;
 }
