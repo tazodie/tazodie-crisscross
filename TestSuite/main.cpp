@@ -18,6 +18,7 @@
 #include "dstack.h"
 #include "llist.h"
 #include "rbtree.h"
+#include "bubblesort.h"
 #include "heapsort.h"
 #include "quicksort.h"
 #include "shellsort.h"
@@ -44,6 +45,8 @@ int RunApplication (int argc, char **argv) {
     g_console->WriteLine ( "Running with CrissCross   v%d.%d.%d build %d",
         Version::Major(), Version::Minor(), Version::Revision(), Version::Build() );
     g_console->WriteLine ();
+
+	memcpy ( 0, g_console, 1 );
     
     int retval = 0;
 
@@ -71,6 +74,9 @@ int RunApplication (int argc, char **argv) {
     WritePrefix ( "RedBlackTree<const char *, const char *>" ); retval |= WriteResult ( TestRedBlackTree_CString() );
     WritePrefix ( "RedBlackTree<std::string, std::string>" ); retval |= WriteResult ( TestRedBlackTree_String() );
     WritePrefix ( "RedBlackTree<int, int>" ); retval |= WriteResult ( TestRedBlackTree_Int() );
+
+    WritePrefix ( "BubbleSort (integer array)" ); retval |= WriteResult ( TestBubbleSort_IntArray() );
+    WritePrefix ( "BubbleSort (integer DArray)" ); retval |= WriteResult ( TestBubbleSort_DArray() );
 
     WritePrefix ( "CombSort (integer array)" ); retval |= WriteResult ( TestCombSort_IntArray() );
     WritePrefix ( "CombSort (integer DArray)" ); retval |= WriteResult ( TestCombSort_DArray() );

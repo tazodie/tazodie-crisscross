@@ -1,101 +1,67 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="7.10"
 	Name="TestSuite"
 	ProjectGUID="{E445B4EF-9B58-41CE-B68A-EA56DDFF5746}"
 	RootNamespace="TestSuite"
-	Keyword="Win32Proj"
-	>
+	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
-			Name="Win32"
-		/>
+			Name="Win32"/>
 	</Platforms>
-	<ToolFiles>
-	</ToolFiles>
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="$(SolutionDir)/bin/$(ProjectFileName)/$(PlatformName)/$(ConfigurationName)"
 			IntermediateDirectory="$(SolutionDir)/obj/$(ProjectFileName)/$(PlatformName)/$(ConfigurationName)"
 			ConfigurationType="1"
-			CharacterSet="0"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
+			CharacterSet="0">
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="../source"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
-				MinimalRebuild="true"
-				ExceptionHandling="2"
+				MinimalRebuild="TRUE"
+				ExceptionHandling="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				BufferSecurityCheck="false"
-				OpenMP="true"
+				BufferSecurityCheck="FALSE"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="header.h"
 				AssemblerOutput="4"
 				ProgramDataBaseFileName="$(OutDir)\$(ProjectName).pdb"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="4"
-			/>
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="4"/>
 			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
+				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
 				LinkIncremental="2"
-				GenerateDebugInformation="true"
+				GenerateDebugInformation="TRUE"
 				SubSystem="1"
-				TargetMachine="1"
-			/>
+				TargetMachine="1"/>
 			<Tool
-				Name="VCALinkTool"
-			/>
+				Name="VCMIDLTool"/>
 			<Tool
-				Name="VCManifestTool"
-			/>
+				Name="VCPostBuildEventTool"/>
 			<Tool
-				Name="VCXDCMakeTool"
-			/>
+				Name="VCPreBuildEventTool"/>
 			<Tool
-				Name="VCBscMakeTool"
-			/>
+				Name="VCPreLinkEventTool"/>
 			<Tool
-				Name="VCFxCopTool"
-			/>
+				Name="VCResourceCompilerTool"/>
 			<Tool
-				Name="VCAppVerifierTool"
-			/>
+				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
+				Name="VCXMLDataGeneratorTool"/>
 			<Tool
-				Name="VCPostBuildEventTool"
-			/>
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
@@ -103,205 +69,170 @@
 			IntermediateDirectory="$(SolutionDir)/obj/$(ProjectFileName)/$(PlatformName)/$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="0"
-			WholeProgramOptimization="0"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
+			WholeProgramOptimization="FALSE">
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				EnableIntrinsicFunctions="true"
+				EnableIntrinsicFunctions="TRUE"
 				FavorSizeOrSpeed="1"
 				AdditionalIncludeDirectories="../source"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
-				ExceptionHandling="2"
+				ExceptionHandling="TRUE"
 				RuntimeLibrary="2"
-				BufferSecurityCheck="false"
-				OpenMP="true"
+				BufferSecurityCheck="FALSE"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="header.h"
 				AssemblerOutput="4"
 				ProgramDataBaseFileName="$(OutDir)\$(ProjectName).pdb"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="3"
-			/>
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"/>
 			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
+				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
 				LinkIncremental="1"
-				GenerateDebugInformation="true"
+				GenerateDebugInformation="TRUE"
 				SubSystem="1"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				TargetMachine="1"
-			/>
+				TargetMachine="1"/>
 			<Tool
-				Name="VCALinkTool"
-			/>
+				Name="VCMIDLTool"/>
 			<Tool
-				Name="VCManifestTool"
-			/>
+				Name="VCPostBuildEventTool"/>
 			<Tool
-				Name="VCXDCMakeTool"
-			/>
+				Name="VCPreBuildEventTool"/>
 			<Tool
-				Name="VCBscMakeTool"
-			/>
+				Name="VCPreLinkEventTool"/>
 			<Tool
-				Name="VCFxCopTool"
-			/>
+				Name="VCResourceCompilerTool"/>
 			<Tool
-				Name="VCAppVerifierTool"
-			/>
+				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
+				Name="VCXMLDataGeneratorTool"/>
 			<Tool
-				Name="VCPostBuildEventTool"
-			/>
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 	</Configurations>
 	<References>
 	</References>
 	<Files>
 		<File
-			RelativePath=".\combsort.cpp"
-			>
+			RelativePath=".\bubblesort.cpp">
 		</File>
 		<File
-			RelativePath=".\combsort.h"
-			>
+			RelativePath=".\bubblesort.h">
 		</File>
 		<File
-			RelativePath=".\compare.cpp"
-			>
+			RelativePath=".\combsort.cpp">
 		</File>
 		<File
-			RelativePath=".\compare.h"
-			>
+			RelativePath=".\combsort.h">
 		</File>
 		<File
-			RelativePath=".\darray.cpp"
-			>
+			RelativePath=".\compare.cpp">
 		</File>
 		<File
-			RelativePath=".\darray.h"
-			>
+			RelativePath=".\compare.h">
 		</File>
 		<File
-			RelativePath=".\datatypes.cpp"
-			>
+			RelativePath=".\darray.cpp">
 		</File>
 		<File
-			RelativePath=".\datatypes.h"
-			>
+			RelativePath=".\darray.h">
 		</File>
 		<File
-			RelativePath=".\dstack.cpp"
-			>
+			RelativePath=".\datatypes.cpp">
 		</File>
 		<File
-			RelativePath=".\dstack.h"
-			>
+			RelativePath=".\datatypes.h">
 		</File>
 		<File
-			RelativePath=".\header.cpp"
-			>
+			RelativePath=".\dstack.cpp">
+		</File>
+		<File
+			RelativePath=".\dstack.h">
+		</File>
+		<File
+			RelativePath=".\header.cpp">
 			<FileConfiguration
-				Name="Debug|Win32"
-				>
+				Name="Debug|Win32">
 				<Tool
 					Name="VCCLCompilerTool"
-					UsePrecompiledHeader="1"
-				/>
+					UsePrecompiledHeader="1"/>
 			</FileConfiguration>
 			<FileConfiguration
-				Name="Release|Win32"
-				>
+				Name="Release|Win32">
 				<Tool
 					Name="VCCLCompilerTool"
-					UsePrecompiledHeader="1"
-				/>
+					UsePrecompiledHeader="1"/>
 			</FileConfiguration>
 		</File>
 		<File
-			RelativePath=".\header.h"
-			>
+			RelativePath=".\header.h">
 		</File>
 		<File
-			RelativePath=".\heapsort.cpp"
-			>
+			RelativePath=".\heapsort.cpp">
 		</File>
 		<File
-			RelativePath=".\heapsort.h"
-			>
+			RelativePath=".\heapsort.h">
 		</File>
 		<File
-			RelativePath=".\llist.cpp"
-			>
+			RelativePath=".\insertionsort.cpp">
 		</File>
 		<File
-			RelativePath=".\llist.h"
-			>
+			RelativePath=".\insertionsort.h">
 		</File>
 		<File
-			RelativePath=".\main.cpp"
-			>
+			RelativePath=".\llist.cpp">
 		</File>
 		<File
-			RelativePath=".\quicksort.cpp"
-			>
+			RelativePath=".\llist.h">
 		</File>
 		<File
-			RelativePath=".\quicksort.h"
-			>
+			RelativePath=".\main.cpp">
 		</File>
 		<File
-			RelativePath=".\rbtree.cpp"
-			>
+			RelativePath=".\mergesort.cpp">
 		</File>
 		<File
-			RelativePath=".\rbtree.h"
-			>
+			RelativePath=".\mergesort.h">
 		</File>
 		<File
-			RelativePath=".\stopwatch.cpp"
-			>
+			RelativePath=".\quicksort.cpp">
 		</File>
 		<File
-			RelativePath=".\stopwatch.h"
-			>
+			RelativePath=".\quicksort.h">
 		</File>
 		<File
-			RelativePath=".\testutils.cpp"
-			>
+			RelativePath=".\rbtree.cpp">
 		</File>
 		<File
-			RelativePath=".\testutils.h"
-			>
+			RelativePath=".\rbtree.h">
+		</File>
+		<File
+			RelativePath=".\shellsort.cpp">
+		</File>
+		<File
+			RelativePath=".\shellsort.h">
+		</File>
+		<File
+			RelativePath=".\stopwatch.cpp">
+		</File>
+		<File
+			RelativePath=".\stopwatch.h">
+		</File>
+		<File
+			RelativePath=".\testutils.cpp">
+		</File>
+		<File
+			RelativePath=".\testutils.h">
 		</File>
 	</Files>
 	<Globals>
