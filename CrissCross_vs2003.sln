@@ -1,22 +1,52 @@
 Microsoft Visual Studio Solution File, Format Version 8.00
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CrissCross", "source\CrissCross_vs2005.vcproj", "{9520273D-42A8-4E63-A2DC-C209AAAC2B6A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CrissCross", "source\CrissCross_vs2003.vcproj", "{9520273D-42A8-4E63-A2DC-C209AAAC2B6A}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestSuite", "TestSuite\TestSuite_vs2005.vcproj", "{E445B4EF-9B58-41CE-B68A-EA56DDFF5746}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestSuite", "TestSuite\TestSuite_vs2003.vcproj", "{E445B4EF-9B58-41CE-B68A-EA56DDFF5746}"
 	ProjectSection(ProjectDependencies) = postProject
 		{9520273D-42A8-4E63-A2DC-C209AAAC2B6A} = {9520273D-42A8-4E63-A2DC-C209AAAC2B6A}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CPUID", "examples\CPUID\CPUID_vs2005.vcproj", "{FD12E5A5-E163-4337-AD48-0B5A1F093CB9}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CPUID", "examples\CPUID\CPUID_vs2003.vcproj", "{FD12E5A5-E163-4337-AD48-0B5A1F093CB9}"
 	ProjectSection(ProjectDependencies) = postProject
 		{9520273D-42A8-4E63-A2DC-C209AAAC2B6A} = {9520273D-42A8-4E63-A2DC-C209AAAC2B6A}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GenPrime", "examples\GenPrime\GenPrime_vs2005.vcproj", "{A657FAD6-E144-4F64-A85C-13562E0EF85E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GenPrime", "examples\GenPrime\GenPrime_vs2003.vcproj", "{A657FAD6-E144-4F64-A85C-13562E0EF85E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{9520273D-42A8-4E63-A2DC-C209AAAC2B6A} = {9520273D-42A8-4E63-A2DC-C209AAAC2B6A}
 	EndProjectSection
 EndProject
 Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{9520273D-42A8-4E63-A2DC-C209AAAC2B6A}.Debug.ActiveCfg = Debug|Win32
+		{9520273D-42A8-4E63-A2DC-C209AAAC2B6A}.Debug.Build.0 = Debug|Win32
+		{9520273D-42A8-4E63-A2DC-C209AAAC2B6A}.Release.ActiveCfg = Release|Win32
+		{9520273D-42A8-4E63-A2DC-C209AAAC2B6A}.Release.Build.0 = Release|Win32
+		{E445B4EF-9B58-41CE-B68A-EA56DDFF5746}.Debug.ActiveCfg = Debug|Win32
+		{E445B4EF-9B58-41CE-B68A-EA56DDFF5746}.Debug.Build.0 = Debug|Win32
+		{E445B4EF-9B58-41CE-B68A-EA56DDFF5746}.Release.ActiveCfg = Release|Win32
+		{E445B4EF-9B58-41CE-B68A-EA56DDFF5746}.Release.Build.0 = Release|Win32
+		{FD12E5A5-E163-4337-AD48-0B5A1F093CB9}.Debug.ActiveCfg = Debug|Win32
+		{FD12E5A5-E163-4337-AD48-0B5A1F093CB9}.Debug.Build.0 = Debug|Win32
+		{FD12E5A5-E163-4337-AD48-0B5A1F093CB9}.Release.ActiveCfg = Release|Win32
+		{FD12E5A5-E163-4337-AD48-0B5A1F093CB9}.Release.Build.0 = Release|Win32
+		{A657FAD6-E144-4F64-A85C-13562E0EF85E}.Debug.ActiveCfg = Debug|Win32
+		{A657FAD6-E144-4F64-A85C-13562E0EF85E}.Debug.Build.0 = Debug|Win32
+		{A657FAD6-E144-4F64-A85C-13562E0EF85E}.Release.ActiveCfg = Release|Win32
+		{A657FAD6-E144-4F64-A85C-13562E0EF85E}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
 		Debug|x64 = Debug|x64

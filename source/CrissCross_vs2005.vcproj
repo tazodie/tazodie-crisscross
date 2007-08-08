@@ -525,6 +525,10 @@
 			Name="Data"
 			>
 			<File
+				RelativePath=".\crisscross\bubblesort.h"
+				>
+			</File>
+			<File
 				RelativePath=".\crisscross\combsort.h"
 				>
 			</File>
@@ -710,6 +714,10 @@
 			</File>
 			<File
 				RelativePath=".\crisscross\rbtree.h"
+				>
+			</File>
+			<File
+				RelativePath=".\crisscross\shellsort.h"
 				>
 			</File>
 			<File

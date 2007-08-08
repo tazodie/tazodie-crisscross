@@ -357,6 +357,14 @@
 	</References>
 	<Files>
 		<File
+			RelativePath=".\bubblesort.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\bubblesort.h"
+			>
+		</File>
+		<File
 			RelativePath=".\combsort.cpp"
 			>
 		</File>

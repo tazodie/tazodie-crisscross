@@ -196,6 +196,9 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
+				Description="Copying dataset to the target directory"
+				CommandLine="copy $(ProjectDir)\dataset $(TargetDir)\"
+				Outputs="$(TargetDir)\dataset"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
