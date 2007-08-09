@@ -126,7 +126,7 @@ RunApplication ( int argc, char **argv )
 
 	Stopwatch sw;
 
-	for ( unsigned long i = 100000; i <= LIMIT; i += 100000 )
+	for ( unsigned long i = 100000; i <= 1000000; i += 100000 )
 	{
 		sw.Start();
 		genPrime ( i, isPrime );
