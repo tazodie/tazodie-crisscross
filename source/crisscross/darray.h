@@ -57,7 +57,7 @@ namespace CrissCross
             char           *m_shadow;
 
             //! Increases the size of the array.
-            void grow            ();
+            inline void grow    ();
 
             //! Rebuilds the empty node stack.
             void rebuildStack   ();

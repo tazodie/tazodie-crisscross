@@ -147,7 +147,7 @@ void DArray < T >::grow ()
         // Double array size
         if ( m_arraySize == 0 )
         {
-            setSize ( 1 );
+            setSize ( 64 );
         }
         else
         {

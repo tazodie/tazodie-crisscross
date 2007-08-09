@@ -36,30 +36,36 @@ namespace CrissCross
             //! The original size of the stack (used on an empty() call to reset things to defaults).
             size_t          m_origSize;
 
+			//! Sets the stack size to the given size.
+			/*!
+				\param _size The size to resize to.
+			 */
+			void setSize ( size_t _size );
+
         public:
             //! The constructor.
             /*!
                 \param _size The step size to use.
              */
-            DStack          ( size_t _size = 32 );
+            DStack          ( size_t _size = -1 );
 
             //! The destructor.
             ~DStack         ();
 
             //! Increases the array size by the number in step_
-            void grow       ();
+            inline void grow       ();
 
             //! Pushes a value onto the stack.
             /*!
                 \param _val The value to put on the stack.
              */
-            void push       ( dataType _val );
+            inline void push       ( dataType _val );
 
             //! Pops a value off the stack.
             /*!
                 \return The topmost value on the stack.
              */
-            dataType pop    ();
+            inline dataType pop    ();
             
             //! Returns whatever value is on the top of the stack without removing it from the stack.
             /*!
