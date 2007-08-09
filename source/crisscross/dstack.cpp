@@ -20,7 +20,7 @@ using namespace CrissCross::Data;
 template < class dataType >
 DStack<dataType>::DStack ( size_t N )
 {
-	if ( N < 1 && N != (size_t)-1 )
+	if ( N < 1 )
 		m_stepSize = -1;
 	else
 		m_stepSize = N;
@@ -36,35 +36,35 @@ DStack<dataType>::~DStack ()
 }
 
 template < class dataType >
+void DStack<dataType>::setSize ( size_t _size )
+{
+	// This function is ONLY stable for increases in size, not decreases.
+	dataType *newstack_ = NULL;
+	newstack_ = new dataType[_size];
+    if ( m_bottom )
+	{
+		memcpy ( newstack_, m_bottom, sizeof ( dataType ) * m_size );
+		delete [] m_bottom;
+	}
+	m_bottom = newstack_;
+	m_top = m_bottom + m_size;
+	m_size = _size;
+}
+
+template < class dataType >
 void DStack<dataType>::grow ()
 {
-	dataType *newstack_ = NULL;
-
 	if ( m_stepSize == (size_t)-1 )
 	{
 		if ( m_size == 0 )
-			newstack_ = new dataType[32];
-		else
-			newstack_ = new dataType[m_size * 2];
+		{
+			setSize ( 64 );
+		} else {
+			setSize ( m_size * 2 );
+		}
+	} else {
+		setSize ( m_size + m_stepSize );
 	}
-	else
-		newstack_ = new dataType[m_size + m_stepSize];
-
-    if ( m_bottom )
-        memcpy ( newstack_, m_bottom, sizeof ( dataType ) * m_size );
-	delete [] m_bottom;
-    m_bottom = newstack_;
-    m_top = m_bottom + m_size;
-
-	if ( m_stepSize == (size_t)-1 )
-	{
-		if ( m_size == 0 )
-			m_size = 32;
-		else
-			m_size *= 2;
-	}
-	else
-		m_size += m_stepSize;
 }
 
 template < class dataType >
