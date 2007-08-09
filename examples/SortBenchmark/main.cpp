@@ -11,7 +11,7 @@
 
 #include "header.h"
 
-#define ENABLE_SLOWSORTS
+//#define ENABLE_SLOWSORTS
 
 using namespace CrissCross::Data;
 using namespace CrissCross::IO;
@@ -115,7 +115,6 @@ RunApplication ( int argc, char **argv )
 	CombSort<char *> cs;
 	ShellSort<char *> ss;
 
-#if 0
 	console->WriteLine ( "Benchmarking HeapSort..." );
 	Benchmark ( hs );
 	console->WriteLine ();
@@ -127,7 +126,6 @@ RunApplication ( int argc, char **argv )
 	console->WriteLine ();
 	console->WriteLine ( "Benchmarking MergeSort..." );
 	Benchmark ( ms );
-#endif
 #ifdef ENABLE_SLOWSORTS
 	console->WriteLine ();
 	console->WriteLine ( "Benchmarking BubbleSort..." );
