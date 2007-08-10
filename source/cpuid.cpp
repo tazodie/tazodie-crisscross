@@ -70,7 +70,6 @@ using namespace CrissCross::System;
 #    define IA64_FLAG 0x40000000
 #    define PBE_FLAG 0x80000000
 
-
 // AMD 8000_0001 EDX flags
 #    define _3DNOW_FLAG 0x80000000
 #    define _3DNOWEXT_FLAG 0x40000000
@@ -80,6 +79,20 @@ using namespace CrissCross::System;
 #    define FXSR_FLAG 0x1000000
 #    define MMXEXT_FLAG 0x800000
 #    define NX_FLAG 0x100000
+
+// AMD 8000_0001 ECX flags
+#    define WDT_FLAG 0x2000
+#    define SKINIT_FLAG 0x1000
+#    define OSVW_FLAG 0x200
+#    define _3DNP_FLAG 0x100
+#    define MAS_FLAG 0x80
+#    define SSE4A_FLAG 0x40
+#    define ABM_FLAG 0x20
+#    define AMC8_FLAG 0x10
+#    define EAS_FLAG 0x8
+#    define SVM_FLAG 0x4
+#    define CL_FLAG 0x2
+#    define LS_FLAG 0x1
 
 struct Registers
 {
@@ -312,7 +325,7 @@ CPUID::GoThread ( int processor )
     DetectManufacturer ( processor );
     DetectProcessorName ( processor );
     DetectFeatures ( processor );
-    DetectCacheInfo ( processor );
+	DetectCacheInfo ( processor );
     DetectFMS ( processor );
     DetectBrandID ( processor );
     DetectCount ( processor );
@@ -438,30 +451,30 @@ CPUID::DetectCacheInfo ( int processor )
 
                 ntlb = Std[2].eax & 0xff;
 
-                AddCacheData ( processor, Std[2].eax >> 8 );
-                AddCacheData ( processor, Std[2].eax >> 16 );
-                AddCacheData ( processor, Std[2].eax >> 24 );
+                AddIntelCacheData ( processor, Std[2].eax >> 8 );
+                AddIntelCacheData ( processor, Std[2].eax >> 16 );
+                AddIntelCacheData ( processor, Std[2].eax >> 24 );
 
                 if ( ( Std[2].ebx & 0x80000000 ) == 0 )
                 {
-                    AddCacheData ( processor, Std[2].ebx );
-                    AddCacheData ( processor, Std[2].ebx >> 8 );
-                    AddCacheData ( processor, Std[2].ebx >> 16 );
-                    AddCacheData ( processor, Std[2].ebx >> 24 );
+                    AddIntelCacheData ( processor, Std[2].ebx );
+                    AddIntelCacheData ( processor, Std[2].ebx >> 8 );
+                    AddIntelCacheData ( processor, Std[2].ebx >> 16 );
+                    AddIntelCacheData ( processor, Std[2].ebx >> 24 );
                 }
                 if ( ( Std[2].ecx & 0x80000000 ) == 0 )
                 {
-                    AddCacheData ( processor, Std[2].ecx );
-                    AddCacheData ( processor, Std[2].ecx >> 8 );
-                    AddCacheData ( processor, Std[2].ecx >> 16 );
-                    AddCacheData ( processor, Std[2].ecx >> 24 );
+                    AddIntelCacheData ( processor, Std[2].ecx );
+                    AddIntelCacheData ( processor, Std[2].ecx >> 8 );
+                    AddIntelCacheData ( processor, Std[2].ecx >> 16 );
+                    AddIntelCacheData ( processor, Std[2].ecx >> 24 );
                 }
                 if ( ( Std[2].edx & 0x80000000 ) == 0 )
                 {
-                    AddCacheData ( processor, Std[2].edx );
-                    AddCacheData ( processor, Std[2].edx >> 8 );
-                    AddCacheData ( processor, Std[2].edx >> 16 );
-                    AddCacheData ( processor, Std[2].edx >> 24 );
+                    AddIntelCacheData ( processor, Std[2].edx );
+                    AddIntelCacheData ( processor, Std[2].edx >> 8 );
+                    AddIntelCacheData ( processor, Std[2].edx >> 16 );
+                    AddIntelCacheData ( processor, Std[2].edx >> 24 );
                 }
             }
         }
@@ -488,7 +501,7 @@ CPUID::AddCacheDescription ( int processor, const char *description )
 }
 
 void
-CPUID::AddCacheData ( int processor, int x )
+CPUID::AddIntelCacheData ( int processor, int x )
 {
     // Mostly compliant with Intel document #241618.
 
@@ -896,6 +909,9 @@ CPUID::DetectFeatures ( int processor )
     DetectFeature ( &Std[1].edx, HTT_FLAG, processor, "HTT" );
     DetectFeature ( &Std[1].edx, TM1_FLAG, processor, "TM1" );
 
+    DetectFeature ( &Std[1].ecx, SSE3_FLAG, processor, "SSE3" );
+    DetectFeature ( &Std[1].ecx, CX16_FLAG, processor, "CX16" );
+
     if ( proc[processor]->Manufacturer )
     {
         if ( strcmp ( proc[processor]->Manufacturer, "GenuineIntel" ) == 0 )
@@ -903,18 +919,7 @@ CPUID::DetectFeatures ( int processor )
             // IA64 and PBE are on Intel where the 3DNow! flags are on AMD
             DetectFeature ( &Std[1].edx, IA64_FLAG, processor, "IA64" );
             DetectFeature ( &Std[1].edx, PBE_FLAG, processor, "PBE" );
-        }
-    }
 
-    DetectFeature ( &Std[1].ecx, SSE3_FLAG, processor, "SSE3" );
-    DetectFeature ( &Std[1].ecx, SSE4_1_FLAG, processor, "SSE4.1" );
-    DetectFeature ( &Std[1].ecx, SSE4_2_FLAG, processor, "SSE4.2" );
-    DetectFeature ( &Std[1].ecx, VMX_FLAG, processor, "VMX" );
-    DetectFeature ( &Std[1].ecx, CX16_FLAG, processor, "CX16" );
-    if ( proc[processor]->Manufacturer )
-    {
-        if ( strcmp ( proc[processor]->Manufacturer, "GenuineIntel" ) == 0 )
-        {
             // Intel-only flags
             DetectFeature ( &Ext[1].ecx, LAHF_FLAG, processor, "LAHF" );
             DetectFeature ( &Std[1].ecx, DS_CPL_FLAG, processor, "DS_CPL" );
@@ -928,6 +933,9 @@ CPUID::DetectFeatures ( int processor )
             DetectFeature ( &Ext[1].edx, XD_FLAG, processor, "XD" );
             DetectFeature ( &Std[1].ecx, DCA_FLAG, processor, "DCA" );
             DetectFeature ( &Ext[1].edx, EM64T_FLAG, processor, "EM64T" );
+			DetectFeature ( &Std[1].ecx, SSE4_1_FLAG, processor, "SSE4.1" );
+			DetectFeature ( &Std[1].ecx, SSE4_2_FLAG, processor, "SSE4.2" );
+			DetectFeature ( &Std[1].ecx, VMX_FLAG, processor, "VMX" );
         }
         else if ( strcmp ( proc[processor]->Manufacturer, "AuthenticAMD" ) == 0 )
         {
@@ -939,6 +947,20 @@ CPUID::DetectFeatures ( int processor )
             DetectFeature ( &Ext[1].edx, LM_FLAG, processor, "LM" );
             DetectFeature ( &Ext[1].edx, _3DNOWEXT_FLAG, processor, "3DNOWEXT" );
             DetectFeature ( &Ext[1].edx, _3DNOW_FLAG, processor, "3DNOW" );
+
+            // AMD-only flags, ECX 8000_0001
+			DetectFeature ( &Ext[1].ecx, LS_FLAG, processor, "LS" );
+			DetectFeature ( &Ext[1].ecx, CL_FLAG, processor, "CL" );
+			DetectFeature ( &Ext[1].ecx, SVM_FLAG, processor, "SVM" );
+			DetectFeature ( &Ext[1].ecx, EAS_FLAG, processor, "EAS" );
+			DetectFeature ( &Ext[1].ecx, AMC8_FLAG, processor, "AMC8" );
+			DetectFeature ( &Ext[1].ecx, ABM_FLAG, processor, "ABM" );
+			DetectFeature ( &Ext[1].ecx, SSE4A_FLAG, processor, "SSE4A" );
+			DetectFeature ( &Ext[1].ecx, MAS_FLAG, processor, "MAS" );
+			DetectFeature ( &Ext[1].ecx, _3DNP_FLAG, processor, "3DNP" );
+			DetectFeature ( &Ext[1].ecx, OSVW_FLAG, processor, "OSVW" );
+			DetectFeature ( &Ext[1].ecx, SKINIT_FLAG, processor, "SKINIT" );
+			DetectFeature ( &Ext[1].ecx, WDT_FLAG, processor, "WDT" );
         }
     }
 }
