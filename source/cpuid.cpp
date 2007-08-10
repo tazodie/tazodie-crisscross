@@ -480,7 +480,6 @@ CPUID::DetectCacheInfo ( int processor )
         }
         else if ( strcmp ( proc[processor]->Manufacturer, "AuthenticAMD" ) == 0 )
         {
-			// TODO: Finish this...
 			DecodeAMDCacheIdentifiers ( processor );
         }
     }
@@ -737,7 +736,7 @@ CPUID::AddCacheDescription ( int processor, const char *description )
 void
 CPUID::AddIntelCacheData ( int processor, int x )
 {
-    // Mostly compliant with Intel document #241618.
+    // Compliant with Intel document #241618, save for the ENABLE_SANDPILE sections.
 
     x &= 0xff;
     switch ( x )
@@ -880,21 +879,41 @@ CPUID::DetectCount ( int processor )
     // AMD and Intel documentations state that if HTT is supported
     // then this the EBX:16 will reflect the logical processor count
     // otherwise the flag is reserved.
-    BinaryNode<const char *, Feature*> * HTT_node = proc[processor]->features.findNode ( "HTT" );
+
+    Feature *feature = new Feature();
+    feature->Enabled = false;
+    proc[processor]->features.insert ( "CMP", feature );
+    feature = NULL;
+
     proc[processor]->CoresPerPackage = (char)(( Std[4].eax & 0xFC000000 ) >> 26 ) + 1;
-    if ( HTT_node->data->Enabled )
+
+	// Do we have HTT flag set?
+    if ( proc[processor]->features.find ( "HTT" )->Enabled )
     {
+		// Set logical processors per package accordingly.
         proc[processor]->LogicalPerPackage = (char)( (Std[1].ebx & 0x00FF0000 ) >> 16 );
-        if ( proc[processor]->LogicalPerPackage > 1 )
+
+		if ( proc[processor]->CoresPerPackage > 1 &&
+			 proc[processor]->LogicalPerPackage > proc[processor]->CoresPerPackage )
         {
-            // Core Multi-Processing (CMP), i.e. "Dual Core".
-            delete (Feature *)HTT_node->data;
-            proc[processor]->features.erase ( "HTT" );
-            Feature *feature = new Feature();
-            feature->Enabled = 1;
-            proc[processor]->features.insert ( "CMP", feature );
-            feature = NULL;
+            // Hyperthreaded dual core.
+			proc[processor]->features.find ( "HTT" )->Enabled = true;
+			proc[processor]->features.find ( "CMP" )->Enabled = true;
         }
+		else if ( proc[processor]->CoresPerPackage > 1 &&
+		          proc[processor]->LogicalPerPackage == proc[processor]->CoresPerPackage )
+		{
+            // Dual core.
+			proc[processor]->features.find ( "HTT" )->Enabled = false;
+			proc[processor]->features.find ( "CMP" )->Enabled = true;
+		}
+		else if ( proc[processor]->CoresPerPackage == 1 &&
+		          proc[processor]->LogicalPerPackage > proc[processor]->CoresPerPackage )
+		{
+            // Hyperthreaded.
+			proc[processor]->features.find ( "HTT" )->Enabled = true;
+			proc[processor]->features.find ( "CMP" )->Enabled = false;
+		}
     }
     else
     {
