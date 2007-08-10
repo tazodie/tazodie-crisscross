@@ -133,6 +133,7 @@ call_cpuid (unsigned int request, unsigned int *eax, unsigned int *ebx, unsigned
     {
 #endif
       asm volatile ("mov %%ebx, %%esi\n\t" /* Save %ebx.  */
+		    "xorl %%ecx, %%ecx\n\t"
             "cpuid\n\t"
             "xchgl %%ebx, %%esi" /* Restore %ebx.  */
             : "=a" (*eax), "=S" (*ebx), "=c" (*ecx), "=d" (*edx)
@@ -267,9 +268,8 @@ CPUID::~CPUID ()
     }
 }
 
-#if 0
 int
-CPUID::GetVirtualCPUCount ()
+CPUID::VirtualCount ()
 {
     int count = 0, i;
 
@@ -288,24 +288,10 @@ CPUID::CoresPerPackage()
 }
 
 int
-CPUID::ThreadsSharingCache()
+CPUID::LogicalPerPackage ()
 {
-	return proc[0]->ThreadsSharingCache;
+	return proc[0]->LogicalPerPackage;
 }
-
-int
-CPUID::GetLogicalCPUCount ()
-{
-    return proc[0]->LogicalCount;
-}
-
-int
-CPUID::GetPhysicalCPUCount ()
-{
-    return proc[0]->PhysicalCount;
-}
-
-#endif
 
 #    ifdef TARGET_OS_WINDOWS
 DWORD WINAPI
@@ -329,10 +315,7 @@ CPUID::GoThread ( int processor )
     DetectCacheInfo ( processor );
     DetectFMS ( processor );
     DetectBrandID ( processor );
-#if 0
-	DetectCores ( processor );
     DetectCount ( processor );
-#endif
     DetectAPIC ( processor );
     return 0;
 }
@@ -821,15 +804,6 @@ CPUID::DetectFMS ( int processor )
     proc[processor]->Stepping = (char)(Std[1].eax & 0xf);
 }
 
-#if 0
-void
-CPUID::DetectCores ( int processor )
-{
-	proc[processor]->CoresPerPackage = ( ( Std[4].eax >> 26 ) & 0xff ) + 1;
-	proc[processor]->ThreadsSharingCache = ( ( Std[4].eax >> 14 ) & 0xff ) + 1;
-}
-#endif
-
 void
 CPUID::DetectBrandID ( int processor )
 {
@@ -837,7 +811,6 @@ CPUID::DetectBrandID ( int processor )
     proc[processor]->BrandID = (char)( Std[1].ebx & 0xff );
 }
 
-#if 0
 void
 CPUID::DetectCount ( int processor )
 {
@@ -846,12 +819,12 @@ CPUID::DetectCount ( int processor )
     // AMD and Intel documentations state that if HTT is supported
     // then this the EBX:16 will reflect the logical processor count
     // otherwise the flag is reserved.
-    BinaryNode<std::string, Feature*> * HTT_node = proc[processor]->features.findNode ( "HTT" );
-    proc[processor]->PhysicalCount = (char)( ( ( ( Std[4].eax >> 26 ) & 0x03f ) + 1 ) & 0xff );
+    BinaryNode<const char *, Feature*> * HTT_node = proc[processor]->features.findNode ( "HTT" );
+    proc[processor]->CoresPerPackage = (char)(( Std[4].eax & 0xFC000000 ) >> 26 ) + 1;
     if ( HTT_node->data->Enabled )
     {
-        proc[processor]->LogicalCount = (char)( (Std[1].ebx >> 16) & 0xff );
-        if ( proc[processor]->LogicalCount > 1 )
+        proc[processor]->LogicalPerPackage = (char)( (Std[1].ebx & 0x00FF0000 ) >> 16 );
+        if ( proc[processor]->LogicalPerPackage > 1 )
         {
             // Core Multi-Processing (CMP), i.e. "Dual Core".
             delete (Feature *)HTT_node->data;
@@ -865,10 +838,9 @@ CPUID::DetectCount ( int processor )
     else
     {
         // HTT not supported. Report logical processor count as 1.
-        proc[processor]->LogicalCount = 1;
+        proc[processor]->LogicalPerPackage = 1;
     }
 }
-#endif
 
 void
 CPUID::DetectAPIC ( int processor )
