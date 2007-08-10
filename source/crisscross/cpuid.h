@@ -94,7 +94,7 @@ namespace CrissCross
 		#endif
 
 			void AddCacheDescription ( int processor, const char *description );
-			void AddCacheData ( int processor, int x );
+			void AddIntelCacheData ( int processor, int x );
 			void DetectManufacturer ( int processor );
 			void DetectProcessorName ( int processor );
 			void DetectCacheInfo ( int processor );
