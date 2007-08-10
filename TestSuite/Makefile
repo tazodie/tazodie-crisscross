@@ -14,6 +14,7 @@ llist.cpp \
 rbtree.cpp \
 dstack.cpp \
 darray.cpp \
+bubblesort.cpp \
 combsort.cpp \
 heapsort.cpp \
 insertionsort.cpp \

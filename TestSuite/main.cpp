@@ -46,8 +46,6 @@ int RunApplication (int argc, char **argv) {
         Version::Major(), Version::Minor(), Version::Revision(), Version::Build() );
     g_console->WriteLine ();
 
-	memcpy ( 0, g_console, 1 );
-    
     int retval = 0;
 
     WritePrefix ( "Size of Uint8" ); retval |= WriteResult ( TestDatatypes_Uint8() );
