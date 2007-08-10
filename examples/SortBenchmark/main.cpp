@@ -137,6 +137,7 @@ RunApplication ( int argc, char **argv )
 	console->WriteLine ( "Benchmarking QuickSort..." );
 	Benchmark ( qs );
 #else
+	console->WriteLine ( "Skipping BubbleSort benchmark (ENABLE_SLOWSORTS not defined)..." );
 	console->WriteLine ( "Skipping InsertionSort benchmark (ENABLE_SLOWSORTS not defined)..." );
 	console->WriteLine ( "Skipping QuickSort benchmark (ENABLE_SLOWSORTS not defined)..." );
 #endif
