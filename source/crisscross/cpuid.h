@@ -93,6 +93,23 @@ namespace CrissCross
 			long int GoThread ( int processor );
 		#endif
 
+			typedef enum
+			{
+				CACHE_TYPE_TRACE,
+				CACHE_TYPE_L0DATA_TLB,
+				CACHE_TYPE_L1DATA_TLB,
+				CACHE_TYPE_L2DATA_TLB,
+				CACHE_TYPE_DATA_TLB,
+				CACHE_TYPE_CODE_TLB,
+				CACHE_TYPE_L1CODE,
+				CACHE_TYPE_L1DATA,
+				CACHE_TYPE_L2,
+				CACHE_TYPE_L3
+			} cacheType;
+
+			const char *CreateCacheDescription ( cacheType _type, const char *_pages, unsigned int _size, 
+												 unsigned int _assoc, unsigned int _entries, unsigned int _linesize,
+												 bool _sectored );
 			void AddCacheDescription ( int processor, const char *description );
 			void AddIntelCacheData ( int processor, int x );
 			void DetectManufacturer ( int processor );
