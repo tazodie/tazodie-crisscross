@@ -601,10 +601,10 @@ void
 CPUID::DecodeAMDCacheIdentifiers ( int processor )
 {
 	// L1 Cache Information
-	unsigned char L1DTlb2and4MAssoc, L1DTlb2and4MSize, L1ITlb2and4MAssoc, L1ITlb2and4MSize;
-	unsigned char L1DTlb4KAssoc, L1DTlb4KSize, L1ITlb4KAssoc, L1ITlb4KSize;
-	unsigned char L1DcSize, L1DcAssoc, L1DcLinesPerTag, L1DcLineSize;
-	unsigned char L1IcSize, L1IcAssoc, L1IcLinesPerTag, L1IcLineSize;
+	unsigned int L1DTlb2and4MAssoc, L1DTlb2and4MSize, L1ITlb2and4MAssoc, L1ITlb2and4MSize;
+	unsigned int L1DTlb4KAssoc, L1DTlb4KSize, L1ITlb4KAssoc, L1ITlb4KSize;
+	unsigned int L1DcSize, L1DcAssoc, L1DcLinesPerTag, L1DcLineSize;
+	unsigned int L1IcSize, L1IcAssoc, L1IcLinesPerTag, L1IcLineSize;
 
 
 	//
@@ -659,6 +659,7 @@ CPUID::DecodeAMDCacheIdentifiers ( int processor )
 	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L1CODE, NULL, L1IcSize, L1IcAssoc, 0, L1IcLineSize, false ) );
 
 
+
 	// L2 Cache Information
 	unsigned int L2DTlb2and4MAssoc, L2DTlb2and4MSize, L2ITlb2and4MAssoc, L2ITlb2and4MSize;
 	unsigned int L2DTlb4KAssoc, L2DTlb4KSize, L2ITlb4KAssoc, L2ITlb4KSize;
@@ -704,6 +705,20 @@ CPUID::DecodeAMDCacheIdentifiers ( int processor )
 	L2LinesPerTag =       ( Ext[6].ecx & 0x00000F00 ) >> 8;
 	L2LineSize =	      ( Ext[6].ecx & 0x000000FF );
 	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, L2Size, L2Assoc, 0, L2LineSize, false ) );
+
+
+
+	// L3 Cache Information
+	unsigned int L3Size, L3Assoc, L3LinesPerTag, L3LineSize;
+
+	//
+	// L3 Cache
+
+	L3Size =              ( Ext[6].edx & 0xFFFC0000 ) >> 18;
+	L3Assoc =             ( Ext[6].edx & 0x0000F000 ) >> 12;
+	L3LinesPerTag =       ( Ext[6].edx & 0x00000F00 ) >> 8;
+	L3LineSize =	      ( Ext[6].edx & 0x000000FF );
+	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L3, NULL, L3Size * 512, L3Assoc, 0, L3LineSize, false ) );
 }
 
 void
