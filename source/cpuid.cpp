@@ -582,7 +582,7 @@ CPUID::CreateCacheDescription ( cacheType _type, const char *_pages, unsigned in
 	if ( _entries )
 		sprintf ( entries, ", %d entries", _entries );
 	else
-		sprintf ( entries, "" );
+		memset ( entries, 0, sizeof(entries) );
 
 	// Is it a sectored cache?
 	sprintf ( sectored, _sectored ? ", sectored cache" : "" );
@@ -591,7 +591,7 @@ CPUID::CreateCacheDescription ( cacheType _type, const char *_pages, unsigned in
 	if ( _linesize )
 		sprintf ( linesz, ", %d byte line size", _linesize );
 	else
-		sprintf ( linesz, "" );
+		memset ( linesz, 0, sizeof(linesz) );
 
 	sprintf ( description, "%s%s%s%s%s%s\n", prefix, size, assoc, entries, sectored, linesz );
 	return description;
