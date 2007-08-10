@@ -515,6 +515,21 @@ CPUID::CreateCacheDescription ( cacheType _type, const char *_pages, unsigned in
 	case CACHE_TYPE_L0DATA_TLB:
 		sprintf ( prefix, "L0 Data TLB: %s pages, ", _pages );
 		break;
+	case CACHE_TYPE_L1DATA_TLB:
+		sprintf ( prefix, "L1 Data TLB: %s pages, ", _pages );
+		break;
+	case CACHE_TYPE_L2DATA_TLB:
+		sprintf ( prefix, "L2 Data TLB: %s pages, ", _pages );
+		break;
+	case CACHE_TYPE_L0CODE_TLB:
+		sprintf ( prefix, "L0 Code TLB: %s pages, ", _pages );
+		break;
+	case CACHE_TYPE_L1CODE_TLB:
+		sprintf ( prefix, "L1 Code TLB: %s pages, ", _pages );
+		break;
+	case CACHE_TYPE_L2CODE_TLB:
+		sprintf ( prefix, "L2 Code TLB: %s pages, ", _pages );
+		break;
 	case CACHE_TYPE_DATA_TLB:
 		sprintf ( prefix, "Data TLB: %s pages, ", _pages );
 		break;
