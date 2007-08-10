@@ -672,7 +672,7 @@ CPUID::DecodeAMDCacheIdentifiers ( int processor )
 
 	L2DTlb2and4MAssoc =   ( Ext[6].eax & 0xF0000000 ) >> 28;
 	L2DTlb2and4MSize =    ( Ext[6].eax & 0x0FFF0000 ) >> 16;
-	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2DATA_TLB, "2MB or 4MB", 0, L1DTlb2and4MAssoc, L1DTlb2and4MSize, 0, false ) );
+	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2DATA_TLB, "2MB or 4MB", 0, L2DTlb2and4MAssoc, L2DTlb2and4MSize, 0, false ) );
 
 
 	//
