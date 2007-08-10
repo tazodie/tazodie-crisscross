@@ -500,10 +500,7 @@ CPUID::CreateCacheDescription ( cacheType _type, const char *_pages, unsigned in
 
 	// No associativity? Invalid cache entry. Abort, abort!
 	if ( _assoc == 0 )
-	{
-		description[0] = '\x0';
-		return description;
-	}
+		return NULL;
 
 	memset ( prefix, 0, sizeof(prefix) );
 	// Get the prefix worked out.
@@ -712,7 +709,9 @@ CPUID::DecodeAMDCacheIdentifiers ( int processor )
 void
 CPUID::AddCacheDescription ( int processor, const char *description )
 {
-    char *temp = new char[strlen ( description ) + 1];
+	if ( !description ) return;
+	
+	char *temp = new char[strlen ( description ) + 1];
 
     CoreAssert ( temp );
     strcpy ( temp, description );
