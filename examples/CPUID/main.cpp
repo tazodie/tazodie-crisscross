@@ -34,15 +34,8 @@ RunApplication ( int argc, char **argv )
     console->WriteLine ();
 
     cpuid->Go ();
-    
-#if 0
 
-	// Everything in this #if block is considered unpredictable. We've seen varying results
-	// and will reimplement this later if we feel that we've found a better way to detect
-	// the processor count (including cores and hyperthreads).
-	// For now, just ignore this part.
-
-	// NOTES (old, may be inaccurate)
+	// NOTES
     // The Virtual count is the number of processors that the operating system sees,
     // but does not take into account whether any of the processors counted are
     // hyperthreads, cores, or truly physical CPUs.
@@ -50,17 +43,22 @@ RunApplication ( int argc, char **argv )
     // If the Physical and Logical counts are equal, the number of Physical/Logical is the 
     // core count, because it's a dual core system.
 
-    console->WriteLine ( "There are %d processors in the system (%d physical, %d logical).",
-                         cpuid->GetVirtualCPUCount (),
-                         cpuid->GetPhysicalCPUCount (),
-                         cpuid->GetLogicalCPUCount () );
+    console->WriteLine ( "There are %d processors in the system (%d cores per package, %d logical per package).",
+                         cpuid->VirtualCount (),
+                         cpuid->CoresPerPackage (),
+                         cpuid->LogicalPerPackage () );
 
-	console->WriteLine ( "There are %d cores and %d hardware threads.",
-		cpuid->CoresPerPackage(), cpuid->ThreadsSharingCache() );
+	if ( cpuid->CoresPerPackage () == cpuid->LogicalPerPackage () )
+		console->WriteLine ( "This is a multi-core system." );
+	else if ( cpuid->CoresPerPackage () > 1 && cpuid->LogicalPerPackage () > cpuid->CoresPerPackage () )
+		console->WriteLine ( "This is a hyperthreaded multi-core system." );
+	else if ( cpuid->CoresPerPackage () == 1 && cpuid->LogicalPerPackage () > 1 )
+		console->WriteLine ( "This is a hyperthreaded system." );
+
+	if ( cpuid->VirtualCount() > cpuid->LogicalPerPackage() )
+		console->WriteLine ( "This is a multi-processor system." );
 
 	console->WriteLine ();
-
-#endif
 
     for ( int i = 0; i < MAX_PROCESSORS; i++ )
     {

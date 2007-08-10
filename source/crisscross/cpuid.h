@@ -49,12 +49,8 @@ namespace CrissCross
 		  public:
 			const char *Manufacturer;
 			const char *ProcessorName;
-#if 0
+			char LogicalPerPackage;
 			char CoresPerPackage;
-			char ThreadsSharingCache;
-			char LogicalCount;
-			char PhysicalCount;
-#endif
 			char Family;
 			char Model;
 			char Stepping;
@@ -104,10 +100,7 @@ namespace CrissCross
 			void DetectCacheInfo ( int processor );
 			void DetectFMS ( int processor );
 			void DetectBrandID ( int processor );
-#if 0
-			void DetectCores ( int processor );
 			void DetectCount ( int processor );
-#endif
 			void DetectAPIC ( int processor );
 			void DetectFeatures ( int processor );
 			void DetectFeature ( const unsigned int *_register, long _flag, int _processor, const char *_name );
@@ -116,14 +109,21 @@ namespace CrissCross
 			  CPUID ();
 			 ~CPUID ();
 			void Go ();
-#if 0
-			int GetLogicalCPUCount ();
-			int GetPhysicalCPUCount ();
-			int GetVirtualCPUCount ();
 
+			/*!
+				\return The number of hardware threads per physical package.
+			 */
+			int LogicalPerPackage ();
+
+			/*!
+				\return The number of physical cores per package.
+			 */
 			int CoresPerPackage ();
-			int ThreadsSharingCache ();
-#endif
+
+			/*!
+				\return The number of virtual processors detected, including all cores and hardware threads.
+			 */
+			int VirtualCount ();
 
 			Processor *proc[MAX_PROCESSORS];    // Support up to MAX_PROCESSORS
 
