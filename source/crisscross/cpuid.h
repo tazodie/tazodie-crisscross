@@ -49,8 +49,8 @@ namespace CrissCross
 		  public:
 			const char *Manufacturer;
 			const char *ProcessorName;
-			char LogicalPerPackage;
-			char CoresPerPackage;
+			unsigned int LogicalPerPackage;
+			unsigned int CoresPerPackage;
 			char Family;
 			char Model;
 			char Stepping;

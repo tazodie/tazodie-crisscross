@@ -48,15 +48,20 @@ RunApplication ( int argc, char **argv )
                          cpuid->CoresPerPackage (),
                          cpuid->LogicalPerPackage () );
 
-	if ( cpuid->CoresPerPackage () == cpuid->LogicalPerPackage () )
-		console->WriteLine ( "This is a multi-core system." );
-	else if ( cpuid->CoresPerPackage () > 1 && cpuid->LogicalPerPackage () > cpuid->CoresPerPackage () )
-		console->WriteLine ( "This is a hyperthreaded multi-core system." );
-	else if ( cpuid->CoresPerPackage () == 1 && cpuid->LogicalPerPackage () > 1 )
-		console->WriteLine ( "This is a hyperthreaded system." );
+	if ( cpuid->VirtualCount() > 1 )
+	{
+		if ( cpuid->CoresPerPackage () == cpuid->LogicalPerPackage () )
+			console->WriteLine ( "This is a multi-core system." );
+		else if ( cpuid->CoresPerPackage () > 1 && cpuid->LogicalPerPackage () > cpuid->CoresPerPackage () )
+			console->WriteLine ( "This is a hyperthreaded multi-core system." );
+		else if ( cpuid->CoresPerPackage () == 1 && cpuid->LogicalPerPackage () > 1 )
+			console->WriteLine ( "This is a hyperthreaded system." );
 
-	if ( cpuid->VirtualCount() > cpuid->LogicalPerPackage() )
-		console->WriteLine ( "This is a multi-processor system." );
+		if ( cpuid->VirtualCount() > cpuid->LogicalPerPackage() )
+			console->WriteLine ( "This is a multi-processor system." );
+	} else {
+		console->WriteLine ( "This is a single processor system." );
+	}
 
 	console->WriteLine ();
 
