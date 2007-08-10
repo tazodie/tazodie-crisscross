@@ -490,6 +490,98 @@ CPUID::DetectCacheInfo ( int processor )
 
 }
 
+const char *
+CPUID::CreateCacheDescription ( cacheType _type, const char *_pages, unsigned int _size, 
+									 unsigned int _assoc, unsigned int _entries, unsigned int _linesize,
+                                     bool _sectored )
+{
+	static char description[512];
+	char assoc[64], prefix[64], size[32], sectored[32], linesz[32], entries[32];
+
+	// No associativity? Invalid cache entry. Abort, abort!
+	if ( _assoc == 0 )
+	{
+		description[0] = '\x0';
+		return description;
+	}
+
+	memset ( prefix, 0, sizeof(prefix) );
+	// Get the prefix worked out.
+	switch ( _type )
+	{
+	case CACHE_TYPE_TRACE:
+		sprintf ( prefix, "Trace cache: " );
+		break;
+	case CACHE_TYPE_L0DATA_TLB:
+		sprintf ( prefix, "L0 Data TLB: %s pages, ", _pages );
+		break;
+	case CACHE_TYPE_DATA_TLB:
+		sprintf ( prefix, "Data TLB: %s pages, ", _pages );
+		break;
+	case CACHE_TYPE_CODE_TLB:
+		sprintf ( prefix, "Code TLB: %s pages, ", _pages );
+		break;
+	case CACHE_TYPE_L1CODE:
+		sprintf ( prefix, "1st-level code cache: " );
+		break;
+	case CACHE_TYPE_L1DATA:
+		sprintf ( prefix, "1st-level data cache: " );
+		break;
+	case CACHE_TYPE_L2:
+		sprintf ( prefix, "2nd-level cache: " );
+		break;
+	case CACHE_TYPE_L3:
+		sprintf ( prefix, "3rd-level cache: " );
+		break;
+	}
+
+	// Figure out the appropriate size descriptor.
+	memset ( size, 0, sizeof(size) );
+	switch ( _type )
+	{
+	case CACHE_TYPE_L0DATA_TLB:
+	case CACHE_TYPE_L1DATA_TLB:
+	case CACHE_TYPE_L2DATA_TLB:
+	case CACHE_TYPE_DATA_TLB:
+	case CACHE_TYPE_CODE_TLB:
+		break;
+	case CACHE_TYPE_TRACE:
+		sprintf ( size, "%dK-uops, ", _size );
+		break;
+	default:
+		if ( _size >= 1024 )
+			sprintf ( size, "%dMB, ", _size / 1024 );
+		else
+			sprintf ( size, "%dKB, ", _size );
+	}
+
+	// Get the associativity part set up
+	switch ( _assoc )
+	{
+	case 0x01: sprintf ( assoc, "direct mapped" ); break;
+	case 0xFF: sprintf ( assoc, "fully associative" ); break;
+	default: sprintf ( assoc, "%d-way set associative", _assoc ); break;
+	}
+
+	// If this is a TLB, we have entries
+	if ( _entries )
+		sprintf ( entries, ", %d entries", _entries );
+	else
+		sprintf ( entries, "" );
+
+	// Is it a sectored cache?
+	sprintf ( sectored, _sectored ? ", sectored cache" : "" );
+
+	// If there's a line size, we append it.
+	if ( _linesize )
+		sprintf ( linesz, ", %d byte line size", _linesize );
+	else
+		sprintf ( linesz, "" );
+
+	sprintf ( description, "%s%s%s%s%s%s\n", prefix, size, assoc, entries, sectored, linesz );
+	return description;
+}
+
 void
 CPUID::DecodeAMDCacheIdentifiers ( int processor )
 {
@@ -611,7 +703,7 @@ CPUID::DecodeAMDCacheIdentifiers ( int processor )
 		case 0xFF: sprintf ( assoc, "fully associative" ); break;
 		default: sprintf ( assoc, "%d-way set associative", L1IcAssoc ); break;
 		}
-		sprintf ( temp, "1st-level data cache: %dKB, %s, %d byte line size, %d lines per tag\n", L1IcSize, assoc, L1IcLineSize, L1IcLinesPerTag );
+		sprintf ( temp, "1st-level code cache: %dKB, %s, %d byte line size, %d lines per tag\n", L1IcSize, assoc, L1IcLineSize, L1IcLinesPerTag );
 		AddCacheDescription ( processor, temp );
 	}
 }
@@ -635,296 +727,110 @@ CPUID::AddIntelCacheData ( int processor, int x )
     x &= 0xff;
     switch ( x )
     {
-    case 0:
-        break;
-    case 0x1:
-        AddCacheDescription ( processor, "Code TLB: 4KB pages, 4-way set associative, 32 entries\n" );
-        break;
-    case 0x2:
-        AddCacheDescription ( processor, "Code TLB: 4MB pages, fully associative, 2 entries\n" );
-        break;
-    case 0x3:
-        AddCacheDescription ( processor, "Data TLB: 4KB pages, 4-way set associative, 64 entries\n" );
-        break;
-    case 0x4:
-        AddCacheDescription ( processor, "Data TLB: 4MB pages, 4-way set associative, 8 entries\n" );
-        break;
-    case 0x5:
-        AddCacheDescription ( processor, "Data TLB: 4MB pages, 4-way set associative, 32 entries\n" );
-        break;
-    case 0x6:
-        AddCacheDescription ( processor, "1st-level code cache: 8KB, 4-way set associative, 32 byte line size\n" );
-        break;
-    case 0x8:
-        AddCacheDescription ( processor, "1st-level code cache: 16KB, 4-way set associative, 32 byte line size\n" );
-        break;
-    case 0xa:
-        AddCacheDescription ( processor, "1st-level data cache: 8KB, 2-way set associative, 32 byte line size\n" );
-        break;
+    case 0:		break;
+    case 0x1:   AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_CODE_TLB, "4KB", 0, 4, 32, 0, false ) ); break;
+    case 0x2:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_CODE_TLB, "4MB", 0, 255, 2, 0, false ) ); break;
+    case 0x3:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_DATA_TLB, "4KB", 0, 4, 64, 0, false ) ); break;
+    case 0x4:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_DATA_TLB, "4MB", 0, 4, 8, 0, false ) ); break;
+    case 0x5:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_DATA_TLB, "4MB", 0, 4, 32, 0, false ) ); break;
+    case 0x6:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L1CODE, NULL, 8, 4, 0, 32, false ) ); break;
+    case 0x8:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L1CODE, NULL, 16, 4, 0, 32, false ) ); break;
+	case 0xa:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L1DATA, NULL, 8, 2, 0, 32, false ) ); break;
 #if defined ( ENABLE_SANDPILE )
-    case 0xb:
-		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
-		AddCacheDescription ( processor, "Code TLB: 4MB pages, 4-way set associative, 4 entries\n" );
-        break;
+    case 0xb:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_CODE_TLB, "4MB", 0, 4, 4, 0, false ) ); break;
 #endif
-    case 0xc:
-        AddCacheDescription ( processor, "1st-level data cache: 16KB, 4-way set associative, 32 byte line size\n" );
-        break;
+    case 0xc:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L1DATA, NULL, 16, 4, 0, 32, false ) ); break;
 #if defined ( ENABLE_SANDPILE )
-    case 0x10:
-		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
-        AddCacheDescription ( processor, "1st-level data cache: 16KB, 4-way set associative, 32 byte line size (IA-64)\n" );
-        break;
-    case 0x15:
-		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
-        AddCacheDescription ( processor, "1st-level code cache: 16KB, 4-way set associative, 32 byte line size (IA-64)\n" );
-        break;
-    case 0x1A:
-		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
-        AddCacheDescription ( processor, "2nd-level cache: 96KB, 6-way set associative, 64 byte line size (IA-64)\n" );
-        break;
+    case 0x10:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L1DATA, NULL, 16, 4, 0, 32, false ) ); break;
+    case 0x15:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L1CODE, NULL, 16, 4, 0, 32, false ) ); break;
+    case 0x1A:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 96, 6, 0, 64, false ) ); break;
 #endif
-    case 0x22:
-        AddCacheDescription ( processor, "3rd-level cache: 512KB, 4-way set associative, sectored cache, 64 byte line size\n" );
-        break;
-    case 0x23:
-        AddCacheDescription ( processor, "3rd-level cache: 1MB, 8-way set associative, sectored cache, 64 byte line size\n" );
-        break;
-    case 0x25:
-        AddCacheDescription ( processor, "3rd-level cache: 2MB, 8-way set associative, sectored cache, 64 byte line size\n" );
-        break;
-    case 0x29:
-        AddCacheDescription ( processor, "3rd-level cache: 4MB, 8-way set associative, sectored cache, 64 byte line size\n" );
-        break;
-    case 0x2C:
-        AddCacheDescription ( processor, "1st-level data cache: 32KB, 8-way set associative, 64 byte line size\n" );
-        break;
-    case 0x30:
-        AddCacheDescription ( processor, "1st-level code cache: 32KB, 8-way set associative, 64 byte line size\n" );
-        break;
-    case 0x39:
-        AddCacheDescription ( processor, "2nd-level cache: 128KB, 4-way set associative, sectored cache, 64 byte line size\n" );
-        break;
-    case 0x3A:
-        AddCacheDescription ( processor, "2nd-level cache: 192KB, 6-way set associative, sectored cache, 64 byte line size\n" );
-        break;
-    case 0x3B:
-        AddCacheDescription ( processor, "2nd-level cache: 128KB, 2-way set associative, sectored cache, 64 byte line size\n" );
-        break;
-    case 0x3C:
-        AddCacheDescription ( processor, "2nd-level cache: 256KB, 4-way set associative, sectored cache, 64 byte line size\n" );
-        break;
-    case 0x3D:
-        AddCacheDescription ( processor, "2nd-level cache: 384KB, 6-way set associative, sectored cache, 64 byte line size\n" );
-        break;
-    case 0x3E:
-        AddCacheDescription ( processor, "2nd-level cache: 512KB, 4-way set associative, sectored cache, 64 byte line size\n" );
-        break;
-    case 0x40:
-        AddCacheDescription ( processor, "No 2nd-level cache, or if 2nd-level cache exists, no 3rd-level cache\n" );
-        break;
-    case 0x41:
-        AddCacheDescription ( processor, "2nd-level cache: 128KB, 4-way set associative, 32 byte line size\n" );
-        break;
-    case 0x42:
-        AddCacheDescription ( processor, "2nd-level cache: 256KB, 4-way set associative, 32 byte line size\n" );
-        break;
-    case 0x43:
-        AddCacheDescription ( processor, "2nd-level cache: 512KB, 4-way set associative, 32 byte line size\n" );
-        break;
-    case 0x44:
-        AddCacheDescription ( processor, "2nd-level cache: 1MB, 4-way set associative, 32 byte line size\n" );
-        break;
-    case 0x45:
-        AddCacheDescription ( processor, "2nd-level cache: 2MB, 4-way set associative, 32 byte line size\n" );
-        break;
-    case 0x46:
-        AddCacheDescription ( processor, "3rd-level cache: 4MB, 4-way set associative, 64 byte line size\n" );
-        break;
-    case 0x47:
-        AddCacheDescription ( processor, "3rd-level cache: 8MB, 4-way set associative, 64 byte line size\n" );
-        break;
+    case 0x22:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L3, NULL, 512, 4, 0, 64, true ) ); break;
+    case 0x23:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L3, NULL, 1024, 8, 0, 64, true ) ); break;
+    case 0x25:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L3, NULL, 2048, 8, 0, 64, true ) ); break;
+    case 0x29:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L3, NULL, 4096, 8, 0, 64, true ) ); break;
+    case 0x2C:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L1DATA, NULL, 32, 8, 0, 64, false ) ); break;
+    case 0x30:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L1CODE, NULL, 32, 8, 0, 64, false ) ); break;
+    case 0x39:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 128, 4, 0, 64, true ) ); break;
+    case 0x3A:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 192, 6, 0, 64, true ) ); break;
+    case 0x3B:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 128, 2, 0, 64, true ) ); break;
+    case 0x3C:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 256, 4, 0, 64, true ) ); break;
+    case 0x3D:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 384, 6, 0, 64, true ) ); break;
+    case 0x3E:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 512, 4, 0, 64, true ) ); break;
+	case 0x40:	AddCacheDescription ( processor, "No 2nd-level cache, or if 2nd-level cache exists, no 3rd-level cache\n" ); break;
+    case 0x41:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 128, 4, 0, 32, false ) ); break;
+    case 0x42:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 256, 4, 0, 32, false ) ); break;
+    case 0x43:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 512, 4, 0, 32, false ) ); break;
+    case 0x44:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 1024, 4, 0, 32, false ) ); break;
+    case 0x45:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 2048, 4, 0, 32, false ) ); break;
+    case 0x46:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L3, NULL, 4096, 4, 0, 64, false ) ); break;
+    case 0x47:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L3, NULL, 8192, 8, 0, 64, false ) ); break;
 #if defined ( ENABLE_SANDPILE )
-    case 0x48:
-		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
-        AddCacheDescription ( processor, "2nd-level cache: 3MB, 12-way set associative, 64 byte line size\n" );
-        break;
+    case 0x48:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 3072, 12, 0, 64, false ) ); break;
 #endif
-    case 0x49:
-        AddCacheDescription ( processor, "3rd-level (Pentium 4) or 2nd-level (Core 2) cache: 4MB, 16-way set associative, 64 byte line size\n" );
-        break;
-    case 0x4A:
-        AddCacheDescription ( processor, "3rd-level cache: 6MB, 12-way set associative, 64 byte line size\n" );
-        break;
-    case 0x4B:
-        AddCacheDescription ( processor, "3rd-level cache: 8MB, 16-way set associative, 64 byte line size\n" );
-        break;
-    case 0x4C:
-        AddCacheDescription ( processor, "3rd-level cache: 12MB, 12-way set associative, 64 byte line size\n" );
-        break;
-    case 0x4D:
-        AddCacheDescription ( processor, "3rd-level cache: 16MB, 16-way set associative, 64 byte line size\n" );
-        break;
+	case 0x49:	AddCacheDescription ( processor, CreateCacheDescription (
+					// This is an L3 on the P4 and an L2 on the Core 2
+					proc[processor]->features.find("SSSE3")->Enabled ? CACHE_TYPE_L2 : CACHE_TYPE_L3, NULL, 4096, 16, 0, 64, false ) ); break;
+    case 0x4A:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L3, NULL, 6144, 12, 0, 64, false ) ); break;
+    case 0x4B:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L3, NULL, 8192, 16, 0, 64, false ) ); break;
+    case 0x4C:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L3, NULL, 12288, 12, 0, 64, false ) ); break;
+    case 0x4D:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L3, NULL, 16384, 16, 0, 64, false ) ); break;
 #if defined ( ENABLE_SANDPILE )
-    case 0x4E:
-		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
-        AddCacheDescription ( processor, "2nd-level cache: 6MB, 24-way set associative, 64 byte line size\n" );
-        break;
+    case 0x4E:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 6144, 24, 0, 64, false ) ); break;
 #endif
-    case 0x50:
-        AddCacheDescription ( processor, "Code TLB: 4KB, 2MB or 4MB pages, fully associative, 64 entries\n" );
-        break;
-    case 0x51:
-        AddCacheDescription ( processor, "Code TLB: 4KB, 2MB or 4MB pages, fully associative, 128 entries\n" );
-        break;
-    case 0x52:
-        AddCacheDescription ( processor, "Code TLB: 4KB, 2MB or 4MB pages, fully associative, 256 entries\n" );
-        break;
-    case 0x56:
-        AddCacheDescription ( processor, "L0 Data TLB: 4MB pages, 4-way set associative, 16 entries\n" );
-        break;
-    case 0x57:
-        AddCacheDescription ( processor, "L0 Data TLB: 4MB pages, 4-way set associative, 16 entries\n" );
-        break;
-    case 0x5b:
-        AddCacheDescription ( processor, "Data TLB: 4KB or 4MB pages, fully associative, 64 entries\n" );
-        break;
-    case 0x5c:
-        AddCacheDescription ( processor, "Data TLB: 4KB or 4MB pages, fully associative, 128 entries\n" );
-        break;
-    case 0x5d:
-        AddCacheDescription ( processor, "Data TLB: 4KB or 4MB pages, fully associative, 256 entries\n" );
-        break;
-    case 0x60:
-        AddCacheDescription ( processor, "1st-level data cache: 16KB, 8-way set associative, sectored cache, 64 byte line size\n" );
-        break;
-    case 0x66:
-        AddCacheDescription ( processor, "1st-level data cache: 8KB, 4-way set associative, sectored cache, 64 byte line size\n" );
-        break;
-    case 0x67:
-        AddCacheDescription ( processor, "1st-level data cache: 16KB, 4-way set associative, sectored cache, 64 byte line size\n" );
-        break;
-    case 0x68:
-        AddCacheDescription ( processor, "1st-level data cache: 32KB, 4-way set associative, sectored cache, 64 byte line size\n" );
-        break;
-    case 0x70:
-        AddCacheDescription ( processor, "Trace cache: 12K-uops, 8-way set associative\n" );
-        break;
-    case 0x71:
-        AddCacheDescription ( processor, "Trace cache: 16K-uops, 8-way set associative\n" );
-        break;
-    case 0x72:
-        AddCacheDescription ( processor, "Trace cache: 32K-uops, 8-way set associative\n" );
-        break;
-    case 0x73:
-        AddCacheDescription ( processor, "Trace cache: 64K-uops, 8-way set associative\n" );
-        break;
+    case 0x50:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_CODE_TLB, "4KB, 2MB or 4MB", 0, 255, 64, 0, false ) ); break;
+    case 0x51:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_CODE_TLB, "4KB, 2MB or 4MB", 0, 255, 128, 0, false ) ); break;
+    case 0x52:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_CODE_TLB, "4KB, 2MB or 4MB", 0, 255, 256, 0, false ) ); break;
+	case 0x56: case 0x57:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L0DATA_TLB, "4MB", 0, 4, 16, 0, false ) ); break;
+    case 0x5b:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_DATA_TLB, "4KB or 4MB", 0, 255, 64, 0, false ) ); break;
+    case 0x5c:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_DATA_TLB, "4KB or 4MB", 0, 255, 128, 0, false ) ); break;
+    case 0x5d:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_DATA_TLB, "4KB or 4MB", 0, 255, 256, 0, false ) ); break;
+	case 0x60:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L1DATA, NULL, 16, 8, 0, 64, true ) ); break;
+	case 0x66:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L1DATA, NULL, 8, 4, 0, 64, true ) ); break;
+	case 0x67:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L1DATA, NULL, 16, 4, 0, 64, true ) ); break;
+	case 0x68:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L1DATA, NULL, 32, 4, 0, 64, true ) ); break;
+	case 0x70:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_TRACE, NULL, 12, 8, 0, 0, false ) ); break;
+	case 0x71:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_TRACE, NULL, 16, 8, 0, 0, false ) ); break;
+	case 0x72:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_TRACE, NULL, 32, 8, 0, 0, false ) ); break;
+	case 0x73:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_TRACE, NULL, 64, 8, 0, 0, false ) ); break;
 #if defined ( ENABLE_SANDPILE )
-    case 0x77:
-		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
-        AddCacheDescription ( processor, "1st-level code cache: 16KB, 4-way set associative, sectored cache, 64 byte line size (IA-64)\n" );
-        break;
+	case 0x77:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L1CODE, NULL, 16, 4, 0, 64, true ) ); break;
 #endif
-    case 0x78:
-        AddCacheDescription ( processor, "2nd-level cache: 1MB, 4-way set associative, 64 byte line size\n" );
-        break;
-    case 0x79:
-        AddCacheDescription ( processor, "2nd-level cache: 128KB, 8-way set associative, sectored cache, 64 byte line size\n" );
-        break;
-    case 0x7a:
-        AddCacheDescription ( processor, "2nd-level cache: 256KB, 8-way set associative, sectored cache, 64 byte line size\n" );
-        break;
-    case 0x7b:
-        AddCacheDescription ( processor, "2nd-level cache: 512KB, 8-way set associative, sectored cache, 64 byte line size\n" );
-        break;
-    case 0x7c:
-        AddCacheDescription ( processor, "2nd-level cache: 1MB, 8-way set associative, sectored cache, 64 byte line size\n" );
-        break;
-    case 0x7d:
-        AddCacheDescription ( processor, "2nd-level cache: 2MB, 8-way set associative, 64 byte line size\n" );
-        break;
+	case 0x78:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 1024, 4, 0, 64, false ) ); break;
+	case 0x79:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 128, 8, 0, 64, true ) ); break;
+	case 0x7A:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 256, 8, 0, 64, true ) ); break;
+	case 0x7B:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 512, 8, 0, 64, true ) ); break;
+	case 0x7C:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 1024, 8, 0, 64, true ) ); break;
+	case 0x7D:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 2048, 8, 0, 64, false ) ); break;
 #if defined ( ENABLE_SANDPILE )
-    case 0x7e:
-		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
-        AddCacheDescription ( processor, "2nd-level cache: 256KB, 8-way set associative, sectored cache, 128 byte line size (IA-64)\n" );
-        break;
+	case 0x7E:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 256, 8, 0, 128, true ) ); break;
 #endif
-    case 0x7f:
-        AddCacheDescription ( processor, "2nd-level cache: 512KB, 2-way set associative, 64 byte line size\n" );
-        break;
+	case 0x7F:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 512, 2, 0, 64, false ) ); break;
 #if defined ( ENABLE_SANDPILE )
-    case 0x81:
-		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
-        AddCacheDescription ( processor, "2nd-level cache: 128KB, 8-way set associative, sectored cache, 128 byte line size (IA-64)\n" );
-        break;
+	case 0x81:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 128, 8, 0, 128, true ) ); break;
 #endif
-    case 0x82:
-        AddCacheDescription ( processor, "2nd-level cache: 256KB, 8-way set associative, 32 byte line size\n" );
-        break;
-    case 0x83:
-        AddCacheDescription ( processor, "2nd-level cache: 512KB, 8-way set associative 32 byte line size\n" );
-        break;
-    case 0x84:
-        AddCacheDescription ( processor, "2nd-level cache: 1MB, 8-way set associative, 32 byte line size\n" );
-        break;
-    case 0x85:
-        AddCacheDescription ( processor, "2nd-level cache: 2MB, 8-way set associative, 32 byte line size\n" );
-        break;
-    case 0x86:
-        AddCacheDescription ( processor, "2nd-level cache: 512KB, 4-way set associative, 64 byte line size\n" );
-        break;
-    case 0x87:
-        AddCacheDescription ( processor, "2nd-level cache: 1MB, 8-way set associative, 64 byte line size\n" );
-        break;
+	case 0x82:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 256, 8, 0, 32, false ) ); break;
+	case 0x83:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 512, 8, 0, 32, false ) ); break;
+	case 0x84:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 1024, 8, 0, 32, false ) ); break;
+	case 0x85:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 2048, 8, 0, 32, false ) ); break;
+	case 0x86:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 512, 4, 0, 64, false ) ); break;
+	case 0x87:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 1024, 8, 0, 64, false ) ); break;
 #if defined ( ENABLE_SANDPILE )
-    case 0x88:
-		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
-        AddCacheDescription ( processor, "3rd-level cache: 2MB, 4-way set associative, 64 byte line size (IA-64)\n" );
-        break;
-    case 0x89:
-		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
-        AddCacheDescription ( processor, "3rd-level cache: 4MB, 4-way set associative, 64 byte line size (IA-64)\n" );
-        break;
-    case 0x8A:
-		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
-        AddCacheDescription ( processor, "3rd-level cache: 8MB, 4-way set associative, 64 byte line size (IA-64)\n" );
-        break;
-    case 0x8D:
-		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
-        AddCacheDescription ( processor, "3rd-level cache: 3MB, 12-way set associative, 128 byte line size (IA-64)\n" );
-        break;
-    case 0x90:
-		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
-        AddCacheDescription ( processor, "Code TLB: 4KB, 256MB pages, fully associative, 64 entries (IA-64)\n" );
-        break;
-    case 0x96:
-		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
-        AddCacheDescription ( processor, "L1 Data TLB: 4KB, 256MB pages, fully associative, 32 entries (IA-64)\n" );
-        break;
-    case 0x9B:
-		// NOT from #241618. From http://www.sandpile.org/ia32/cpuid.htm
-        AddCacheDescription ( processor, "L2 Data TLB: 4KB, 256MB pages, fully associative, 96 entries (IA-64)\n" );
-        break;
+	case 0x88:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L3, NULL, 2048, 4, 0, 64, false ) ); break;
+	case 0x89:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L3, NULL, 4096, 4, 0, 64, false ) ); break;
+	case 0x8A:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L3, NULL, 8192, 4, 0, 64, false ) ); break;
+	case 0x8D:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L3, NULL, 3072, 12, 0, 128, false ) ); break;
+	case 0x90:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_CODE_TLB, "4KB or 256MB", 0, 255, 64, 0, false ) ); break;
+	case 0x96:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L1DATA_TLB, "4KB or 256MB", 0, 255, 32, 0, false ) ); break;
+	case 0x9B:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2DATA_TLB, "4KB or 256MB", 0, 255, 96, 0, false ) ); break;
 #endif
-    case 0xB0:
-        AddCacheDescription ( processor, "Code TLB: 4KB pages, 4-way set associative, 128 entries\n" );
-        break;
-    case 0xB1:
-        AddCacheDescription ( processor, "Code TLB: 4MB pages, 4-way set associative, 4 entries\n" );
-        AddCacheDescription ( processor, "Code TLB: 2MB pages, 4-way set associative, 8 entries\n" );
-        break;
-    case 0xB3:
-        AddCacheDescription ( processor, "Data TLB: 4KB pages, 4-way set associative, 128 entries\n" );
-        break;
-    case 0xB4:
-        AddCacheDescription ( processor, "Data TLB: 4KB pages, 4-way set associative, 256 entries\n" );
-        break;
-    case 0xF0:
-        AddCacheDescription ( processor, "64 byte prefetching\n" );
-        break;
-    case 0xF1:
-        AddCacheDescription ( processor, "128 byte prefetching\n" );
-        break;
+	case 0xB0:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_CODE_TLB, "4KB", 0, 4, 128, 0, false ) ); break;
+	case 0xB1:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_CODE_TLB, "4MB", 0, 4, 4, 0, false ) );
+				AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_CODE_TLB, "2MB", 0, 4, 8, 0, false ) ); break;
+	case 0xB3:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_DATA_TLB, "4KB", 0, 4, 128, 0, false ) ); break;
+	case 0xB4:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_DATA_TLB, "4KB", 0, 4, 256, 0, false ) ); break;
+    case 0xF0:	AddCacheDescription ( processor, "64 byte prefetching\n" ); break;
+    case 0xF1:	AddCacheDescription ( processor, "128 byte prefetching\n" ); break;
 	default:
 		{
 			char temp[256];
