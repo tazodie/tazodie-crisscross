@@ -98,6 +98,7 @@ namespace CrissCross
 			void DetectManufacturer ( int processor );
 			void DetectProcessorName ( int processor );
 			void DetectCacheInfo ( int processor );
+			void DecodeAMDCacheIdentifiers ( int processor );
 			void DetectFMS ( int processor );
 			void DetectBrandID ( int processor );
 			void DetectCount ( int processor );
