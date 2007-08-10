@@ -585,8 +585,6 @@ CPUID::CreateCacheDescription ( cacheType _type, const char *_pages, unsigned in
 void
 CPUID::DecodeAMDCacheIdentifiers ( int processor )
 {
-	char temp[512], assoc[64];
-
 	// L1 Cache Information
 	unsigned char L1DTlb2and4MAssoc, L1DTlb2and4MSize, L1ITlb2and4MAssoc, L1ITlb2and4MSize;
 	unsigned char L1DTlb4KAssoc, L1DTlb4KSize, L1ITlb4KAssoc, L1ITlb4KSize;
@@ -599,18 +597,7 @@ CPUID::DecodeAMDCacheIdentifiers ( int processor )
 
 	L1DTlb2and4MAssoc =   ( Ext[5].eax & 0xFF000000 ) >> 24;
 	L1DTlb2and4MSize =    ( Ext[5].eax & 0x00FF0000 ) >> 16;
-
-	if ( L1DTlb2and4MAssoc != 0 )
-	{
-		switch ( L1DTlb2and4MAssoc )
-		{
-		case 0x01: sprintf ( assoc, "direct mapped" ); break;
-		case 0xFF: sprintf ( assoc, "fully associative" ); break;
-		default: sprintf ( assoc, "%d-way set associative", L1DTlb2and4MAssoc ); break;
-		}
-		sprintf ( temp, "Data TLB: 2MB or 4MB pages, %s, %d entries\n", assoc, L1DTlb2and4MSize );
-		AddCacheDescription ( processor, temp );
-	}
+	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_DATA_TLB, "2MB or 4MB", 0, L1DTlb2and4MAssoc, L1DTlb2and4MSize, 0, false ) );
 
 
 	//
@@ -618,54 +605,21 @@ CPUID::DecodeAMDCacheIdentifiers ( int processor )
 
 	L1ITlb2and4MAssoc =   ( Ext[5].eax & 0x0000FF00 ) >> 8;
 	L1ITlb2and4MSize =    ( Ext[5].eax & 0x000000FF );
-
-	if ( L1ITlb2and4MAssoc != 0 )
-	{
-		switch ( L1ITlb2and4MAssoc )
-		{
-		case 0x01: sprintf ( assoc, "direct mapped" ); break;
-		case 0xFF: sprintf ( assoc, "fully associative" ); break;
-		default: sprintf ( assoc, "%d-way set associative", L1ITlb2and4MAssoc ); break;
-		}
-		sprintf ( temp, "Code TLB: 2MB or 4MB pages, %s, %d entries\n", assoc, L1ITlb2and4MSize );
-		AddCacheDescription ( processor, temp );
-	}
+	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_CODE_TLB, "2MB or 4MB", 0, L1ITlb2and4MAssoc, L1ITlb2and4MSize, 0, false ) );
 
 
 	//
 	// L1 Data 4KB TLB
 	L1DTlb4KAssoc =       ( Ext[5].ebx & 0xFF000000 ) >> 24;
 	L1DTlb4KSize =        ( Ext[5].ebx & 0x00FF0000 ) >> 16;
-
-	if ( L1DTlb4KAssoc != 0 )
-	{
-		switch ( L1DTlb4KAssoc )
-		{
-		case 0x01: sprintf ( assoc, "direct mapped" ); break;
-		case 0xFF: sprintf ( assoc, "fully associative" ); break;
-		default: sprintf ( assoc, "%d-way set associative", L1DTlb4KAssoc ); break;
-		}
-		sprintf ( temp, "Data TLB: 4KB pages, %s, %d entries\n", assoc, L1DTlb4KSize );
-		AddCacheDescription ( processor, temp );
-	}
+	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_DATA_TLB, "4KB", 0, L1DTlb4KAssoc, L1DTlb4KSize, 0, false ) );
 
 
 	//
 	// L1 Code 4KB TLB
 	L1ITlb4KAssoc =       ( Ext[5].ebx & 0x0000FF00 ) >> 8;
 	L1ITlb4KSize =        ( Ext[5].ebx & 0x000000FF );
-
-	if ( L1ITlb4KAssoc != 0 )
-	{
-		switch ( L1ITlb4KAssoc )
-		{
-		case 0x01: sprintf ( assoc, "direct mapped" ); break;
-		case 0xFF: sprintf ( assoc, "fully associative" ); break;
-		default: sprintf ( assoc, "%d-way set associative", L1ITlb4KAssoc ); break;
-		}
-		sprintf ( temp, "Code TLB: 4KB pages, %s, %d entries\n", assoc, L1ITlb4KSize );
-		AddCacheDescription ( processor, temp );
-	}
+	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_CODE_TLB, "4KB", 0, L1ITlb4KAssoc, L1ITlb4KSize, 0, false ) );
 
 
 	//
@@ -674,18 +628,7 @@ CPUID::DecodeAMDCacheIdentifiers ( int processor )
 	L1DcAssoc =           ( Ext[5].ecx & 0x00FF0000 ) >> 16;
 	L1DcLinesPerTag =     ( Ext[5].ecx & 0x0000FF00 ) >> 8;
 	L1DcLineSize =        ( Ext[5].ecx & 0x000000FF );
-
-	if ( L1DcAssoc != 0 )
-	{
-		switch ( L1DcAssoc )
-		{
-		case 0x01: sprintf ( assoc, "direct mapped" ); break;
-		case 0xFF: sprintf ( assoc, "fully associative" ); break;
-		default: sprintf ( assoc, "%d-way set associative", L1DcAssoc ); break;
-		}
-		sprintf ( temp, "1st-level data cache: %dKB, %s, %d byte line size, %d lines per tag\n", L1DcSize, assoc, L1DcLineSize, L1DcLinesPerTag );
-		AddCacheDescription ( processor, temp );
-	}
+	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L1DATA, NULL, L1DcSize, L1DcAssoc, 0, L1DcLineSize, false ) );
 
 
 	//
@@ -694,18 +637,8 @@ CPUID::DecodeAMDCacheIdentifiers ( int processor )
 	L1IcAssoc =           ( Ext[5].edx & 0x00FF0000 ) >> 16;
 	L1IcLinesPerTag =     ( Ext[5].edx & 0x0000FF00 ) >> 8;
 	L1IcLineSize =        ( Ext[5].edx & 0x000000FF );
+	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L1CODE, NULL, L1IcSize, L1IcAssoc, 0, L1IcLineSize, false ) );
 
-	if ( L1IcAssoc != 0 )
-	{
-		switch ( L1IcAssoc )
-		{
-		case 0x01: sprintf ( assoc, "direct mapped" ); break;
-		case 0xFF: sprintf ( assoc, "fully associative" ); break;
-		default: sprintf ( assoc, "%d-way set associative", L1IcAssoc ); break;
-		}
-		sprintf ( temp, "1st-level code cache: %dKB, %s, %d byte line size, %d lines per tag\n", L1IcSize, assoc, L1IcLineSize, L1IcLinesPerTag );
-		AddCacheDescription ( processor, temp );
-	}
 }
 
 void
