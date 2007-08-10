@@ -610,6 +610,7 @@ CPUID::DecodeAMDCacheIdentifiers ( int processor )
 
 	//
 	// L1 Data 4KB TLB
+
 	L1DTlb4KAssoc =       ( Ext[5].ebx & 0xFF000000 ) >> 24;
 	L1DTlb4KSize =        ( Ext[5].ebx & 0x00FF0000 ) >> 16;
 	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_DATA_TLB, "4KB", 0, L1DTlb4KAssoc, L1DTlb4KSize, 0, false ) );
@@ -617,6 +618,7 @@ CPUID::DecodeAMDCacheIdentifiers ( int processor )
 
 	//
 	// L1 Code 4KB TLB
+
 	L1ITlb4KAssoc =       ( Ext[5].ebx & 0x0000FF00 ) >> 8;
 	L1ITlb4KSize =        ( Ext[5].ebx & 0x000000FF );
 	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_CODE_TLB, "4KB", 0, L1ITlb4KAssoc, L1ITlb4KSize, 0, false ) );
@@ -624,6 +626,7 @@ CPUID::DecodeAMDCacheIdentifiers ( int processor )
 
 	//
 	// L1 Data Cache
+
 	L1DcSize =            ( Ext[5].ecx & 0xFF000000 ) >> 24;
 	L1DcAssoc =           ( Ext[5].ecx & 0x00FF0000 ) >> 16;
 	L1DcLinesPerTag =     ( Ext[5].ecx & 0x0000FF00 ) >> 8;
@@ -633,12 +636,59 @@ CPUID::DecodeAMDCacheIdentifiers ( int processor )
 
 	//
 	// L1 Code Cache
+
 	L1IcSize =            ( Ext[5].edx & 0xFF000000 ) >> 24;
 	L1IcAssoc =           ( Ext[5].edx & 0x00FF0000 ) >> 16;
 	L1IcLinesPerTag =     ( Ext[5].edx & 0x0000FF00 ) >> 8;
 	L1IcLineSize =        ( Ext[5].edx & 0x000000FF );
 	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L1CODE, NULL, L1IcSize, L1IcAssoc, 0, L1IcLineSize, false ) );
 
+
+	// L2 Cache Information
+	unsigned int L2DTlb2and4MAssoc, L2DTlb2and4MSize, L2ITlb2and4MAssoc, L2ITlb2and4MSize;
+	unsigned int L2DTlb4KAssoc, L2DTlb4KSize, L2ITlb4KAssoc, L2ITlb4KSize;
+	unsigned int L2Size, L2Assoc, L2LinesPerTag, L2LineSize;
+
+	//
+	// L2 Data 2MB/4MB TLB
+
+	L2DTlb2and4MAssoc =   ( Ext[6].eax & 0xF0000000 ) >> 28;
+	L2DTlb2and4MSize =    ( Ext[6].eax & 0x0FFF0000 ) >> 16;
+	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2DATA_TLB, "2MB or 4MB", 0, L1DTlb2and4MAssoc, L1DTlb2and4MSize, 0, false ) );
+
+
+	//
+	// L2 Code 2MB/4MB TLB
+
+	L2ITlb2and4MAssoc =   ( Ext[6].eax & 0x0000F000 ) >> 12;
+	L2ITlb2and4MSize =    ( Ext[6].eax & 0x00000FFF );
+	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2CODE_TLB, "2MB or 4MB", 0, L2ITlb2and4MAssoc, L2ITlb2and4MSize, 0, false ) );
+
+
+	//
+	// L2 Data 4KB TLB
+
+	L2DTlb4KAssoc =       ( Ext[6].ebx & 0xF0000000 ) >> 28;
+	L2DTlb4KSize =        ( Ext[6].ebx & 0x0FFF0000 ) >> 16;
+	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2DATA_TLB, "4KB", 0, L2DTlb4KAssoc, L2DTlb4KSize, 0, false ) );
+
+
+	//
+	// L2 Code 4KB TLB
+
+	L2ITlb4KAssoc =       ( Ext[6].ebx & 0x0000F000 ) >> 12;
+	L2ITlb4KSize =        ( Ext[6].ebx & 0x00000FFF );
+	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2CODE_TLB, "4KB", 0, L2ITlb4KAssoc, L2ITlb4KSize, 0, false ) );
+
+
+	//
+	// L2 Cache
+
+	L2Size =              ( Ext[6].ecx & 0xFFFF0000 ) >> 16;
+	L2Assoc =             ( Ext[6].ecx & 0x0000F000 ) >> 12;
+	L2LinesPerTag =       ( Ext[6].ecx & 0x00000F00 ) >> 8;
+	L2LineSize =	      ( Ext[6].ecx & 0x000000FF );
+	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, L2Size, L2Assoc, 0, L2LineSize, false ) );
 }
 
 void
