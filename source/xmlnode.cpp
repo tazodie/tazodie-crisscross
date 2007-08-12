@@ -12,8 +12,7 @@
 #include <crisscross/universal_include.h>
 
 #include <crisscross/encoding.h>
-#include <crisscross/xmlnode.h>
-#include <crisscross/xmldocument.h>
+#include <crisscross/xml.h>
 
 using namespace CrissCross;
 using namespace CrissCross::Data;
@@ -32,7 +31,7 @@ XMLNode::~XMLNode ()
 {
 }
 
-nodeType XMLNode::getNodeType ()
+XMLNodeType XMLNode::getNodeType ()
 {
 	return m_nodeType;
 }
@@ -54,10 +53,10 @@ void XMLNode::setNodeValue ( std::string _nodeValue )
 
 bool XMLNode::hasChildNodes ()
 {
-	return m_childNodes.size() > 0;
+	return m_childNodes.length() > 0;
 }
 
-LList<XMLAttribute *> *XMLNode::getAttributes ()
+XMLNamedNodeMap *XMLNode::getAttributes ()
 {
 	return &m_attributes;
 }
@@ -69,28 +68,28 @@ CrissCross::Text::XML::XMLDocument *XMLNode::getOwnerDocument ()
 
 XMLNode *XMLNode::getFirstChild ()
 {
-	CoreAssert ( m_childNodes.size() > 0 );
-	return m_childNodes.get(0);
+	CoreAssert ( m_childNodes.length() > 0 );
+	return m_childNodes.item(0);
 }
 
 XMLNode *XMLNode::getLastChild ()
 {
-	CoreAssert ( m_childNodes.size() > 0 );
-	return m_childNodes.get(m_childNodes.size() - 1);
+	CoreAssert ( m_childNodes.length() > 0 );
+	return m_childNodes.item(m_childNodes.length() - 1);
 }
 
 XMLNode *XMLNode::getNextSibling ()
 {
 	CoreAssert ( m_parentNode );
-	LList<XMLNode *> *siblings = m_parentNode->getChildNodes();
-	return siblings->get ( siblings->find ( this ) + 1 );
+	XMLNodeList *siblings = m_parentNode->getChildNodes();
+	return siblings->item ( siblings->m_nodeList.find ( this ) + 1 );
 }
 
 XMLNode *XMLNode::getPreviousSibling ()
 {
 	CoreAssert ( m_parentNode );
-	LList<XMLNode *> *siblings = m_parentNode->getChildNodes();
-	return siblings->get ( siblings->find ( this ) - 1 );
+	XMLNodeList *siblings = m_parentNode->getChildNodes();
+	return siblings->item ( siblings->m_nodeList.find ( this ) - 1 );
 }
 
 XMLNode *XMLNode::getParentNode ()
@@ -98,31 +97,40 @@ XMLNode *XMLNode::getParentNode ()
 	return m_parentNode;
 }
 
-LList<XMLNode *> *XMLNode::getChildNodes ()
+XMLNodeList *XMLNode::getChildNodes ()
 {
 	return &m_childNodes;
 }
 
 XMLNode *XMLNode::removeChild ( XMLNode *_oldChild )
 {
-	m_childNodes.remove ( m_childNodes.find ( _oldChild ) );
+	m_childNodes.m_nodeList.remove ( m_childNodes.m_nodeList.find ( _oldChild ) );
 	return _oldChild;
 }
 
 XMLNode *XMLNode::insertBefore ( XMLNode *_newChild, XMLNode *_refChild )
 {
-	m_childNodes.insert_at ( _newChild, m_childNodes.find ( _refChild ) );
+	m_childNodes.m_nodeList.insert_at ( _newChild, m_childNodes.m_nodeList.find ( _refChild ) );
 	return _newChild;
 }
 
 XMLNode *XMLNode::replaceChild ( XMLNode *_newChild, XMLNode * _oldChild )
 {
-	m_childNodes.change ( _newChild, m_childNodes.find ( _oldChild ) );
+	size_t index = m_childNodes.m_nodeList.find ( _oldChild );
+	delete m_childNodes.item ( index );
+	m_childNodes.m_nodeList.change ( _newChild, index );
 	return _newChild;
 }
 
 XMLNode *XMLNode::appendChild ( XMLNode *_newChild )
 {
-	m_childNodes.insert ( _newChild );
+	m_childNodes.m_nodeList.insert ( _newChild );
 	return _newChild;
 }
+
+/*
+XMLNode *XMLNode::cloneNode ( bool _deep )
+{
+	// TODO
+}
+*/

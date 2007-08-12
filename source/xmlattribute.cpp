@@ -11,8 +11,7 @@
 
 #include <crisscross/universal_include.h>
 
-#include <crisscross/encoding.h>
-#include <crisscross/xmlattribute.h>
+#include <crisscross/xml.h>
 
 using namespace CrissCross;
 using namespace CrissCross::Data;

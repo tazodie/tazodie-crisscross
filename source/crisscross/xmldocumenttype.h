@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __included_xmlattribute_h
-#define __included_xmlattribute_h
+#ifndef __included_xmldocumenttype_h
+#define __included_xmldocumenttype_h
 
 namespace CrissCross
 {
@@ -18,12 +18,14 @@ namespace CrissCross
 	{
 		namespace XML
 		{
-			class XMLAttribute : public XMLNode
+			class XMLDocumentType : public XMLNode
 			{
+			protected:
+				std::string		m_name;
+
 			public:
-				XMLAttribute ( XMLDocument *_ownerDocument );
-				XMLAttribute ( XMLDocument *_ownerDocument, std::string _name, std::string _value );
-				~XMLAttribute ();
+				XMLDocumentType ();
+				~XMLDocumentType ();
 			};
 		}
 	}

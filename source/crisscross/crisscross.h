@@ -26,9 +26,7 @@
 #include <crisscross/console.h>
 #include <crisscross/textreader.h>
 #include <crisscross/textwriter.h>
-#include <crisscross/xmlparser.h>
-#include <crisscross/xmlnode.h>
-#include <crisscross/xmldocument.h>
+#include <crisscross/xml.h>
 #include <crisscross/core_network.h>
 #include <crisscross/core_socket.h>
 #include <crisscross/tcpsocket.h>

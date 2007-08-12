@@ -804,6 +804,10 @@
 				Name="XML"
 				>
 				<File
+					RelativePath=".\crisscross\xml.h"
+					>
+				</File>
+				<File
 					RelativePath=".\xmlattribute.cpp"
 					>
 				</File>
@@ -820,6 +824,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\xmldocumenttype.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\crisscross\xmldocumenttype.h"
+					>
+				</File>
+				<File
 					RelativePath=".\xmlelement.cpp"
 					>
 				</File>
@@ -828,11 +840,27 @@
 					>
 				</File>
 				<File
+					RelativePath=".\xmlnamednodemap.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\crisscross\xmlnamednodemap.h"
+					>
+				</File>
+				<File
 					RelativePath=".\xmlnode.cpp"
 					>
 				</File>
 				<File
 					RelativePath=".\crisscross\xmlnode.h"
+					>
+				</File>
+				<File
+					RelativePath=".\xmlnodelist.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\crisscross\xmlnodelist.h"
 					>
 				</File>
 				<File
