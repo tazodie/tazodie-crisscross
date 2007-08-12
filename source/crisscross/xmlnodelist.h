@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __included_xmlelement_h
-#define __included_xmlelement_h
+#ifndef __included_xmlnodelist_h
+#define __included_xmlnodelist_h
 
 #include <crisscross/llist.h>
 
@@ -20,12 +20,19 @@ namespace CrissCross
 	{
 		namespace XML
 		{
-			class XMLElement : public XMLNode
+			class XMLNodeList
 			{
 			protected:
-				CrissCross::Data::LList<XMLElement *> m_subElements;
-				CrissCross::Data::LList<XMLAttribute *> m_attributes;
+				CrissCross::Data::LList<XMLNode *>						m_nodeList;
+
 			public:
+				XMLNodeList ();
+				~XMLNodeList ();
+
+				XMLNode						*item ( size_t _index );
+				size_t						length ();
+
+				friend class XMLNode;
 			};
 		}
 	}

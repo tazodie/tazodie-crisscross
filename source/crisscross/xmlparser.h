@@ -12,11 +12,7 @@
 #ifndef __included_xmlparser_h
 #define __included_xmlparser_h
 
-#include <crisscross/llist.h>
-#include <crisscross/rbtree.h>
-#include <crisscross/encoding.h>
 #include <crisscross/textreader.h>
-#include <crisscross/xmldocument.h>
 
 namespace CrissCross
 {

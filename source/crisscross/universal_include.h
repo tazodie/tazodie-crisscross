@@ -263,14 +263,6 @@ namespace CrissCross
     {
     }
 
-    //! The file system namespace.
-    /*!
-        This namespace is maintained by Rudolf Olah <omouse@gmail.com>
-     */   
-    namespace FileSystem
-    {
-    }
-
     //! The input/output namespace.
     /*!
         Contains classes for console and file I/O.
@@ -295,6 +287,14 @@ namespace CrissCross
         platforms.
      */
     namespace System
+    {
+    }
+
+    //! The text namespace.
+    /*!
+        Contains encoding/decoding functions and a complete DOM-compliant XML implementation.
+     */
+    namespace Text
     {
     }
 

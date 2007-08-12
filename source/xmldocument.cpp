@@ -11,7 +11,7 @@
 
 #include <crisscross/universal_include.h>
 
-#include <crisscross/xmldocument.h>
+#include <crisscross/xml.h>
 
 using namespace CrissCross::Text::Encoding;
 using namespace CrissCross::Text::XML;
@@ -23,7 +23,9 @@ namespace CrissCross
 		namespace XML
 		{
 			XMLDocument::XMLDocument ()
+				: XMLNode ( NULL )
 			{
+				m_rootElement = NULL;
 			}
 
 			XMLDocument::~XMLDocument ()
@@ -40,6 +42,13 @@ namespace CrissCross
 			XMLDocument::setEncoding ( charEncoding _encoding )
 			{
 				m_xmlEncoding = _encoding;
+			}
+
+			XMLElement *
+			XMLDocument::getDocumentElement ()
+			{
+				CoreAssert ( m_rootElement );
+				return m_rootElement;
 			}
 		}
 	}

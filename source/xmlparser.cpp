@@ -13,7 +13,7 @@
 
 #include <crisscross/error.h>
 #include <crisscross/encoding.h>
-#include <crisscross/xmlparser.h>
+#include <crisscross/xml.h>
 
 using namespace CrissCross;
 using namespace CrissCross::Text;
