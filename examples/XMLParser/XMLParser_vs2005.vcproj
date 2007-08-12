@@ -30,6 +30,9 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
+				Description="Copying example.xml to build directory"
+				CommandLine="copy $(ProjectDir)\example.xml $(TargetDir)\"
+				Outputs="$(TargetDir)\example.xml"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -113,6 +116,9 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
+				Description="Copying example.xml to build directory"
+				CommandLine="copy $(ProjectDir)\example.xml $(TargetDir)\"
+				Outputs="$(TargetDir)\example.xml"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -196,6 +202,9 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
+				Description="Copying example.xml to build directory"
+				CommandLine="copy $(ProjectDir)\example.xml $(TargetDir)\"
+				Outputs="$(TargetDir)\example.xml"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -285,6 +294,9 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
+				Description="Copying example.xml to build directory"
+				CommandLine="copy $(ProjectDir)\example.xml $(TargetDir)\"
+				Outputs="$(TargetDir)\example.xml"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"

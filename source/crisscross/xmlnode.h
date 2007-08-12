@@ -68,14 +68,14 @@ namespace CrissCross
 				void			setNodeValue ( std::string _nodeValue ); //
 				bool			hasChildNodes (); //
 				CrissCross::Data::LList<XMLAttribute *> *getAttributes (); //
-				CrissCross::Text::XML::XMLDocument		*getOwnerDocument ();
+				CrissCross::Text::XML::XMLDocument		*getOwnerDocument (); //
 
-				XMLNode			*getFirstChild();
-				XMLNode			*getLastChild();
-				XMLNode			*getNextSibling();
-				XMLNode			*getPreviousSibling();
-				XMLNode			*getParentNode();
-				CrissCross::Data::LList<XMLNode *> *getChildNodes();
+				XMLNode			*getFirstChild(); //
+				XMLNode			*getLastChild(); //
+				XMLNode			*getNextSibling(); //
+				XMLNode			*getPreviousSibling(); //
+				XMLNode			*getParentNode(); //
+				CrissCross::Data::LList<XMLNode *> *getChildNodes(); //
 
 				XMLNode			*removeChild ( XMLNode *_oldChild );
 				XMLNode			*insertBefore ( XMLNode *_newChild, XMLNode *_refChild );
