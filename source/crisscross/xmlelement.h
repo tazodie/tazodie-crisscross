@@ -26,6 +26,8 @@ namespace CrissCross
 				CrissCross::Data::LList<XMLElement *> m_subElements;
 				CrissCross::Data::LList<XMLAttribute *> m_attributes;
 			public:
+				XMLElement ( CrissCross::Text::XML::XMLDocument *_ownerDocument );
+				~XMLElement();
 			};
 		}
 	}

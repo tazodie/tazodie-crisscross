@@ -12,3 +12,11 @@
 #include <crisscross/universal_include.h>
 
 #include <crisscross/xml.h>
+
+using namespace CrissCross::Text::XML;
+
+XMLElement::XMLElement ( CrissCross::Text::XML::XMLDocument *_ownerDocument )
+ : XMLNode ( _ownerDocument )
+{
+
+}

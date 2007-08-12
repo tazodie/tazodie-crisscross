@@ -21,10 +21,13 @@ using namespace CrissCross::Text::Encoding;
 using namespace CrissCross::Text::XML;
 using namespace CrissCross::IO;
 
-XMLNode::XMLNode ( CrissCross::Text::XML::XMLDocument *_ownerDocument )
+XMLNode::XMLNode ( CrissCross::Text::XML::XMLDocument *_ownerDocument,
+				  std::string _name, std::string _value )
 {
 	m_ownerDocument = _ownerDocument;
 	m_nodeType = NULL_NODE;
+	m_nodeName = _name;
+	m_nodeValue = _value;
 }
 
 XMLNode::~XMLNode ()
@@ -49,6 +52,11 @@ std::string XMLNode::getNodeValue ()
 void XMLNode::setNodeValue ( std::string _nodeValue )
 {
 	m_nodeValue = _nodeValue;
+}
+
+void XMLNode::setNodeName ( std::string _nodeName )
+{
+	m_nodeName = _nodeName;
 }
 
 bool XMLNode::hasChildNodes ()

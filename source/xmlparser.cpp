@@ -59,13 +59,43 @@ XMLParser::parse ( const char *_path )
 	return retval;
 }
 
+XMLAttribute *
+XMLParser::parseAttribute ( const char *_buffer )
+{
+	XMLAttribute *attr = NULL;
+	char attributeName[256], attributeValue[512];
+	memset ( attributeName, 0, sizeof ( attributeName ) );
+	memset ( attributeValue, 0, sizeof ( attributeValue ) );
+
+	const char *eq = strchr ( _buffer, '=' );
+	if ( eq == NULL ) return NULL;
+	if ( eq - _buffer > 254 ) return NULL;
+	strncpy ( attributeName, _buffer, eq - _buffer );
+	
+	eq++;
+	if ( *eq != '"' ) return NULL;
+	eq++;
+	const char *endq = strchr ( eq, '"' );
+	if ( endq == NULL ) return NULL;
+	if ( endq - eq > 510 ) return NULL;
+	strncpy ( attributeValue, eq, endq - eq );
+
+
+	attr = new XMLAttribute ( m_document );
+	attr->setNodeName ( attributeName );
+	attr->setNodeValue ( attributeValue );
+
+	return attr;
+}
+
 int
 XMLParser::parse ( CrissCross::IO::TextReader *_file )
 {
 	if ( !_file ) return CC_ERR_BADPARAMETER;
 	if ( !_file->IsOpen() ) return CC_ERR_BADPARAMETER;
 	
-	char buffer[512];
+	char buffer[512], *bufPtr; size_t buflen;
+	XMLNode *activeNode = NULL;
 	while ( _file->ReadLine ( buffer, sizeof(buffer) ) > 0 )
 	{
 		if ( m_document->getEncoding() == CHAR_ENCODING_NONE )
@@ -79,6 +109,18 @@ XMLParser::parse ( CrissCross::IO::TextReader *_file )
 			}
 		}
 		trim ( buffer, sizeof(buffer) );
+		buflen = strlen ( buffer );
+
+		bufPtr = buffer;
+		while ( ( bufPtr - buffer ) < buflen )
+		{
+			switch ( *bufPtr )
+			{
+			case '<':
+				
+				break;
+			}
+		}
 		g_stdout->WriteLine ( "XMLParser: %s", buffer );
 	}
 

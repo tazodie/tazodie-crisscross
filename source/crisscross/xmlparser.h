@@ -32,6 +32,8 @@ namespace CrissCross
 				 */
 				void trim ( char *_string, size_t _bufSize );
 
+				XMLAttribute *parseAttribute ( const char *_buffer );
+
 			public:
 				XMLParser ();
 				// Implement the alternate constructors later.
