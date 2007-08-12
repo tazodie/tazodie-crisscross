@@ -789,6 +789,62 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="Text"
+			>
+			<File
+				RelativePath=".\encoding.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\crisscross\encoding.h"
+				>
+			</File>
+			<Filter
+				Name="XML"
+				>
+				<File
+					RelativePath=".\xmlattribute.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\crisscross\xmlattribute.h"
+					>
+				</File>
+				<File
+					RelativePath=".\xmldocument.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\crisscross\xmldocument.h"
+					>
+				</File>
+				<File
+					RelativePath=".\xmlelement.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\crisscross\xmlelement.h"
+					>
+				</File>
+				<File
+					RelativePath=".\xmlnode.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\crisscross\xmlnode.h"
+					>
+				</File>
+				<File
+					RelativePath=".\xmlparser.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\crisscross\xmlparser.h"
+					>
+				</File>
+			</Filter>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>

@@ -14,21 +14,21 @@
 
 #include <crisscross/universal_include.h>
 
+#include <crisscross/deprecate.h>
 #include <crisscross/sort.h>
-#include <crisscross/heapsort.h>
-#include <crisscross/quicksort.h>
-#include <crisscross/combsort.h>
 #include <crisscross/dstack.h>
 #include <crisscross/darray.h>
 #include <crisscross/llist.h>
 #include <crisscross/node.h>
 #include <crisscross/rbtree.h>
-#include <crisscross/deprecate.h>
 #include <crisscross/error.h>
 #include <crisscross/core_io.h>
 #include <crisscross/console.h>
 #include <crisscross/textreader.h>
 #include <crisscross/textwriter.h>
+#include <crisscross/xmlparser.h>
+#include <crisscross/xmlnode.h>
+#include <crisscross/xmldocument.h>
 #include <crisscross/core_network.h>
 #include <crisscross/core_socket.h>
 #include <crisscross/tcpsocket.h>

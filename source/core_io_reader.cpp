@@ -144,7 +144,7 @@ CoreIOReader::Read ( char *_buffer, int _bufferLength, int _bufferIndex,
 }
 
 int
-CoreIOReader::ReadLine ( char *_buffer, int _bufferLength )
+CoreIOReader::ReadLine ( char *_buffer, size_t _bufferLength )
 {
     CoreAssert ( this != NULL );
     if ( !IsOpen() ) return CC_ERR_INVALID_BUFFER;
@@ -153,32 +153,26 @@ CoreIOReader::ReadLine ( char *_buffer, int _bufferLength )
     m_ioMutex.Lock ();
 #endif
 
-    size_t bytesRead = 0, lineEndingSize = strlen(m_lineEnding);
-    char c = '\x0';
-        
-    for ( char *bufptr = _buffer; (bufptr - _buffer) < _bufferLength; bufptr++ )
-    {
-        c = (char) fgetc ( m_fileInputPointer );
-        
-        if ( c == (char)EOF )
-            break;
-        bytesRead++;        
-        
-        *bufptr = c;
-        
-        if ( bytesRead >= lineEndingSize )
-            if ( strncmp ( bufptr - (lineEndingSize - 1), m_lineEnding, lineEndingSize ) == 0 )
-            {
-                *(bufptr - (lineEndingSize - 1 )) = '\x0';
-                break;
-            }
-    }
+	_buffer[0] = '\x0';
+	fgets ( _buffer, _bufferLength, m_fileInputPointer );
+
+	// Detect line endings.
+	char *endl = NULL;
+	char *cr = strchr ( _buffer, '\r' );
+	char *lf = strchr ( _buffer, '\n' );
+	char *crlf = strstr ( _buffer, "\r\n" );
+	if ( crlf ) { SetLineEndings ( CC_LN_CRLF ); endl = crlf; }
+	else if ( cr ) { SetLineEndings ( CC_LN_CR ); endl = cr; } 
+	else if ( lf ) { SetLineEndings ( CC_LN_LF ); endl = lf; }
+	
+	if ( endl )
+		*endl = '\x0';
 
 #ifndef __GNUC__
     m_ioMutex.Unlock ();
 #endif
 
-    return (int)bytesRead;
+    return strlen ( _buffer );
 }
 
 int

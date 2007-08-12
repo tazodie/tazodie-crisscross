@@ -12,6 +12,8 @@
 #ifndef __included_cc_llist_h
 #define __included_cc_llist_h
 
+#include <crisscross/deprecate.h>
+
 namespace CrissCross
 {
     namespace Data
