@@ -116,6 +116,15 @@ namespace CrissCross
              */
             inline T *getPointer ( size_t _index ) const;
 
+            //! Modifies the node at the given index.
+            /*!
+                This does not delete the data at the node, just the node itself.
+                WARNING: Slow unless you're sequentially iterating through.
+				\param _rec The new value for the given index.
+                \param _index The index of the node to modify.
+             */
+			void change ( T const & _rec, size_t _index );
+
             //! Removes the node at the given index.
             /*!
                 This does not delete the data at the node, just the node itself.
@@ -179,7 +188,7 @@ namespace CrissCross
             _CC_DEPRECATE_FUNCTION(insert_at) inline void PutDataAtIndex ( T const & _rec, size_t _index ) { insert_at ( _rec, _index ); };
 			_CC_DEPRECATE_FUNCTION(find) inline size_t FindData ( T const & _rec ) { return find ( _rec ); };
 			_CC_DEPRECATE_FUNCTION(remove) inline void RemoveData ( size_t _index ) { remove ( _index ); };
-            _CC_DEPRECATE_FUNCTION(remove) void ChangeData ( T const & _rec, size_t _index );
+            _CC_DEPRECATE_FUNCTION(change) void ChangeData ( T const & _rec, size_t _index );
 			_CC_DEPRECATE_FUNCTION(size) inline size_t Size () const { return size(); };
 			_CC_DEPRECATE_FUNCTION_N inline void Empty () { empty(); };
 			_CC_DEPRECATE_FUNCTION(get) inline T getData ( size_t _index ) const { return get ( _index ); };

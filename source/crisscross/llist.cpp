@@ -71,6 +71,11 @@ template < class T >
     return *this;
 }
 
+template < class T > void LList < T >::change ( const T &_rec, size_t _index )
+{
+	LListItem < T > *li = getItem ( _index );
+	li->m_data = _rec;
+}
 
 template < class T > void LList < T >::insert ( const T & newdata )
 {

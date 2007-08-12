@@ -32,6 +32,11 @@ XMLNode::~XMLNode ()
 {
 }
 
+nodeType XMLNode::getNodeType ()
+{
+	return m_nodeType;
+}
+
 std::string XMLNode::getNodeName ()
 {
 	return m_nodeName;
@@ -40,11 +45,6 @@ std::string XMLNode::getNodeName ()
 std::string XMLNode::getNodeValue ()
 {
 	return m_nodeValue;
-}
-
-nodeType XMLNode::getNodeType ()
-{
-	return m_nodeType;
 }
 
 void XMLNode::setNodeValue ( std::string _nodeValue )
@@ -57,9 +57,14 @@ bool XMLNode::hasChildNodes ()
 	return m_childNodes.size() > 0;
 }
 
-LList<XMLNode *> *XMLNode::getChildNodes ()
+LList<XMLAttribute *> *XMLNode::getAttributes ()
 {
-	return &m_childNodes;
+	return &m_attributes;
+}
+
+CrissCross::Text::XML::XMLDocument *XMLNode::getOwnerDocument ()
+{
+	return m_ownerDocument;
 }
 
 XMLNode *XMLNode::getFirstChild ()
@@ -74,13 +79,6 @@ XMLNode *XMLNode::getLastChild ()
 	return m_childNodes.get(m_childNodes.size() - 1);
 }
 
-XMLNode *XMLNode::getPreviousSibling ()
-{
-	CoreAssert ( m_parentNode );
-	LList<XMLNode *> *siblings = m_parentNode->getChildNodes();
-	return siblings->get ( siblings->find ( this ) - 1 );
-}
-
 XMLNode *XMLNode::getNextSibling ()
 {
 	CoreAssert ( m_parentNode );
@@ -88,12 +86,43 @@ XMLNode *XMLNode::getNextSibling ()
 	return siblings->get ( siblings->find ( this ) + 1 );
 }
 
-LList<XMLAttribute *> *XMLNode::getAttributes ()
+XMLNode *XMLNode::getPreviousSibling ()
 {
-	return &m_attributes;
+	CoreAssert ( m_parentNode );
+	LList<XMLNode *> *siblings = m_parentNode->getChildNodes();
+	return siblings->get ( siblings->find ( this ) - 1 );
 }
 
-CrissCross::Text::XML::XMLDocument *XMLNode::getOwnerDocument ()
+XMLNode *XMLNode::getParentNode ()
 {
-	return m_ownerDocument;
+	return m_parentNode;
+}
+
+LList<XMLNode *> *XMLNode::getChildNodes ()
+{
+	return &m_childNodes;
+}
+
+XMLNode *XMLNode::removeChild ( XMLNode *_oldChild )
+{
+	m_childNodes.remove ( m_childNodes.find ( _oldChild ) );
+	return _oldChild;
+}
+
+XMLNode *XMLNode::insertBefore ( XMLNode *_newChild, XMLNode *_refChild )
+{
+	m_childNodes.insert_at ( _newChild, m_childNodes.find ( _refChild ) );
+	return _newChild;
+}
+
+XMLNode *XMLNode::replaceChild ( XMLNode *_newChild, XMLNode * _oldChild )
+{
+	m_childNodes.change ( _newChild, m_childNodes.find ( _oldChild ) );
+	return _newChild;
+}
+
+XMLNode *XMLNode::appendChild ( XMLNode *_newChild )
+{
+	m_childNodes.insert ( _newChild );
+	return _newChild;
 }

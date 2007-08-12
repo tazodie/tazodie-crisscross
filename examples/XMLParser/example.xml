@@ -1,0 +1,51 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<!-- Looks like special tags work :D -->
+<root>
+	<!-- Comments work :D -->
+	<article date="2006-10-xx">
+		<title>
+			xml
+		</title>
+		<author>
+			Steven
+		</author>
+		<text>
+			This is a test of CrissCross XML
+		</text>
+	</article>
+	<article>
+		<title>
+			xml parser
+		</title>
+		<author>
+			Steven
+		</author>
+		<!-- Another comment! -->
+		<text>
+			This is a test of CrissCross XML
+		</text>
+	</article>
+	<!-- a waste of a comment... -->
+	<article>
+		<title>
+			for every animal you don't eat, I'm going to eat three.
+		</title>
+		<author>
+			lorem ipsum
+		</author>
+		<!-- Detta är ett test på svenska för att se hur output blir. Även lite test med € hade jag tänkt.. -->
+	</article>
+	<changes>
+		<point type="fix">
+			Lorem ipsum?
+		</point>
+		<point type="addition">
+			This is a sample file.
+		</point>
+		<!-- Final, coolest change :D -->
+		<point type="cool change" cool="definitely">
+			blah blah
+		</point>
+	</changes>
+	<!-- Aligned using KWrite. (Lies, I use EMACS now :P) -->
+</root>
