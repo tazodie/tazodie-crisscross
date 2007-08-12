@@ -27,7 +27,7 @@ namespace CrissCross
 			class XMLParser
 			{
 			private:
-				XMLDocument *m_document;
+				CrissCross::Text::XML::XMLDocument *m_document;
 
 				//! Trim all whitespace in the string.
 				/*!

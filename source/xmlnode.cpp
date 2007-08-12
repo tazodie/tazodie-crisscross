@@ -64,10 +64,36 @@ LList<XMLNode *> *XMLNode::getChildNodes ()
 
 XMLNode *XMLNode::getFirstChild ()
 {
+	CoreAssert ( m_childNodes.size() > 0 );
 	return m_childNodes.get(0);
 }
 
 XMLNode *XMLNode::getLastChild ()
 {
+	CoreAssert ( m_childNodes.size() > 0 );
 	return m_childNodes.get(m_childNodes.size() - 1);
+}
+
+XMLNode *XMLNode::getPreviousSibling ()
+{
+	CoreAssert ( m_parentNode );
+	LList<XMLNode *> *siblings = m_parentNode->getChildNodes();
+	return siblings->get ( siblings->find ( this ) - 1 );
+}
+
+XMLNode *XMLNode::getNextSibling ()
+{
+	CoreAssert ( m_parentNode );
+	LList<XMLNode *> *siblings = m_parentNode->getChildNodes();
+	return siblings->get ( siblings->find ( this ) + 1 );
+}
+
+LList<XMLAttribute *> *XMLNode::getAttributes ()
+{
+	return &m_attributes;
+}
+
+CrissCross::Text::XML::XMLDocument *XMLNode::getOwnerDocument ()
+{
+	return m_ownerDocument;
 }
