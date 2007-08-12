@@ -28,10 +28,9 @@ XMLAttribute::XMLAttribute ( CrissCross::Text::XML::XMLDocument *_ownerDocument 
 }
 
 XMLAttribute::XMLAttribute ( CrissCross::Text::XML::XMLDocument *_ownerDocument, std::string _name, std::string _value )
- : XMLNode ( _ownerDocument )
+ : XMLNode ( _ownerDocument, _name, _value )
 {
-	m_nodeName = _name;
-	m_nodeValue = _value;
+	m_nodeType = ATTRIBUTE_NODE;
 }
 
 XMLAttribute::~XMLAttribute()

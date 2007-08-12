@@ -53,6 +53,7 @@ namespace CrissCross
 
 				XMLNode			*m_parentNode;
 				CrissCross::Data::LList<XMLNode *> m_childNodes;
+				CrissCross::Data::LList<XMLAttribute *> m_attributes;
 
 			public:
 				//XMLNode ();
@@ -61,13 +62,13 @@ namespace CrissCross
 				XMLNode ( CrissCross::Text::XML::XMLDocument *_ownerDocument, std::string _name, std::string _value );
 				~XMLNode();
 
-				nodeType		getNodeType ();
-				std::string		getNodeName ();
-				std::string		getNodeValue ();
-				void			setNodeValue ( std::string _nodeValue );
-				bool			hasChildNodes ();
-				CrissCross::Data::LList<XMLAttribute *> *getAttributes ();
-				XMLDocument		*getOwnerDocument ();
+				nodeType		getNodeType (); //
+				std::string		getNodeName (); //
+				std::string		getNodeValue (); //
+				void			setNodeValue ( std::string _nodeValue ); //
+				bool			hasChildNodes (); //
+				CrissCross::Data::LList<XMLAttribute *> *getAttributes (); //
+				CrissCross::Text::XML::XMLDocument		*getOwnerDocument ();
 
 				XMLNode			*getFirstChild();
 				XMLNode			*getLastChild();
@@ -75,6 +76,12 @@ namespace CrissCross
 				XMLNode			*getPreviousSibling();
 				XMLNode			*getParentNode();
 				CrissCross::Data::LList<XMLNode *> *getChildNodes();
+
+				XMLNode			*removeChild ( XMLNode *_oldChild );
+				XMLNode			*insertBefore ( XMLNode *_newChild, XMLNode *_refChild );
+				XMLNode			*appendChild ( XMLNode *_newChild );
+				XMLNode			*replaceChild ( XMLNode *_newChild, XMLNode * _oldChild );
+				XMLNode			*cloneNode ( bool _deep );
 			};
 		}
 	}
