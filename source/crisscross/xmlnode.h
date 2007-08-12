@@ -33,15 +33,15 @@ namespace CrissCross
 
 			public:
 				//XMLNode ();
-				XMLNode ( CrissCross::Text::XML::XMLDocument *_ownerDocument );
-				XMLNode ( CrissCross::Text::XML::XMLDocument *_ownerDocument, std::string name );
-				XMLNode ( CrissCross::Text::XML::XMLDocument *_ownerDocument, std::string _name, std::string _value );
+				XMLNode ( CrissCross::Text::XML::XMLDocument *_ownerDocument,
+						  std::string _name = std::string(""), std::string _value = std::string("") );
 				~XMLNode();
 
 				XMLNodeType		getNodeType ();
 				std::string		getNodeName ();
 				std::string		getNodeValue ();
 				void			setNodeValue ( std::string _nodeValue );
+				void			setNodeName ( std::string _nodeName );
 				bool			hasChildNodes ();
 				XMLNamedNodeMap *getAttributes ();
 				CrissCross::Text::XML::XMLDocument *getOwnerDocument ();
