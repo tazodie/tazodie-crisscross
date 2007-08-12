@@ -111,7 +111,7 @@ namespace CrissCross
                \param _bufferLength The length of the buffer specified in _buffer.
                \return The number of bytes read.
              */
-            virtual int ReadLine ( char *_buffer, int _bufferLength );
+            virtual int ReadLine ( char *_buffer, size_t _bufferLength );
 
             //! Sets the line ending convention used by this CoreIOReader instance.
             /*!
