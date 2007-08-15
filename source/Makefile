@@ -99,7 +99,7 @@ endif
 	$(STRIP) $(OUTDIR)/$(OUTBIN)
 
 $(GCH): $(PCH)
-	$(shell pwd)/../tools/GenerateBuildNumber.sh "$(shell pwd)/crisscross"
+	$(shell which bash) $(shell pwd)/../tools/GenerateBuildNumber.sh "$(shell pwd)/crisscross"
 ifeq ($(GCC_MAJOR),4)
 	$(CXX) $(CXXFLAGS) -c $(PCH) -o $(GCH)
 endif
