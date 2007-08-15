@@ -1,6 +1,8 @@
 VERSION ?????
     * Added ShellSort
-	* Added InsertionSort
+    * Added InsertionSort
+    * Fixed Stopwatch on FreeBSD, NetBSD and OpenBSD.
+    * Added a DOM-compliant XML parser.
 
 VERSION 0.6.5
     * CrissCross::Data::Compare now can compare C-style strings.
