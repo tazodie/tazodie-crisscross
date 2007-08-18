@@ -118,14 +118,14 @@ ParseMemoryLeakFile ( const char *_inputFilename,
     // Sort the results into a list
     //
 
-    std::list<char *> sorted;
+    LList<char *> sorted;
 
     int totalsize = 0;
 
 	RedBlackNode<char *,int> *node = combined.NULL_NODE;
 	combined.getNext ( &node );
 
-    while ( node )
+    while ( node != combined.NULL_NODE && node != NULL )
     {
         char *newsource = node->id;
 		int newsize = node->data;
@@ -133,23 +133,21 @@ ParseMemoryLeakFile ( const char *_inputFilename,
         totalsize += newsize;
         bool inserted = false;
 
-        std::list<char *>::iterator sit;
-        for ( sit = sorted.begin(); sit != sorted.end(); ++sit )
+        for ( size_t i = 0; i < sorted.size(); i++ )
         {
-
-            char *existingsource = *sit;
+            char *existingsource = sorted.get(i);
             int existingsize = combined.findNode ( existingsource )->data;
 
             if ( newsize <= existingsize )
             {
-                sorted.insert ( sit, newsource );
+                sorted.insert_at ( newsource, i );
                 inserted = true;
                 break;
             }
         }
 
         if ( !inserted )
-            sorted.push_back ( newsource );
+            sorted.insert ( newsource );
 
 		combined.getNext ( &node );
     }
@@ -172,11 +170,10 @@ ParseMemoryLeakFile ( const char *_inputFilename,
         fprintf ( output, "Total unrecognised memory leaks : %d Kbytes\n\n",
             int ( unrecognised / 1024 ) );
 
-        std::list<char *>::reverse_iterator k;
-        for ( k = sorted.rbegin(); k != sorted.rend(); ++k )
+        for ( int k = sorted.size(); k > 0; ++k )
         {
 
-            char *source = *k;
+            char *source = sorted.get(k);
             int size = combined.findNode ( source )->data;
             int freq = frequency.findNode ( source )->data;
 
