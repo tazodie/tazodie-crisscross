@@ -17,6 +17,7 @@
 #include <crisscross/llist.h>
 
 using namespace std;
+using namespace CrissCross::Data;
 using namespace CrissCross::Debug;
 using namespace CrissCross::IO;
 
@@ -40,8 +41,8 @@ ParseMemoryLeakFile ( const char *_inputFilename,
     // Start up
     //
 
-    std::map<std::string,int> combined;
-    std::map<std::string,int> frequency;
+    RedBlackTree<char *,int> combined;
+    RedBlackTree<char *,int> frequency;
     int unrecognised = 0;
 
     //
@@ -71,22 +72,25 @@ ParseMemoryLeakFile ( const char *_inputFilename,
 
             // Get the source file name
 
-            std::string sourcelocation = string(thisline);
+            char *sourcelocation = thisline;
             char *colon = strrchr ( thisline, ':' );
 
             *( colon - 1 ) = '\x0';
 
             // Put the result into our BTree
 
-            if ( combined.find(sourcelocation) != combined.end() )
-                combined[sourcelocation] += size;
-            else
-                combined[sourcelocation] = size;
+			RedBlackNode<char *,int> *comb = combined.findNode ( sourcelocation );
+			RedBlackNode<char *,int> *freq = frequency.findNode ( sourcelocation );
 
-            if ( frequency.find(sourcelocation) != frequency.end() )
-                frequency[sourcelocation]++;
+            if ( comb )
+                comb->data += size;
             else
-                frequency[sourcelocation] = 1;
+                combined.insert ( sourcelocation, size );
+
+            if ( freq )
+                freq->data++;
+            else
+                frequency.insert ( sourcelocation, 1 );
 
         }
         else
@@ -114,25 +118,27 @@ ParseMemoryLeakFile ( const char *_inputFilename,
     // Sort the results into a list
     //
 
-    std::list<std::string> sorted;
+    std::list<char *> sorted;
 
     int totalsize = 0;
 
-    std::map<std::string,int>::iterator cit;
-    for ( cit = combined.begin(); cit != combined.end (); ++cit )
+	RedBlackNode<char *,int> *node = combined.NULL_NODE;
+	combined.getNext ( &node );
+
+    while ( node )
     {
-        std::string newsource = cit->first;
-        int newsize = cit->second;
+        char *newsource = node->id;
+		int newsize = node->data;
 
         totalsize += newsize;
         bool inserted = false;
 
-        std::list<std::string>::iterator sit;
+        std::list<char *>::iterator sit;
         for ( sit = sorted.begin(); sit != sorted.end(); ++sit )
         {
 
-            std::string existingsource = *sit;
-            int existingsize = combined.find ( existingsource )->second;
+            char *existingsource = *sit;
+            int existingsize = combined.findNode ( existingsource )->data;
 
             if ( newsize <= existingsize )
             {
@@ -144,6 +150,8 @@ ParseMemoryLeakFile ( const char *_inputFilename,
 
         if ( !inserted )
             sorted.push_back ( newsource );
+
+		combined.getNext ( &node );
     }
 
 
@@ -164,22 +172,22 @@ ParseMemoryLeakFile ( const char *_inputFilename,
         fprintf ( output, "Total unrecognised memory leaks : %d Kbytes\n\n",
             int ( unrecognised / 1024 ) );
 
-        std::list<std::string>::reverse_iterator k;
+        std::list<char *>::reverse_iterator k;
         for ( k = sorted.rbegin(); k != sorted.rend(); ++k )
         {
 
-            std::string source = *k;
-            int size = combined.find ( source )->second;
-            int freq = frequency.find ( source )->second;
+            char *source = *k;
+            int size = combined.findNode ( source )->data;
+            int freq = frequency.findNode ( source )->data;
 
             if ( size > 2048 )
             {
-                fprintf ( output, "%-95s (%d Kbytes in %d leaks)\n", source.c_str(),
+                fprintf ( output, "%-95s (%d Kbytes in %d leaks)\n", source,
                         int ( size / 1024 ), freq );
             }
             else
             {
-                fprintf ( output, "%-95s (%d  bytes in %d leaks)\n", source.c_str(), size,
+                fprintf ( output, "%-95s (%d  bytes in %d leaks)\n", source, size,
                         freq );
             }
         }
