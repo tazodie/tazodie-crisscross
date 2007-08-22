@@ -14,7 +14,7 @@
 using namespace CrissCross::IO;
 using namespace CrissCross::System;
 
-//#define PREGEN 4096
+#define PREGEN 4096
 
 //#define USE_INTEGERS
 
@@ -42,13 +42,13 @@ isPrime ( prime_t _candidate )
 {
 	prime_t i, limit, next, *p;
 
-	if ( (int)_candidate == 1 ) return false;
+	if ( _candidate == 1 ) return false;
 
 	/* All numbers less than 4 are prime, except '1'. */
 	if ( _candidate < 4.0 ) return true;
 
 	/* All other numbers divisble by 2 are not prime. */
-	if ( (int)_modulus ( _candidate, 2 ) == 0 ) return false;
+	if ( _modulus ( _candidate, 2 ) == 0 ) return false;
 
 	/*
          if n is composite then it can be factored into two values,
@@ -59,7 +59,7 @@ isPrime ( prime_t _candidate )
 #ifdef PREGEN
 	/* Iterate through the prime cache first to check divisors. */
 	for ( p = primeCache; *p != 0 && *p <= limit; p++ )
-		if ( (int)_modulus ( _candidate, *p ) == 0 ) return false;
+		if ( _modulus ( _candidate, *p ) == 0 ) return false;
 
 	/* Why did we exit the loop? Too high a divisor? */
 	if ( *p >= limit ) return true;
@@ -72,7 +72,7 @@ isPrime ( prime_t _candidate )
 		next = 3;
 	
 	/* Now test all other odd numbers up to sqrt(n) */
-	for ( i = next; i <= limit; i += 2 ) if ( (int)_modulus ( _candidate, i ) == 0 ) return false;
+	for ( i = next; i <= limit; i += 2 ) if ( _modulus ( _candidate, i ) == 0 ) return false;
 
 	return true;
 #if defined ( TARGET_OS_WINDOWS ) && defined ( TARGET_CPU_X86 )
