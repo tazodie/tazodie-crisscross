@@ -219,6 +219,7 @@
 				ExceptionHandling="2"
 				RuntimeLibrary="2"
 				BufferSecurityCheck="false"
+				EnableEnhancedInstructionSet="0"
 				OpenMP="true"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="header.h"

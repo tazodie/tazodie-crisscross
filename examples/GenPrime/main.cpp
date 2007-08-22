@@ -14,11 +14,23 @@
 using namespace CrissCross::IO;
 using namespace CrissCross::System;
 
-#define PREGEN 4096
+//#define PREGEN 4096
 
-typedef bool (*isPrimeFunc)( unsigned long  _number );
+//#define USE_INTEGERS
 
-unsigned long primeCache[PREGEN]; unsigned long *primeCachePtr;
+#ifdef USE_INTEGERS
+typedef unsigned long prime_t;
+#define _modulus(x,y) x % y
+#else
+typedef float prime_t;
+#define _modulus(x,y) fmod(x,y)
+#endif
+
+typedef bool (*isPrimeFunc)( prime_t _number );
+
+#ifdef PREGEN
+prime_t primeCache[PREGEN]; prime_t *primeCachePtr;
+#endif
 
 //
 // NOTE: The '__asm nop;' lines keep the compiler from marking the function
@@ -26,27 +38,28 @@ unsigned long primeCache[PREGEN]; unsigned long *primeCachePtr;
 //
 
 bool
-isPrime ( unsigned long _candidate )
+isPrime ( prime_t _candidate )
 {
-	unsigned long i, limit, next, *p;
+	prime_t i, limit, next, *p;
 
-	if ( _candidate == 1 ) return false;
+	if ( (int)_candidate == 1 ) return false;
 
 	/* All numbers less than 4 are prime, except '1'. */
-	if ( _candidate < 4 ) return true;
+	if ( _candidate < 4.0 ) return true;
 
 	/* All other numbers divisble by 2 are not prime. */
-	if ( _candidate % 2 == 0 ) return false;
+	if ( (int)_modulus ( _candidate, 2 ) == 0 ) return false;
 
 	/*
          if n is composite then it can be factored into two values,
          at least one of which is less than or equal to sqrt(n)
 	*/
-	limit = (unsigned long)sqrt((double)_candidate);
+	limit = (prime_t)sqrt((double)_candidate);
 	
+#ifdef PREGEN
 	/* Iterate through the prime cache first to check divisors. */
 	for ( p = primeCache; *p != 0 && *p <= limit; p++ )
-		if ( ( _candidate % *p ) == 0 ) return false;
+		if ( (int)_modulus ( _candidate, *p ) == 0 ) return false;
 
 	/* Why did we exit the loop? Too high a divisor? */
 	if ( *p >= limit ) return true;
@@ -55,10 +68,11 @@ isPrime ( unsigned long _candidate )
 	if ( primeCache[PREGEN-2] )
 		next = primeCache[PREGEN-2] + 2;
 	else
+#endif
 		next = 3;
 	
 	/* Now test all other odd numbers up to sqrt(n) */
-	for ( i = next; i < limit; i += 2 ) if ( _candidate % i == 0 ) return false;
+	for ( i = next; i <= limit; i += 2 ) if ( (int)_modulus ( _candidate, i ) == 0 ) return false;
 
 	return true;
 #if defined ( TARGET_OS_WINDOWS ) && defined ( TARGET_CPU_X86 )
@@ -67,12 +81,12 @@ isPrime ( unsigned long _candidate )
 }
 
 unsigned long
-genPrime ( unsigned long _maxToFind, isPrimeFunc _func )
+genPrime ( prime_t _maxToFind, isPrimeFunc _func )
 {
 	unsigned long count = 0;
 	for ( unsigned long num = 1; count < _maxToFind; num++ )
 	{
-		if ( _func ( num ) )
+		if ( _func ( (prime_t)num ) )
 		{
 			count++;
 		}
@@ -83,8 +97,8 @@ genPrime ( unsigned long _maxToFind, isPrimeFunc _func )
 #endif
 }
 
-
-void AddPrimeToCache ( unsigned long _prime )
+#ifdef PREGEN
+void AddPrimeToCache ( prime_t _prime )
 {
 	static char inUse = 0;
 	if ( primeCachePtr - primeCache > PREGEN - 2 )
@@ -100,13 +114,14 @@ void PrecalculatePrimes()
 {
 	/* Find a predetermined number of primes to use as divisors. */
 
-	unsigned long n;
+	prime_t n;
 	memset ( primeCache, 0, sizeof ( primeCache ) );
 	primeCachePtr = primeCache;
 	for ( n = 3; primeCachePtr - primeCache <= PREGEN - 2; n += 2 )
 		if ( isPrime ( n ) )
 			AddPrimeToCache ( n );
 }
+#endif
 
 int
 RunApplication ( int argc, char **argv )
@@ -115,7 +130,9 @@ RunApplication ( int argc, char **argv )
 
     // Begin your application here.
 
+#ifdef PREGEN
 	PrecalculatePrimes ();
+#endif
 
 #ifdef TARGET_OS_WINDOWS
 	HANDLE hThread = GetCurrentThread();
