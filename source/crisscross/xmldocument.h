@@ -12,6 +12,8 @@
 #ifndef __included_xmldocument_h
 #define __included_xmldocument_h
 
+#include <crisscross/textreader.h>
+
 namespace CrissCross
 {
 	namespace Text
@@ -24,12 +26,21 @@ namespace CrissCross
 				XMLElement *m_rootElement;
 				CrissCross::Text::Encoding::charEncoding m_xmlEncoding;
 
+				inline bool IsWhiteSpace( char c );
+				const char *SkipWhiteSpace ( const char* p, CrissCross::Text::Encoding::charEncoding encoding );
+				void trim ( char *_buffer, size_t _bufSize );
+
+				int parse ( const char *_buffer );
+
 			public:
 				XMLDocument ();
 				~XMLDocument();
 
 				void setEncoding ( CrissCross::Text::Encoding::charEncoding _encoding );
 				CrissCross::Text::Encoding::charEncoding getEncoding ();
+
+				int									load ( const char *_path );
+				int									load ( CrissCross::IO::TextReader *_file );
 
 #if 0
 				XMLDocumentType						getDoctype();

@@ -23,8 +23,8 @@ RunApplication ( int argc, char **argv )
 
     // Begin your application here.
 
-	XMLParser xml;
-	xml.parse ( "example.xml" );
+	CrissCross::Text::XML::XMLDocument xml;
+	xml.load ( "example.xml" );
 
     // End your application here.
 
