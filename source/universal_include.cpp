@@ -170,10 +170,11 @@ ParseMemoryLeakFile ( const char *_inputFilename,
         fprintf ( output, "Total unrecognised memory leaks : %d Kbytes\n\n",
             int ( unrecognised / 1024 ) );
 
-        for ( int k = sorted.size(); k > 0; ++k )
+        for ( int k = 0; k <= sorted.size(); k++ )
         {
 
             char *source = sorted.get(k);
+			CoreAssert ( source );
             int size = combined.findNode ( source )->data;
             int freq = frequency.findNode ( source )->data;
 

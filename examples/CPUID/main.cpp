@@ -99,8 +99,8 @@ RunApplication ( int argc, char **argv )
 
             // Print out CPU features (MMX, SSE, and so on).
             console->Write ( "CPU[%d] Features: ", i );
-            RedBlackNode <const char *, Feature *> *node = cpuid->proc[i]->features.rootNode;
-            node->beenThere = RedBlackTree <std::string, Feature *>::NODE_ITSELF_VISITED;
+            CrissCross::Data::RedBlackNode <const char *, Feature *> *node = cpuid->proc[i]->features.rootNode;
+            node->beenThere = CrissCross::Data::RedBlackTree <std::string, Feature *>::NODE_ITSELF_VISITED;
             while ( cpuid->proc[i]->features.valid ( node ) )
             {
                 if ( node->data->Enabled )

@@ -20,18 +20,28 @@ using namespace CrissCross::Text::Encoding;
 using namespace CrissCross::Text::XML;
 using namespace CrissCross::IO;
 
-XMLAttribute::XMLAttribute ( CrissCross::Text::XML::XMLDocument *_ownerDocument )
- : XMLNode ( _ownerDocument )
+namespace CrissCross
 {
-	m_nodeType = ATTRIBUTE_NODE;
-}
+	namespace Text
+	{
+		namespace XML
+		{
 
-XMLAttribute::XMLAttribute ( CrissCross::Text::XML::XMLDocument *_ownerDocument, std::string _name, std::string _value )
- : XMLNode ( _ownerDocument, _name, _value )
-{
-	m_nodeType = ATTRIBUTE_NODE;
-}
+			XMLAttribute::XMLAttribute ( CrissCross::Text::XML::XMLDocument *_ownerDocument )
+			 : XMLNode ( _ownerDocument )
+			{
+				m_nodeType = ATTRIBUTE_NODE;
+			}
 
-XMLAttribute::~XMLAttribute()
-{
+			XMLAttribute::XMLAttribute ( CrissCross::Text::XML::XMLDocument *_ownerDocument, std::string _name, std::string _value )
+			 : XMLNode ( _ownerDocument, _name, _value )
+			{
+				m_nodeType = ATTRIBUTE_NODE;
+			}
+
+			XMLAttribute::~XMLAttribute()
+			{
+			}
+		}
+	}
 }

@@ -56,8 +56,8 @@ namespace CrissCross
 			char Stepping;
 			char BrandID;
 			char APICID;
-			RedBlackTree<const char *, Feature *> features;
-			DArray <char *> caches;
+			CrissCross::Data::RedBlackTree<const char *, Feature *> features;
+			CrissCross::Data::DArray <char *> caches;
 		  public:
 			Processor ()
 			{

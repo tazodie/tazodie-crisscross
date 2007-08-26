@@ -15,6 +15,8 @@
 
 #include <crisscross/llist.h>
 
+using namespace CrissCross::Data;
+
 int TestLList()
 {
     LList<char *> *llist = new LList<char *>();

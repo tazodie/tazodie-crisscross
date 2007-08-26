@@ -11,6 +11,8 @@
 
 #include <crisscross/universal_include.h>
 
+#if 0
+
 #include <crisscross/error.h>
 #include <crisscross/encoding.h>
 #include <crisscross/xml.h>
@@ -126,3 +128,5 @@ XMLParser::parse ( CrissCross::IO::TextReader *_file )
 
 	return CC_ERR_NONE;
 }
+
+#endif
