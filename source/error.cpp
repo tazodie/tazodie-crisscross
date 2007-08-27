@@ -131,7 +131,7 @@ namespace CrissCross
 	#endif
 
 	CrissCross::Errors
-	CrissCross::GetErrorNumber (int why)
+	GetErrorNumber (int why)
 	{
 	  for (int i = 0; errmap[i].s != NULL; ++i)
 		if (why == errmap[i].w)
@@ -141,7 +141,7 @@ namespace CrissCross
 	}
 
 	const char *
-	CrissCross::GetErrorDescription (CrissCross::Errors why)
+	GetErrorDescription (CrissCross::Errors why)
 	{
 	  for (int i = 0; errmap[i].e != CC_ERR_NONE; ++i)
 		if (why == errmap[i].e)
