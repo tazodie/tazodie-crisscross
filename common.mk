@@ -70,7 +70,7 @@ endif
 ifeq ($(GCC_ISAPPLE),yes)
     ifeq ($(GCC_ISX86),yes)
         # Intel Core Duo or Core 2 Duo (Intel Mac)
-        ARCH = -march=prescott -mtune=prescott
+        ARCH = -m32 -march=prescott -mtune=prescott
     else
     ifeq ($(GCC_ISPPC),yes)
         ARCH = -mtune=G4
@@ -80,7 +80,7 @@ ifeq ($(GCC_ISAPPLE),yes)
     endif
 else
     ifeq ($(GCC_ISX86),yes)
-        ARCH = -march=pentium2 -mtune=pentium2
+        ARCH = -m32 -march=pentium2 -mtune=pentium2
     else
     ifeq ($(GCC_ISPPC),yes)
         ARCH = -mtune=G4
