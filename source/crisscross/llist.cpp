@@ -349,7 +349,7 @@ namespace CrissCross
 
 			for ( size_t i = 0; i < size; ++i )
 			{
-				if ( get ( i ) == data )
+				if ( Compare ( get ( i ), data ) == 0 )
 				{
 					return i;
 				}
