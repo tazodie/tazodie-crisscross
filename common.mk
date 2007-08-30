@@ -1,3 +1,13 @@
+# Some useful functions for numeric comparison.
+
+gt = $(filter-out $(words $2),$(words $(call max,$1,$2)))
+lt = $(filter-out $(words $1),$(words $(call max,$1,$2)))
+eq = $(filter $(words $1),$(words $2))
+ne = $(filter-out $(words $1),$(words $2))
+gte = $(call gt,$1,$2)$(call eq,$1,$2)
+lte = $(call lt,$1,$2)$(call eq,$1,$2)
+
+
 # CrissCross common makefile options.
 
 VERSION = 0.6.5
