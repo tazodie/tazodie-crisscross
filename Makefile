@@ -32,3 +32,29 @@ clean:
 	$(MAKE) -C TestSuite clean
 
 distclean: clean
+
+info:
+	@echo "Will compile with GCC v$(GCC_MAJOR).$(GCC_MINOR)."
+	@echo "CFLAGS=$(CFLAGS)"
+	@echo "CXXFLAGS=$(CXXFLAGS)"
+
+	@echo -n "Processor supports MMX: "
+ifeq ($(GCC_HAS_MMX),yes)
+	@echo "YES"
+else
+	@echo "NO"
+endif
+
+	@echo -n "Processor supports SSE: "
+ifeq ($(GCC_HAS_SSE),yes)
+	@echo "YES"
+else
+	@echo "NO"
+endif
+
+	@echo -n "Processor supports SSE2: "
+ifeq ($(GCC_HAS_SSE2),yes)
+	@echo "YES"
+else
+	@echo "NO"
+endif
