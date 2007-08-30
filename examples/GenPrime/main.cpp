@@ -75,8 +75,12 @@ isPrime ( prime_t _candidate )
 	for ( i = next; i <= limit; i += 2 ) if ( _modulus ( _candidate, i ) == 0 ) return false;
 
 	return true;
-#if defined ( TARGET_OS_WINDOWS ) && defined ( TARGET_CPU_X86 )
+#if defined ( TARGET_CPU_X86 )
+#if defined ( TARGET_COMPILER_VC )
 	__asm nop;
+#elif defined ( TARGET_COMPILER_GCC )
+	asm ( "nop" );
+#endif
 #endif
 }
 
@@ -92,8 +96,12 @@ genPrime ( prime_t _maxToFind, isPrimeFunc _func )
 		}
 	}
 	return count;
-#if defined ( TARGET_OS_WINDOWS ) && defined ( TARGET_CPU_X86 )
+#if defined ( TARGET_CPU_X86 )
+#if defined ( TARGET_COMPILER_VC )
 	__asm nop;
+#elif defined ( TARGET_COMPILER_GCC )
+	asm ( "nop" );
+#endif
 #endif
 }
 

@@ -17,7 +17,7 @@ else
 LINK += -L../../source
 endif
 INCLUDES += -I. -I../../source
-CXXFLAGS += $(INCLUDES)
+CXXFLAGS += -ffast-math $(INCLUDES)
 
 ifeq ($(GCC_MAJOR),4)
 PCH = header.h
