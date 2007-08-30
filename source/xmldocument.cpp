@@ -137,7 +137,6 @@ namespace CrissCross
 				size_t fileLen = _file->Length();
 				char *buffer = new char[fileLen + 1];
 				_file->Read ( buffer, fileLen + 1, 0, fileLen );
-				XMLNode *activeNode = NULL;
 				
 				char *data = new char[fileLen + 1];
 				char const *p = buffer;

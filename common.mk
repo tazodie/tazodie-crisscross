@@ -23,10 +23,10 @@ GCC_MINGW    := $(shell $(CXX) -v 2>&1 | \
                     grep "mingw" )
 GCC_CYGMING  := $(shell $(CXX) -v 2>&1 | \
                     grep "cygming" )
-GCC_MAJOR    := $(shell $(CXX) -v 2>&1 | \
-                        grep " version " | cut -d' ' -f3  | cut -d'.' -f1)
-GCC_MINOR    := $(shell $(CXX) -v 2>&1 | \
-                        grep " version " | cut -d' ' -f3  | cut -d'.' -f2)
+GCC_MAJOR    := $(shell $(CXX) -dumpversion 2>&1 | \
+                        cut -d' ' -f3  | cut -d'.' -f1)
+GCC_MINOR    := $(shell $(CXX) -dumpversion 2>&1 | \
+                        cut -d' ' -f3  | cut -d'.' -f2)
 GCC_PROC     := $(shell uname -m)
 GCC_MMX      := $(shell cat /proc/cpuinfo | grep mmx)
 GCC_SSE      := $(shell cat /proc/cpuinfo | grep sse)
