@@ -208,7 +208,6 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/Qipo- /Qip-"
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				EnableIntrinsicFunctions="true"
@@ -220,8 +219,7 @@
 				ExceptionHandling="2"
 				RuntimeLibrary="2"
 				BufferSecurityCheck="false"
-				EnableEnhancedInstructionSet="1"
-				FloatingPointModel="0"
+				EnableEnhancedInstructionSet="0"
 				OpenMP="true"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="header.h"
