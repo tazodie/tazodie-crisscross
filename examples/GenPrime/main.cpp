@@ -23,10 +23,10 @@ typedef unsigned long prime_t;
 #define _modulus(x,y) x % y
 #else
 typedef float prime_t;
-#define _modulus(x,y) fmod(x,y)
+#define _modulus(x,y) (int)fmod(x,y)
 #endif
 
-typedef bool (*isPrimeFunc)( prime_t _number );
+typedef bool (*isPrimeFunc)( unsigned long _number );
 
 #ifdef PREGEN
 prime_t primeCache[PREGEN]; prime_t *primeCachePtr;
@@ -37,18 +37,156 @@ prime_t primeCache[PREGEN]; prime_t *primeCachePtr;
 //		 as a waste of time and optimizing it out.
 //
 
+#ifdef TARGET_OS_WINDOWS
+#ifdef PREGEN
 bool
-isPrime ( prime_t _candidate )
+isPrime_asm ( unsigned long _candidate )
 {
-	prime_t i, limit, next, *p;
+	int retval = 0;
+	unsigned int floatpacket1[4] = {0, 0, 0, 0x041f00000};
+	unsigned int floatpacket2[4] = {0, 0, 0, 0x041f00000};
+	unsigned int floatpacket3 = 0x040000000;
+	unsigned int floatpacket4 = 0x040400000;
+	__asm {
+		mov			eax, _candidate
+
+		sub			esp, 20
+
+		// 1 isn't prime
+		cmp			eax, 1
+		je			notprime
+
+		// Anything else less than four is prime.
+		cmp			eax, 4
+		jb			prime
+
+		// Anything else divisible by 2 isn't prime.
+		test		al, 1
+		je			notprime
+
+		movss		xmm3, DWORD PTR primeCache
+		mov			DWORD PTR [esp], eax
+		fild		DWORD PTR [esp]
+		mov			DWORD PTR [esp], eax
+		fild		DWORD PTR [esp]
+		mov			edx, eax
+		shr			edx, 31
+		fxch		st(1)
+		fadd		QWORD PTR floatpacket2[0+edx*8]
+		fstp		DWORD PTR [esp+8]
+		shr			eax, 31
+		fadd		QWORD PTR floatpacket2[0+eax*8]
+		fsqrt
+		mov			edx, OFFSET primeCache
+		movss		xmm2, DWORD PTR [esp+8]
+		fstp		DWORD PTR[esp+8]
+		movss		xmm0, DWORD PTR [esp+8]
+		xorps		xmm1, xmm1
+		ucomiss		xmm3, xmm1
+		jp			b5_5
+		je			b5_22
+b5_5:
+		movss		xmm3, DWORD PTR [edx]
+b5_6:
+		comiss		xmm0, xmm3
+		jb			b5_10
+
+		movss		DWORD PTR [esp], xmm2
+		fld			DWORD PTR [esp]
+		movss		DWORD PTR [esp], xmm3
+		fld			DWORD PTR [esp]
+		fxch		st(1)
+L19:
+		fprem
+		fnstsw		ax
+		sahf
+		jp			L19
+		fstp		st(1)
+
+		fstp		DWORD PTR [esp+8]
+		movss		xmm3, DWORD PTR [esp+8]
+		cvttss2si	eax, xmm3
+		test		eax, eax
+		je			notprime
+
+		movss		xmm3, DWORD PTR [edx+4]
+		add			edx, 4
+		ucomiss		xmm3, xmm1
+		jne			b5_6
+		jp			b5_6
+
+b5_10:
+
+		// Why did we exit the loop? Too high a divisor?
+		comiss		xmm3, xmm0
+		jae			prime
+
+		movss		xmm5, DWORD PTR primeCache+PREGEN-2
+		ucomiss		xmm5, xmm1
+		movss		xmm4, DWORD PTR floatpacket3
+		movaps		xmm3, xmm4
+		addss		xmm3, xmm5
+		movss		xmm6, DWORD PTR floatpacket4
+		jne			L20
+		jp			L20
+		movaps		xmm3, xmm6
+L20:
+
+		comiss		xmm0, xmm3
+		jb			prime
+
+		movss		DWORD PTR [esp], xmm2
+		fld			DWORD PTR [esp]
+		fstp		DWORD PTR [esp+16]
+b5_13:
+		fld			DWORD PTR [esp+16]
+		movss		DWORD PTR [esp], xmm3
+		fld			DWORD PTR [esp]
+		fxch		st(1)
+L21:
+		fprem
+		fnstsw		ax
+		sahf
+		jp			L21
+		fstp		st(1)
+
+		fstp		DWORD PTR [esp+8]
+		movss		xmm1, DWORD PTR [esp+8]
+		cvttss2si	eax, xmm1
+		test		eax, eax
+		je			notprime
+
+		addss		xmm3, xmm4
+		comiss		xmm0, xmm3
+		jae			b5_13
+
+b5_22:
+		movss		xmm3, DWORD PTR [ebx]
+		jmp			b5_10
+prime:
+		mov			retval, 1
+notprime:
+		add			esp, 20
+	}
+	return ( retval != 0 );
+}
+#endif
+#endif
+
+bool
+isPrime ( unsigned long _candidate )
+{
+	prime_t i, limit, next, *p, n;
 
 	if ( _candidate == 1 ) return false;
 
 	/* All numbers less than 4 are prime, except '1'. */
-	if ( _candidate < 4.0 ) return true;
+	if ( _candidate < 4 ) return true;
 
 	/* All other numbers divisble by 2 are not prime. */
-	if ( _modulus ( _candidate, 2 ) == 0 ) return false;
+	if ( _candidate % 2 == 0 ) return false;
+
+	n = (prime_t)_candidate;
 
 	/*
          if n is composite then it can be factored into two values,
@@ -59,7 +197,7 @@ isPrime ( prime_t _candidate )
 #ifdef PREGEN
 	/* Iterate through the prime cache first to check divisors. */
 	for ( p = primeCache; *p != 0 && *p <= limit; p++ )
-		if ( _modulus ( _candidate, *p ) == 0 ) return false;
+		if ( _modulus ( n, *p ) == 0 ) return false;
 
 	/* Why did we exit the loop? Too high a divisor? */
 	if ( *p >= limit ) return true;
@@ -72,7 +210,7 @@ isPrime ( prime_t _candidate )
 		next = 3;
 	
 	/* Now test all other odd numbers up to sqrt(n) */
-	for ( i = next; i <= limit; i += 2 ) if ( _modulus ( _candidate, i ) == 0 ) return false;
+	for ( i = next; i <= limit; i += 2 ) if ( _modulus ( n, i ) == 0 ) return false;
 
 	return true;
 #if defined ( TARGET_CPU_X86 )
@@ -85,12 +223,13 @@ isPrime ( prime_t _candidate )
 }
 
 unsigned long
-genPrime ( prime_t _maxToFind, isPrimeFunc _func )
+genPrime ( unsigned long _maxToFind, isPrimeFunc _func )
 {
 	unsigned long count = 0;
 	for ( unsigned long num = 1; count < _maxToFind; num++ )
 	{
-		if ( _func ( (prime_t)num ) )
+		//CoreAssert ( isPrime ( num ) == _func ( num ) );
+		if ( _func ( num ) )
 		{
 			count++;
 		}
@@ -108,6 +247,7 @@ genPrime ( prime_t _maxToFind, isPrimeFunc _func )
 #ifdef PREGEN
 void AddPrimeToCache ( prime_t _prime )
 {
+	/* inUse is a simple lock for multithreading. */
 	static char inUse = 0;
 	if ( primeCachePtr - primeCache > PREGEN - 2 )
 		return;
@@ -122,12 +262,12 @@ void PrecalculatePrimes()
 {
 	/* Find a predetermined number of primes to use as divisors. */
 
-	prime_t n;
+	unsigned long n;
 	memset ( primeCache, 0, sizeof ( primeCache ) );
 	primeCachePtr = primeCache;
 	for ( n = 3; primeCachePtr - primeCache <= PREGEN - 2; n += 2 )
 		if ( isPrime ( n ) )
-			AddPrimeToCache ( n );
+			AddPrimeToCache ( (prime_t)n );
 }
 #endif
 
@@ -151,6 +291,7 @@ RunApplication ( int argc, char **argv )
 
 	Stopwatch sw;
 
+	console->WriteLine ( "Visual C++ 2005 optimized:" );
 	for ( unsigned long i = 100000; i <= 1000000; i += 100000 )
 	{
 		sw.Start();
@@ -158,6 +299,20 @@ RunApplication ( int argc, char **argv )
 		sw.Stop();
 		console->WriteLine ( "Time for %9d primes: %6.3lf seconds", i, sw.Elapsed() );
 	}
+
+#ifdef TARGET_OS_WINDOWS
+#ifdef PREGEN
+	console->WriteLine ();
+	console->WriteLine ( "Intel C++ Compiler v10 optimized:" );
+	for ( unsigned long i = 100000; i <= 1000000; i += 100000 )
+	{
+		sw.Start();
+		genPrime ( i, isPrime_asm );
+		sw.Stop();
+		console->WriteLine ( "Time for %9d primes: %6.3lf seconds", i, sw.Elapsed() );
+	}
+#endif
+#endif
 
     // End your application here.
 
