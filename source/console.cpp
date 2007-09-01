@@ -17,7 +17,7 @@ namespace CrissCross
 {
 	namespace IO
 	{
-		Console::Console ():
+		Console::Console ( bool _clearOnInit ):
 		CoreIOWriter ( stdout, false, CC_LN_LF ),
 		CoreIOReader ( stdin, false, CC_LN_LF )
 		{
@@ -38,7 +38,9 @@ namespace CrissCross
 				i = setvbuf ( stdout, NULL, _IONBF, 0 );
 			}
 
-			SetConsoleTitleA ( CC_LIB_NAME " " CC_LIB_VERSION " (Codename " CC_LIB_CODENAME ")" );
+			if ( _clearOnInit ) Clear();
+
+			SetTitle ( CC_LIB_NAME " " CC_LIB_VERSION " (Codename " CC_LIB_CODENAME ")" );
 		#endif
 		#ifdef ENABLE_CREDITS
 			g_stdout->SetColour ( g_stdout->FG_GREEN | g_stdout->FG_INTENSITY );
@@ -134,6 +136,18 @@ namespace CrissCross
 
 			Write ( "%s", codes );
 		#endif
+		}
+
+		void
+		Console::SetTitle ( const char *_title )
+		{
+			SetConsoleTitleA ( _title );
+		}
+
+		void
+		Console::SetTitle ( std::string &_title )
+		{
+			SetTitle ( _title.c_str () );
 		}
 
 		void

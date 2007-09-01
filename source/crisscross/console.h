@@ -63,7 +63,7 @@ namespace CrissCross
 
             //! The default constructor.
             /*! Allocates a new console for stdout and stderr output. */
-            Console ();
+            Console ( bool _clearOnInit = false );
 
             //! The alternate constructor
             /*!
@@ -86,6 +86,20 @@ namespace CrissCross
                \param _flags A bitmask created by OR-ing Console::ColourTypes flags.
              */
             void SetColour ( short _flags );
+
+			//! Sets the title of the console window (Windows only).
+			/*!
+               Sets the console window title using the value in the _title parameter.
+			   \param _title The title requested for the console window.
+		     */
+			void SetTitle ( const char *_title );
+
+			//! Sets the title of the console window (Windows only).
+			/*!
+               Sets the console window title using the value in the _title parameter.
+			   \param _title The title requested for the console window.
+		     */
+			void SetTitle ( std::string &_title );
 
             //! Clears the console.
             /*!

@@ -136,6 +136,7 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #       include <windows.h>
 #       if defined ( DETECT_MEMORY_LEAKS )
 #           include <dbghelp.h>
+#			pragma comment (lib, "dbghelp.lib")
 #       endif
 #       include <process.h>
 #       include <shlobj.h>
