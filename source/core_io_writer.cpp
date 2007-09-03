@@ -115,6 +115,8 @@ namespace CrissCross
 
 			va_end ( args );
 
+			Flush();
+
 		#ifndef __GNUC__
 			m_ioMutex.Unlock ();
 		#endif
@@ -137,6 +139,8 @@ namespace CrissCross
 		    
 			if ( fprintf ( m_fileOutputPointer, "%s%s", _string.c_str(), m_lineEnding ) < 0 )
 				return CC_ERR_WRITE;
+
+			Flush();
 
 		#ifndef __GNUC__    
 			m_ioMutex.Unlock ();

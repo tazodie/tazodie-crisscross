@@ -22,8 +22,10 @@ namespace CrissCross
 		CoreIOReader ( stdin, false, CC_LN_LF )
 		{
 		#ifdef TARGET_OS_WINDOWS
+			m_consoleAllocated = false;
 			if ( AllocConsole () == TRUE )
 			{
+				m_consoleAllocated = true;
 				int hCrt = _open_osfhandle ( ( intptr_t ) GetStdHandle ( STD_OUTPUT_HANDLE ), _O_TEXT );
 				FILE *hf = _fdopen ( hCrt, "w" );
 
@@ -61,7 +63,7 @@ namespace CrissCross
 		{
 			SetColour ( 0 );
 		#ifdef TARGET_OS_WINDOWS
-			FreeConsole ();
+			if ( m_consoleAllocated ) FreeConsole ();
 		#endif
 		}
 
