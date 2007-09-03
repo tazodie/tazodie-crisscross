@@ -21,6 +21,10 @@ namespace CrissCross
         //! The core console input/output class.
         class Console : public CoreIOWriter, public CoreIOReader
         {
+		  protected:
+#ifdef TARGET_OS_WINDOWS
+			  bool m_consoleAllocated;
+#endif
           public:
 
             //! Flags used for describing console colour output.
