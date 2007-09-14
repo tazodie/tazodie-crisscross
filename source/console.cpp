@@ -143,7 +143,9 @@ namespace CrissCross
 		void
 		Console::SetTitle ( const char *_title )
 		{
+		#ifdef TARGET_OS_WINDOWS
 			SetConsoleTitleA ( _title );
+		#endif
 		}
 
 		void
