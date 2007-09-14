@@ -31,7 +31,7 @@
 			<Tool
 				Name="VCCustomBuildTool"
 				Description="Copying dataset to the target directory"
-				CommandLine="copy $(ProjectDir)\dataset $(TargetDir)\"
+				CommandLine="copy $(ProjectDir)\dataset $(TargetDir)\&#x0D;&#x0A;"
 				Outputs="$(TargetDir)\dataset"
 			/>
 			<Tool
@@ -51,7 +51,7 @@
 				MinimalRebuild="true"
 				ExceptionHandling="2"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
 				BufferSecurityCheck="false"
 				OpenMP="true"
 				UsePrecompiledHeader="2"
@@ -117,7 +117,7 @@
 			<Tool
 				Name="VCCustomBuildTool"
 				Description="Copying dataset to the target directory"
-				CommandLine="copy $(ProjectDir)\dataset $(TargetDir)\"
+				CommandLine="copy $(ProjectDir)\dataset $(TargetDir)\&#x0D;&#x0A;"
 				Outputs="$(TargetDir)\dataset"
 			/>
 			<Tool
@@ -203,7 +203,7 @@
 			<Tool
 				Name="VCCustomBuildTool"
 				Description="Copying dataset to the target directory"
-				CommandLine="copy $(ProjectDir)\dataset $(TargetDir)\"
+				CommandLine="copy $(ProjectDir)\dataset $(TargetDir)\&#x0D;&#x0A;"
 				Outputs="$(TargetDir)\dataset"
 			/>
 			<Tool
@@ -225,7 +225,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				StringPooling="true"
 				ExceptionHandling="2"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				BufferSecurityCheck="false"
 				OpenMP="true"
 				UsePrecompiledHeader="2"
@@ -294,7 +294,7 @@
 			<Tool
 				Name="VCCustomBuildTool"
 				Description="Copying dataset to the target directory"
-				CommandLine="copy $(ProjectDir)\dataset $(TargetDir)\"
+				CommandLine="copy $(ProjectDir)\dataset $(TargetDir)\&#x0D;&#x0A;"
 				Outputs="$(TargetDir)\dataset"
 			/>
 			<Tool

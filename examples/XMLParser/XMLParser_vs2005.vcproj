@@ -31,7 +31,7 @@
 			<Tool
 				Name="VCCustomBuildTool"
 				Description="Copying example.xml to build directory"
-				CommandLine="copy $(ProjectDir)\example.xml $(TargetDir)\"
+				CommandLine="copy $(ProjectDir)\example.xml $(TargetDir)\&#x0D;&#x0A;"
 				Outputs="$(TargetDir)\example.xml"
 			/>
 			<Tool
@@ -51,7 +51,7 @@
 				MinimalRebuild="true"
 				ExceptionHandling="2"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
 				BufferSecurityCheck="false"
 				OpenMP="true"
 				UsePrecompiledHeader="2"
@@ -117,7 +117,7 @@
 			<Tool
 				Name="VCCustomBuildTool"
 				Description="Copying example.xml to build directory"
-				CommandLine="copy $(ProjectDir)\example.xml $(TargetDir)\"
+				CommandLine="copy $(ProjectDir)\example.xml $(TargetDir)\&#x0D;&#x0A;"
 				Outputs="$(TargetDir)\example.xml"
 			/>
 			<Tool
@@ -203,7 +203,7 @@
 			<Tool
 				Name="VCCustomBuildTool"
 				Description="Copying example.xml to build directory"
-				CommandLine="copy $(ProjectDir)\example.xml $(TargetDir)\"
+				CommandLine="copy $(ProjectDir)\example.xml $(TargetDir)\&#x0D;&#x0A;"
 				Outputs="$(TargetDir)\example.xml"
 			/>
 			<Tool
@@ -226,7 +226,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				StringPooling="true"
 				ExceptionHandling="2"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				BufferSecurityCheck="false"
 				OpenMP="true"
 				UsePrecompiledHeader="2"
@@ -295,7 +295,7 @@
 			<Tool
 				Name="VCCustomBuildTool"
 				Description="Copying example.xml to build directory"
-				CommandLine="copy $(ProjectDir)\example.xml $(TargetDir)\"
+				CommandLine="copy $(ProjectDir)\example.xml $(TargetDir)\&#x0D;&#x0A;"
 				Outputs="$(TargetDir)\example.xml"
 			/>
 			<Tool
