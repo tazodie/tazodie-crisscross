@@ -244,7 +244,10 @@ namespace CrissCross
 			m_lock.Lock();
 
 			if ( !valid ( index ) )
+			{
+				m_lock.Unlock();
 				return NULL;
+			}
 
 
 			//
