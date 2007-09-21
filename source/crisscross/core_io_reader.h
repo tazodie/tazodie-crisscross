@@ -72,7 +72,7 @@ namespace CrissCross
             /*!
                \return Indicates the length of the buffer in bytes.
              */
-            virtual int64_t Length ();
+            virtual cc_int64_t Length ();
 
             //! Validates that the file buffer isn't NULL.
             /*!
@@ -125,7 +125,7 @@ namespace CrissCross
                \return An integer indicating the result of the operation. 0 indicates
                success. Any non-zero number indicates failure.
              */
-            virtual int Seek ( int64_t _position );
+            virtual int Seek ( cc_int64_t _position );
 
             //! Moves forward to a location in the buffer.
             /*!
@@ -133,7 +133,7 @@ namespace CrissCross
                \return An integer indicating the result of the operation. 0 indicates
                success. Any non-zero number indicates failure.
              */
-            virtual int Forward ( int64_t _position );
+            virtual int Forward ( cc_int64_t _position );
 
             //! Flushes the input buffer.
             void Flush ();
@@ -146,7 +146,7 @@ namespace CrissCross
                \return An integer indicating the result of the operation. 0 indicates
                success. Any non-zero number indicates failure.
              */
-            int Seek ( int64_t _position, int _origin );
+            int Seek ( cc_int64_t _position, int _origin );
 
         };
     }
