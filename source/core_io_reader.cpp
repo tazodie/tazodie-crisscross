@@ -70,7 +70,7 @@ namespace CrissCross
 		}
 
 		int
-		CoreIOReader::Forward ( fpos64_t _position )
+		CoreIOReader::Forward ( cc_int64_t _position )
 		{
 			CoreAssert ( this != NULL );
 			if ( !IsOpen() ) return CC_ERR_INVALID_BUFFER;
@@ -78,7 +78,7 @@ namespace CrissCross
 			return ( res == 0 );
 		}
 
-		fpos64_t
+		cc_int64_t
 		CoreIOReader::Length ()
 		{
 			CoreAssert ( this != NULL );
@@ -219,7 +219,7 @@ namespace CrissCross
 		}
 
 		int
-		CoreIOReader::Seek ( fpos64_t _position, int _origin )
+		CoreIOReader::Seek ( cc_int64_t _position, int _origin )
 		{
 			CoreAssert ( this != NULL );
 			if ( !IsOpen() ) return CC_ERR_INVALID_BUFFER;
@@ -239,7 +239,7 @@ namespace CrissCross
 		}
 
 		int
-		CoreIOReader::Seek ( fpos64_t _position )
+		CoreIOReader::Seek ( cc_int64_t _position )
 		{
 			CoreAssert ( this != NULL );
 			if ( !IsOpen() ) return CC_ERR_INVALID_BUFFER;
