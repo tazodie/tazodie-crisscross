@@ -23,6 +23,9 @@ namespace CrissCross
 		#ifdef TARGET_OS_WINDOWS
 			InitializeCriticalSection(&m_criticalSection);
 		#else
+			pthread_mutexattr_t attr;
+			pthread_mutexattr_init ( &attr );
+			pthread_mutexattr_settype ( &attr, PTHREAD_MUTEX_RECURSIVE );
 			int error = pthread_mutex_init(&m_hMutex, 0);
 			CoreAssert ( error == 0 );
 		#endif
