@@ -309,4 +309,6 @@ namespace CrissCross
     }
 }
 
+#include <crisscross/datatypes.h>
+
 #endif

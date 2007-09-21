@@ -13,8 +13,8 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifndef MINIVERSION_H
-#define MINIVERSION_H
+#ifndef __included_cc_miniversion_h
+#define __included_cc_miniversion_h
 
 //! @cond
 

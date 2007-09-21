@@ -9,9 +9,9 @@
  *
  */
 
-#define __included_xmlparser_h
-#ifndef __included_xmlparser_h
-#define __included_xmlparser_h
+#define __included_cc_xmlparser_h
+#ifndef __included_cc_xmlparser_h
+#define __included_cc_xmlparser_h
 
 #include <crisscross/textreader.h>
 

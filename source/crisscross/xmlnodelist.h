@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __included_xmlnodelist_h
-#define __included_xmlnodelist_h
+#ifndef __included_cc_xmlnodelist_h
+#define __included_cc_xmlnodelist_h
 
 #include <crisscross/llist.h>
 

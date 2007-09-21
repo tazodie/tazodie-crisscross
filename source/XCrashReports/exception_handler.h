@@ -13,8 +13,8 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifndef	EXCEPTIONHANDLER_H
-#define	EXCEPTIONHANDLER_H
+#ifndef	__included_cc_exceptionhandler_h
+#define	__included_cc_exceptionhandler_h
 
 // We forward declare PEXCEPTION_POINTERS so that the function
 // prototype doesn't needlessly require windows.h.

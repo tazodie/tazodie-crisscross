@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __included_xmldocument_h
-#define __included_xmldocument_h
+#ifndef __included_cc_xmldocument_h
+#define __included_cc_xmldocument_h
 
 #include <crisscross/textreader.h>
 

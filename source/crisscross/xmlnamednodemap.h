@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __included_xmlnamednodemap_h
-#define __included_xmlnamednodemap_h
+#ifndef __included_cc_xmlnamednodemap_h
+#define __included_cc_xmlnamednodemap_h
 
 #include <crisscross/llist.h>
 #include <crisscross/rbtree.h>

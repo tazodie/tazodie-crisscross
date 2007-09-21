@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __included_xmlelement_h
-#define __included_xmlelement_h
+#ifndef __included_cc_xmlelement_h
+#define __included_cc_xmlelement_h
 
 #include <crisscross/llist.h>
 

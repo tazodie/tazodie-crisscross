@@ -82,7 +82,7 @@ namespace CrissCross
 		CoreIOReader::Length ()
 		{
 			CoreAssert ( this != NULL );
-			if ( !IsOpen() ) return CC_ERR_INVALID_BUFFER;
+			CoreAssert ( IsOpen() );
 
 		#ifndef __GNUC__
 			m_ioMutex.Lock ();
