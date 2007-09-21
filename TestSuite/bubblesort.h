@@ -14,5 +14,6 @@
 
 int TestBubbleSort_IntArray();
 int TestBubbleSort_DArray();
+int TestBubbleSort_LList();
 
 #endif

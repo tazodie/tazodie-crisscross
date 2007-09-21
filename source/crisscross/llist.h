@@ -14,6 +14,8 @@
 
 #include <crisscross/deprecate.h>
 
+#include <crisscross/sort.h>
+
 namespace CrissCross
 {
     namespace Data
@@ -176,6 +178,12 @@ namespace CrissCross
                 \return The data stored at the index.
              */
             T const & operator []( size_t _index ) const;
+            
+            //! Sorts the array using the provided method.
+            void sort ( CrissCross::Data::Sorter<T> *_sortMethod );
+            
+            //! Sorts the array using the provided method.
+            void sort ( CrissCross::Data::Sorter<T> &_sortMethod );
 
 			/*
 				Deprecated Compatibility Functions

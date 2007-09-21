@@ -14,5 +14,6 @@
 
 int TestInsertionSort_IntArray();
 int TestInsertionSort_DArray();
+int TestInsertionSort_LList();
 
 #endif

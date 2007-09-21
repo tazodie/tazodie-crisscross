@@ -75,24 +75,31 @@ int RunApplication (int argc, char **argv) {
 
     WritePrefix ( "BubbleSort (integer array)" ); retval |= WriteResult ( TestBubbleSort_IntArray() );
     WritePrefix ( "BubbleSort (integer DArray)" ); retval |= WriteResult ( TestBubbleSort_DArray() );
+    WritePrefix ( "BubbleSort (integer LList)" ); retval |= WriteResult ( TestBubbleSort_LList() );
 
     WritePrefix ( "CombSort (integer array)" ); retval |= WriteResult ( TestCombSort_IntArray() );
     WritePrefix ( "CombSort (integer DArray)" ); retval |= WriteResult ( TestCombSort_DArray() );
+    WritePrefix ( "CombSort (integer LList)" ); retval |= WriteResult ( TestCombSort_LList() );
 
     WritePrefix ( "HeapSort (integer array)" ); retval |= WriteResult ( TestHeapSort_IntArray() );
     WritePrefix ( "HeapSort (integer DArray)" ); retval |= WriteResult ( TestHeapSort_DArray() );
+    WritePrefix ( "HeapSort (integer LList)" ); retval |= WriteResult ( TestHeapSort_LList() );
 
     WritePrefix ( "InsertionSort (integer array)" ); retval |= WriteResult ( TestInsertionSort_IntArray() );
     WritePrefix ( "InsertionSort (integer DArray)" ); retval |= WriteResult ( TestInsertionSort_DArray() );
+    WritePrefix ( "InsertionSort (integer LList)" ); retval |= WriteResult ( TestInsertionSort_LList() );
 
     WritePrefix ( "MergeSort (integer array)" ); retval |= WriteResult ( TestMergeSort_IntArray() );
     WritePrefix ( "MergeSort (integer DArray)" ); retval |= WriteResult ( TestMergeSort_DArray() );
+    WritePrefix ( "MergeSort (integer LList)" ); retval |= WriteResult ( TestMergeSort_LList() );
 
     WritePrefix ( "ShellSort (integer array)" ); retval |= WriteResult ( TestShellSort_IntArray() );
     WritePrefix ( "ShellSort (integer DArray)" ); retval |= WriteResult ( TestShellSort_DArray() );
+    WritePrefix ( "ShellSort (integer LList)" ); retval |= WriteResult ( TestShellSort_LList() );
 
     WritePrefix ( "QuickSort (integer array)" ); retval |= WriteResult ( TestQuickSort_IntArray() );
     WritePrefix ( "QuickSort (integer DArray)" ); retval |= WriteResult ( TestQuickSort_DArray() );
+    WritePrefix ( "QuickSort (integer LList)" ); retval |= WriteResult ( TestQuickSort_LList() );
 
     if ( retval == 0 )
     {

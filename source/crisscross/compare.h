@@ -40,7 +40,7 @@ namespace CrissCross
         template <>
         __inline int Compare<char *> ( char * const &_first, char * const &_second )
         {
-			CoreAssert ( _first ); CoreAssert ( _second );
+            CoreAssert ( _first ); CoreAssert ( _second );
             int ret = strcmp ( _first, _second );
             if ( ret < 0 ) return -1;
             else if ( ret > 0 ) return 1;
@@ -51,7 +51,7 @@ namespace CrissCross
         template <>
         __inline int Compare<const char *> ( const char * const &_first, const char * const &_second )
         {
-			CoreAssert ( _first ); CoreAssert ( _second );
+            CoreAssert ( _first ); CoreAssert ( _second );
             int ret = strcmp ( _first, _second );
             if ( ret < 0 ) return -1;
             else if ( ret > 0 ) return 1;

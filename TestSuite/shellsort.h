@@ -14,5 +14,6 @@
 
 int TestShellSort_IntArray();
 int TestShellSort_DArray();
+int TestShellSort_LList();
 
 #endif

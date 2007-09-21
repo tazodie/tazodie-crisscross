@@ -56,3 +56,27 @@ int TestBubbleSort_DArray()
     delete darray;    
     return 0;
 }
+
+int TestBubbleSort_LList()
+{
+    LList<int> *llist = new LList<int>();
+    
+    llist->insert ( 4 );
+    llist->insert ( 2 );
+    llist->insert ( 0 );
+    llist->insert ( 3 );
+    llist->insert ( 1 );
+    
+    BubbleSort<int> *bs = new BubbleSort<int>();
+    llist->sort ( bs );
+    delete bs;
+    
+    for ( int i = 0; i < 5; i++ )
+    {
+        if ( llist->get(i) != i )
+            return i + 1;
+    }
+
+    delete llist;    
+    return 0;
+}
