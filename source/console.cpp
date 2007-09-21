@@ -319,9 +319,9 @@ namespace CrissCross
 			return _result;
 		}
 
-		int Console::Seek ( size_t _position ) { return 0; }
-		int Console::Forward ( size_t _position ) { return 0; }
-		int Console::Length() { return 0; }
+		int Console::Seek ( fpos64_t _position ) { return 0; }
+		int Console::Forward ( fpos64_t _position ) { return 0; }
+		fpos64_t Console::Length() { return 0; }
 		int Console::Read ( char *_buffer, size_t _bufferLength, size_t _bufferIndex, size_t _count ) { return 0; }
 		bool Console::EndOfFile () { return false; }
 	}

@@ -70,16 +70,15 @@ namespace CrissCross
 		}
 
 		int
-		CoreIOReader::Forward ( size_t _position )
+		CoreIOReader::Forward ( fpos64_t _position )
 		{
 			CoreAssert ( this != NULL );
 			if ( !IsOpen() ) return CC_ERR_INVALID_BUFFER;
-
 			int res = Seek ( _position, SEEK_CUR );
 			return ( res == 0 );
 		}
 
-		int
+		fpos64_t
 		CoreIOReader::Length ()
 		{
 			CoreAssert ( this != NULL );
@@ -88,25 +87,27 @@ namespace CrissCross
 		#ifndef __GNUC__
 			m_ioMutex.Lock ();
 		#endif
-			fpos64_t lastpos;
-			fgetpos64 ( m_fileInputPointer, &lastpos );
+			fpos64_t lastpos, endpos;
 #ifdef TARGET_OS_WINDOWS
+			lastpos = _ftelli64 ( m_fileInputPointer );
 			_fseeki64 ( m_fileInputPointer, 0, SEEK_END );
+			endpos = _ftelli64 ( m_fileInputPointer );
+			_fseeki64 ( m_fileInputPointer, lastpos, SEEK_SET );
 #else
+			fgetpos64 ( m_fileInputPointer, &lastpos );
 			fseeko64 ( m_fileInputPointer, 0, SEEK_END );
-#endif
-			fpos64_t endpos;
 			fgetpos64 ( m_fileInputPointer, &endpos );
 			fsetpos64 ( m_fileInputPointer, &lastpos );
+#endif
 		#ifndef __GNUC__
 			m_ioMutex.Unlock ();
 		#endif
 
 		#if defined ( TARGET_OS_WINDOWS ) || defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_FREEBSD ) || \
 			defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD ) || defined ( TARGET_COMPILER_CYGWIN )
-			return ( int ) endpos;
+			return endpos;
 		#elif defined ( TARGET_OS_LINUX )
-			return ( int ) endpos.__pos;
+			return endpos.__pos;
 		#endif
 		}
 
@@ -218,7 +219,7 @@ namespace CrissCross
 		}
 
 		int
-		CoreIOReader::Seek ( size_t _position, int _origin )
+		CoreIOReader::Seek ( fpos64_t _position, int _origin )
 		{
 			CoreAssert ( this != NULL );
 			if ( !IsOpen() ) return CC_ERR_INVALID_BUFFER;
@@ -238,13 +239,11 @@ namespace CrissCross
 		}
 
 		int
-		CoreIOReader::Seek ( size_t _position )
+		CoreIOReader::Seek ( fpos64_t _position )
 		{
 			CoreAssert ( this != NULL );
 			if ( !IsOpen() ) return CC_ERR_INVALID_BUFFER;
-
 			int res = Seek ( _position, SEEK_SET );
-
 			return ( res == 0 );
 		}
 
