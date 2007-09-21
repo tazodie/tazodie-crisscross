@@ -34,6 +34,8 @@ namespace CrissCross
         {
           protected:
 
+			  unsigned m_lockCount;
+
         #    ifdef _WIN32
             //! The critical section for the mutex.
             /*!
