@@ -180,9 +180,15 @@ namespace CrissCross
             T const & operator []( size_t _index ) const;
             
             //! Sorts the array using the provided method.
+			/*!
+				\param _sortMethod The method to sort with.
+			 */
             void sort ( CrissCross::Data::Sorter<T> *_sortMethod );
             
             //! Sorts the array using the provided method.
+			/*!
+				\param _sortMethod The method to sort with.
+			 */
             void sort ( CrissCross::Data::Sorter<T> &_sortMethod );
 
 			/*

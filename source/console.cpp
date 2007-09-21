@@ -319,10 +319,10 @@ namespace CrissCross
 			return _result;
 		}
 
-		int Console::Seek ( int _position ) { return 0; }
-		int Console::Forward ( int _position ) { return 0; }
+		int Console::Seek ( size_t _position ) { return 0; }
+		int Console::Forward ( size_t _position ) { return 0; }
 		int Console::Length() { return 0; }
-		int Console::Read ( char *_buffer, int _bufferLength, int _bufferIndex, int _count ) { return 0; }
+		int Console::Read ( char *_buffer, size_t _bufferLength, size_t _bufferIndex, size_t _count ) { return 0; }
 		bool Console::EndOfFile () { return false; }
 	}
 }

@@ -181,9 +181,15 @@ namespace CrissCross
             void empty ();
             
             //! Sorts the array using the provided method.
+			/*!
+				\param _sortMethod The method to sort with.
+			 */
             void sort ( CrissCross::Data::Sorter<T> *_sortMethod );
             
             //! Sorts the array using the provided method.
+			/*!
+				\param _sortMethod The method to sort with.
+			 */
             void sort ( CrissCross::Data::Sorter<T> &_sortMethod );
 
             //! Gets the data at the given index.
