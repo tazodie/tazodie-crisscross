@@ -48,15 +48,15 @@ int RunApplication (int argc, char **argv) {
 
     int retval = 0;
 
-    WritePrefix ( "Size of Uint8" ); retval |= WriteResult ( TestDatatypes_Uint8() );
-    WritePrefix ( "Size of Uint16" ); retval |= WriteResult ( TestDatatypes_Uint16() );
-    WritePrefix ( "Size of Uint32" ); retval |= WriteResult ( TestDatatypes_Uint32() );
-    WritePrefix ( "Size of Uint64" ); retval |= WriteResult ( TestDatatypes_Uint64() );
-    WritePrefix ( "Size of Ulong" ); retval |= WriteResult ( TestDatatypes_Ulong() );
-    WritePrefix ( "Size of Bool" ); retval |= WriteResult ( TestDatatypes_Bool() );
-    WritePrefix ( "Size of Float" ); retval |= WriteResult ( TestDatatypes_Float() );
-    WritePrefix ( "Size of Double" ); retval |= WriteResult ( TestDatatypes_Double() );
-    WritePrefix ( "Size of void *" ); retval |= WriteResult ( TestDatatypes_Pointer() );
+    WritePrefix ( "Size of cc_uint8_t" ); retval |= WriteResult ( TestDatatypes_Uint8() );
+    WritePrefix ( "Size of cc_uint16_t" ); retval |= WriteResult ( TestDatatypes_Uint16() );
+    WritePrefix ( "Size of cc_uint32_t" ); retval |= WriteResult ( TestDatatypes_Uint32() );
+    WritePrefix ( "Size of cc_uint64_t" ); retval |= WriteResult ( TestDatatypes_Uint64() );
+    WritePrefix ( "Size of cc_ulong_t" ); retval |= WriteResult ( TestDatatypes_Ulong() );
+    WritePrefix ( "Size of cc_bool_t" ); retval |= WriteResult ( TestDatatypes_Bool() );
+    WritePrefix ( "Size of cc_float_t" ); retval |= WriteResult ( TestDatatypes_Float() );
+    WritePrefix ( "Size of cc_double_t" ); retval |= WriteResult ( TestDatatypes_Double() );
+    WritePrefix ( "Size of cc_ptr_t" ); retval |= WriteResult ( TestDatatypes_Pointer() );
 
     WritePrefix ( "Stopwatch" ); retval |= WriteResult ( TestStopwatch() );
 
