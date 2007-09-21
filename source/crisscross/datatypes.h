@@ -26,4 +26,8 @@ typedef __int64 cc_int64_t;
 typedef unsigned __int64 cc_uint64_t;
 #endif
 
+#ifdef TARGET_OS_WINDOWS
+typedef cc_int64_t fpos64_t;
+#endif
+
 #endif
