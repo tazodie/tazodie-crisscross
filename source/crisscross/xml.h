@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __included_xml_h
-#define __included_xml_h
+#ifndef __included_cc_xml_h
+#define __included_cc_xml_h
 
 namespace CrissCross
 {

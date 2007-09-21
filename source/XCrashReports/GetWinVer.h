@@ -12,8 +12,8 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifndef GETWINVER_H
-#define GETWINVER_H
+#ifndef __included_cc_getwinver_h
+#define __included_cc_getwinver_h
 
 #define WUNKNOWNSTR	_T("unknown Windows version")
 

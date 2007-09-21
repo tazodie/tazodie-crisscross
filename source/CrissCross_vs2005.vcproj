@@ -465,6 +465,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\crisscross\datatypes.h"
+				>
+			</File>
+			<File
 				RelativePath=".\crisscross\deprecate.h"
 				>
 			</File>

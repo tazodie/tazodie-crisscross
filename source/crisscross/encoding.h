@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __included_encoding_h
-#define __included_encoding_h
+#ifndef __included_cc_encoding_h
+#define __included_cc_encoding_h
 
 namespace CrissCross
 {
