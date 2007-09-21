@@ -31,7 +31,7 @@
 			<Tool
 				Name="VCCustomBuildTool"
 				Description="Copying dataset to the target directory"
-				CommandLine="copy $(ProjectDir)\dataset $(TargetDir)\&#x0D;&#x0A;"
+				CommandLine="copy $(ProjectDir)\dataset $(TargetDir)\"
 				Outputs="$(TargetDir)\dataset"
 			/>
 			<Tool

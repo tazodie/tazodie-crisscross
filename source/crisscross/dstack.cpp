@@ -40,6 +40,8 @@ namespace CrissCross
 		template < class dataType >
 		void DStack<dataType>::setSize ( size_t _size )
 		{
+			m_lock.Lock();
+
 			// This function is ONLY stable for increases in size, not decreases.
 			dataType *newstack_ = NULL;
 			newstack_ = new dataType[_size];
@@ -51,6 +53,8 @@ namespace CrissCross
 			m_bottom = newstack_;
 			m_top = m_bottom + m_size;
 			m_size = _size;
+
+			m_lock.Unlock();
 		}
 
 		template < class dataType >
@@ -72,12 +76,14 @@ namespace CrissCross
 		template < class dataType >
 		void DStack<dataType>::push ( dataType val )
 		{
+			m_lock.Lock();
 			if ( count() == m_size )    // the stack is full. need more space!
 			{
 				grow();
 			}
 			*m_top = val;
 			m_top++;
+			m_lock.Unlock();
 		}
 
 		template < class dataType >
@@ -89,25 +95,33 @@ namespace CrissCross
 		template < class dataType >
 		dataType DStack<dataType>::pop ()
 		{
+			m_lock.Lock();
 			if ( !m_top ) return (dataType)0;
 			m_top--;
-			return *m_top;
+			dataType ret = *m_top;
+			m_lock.Unlock();
+			return ret;
 		}
 
 		template < class dataType >
 		const dataType &DStack<dataType>::peek ()
 		{
+			m_lock.Lock();
 			static dataType nullItem(0);
 			if ( !m_top ) return nullItem;
-			return *(m_top - 1);
+			const dataType &ret = *(m_top - 1);
+			m_lock.Unlock();
+			return ret;
 		}
 
 		template < class dataType >
 		void DStack<dataType>::empty ()
 		{
+			m_lock.Lock();
 			delete [] m_bottom;
 			m_top = m_bottom = NULL;
 			m_size = m_origSize = 0;
+			m_lock.Unlock();
 		}
 	}
 }

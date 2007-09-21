@@ -15,6 +15,7 @@
 #include <crisscross/deprecate.h>
 #include <crisscross/darray.h>
 #include <crisscross/node.h>
+#include <crisscross/mutex.h>
 
 namespace CrissCross
 {
@@ -169,6 +170,7 @@ namespace CrissCross
 			inline void empty () { killAll(); rootNode = NULL_NODE; };
 
         protected:
+			mutable CrissCross::System::Mutex m_lock;
 
             /*
             these are automatically called. no need to use them externally at all.

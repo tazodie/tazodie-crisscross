@@ -160,8 +160,9 @@ namespace CrissCross
 			m_ioMutex.Lock ();
 		#endif
 
+			// We use fgets because it detects line endings.
 			_buffer[0] = '\x0';
-			fread ( _buffer, 1, _bufferLength, m_fileInputPointer );
+			fgets ( _buffer, (int)_bufferLength, m_fileInputPointer );
 
 			// Detect line endings.
 			char *endl = NULL;

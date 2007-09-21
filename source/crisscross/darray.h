@@ -16,6 +16,7 @@
 #include <crisscross/darray.h>
 #include <crisscross/dstack.h>
 #include <crisscross/sort.h>
+#include <crisscross/mutex.h>
 
 namespace CrissCross
 {
@@ -26,6 +27,8 @@ namespace CrissCross
         {
 
         private:
+			mutable CrissCross::System::Mutex m_lock;
+
             //! A DStack containing indices of empty nodes in the array.
             /*!
                 Vastly speeds up insertions by keeping track of where empty spaces are.

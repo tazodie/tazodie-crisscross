@@ -16,6 +16,7 @@
 
 #include <crisscross/sort.h>
 #include <crisscross/darray.h>
+#include <crisscross/mutex.h>
 
 namespace CrissCross
 {
@@ -40,6 +41,8 @@ namespace CrissCross
         template < class T > class LList
         {
         protected:
+			mutable CrissCross::System::Mutex m_lock;
+
             //! The first node.
             LListItem < T > *m_first;
 
