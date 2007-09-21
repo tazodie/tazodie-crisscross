@@ -16,6 +16,10 @@
 #include <crisscross/universal_include.h>
 #endif
 
+#ifdef TARGET_OS_WINDOWS
+typedef __int64 fpos64_t;
+#endif
+
 namespace CrissCross
 {
     namespace IO

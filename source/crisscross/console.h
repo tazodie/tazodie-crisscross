@@ -178,9 +178,9 @@ namespace CrissCross
 
         private:
             bool EndOfFile ();
-            int Forward ( size_t _position );
-            int Seek ( size_t _position );
-            int Length ();
+            int Forward ( fpos64_t _position );
+            int Seek ( fpos64_t _position );
+            fpos64_t Length ();
             int Read ( char *_buffer, size_t _bufferLength, size_t _bufferIndex, size_t _count );
         };
     }
