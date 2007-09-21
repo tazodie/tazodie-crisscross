@@ -24,13 +24,8 @@ typedef unsigned int cc_uint32_t;
 typedef long cc_long_t;
 typedef unsigned long cc_ulong_t;
 
-#ifndef TARGET_OS_WINDOWS
 typedef long long cc_int64_t;
 typedef unsigned long long cc_uint64_t;
-#else
-typedef __int64 cc_int64_t;
-typedef unsigned __int64 cc_uint64_t;
-#endif
 
 #ifdef TARGET_OS_WINDOWS
 typedef cc_int64_t fpos64_t;
