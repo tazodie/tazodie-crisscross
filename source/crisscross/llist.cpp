@@ -164,12 +164,18 @@ namespace CrissCross
 				for ( size_t i = 0; i < index - 1; ++i )
 				{
 					if ( !current )
+					{
+						m_lock.Unlock();
 						return;
+					}
 					current = current->m_next;
 				}
 
 				if ( !current )
+				{
+					m_lock.Unlock();
 					return;
+				}
 
 				LListItem < T > *li = new LListItem < T > ();
 				li->m_data = newdata;
@@ -235,6 +241,8 @@ namespace CrissCross
 
 		template < class T > LListItem < T > *LList < T >::getItem ( size_t index ) const
 		{
+			m_lock.Lock();
+
 			if ( !valid ( index ) )
 				return NULL;
 
@@ -253,7 +261,6 @@ namespace CrissCross
 			// Otherwise m_previous is nearest.
 			// The two if statements below test for these conditions.
 
-			m_lock.Lock();
 
 			if ( index <= ( m_previousIndex >> 1 ) )
 			{
