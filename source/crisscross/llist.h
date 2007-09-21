@@ -15,6 +15,7 @@
 #include <crisscross/deprecate.h>
 
 #include <crisscross/sort.h>
+#include <crisscross/darray.h>
 
 namespace CrissCross
 {

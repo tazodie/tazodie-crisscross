@@ -88,12 +88,16 @@ namespace CrissCross
 		#ifndef __GNUC__
 			m_ioMutex.Lock ();
 		#endif
-			fpos_t lastpos;
-			fgetpos ( m_fileInputPointer, &lastpos );
-			fseek ( m_fileInputPointer, 0, SEEK_END );
-			fpos_t endpos;
-			fgetpos ( m_fileInputPointer, &endpos );
-			fsetpos ( m_fileInputPointer, &lastpos );
+			fpos64_t lastpos;
+			fgetpos64 ( m_fileInputPointer, &lastpos );
+#ifdef TARGET_OS_WINDOWS
+			_fseeki64 ( m_fileInputPointer, 0, SEEK_END );
+#else
+			fseeko64 ( m_fileInputPointer, 0, SEEK_END );
+#endif
+			fpos64_t endpos;
+			fgetpos64 ( m_fileInputPointer, &endpos );
+			fsetpos64 ( m_fileInputPointer, &lastpos );
 		#ifndef __GNUC__
 			m_ioMutex.Unlock ();
 		#endif
@@ -222,7 +226,11 @@ namespace CrissCross
 		#ifndef __GNUC__
 			m_ioMutex.Lock ();
 		#endif
+#ifdef TARGET_OS_WINDOWS
 			int res = _fseeki64 ( m_fileInputPointer, _position, _origin );
+#else
+			int res = fseeko64 ( m_fileInputPointer, _position, _origin );
+#endif			
 		#ifndef __GNUC__
 			m_ioMutex.Unlock ();
 		#endif
