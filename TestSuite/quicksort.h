@@ -14,5 +14,6 @@
 
 int TestQuickSort_IntArray();
 int TestQuickSort_DArray();
+int TestQuickSort_LList();
 
 #endif

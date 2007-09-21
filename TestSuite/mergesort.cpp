@@ -56,3 +56,27 @@ int TestMergeSort_DArray()
     delete darray;    
     return 0;
 }
+
+int TestMergeSort_LList()
+{
+    LList<int> *llist = new LList<int>();
+    
+    llist->insert ( 4 );
+    llist->insert ( 2 );
+    llist->insert ( 0 );
+    llist->insert ( 3 );
+    llist->insert ( 1 );
+    
+    MergeSort<int> *ms = new MergeSort<int>();
+    llist->sort ( ms );
+    delete ms;
+    
+    for ( int i = 0; i < 5; i++ )
+    {
+        if ( llist->get(i) != i )
+            return i + 1;
+    }
+
+    delete llist;    
+    return 0;
+}

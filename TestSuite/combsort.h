@@ -14,5 +14,6 @@
 
 int TestCombSort_IntArray();
 int TestCombSort_DArray();
+int TestCombSort_LList();
 
 #endif

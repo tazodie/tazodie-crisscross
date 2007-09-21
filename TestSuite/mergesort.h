@@ -14,5 +14,6 @@
 
 int TestMergeSort_IntArray();
 int TestMergeSort_DArray();
+int TestMergeSort_LList();
 
 #endif

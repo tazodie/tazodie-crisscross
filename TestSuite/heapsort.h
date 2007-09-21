@@ -14,5 +14,6 @@
 
 int TestHeapSort_IntArray();
 int TestHeapSort_DArray();
+int TestHeapSort_LList();
 
 #endif
