@@ -203,7 +203,7 @@
 			<Tool
 				Name="VCCustomBuildTool"
 				Description=""
-				CommandLine="copy $(ProjectDir)\dataset $(TargetDir)\&#x0D;&#x0A;"
+				CommandLine=""
 				Outputs=""
 			/>
 			<Tool

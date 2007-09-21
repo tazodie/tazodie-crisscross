@@ -178,6 +178,7 @@ namespace CrissCross
 		template <class Key, class Data>
 			statusEnum RedBlackTree<Key,Data>::insert ( Key const &key, Data const & rec )
 		{
+			m_lock.Lock();
 			RedBlackNode<Key,Data> *current = NULL_NODE, *parent = NULL, *x = NULL_NODE;
 
 			/* find future parent */
@@ -191,7 +192,10 @@ namespace CrissCross
 
 			/* setup new node */
 			if ( (x = new RedBlackNode<Key,Data>()) == 0 )
+			{
+				m_lock.Unlock();
 				return STATUS_MEM_EXHAUSTED;
+			}
 
 			x->parent = parent;
 			x->left = NULL_NODE;
@@ -218,6 +222,7 @@ namespace CrissCross
 
 			insertFixup ( x );
 
+			m_lock.Unlock();
 			return STATUS_OK;
 		}
 
@@ -297,6 +302,8 @@ namespace CrissCross
 		template <class Key, class Data>
 			statusEnum RedBlackTree<Key,Data>::erase ( Key const &key )
 		{
+			m_lock.Lock();
+
 			RedBlackNode<Key,Data> *z, *parent;
 
 			//  delete node z from tree
@@ -319,12 +326,18 @@ namespace CrissCross
 			if ( z == NULL_NODE )
 				return STATUS_NOT_FOUND;
 
-			return killNode ( z );
+			statusEnum retval = killNode ( z );
+			
+			m_lock.Unlock();
+
+			return retval;
 		}
 
 		template <class Key, class Data>
 			statusEnum RedBlackTree<Key,Data>::erase ( Key const &key, Data const &rec)
 		{
+			m_lock.Lock();
+
 			RedBlackNode<Key,Data>        *node = findNode(key);
 
 			node->beenThere = NODE_ITSELF_VISITED;
@@ -337,12 +350,17 @@ namespace CrissCross
 				getNext ( &node );
 			}
 
-			return killNode( node );
+			statusEnum retval = killNode( node );
+
+			m_lock.Unlock();
+
+			return retval;
 		}
 
 		template <class Key, class Data>
 			statusEnum RedBlackTree<Key,Data>::killNode ( RedBlackNode<Key,Data> * z )
 		{
+			m_lock.Lock();
 			RedBlackNode<Key,Data> *x, *y;
 
 			if ( z->left == NULL_NODE || z->right == NULL_NODE )
@@ -391,6 +409,8 @@ namespace CrissCross
 
 			m_cachedSize--;
 			delete y;
+
+			m_lock.Unlock();
 
 			return STATUS_OK;
 		}
@@ -521,12 +541,14 @@ namespace CrissCross
 		template <class Key, class Data>
 			Data RedBlackTree<Key,Data>::find ( Key const &key ) const
 		{
+			m_lock.Lock();
 			RedBlackNode<Key,Data> *current = rootNode;
 
 			while ( current != NULL_NODE )
 			{
 				if ( Compare ( key, current->id ) == 0 )
 				{
+					m_lock.Unlock();
 					return current->data;
 				}
 				else
@@ -536,17 +558,22 @@ namespace CrissCross
 				}
 			}
 
+			m_lock.Lock();
 			return (Data)0;
 		}
 
 		template <class Key, class Data>
 			RedBlackNode<Key,Data> * RedBlackTree<Key,Data>::findNode ( Key const &key ) const
 		{
+			m_lock.Lock();
+
 			RedBlackNode<Key,Data> * current = rootNode;
+
 			while ( current != NULL_NODE )
 			{
 				if ( Compare ( key, current->id ) == 0 )
 				{
+					m_lock.Unlock();
 					return current;
 				}
 				else
@@ -555,14 +582,21 @@ namespace CrissCross
 				}
 			}
 
+			m_lock.Unlock();
+
 			return NULL;
 		}
 
 		template <class Key, class Data>
 			void RedBlackTree<Key,Data>::killAll ( RedBlackNode<Key,Data> *rec )
 		{
+			m_lock.Lock();
+
 			if ( rec == NULL_NODE )
+			{
+				m_lock.Unlock();
 				return;
+			}
 
 			// First kill our subnodes:
 			if ( rec->left != NULL_NODE )
@@ -582,20 +616,24 @@ namespace CrissCross
 			Dealloc ( rec->id );
 			delete rec;
 
-			m_cachedSize = 0;
+			m_lock.Unlock();
 		}
 
 		template <class Key, class Data>
 			void RedBlackTree<Key,Data>::killAll ()
 		{
+			m_lock.Lock();
 			killAll ( rootNode );
 			rootNode = NULL_NODE;
+			m_cachedSize = 0;
+			m_lock.Unlock();
 		}
 
 		#ifdef _DEBUG
 		template <class Key, class Data>
 			size_t RedBlackTree<Key,Data>::size () const
 		{
+			m_lock.Lock();
 			// Debug builds verify that the cached size is accurate.
 			// Release builds will get a speed gain.
 			RedBlackNode<Key,Data> *vNode = NULL_NODE;
@@ -609,6 +647,7 @@ namespace CrissCross
 			}
 
 			CoreAssert ( m_cachedSize == vCount );
+			m_lock.Unlock();
 			return m_cachedSize;
 		}
 		#endif
@@ -616,16 +655,20 @@ namespace CrissCross
 		template <class Key, class Data>
 			DArray<Data> *RedBlackTree<Key,Data>::ConvertToDArray () const
 		{
+			m_lock.Lock();
 			DArray<Data> *darray = new DArray<Data> ( (int)size() );
 			RecursiveConvertToDArray ( darray, rootNode );
+			m_lock.Unlock();
 			return darray;
 		}
 
 		template <class Key, class Data>
 			DArray<Key> *RedBlackTree<Key,Data>::ConvertIndexToDArray () const
 		{
+			m_lock.Lock();
 			DArray<Key> *darray = new DArray<Key> ( (int)size () );
 			RecursiveConvertIndexToDArray ( darray, rootNode );
+			m_lock.Unlock();
 			return darray;
 		}
 

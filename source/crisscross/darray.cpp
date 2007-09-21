@@ -82,6 +82,7 @@ namespace CrissCross
 		template < class T >
 		void DArray < T >::setSize ( size_t newsize )
 		{
+			m_lock.Lock();
 			if ( newsize > m_arraySize )
 			{
 				size_t oldarraysize = m_arraySize;
@@ -139,6 +140,7 @@ namespace CrissCross
 			{
 				// Do nothing
 			}
+			m_lock.Unlock();
 		}
 
 		template < class T >
@@ -166,43 +168,53 @@ namespace CrissCross
 		template < class T >
 		void DArray < T >::setStepSize ( int _stepSize )
 		{
+			m_lock.Lock();
 			m_stepSize = _stepSize;
+			m_lock.Unlock();
 		}
 
 
 		template < class T >
 		void DArray < T >::setStepDouble ()
 		{
+			m_lock.Lock();
 			m_stepSize = -1;
+			m_lock.Unlock();
 		}
 
 		template < class T >
 		size_t DArray < T >::insert ( T const & newdata )
 		{
+			m_lock.Lock();
 			size_t freeslot = getNextFree();
 
 			m_array[freeslot] = newdata;
 			if ( m_shadow[freeslot] == 0 ) m_numUsed++;
 			m_shadow[freeslot] = 1;
 		    
+			m_lock.Unlock();
 			return freeslot;
 		}
 
 		template < class T >
 		void DArray < T >::insert ( T const & newdata, size_t index )
 		{
+			m_lock.Lock();
+			
 			CoreAssert ( index >= 0 );
+
 			while ( index >= m_arraySize ) grow();
 
 			m_array[index] = newdata;
 			if ( m_shadow[index] == 0 ) m_numUsed++;
 			m_shadow[index] = 1;
+			m_lock.Unlock();
 		}
 
 		template < class T >
 		void DArray < T >::empty ()
 		{
-
+			m_lock.Lock();
 			delete [] m_array;
 			delete [] m_shadow;
 
@@ -214,7 +226,7 @@ namespace CrissCross
 
 			m_arraySize = 0;
 			m_numUsed = 0;
-
+			m_lock.Unlock();
 		}
 
 		template < class T >
@@ -284,6 +296,8 @@ namespace CrissCross
 		void DArray < T >::remove ( size_t index )
 		{
 
+			m_lock.Lock();
+
 			CoreAssert ( m_shadow[index] != 0 );
 			CoreAssert ( index < m_arraySize );
 
@@ -292,17 +306,25 @@ namespace CrissCross
 			if ( m_shadow[index] == 1 ) m_numUsed--;
 			m_shadow[index] = 0;
 
+			m_lock.Unlock();
+
 		}
 
 		template < class T >
 		size_t DArray < T >::findData ( T const & newdata )
 		{
 
+			m_lock.Lock();
+
 			for ( size_t a = 0; a < m_arraySize; ++a )
 				if ( m_shadow[a] )
 					if ( m_array[a] == newdata )
+					{
+						m_lock.Unlock();
 						return a;
+					}
 
+			m_lock.Unlock();
 			return -1;
 
 		}
@@ -310,6 +332,8 @@ namespace CrissCross
 		template < class T >
 		void DArray < T >::sort ( Sorter<T> *_sortMethod )
 		{
+			m_lock.Lock();
+
 			T *temp_array = new T[m_numUsed];
 			T *temp_ptr = temp_array;
 
@@ -337,35 +361,14 @@ namespace CrissCross
 		    
 			rebuildStack();
 			recount();
+
+			m_lock.Unlock();
 		}
 
 		template < class T >
 		void DArray < T >::sort ( Sorter<T> &_sortMethod )
 		{
-			T *temp_array = new T[m_numUsed];
-			T *temp_ptr = temp_array;
-			for ( size_t i = 0; i < m_arraySize; i++ )
-			{
-				if ( valid ( i ) )
-				{
-					*temp_ptr = m_array[i];
-					temp_ptr++;
-				}
-			}
-		    
-			_sortMethod.Sort ( temp_array, m_numUsed );
-		    
-			delete [] m_shadow;
-			m_shadow = new char[m_numUsed];
-			memset ( m_shadow, 1, m_numUsed );
-		    
-			delete [] m_array;
-			m_array = temp_array;
-
-			m_arraySize = m_numUsed;
-		    
-			rebuildStack();
-			recount();
+			sort ( &_sortMethod );
 		}
 
 		/* BELOW ARE DEPRECATED FUNCTIONS */
@@ -373,6 +376,8 @@ namespace CrissCross
 		template <class T>
 		void DArray<T>::EmptyAndDelete()
 		{
+			m_lock.Lock();
+
 			for (int i = 0; i < m_arraySize; ++i)
 			{
 				if (valid(i))
@@ -382,14 +387,20 @@ namespace CrissCross
 			}
 
 			empty();
+
+			m_lock.Unlock();
 		}
 
 		template <class T>
 		void DArray<T>::ChangeData ( T const & _rec, size_t index )
 		{
+			m_lock.Lock();
+
 			CoreAssert ( m_shadow[index] == 1 );
 
 			m_array[index] = _rec;
+
+			m_lock.Unlock();
 		}
 	}
 }

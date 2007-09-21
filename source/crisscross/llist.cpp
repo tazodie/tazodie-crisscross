@@ -64,19 +64,23 @@ namespace CrissCross
 		template < class T >
 			LList < T > &LList < T >::operator = ( const LList < T > &source )
 		{
+			m_lock.Lock();
 			empty ();
 			for ( size_t i = 0; i < source.size (); i++ )
 			{
 				insert_back ( source.getData ( i ) );
 			}
+			m_lock.Unlock();
 
 			return *this;
 		}
 
 		template < class T > void LList < T >::change ( const T &_rec, size_t _index )
 		{
+			m_lock.Lock();
 			LListItem < T > *li = getItem ( _index );
 			li->m_data = _rec;
+			m_lock.Unlock();
 		}
 
 		template < class T > void LList < T >::insert ( const T & newdata )
@@ -87,6 +91,7 @@ namespace CrissCross
 
 		template < class T > void LList < T >::insert_back ( const T & newdata )
 		{
+			m_lock.Lock();
 			LListItem < T > *li = new LListItem < T > ();
 			li->m_data = newdata;
 			li->m_next = NULL;
@@ -106,11 +111,13 @@ namespace CrissCross
 				m_last->m_next = li;
 				m_last = li;
 			}
+			m_lock.Unlock();
 		}
 
 
 		template < class T > void LList < T >::insert_front ( const T & newdata )
 		{
+			m_lock.Lock();
 			LListItem < T > *li = new LListItem < T > ();
 			li->m_data = newdata;
 			li->m_previous = NULL;
@@ -133,6 +140,7 @@ namespace CrissCross
 
 				m_previousIndex++;
 			}
+			m_lock.Unlock();
 		}
 
 
@@ -149,6 +157,8 @@ namespace CrissCross
 			}
 			else
 			{
+				m_lock.Lock();
+
 				LListItem < T > *current = m_first;
 
 				for ( size_t i = 0; i < index - 1; ++i )
@@ -172,6 +182,8 @@ namespace CrissCross
 
 				m_previousIndex = 0;
 				m_previous = m_first;
+
+				m_lock.Unlock();
 			}
 		}
 
@@ -184,12 +196,16 @@ namespace CrissCross
 
 		template < class T > T const &LList < T >::get ( size_t index ) const
 		{
+			m_lock.Lock();
 			LListItem < T > const *item = getItem ( index );
 
 			if ( item )
 			{
-				return item->m_data;
+				T const &ret = item->m_data;
+				m_lock.Unlock();
+				return ret;
 			}
+			m_lock.Unlock();
 
 			// Below wastes memory -- need a cleaner way to error out.
 			static T nullVar(0);
@@ -199,11 +215,19 @@ namespace CrissCross
 
 		template < class T > T * LList < T >::getPointer ( size_t index ) const
 		{
+			m_lock.Lock();
+
 			LListItem < T > *item = getItem ( index );
 			if ( item )
 			{
-				return &item->m_data;
+				T *ret = &item->m_data;
+
+				m_lock.Unlock();
+
+				return ret;
 			}
+
+			m_lock.Unlock();
 
 			return NULL;
 		}
@@ -229,12 +253,14 @@ namespace CrissCross
 			// Otherwise m_previous is nearest.
 			// The two if statements below test for these conditions.
 
+			m_lock.Lock();
+
 			if ( index <= ( m_previousIndex >> 1 ) )
 			{
 				m_previous = m_first;
 				m_previousIndex = 0;
 			}
-			else if ( ( index - m_previousIndex ) > ( m_numItems - index ) )
+			else if ( (size_t)abs ( (long)index - (long)m_previousIndex ) > ( m_numItems - index ) )
 			{
 				m_previous = m_last;
 				m_previousIndex = m_numItems - 1;
@@ -258,7 +284,11 @@ namespace CrissCross
 				m_previousIndex--;
 			}
 
-			return m_previous;
+			LListItem<T> *temp = m_previous;
+
+			m_lock.Unlock();
+
+			return temp;
 		}
 
 
@@ -270,7 +300,7 @@ namespace CrissCross
 
 		template < class T > void LList < T >::empty ()
 		{
-
+			m_lock.Lock();
 			LListItem < T > *current = m_first;
 			while ( current )
 			{
@@ -285,14 +315,20 @@ namespace CrissCross
 			m_numItems = 0;
 			m_previous = NULL;
 			m_previousIndex = -1;
+			m_lock.Unlock();
 		}
 
 		template < class T > void LList < T >::remove ( size_t index )
 		{
+			m_lock.Lock();
+
 			LListItem < T > *current = getItem ( index );
 
 			if ( current == NULL )
+			{
+				m_lock.Unlock();
 				return;
+			}
 
 			if ( current->m_previous == NULL )
 				m_first = current->m_next;
@@ -329,6 +365,7 @@ namespace CrissCross
 			delete current;
 
 			--m_numItems;
+			m_lock.Unlock();
 		}
 
 		template < class T > void LList < T >::sort ( CrissCross::Data::Sorter<T> &_sortMethod )
@@ -349,6 +386,7 @@ namespace CrissCross
 			 * is doing a LList::sort, they might as well be using a DArray.
 			 * 
 			 */
+			m_lock.Lock();
 			size_t llistSize = size();
 			DArray < T > sortArray;
 			sortArray.setSize ( llistSize );
@@ -362,6 +400,7 @@ namespace CrissCross
 			{
 				insert ( sortArray.get ( i ) );
 			}
+			m_lock.Unlock();
 		}
 
 		template < class T > T const & LList < T >::operator []( size_t index ) const
@@ -378,16 +417,19 @@ namespace CrissCross
 
 		template < class T > size_t LList < T >::find ( const T & data )
 		{
+			m_lock.Lock();
 			size_t const size = this->size ();
 
 			for ( size_t i = 0; i < size; ++i )
 			{
 				if ( Compare ( get ( i ), data ) == 0 )
 				{
+					m_lock.Unlock();
 					return i;
 				}
 			}
 
+			m_lock.Unlock();
 			return -1;
 		}
 	}

@@ -12,6 +12,8 @@
 #ifndef __included_cc_dstack_h
 #define __included_cc_dstack_h
 
+#include <crisscross/mutex.h>
+
 namespace CrissCross
 {
     namespace Data
@@ -21,6 +23,8 @@ namespace CrissCross
         class DStack
         {
         private:
+			CrissCross::System::Mutex m_lock;
+
             //! The step size for which to increase the stack size by.
             size_t          m_stepSize;
             
