@@ -12,18 +12,18 @@
 #ifndef __included_cc_datatypes_h
 #define __included_cc_datatypes_h
 
-typedef char int8_t;
-typedef unsigned char uint8_t;
-typedef short int16_t;
-typedef unsigned short uint16_t;
-typedef int int32_t;
-typedef unsigned int uint32_t;
+typedef char cc_int8_t;
+typedef unsigned char cc_uint8_t;
+typedef short cc_int16_t;
+typedef unsigned short cc_uint16_t;
+typedef int cc_int32_t;
+typedef unsigned int cc_uint32_t;
 #ifndef TARGET_OS_WINDOWS
-typedef long long int64_t;
-typedef unsigned long long uint64_t;
+typedef long long cc_int64_t;
+typedef unsigned long long cc_uint64_t;
 #else
-typedef __int64 int64_t;
-typedef unsigned __int64 uint64_t;
+typedef __int64 cc_int64_t;
+typedef unsigned __int64 cc_uint64_t;
 #endif
 
 #endif
