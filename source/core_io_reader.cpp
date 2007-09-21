@@ -70,7 +70,7 @@ namespace CrissCross
 		}
 
 		int
-		CoreIOReader::Forward ( int _position )
+		CoreIOReader::Forward ( size_t _position )
 		{
 			CoreAssert ( this != NULL );
 			if ( !IsOpen() ) return CC_ERR_INVALID_BUFFER;
@@ -124,8 +124,7 @@ namespace CrissCross
 		}
 
 		int
-		CoreIOReader::Read ( char *_buffer, int _bufferLength, int _bufferIndex,
-					   int _count )
+		CoreIOReader::Read ( char *_buffer, size_t _bufferLength, size_t _bufferIndex, size_t _count )
 		{
 			CoreAssert ( this != NULL );
 			if ( !IsOpen() ) return CC_ERR_INVALID_BUFFER;
@@ -134,7 +133,6 @@ namespace CrissCross
 
 			CoreAssert ( _buffer != NULL );
 			CoreAssert ( _bufferLength - _bufferIndex > _count );
-			CoreAssert ( _bufferIndex >= 0 );
 			CoreAssert ( _count > 0 );
 		#ifndef __GNUC__
 			m_ioMutex.Lock ();
@@ -158,7 +156,7 @@ namespace CrissCross
 		#endif
 
 			_buffer[0] = '\x0';
-			fgets ( _buffer, _bufferLength, m_fileInputPointer );
+			fread ( _buffer, 1, _bufferLength, m_fileInputPointer );
 
 			// Detect line endings.
 			char *endl = NULL;
@@ -176,7 +174,7 @@ namespace CrissCross
 			m_ioMutex.Unlock ();
 		#endif
 
-			return strlen ( _buffer );
+			return (int)strlen ( _buffer );
 		}
 
 		int
@@ -216,7 +214,7 @@ namespace CrissCross
 		}
 
 		int
-		CoreIOReader::Seek ( int _position, int _origin )
+		CoreIOReader::Seek ( size_t _position, int _origin )
 		{
 			CoreAssert ( this != NULL );
 			if ( !IsOpen() ) return CC_ERR_INVALID_BUFFER;
@@ -224,7 +222,7 @@ namespace CrissCross
 		#ifndef __GNUC__
 			m_ioMutex.Lock ();
 		#endif
-			int res = fseek ( m_fileInputPointer, _position, _origin );
+			int res = _fseeki64 ( m_fileInputPointer, _position, _origin );
 		#ifndef __GNUC__
 			m_ioMutex.Unlock ();
 		#endif
@@ -232,7 +230,7 @@ namespace CrissCross
 		}
 
 		int
-		CoreIOReader::Seek ( int _position )
+		CoreIOReader::Seek ( size_t _position )
 		{
 			CoreAssert ( this != NULL );
 			if ( !IsOpen() ) return CC_ERR_INVALID_BUFFER;

@@ -95,7 +95,7 @@ namespace CrissCross
                \param _count The number of bytes to read.
                \return The actual number of bytes read.
              */
-            virtual int Read ( char *_buffer, int _bufferLength, int _bufferIndex, int _count );
+            virtual int Read ( char *_buffer, size_t _bufferLength, size_t _bufferIndex, size_t _count );
 
             //! Reads a line of data.
             /*!
@@ -125,7 +125,7 @@ namespace CrissCross
                \return An integer indicating the result of the operation. 0 indicates
                success. Any non-zero number indicates failure.
              */
-            virtual int Seek ( int _position );
+            virtual int Seek ( size_t _position );
 
             //! Moves forward to a location in the buffer.
             /*!
@@ -133,7 +133,7 @@ namespace CrissCross
                \return An integer indicating the result of the operation. 0 indicates
                success. Any non-zero number indicates failure.
              */
-            virtual int Forward ( int _position );
+            virtual int Forward ( size_t _position );
 
             //! Flushes the input buffer.
             void Flush ();
@@ -146,7 +146,7 @@ namespace CrissCross
                \return An integer indicating the result of the operation. 0 indicates
                success. Any non-zero number indicates failure.
              */
-            int Seek ( int _position, int _origin );
+            int Seek ( size_t _position, int _origin );
 
         };
     }

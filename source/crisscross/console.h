@@ -178,10 +178,10 @@ namespace CrissCross
 
         private:
             bool EndOfFile ();
-            int Forward ( int _position );
-            int Seek ( int _position );
+            int Forward ( size_t _position );
+            int Seek ( size_t _position );
             int Length ();
-            int Read ( char *_buffer, int _bufferLength, int _bufferIndex, int _count );
+            int Read ( char *_buffer, size_t _bufferLength, size_t _bufferIndex, size_t _count );
         };
     }
 }

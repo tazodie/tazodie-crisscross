@@ -89,7 +89,7 @@ namespace CrissCross
 				unsigned int c;
 
 				inend = in + (*inlen);
-				while ((in < inend) && (out - outstart + 5 < *outlen)) {
+				while ((in < inend) && (out - outstart + 5U < *outlen)) {
 				c= *in++;
 
 					if (out >= outend)
@@ -106,7 +106,7 @@ namespace CrissCross
 				}
 				*outlen = out - outstart;
 				*inlen = processed - base;
-				return(*outlen);
+				return (int)(*outlen);
 			}
 
 			int
@@ -174,7 +174,7 @@ namespace CrissCross
 				}
 				*outlen = out - outstart;
 				*inlen = processed - instart;
-				return(*outlen);
+				return (int)(*outlen);
 			}
 		}
 	}
