@@ -19,6 +19,7 @@ namespace CrissCross
 	{
 		Mutex::Mutex ()
 		{
+			m_lockCount = 0;
 		#ifdef TARGET_OS_WINDOWS
 			InitializeCriticalSection(&m_criticalSection);
 		#else
@@ -29,6 +30,7 @@ namespace CrissCross
 
 		Mutex::~Mutex ()
 		{
+			CoreAssert ( m_lockCount == 0 );
 			Unlock();
 		#ifdef TARGET_OS_WINDOWS
 			DeleteCriticalSection(&m_criticalSection);
@@ -40,6 +42,7 @@ namespace CrissCross
 		void
 		Mutex::Lock ()
 		{
+			m_lockCount++;
 		#ifdef TARGET_OS_WINDOWS
 			EnterCriticalSection(&m_criticalSection);
 		#else
@@ -51,6 +54,7 @@ namespace CrissCross
 		void
 		Mutex::Unlock ()
 		{
+			m_lockCount--;
 		#ifdef TARGET_OS_WINDOWS
 			LeaveCriticalSection(&m_criticalSection);
 		#else
