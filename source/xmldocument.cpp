@@ -134,7 +134,7 @@ namespace CrissCross
 				if ( !_file ) return CC_ERR_BADPARAMETER;
 				if ( !_file->IsOpen() ) return CC_ERR_BADPARAMETER;
 				
-				size_t fileLen = _file->Length();
+				size_t fileLen = (size_t)_file->Length();
 				char *buffer = new char[fileLen + 1];
 				_file->Read ( buffer, (int)fileLen + 1, 0, (int)fileLen );
 				
