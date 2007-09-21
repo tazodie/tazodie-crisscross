@@ -323,8 +323,10 @@ namespace CrissCross
 				}
 			}
 
-			if ( z == NULL_NODE )
+			if ( z == NULL_NODE ) {
+				m_lock.Unlock();
 				return STATUS_NOT_FOUND;
+			}
 
 			statusEnum retval = killNode ( z );
 			
@@ -558,7 +560,7 @@ namespace CrissCross
 				}
 			}
 
-			m_lock.Lock();
+			m_lock.Unlock();
 			return (Data)0;
 		}
 
