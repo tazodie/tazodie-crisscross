@@ -25,7 +25,7 @@ namespace CrissCross
 		#else
 			pthread_mutexattr_t attr;
 			pthread_mutexattr_init ( &attr );
-			pthread_mutexattr_settype ( &attr, PTHREAD_MUTEX_RECURSIVE );
+			pthread_mutexattr_settype ( &attr, PTHREAD_MUTEX_RECURSIVE | PTHREAD_MUTEX_ERRORCHECK );
 			int error = pthread_mutex_init(&m_hMutex, 0);
 			CoreAssert ( error == 0 );
 		#endif
