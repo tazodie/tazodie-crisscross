@@ -44,6 +44,8 @@ namespace CrissCross
             CRITICAL_SECTION m_criticalSection;
         #    else
             //! POSIX threading mutex.
+			  
+			pthread_mutexattr_t m_mutexAttr;
             pthread_mutex_t m_hMutex;
         #    endif
           public:
