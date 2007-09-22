@@ -351,6 +351,7 @@
 			inputPaths = (
 			);
 			outputPaths = (
+				"$(PROJECT_DIR)/../source/crisscross/build_number.h",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -408,9 +409,7 @@
 		4FADC24708B4156D00ABE55E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					"$(NATIVE_ARCH)",
-				);
+				ARCHS = "$(NATIVE_ARCH)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/CrissCross_Prefix.pch";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
