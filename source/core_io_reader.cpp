@@ -93,6 +93,11 @@ namespace CrissCross
 			_fseeki64 ( m_fileInputPointer, 0, SEEK_END );
 			endpos = _ftelli64 ( m_fileInputPointer );
 			_fseeki64 ( m_fileInputPointer, lastpos, SEEK_SET );
+#elif defined ( TARGET_OS_MACOSX )
+			fgetpos ( m_fileInputPointer, &lastpos );
+			fseek ( m_fileInputPointer, 0, SEEK_END );
+			fgetpos ( m_fileInputPointer, &endpos );
+			fsetpos ( m_fileInputPointer, &lastpos );
 #else
 			fgetpos64 ( m_fileInputPointer, &lastpos );
 			fseeko64 ( m_fileInputPointer, 0, SEEK_END );
