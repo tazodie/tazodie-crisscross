@@ -235,7 +235,9 @@ namespace CrissCross
 		#endif
 #ifdef TARGET_OS_WINDOWS
 			int res = _fseeki64 ( m_fileInputPointer, _position, _origin );
-#else
+#elif defined ( TARGET_OS_MACOSX )
+			int res = fseek ( m_fileInputPointer, _position, _origin );
+#endif
 			int res = fseeko64 ( m_fileInputPointer, _position, _origin );
 #endif			
 		#ifndef __GNUC__
