@@ -291,7 +291,7 @@ RunApplication ( int argc, char **argv )
 
 	Stopwatch sw;
 
-	console->WriteLine ( "Visual C++ 2005 optimized:" );
+	console->WriteLine ( "Compiler optimized:" );
 	for ( unsigned long i = 100000; i <= 1000000; i += 100000 )
 	{
 		sw.Start();
