@@ -36,7 +36,6 @@ namespace CrissCross
 		Mutex::~Mutex ()
 		{
 			CoreAssert ( m_lockCount == 0 );
-			Unlock();
 		#ifdef TARGET_OS_WINDOWS
 			DeleteCriticalSection(&m_criticalSection);
 		#else
