@@ -237,7 +237,7 @@ namespace CrissCross
 			int res = _fseeki64 ( m_fileInputPointer, _position, _origin );
 #elif defined ( TARGET_OS_MACOSX )
 			int res = fseek ( m_fileInputPointer, _position, _origin );
-#endif
+#else
 			int res = fseeko64 ( m_fileInputPointer, _position, _origin );
 #endif			
 		#ifndef __GNUC__
