@@ -30,7 +30,7 @@ typedef unsigned long long cc_uint64_t;
 #ifdef TARGET_OS_WINDOWS
 typedef cc_int64_t fpos64_t;
 #elif defined ( TARGET_OS_MACOSX )
-typedef fpos64_t fpos_t;
+typedef fpos_t fpos64_t;
 #endif
 
 typedef float cc_float32_t;
