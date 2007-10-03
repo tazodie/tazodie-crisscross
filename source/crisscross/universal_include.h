@@ -195,6 +195,13 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #	endif
 #	endif
 
+#	if defined ( TARGET_COMPILER_VC )
+#		if _MSC_VER < 1400
+			extern "C" int __cdecl _fseeki64(FILE *, __int64, int);
+			extern "C" __int64 __cdecl _ftelli64(FILE *);
+#		endif
+#	endif
+
 #   if defined ( TARGET_OS_WINDOWS )
 #       if defined ( DETECT_MEMORY_LEAKS )
 #           ifndef _DBG_NEW
