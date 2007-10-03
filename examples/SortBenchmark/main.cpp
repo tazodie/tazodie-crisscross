@@ -25,10 +25,10 @@ BenchmarkDArray ( Sorter<char *> &sorter )
 {
 	DArray<char *> data, rdata;
 	Stopwatch sw;
-	char buffer[512], format[32];
+	char buffer[512], format[64];
 
 #ifdef TARGET_OS_WINDOWS
-	sprintf_s ( format, sizeof(format), "%s", "%lf seconds (%I64d clocks)." );
+	sprintf ( format, "%s", "%lf seconds (%I64d clocks)." );
 #else
 	sprintf ( format, "%s", "%lf seconds (%lld clocks)." );
 #endif
@@ -111,10 +111,10 @@ BenchmarkLList ( Sorter<char *> &sorter )
 {
 	LList<char *> data, rdata;
 	Stopwatch sw;
-	char buffer[512], format[32];
+	char buffer[512], format[64];
 
 #ifdef TARGET_OS_WINDOWS
-	sprintf_s ( format, sizeof(format), "%s", "%lf seconds (%I64d clocks)." );
+	sprintf ( format, "%s", "%lf seconds (%I64d clocks)." );
 #else
 	sprintf ( format, "%s", "%lf seconds (%lld clocks)." );
 #endif

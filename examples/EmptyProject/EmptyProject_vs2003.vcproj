@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="EmptyProject"
-	ProjectGUID="{FD12E5A5-E163-4337-AD48-0B5A1F093CB9}"
+	ProjectGUID="{09BEB8C6-4728-4FCC-9C15-D340ACD1BD05}"
 	RootNamespace="EmptyProject"
 	Keyword="Win32Proj"
 	>
@@ -27,6 +27,9 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
+				Description=""
+				CommandLine=""
+				Outputs=""
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -45,9 +48,8 @@
 				MinimalRebuild="true"
 				ExceptionHandling="2"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
 				BufferSecurityCheck="false"
-				OpenMP="true"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="header.h"
 				AssemblerOutput="4"
@@ -111,6 +113,9 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
+				Description=""
+				CommandLine=""
+				Outputs=""
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -131,9 +136,8 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				StringPooling="true"
 				ExceptionHandling="2"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				BufferSecurityCheck="false"
-				OpenMP="true"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="header.h"
 				AssemblerOutput="4"
