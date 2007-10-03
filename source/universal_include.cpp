@@ -170,7 +170,7 @@ ParseMemoryLeakFile ( const char *_inputFilename,
         fprintf ( output, "Total unrecognised memory leaks : %d Kbytes\n\n",
             int ( unrecognised / 1024 ) );
 
-        for ( size_t k = 0; k <= sorted.size(); k++ )
+        for ( size_t k = 0; k < sorted.size(); k++ )
         {
 
             char *source = sorted.get(k);

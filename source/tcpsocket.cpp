@@ -116,6 +116,8 @@ namespace CrissCross
 				// Create a new wrapper for our socket.
 				TCPSocket *csock = new TCPSocket ( sock );
 
+				m_state = SOCKET_STATE_CONNECTED;
+
 				// We're done.
 				*_socket = csock;
 				return CC_ERR_NONE;

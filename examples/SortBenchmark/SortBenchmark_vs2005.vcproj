@@ -31,7 +31,7 @@
 			<Tool
 				Name="VCCustomBuildTool"
 				Description="Copying dataset to the target directory"
-				CommandLine="copy $(ProjectDir)\dataset $(TargetDir)\"
+				CommandLine="copy $(ProjectDir)\dataset $(TargetDir)\&#x0D;&#x0A;"
 				Outputs="$(TargetDir)\dataset"
 			/>
 			<Tool
@@ -53,7 +53,6 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				BufferSecurityCheck="false"
-				OpenMP="true"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="header.h"
 				AssemblerOutput="4"
@@ -227,7 +226,6 @@
 				ExceptionHandling="2"
 				RuntimeLibrary="0"
 				BufferSecurityCheck="false"
-				OpenMP="true"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="header.h"
 				AssemblerOutput="4"
