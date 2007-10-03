@@ -2,7 +2,7 @@
 
 include ../common.mk
 
-all: cpuid-e genprime-e sortbenchmark-e xmlparser-e
+all: cpuid-e genprime-e sortbenchmark-e
 
 cpuid-e:
 	+$(MAKE) -C CPUID precomp
@@ -15,10 +15,6 @@ genprime-e:
 sortbenchmark-e:
 	+$(MAKE) -C SortBenchmark precomp
 	+$(MAKE) -C SortBenchmark
-
-xmlparser-e:
-	+$(MAKE) -C XMLParser precomp
-	+$(MAKE) -C XMLParser
 
 clean:
 	$(MAKE) -C CPUID clean
