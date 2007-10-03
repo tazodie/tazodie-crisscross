@@ -291,14 +291,6 @@ namespace CrissCross
     {
     }
 
-    //! The text namespace.
-    /*!
-        Contains encoding/decoding functions and a complete DOM-compliant XML implementation.
-     */
-    namespace Text
-    {
-    }
-
     //! The library version namespace.
     /*!
         Contains some simple functions for identifying the compiled CrissCross
