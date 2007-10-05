@@ -71,7 +71,10 @@ int TestDatatypes_Pointer()
 {
     if ( sizeof ( cc_ptr_t ) * 8 != TARGET_CPU_BITS )
         return 1;
-    else
-        return 0;
+
+	if ( sizeof ( cc_ptr_t ) != sizeof ( cc_ulong_t ) )
+		return 2;
+
+	return 0;
 }
 

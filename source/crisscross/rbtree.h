@@ -110,7 +110,7 @@ namespace CrissCross
                 \return A value indicating the result of the request.
                 \sa statusEnum
              */
-            statusEnum insert ( Key const &_key, Data const & _rec );
+            statusEnum insert ( Key const &_key, Data const &_rec );
 
             //! Deletes a node from the tree, specified by the node's key.
             /*!

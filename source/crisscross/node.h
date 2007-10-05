@@ -25,7 +25,7 @@ namespace CrissCross
         {
         public:
             //! The key for this node.
-            Key            id;
+            Key         id;
 
             //! The data held at this node.
             Data        data;
@@ -66,6 +66,60 @@ namespace CrissCross
 
             //! The default constructor.
             RedBlackNode () : BinaryNode<Key,Data>() {}
+        };
+
+        //! A leaf node used for BPlusTree.
+        /*!
+            \sa BinaryNode
+         */
+        template <class Key, class Data>
+        class LeafNode: public BinaryNode<Key,Data>
+        {
+        public:
+            //! Indicates whether or not the node has been visited in an iteration sequence.
+            mutable char beenThere;
+
+            //! The color of the node (either red or black).
+            char        color;
+
+            //! The left branch of the tree from this node.
+            LeafNode *left;
+
+            //! The right branch of the tree from this node.
+            LeafNode *right;
+
+            //! The parent node.
+            LeafNode *parent;
+
+            //! The default constructor.
+            LeafNode () : BinaryNode<Key,Data>() {}
+        };
+
+        //! An inner node used for BPlusTree.
+        /*!
+            \sa BinaryNode
+         */
+        template <class Key, class Data>
+        class InnerNode: public BinaryNode<Key,Data>
+        {
+        public:
+            //! Indicates whether or not the node has been visited in an iteration sequence.
+            mutable char beenThere;
+
+            //! The color of the node (either red or black).
+            char        color;
+
+            //! The left branch of the tree from this node.
+            InnerNode *left;
+
+            //! The right branch of the tree from this node.
+            InnerNode *right;
+
+            //! The parent node.
+            InnerNode *parent;
+
+            //! The default constructor.
+            InnerNode () : BinaryNode<Key,Data>() {}
         };
     }
 }
