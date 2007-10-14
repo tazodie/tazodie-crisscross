@@ -82,7 +82,9 @@ namespace CrissCross
 		template < class T >
 		void DArray < T >::setSize ( size_t newsize )
 		{
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Lock();
+#endif
 			if ( newsize > m_arraySize )
 			{
 				size_t oldarraysize = m_arraySize;
@@ -140,7 +142,9 @@ namespace CrissCross
 			{
 				// Do nothing
 			}
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Unlock();
+#endif
 		}
 
 		template < class T >
@@ -168,38 +172,52 @@ namespace CrissCross
 		template < class T >
 		void DArray < T >::setStepSize ( int _stepSize )
 		{
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Lock();
+#endif
 			m_stepSize = _stepSize;
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Unlock();
+#endif
 		}
 
 
 		template < class T >
 		void DArray < T >::setStepDouble ()
 		{
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Lock();
+#endif
 			m_stepSize = -1;
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Unlock();
+#endif
 		}
 
 		template < class T >
 		size_t DArray < T >::insert ( T const & newdata )
 		{
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Lock();
+#endif
 			size_t freeslot = getNextFree();
 
 			m_array[freeslot] = newdata;
 			if ( m_shadow[freeslot] == 0 ) m_numUsed++;
 			m_shadow[freeslot] = 1;
-		    
+
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Unlock();
+#endif
 			return freeslot;
 		}
 
 		template < class T >
 		void DArray < T >::insert ( T const & newdata, size_t index )
 		{
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Lock();
+#endif
 			
 			CoreAssert ( index >= 0 );
 
@@ -208,13 +226,17 @@ namespace CrissCross
 			m_array[index] = newdata;
 			if ( m_shadow[index] == 0 ) m_numUsed++;
 			m_shadow[index] = 1;
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Unlock();
+#endif
 		}
 
 		template < class T >
 		void DArray < T >::empty ()
 		{
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Lock();
+#endif
 			delete [] m_array;
 			delete [] m_shadow;
 
@@ -226,7 +248,9 @@ namespace CrissCross
 
 			m_arraySize = 0;
 			m_numUsed = 0;
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Unlock();
+#endif
 		}
 
 		template < class T >
@@ -295,8 +319,9 @@ namespace CrissCross
 		template < class T >
 		void DArray < T >::remove ( size_t index )
 		{
-
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Lock();
+#endif
 
 			CoreAssert ( m_shadow[index] != 0 );
 			CoreAssert ( index < m_arraySize );
@@ -306,7 +331,9 @@ namespace CrissCross
 			if ( m_shadow[index] == 1 ) m_numUsed--;
 			m_shadow[index] = 0;
 
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Unlock();
+#endif
 
 		}
 
@@ -314,7 +341,9 @@ namespace CrissCross
 		size_t DArray < T >::findData ( T const & newdata )
 		{
 
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Lock();
+#endif
 
 			for ( size_t a = 0; a < m_arraySize; ++a )
 				if ( m_shadow[a] )
@@ -324,7 +353,9 @@ namespace CrissCross
 						return a;
 					}
 
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Unlock();
+#endif
 			return -1;
 
 		}
@@ -332,7 +363,9 @@ namespace CrissCross
 		template < class T >
 		void DArray < T >::sort ( Sorter<T> *_sortMethod )
 		{
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Lock();
+#endif
 
 			T *temp_array = new T[m_numUsed];
 			T *temp_ptr = temp_array;
@@ -362,7 +395,9 @@ namespace CrissCross
 			rebuildStack();
 			recount();
 
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Unlock();
+#endif
 		}
 
 		template < class T >
@@ -376,7 +411,9 @@ namespace CrissCross
 		template <class T>
 		void DArray<T>::EmptyAndDelete()
 		{
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Lock();
+#endif
 
 			for (int i = 0; i < m_arraySize; ++i)
 			{
@@ -388,19 +425,25 @@ namespace CrissCross
 
 			empty();
 
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Unlock();
+#endif
 		}
 
 		template <class T>
 		void DArray<T>::ChangeData ( T const & _rec, size_t index )
 		{
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Lock();
+#endif
 
 			CoreAssert ( m_shadow[index] == 1 );
 
 			m_array[index] = _rec;
 
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Unlock();
+#endif
 		}
 	}
 }

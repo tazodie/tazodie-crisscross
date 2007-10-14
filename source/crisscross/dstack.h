@@ -23,7 +23,9 @@ namespace CrissCross
         class DStack
         {
         private:
+#ifdef ENABLE_TOSSER_MUTEXES
 			CrissCross::System::Mutex m_lock;
+#endif
 
             //! The step size for which to increase the stack size by.
             size_t          m_stepSize;
