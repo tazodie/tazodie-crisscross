@@ -349,7 +349,9 @@ namespace CrissCross
 				if ( m_shadow[a] )
 					if ( m_array[a] == newdata )
 					{
+#ifdef ENABLE_TOSSER_MUTEXES
 						m_lock.Unlock();
+#endif
 						return a;
 					}
 

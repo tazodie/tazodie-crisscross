@@ -492,7 +492,9 @@ namespace CrissCross
 			{
 				if ( Compare ( get ( i ), data ) == 0 )
 				{
+#ifdef ENABLE_TOSSER_MUTEXES
 					m_lock.Unlock();
+#endif
 					return i;
 				}
 			}
