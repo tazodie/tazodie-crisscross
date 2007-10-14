@@ -25,7 +25,6 @@ namespace CrissCross
         //! @cond
         template < class T > class LListItem
         {
-        protected:
         public:
             T m_data;
             LListItem *m_next;
@@ -41,7 +40,9 @@ namespace CrissCross
         template < class T > class LList
         {
         protected:
+#ifdef ENABLE_TOSSER_MUTEXES
 			mutable CrissCross::System::Mutex m_lock;
+#endif
 
             //! The first node.
             LListItem < T > *m_first;

@@ -40,7 +40,9 @@ namespace CrissCross
 		template < class dataType >
 		void DStack<dataType>::setSize ( size_t _size )
 		{
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Lock();
+#endif
 
 			// This function is ONLY stable for increases in size, not decreases.
 			dataType *newstack_ = NULL;
@@ -54,7 +56,9 @@ namespace CrissCross
 			m_top = m_bottom + m_size;
 			m_size = _size;
 
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Unlock();
+#endif
 		}
 
 		template < class dataType >
@@ -76,14 +80,18 @@ namespace CrissCross
 		template < class dataType >
 		void DStack<dataType>::push ( dataType val )
 		{
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Lock();
+#endif
 			if ( count() == m_size )    // the stack is full. need more space!
 			{
 				grow();
 			}
 			*m_top = val;
 			m_top++;
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Unlock();
+#endif
 		}
 
 		template < class dataType >
@@ -95,33 +103,45 @@ namespace CrissCross
 		template < class dataType >
 		dataType DStack<dataType>::pop ()
 		{
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Lock();
+#endif
 			if ( !m_top ) return (dataType)0;
 			m_top--;
 			dataType ret = *m_top;
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Unlock();
+#endif
 			return ret;
 		}
 
 		template < class dataType >
 		const dataType &DStack<dataType>::peek ()
 		{
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Lock();
+#endif
 			static dataType nullItem(0);
 			if ( !m_top ) return nullItem;
 			const dataType &ret = *(m_top - 1);
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Unlock();
+#endif
 			return ret;
 		}
 
 		template < class dataType >
 		void DStack<dataType>::empty ()
 		{
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Lock();
+#endif
 			delete [] m_bottom;
 			m_top = m_bottom = NULL;
 			m_size = m_origSize = 0;
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Unlock();
+#endif
 		}
 	}
 }
