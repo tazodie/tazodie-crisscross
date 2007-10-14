@@ -20,6 +20,5 @@ clean:
 	$(MAKE) -C CPUID clean
 	$(MAKE) -C GenPrime clean
 	$(MAKE) -C SortBenchmark clean
-	$(MAKE) -C XMLParser clean
 
 distclean: clean

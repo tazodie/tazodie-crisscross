@@ -28,14 +28,6 @@ udpsocket.cpp \
 textreader.cpp \
 textwriter.cpp \
 version.cpp \
-xmlattribute.cpp \
-xmldocument.cpp \
-xmldocumenttype.cpp \
-xmlelement.cpp \
-xmlnamednodemap.cpp \
-xmlnode.cpp \
-xmlnodelist.cpp \
-xmlparser.cpp \
 universal_include.cpp
 
 OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)
