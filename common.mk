@@ -5,13 +5,8 @@ VERSION_MAJOR = 0
 
 OPTLEVEL = 3
 
-ifeq ($(CXX),)
 CXX = g++
-endif
-
-ifeq ($(CC),)
 CC = gcc
-endif
 
 LINK = $(CXX)
 
@@ -41,6 +36,7 @@ GCC_IS386 = no
 GCC_IS486 = no
 GCC_IS586 = no
 GCC_IS686 = no
+GCC_ISX64 = no
 GCC_ISPPC = no
 GCC_HAS_MMX = no
 GCC_HAS_SSE = no
@@ -64,6 +60,11 @@ endif
 
 ifeq ($(GCC_PROC),i686)
 GCC_IS686 = yes
+GCC_ISINTEL = yes
+endif
+
+ifeq ($(GCC_PROC),x86_64)
+GCC_ISX64 = yes
 GCC_ISINTEL = yes
 endif
 
@@ -110,40 +111,43 @@ ARCH =
 ifeq ($(GCC_ISAPPLE),yes)
     ifeq ($(GCC_ISINTEL),yes)
         # Intel Core Duo or Core 2 Duo (Intel Mac)
-        ARCH = -m32 -march=prescott
+        ARCH = -march=prescott
     endif
     ifeq ($(GCC_ISPPC),yes)
         ARCH = -mtune=G4
     endif
 else
     ifeq ($(GCC_IS386),yes)
-        ARCH = -m32 -march=i386
+        ARCH = -march=i386
     endif
     ifeq ($(GCC_IS486),yes)
-        ARCH = -m32 -march=i486
+        ARCH = -march=i486
     endif
     ifeq ($(GCC_IS586),yes)
-        ARCH = -m32 -march=pentium
+        ARCH = -march=pentium
     endif
     ifeq ($(GCC_IS686),yes)
-        ARCH = -m32 -march=pentiumpro
+        ARCH = -march=pentiumpro
     endif
     ifeq ($(GCC_HAS_MMX),yes)
-        ARCH = -m32 -march=pentium2
+        ARCH = -march=pentium2
     endif
     ifeq ($(GCC_HAS_MMX),yes)
-        ARCH = -m32 -march=pentium2
+        ARCH = -march=pentium2
     endif
     ifeq ($(GCC_HAS_SSE),yes)
-        ARCH = -m32 -march=pentium3
+        ARCH = -march=pentium3
     endif
     ifeq ($(GCC_MAJOR),4)
         ifeq ($(GCC_HAS_SSE2),yes)
-            ARCH = -m32 -march=pentium-m -mtune=pentium-m
+            ARCH = -march=pentium-m -mtune=pentium-m
         endif
     endif
     ifeq ($(GCC_ISPPC),yes)
         ARCH = -mtune=G4
+    endif
+    ifeq ($(GCC_ISX64),yes)
+        ARCH = -march=nocona
     endif
 endif
 
