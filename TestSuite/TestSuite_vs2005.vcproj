@@ -74,6 +74,8 @@
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
+				FixedBaseAddress="1"
+				Profile="true"
 			/>
 			<Tool
 				Name="VCALinkTool"

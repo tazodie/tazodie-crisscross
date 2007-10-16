@@ -114,7 +114,7 @@ int RunApplication (int argc, char **argv) {
     g_console->Flush();
  
 #ifdef TARGET_OS_WINDOWS
-    system ( "pause" );
+    //system ( "pause" );
 #endif
 
     delete g_console;
