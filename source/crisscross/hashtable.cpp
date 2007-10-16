@@ -116,7 +116,7 @@ namespace CrissCross
 
 					// Kills us if we didn't resize properly.
 					attempts++;
-					if ( attempts > m_size * 2 )
+					if ( attempts > 128 )
 						return NULL;
 				}
 				if ( attempts <= 3 )
@@ -146,6 +146,8 @@ namespace CrissCross
 			double hitPercentage = ((double)m_hits / (double)m_searches) * 100.0,
 				   collisionPercentage = ((double)m_collisions / (double)m_insertions) * 100.0,
 				   usagePercentage = ((double)m_used / (double)m_size) * 100.0;
+			if ( m_searches == 0 ) hitPercentage = 0.0;
+			if ( m_insertions == 0 ) collisionPercentage = 0.0;
 			printf ( "\n" );
 			printf ( "HASH TABLE STATISTICS:\n\n" );
 			printf ( "SIZE: %lu (%luKB)\n", m_size, ((m_size * sizeof(T)) + (m_size * sizeof(char*))) / 1024 );
@@ -162,6 +164,8 @@ namespace CrissCross
 			printf ( "*** OVERALL QUALITY : %0.2lf%% ( (%0.2lf%% + %0.2lf%% + %0.2lf%%) / 3.0 ) ***\n",
 				( q1 + q2 + q3 ) / 3.0, q1, q2, q3 );
 			printf ( "\n" );
+
+			m_hits = m_searches = m_collisions = m_insertions = 0;
 		}
 
 		template <class T>
@@ -172,6 +176,7 @@ namespace CrissCross
 			{
 				free ( m_keys[index] );
 				m_keys[index] = NULL;
+				m_used--;
 				return 0;
 			}
 			else
