@@ -22,37 +22,38 @@ int TestHashTable()
 	HashTable<int> ht;
 
 	char buffer[32];
-	const size_t max = 10000;
-	for ( size_t i = 0; i < max; i++ )
+	const unsigned long max = 10000;
+	unsigned long i;
+	for ( i = 0; i < max; i++ )
 	{
 		sprintf ( buffer, "%lu", i );
 		ht.insert ( buffer, max - i );
 	}
-	ht.print_statistics();
+	//ht.print_statistics();
 
-	for ( size_t i = 0; i < max; i += 2 )
+	for ( i = 0; i < max; i += 2 )
 	{
 		sprintf ( buffer, "%lu", i );
 		if ( ht.remove ( buffer ) != 0 )
 			return i + 1;
 	}
-	ht.print_statistics();
+	//ht.print_statistics();
 
-	for ( size_t i = 0; i < max; i += 2 )
+	for ( i = 0; i < max; i += 2 )
 	{
 		sprintf ( buffer, "%lu", i );
-		if ( ht.find ( buffer ) != NULL )
+		if ( ht.find ( buffer ) != 0 )
 			return i + 1;
 	}
-	ht.print_statistics();
+	//ht.print_statistics();
 
-	for ( size_t i = 1; i < max; i += 2 )
+	for ( i = 1; i < max; i += 2 )
 	{
 		sprintf ( buffer, "%lu", i );
-		if ( ht.find ( buffer ) != max - i )
+		if ( ht.find ( buffer ) != (int)(max - i) )
 			return i + 1;
 	}
-	ht.print_statistics();
+	//ht.print_statistics();
 
 	return 0;
 }

@@ -117,7 +117,7 @@ namespace CrissCross
 					// Kills us if we didn't resize properly.
 					attempts++;
 					if ( attempts > 128 )
-						return NULL;
+						return 0;
 				}
 				if ( attempts <= 3 )
 					m_hits++;
@@ -133,11 +133,12 @@ namespace CrissCross
 		template <class T>
 		T const &HashTable<T>::find ( const char * const &_key )
 		{
+			static T null(0);
 			size_t index = findIndex ( _key );
 			if ( m_keys[index] && strcmp ( m_keys[index], _key ) == 0 )
 				return m_array[index];
 			else
-				return NULL;
+				return null;
 		}
 
 		template <class T>
