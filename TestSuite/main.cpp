@@ -19,6 +19,7 @@
 #include "llist.h"
 #include "rbtree.h"
 #include "bubblesort.h"
+#include "hashtable.h"
 #include "heapsort.h"
 #include "quicksort.h"
 #include "shellsort.h"
@@ -72,6 +73,8 @@ int RunApplication (int argc, char **argv) {
     WritePrefix ( "RedBlackTree<const char *, const char *>" ); retval |= WriteResult ( TestRedBlackTree_CString() );
     WritePrefix ( "RedBlackTree<std::string, std::string>" ); retval |= WriteResult ( TestRedBlackTree_String() );
     WritePrefix ( "RedBlackTree<int, int>" ); retval |= WriteResult ( TestRedBlackTree_Int() );
+
+    WritePrefix ( "HashTable<int>" ); retval |= WriteResult ( TestHashTable() );
 
     WritePrefix ( "BubbleSort (integer array)" ); retval |= WriteResult ( TestBubbleSort_IntArray() );
     WritePrefix ( "BubbleSort (integer DArray)" ); retval |= WriteResult ( TestBubbleSort_DArray() );

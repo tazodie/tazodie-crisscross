@@ -20,6 +20,7 @@
 #include <crisscross/darray.h>
 #include <crisscross/llist.h>
 #include <crisscross/node.h>
+#include <crisscross/hashtable.h>
 #include <crisscross/rbtree.h>
 #include <crisscross/error.h>
 #include <crisscross/core_io.h>
