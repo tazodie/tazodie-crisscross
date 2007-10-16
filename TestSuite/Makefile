@@ -11,6 +11,7 @@ stopwatch.cpp \
 datatypes.cpp \
 compare.cpp \
 llist.cpp \
+hashtable.cpp \
 rbtree.cpp \
 dstack.cpp \
 darray.cpp \
