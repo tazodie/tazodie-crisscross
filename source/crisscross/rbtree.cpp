@@ -677,7 +677,9 @@ namespace CrissCross
 		template <class Key, class Data>
 			size_t RedBlackTree<Key,Data>::size () const
 		{
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Lock();
+#endif
 			// Debug builds verify that the cached size is accurate.
 			// Release builds will get a speed gain.
 			RedBlackNode<Key,Data> *vNode = NULL_NODE;
@@ -691,7 +693,9 @@ namespace CrissCross
 			}
 
 			CoreAssert ( m_cachedSize == vCount );
+#ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Unlock();
+#endif
 			return m_cachedSize;
 		}
 		#endif

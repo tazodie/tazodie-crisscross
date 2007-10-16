@@ -405,6 +405,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\hashtable.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\hashtable.h"
+			>
+		</File>
+		<File
 			RelativePath=".\header.cpp"
 			>
 			<FileConfiguration
