@@ -142,7 +142,7 @@ SymbolEngine::StackTrace ( PCONTEXT _pContext, CoreIOWriter * _outputBuffer )
 #endif
 
 void
-PrintStackTrace ( CoreIOWriter * _outputBuffer )
+PrintStackTrace ( CrissCross::IO::CoreIOWriter * _outputBuffer )
 {
 #if !defined ( TARGET_OS_MACOSX ) && !defined ( TARGET_OS_NETBSD ) && !defined ( TARGET_OS_FREEBSD ) && !defined ( TARGET_OS_OPENBSD )
 
@@ -206,6 +206,8 @@ PrintStackTrace ( CoreIOWriter * _outputBuffer )
 #   else
     _outputBuffer->WriteLine ( "FAIL: backtrace() function not available." );
 #   endif
+#else
+	_outputBuffer->WriteLine ( "Stack traces are not implemented for this platform." );
 #endif // TARGET_OS_MACOSX
 }
 
