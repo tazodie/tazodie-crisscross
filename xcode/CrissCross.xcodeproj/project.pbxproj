@@ -317,6 +317,7 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = 4FADC24608B4156D00ABE55E /* Build configuration list for PBXProject "CrissCross" */;
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			mainGroup = 0867D691FE84028FC02AAC07 /* CrissCross */;
 			productRefGroup = 034768DDFF38A45A11DB9C8B /* Products */;
@@ -355,7 +356,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/bash\n\necho \"Generating build_number.h...\";\n\necho \"Changing directory to '$PROJECT_DIR/../source/crisscross/'...\";\ncd $PROJECT_DIR/../source/crisscross/\n\nBUILD=`/usr/local/bin/svn info | grep \"Revision\" | sed 's/Revision: //g'`\n\nif [ \"${BUILD}x\" == \"x\" ]; then\n\techo \"Build number couldn't be detected, defaulting to 0!\"\n\tBUILD=0\nelse\n\techo \"Build number ${BUILD} detected, creating header...\"\nfi\n\necho \"#ifndef __included_build_number_h\" > build_number.h.tmp\necho \"#define __included_build_number_h\" >> build_number.h.tmp\necho \"\" >> build_number.h.tmp\necho \"#define BUILD_NUMBER ${BUILD}\" >> build_number.h.tmp\necho \"\" >> build_number.h.tmp\necho \"#endif\" >> build_number.h.tmp\necho \"\" >> build_number.h.tmp\n\ntouch build_number.h\n\nTEMPHEADERMD5=`md5 -q build_number.h.tmp`\nHEADERMD5=`md5 -q build_number.h`\n\nif [ \"${TEMPHEADERMD5}\" != \"${HEADERMD5}\" ]; then\n\techo \"Header updated.\"\n\tmv build_number.h.tmp build_number.h\nelse\n\techo \"Header is already up to date. Skipping update...\"\n\trm build_number.h.tmp\nfi\n\nexit 0";
+			shellScript = "#!/bin/bash\n\necho \"Generating build_number.h...\";\n\necho \"Changing directory to '$PROJECT_DIR/../source/crisscross/'...\";\ncd $PROJECT_DIR/../source/crisscross/\n\nBUILD=`svn info | grep \"Revision\" | sed 's/Revision: //g'`\n\nif [ \"${BUILD}x\" == \"x\" ]; then\n\techo \"Build number couldn't be detected, defaulting to 0!\"\n\tBUILD=0\nelse\n\techo \"Build number ${BUILD} detected, creating header...\"\nfi\n\necho \"#ifndef __included_build_number_h\" > build_number.h.tmp\necho \"#define __included_build_number_h\" >> build_number.h.tmp\necho \"\" >> build_number.h.tmp\necho \"#define BUILD_NUMBER ${BUILD}\" >> build_number.h.tmp\necho \"\" >> build_number.h.tmp\necho \"#endif\" >> build_number.h.tmp\necho \"\" >> build_number.h.tmp\n\ntouch build_number.h\n\nTEMPHEADERMD5=`md5 -q build_number.h.tmp`\nHEADERMD5=`md5 -q build_number.h`\n\nif [ \"${TEMPHEADERMD5}\" != \"${HEADERMD5}\" ]; then\n\techo \"Header updated.\"\n\tmv build_number.h.tmp build_number.h\nelse\n\techo \"Header is already up to date. Skipping update...\"\n\trm build_number.h.tmp\nfi\n\nexit 0";
 		};
 /* End PBXShellScriptBuildPhase section */
 
