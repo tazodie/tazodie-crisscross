@@ -358,7 +358,7 @@ static void DumpSystemInformation(HANDLE LogFile)
 
 	long crashID = CurrentTime.dwLowDateTime;
 	ZeroMemory(szCrashID, sizeof(szCrashID));
-	_ltot_s( crashID, szCrashID, 20, 16 );
+	ltoa ( crashID, szCrashID, 16 );
 	hprintf(LogFile, "\r\nCRASH REFERENCE CODE: %s\r\n\r\n", szCrashID );
 
 	hprintf(LogFile, _T("Error occurred at %s.\r\n"), szTimeBuffer);
