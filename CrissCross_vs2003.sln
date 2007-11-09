@@ -1,6 +1,7 @@
 Microsoft Visual Studio Solution File, Format Version 8.00
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CrissCross", "source\CrissCross_vs2003.vcproj", "{9520273D-42A8-4E63-A2DC-C209AAAC2B6A}"
 	ProjectSection(ProjectDependencies) = postProject
+		{8D5DF97D-B5E3-4685-A409-2E8486FD532D} = {8D5DF97D-B5E3-4685-A409-2E8486FD532D}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestSuite", "TestSuite\TestSuite_vs2003.vcproj", "{E445B4EF-9B58-41CE-B68A-EA56DDFF5746}"
@@ -26,6 +27,10 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EmptyProject", "examples\EmptyProject\EmptyProject_vs2003.vcproj", "{09BEB8C6-4728-4FCC-9C15-D340ACD1BD05}"
 	ProjectSection(ProjectDependencies) = postProject
 		{9520273D-42A8-4E63-A2DC-C209AAAC2B6A} = {9520273D-42A8-4E63-A2DC-C209AAAC2B6A}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GenerateBuildNumber", "..\..\Onlink\contrib\crisscross\tools\Build\GenerateBuildNumber_vs2003.vcproj", "{8D5DF97D-B5E3-4685-A409-2E8486FD532D}"
+	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
 Global
@@ -60,6 +65,10 @@ Global
 		{09BEB8C6-4728-4FCC-9C15-D340ACD1BD05}.Debug.Build.0 = Debug|Win32
 		{09BEB8C6-4728-4FCC-9C15-D340ACD1BD05}.Release.ActiveCfg = Release|Win32
 		{09BEB8C6-4728-4FCC-9C15-D340ACD1BD05}.Release.Build.0 = Release|Win32
+		{8D5DF97D-B5E3-4685-A409-2E8486FD532D}.Debug.ActiveCfg = Debug|Win32
+		{8D5DF97D-B5E3-4685-A409-2E8486FD532D}.Debug.Build.0 = Debug|Win32
+		{8D5DF97D-B5E3-4685-A409-2E8486FD532D}.Release.ActiveCfg = Release|Win32
+		{8D5DF97D-B5E3-4685-A409-2E8486FD532D}.Release.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
