@@ -363,8 +363,10 @@ namespace CrissCross
 		}
 
 		template < class T >
-		void DArray < T >::sort ( Sorter<T> *_sortMethod )
+		cc_uint64_t DArray < T >::sort ( Sorter<T> *_sortMethod )
 		{
+			cc_uint64_t ret;
+
 #ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Lock();
 #endif
@@ -383,7 +385,7 @@ namespace CrissCross
 				}
 			}
 		    
-			_sortMethod->Sort ( temp_array, m_numUsed );
+			ret = _sortMethod->Sort ( temp_array, m_numUsed );
 		    
 			delete [] m_shadow;
 			m_shadow = new char[m_numUsed];
@@ -400,12 +402,14 @@ namespace CrissCross
 #ifdef ENABLE_TOSSER_MUTEXES
 			m_lock.Unlock();
 #endif
+
+			return ret;
 		}
 
 		template < class T >
-		void DArray < T >::sort ( Sorter<T> &_sortMethod )
+		cc_uint64_t DArray < T >::sort ( Sorter<T> &_sortMethod )
 		{
-			sort ( &_sortMethod );
+			return sort ( &_sortMethod );
 		}
 
 		/* BELOW ARE DEPRECATED FUNCTIONS */

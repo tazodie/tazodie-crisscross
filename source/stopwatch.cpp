@@ -19,9 +19,7 @@ namespace CrissCross
         Stopwatch::Stopwatch()
         {
 #if defined ( TARGET_OS_WINDOWS )
-            LARGE_INTEGER freq;
-            QueryPerformanceFrequency ( &freq );
-            m_tickInterval = 1.0 / (double)freq.QuadPart;
+			RecalculateFrequency();
 #elif defined ( TARGET_OS_MACOSX )
             mach_timebase_info ( &m_timebase );
 #endif
@@ -30,6 +28,15 @@ namespace CrissCross
         Stopwatch::~Stopwatch()
         {
         }
+
+#if defined ( TARGET_OS_WINDOWS )
+		void Stopwatch::RecalculateFrequency()
+		{
+            LARGE_INTEGER freq;
+            QueryPerformanceFrequency ( &freq );
+            m_tickInterval = 1.0 / (double)freq.QuadPart;
+		}
+#endif
 
         double Stopwatch::Elapsed()
         {

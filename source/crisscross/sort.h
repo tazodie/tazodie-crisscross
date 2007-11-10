@@ -36,7 +36,7 @@ namespace CrissCross
 				\param _array The array to sort.
 				\param _size The size of the array to sort.
 			 */
-            virtual int Sort ( T *_array, size_t _size ) = 0;
+            virtual cc_uint64_t Sort ( T *_array, size_t _size ) = 0;
 
             //! The swap function.
             /*!
@@ -59,7 +59,6 @@ namespace CrissCross
 #include <crisscross/combsort.h>
 #include <crisscross/heapsort.h>
 #include <crisscross/insertionsort.h>
-#include <crisscross/mergesort.h>
 #include <crisscross/quicksort.h>
 #include <crisscross/shellsort.h>
 

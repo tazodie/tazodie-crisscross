@@ -35,6 +35,8 @@ namespace CrissCross
 #if defined ( TARGET_OS_WINDOWS )
             LARGE_INTEGER               m_start, m_finish;
             double                      m_tickInterval;
+
+			void RecalculateFrequency();
 #elif defined ( TARGET_OS_MACOSX )
             uint64_t                    m_start;
             uint64_t                    m_finish;
@@ -45,6 +47,7 @@ namespace CrissCross
 #else
 #error No target OS defined (did you forget to include crisscross/universal_include.h?)
 #endif
+
         public:
             //! The constructor.
             Stopwatch();
@@ -56,6 +59,7 @@ namespace CrissCross
 			inline void Start()
 			{
 			#if defined ( TARGET_OS_WINDOWS )
+				RecalculateFrequency();
 				QueryPerformanceCounter ( &m_start );
 			#elif defined ( TARGET_OS_MACOSX )
 				m_start = mach_absolute_time ();
