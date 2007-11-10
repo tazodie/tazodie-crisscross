@@ -24,7 +24,6 @@
 #include "quicksort.h"
 #include "shellsort.h"
 #include "insertionsort.h"
-#include "mergesort.h"
 #include "combsort.h"
 #include "stopwatch.h"
 
@@ -91,10 +90,6 @@ int RunApplication (int argc, char **argv) {
     WritePrefix ( "InsertionSort (integer array)" ); retval |= WriteResult ( TestInsertionSort_IntArray() );
     WritePrefix ( "InsertionSort (integer DArray)" ); retval |= WriteResult ( TestInsertionSort_DArray() );
     WritePrefix ( "InsertionSort (integer LList)" ); retval |= WriteResult ( TestInsertionSort_LList() );
-
-    WritePrefix ( "MergeSort (integer array)" ); retval |= WriteResult ( TestMergeSort_IntArray() );
-    WritePrefix ( "MergeSort (integer DArray)" ); retval |= WriteResult ( TestMergeSort_DArray() );
-    WritePrefix ( "MergeSort (integer LList)" ); retval |= WriteResult ( TestMergeSort_LList() );
 
     WritePrefix ( "ShellSort (integer array)" ); retval |= WriteResult ( TestShellSort_IntArray() );
     WritePrefix ( "ShellSort (integer DArray)" ); retval |= WriteResult ( TestShellSort_DArray() );
