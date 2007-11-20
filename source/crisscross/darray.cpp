@@ -338,7 +338,7 @@ namespace CrissCross
 		}
 
 		template < class T >
-		size_t DArray < T >::findData ( T const & newdata )
+		size_t DArray < T >::find ( T const & newdata )
 		{
 
 #ifdef ENABLE_TOSSER_MUTEXES

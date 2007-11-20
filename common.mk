@@ -23,9 +23,9 @@ GCC_MAJOR    := $(shell $(CXX) -dumpversion 2>&1 | \
 GCC_MINOR    := $(shell $(CXX) -dumpversion 2>&1 | \
                         cut -d' ' -f3  | cut -d'.' -f2)
 GCC_PROC     := $(shell uname -m)
-GCC_MMX      := $(shell cat /proc/cpuinfo | grep mmx)
-GCC_SSE      := $(shell cat /proc/cpuinfo | grep sse)
-GCC_SSE2     := $(shell cat /proc/cpuinfo | grep sse2)
+GCC_MMX      := $(shell cat /proc/cpuinfo 2> /dev/null | grep mmx)
+GCC_SSE      := $(shell cat /proc/cpuinfo 2> /dev/null | grep sse)
+GCC_SSE2     := $(shell cat /proc/cpuinfo 2> /dev/null | grep sse2)
 
 GCC_ISAPPLE = no
 GCC_ISEMULATED = no
