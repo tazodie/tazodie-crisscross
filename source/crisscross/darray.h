@@ -27,10 +27,6 @@ namespace CrissCross
         {
 
         private:
-#ifdef ENABLE_TOSSER_MUTEXES
-			mutable CrissCross::System::Mutex m_lock;
-#endif
-
             //! A DStack containing indices of empty nodes in the array.
             /*!
                 Vastly speeds up insertions by keeping track of where empty spaces are.

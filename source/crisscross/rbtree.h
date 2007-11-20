@@ -170,9 +170,6 @@ namespace CrissCross
 			inline void empty () { killAll(); rootNode = NULL_NODE; };
 
         protected:
-#ifdef ENABLE_TOSSER_MUTEXES
-			mutable CrissCross::System::Mutex m_lock;
-#endif
 
             /*
             these are automatically called. no need to use them externally at all.

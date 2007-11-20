@@ -178,9 +178,6 @@ namespace CrissCross
 		template <class Key, class Data>
 			statusEnum RedBlackTree<Key,Data>::insert ( Key const &key, Data const & rec )
 		{
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Lock();
-#endif
 			RedBlackNode<Key,Data> *current = NULL_NODE, *parent = NULL, *x = NULL_NODE;
 
 			/* find future parent */
@@ -195,9 +192,6 @@ namespace CrissCross
 			/* setup new node */
 			if ( (x = new RedBlackNode<Key,Data>()) == 0 )
 			{
-#ifdef ENABLE_TOSSER_MUTEXES
-				m_lock.Unlock();
-#endif
 				return STATUS_MEM_EXHAUSTED;
 			}
 
@@ -226,9 +220,6 @@ namespace CrissCross
 
 			insertFixup ( x );
 
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Unlock();
-#endif
 			return STATUS_OK;
 		}
 
@@ -308,10 +299,6 @@ namespace CrissCross
 		template <class Key, class Data>
 			statusEnum RedBlackTree<Key,Data>::erase ( Key const &key )
 		{
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Lock();
-#endif
-
 			RedBlackNode<Key,Data> *z, *parent;
 
 			//  delete node z from tree
@@ -332,28 +319,17 @@ namespace CrissCross
 			}
 
 			if ( z == NULL_NODE ) {
-#ifdef ENABLE_TOSSER_MUTEXES
-				m_lock.Unlock();
-#endif
 				return STATUS_NOT_FOUND;
 			}
 
 			statusEnum retval = killNode ( z );
 			
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Unlock();
-#endif
-
 			return retval;
 		}
 
 		template <class Key, class Data>
 			statusEnum RedBlackTree<Key,Data>::erase ( Key const &key, Data const &rec)
 		{
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Lock();
-#endif
-
 			RedBlackNode<Key,Data>        *node = findNode(key);
 
 			node->beenThere = NODE_ITSELF_VISITED;
@@ -368,19 +344,12 @@ namespace CrissCross
 
 			statusEnum retval = killNode( node );
 
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Unlock();
-#endif
-
 			return retval;
 		}
 
 		template <class Key, class Data>
 			statusEnum RedBlackTree<Key,Data>::killNode ( RedBlackNode<Key,Data> * z )
 		{
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Lock();
-#endif
 			RedBlackNode<Key,Data> *x, *y;
 
 			if ( z->left == NULL_NODE || z->right == NULL_NODE )
@@ -429,10 +398,6 @@ namespace CrissCross
 
 			m_cachedSize--;
 			delete y;
-
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Unlock();
-#endif
 
 			return STATUS_OK;
 		}
@@ -563,18 +528,12 @@ namespace CrissCross
 		template <class Key, class Data>
 			Data RedBlackTree<Key,Data>::find ( Key const &key ) const
 		{
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Lock();
-#endif
 			RedBlackNode<Key,Data> *current = rootNode;
 
 			while ( current != NULL_NODE )
 			{
 				if ( Compare ( key, current->id ) == 0 )
 				{
-#ifdef ENABLE_TOSSER_MUTEXES
-					m_lock.Unlock();
-#endif
 					return current->data;
 				}
 				else
@@ -584,28 +543,18 @@ namespace CrissCross
 				}
 			}
 
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Unlock();
-#endif
 			return (Data)0;
 		}
 
 		template <class Key, class Data>
 			RedBlackNode<Key,Data> * RedBlackTree<Key,Data>::findNode ( Key const &key ) const
 		{
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Lock();
-#endif
-
 			RedBlackNode<Key,Data> * current = rootNode;
 
 			while ( current != NULL_NODE )
 			{
 				if ( Compare ( key, current->id ) == 0 )
 				{
-#ifdef ENABLE_TOSSER_MUTEXES
-					m_lock.Unlock();
-#endif
 					return current;
 				}
 				else
@@ -614,25 +563,15 @@ namespace CrissCross
 				}
 			}
 
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Unlock();
-#endif
-
 			return NULL;
 		}
 
 		template <class Key, class Data>
 			void RedBlackTree<Key,Data>::killAll ( RedBlackNode<Key,Data> *rec )
 		{
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Lock();
-#endif
-
+			
 			if ( rec == NULL_NODE )
 			{
-#ifdef ENABLE_TOSSER_MUTEXES
-				m_lock.Unlock();
-#endif
 				return;
 			}
 
@@ -653,33 +592,20 @@ namespace CrissCross
 
 			Dealloc ( rec->id );
 			delete rec;
-
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Unlock();
-#endif
 		}
 
 		template <class Key, class Data>
 			void RedBlackTree<Key,Data>::killAll ()
 		{
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Lock();
-#endif
 			killAll ( rootNode );
 			rootNode = NULL_NODE;
 			m_cachedSize = 0;
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Unlock();
-#endif
 		}
 
 		#ifdef _DEBUG
 		template <class Key, class Data>
 			size_t RedBlackTree<Key,Data>::size () const
 		{
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Lock();
-#endif
 			// Debug builds verify that the cached size is accurate.
 			// Release builds will get a speed gain.
 			RedBlackNode<Key,Data> *vNode = NULL_NODE;
@@ -693,9 +619,6 @@ namespace CrissCross
 			}
 
 			CoreAssert ( m_cachedSize == vCount );
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Unlock();
-#endif
 			return m_cachedSize;
 		}
 		#endif
@@ -703,28 +626,16 @@ namespace CrissCross
 		template <class Key, class Data>
 			DArray<Data> *RedBlackTree<Key,Data>::ConvertToDArray () const
 		{
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Lock();
-#endif
 			DArray<Data> *darray = new DArray<Data> ( (int)size() );
 			RecursiveConvertToDArray ( darray, rootNode );
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Unlock();
-#endif
 			return darray;
 		}
 
 		template <class Key, class Data>
 			DArray<Key> *RedBlackTree<Key,Data>::ConvertIndexToDArray () const
 		{
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Lock();
-#endif
 			DArray<Key> *darray = new DArray<Key> ( (int)size () );
 			RecursiveConvertIndexToDArray ( darray, rootNode );
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Unlock();
-#endif
 			return darray;
 		}
 
@@ -733,7 +644,7 @@ namespace CrissCross
 		{
 			// note that the btree parameter is ignored
 
-			RedBlackNode<Key,Data> *current = NULL_NODE;
+			/*RedBlackNode<Key,Data> *current = NULL_NODE;
 
 			CoreAssert ( darray != NULL );
 
@@ -742,7 +653,15 @@ namespace CrissCross
 			{
 				darray->insert ( current->data );
 				getNext ( &current );
-			}
+			} */
+			
+			if ( btree->left )
+				RecursiveConvertToDArray ( darray, btree->left );
+				
+			darray->insert ( btree->data );
+
+			if ( btree->right )
+				RecursiveConvertToDArray ( darray, btree->right );
 		}
 
 		template <class Key, class Data>
@@ -750,7 +669,7 @@ namespace CrissCross
 		{
 			// note that the btree parameter is ignored
 
-			RedBlackNode<Key,Data> *current = NULL_NODE;
+			/* RedBlackNode<Key,Data> *current = NULL_NODE;
 
 			CoreAssert ( darray != NULL );
 
@@ -759,7 +678,15 @@ namespace CrissCross
 			{
 				darray->insert ( current->id );
 				getNext ( &current );
-			}
+			} */
+			
+			if ( btree->left )
+				RecursiveConvertIndexToDArray ( darray, btree->left );
+				
+			darray->insert ( btree->id );
+
+			if ( btree->right )
+				RecursiveConvertIndexToDArray ( darray, btree->right );
 		}
 	}
 }
