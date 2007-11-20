@@ -644,7 +644,8 @@ namespace CrissCross
 		{
 			// note that the btree parameter is ignored
 
-			/*RedBlackNode<Key,Data> *current = NULL_NODE;
+#if 0
+			RedBlackNode<Key,Data> *current = NULL_NODE;
 
 			CoreAssert ( darray != NULL );
 
@@ -653,15 +654,17 @@ namespace CrissCross
 			{
 				darray->insert ( current->data );
 				getNext ( &current );
-			} */
-			
-			if ( btree->left )
+			}
+#else
+			if ( btree->left != NULL_NODE )
 				RecursiveConvertToDArray ( darray, btree->left );
 				
 			darray->insert ( btree->data );
 
-			if ( btree->right )
+			if ( btree->right != NULL_NODE  )
 				RecursiveConvertToDArray ( darray, btree->right );
+#endif
+
 		}
 
 		template <class Key, class Data>
@@ -669,7 +672,8 @@ namespace CrissCross
 		{
 			// note that the btree parameter is ignored
 
-			/* RedBlackNode<Key,Data> *current = NULL_NODE;
+#if 0
+			RedBlackNode<Key,Data> *current = NULL_NODE;
 
 			CoreAssert ( darray != NULL );
 
@@ -678,15 +682,16 @@ namespace CrissCross
 			{
 				darray->insert ( current->id );
 				getNext ( &current );
-			} */
-			
-			if ( btree->left )
+			}
+#else		
+			if ( btree->left != NULL_NODE )
 				RecursiveConvertIndexToDArray ( darray, btree->left );
 				
 			darray->insert ( btree->id );
 
-			if ( btree->right )
+			if ( btree->right != NULL_NODE )
 				RecursiveConvertIndexToDArray ( darray, btree->right );
+#endif
 		}
 	}
 }

@@ -709,10 +709,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\crisscross\mergesort.h"
-				>
-			</File>
-			<File
 				RelativePath=".\crisscross\node.h"
 				>
 			</File>
