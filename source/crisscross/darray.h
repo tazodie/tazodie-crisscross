@@ -140,7 +140,7 @@ namespace CrissCross
                 \param _data The data to find.
                 \return The index where the given data is located.
              */
-            size_t findData ( T const & _data );
+            size_t find ( T const & _data );
 
             //! Inserts data into the array at the first available index.
             /*!
