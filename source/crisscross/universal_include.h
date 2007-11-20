@@ -50,7 +50,6 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 // Disabling these will save space but limit functionality.
 #   define ENABLE_CPUID
 #	define ENABLE_CRASHREPORTS // Enables XCrashReports on Windows.
-//#	define ENABLE_TOSSER_MUTEXES // Enables thread-safe data structures.
 
 // Enables non-blocking sockets.
 #   define ENABLE_NONBLOCKING

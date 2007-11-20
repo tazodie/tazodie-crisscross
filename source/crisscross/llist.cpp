@@ -64,31 +64,19 @@ namespace CrissCross
 		template < class T >
 			LList < T > &LList < T >::operator = ( const LList < T > &source )
 		{
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Lock();
-#endif
 			empty ();
 			for ( size_t i = 0; i < source.size (); i++ )
 			{
 				insert_back ( source.getData ( i ) );
 			}
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Unlock();
-#endif
-
+			
 			return *this;
 		}
 
 		template < class T > void LList < T >::change ( const T &_rec, size_t _index )
 		{
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Lock();
-#endif
 			LListItem < T > *li = getItem ( _index );
 			li->m_data = _rec;
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Unlock();
-#endif
 		}
 
 		template < class T > void LList < T >::insert ( const T & newdata )
@@ -99,9 +87,6 @@ namespace CrissCross
 
 		template < class T > void LList < T >::insert_back ( const T & newdata )
 		{
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Lock();
-#endif
 			LListItem < T > *li = new LListItem < T > ();
 			li->m_data = newdata;
 			li->m_next = NULL;
@@ -121,17 +106,11 @@ namespace CrissCross
 				m_last->m_next = li;
 				m_last = li;
 			}
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Unlock();
-#endif
 		}
 
 
 		template < class T > void LList < T >::insert_front ( const T & newdata )
 		{
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Lock();
-#endif
 			LListItem < T > *li = new LListItem < T > ();
 			li->m_data = newdata;
 			li->m_previous = NULL;
@@ -154,9 +133,6 @@ namespace CrissCross
 
 				m_previousIndex++;
 			}
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Unlock();
-#endif
 		}
 
 
@@ -173,19 +149,12 @@ namespace CrissCross
 			}
 			else
 			{
-#ifdef ENABLE_TOSSER_MUTEXES
-				m_lock.Lock();
-#endif
-
 				LListItem < T > *current = m_first;
 
 				for ( size_t i = 0; i < index - 1; ++i )
 				{
 					if ( !current )
 					{
-#ifdef ENABLE_TOSSER_MUTEXES
-						m_lock.Unlock();
-#endif
 						return;
 					}
 					current = current->m_next;
@@ -193,9 +162,6 @@ namespace CrissCross
 
 				if ( !current )
 				{
-#ifdef ENABLE_TOSSER_MUTEXES
-					m_lock.Unlock();
-#endif
 					return;
 				}
 
@@ -210,10 +176,6 @@ namespace CrissCross
 
 				m_previousIndex = 0;
 				m_previous = m_first;
-
-#ifdef ENABLE_TOSSER_MUTEXES
-				m_lock.Unlock();
-#endif
 			}
 		}
 
@@ -226,22 +188,13 @@ namespace CrissCross
 
 		template < class T > T const &LList < T >::get ( size_t index ) const
 		{
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Lock();
-#endif
 			LListItem < T > const *item = getItem ( index );
 
 			if ( item )
 			{
 				T const &ret = item->m_data;
-#ifdef ENABLE_TOSSER_MUTEXES
-				m_lock.Unlock();
-#endif
 				return ret;
 			}
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Unlock();
-#endif
 
 			// Below wastes memory -- need a cleaner way to error out.
 			static T nullVar(0);
@@ -251,41 +204,20 @@ namespace CrissCross
 
 		template < class T > T * LList < T >::getPointer ( size_t index ) const
 		{
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Lock();
-#endif
-
 			LListItem < T > *item = getItem ( index );
 			if ( item )
 			{
 				T *ret = &item->m_data;
-
-#ifdef ENABLE_TOSSER_MUTEXES
-				m_lock.Unlock();
-#endif
-
 				return ret;
 			}
-
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Unlock();
-#endif
-
 			return NULL;
 		}
 
 
 		template < class T > LListItem < T > *LList < T >::getItem ( size_t index ) const
 		{
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Lock();
-#endif
-
 			if ( !valid ( index ) )
 			{
-#ifdef ENABLE_TOSSER_MUTEXES
-				m_lock.Unlock();
-#endif
 				return NULL;
 			}
 
@@ -336,10 +268,6 @@ namespace CrissCross
 
 			LListItem<T> *temp = m_previous;
 
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Unlock();
-#endif
-
 			return temp;
 		}
 
@@ -352,9 +280,6 @@ namespace CrissCross
 
 		template < class T > void LList < T >::empty ()
 		{
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Lock();
-#endif
 			LListItem < T > *current = m_first;
 			while ( current )
 			{
@@ -369,24 +294,14 @@ namespace CrissCross
 			m_numItems = 0;
 			m_previous = NULL;
 			m_previousIndex = -1;
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Unlock();
-#endif
 		}
 
 		template < class T > void LList < T >::remove ( size_t index )
 		{
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Lock();
-#endif
-
 			LListItem < T > *current = getItem ( index );
 
 			if ( current == NULL )
 			{
-#ifdef ENABLE_TOSSER_MUTEXES
-				m_lock.Unlock();
-#endif
 				return;
 			}
 
@@ -425,9 +340,6 @@ namespace CrissCross
 			delete current;
 
 			--m_numItems;
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Unlock();
-#endif
 		}
 
 		template < class T > void LList < T >::sort ( CrissCross::Data::Sorter<T> &_sortMethod )
@@ -448,9 +360,6 @@ namespace CrissCross
 			 * is doing a LList::sort, they might as well be using a DArray.
 			 * 
 			 */
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Lock();
-#endif
 			size_t llistSize = size();
 			DArray < T > sortArray;
 			sortArray.setSize ( llistSize );
@@ -464,9 +373,6 @@ namespace CrissCross
 			{
 				insert ( sortArray.get ( i ) );
 			}
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Unlock();
-#endif
 		}
 
 		template < class T > T const & LList < T >::operator []( size_t index ) const
@@ -483,25 +389,15 @@ namespace CrissCross
 
 		template < class T > size_t LList < T >::find ( const T & data )
 		{
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Lock();
-#endif
 			size_t const size = this->size ();
 
 			for ( size_t i = 0; i < size; ++i )
 			{
 				if ( Compare ( get ( i ), data ) == 0 )
 				{
-#ifdef ENABLE_TOSSER_MUTEXES
-					m_lock.Unlock();
-#endif
 					return i;
 				}
 			}
-
-#ifdef ENABLE_TOSSER_MUTEXES
-			m_lock.Unlock();
-#endif
 			return -1;
 		}
 	}
