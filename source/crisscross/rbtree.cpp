@@ -642,56 +642,19 @@ namespace CrissCross
 		template <class Key, class Data>
 			void RedBlackTree<Key,Data>::RecursiveConvertToDArray ( DArray<Data> *darray, RedBlackNode<Key,Data> *btree ) const
 		{
-			// note that the btree parameter is ignored
-
-#if 0
-			RedBlackNode<Key,Data> *current = NULL_NODE;
-
-			CoreAssert ( darray != NULL );
-
-			getNext ( &current );
-			while ( valid ( current ) )
-			{
-				darray->insert ( current->data );
-				getNext ( &current );
-			}
-#else
-			if ( btree->left != NULL_NODE )
-				RecursiveConvertToDArray ( darray, btree->left );
-				
+			if ( !btree || btree == NULL_NODE ) return;
+			RecursiveConvertToDArray ( darray, btree->left );
 			darray->insert ( btree->data );
-
-			if ( btree->right != NULL_NODE  )
-				RecursiveConvertToDArray ( darray, btree->right );
-#endif
-
+			RecursiveConvertToDArray ( darray, btree->right );
 		}
 
 		template <class Key, class Data>
 			void RedBlackTree<Key,Data>::RecursiveConvertIndexToDArray ( DArray<Key> *darray, RedBlackNode<Key,Data> *btree ) const
 		{
-			// note that the btree parameter is ignored
-
-#if 0
-			RedBlackNode<Key,Data> *current = NULL_NODE;
-
-			CoreAssert ( darray != NULL );
-
-			getNext ( &current );
-			while ( valid ( current ) )
-			{
-				darray->insert ( current->id );
-				getNext ( &current );
-			}
-#else		
-			if ( btree->left != NULL_NODE )
-				RecursiveConvertIndexToDArray ( darray, btree->left );
-				
+			if ( !btree || btree == NULL_NODE ) return;
+			RecursiveConvertIndexToDArray ( darray, btree->left );
 			darray->insert ( btree->id );
-
-			if ( btree->right != NULL_NODE )
-				RecursiveConvertIndexToDArray ( darray, btree->right );
-#endif
+			RecursiveConvertIndexToDArray ( darray, btree->right );
 		}
 	}
 }
