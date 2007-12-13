@@ -44,14 +44,88 @@ namespace CrissCross
 		}
 
 		template <class Key, class Data>
-		bool AVLTree<Key,Data>::erase ( const Key &_key )
+		bool AVLTree<Key,Data>::erase ( Key const &_key )
 		{
 			Result ret = erase ( &m_root, _key );
 			return ( ret == OK || ret == BALANCE );
 		}
 
 		template <class Key, class Data>
-		typename AVLTree<Key,Data>::Result AVLTree<Key,Data>::erase( AVLNode<Key,Data> **_node, const Key &_key )
+		bool AVLTree<Key,Data>::erase ( Key const &_key, Data const &_data )
+		{
+			Result ret = erase ( &m_root, _key, _data );
+			return ( ret == OK || ret == BALANCE );
+		}
+
+		template <class Key, class Data>
+		typename AVLTree<Key,Data>::Result AVLTree<Key,Data>::erase( AVLNode<Key,Data> **_node, Key const &_key, Data const &_data )
+		{
+			if( !*_node )
+				return INVALID;
+
+			Result result = OK;
+
+			if ( Compare ( _key, (*_node)->id ) != 0 || Compare ( _data, (*_node)->data ) != 0 )
+			{
+				if ( Compare ( _key, (*_node)->id ) < 0 )
+				{
+					if ( (*_node)->left )
+					{
+						if ( ( result = erase( &(*_node)->left, _key ) ) == BALANCE )
+							return balanceLeftShrunk( _node );
+
+						if ( result != INVALID )
+							return result;
+					}
+				}
+				else if ( (*_node)->right )
+				{
+					if ( ( result = erase( &(*_node)->right, _key ) ) == BALANCE )
+						return balanceRightShrunk( _node );
+
+					if ( result != INVALID )
+						return result;
+				}
+
+				//Node not found
+				return INVALID;
+			}
+
+			//Erase this node
+			--m_size;
+			Dealloc ( (*_node)->id );
+			
+			if( (*_node)->left )
+			{
+				if( replaceWithHighest( *_node, &(*_node)->left, &result ) )
+				{
+					if( result == BALANCE )
+						result = balanceLeftShrunk ( _node );
+					return result;
+				}
+			}
+			
+			if( (*_node)->right )
+			{
+				if( replaceWithLowest( *_node, &(*_node)->right, &result ) )
+				{
+					if( result == BALANCE )
+						result = balanceRightShrunk ( _node );
+					return result;
+				}
+			}
+			
+			(*_node)->left = NULL;
+			(*_node)->right = NULL;
+
+			//Leaf, delete and rebalance
+			delete *_node, *_node = 0;
+			
+			return BALANCE;
+		}
+
+		template <class Key, class Data>
+		typename AVLTree<Key,Data>::Result AVLTree<Key,Data>::erase( AVLNode<Key,Data> **_node, Key const &_key )
 		{
 			if( !*_node )
 				return INVALID;
@@ -125,7 +199,7 @@ namespace CrissCross
 		}
 
 		template <class Key, class Data>
-		AVLNode<Key,Data> *AVLTree<Key,Data>::findNode ( Key const &_key )
+		AVLNode<Key,Data> *AVLTree<Key,Data>::findNode ( Key const &_key ) const
 		{
 			AVLNode<Key,Data> *p_current = m_root;
 			while ( p_current )
@@ -143,7 +217,7 @@ namespace CrissCross
 		}
 
 		template <class Key, class Data>
-		bool AVLTree<Key,Data>::find ( Key const &_key, Data &_data )
+		bool AVLTree<Key,Data>::find ( Key const &_key, Data &_data ) const
 		{
 			AVLNode<Key,Data> *p_current = findNode ( _key );
 			if ( !p_current ) return false;
@@ -152,7 +226,34 @@ namespace CrissCross
 		}
 
 		template <class Key, class Data>
-		bool AVLTree<Key,Data>::exists ( Key const &_key )
+		DArray<Data> *AVLTree<Key,Data>::findAll ( Key const &_key ) const
+		{
+			AVLNode<Key,Data> *p_current = findNode ( _key );
+			DArray<Data> *data = new DArray<Data>();
+			findRecursive ( data, _key, p_current );
+			return data;
+		}
+
+		template<class Key, class Data>
+		void AVLTree<Key,Data>::findRecursive ( DArray<Data> *_array, Key const &_key, AVLNode<Key,Data> *_node ) const
+		{
+			CoreAssert ( _array );
+			if ( !_node ) return;
+			findRecursive ( _array, _key, _node->left );
+			if ( Compare(_node->id, _key) == 0 ) _array->insert ( _node->data );
+			findRecursive ( _array, _key, _node->right );
+		}
+
+		template <class Key, class Data>
+		Data AVLTree<Key,Data>::find ( Key const &_key ) const
+		{
+			AVLNode<Key,Data> *p_current = findNode ( _key );
+			if ( !p_current ) return Data(0);
+			return p_current->data;
+		}
+
+		template <class Key, class Data>
+		bool AVLTree<Key,Data>::exists ( Key const &_key ) const
 		{
 			AVLNode<Key,Data> *p_current = findNode ( _key );
 			if ( !p_current ) return false;
@@ -568,6 +669,40 @@ namespace CrissCross
 			}
 
 			return result;
+		}
+
+		template <class Key, class Data>
+			DArray<Data> *AVLTree<Key,Data>::ConvertToDArray () const
+		{
+			DArray<Data> *darray = new DArray<Data> ( m_size );
+			RecursiveConvertToDArray ( darray, m_root );
+			return darray;
+		}
+
+		template <class Key, class Data>
+			DArray<Key> *AVLTree<Key,Data>::ConvertIndexToDArray () const
+		{
+			DArray<Key> *darray = new DArray<Key> ( m_size );
+			RecursiveConvertIndexToDArray ( darray, m_root );
+			return darray;
+		}
+
+		template <class Key, class Data>
+			void AVLTree<Key,Data>::RecursiveConvertToDArray ( DArray<Data> *darray, AVLNode<Key,Data> *btree ) const
+		{
+			if ( !btree ) return;
+			RecursiveConvertToDArray ( darray, btree->left );
+			darray->insert ( btree->data );
+			RecursiveConvertToDArray ( darray, btree->right );
+		}
+
+		template <class Key, class Data>
+			void AVLTree<Key,Data>::RecursiveConvertIndexToDArray ( DArray<Key> *darray, AVLNode<Key,Data> *btree ) const
+		{
+			if ( !btree ) return;
+			RecursiveConvertIndexToDArray ( darray, btree->left );
+			darray->insert ( btree->id );
+			RecursiveConvertIndexToDArray ( darray, btree->right );
 		}
 	}
 }
