@@ -87,7 +87,7 @@ namespace CrissCross
 				if ( oldKeys[i] )
 				{
 					insert ( oldKeys[i], oldArray[i] );
-					free ( oldKeys[i] );
+					delete [] oldKeys[i];
 				}
 			}
 
@@ -175,7 +175,7 @@ namespace CrissCross
 			size_t index = findIndex ( _key );
 			if ( m_keys[index] && strcmp ( m_keys[index], _key ) == 0 )
 			{
-				free ( m_keys[index] );
+				delete [] m_keys[index];
 				m_keys[index] = NULL;
 				m_used--;
 				return 0;
@@ -220,7 +220,8 @@ namespace CrissCross
 
 			// Seems OK.
 			m_array[pos] = _data;
-			m_keys[pos] = strdup ( _key );
+			m_keys[pos] = new char [strlen(_key)+1];
+			strcpy ( m_keys[pos], _key );
 			m_used++;
 
 			return 0;
