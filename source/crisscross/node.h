@@ -39,6 +39,12 @@ namespace CrissCross
             //! The default constructor.
             BinaryNode () : left(NULL), right(NULL) {}
 
+			//! The default destructor.
+			virtual ~BinaryNode ()
+			{
+				delete left; left = NULL;
+				delete right; right = NULL;
+			}
         };
 
         //! A binary tree node used for RedBlackTree.
