@@ -37,6 +37,8 @@ namespace CrissCross
 		template <class Key, class Data>
 		AVLTree<Key,Data>::~AVLTree()
 		{
+			if ( m_root )
+				Dealloc ( m_root->id );
 			delete m_root;
 			m_root = NULL;
 		}
@@ -486,13 +488,15 @@ namespace CrissCross
 			}
 
 			_target->data = (*_subtree)->data;
-			_target->id = (*_subtree)->id;
+			_target->id = Duplicate ( (*_subtree)->id );
 
 			p_tmp       = *_subtree;
 			*_subtree = p_tmp->left;
 			if( *_subtree )
 				(*_subtree)->parent = p_tmp->parent;
 
+			if ( p_tmp )
+				Dealloc ( p_tmp->id );
 			delete p_tmp;
 
 			return true;
@@ -520,13 +524,15 @@ namespace CrissCross
 			}
 
 			_target->data = (*_subtree)->data;
-			_target->id = (*_subtree)->id;
+			_target->id =	Duplicate ( (*_subtree)->id );
 
 			p_tmp       = *_subtree;
 			*_subtree = p_tmp->right;
 			if( *_subtree )
 				(*_subtree)->parent = p_tmp->parent;
 
+			if ( p_tmp )
+				Dealloc ( p_tmp->id );
 			delete p_tmp;
 
 			return true;
