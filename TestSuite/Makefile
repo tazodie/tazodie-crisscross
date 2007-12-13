@@ -12,6 +12,7 @@ datatypes.cpp \
 compare.cpp \
 llist.cpp \
 hashtable.cpp \
+avltree.cpp \
 rbtree.cpp \
 dstack.cpp \
 darray.cpp \

@@ -19,7 +19,7 @@ namespace CrissCross
 	{
 		template <class Key, class Data>
 		AVLNode<Key,Data>::AVLNode()
-			: BinaryNode()
+			: BinaryNode<Key,Data>()
 		{
 			m_balance = BALANCED;
 			left = NULL;
@@ -109,6 +109,9 @@ namespace CrissCross
 
 			Dealloc ( (*_node)->id );
 			
+			(*_node)->left = NULL;
+			(*_node)->right = NULL;
+
 			//Leaf, delete and rebalance
 			delete *_node, *_node = 0;
 			
