@@ -13,6 +13,7 @@
 #define __included_cc_rbtree_h
 
 #include <crisscross/deprecate.h>
+#include <crisscross/internal_mem.h>
 #include <crisscross/darray.h>
 #include <crisscross/node.h>
 #include <crisscross/mutex.h>
@@ -32,48 +33,6 @@ namespace CrissCross
             STATUS_NULL_POINTER,        //!< A null pointer was found in a parameter.
             STATUS_MEM_EXHAUSTED        //!< Out of memory.
         } statusEnum;
-
-        //! @cond
-
-        // These functions are designed for RedBlackTree internal use.
-        // You generally shouldn't use them unless you know what you're doing.
-
-        template < class T >
-        __inline T Duplicate ( T const &_data )
-        {
-            return _data;
-        }
-        
-        template <>
-        __inline char *Duplicate ( char * const &_data )
-        {
-            return strdup ( _data );
-        }
-
-        template <>
-        __inline const char *Duplicate ( const char * const &_data )
-        {
-            return strdup ( _data );
-        }
-
-        template < class T >
-        __inline void Dealloc ( T const &_data )
-        {
-        }
-        
-        template <>
-        __inline void Dealloc ( char * const &_data )
-        {
-            if ( _data ) free ( _data );
-        }
-        
-        template <>
-        __inline void Dealloc ( const char * const &_data )
-        {
-            if ( _data ) free ( (char *)_data );
-        }
-
-        //! @endcond
 
         //! A very fast red-black tree implementation.
         template < class Key, class Data >

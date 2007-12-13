@@ -359,6 +359,14 @@
 	</References>
 	<Files>
 		<File
+			RelativePath=".\avltree.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\avltree.h"
+			>
+		</File>
+		<File
 			RelativePath=".\bubblesort.cpp"
 			>
 		</File>
