@@ -13,6 +13,7 @@
 #define __included_cc_avltree_h
 
 #include <crisscross/node.h>
+#include <crisscross/internal_mem.h>
 
 namespace CrissCross
 {
@@ -155,15 +156,24 @@ namespace CrissCross
 			*/
 			Result                                                  erase ( AVLNode<Key,Data> **_node, Key const &_key );
 
+			//! Find a node in the tree
+			/*!
+				Get a pointer to a node with the specified key value
+				\param _key                                         Identifier of node to remove
+				\return                                             Address of the node. If not found, returns NULL.
+			*/
+			AVLNode<Key,Data>                                      *findNode ( Key const &_key );
+
 		public:
 			AVLTree();
 			virtual ~AVLTree();
 
 			void insert ( Key const &_key, Data const &_data );
-			void erase ( Key const &_key );
+			bool erase ( Key const &_key );
 			bool find ( Key const &_key, Data &_data );
+			bool exists ( Key const &_key );
 			inline void empty () { delete m_root; m_root = NULL; };
-
+			inline size_t size () { return m_size; };
 			
 		};
 	}

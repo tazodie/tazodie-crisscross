@@ -31,6 +31,7 @@ namespace CrissCross
 		AVLTree<Key,Data>::AVLTree()
 		{
 			m_root = NULL;
+			m_size = 0;
 		}
 
 		template <class Key, class Data>
@@ -41,9 +42,10 @@ namespace CrissCross
 		}
 
 		template <class Key, class Data>
-		void AVLTree<Key,Data>::erase ( const Key &_key )
+		bool AVLTree<Key,Data>::erase ( const Key &_key )
 		{
-			erase ( &m_root, _key );
+			Result ret = erase ( &m_root, _key );
+			return ( ret == OK || ret == BALANCE );
 		}
 
 		template <class Key, class Data>
@@ -102,6 +104,8 @@ namespace CrissCross
 					return result;
 				}
 			}
+
+			Dealloc ( (*_node)->id );
 			
 			//Leaf, delete and rebalance
 			delete *_node, *_node = 0;
@@ -117,7 +121,7 @@ namespace CrissCross
 		}
 
 		template <class Key, class Data>
-		bool AVLTree<Key,Data>::find ( Key const &_key, Data &_data )
+		AVLNode<Key,Data> *AVLTree<Key,Data>::findNode ( Key const &_key )
 		{
 			AVLNode<Key,Data> *p_current = m_root;
 			while ( p_current )
@@ -128,11 +132,27 @@ namespace CrissCross
 					p_current = p_current->right;
 				else if ( Compare ( _key, p_current->id ) == 0 )
 				{
-					_data = p_current->data;
-					return true;
+					return p_current;
 				}
 			}
-			return false;
+			return NULL;
+		}
+
+		template <class Key, class Data>
+		bool AVLTree<Key,Data>::find ( Key const &_key, Data &_data )
+		{
+			AVLNode<Key,Data> *p_current = findNode ( _key );
+			if ( !p_current ) return false;
+			_data = p_current->data;
+			return true;
+		}
+
+		template <class Key, class Data>
+		bool AVLTree<Key,Data>::exists ( Key const &_key )
+		{
+			AVLNode<Key,Data> *p_current = findNode ( _key );
+			if ( !p_current ) return false;
+			else              return true;
 		}
 
 		template <class Key, class Data>
@@ -523,7 +543,7 @@ namespace CrissCross
 			{
 				*_node = new AVLNode<Key,Data>();
 				(*_node)->parent = pp_parent ? *pp_parent : NULL;
-				(*_node)->id = _key;
+				(*_node)->id = Duplicate(_key);
 				(*_node)->data = _data;
 				return BALANCE;
 			}

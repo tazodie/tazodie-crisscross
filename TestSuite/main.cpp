@@ -17,6 +17,7 @@
 #include "darray.h"
 #include "dstack.h"
 #include "llist.h"
+#include "avltree.h"
 #include "rbtree.h"
 #include "bubblesort.h"
 #include "hashtable.h"
@@ -69,6 +70,10 @@ int RunApplication (int argc, char **argv) {
     WritePrefix ( "DArray" ); retval |= WriteResult ( TestDArray() );
     WritePrefix ( "DStack" ); retval |= WriteResult ( TestDStack() );
 
+    WritePrefix ( "AVLTree<const char *, const char *>" ); retval |= WriteResult ( TestAVLTree_CString() );
+    WritePrefix ( "AVLTree<std::string, std::string>" ); retval |= WriteResult ( TestAVLTree_String() );
+    WritePrefix ( "AVLTree<int, int>" ); retval |= WriteResult ( TestAVLTree_Int() );
+
     WritePrefix ( "RedBlackTree<const char *, const char *>" ); retval |= WriteResult ( TestRedBlackTree_CString() );
     WritePrefix ( "RedBlackTree<std::string, std::string>" ); retval |= WriteResult ( TestRedBlackTree_String() );
     WritePrefix ( "RedBlackTree<int, int>" ); retval |= WriteResult ( TestRedBlackTree_Int() );
@@ -109,7 +114,7 @@ int RunApplication (int argc, char **argv) {
     g_console->Flush();
  
 #ifdef TARGET_OS_WINDOWS
-    //system ( "pause" );
+    system ( "pause" );
 #endif
 
     delete g_console;

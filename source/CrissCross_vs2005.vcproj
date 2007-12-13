@@ -709,6 +709,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\crisscross\internal_mem.h"
+				>
+			</File>
+			<File
 				RelativePath=".\crisscross\llist.cpp"
 				>
 				<FileConfiguration
