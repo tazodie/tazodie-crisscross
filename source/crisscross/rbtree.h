@@ -34,6 +34,33 @@ namespace CrissCross
             STATUS_MEM_EXHAUSTED        //!< Out of memory.
         } statusEnum;
 
+        //! A binary tree node used for RedBlackTree.
+        /*!
+            \sa BinaryNode
+         */
+        template <class Key, class Data>
+        class RedBlackNode: public BinaryNode<Key,Data>
+        {
+        public:
+            //! Indicates whether or not the node has been visited in an iteration sequence.
+            mutable char beenThere;
+
+            //! The color of the node (either red or black).
+            char        color;
+
+            //! The left branch of the tree from this node.
+            RedBlackNode *left;
+
+            //! The right branch of the tree from this node.
+            RedBlackNode *right;
+
+            //! The parent node.
+            RedBlackNode *parent;
+
+            //! The default constructor.
+            RedBlackNode () : BinaryNode<Key,Data>() {}
+        };
+
         //! A very fast red-black tree implementation.
         template < class Key, class Data >
         class RedBlackTree
