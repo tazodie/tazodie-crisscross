@@ -12,6 +12,7 @@
 #ifndef __included_cc_avltree_h
 #define __included_cc_avltree_h
 
+#include <crisscross/deprecate.h>
 #include <crisscross/node.h>
 #include <crisscross/internal_mem.h>
 
@@ -156,13 +157,28 @@ namespace CrissCross
 			*/
 			Result                                                  erase ( AVLNode<Key,Data> **_node, Key const &_key );
 
+			//! Remove object
+			/*!
+				Remove object from tree and rebalance, taking the key and data into account
+				\param _node                                        Pointer to current node pointer
+				\param _key                                         Identifier of node to remove
+				\param _data                                         Data identifier of node to remove
+				\return                                             Result of removal (OK if subtree is balanced, BALANCE if tree is heavy on either side)
+			*/
+			Result                                                  erase ( AVLNode<Key,Data> **_node, Key const &_key, Data const &_data );
+
 			//! Find a node in the tree
 			/*!
 				Get a pointer to a node with the specified key value
 				\param _key                                         Identifier of node to remove
 				\return                                             Address of the node. If not found, returns NULL.
 			*/
-			AVLNode<Key,Data>                                      *findNode ( Key const &_key );
+			AVLNode<Key,Data>                                      *findNode ( Key const &_key ) const;
+
+            void RecursiveConvertIndexToDArray ( DArray <Key> *_darray, AVLNode<Key,Data> *_btree ) const;
+            void RecursiveConvertToDArray ( DArray <Data> *_darray, AVLNode<Key,Data> *_btree ) const;
+
+			void findRecursive ( DArray<Data> *_array, Key const &_key, AVLNode<Key,Data> *_node ) const;
 
 		public:
 			AVLTree();
@@ -170,11 +186,25 @@ namespace CrissCross
 
 			void insert ( Key const &_key, Data const &_data );
 			bool erase ( Key const &_key );
-			bool find ( Key const &_key, Data &_data );
-			bool exists ( Key const &_key );
+			bool erase ( Key const &_key, Data const &_data );
+			bool find ( Key const &_key, Data &_data ) const;
+			_CC_DEPRECATE_FUNCTION_N Data find ( Key const &_key ) const;
+			DArray<Data> *findAll ( Key const &_key ) const;
+			bool exists ( Key const &_key ) const;
 			inline void empty () { delete m_root; m_root = NULL; };
-			inline size_t size () { return m_size; };
+			inline size_t size () const { return m_size; };
 			
+            //! Converts the tree data into a linearized DArray.
+            /*!
+                \return A DArray containing the data of the tree.
+             */
+            DArray <Data> *ConvertToDArray () const;
+
+            //! Converts the tree keys into a linearized DArray.
+            /*!
+                \return A DArray containing the keys in the tree.
+             */
+            DArray <Key>  *ConvertIndexToDArray () const;
 		};
 	}
 }

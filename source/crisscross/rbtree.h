@@ -163,6 +163,8 @@ namespace CrissCross
             void killAll ( RedBlackNode<Key,Data> *_rec );
             void killAll ();
 
+			void findRecursive ( DArray<Data> *_array, Key const &_key, RedBlackNode<Key,Data> *_node ) const;
+
         public:
             //! Indicates the size of the tree.
             /*!
@@ -173,6 +175,9 @@ namespace CrissCross
 #else
 			size_t size () const;
 #endif
+
+			DArray<Data> *findAll ( Key const &_key ) const;
+			bool exists ( Key const &_key ) const;
 
             //! Will get the next node in the tree, useful as an iterator.
             void getNext ( RedBlackNode<Key,Data> ** _current ) const;
@@ -218,7 +223,5 @@ namespace CrissCross
 }
 
 #    include <crisscross/rbtree.cpp>
-
-#define BTree RedBlackTree
 
 #endif

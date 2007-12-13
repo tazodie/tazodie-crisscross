@@ -39,4 +39,6 @@
 #include <crisscross/system.h>
 #include <crisscross/version.h>
 
+#define BTree AVLTree
+
 #endif
