@@ -86,6 +86,7 @@ namespace CrissCross
 
 			//Erase this node
 			--m_size;
+			Dealloc ( (*_node)->id );
 			
 			if( (*_node)->left )
 			{
@@ -106,8 +107,6 @@ namespace CrissCross
 					return result;
 				}
 			}
-
-			Dealloc ( (*_node)->id );
 			
 			(*_node)->left = NULL;
 			(*_node)->right = NULL;

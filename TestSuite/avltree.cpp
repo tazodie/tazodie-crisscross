@@ -40,7 +40,7 @@ int TestAVLTree_CString()
 	if ( avltree->size() != 4 )
 		return 3;
     
-    const char *tmp1 = "one", *tmp2;
+    const char *tmp1 = "one", *tmp2 = NULL;
     if ( !avltree->find ( "first", tmp2 ) )
         return 4;
 
