@@ -10,11 +10,7 @@
  */
 
 #include <crisscross/universal_include.h>
-#include <crisscross/core_io.h>
-#include <crisscross/debug.h>
-#include <crisscross/darray.h>
-#include <crisscross/rbtree.h>
-#include <crisscross/llist.h>
+#include <crisscross/crisscross.h>
 
 using namespace std;
 using namespace CrissCross::Data;
@@ -41,8 +37,8 @@ ParseMemoryLeakFile ( const char *_inputFilename,
     // Start up
     //
 
-    RedBlackTree<char *,int> combined;
-    RedBlackTree<char *,int> frequency;
+    BTree<char *,int> combined;
+    BTree<char *,int> frequency;
     int unrecognised = 0;
 
     //
@@ -79,16 +75,13 @@ ParseMemoryLeakFile ( const char *_inputFilename,
 
             // Put the result into our BTree
 
-			RedBlackNode<char *,int> *comb = combined.findNode ( sourcelocation );
-			RedBlackNode<char *,int> *freq = frequency.findNode ( sourcelocation );
-
-            if ( comb )
-                comb->data += size;
+            if ( combined.exists ( sourcelocation ) )
+				combined.replace ( sourcelocation, combined.find ( sourcelocation ) + size );
             else
                 combined.insert ( sourcelocation, size );
 
-            if ( freq )
-                freq->data++;
+            if ( frequency.exists ( sourcelocation ) )
+				frequency.replace ( sourcelocation, frequency.find ( sourcelocation ) + size );
             else
                 frequency.insert ( sourcelocation, 1 );
 
@@ -119,38 +112,43 @@ ParseMemoryLeakFile ( const char *_inputFilename,
     //
 
     LList<char *> sorted;
+	DArray<char *> *dataI = combined.ConvertIndexToDArray();
+	DArray<int> *dataD = combined.ConvertToDArray();
 
     int totalsize = 0;
 
-	RedBlackNode<char *,int> *node = combined.NULL_NODE;
-	combined.getNext ( &node );
-
-    while ( node != combined.NULL_NODE && node != NULL )
+    for ( size_t i = 0; i < dataI->size(); i++ )
     {
-        char *newsource = node->id;
-		int newsize = node->data;
+		if ( dataI->valid(i) )
+		{
+			char *newsource = dataI->get(i);
+			int newsize = dataD->get(i);
 
-        totalsize += newsize;
-        bool inserted = false;
+			totalsize += newsize;
+			bool inserted = false;
 
-        for ( size_t i = 0; i < sorted.size(); i++ )
-        {
-            char *existingsource = sorted.get(i);
-            int existingsize = combined.findNode ( existingsource )->data;
+			for ( size_t i = 0; i < sorted.size(); i++ )
+			{
+				char *existingsource = sorted.get(i);
+				int existingsize;
+				
+				combined.find ( existingsource, existingsize );
 
-            if ( newsize <= existingsize )
-            {
-                sorted.insert_at ( newsource, i );
-                inserted = true;
-                break;
-            }
-        }
+				if ( newsize <= existingsize )
+				{
+					sorted.insert_at ( newsource, i );
+					inserted = true;
+					break;
+				}
+			}
 
-        if ( !inserted )
-            sorted.insert ( newsource );
-
-		combined.getNext ( &node );
+			if ( !inserted )
+				sorted.insert ( newsource );
+		}
     }
+
+	delete dataI;
+	delete dataD;
 
 
     //
@@ -175,8 +173,8 @@ ParseMemoryLeakFile ( const char *_inputFilename,
 
             char *source = sorted.get(k);
 			CoreAssert ( source );
-            int size = combined.findNode ( source )->data;
-            int freq = frequency.findNode ( source )->data;
+            int size; combined.find ( source, size );
+            int freq; frequency.find ( source, freq );
 
             if ( size > 2048 )
             {

@@ -175,24 +175,111 @@ namespace CrissCross
 			*/
 			AVLNode<Key,Data>                                      *findNode ( Key const &_key ) const;
 
-            void RecursiveConvertIndexToDArray ( DArray <Key> *_darray, AVLNode<Key,Data> *_btree ) const;
-            void RecursiveConvertToDArray ( DArray <Data> *_darray, AVLNode<Key,Data> *_btree ) const;
+			//! Recursively convert the tree's keys into a DArray
+			/*!
+				\param _darray										Array to insert keys into
+				\param _btree										The node being traversed
+			*/
+            void													RecursiveConvertIndexToDArray ( DArray <Key> *_darray, AVLNode<Key,Data> *_btree ) const;
 
-			void findRecursive ( DArray<Data> *_array, Key const &_key, AVLNode<Key,Data> *_node ) const;
+			//! Recursively convert the tree's data into a DArray
+			/*!
+				\param _darray										Array to insert data into
+				\param _btree										The node being traversed
+			*/
+            void													RecursiveConvertToDArray ( DArray <Data> *_darray, AVLNode<Key,Data> *_btree ) const;
+
+			//! Recursively find all nodes with the specified key
+			/*!
+				\param _darray										Array to insert data into
+				\param _key											Identifier of nodes to find
+				\param _node										The node being traversed
+			*/
+			void													findRecursive ( DArray<Data> *_array, Key const &_key, AVLNode<Key,Data> *_node ) const;
 
 		public:
+
+			//! The default constructor.
 			AVLTree();
+
+			//! The destructor.
 			virtual ~AVLTree();
 
+            //! Inserts data into the tree.
+            /*!
+                \param _key The key of the data.
+                \param _data The data to insert.
+                \return True on success, false on failure.
+             */
 			void insert ( Key const &_key, Data const &_data );
+
+			//! Deletes a node from the tree, specified by the node's key.
+            /*!
+                This won't free the memory occupied by the data, so the data must be freed
+                seperately.
+                \param _key The key of the node to delete.
+                \return True on success, false on failure
+             */
 			bool erase ( Key const &_key );
+
+            //! Deletes a node from the tree, specified by the node's key and data.
+            /*!
+                This won't free the memory occupied by the data, so the data must be freed
+                seperately.
+                \param _key The key of the node to delete.
+                \param _data The data of the node to delete.
+                \return True on success, false on failure.
+             */
 			bool erase ( Key const &_key, Data const &_data );
+			
+            //! Finds a node in the tree and returns the data at that node.
+            /*!
+                \param _key The key of the node to find.
+                \param _data On return, will contain the data at the node. If not found, _data does not change.
+				\return True on success, false on failure.
+             */
 			bool find ( Key const &_key, Data &_data ) const;
+
+            //! Finds a node in the tree and returns the data at that node.
+            /*!
+                \param _key The key of the node to find.
+                \return The data at the node. NULL if not found.
+             */
 			_CC_DEPRECATE_FUNCTION_N Data find ( Key const &_key ) const;
+
+            //! Finds all instances of the specified key in the tree.
+            /*!
+                \param _key The key of the node to find.
+                \return A DArray containing the data with key _key. MUST be deleted when done!
+             */
 			DArray<Data> *findAll ( Key const &_key ) const;
+
+            //! Tests whether a key is in the tree or not.
+            /*!
+                \param _key The key of the node to find.
+                \return True if the key is in the tree, false if not.
+             */
 			bool exists ( Key const &_key ) const;
+
+            //! Empties the tree of all nodes.
+            /*!
+				Deletes all nodes, but does not free data stored in the nodes.
+             */
 			inline void empty () { delete m_root; m_root = NULL; };
+
+            //! Indicates the size of the tree.
+            /*!
+                \return Size of the tree.
+             */
 			inline size_t size () const { return m_size; };
+
+            //! Change the data at the given node.
+            /*!
+                \param _key The key of the node to be modified.
+                \param _data The data to insert.
+                \return True on success, false on failure.
+             */
+            bool replace ( Key const &_key, Data const &_data );
 			
             //! Converts the tree data into a linearized DArray.
             /*!
@@ -205,6 +292,14 @@ namespace CrissCross
                 \return A DArray containing the keys in the tree.
              */
             DArray <Key>  *ConvertIndexToDArray () const;
+
+            //! Verifies that a node is valid.
+            /*!
+                \param _node A node pointer.
+                \return True if the node is a valid node, false otherwise.
+             */
+            inline bool valid ( const AVLNode<Key,Data> *_node ) const
+			{ return ( _node != NULL ); };
 		};
 	}
 }

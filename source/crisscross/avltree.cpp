@@ -58,6 +58,17 @@ namespace CrissCross
 		}
 
 		template <class Key, class Data>
+		bool AVLTree<Key,Data>::replace ( Key const &key, Data const &_data )
+		{
+			AVLNode<Key,Data> *current;
+			current = findNode ( key );
+			if ( !valid ( current ) ) return false;
+			current->data = _data;
+			return true;
+		}
+
+
+		template <class Key, class Data>
 		typename AVLTree<Key,Data>::Result AVLTree<Key,Data>::erase( AVLNode<Key,Data> **_node, Key const &_key, Data const &_data )
 		{
 			if( !*_node )
@@ -674,7 +685,7 @@ namespace CrissCross
 		template <class Key, class Data>
 			DArray<Data> *AVLTree<Key,Data>::ConvertToDArray () const
 		{
-			DArray<Data> *darray = new DArray<Data> ( m_size );
+			DArray<Data> *darray = new DArray<Data> ( (int)m_size );
 			RecursiveConvertToDArray ( darray, m_root );
 			return darray;
 		}
@@ -682,7 +693,7 @@ namespace CrissCross
 		template <class Key, class Data>
 			DArray<Key> *AVLTree<Key,Data>::ConvertIndexToDArray () const
 		{
-			DArray<Key> *darray = new DArray<Key> ( m_size );
+			DArray<Key> *darray = new DArray<Key> ( (int)m_size );
 			RecursiveConvertIndexToDArray ( darray, m_root );
 			return darray;
 		}
