@@ -42,9 +42,6 @@ namespace CrissCross
         class RedBlackNode: public BinaryNode<Key,Data>
         {
         public:
-            //! Indicates whether or not the node has been visited in an iteration sequence.
-            mutable char beenThere;
-
             //! The color of the node (either red or black).
             char        color;
 
@@ -65,16 +62,31 @@ namespace CrissCross
         template < class Key, class Data >
         class RedBlackTree
         {
+        protected:
+
+			//! The cached size() return value. Changes on each tree modification (insertions and deletions).
+			size_t m_cachedSize;
+
+            void RecursiveConvertIndexToDArray ( DArray <Key> *_darray, RedBlackNode<Key,Data> *_btree ) const;
+            void RecursiveConvertToDArray ( DArray <Data> *_darray, RedBlackNode<Key,Data> *_btree ) const;
+
+            void rotateLeft ( RedBlackNode<Key,Data> * _x );
+            void rotateRight ( RedBlackNode<Key,Data> * _x );
+            void insertFixup ( RedBlackNode<Key,Data> * _x );
+            void deleteFixup ( RedBlackNode<Key,Data> * _x );
+
+			void findRecursive ( DArray<Data> *_array, Key const &_key, RedBlackNode<Key,Data> *_node ) const;
+
+			void killAll ();
+			void killAll ( RedBlackNode<Key,Data> *rec );
+
+			bool killNode ( RedBlackNode<Key,Data> * z );
+
+			RedBlackNode<Key,Data> *findNode ( Key const &key ) const;
 
         public:
             //! @cond
             typedef enum { BLACK, RED } nodeColor;
-            typedef enum
-            {
-                NODE_ITSELF_VISITED = 0,
-                LEFT_CHILD_VISITED,
-                ALL_CHILDS_VISITED
-            } beenThereEnum;
             //! @endcond
 
             //! The root node at the top of the tree.
@@ -93,20 +105,26 @@ namespace CrissCross
             /*!
                 \param _key The key of the data.
                 \param _rec The data to insert.
-                \return A value indicating the result of the request.
-                \sa statusEnum
+                \return True on success, false on failure.
              */
-            statusEnum insert ( Key const &_key, Data const &_rec );
+            bool insert ( Key const &_key, Data const &_rec );
+
+            //! Change the data at the given node.
+            /*!
+                \param _key The key of the node to be modified.
+                \param _rec The data to insert.
+                \return True on success, false on failure.
+             */
+            bool replace ( Key const &_key, Data const &_rec );
 
             //! Deletes a node from the tree, specified by the node's key.
             /*!
                 This won't free the memory occupied by the data, so the data must be freed
                 seperately.
                 \param _key The key of the node to delete.
-                \return A value indicating the result of the request.
-                \sa statusEnum
+                \return True on success, false on failure
              */
-            statusEnum erase ( Key const &_key );
+            bool erase ( Key const &_key );
 
             //! Deletes a node from the tree, specified by the node's key and data.
             /*!
@@ -114,35 +132,24 @@ namespace CrissCross
                 seperately.
                 \param _key The key of the node to delete.
                 \param _rec The data of the node to delete.
-                \return A value indicating the result of the request.
-                \sa statusEnum
+                \return True on success, false on failure.
              */
-            statusEnum erase ( Key const &_key, Data const & _rec );
+            bool erase ( Key const &_key, Data const & _rec );
 
-            //! Deletes a node from the tree, specified by the pointer to the node.
+            //! Finds a node in the tree and returns the data at that node.
             /*!
-                This won't free the memory occupied by the data, so the data must be freed
-                seperately.
-                \param _z The node to remove.
-                \return A value indicating the result of the request.
-                \sa statusEnum
+                \param _key The key of the node to find.
+                \param _data On return, will contain the data at the node. If not found, _data does not change.
+				\return True on success, false on failure.
              */
-            statusEnum killNode ( RedBlackNode<Key,Data> * _z );
+			bool find ( Key const &_key, Data &_data ) const;
 
             //! Finds a node in the tree and returns the data at that node.
             /*!
                 \param _key The key of the node to find.
                 \return The data at the node. NULL if not found.
              */
-            Data find ( Key const &_key ) const;
-
-            //! Finds a node in the tree and returns the data at that node.
-            /*!
-                \param _key The key of the node to find.
-                \return The node pointer. NULL or NULL_NODE if not found. Test result with ValidNode() function.
-                \sa ValidNode()
-             */
-            RedBlackNode<Key,Data> *findNode ( Key const &_key ) const;
+			_CC_DEPRECATE_FUNCTION_N Data find ( Key const &_key ) const;
 
             //! Verifies that a node is valid.
             /*!
@@ -155,32 +162,25 @@ namespace CrissCross
 			//! Empties the entire tree.
 			inline void empty () { killAll(); rootNode = NULL_NODE; };
 
-        protected:
-
-            /*
-            these are automatically called. no need to use them externally at all.
-            */
-            void killAll ( RedBlackNode<Key,Data> *_rec );
-            void killAll ();
-
-			void findRecursive ( DArray<Data> *_array, Key const &_key, RedBlackNode<Key,Data> *_node ) const;
-
-        public:
             //! Indicates the size of the tree.
             /*!
                 \return Size of the tree.
              */
-#ifndef _DEBUG
 			inline size_t size () const { return m_cachedSize; };
-#else
-			size_t size () const;
-#endif
 
+            //! Finds all instances of the specified key in the tree.
+            /*!
+                \param _key The key of the node to find.
+                \return A DArray containing the data with key _key. MUST be deleted when done!
+             */
 			DArray<Data> *findAll ( Key const &_key ) const;
-			bool exists ( Key const &_key ) const;
 
-            //! Will get the next node in the tree, useful as an iterator.
-            void getNext ( RedBlackNode<Key,Data> ** _current ) const;
+            //! Tests whether a key is in the tree or not.
+            /*!
+                \param _key The key of the node to find.
+                \return True if the key is in the tree, false if not.
+             */
+			bool exists ( Key const &_key ) const;
 
             //! Converts the tree data into a linearized DArray.
             /*!
@@ -193,31 +193,6 @@ namespace CrissCross
                 \return A DArray containing the keys in the tree.
              */
             DArray <Key>  *ConvertIndexToDArray () const;
-
-			/*
-				Deprecated Compatibility Functions
-				Provided for compatibility with Tosser I
-			*/
-			//! @cond
-			_CC_DEPRECATE_FUNCTION(insert) inline statusEnum PutData ( Key const &_key, Data const & _rec ) { return insert ( _key, _rec ); };
-			_CC_DEPRECATE_FUNCTION(erase) inline statusEnum RemoveData ( Key const &_key ) { return erase ( _key ); };
-			_CC_DEPRECATE_FUNCTION(erase) inline statusEnum remove ( Key const &_key ) { return erase ( _key ); };
-			_CC_DEPRECATE_FUNCTION(erase) inline statusEnum remove ( Key const &_key, Data const & _rec  ) { return erase ( _key, _rec ); };
-			_CC_DEPRECATE_FUNCTION(size) inline size_t Size () const { return size(); };
-			_CC_DEPRECATE_FUNCTION_N inline void Empty () { killAll(); };
-			//! @endcond
-
-        protected:
-			//! The cached size() return value. Changes on each tree modification (insertions and deletions).
-			size_t m_cachedSize;
-
-            void RecursiveConvertIndexToDArray ( DArray <Key> *_darray, RedBlackNode<Key,Data> *_btree ) const;
-            void RecursiveConvertToDArray ( DArray <Data> *_darray, RedBlackNode<Key,Data> *_btree ) const;
-
-            void rotateLeft ( RedBlackNode<Key,Data> * _x );
-            void rotateRight ( RedBlackNode<Key,Data> * _x );
-            void insertFixup ( RedBlackNode<Key,Data> * _x );
-            void deleteFixup ( RedBlackNode<Key,Data> * _x );
         };
     }
 }

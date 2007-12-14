@@ -254,7 +254,7 @@ namespace CrissCross
 		CPUID::~CPUID ()
 		{
 			// Time to deallocate all the memory we allocated.
-			int i = 0, j = 0;
+			size_t i = 0, j = 0;
 
 			delete [] Std;
 			delete [] Ext;
@@ -266,19 +266,17 @@ namespace CrissCross
 					j++;
 				}
 				j = 0;
-		        
-				CrissCross::Data::RedBlackNode<const char *, Feature *> *node;
 
-				node = proc[i]->features.rootNode;
-				node->beenThere = CrissCross::Data::RedBlackTree <const char *, Feature *>::NODE_ITSELF_VISITED;
-				while ( proc[i]->features.valid ( node ) )
+				CrissCross::Data::DArray<Feature *> *nodes = proc[i]->features.ConvertToDArray();
+				for ( j = 0; j < nodes->size(); j++ )
 				{
-					delete ( Feature * ) node->data;
-					node->data = NULL;
-					proc[i]->features.getNext ( &node );
+					if ( nodes->valid ( j ) )
+						delete nodes->get(j);
 				}
+
 				delete [] (char *)proc[i]->Manufacturer;
 				delete [] (char *)proc[i]->ProcessorName;
+
 				delete proc[i];
 			}
 		}

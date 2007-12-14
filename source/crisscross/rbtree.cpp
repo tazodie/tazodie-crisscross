@@ -28,7 +28,6 @@ namespace CrissCross
 		{
 			NULL_NODE = new RedBlackNode<Key,Data> ();
 			NULL_NODE->color = BLACK;
-			NULL_NODE->beenThere = 0;
 			NULL_NODE->left =
 				NULL_NODE->right =
 				NULL_NODE->parent = NULL;
@@ -176,7 +175,17 @@ namespace CrissCross
 		}
 
 		template <class Key, class Data>
-			statusEnum RedBlackTree<Key,Data>::insert ( Key const &key, Data const & rec )
+			bool RedBlackTree<Key,Data>::replace ( Key const &key, Data const & rec )
+		{
+			RedBlackNode<Key,Data> *current;
+			current = findNode ( key );
+			if ( !valid ( current ) ) return false;
+			current->data = rec;
+			return true;
+		}
+
+		template <class Key, class Data>
+			bool RedBlackTree<Key,Data>::insert ( Key const &key, Data const & rec )
 		{
 			RedBlackNode<Key,Data> *current = NULL_NODE, *parent = NULL, *x = NULL_NODE;
 
@@ -192,7 +201,7 @@ namespace CrissCross
 			/* setup new node */
 			if ( (x = new RedBlackNode<Key,Data>()) == 0 )
 			{
-				return STATUS_MEM_EXHAUSTED;
+				return false;
 			}
 
 			x->parent = parent;
@@ -201,7 +210,6 @@ namespace CrissCross
 			x->color = RED;
 			x->id = Duplicate ( key );
 			x->data = rec;
-			x->beenThere = NODE_ITSELF_VISITED;
 
 			/* insert node in tree */
 			if ( parent != NULL )
@@ -220,7 +228,7 @@ namespace CrissCross
 
 			insertFixup ( x );
 
-			return STATUS_OK;
+			return true;
 		}
 
 		template <class Key, class Data>
@@ -297,7 +305,7 @@ namespace CrissCross
 		}
 
 		template <class Key, class Data>
-			statusEnum RedBlackTree<Key,Data>::erase ( Key const &key )
+			bool RedBlackTree<Key,Data>::erase ( Key const &key )
 		{
 			RedBlackNode<Key,Data> *z, *parent;
 
@@ -322,13 +330,11 @@ namespace CrissCross
 				return STATUS_NOT_FOUND;
 			}
 
-			statusEnum retval = killNode ( z );
-			
-			return retval;
+			return killNode ( z );
 		}
 
 		template <class Key, class Data>
-			statusEnum RedBlackTree<Key,Data>::erase ( Key const &key, Data const &rec)
+			bool RedBlackTree<Key,Data>::erase ( Key const &key, Data const &rec)
 		{
 			RedBlackNode<Key,Data>        *node = findNode(key);
 
@@ -342,13 +348,11 @@ namespace CrissCross
 				getNext ( &node );
 			}
 
-			statusEnum retval = killNode( node );
-
-			return retval;
+			return killNode( node );
 		}
 
 		template <class Key, class Data>
-			statusEnum RedBlackTree<Key,Data>::killNode ( RedBlackNode<Key,Data> * z )
+			bool RedBlackTree<Key,Data>::killNode ( RedBlackNode<Key,Data> * z )
 		{
 			RedBlackNode<Key,Data> *x, *y;
 
@@ -399,130 +403,7 @@ namespace CrissCross
 			m_cachedSize--;
 			delete y;
 
-			return STATUS_OK;
-		}
-
-
-		/* --------------------------------------------------------------------------------
-			getNext:
-				Get next node in tree after the one specified.
-		    
-			TAKES:
-				current        -    The node whose successor we are to get, or NULL_NODE to
-								get the first node.
-		    
-			GIVES:
-				current        -    The node following the one specified on input, or
-								NULL_NODE if there are no more nodes.
-		    
-			NOTE:        Iterating a tree this way is kinda hairy. For this reason we keep
-						some data in each node that tells us whether we already visited
-						this node. There are three states: NODE_ITSELF_VISITED means we
-						are returning this node right now, and this is set whenever a node
-						is returned.
-						LEFT_CHILD_VISITED means this node has been visited and it has two
-						children of which we are now returning the left one.
-						ALL_CHILDS_VISITED means this node has been visited and it has one
-						unvisited child which we are now returning.
-		            
-						If a node with ALL_CHILDS_VISITED is passed in, this means we are
-						completely done with this node. So we loop uptree again (using the
-						"parent" field) until we encounter a node that is
-						LEFT_CHILD_VISITED (it can't be NODE_ITSELF_VISITED since it's our
-						parent and we do a left-first search) or until we are at the root
-						and the root also has ALL_CHILDS_VISITED set, in which case we
-						return NULL.
-		        
-			WARNING:    If you call getNext() in a loop, be sure to check the node pointer
-						you pass in against the NULL node (NULL_NODE) and exit if that's the
-						case, or you could enter an endless loop. Also verify that the new
-						pointer for 'current' points to a valid node (ValidNode() does this
-						trick).
-
-		   ----------------------------------------------------------------------------- */
-
-		template <class Key, class Data>
-			void RedBlackTree<Key,Data>::getNext ( RedBlackNode<Key,Data> ** current ) const
-		{
-			if ( ( *current ) == NULL_NODE )
-			{
-				( *current ) = rootNode;
-				if ( ( **current ).left == NULL_NODE )
-				{
-					if ( ( **current ).right == NULL_NODE )
-						( **current ).beenThere = ALL_CHILDS_VISITED;
-					else
-						( **current ).beenThere = LEFT_CHILD_VISITED;
-				}
-				else
-					( **current ).beenThere = NODE_ITSELF_VISITED;
-				return;
-			}
-
-			switch ( ( **current ).beenThere )
-			{
-			case NODE_ITSELF_VISITED:
-				// Go to our left child:
-				if ( ( **current ).right != NULL_NODE )    // Have a right child that also needs to be walked?
-					( **current ).beenThere = LEFT_CHILD_VISITED;
-				else                    // This is the only child?
-					( **current ).beenThere = ALL_CHILDS_VISITED;    // We're done.
-				if ( ( **current ).left != NULL_NODE )
-				{
-					( *current ) = ( **current ).left;
-					// Clear left child's flag:
-					( **current ).beenThere = NODE_ITSELF_VISITED;
-					break;
-				}
-				// Else drop through!!!
-
-			case LEFT_CHILD_VISITED:
-				// Go to our right child:
-				( **current ).beenThere = ALL_CHILDS_VISITED;
-				if ( ( **current ).right != NULL_NODE )
-				{
-					( *current ) = ( **current ).right;
-					// Clear right child's flag:
-					( **current ).beenThere = NODE_ITSELF_VISITED;
-					break;
-				}
-				// Else drop through!
-
-			case ALL_CHILDS_VISITED:
-				// Go to our boss:
-				// Note that for some strange reason this NULL_NODE nonsense isn't used for parents.
-				while ( ( *current ) != NULL_NODE
-						&& ( **current ).beenThere == ALL_CHILDS_VISITED )
-					if ( ( **current ).parent != NULL )
-						( *current ) = ( **current ).parent;
-					else
-					{
-						( *current ) = NULL;
-						return;
-					}
-
-				if ( ( *current ) != NULL_NODE )    // We're about to return a node:
-				{
-					if ( ( **current ).beenThere == NODE_ITSELF_VISITED )
-					{
-						if ( ( **current ).right == NULL_NODE )
-							( **current ).beenThere = ALL_CHILDS_VISITED;
-						else
-							( **current ).beenThere = LEFT_CHILD_VISITED;
-
-						( *current ) = ( **current ).left;
-						( **current ).beenThere = NODE_ITSELF_VISITED;
-					}
-					else if ( ( **current ).beenThere == LEFT_CHILD_VISITED )
-					{
-						( **current ).beenThere = ALL_CHILDS_VISITED;
-
-						( *current ) = ( **current ).right;
-						( **current ).beenThere = NODE_ITSELF_VISITED;
-					}
-				}
-				break;
-			}
+			return true;
 		}
 
 		template <class Key, class Data>
@@ -544,6 +425,28 @@ namespace CrissCross
 			}
 
 			return (Data)0;
+		}
+
+		template <class Key, class Data>
+			bool RedBlackTree<Key,Data>::find ( Key const &key, Data &_data ) const
+		{
+			RedBlackNode<Key,Data> *current = rootNode;
+
+			while ( current != NULL_NODE )
+			{
+				if ( Compare ( key, current->id ) == 0 )
+				{
+					_data = current->data;
+					return true;
+				}
+				else
+				{
+					current = ( Compare ( key, current->id ) <= 0 ) ?
+						current->left : current->right;
+				}
+			}
+
+			return false;
 		}
 
 		template <class Key, class Data>
@@ -628,27 +531,6 @@ namespace CrissCross
 			if ( Compare(_node->id, _key) == 0 ) _array->insert ( _node->data );
 			findRecursive ( _array, _key, _node->right );
 		}
-
-		#ifdef _DEBUG
-		template <class Key, class Data>
-			size_t RedBlackTree<Key,Data>::size () const
-		{
-			// Debug builds verify that the cached size is accurate.
-			// Release builds will get a speed gain.
-			RedBlackNode<Key,Data> *vNode = NULL_NODE;
-			size_t vCount = 0;
-
-			getNext ( &vNode );
-			while ( valid ( vNode ) )
-			{
-				vCount++;
-				getNext ( &vNode );
-			}
-
-			CoreAssert ( m_cachedSize == vCount );
-			return m_cachedSize;
-		}
-		#endif
 
 		template <class Key, class Data>
 			DArray<Data> *RedBlackTree<Key,Data>::ConvertToDArray () const
