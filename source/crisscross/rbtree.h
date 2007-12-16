@@ -22,17 +22,6 @@ namespace CrissCross
 {
     namespace Data
     {
-        //! An enumeration used to indicate the result of RedBlackTree calls.
-        /*!
-            \sa RedBlackTree
-         */
-        typedef enum
-        {
-            STATUS_OK,                  //!< Success.
-            STATUS_NOT_FOUND,           //!< Node couldn't be found.
-            STATUS_NULL_POINTER,        //!< A null pointer was found in a parameter.
-            STATUS_MEM_EXHAUSTED        //!< Out of memory.
-        } statusEnum;
 
         //! A binary tree node used for RedBlackTree.
         /*!
@@ -81,6 +70,8 @@ namespace CrissCross
 			void killAll ( RedBlackNode<Key,Data> *rec );
 
 			bool killNode ( RedBlackNode<Key,Data> * z );
+			
+			bool erase ( Key const &key, Data const &rec, RedBlackNode<Key,Data> *curnode );
 
 			RedBlackNode<Key,Data> *findNode ( Key const &key ) const;
 
