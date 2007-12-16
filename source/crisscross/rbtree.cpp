@@ -327,7 +327,7 @@ namespace CrissCross
 			}
 
 			if ( z == NULL_NODE ) {
-				return STATUS_NOT_FOUND;
+				return false;
 			}
 
 			return killNode ( z );
@@ -337,18 +337,29 @@ namespace CrissCross
 			bool RedBlackTree<Key,Data>::erase ( Key const &key, Data const &rec)
 		{
 			RedBlackNode<Key,Data>        *node = findNode(key);
-
-			node->beenThere = NODE_ITSELF_VISITED;
-
-			while ( node != NULL )
+			return erase ( key, rec, node );
+		}
+		
+		template <class Key, class Data>
+			bool RedBlackTree<Key,Data>::erase ( Key const &key, Data const &rec, RedBlackNode<Key,Data> *curnode )
+		{
+			if ( !valid ( curnode ) ) return false;
+			
+			bool killed = false;
+			
+			if ( Compare(curnode->key, key) == 0 && Compare(curnode->data, rec) == 0 )
 			{
-				if ( node->data == rec )
-					break;
-
-				getNext ( &node );
+				killNode ( curnode );
+				killed = true;
 			}
-
-			return killNode( node );
+			
+			if ( !killed )
+				killed = erase ( key, rec, curnode->left );
+				
+			if ( !killed )
+				killed = erase ( key, rec, curnode->right );
+			
+			return killed;
 		}
 
 		template <class Key, class Data>

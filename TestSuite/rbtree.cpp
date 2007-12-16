@@ -20,7 +20,6 @@ using namespace CrissCross::Data;
 int TestRedBlackTree_CString()
 {
     RedBlackTree<const char *, const char *> *rbtree = new RedBlackTree<const char *, const char *>();
-    BinaryNode<const char *, const char *> *node = NULL;
     char *tmp;
 
 	if ( rbtree->size() != 0 )
@@ -41,54 +40,58 @@ int TestRedBlackTree_CString()
 	if ( rbtree->size() != 4 )
 		return 3;
     
-    if ( (node = rbtree->findNode ( "first" ) ) == NULL )
+    const char *res = NULL;
+    if ( !rbtree->find ( "first", res ) )
         return 4;
 
     const char *tmp1 = "one";
-    if ( Compare ( node->data, tmp1 ) != 0 )
+    if ( Compare ( res, tmp1 ) != 0 )
         return 5;
 
-    if ( (node = rbtree->findNode ( "fifth" ) ) != NULL )
+    if ( rbtree->exists ( "fifth" ) )
         return 6;
 
-    if ( (node = rbtree->findNode ( "second" ) ) == NULL )
+    if ( !rbtree->exists ( "second" ) )
+        return 7;
+
+    if ( !rbtree->find ( "second", res ) )
         return 7;
 
     tmp1 = "two";
-    if ( Compare ( node->data, tmp1 ) != 0 )
+    if ( Compare ( res, tmp1 ) != 0 )
         return 8;
         
-    if ( rbtree->erase ( "fifth" ) == STATUS_OK )
+    if ( rbtree->erase ( "fifth" ) )
         return 9;
 
 	if ( rbtree->size() != 4 )
 		return 10;
     
-    if ( rbtree->find ( "first" ) == NULL )
+    if ( !rbtree->exists ( "first" ) )
         return 11;
     
-    if ( rbtree->erase ( "first" ) != STATUS_OK )
+    if ( !rbtree->erase ( "first" ) )
         return 12;
 	
 	if ( rbtree->size() != 3 )
 		return 13;
     
-    if ( rbtree->find ( "second" ) == NULL )
+    if ( !rbtree->find ( "second", res ) )
         return 14;
     
-    if ( rbtree->erase ( "second" ) != STATUS_OK )
+    if ( !rbtree->erase ( "second" ) )
         return 15;
     
-    if ( rbtree->find ( "third" ) == NULL )
+    if ( !rbtree->exists ( "third" ) )
         return 16;
     
-    if ( rbtree->erase ( "third" ) != STATUS_OK )
+    if ( !rbtree->erase ( "third" ) )
         return 17;
     
-    if ( rbtree->find ( "fourth" ) == NULL )
+    if ( !rbtree->exists ( "fourth" ) )
         return 18;
     
-    if ( rbtree->erase ( "fourth" ) != STATUS_OK )
+    if ( !rbtree->erase ( "fourth" ) )
         return 19;
 
 	if ( rbtree->size() != 0 )
@@ -101,7 +104,6 @@ int TestRedBlackTree_CString()
 int TestRedBlackTree_String()
 {
     RedBlackTree<std::string,std::string> *rbtree = new RedBlackTree<std::string,std::string>();
-    BinaryNode<std::string,std::string> *node = NULL;
     
 	if ( rbtree->size() != 0 )
 		return 1;
@@ -111,61 +113,63 @@ int TestRedBlackTree_String()
     rbtree->insert ( "third", "three" );
     rbtree->insert ( "fourth", "four" );
 
+    std::string res;
+    
 	if ( rbtree->size() != 4 )
 		return 2;
     
-    if ( ( node = rbtree->findNode ( "first" ) ) == NULL )
+    if ( !rbtree->find ( "first", res ) )
         return 3;
 
-    if ( node->data != "one" )
+    if ( res != "one" )
         return 4;
 
-    if ( ( node = rbtree->findNode ( "fifth" ) ) != NULL )
+    if ( rbtree->exists ( "fifth" ) )
         return 5;
 
-    if ( ( node = rbtree->findNode ( "second" ) ) == NULL )
+    if ( !rbtree->find ( "second", res ) )
         return 6;
 
-    if ( node->data != "two" )
+    if ( res != "two" )
         return 7;
         
-    if ( rbtree->erase ("fifth") == STATUS_OK )
+    if ( rbtree->erase ( "fifth" ) )
         return 8;
 
 	if ( rbtree->size() != 4 )
 		return 9;
     
-    if ( rbtree->find ( "first") == "" )
+    if ( !rbtree->exists ( "first" ) )
         return 10;
     
-    if ( rbtree->erase ("first") != STATUS_OK )
+    if ( !rbtree->erase ( "first" ) )
         return 11;
 
 	if ( rbtree->size() != 3 )
 		return 12;
     
-    if ( rbtree->find ( "second") == "" )
+    if ( !rbtree->exists ( "second" ) )
         return 13;
     
-    if ( rbtree->erase ("second") != STATUS_OK )
+    if ( !rbtree->erase ( "second" ) )
         return 14;
 
 	if ( rbtree->size() != 2 )
 		return 15;
     
-    if ( rbtree->find ( "third") == "" )
+    if ( !rbtree->exists ( "third" ) )
         return 16;
     
-    if ( rbtree->erase ("third") != STATUS_OK )
+    if ( !rbtree->erase ( "third" ) )
         return 17;
 
 	if ( rbtree->size() != 1 )
 		return 18;
     
-    if ( rbtree->find ( "fourth") == "" )
+    if ( !rbtree->exists ( "fourth" ) )
         return 19;
     
-    if ( rbtree->erase ("fourth") != STATUS_OK )
+    if ( !rbtree->erase ("fourth" ) )
         return 20;
 
 	if ( rbtree->size() != 0 )
@@ -178,7 +182,6 @@ int TestRedBlackTree_String()
 int TestRedBlackTree_Int()
 {
     RedBlackTree<int,int> *rbtree = new RedBlackTree<int,int>();
-    BinaryNode<int,int> *node = NULL;
 
 	if ( rbtree->size() != 0 )
 		return 1;
@@ -188,61 +191,62 @@ int TestRedBlackTree_Int()
     rbtree->insert ( 3, 3 );
     rbtree->insert ( 4, 4 );
 
+    int res;
 	if ( rbtree->size() != 4 )
 		return 2;
     
-    if ( (node = rbtree->findNode ( 1 ) ) == NULL )
+    if ( !rbtree->find ( 1, res ) )
         return 3;
 
-    if ( node->data != 1 )
+    if ( res != 1 )
         return 4;
 
-    if ( (node = rbtree->findNode ( 5 ) ) != NULL )
+    if ( rbtree->exists ( 5 ) )
         return 5;
 
-    if ( (node = rbtree->findNode ( 2 ) ) == NULL )
+    if ( !rbtree->find ( 2, res ) )
         return 6;
 
-    if ( node->data != 2 )
+    if ( res != 2 )
         return 7;
         
-    if ( rbtree->erase ( 5 ) == STATUS_OK )
+    if ( rbtree->erase ( 5 ) )
         return 8;
 
 	if ( rbtree->size() != 4 )
 		return 9;
     
-    if ( !rbtree->find ( 1 ) )
+    if ( !rbtree->exists ( 1 ) )
         return 10;
     
-    if ( rbtree->erase ( 1 ) != STATUS_OK )
+    if ( !rbtree->erase ( 1 ) )
         return 11;
 
 	if ( rbtree->size() != 3 )
 		return 12;
     
-    if ( !rbtree->find ( 2 ) )
+    if ( !rbtree->exists ( 2 ) )
         return 13;
     
-    if ( rbtree->erase ( 2 ) != STATUS_OK )
+    if ( !rbtree->erase ( 2 ) )
         return 14;
 
 	if ( rbtree->size() != 2 )
 		return 15;
     
-    if ( !rbtree->find ( 3 ) )
+    if ( !rbtree->exists ( 3 ) )
         return 16;
     
-    if ( rbtree->erase ( 3 ) != STATUS_OK )
+    if ( !rbtree->erase ( 3 ) )
         return 17;
 
 	if ( rbtree->size() != 1 )
 		return 18;
     
-    if ( !rbtree->find ( 4 ) )
+    if ( !rbtree->exists ( 4 ) )
         return 19;
     
-    if ( rbtree->erase ( 4 ) != STATUS_OK )
+    if ( !rbtree->erase ( 4 ) )
         return 20;
 
 	if ( rbtree->size() != 0 )
