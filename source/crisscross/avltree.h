@@ -60,6 +60,23 @@ namespace CrissCross
 		template <class Key, class Data>
 		class AVLTree
 		{
+		private:
+			//! Private copy constructor.
+			/*!
+				If your code needs to invoke the copy constructor, you've probably written
+				the code wrong. A tree copy is generally unnecessary, and in cases that it
+				is, it can be achieved by other means.
+			 */
+			AVLTree ( const AVLTree<Key,Data> & );
+
+			//! Private assignment operator.
+			/*!
+				If your code needs to invoke the assignment operator, you've probably written
+				the code wrong. A tree copy is generally unnecessary, and in cases that it
+				is, it can be achieved by other means.
+			 */
+			AVLTree<Key,Data> &operator = ( const AVLTree<Key,Data> & );
+
 		protected:
 			//! The root node.
 			AVLNode<Key,Data> *m_root;

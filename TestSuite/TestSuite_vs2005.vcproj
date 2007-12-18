@@ -515,6 +515,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\splaytree.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\splaytree.h"
+			>
+		</File>
+		<File
 			RelativePath=".\stopwatch.cpp"
 			>
 		</File>

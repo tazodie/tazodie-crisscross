@@ -12,6 +12,8 @@
 #ifndef __included_cc_internal_mem_h
 #define __included_cc_internal_mem_h
 
+#include <crisscross/debug.h>
+
 namespace CrissCross
 {
     namespace Data
@@ -30,30 +32,40 @@ namespace CrissCross
         template <>
         __inline char *Duplicate ( char * const &_data )
         {
+			CoreAssert ( _data );
             return strdup ( _data );
         }
 
         template <>
         __inline const char *Duplicate ( const char * const &_data )
         {
+			CoreAssert ( _data );
             return strdup ( _data );
         }
 
         template < class T >
-        __inline void Dealloc ( T const &_data )
+        __inline void Dealloc ( T &_data )
         {
         }
         
         template <>
-        __inline void Dealloc ( char * const &_data )
+        __inline void Dealloc ( char *&_data )
         {
-            if ( _data ) free ( _data );
+            if ( _data )
+			{
+				free ( _data );
+				_data = NULL;
+			}
         }
         
         template <>
-        __inline void Dealloc ( const char * const &_data )
+        __inline void Dealloc ( const char *&_data )
         {
-            if ( _data ) free ( (char *)_data );
+            if ( _data )
+			{
+				free ( (char *)_data );
+				_data = NULL;
+			}
         }
 
         //! @endcond
