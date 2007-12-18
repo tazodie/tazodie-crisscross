@@ -40,10 +40,19 @@ namespace CrissCross
 		public:
 			AVLNode();
 
+			//! The state of this part of the tree's balance.
+			/*!
+				\sa AVLBalance
+			 */
 			AVLBalance m_balance;
 
+            //! The left branch of the tree from this node.
 			AVLNode *left;
+
+            //! The right branch of the tree from this node.
 			AVLNode *right;
+
+            //! The parent node.
 			AVLNode *parent;
 
 		};
