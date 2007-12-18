@@ -38,8 +38,11 @@ namespace CrissCross
             //! The right branch of the tree from this node.
             BinaryNode *right;
 
+            //! The parent node.
+            BinaryNode *parent;
+
             //! The default constructor.
-            BinaryNode () : left(NULL), right(NULL) {}
+            BinaryNode () : left(NULL), right(NULL), parent(NULL) {}
 
 			//! The default destructor.
 			virtual ~BinaryNode ()

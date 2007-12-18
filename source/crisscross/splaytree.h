@@ -40,18 +40,29 @@ namespace CrissCross
 			 */
 			SplayTree<Key,Data> &operator = ( const SplayTree<Key,Data> & );
 			
-			BinaryNode<Key,Data> *root;
+			// Mutable because splaying is an operation which changes
+			// the structure of the tree.
+			mutable BinaryNode<Key,Data> *root;
 
 			void printTree( BinaryNode<Key,Data> *t ) const;
 
 			// Tree manipulations
 			void rotateWithLeftChild( BinaryNode<Key,Data> * & k2 ) const;
 			void rotateWithRightChild( BinaryNode<Key,Data> * & k1 ) const;
-			void splay( Key const &key, BinaryNode<Key,Data> * & t ) const;
+			void splay ( Key const &key, BinaryNode<Key,Data> * & t ) const;
 			
-			BinaryNode<Key,Data> *findNode ( Key const &key );
+			BinaryNode<Key,Data> *findNode ( Key const &key ) const;
 
 			size_t m_size;
+
+            void RecursiveConvertIndexToDArray ( DArray <Key> *_darray, BinaryNode<Key,Data> *_btree ) const;
+            void RecursiveConvertToDArray ( DArray <Data> *_darray, BinaryNode<Key,Data> *_btree ) const;
+
+			void findRecursive ( DArray<Data> *_array, Key const &_key, BinaryNode<Key,Data> *_node ) const;
+
+			bool erase ( Key const &key, Data const &rec, BinaryNode<Key,Data> *curnode );
+
+			bool killNode ( BinaryNode<Key,Data> * z );
 
 		public:
 
@@ -77,7 +88,15 @@ namespace CrissCross
 				\param _key The key of the node to find.
 				\return True if the key is in the tree, false if not.
 			 */
-			bool exists ( Key const &_key );
+			bool exists ( Key const &_key ) const;
+
+            //! Change the data at the given node.
+			/*!
+				\param _key The key of the node to be modified.
+				\param _rec The data to insert.
+				\return True on success, false on failure.
+			 */
+            bool replace ( Key const &_key, Data const &_rec );
 
             //! Finds a node in the tree and returns the data at that node.
 			/*!
@@ -85,14 +104,21 @@ namespace CrissCross
 				\param _data On return, will contain the data at the node. If not found, _data does not change.
 				\return True on success, false on failure.
 			 */
-			bool find ( Key const &_key, Data &_data );
+			bool find ( Key const &_key, Data &_data ) const;
 
             //! Finds a node in the tree and returns the data at that node.
 			/*!
 				\param _key The key of the node to find.
 				\return The data at the node. NULL if not found.
 			 */
-			_CC_DEPRECATE_FUNCTION_N Data find ( Key const &key );
+			_CC_DEPRECATE_FUNCTION_N Data find ( Key const &key ) const;
+
+            //! Finds all instances of the specified key in the tree.
+			/*!
+				\param _key The key of the node to find.
+				\return A DArray containing the data with key _key. MUST be deleted when done!
+			 */
+			DArray<Data> *findAll ( Key const &_key ) const;
 
             //! Deletes a node from the tree, specified by the node's key.
 			/*!
@@ -103,11 +129,33 @@ namespace CrissCross
 			 */
 			bool erase ( Key const &key );
 
+            //! Deletes a node from the tree, specified by the node's key and data.
+            /*!
+                This won't free the memory occupied by the data, so the data must be freed
+                seperately.
+                \param _key The key of the node to delete.
+                \param _data The data of the node to delete.
+                \return True on success, false on failure.
+             */
+			bool erase ( Key const &_key, Data const &_data );
+
             //! Indicates the size of the tree.
 			/*!
 				\return Size of the tree.
 			 */
-			size_t size() const;
+			inline size_t size () const { return m_size; };
+
+            //! Converts the tree data into a linearized DArray.
+			/*!
+				\return A DArray containing the data of the tree.
+			 */
+            DArray <Data> *ConvertToDArray () const;
+
+            //! Converts the tree keys into a linearized DArray.
+			/*!
+				\return A DArray containing the keys in the tree.
+			 */
+            DArray <Key>  *ConvertIndexToDArray () const;
 
 		};
 	}
