@@ -99,17 +99,19 @@ RunApplication ( int argc, char **argv )
 
             // Print out CPU features (MMX, SSE, and so on).
             console->Write ( "CPU[%d] Features: ", i );
-            CrissCross::Data::RedBlackNode <const char *, Feature *> *node = cpuid->proc[i]->features.rootNode;
-            node->beenThere = CrissCross::Data::RedBlackTree <std::string, Feature *>::NODE_ITSELF_VISITED;
-            while ( cpuid->proc[i]->features.valid ( node ) )
-            {
-                if ( node->data->Enabled )
-                {
-                    console->Write ( node->id );
-                    console->Write ( " " );
-                }
-                cpuid->proc[i]->features.getNext ( &node );
-            }
+
+			CrissCross::Data::DArray<const char *> *featureIDs =
+				cpuid->proc[i]->features.ConvertIndexToDArray();
+
+			CrissCross::Data::DArray<CrissCross::System::Feature *> *features =
+				cpuid->proc[i]->features.ConvertToDArray();
+
+			for ( size_t i = 0; i < featureIDs->size(); i++ )
+			{
+				if ( featureIDs->valid ( i ) )
+					if ( features->get(i)->Enabled )
+						console->Write ( "%s ", featureIDs->get(i) );
+			}
             console->WriteLine ();
             console->WriteLine ();
         }
