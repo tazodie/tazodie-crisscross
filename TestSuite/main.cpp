@@ -17,6 +17,7 @@
 #include "darray.h"
 #include "dstack.h"
 #include "llist.h"
+#include "splaytree.h"
 #include "avltree.h"
 #include "rbtree.h"
 #include "bubblesort.h"
@@ -69,6 +70,10 @@ int RunApplication (int argc, char **argv) {
     WritePrefix ( "LList" ); retval |= WriteResult ( TestLList() );
     WritePrefix ( "DArray" ); retval |= WriteResult ( TestDArray() );
     WritePrefix ( "DStack" ); retval |= WriteResult ( TestDStack() );
+
+    WritePrefix ( "SplayTree<const char *, const char *>" ); retval |= WriteResult ( TestSplayTree_CString() );
+    WritePrefix ( "SplayTree<std::string, std::string>" ); retval |= WriteResult ( TestSplayTree_String() );
+    WritePrefix ( "SplayTree<int, int>" ); retval |= WriteResult ( TestSplayTree_Int() );
 
     WritePrefix ( "AVLTree<const char *, const char *>" ); retval |= WriteResult ( TestAVLTree_CString() );
     WritePrefix ( "AVLTree<std::string, std::string>" ); retval |= WriteResult ( TestAVLTree_String() );

@@ -12,6 +12,8 @@
 #ifndef __included_cc_node_h
 #define __included_cc_node_h
 
+#include <crisscross/internal_mem.h>
+
 namespace CrissCross
 {
     namespace Data
@@ -42,6 +44,7 @@ namespace CrissCross
 			//! The default destructor.
 			virtual ~BinaryNode ()
 			{
+				Dealloc ( id );
 				delete left; left = NULL;
 				delete right; right = NULL;
 			}

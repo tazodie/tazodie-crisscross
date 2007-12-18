@@ -18,7 +18,6 @@
 #include <tchar.h>
 #include "MiniVersion.h"
 
-#pragma message("automatic link to VERSION.LIB")
 #pragma comment(lib, "version.lib")
 
 // #include "mmgr.h"

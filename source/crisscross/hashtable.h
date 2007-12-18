@@ -19,6 +19,21 @@ namespace CrissCross
 		template <class T>
 		class HashTable
 		{
+		private:
+			//! Private copy constructor.
+			/*!
+				Not yet written, so declared private for now to prevent an auto-generated
+				one from performing an unexpected operation.
+			 */
+			HashTable ( const HashTable<T> & );
+
+			//! Private assignment operator.
+			/*!
+				Not yet written, so declared private for now to prevent an auto-generated
+				one from performing an unexpected operation.
+			 */
+			HashTable<T> &operator = ( const HashTable<T> & );
+
 		protected:
 			T			*m_array;
 			char		**m_keys;

@@ -51,8 +51,28 @@ namespace CrissCross
         template < class Key, class Data >
         class RedBlackTree
         {
+		private:
+			//! Private copy constructor.
+			/*!
+				If your code needs to invoke the copy constructor, you've probably written
+				the code wrong. A tree copy is generally unnecessary, and in cases that it
+				is, it can be achieved by other means.
+			 */
+			RedBlackTree ( const RedBlackTree<Key,Data> & );
+
+			//! Private assignment operator.
+			/*!
+				If your code needs to invoke the assignment operator, you've probably written
+				the code wrong. A tree copy is generally unnecessary, and in cases that it
+				is, it can be achieved by other means.
+			 */
+			RedBlackTree<Key,Data> &operator = ( const RedBlackTree<Key,Data> & );
+
         protected:
 
+            //! The root node at the top of the tree.
+            RedBlackNode<Key,Data> *rootNode;
+            
 			//! The cached size() return value. Changes on each tree modification (insertions and deletions).
 			size_t m_cachedSize;
 
@@ -79,12 +99,6 @@ namespace CrissCross
             //! @cond
             typedef enum { BLACK, RED } nodeColor;
             //! @endcond
-
-            //! The root node at the top of the tree.
-            RedBlackNode<Key,Data> *rootNode;
-            
-            //! The null node at the end of every branch, etc.
-            RedBlackNode<Key,Data> *NULL_NODE;
 
             //! The constructor.
             RedBlackTree ();
@@ -148,7 +162,7 @@ namespace CrissCross
 				\return True if the node is a valid node, false otherwise.
 			 */
             inline bool valid ( const RedBlackNode<Key,Data> *_node ) const
-			{ return ( _node != NULL && _node != NULL_NODE ); };
+			{ return ( _node != NULL ); };
 
 			//! Empties the entire tree.
 			inline void empty () { killAll(); rootNode = NULL_NODE; };
