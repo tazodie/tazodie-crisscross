@@ -18,16 +18,6 @@ namespace CrissCross
 	namespace Data
 	{
 		template <class Key, class Data>
-		AVLNode<Key,Data>::AVLNode()
-			: BinaryNode<Key,Data>()
-		{
-			m_balance = BALANCED;
-			left = NULL;
-			right = NULL;
-			parent = NULL;
-		}
-
-		template <class Key, class Data>
 		AVLTree<Key,Data>::AVLTree()
 		{
 			m_root = NULL;
@@ -304,42 +294,42 @@ namespace CrissCross
 		template <class Key, class Data>
 		typename AVLTree<Key,Data>::Result AVLTree<Key,Data>::balanceLeftGrown ( AVLNode<Key,Data> **_node )
 		{
-			switch( (*_node)->m_balance )
+			switch( (*_node)->balance )
 			{
 				case LEFTHEAVY:
 				{
-					if( (*_node)->left->m_balance == LEFTHEAVY )
+					if( (*_node)->left->balance == LEFTHEAVY )
 					{
-						(*_node)->m_balance = (*_node)->left->m_balance = BALANCED;
+						(*_node)->balance = (*_node)->left->balance = BALANCED;
 						rotateRight( _node );
 					}
 					else
 					{
-						switch( (*_node)->left->right->m_balance )
+						switch( (*_node)->left->right->balance )
 						{
 							case LEFTHEAVY:
 							{
-								(*_node)->m_balance          = RIGHTHEAVY;
-								(*_node)->left->m_balance = BALANCED;
+								(*_node)->balance          = RIGHTHEAVY;
+								(*_node)->left->balance = BALANCED;
 								break;
 							}
 
 							case BALANCED:
 							{
-								(*_node)->m_balance          = BALANCED;
-								(*_node)->left->m_balance = BALANCED;
+								(*_node)->balance          = BALANCED;
+								(*_node)->left->balance = BALANCED;
 								break;
 							}
 
 							case RIGHTHEAVY:
 							{
-								(*_node)->m_balance          = BALANCED;
-								(*_node)->left->m_balance = LEFTHEAVY;
+								(*_node)->balance          = BALANCED;
+								(*_node)->left->balance = LEFTHEAVY;
 								break;
 							}
 						}
 
-						(*_node)->left->right->m_balance = BALANCED;
+						(*_node)->left->right->balance = BALANCED;
 
 						rotateLeft( &(*_node)->left );
 						rotateRight( _node );
@@ -350,13 +340,13 @@ namespace CrissCross
 
 				case BALANCED:
 				{
-					(*_node)->m_balance = LEFTHEAVY;
+					(*_node)->balance = LEFTHEAVY;
 					return BALANCE;
 				}
 
 				case RIGHTHEAVY:
 				{
-					(*_node)->m_balance = BALANCED;
+					(*_node)->balance = BALANCED;
 					return OK;
 				}
 			}
@@ -367,54 +357,54 @@ namespace CrissCross
 		template <class Key, class Data>
 		typename AVLTree<Key,Data>::Result AVLTree<Key,Data>::balanceRightGrown ( AVLNode<Key,Data> **_node )
 		{
-			switch( (*_node)->m_balance )
+			switch( (*_node)->balance )
 			{
 				case LEFTHEAVY:
 				{
-					(*_node)->m_balance = BALANCED;
+					(*_node)->balance = BALANCED;
 					return OK;
 				}
 
 				case BALANCED:
 				{
-					(*_node)->m_balance = RIGHTHEAVY;
+					(*_node)->balance = RIGHTHEAVY;
 					return BALANCE;
 				}
 
 				case RIGHTHEAVY:
 				{
-					if( (*_node)->right->m_balance == RIGHTHEAVY )
+					if( (*_node)->right->balance == RIGHTHEAVY )
 					{
-						(*_node)->m_balance = (*_node)->right->m_balance = BALANCED;
+						(*_node)->balance = (*_node)->right->balance = BALANCED;
 						rotateLeft( _node );
 					}
 					else
 					{
-						switch( (*_node)->right->left->m_balance )
+						switch( (*_node)->right->left->balance )
 						{
 							case LEFTHEAVY:
 							{
-								(*_node)->m_balance           = BALANCED;
-								(*_node)->right->m_balance = RIGHTHEAVY;
+								(*_node)->balance           = BALANCED;
+								(*_node)->right->balance = RIGHTHEAVY;
 								break;
 							}
 
 							case BALANCED:
 							{
-								(*_node)->m_balance           = BALANCED;
-								(*_node)->right->m_balance = BALANCED;
+								(*_node)->balance           = BALANCED;
+								(*_node)->right->balance = BALANCED;
 								break;
 							}
 
 							case RIGHTHEAVY:
 							{
-								(*_node)->m_balance           = LEFTHEAVY;
-								(*_node)->right->m_balance = BALANCED;
+								(*_node)->balance           = LEFTHEAVY;
+								(*_node)->right->balance = BALANCED;
 								break;
 							}
 						}
 
-						(*_node)->right->left->m_balance = BALANCED;
+						(*_node)->right->left->balance = BALANCED;
 
 						rotateRight( &(*_node)->right );
 						rotateLeft( _node );
@@ -430,51 +420,51 @@ namespace CrissCross
 		template <class Key, class Data>
 		typename AVLTree<Key,Data>::Result AVLTree<Key,Data>::balanceLeftShrunk ( AVLNode<Key,Data> **_node )
 		{
-			switch( (*_node)->m_balance )
+			switch( (*_node)->balance )
 			{
 				case LEFTHEAVY:
 				{
-					(*_node)->m_balance = BALANCED;
+					(*_node)->balance = BALANCED;
 					return BALANCE;
 				}
 
 				case BALANCED:
 				{
-					(*_node)->m_balance = RIGHTHEAVY;
+					(*_node)->balance = RIGHTHEAVY;
 					return OK;
 				}
 
 				case RIGHTHEAVY:
 				{
-					switch( (*_node)->right->m_balance )
+					switch( (*_node)->right->balance )
 					{
 						case LEFTHEAVY:
 						{
-							switch( (*_node)->right->left->m_balance )
+							switch( (*_node)->right->left->balance )
 							{
 								case LEFTHEAVY:
 								{
-									(*_node)->m_balance           = BALANCED;
-									(*_node)->right->m_balance = RIGHTHEAVY;
+									(*_node)->balance           = BALANCED;
+									(*_node)->right->balance = RIGHTHEAVY;
 									break;
 								}
 
 								case BALANCED:
 								{
-									(*_node)->m_balance           = BALANCED;
-									(*_node)->right->m_balance = BALANCED;
+									(*_node)->balance           = BALANCED;
+									(*_node)->right->balance = BALANCED;
 									break;
 								}
 
 								case RIGHTHEAVY:
 								{
-									(*_node)->m_balance           = LEFTHEAVY;
-									(*_node)->right->m_balance = BALANCED;
+									(*_node)->balance           = LEFTHEAVY;
+									(*_node)->right->balance = BALANCED;
 									break;
 								}
 							}
 
-							(*_node)->right->left->m_balance = BALANCED;
+							(*_node)->right->left->balance = BALANCED;
 
 							rotateRight( &(*_node)->right );
 							rotateLeft( _node );
@@ -484,15 +474,15 @@ namespace CrissCross
 
 						case BALANCED:
 						{
-							(*_node)->m_balance           = RIGHTHEAVY;
-							(*_node)->right->m_balance = LEFTHEAVY;
+							(*_node)->balance           = RIGHTHEAVY;
+							(*_node)->right->balance = LEFTHEAVY;
 							rotateLeft( _node );
 							return OK;
 						}
 
 						case RIGHTHEAVY:
 						{
-							(*_node)->m_balance = (*_node)->right->m_balance = BALANCED;
+							(*_node)->balance = (*_node)->right->balance = BALANCED;
 							rotateLeft( _node );
 							return BALANCE;
 						}
@@ -508,54 +498,54 @@ namespace CrissCross
 		template <class Key, class Data>
 		typename AVLTree<Key,Data>::Result AVLTree<Key,Data>::balanceRightShrunk ( AVLNode<Key,Data>** _node )
 		{
-			switch( (*_node)->m_balance )
+			switch( (*_node)->balance )
 			{
 				case LEFTHEAVY:
 				{
-					switch( (*_node)->left->m_balance )
+					switch( (*_node)->left->balance )
 					{
 						case LEFTHEAVY:
 						{
-							(*_node)->m_balance = (*_node)->left->m_balance = BALANCED;
+							(*_node)->balance = (*_node)->left->balance = BALANCED;
 							rotateRight( _node );
 							return BALANCE;
 						}
 
 						case BALANCED:
 						{
-							(*_node)->m_balance          = LEFTHEAVY;
-							(*_node)->left->m_balance = RIGHTHEAVY;
+							(*_node)->balance          = LEFTHEAVY;
+							(*_node)->left->balance = RIGHTHEAVY;
 							rotateRight( _node );
 							return OK;
 						}
 
 						case RIGHTHEAVY:
 						{
-							switch( (*_node)->left->right->m_balance )
+							switch( (*_node)->left->right->balance )
 							{
 								case LEFTHEAVY:
 								{
-									(*_node)->m_balance          = RIGHTHEAVY;
-									(*_node)->left->m_balance = BALANCED;
+									(*_node)->balance          = RIGHTHEAVY;
+									(*_node)->left->balance = BALANCED;
 									break;
 								}
 
 								case BALANCED:
 								{
-									(*_node)->m_balance          = BALANCED;
-									(*_node)->left->m_balance = BALANCED;
+									(*_node)->balance          = BALANCED;
+									(*_node)->left->balance = BALANCED;
 									break;
 								}
 
 								case RIGHTHEAVY:
 								{
-									(*_node)->m_balance          = BALANCED;
-									(*_node)->left->m_balance = LEFTHEAVY;
+									(*_node)->balance          = BALANCED;
+									(*_node)->left->balance = LEFTHEAVY;
 									break;
 								}
 							}
 
-							(*_node)->left->right->m_balance = BALANCED;
+							(*_node)->left->right->balance = BALANCED;
 
 							rotateLeft( &(*_node)->left );
 							rotateRight( _node );
@@ -569,13 +559,13 @@ namespace CrissCross
 
 				case BALANCED:
 				{
-					(*_node)->m_balance = LEFTHEAVY;
+					(*_node)->balance = LEFTHEAVY;
 					return OK;
 				}
 
 				case RIGHTHEAVY:
 				{
-					(*_node)->m_balance = BALANCED;
+					(*_node)->balance = BALANCED;
 					return BALANCE;
 				}
 			}

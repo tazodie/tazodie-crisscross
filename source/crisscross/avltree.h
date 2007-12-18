@@ -20,43 +20,6 @@ namespace CrissCross
 {
 	namespace Data
 	{
-
-		//! The current balance status of a node
-		typedef enum AVLBalance
-		{
-			//! The left side of the tree is heaviest.
-			LEFTHEAVY,
-
-			//! The tree is well balanced.
-			BALANCED,
-
-			//! The right side of the tree is heaviest.
-			RIGHTHEAVY
-		};
-
-		template <class Key, class Data>
-		class AVLNode : public BinaryNode<Key,Data>
-		{
-		public:
-			AVLNode();
-
-			//! The state of this part of the tree's balance.
-			/*!
-				\sa AVLBalance
-			 */
-			AVLBalance m_balance;
-
-            //! The left branch of the tree from this node.
-			AVLNode *left;
-
-            //! The right branch of the tree from this node.
-			AVLNode *right;
-
-            //! The parent node.
-			AVLNode *parent;
-
-		};
-
 		template <class Key, class Data>
 		class AVLTree
 		{

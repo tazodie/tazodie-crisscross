@@ -22,31 +22,6 @@ namespace CrissCross
 {
     namespace Data
     {
-// TODO: Does RedBlackNode need Parent, Left, and Right redefined?
-        //! A binary tree node used for RedBlackTree.
-		/*!
-			\sa BinaryNode
-		 */
-        template <class Key, class Data>
-        class RedBlackNode: public BinaryNode<Key,Data>
-        {
-        public:
-            //! The color of the node (either red or black).
-            char        color;
-
-            //! The left branch of the tree from this node.
-            RedBlackNode *left;
-
-            //! The right branch of the tree from this node.
-            RedBlackNode *right;
-
-            //! The parent node.
-            RedBlackNode *parent;
-
-            //! The default constructor.
-            RedBlackNode () : BinaryNode<Key,Data>() {}
-        };
-
         //! A very fast red-black tree implementation.
         template < class Key, class Data >
         class RedBlackTree

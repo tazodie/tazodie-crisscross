@@ -38,10 +38,10 @@ namespace CrissCross
 		template <class Key, class Data>
 		bool SplayTree<Key,Data>::insert ( Key const &key, Data const &x )
 		{
-			static BinaryNode<Key,Data> *newNode = NULL;
+			static SplayNode<Key,Data> *newNode = NULL;
 
 			if ( newNode == NULL )
-				newNode = new BinaryNode<Key,Data>;
+				newNode = new SplayNode<Key,Data>;
 			else
 				Dealloc ( newNode->id );
 			newNode->id = Duplicate ( key );
@@ -86,9 +86,9 @@ namespace CrissCross
 		}
 
 		template <class Key, class Data>
-			bool SplayTree<Key,Data>::killNode ( BinaryNode<Key,Data> * z )
+			bool SplayTree<Key,Data>::killNode ( SplayNode<Key,Data> * z )
 		{
-			BinaryNode<Key,Data> *x, *y;
+			SplayNode<Key,Data> *x, *y;
 
 			if ( z->left == NULL || z->right == NULL )
 			{
@@ -144,12 +144,12 @@ namespace CrissCross
 		template <class Key, class Data>
 			bool SplayTree<Key,Data>::erase ( Key const &key, Data const &rec)
 		{
-			BinaryNode<Key,Data>        *node = findNode(key);
+			SplayNode<Key,Data>        *node = findNode(key);
 			return erase ( key, rec, node );
 		}
 		
 		template <class Key, class Data>
-			bool SplayTree<Key,Data>::erase ( Key const &key, Data const &rec, BinaryNode<Key,Data> *curnode )
+			bool SplayTree<Key,Data>::erase ( Key const &key, Data const &rec, SplayNode<Key,Data> *curnode )
 		{
 			if ( !curnode ) return false;
 			
@@ -176,7 +176,7 @@ namespace CrissCross
 		template <class Key, class Data>
 		bool SplayTree<Key,Data>::erase ( Key const &key )
 		{
-			BinaryNode<Key,Data> *newTree;
+			SplayNode<Key,Data> *newTree;
 
 			if ( !root ) return false;
 
@@ -247,14 +247,14 @@ namespace CrissCross
 		template <class Key, class Data>
 		DArray<Data> *SplayTree<Key,Data>::findAll ( Key const &_key ) const
 		{
-			BinaryNode<Key,Data> *p_current = findNode ( _key );
+			SplayNode<Key,Data> *p_current = findNode ( _key );
 			DArray<Data> *data = new DArray<Data>();
 			findRecursive ( data, _key, p_current );
 			return data;
 		}
 
 		template<class Key, class Data>
-		void SplayTree<Key,Data>::findRecursive ( DArray<Data> *_array, Key const &_key, BinaryNode<Key,Data> *_node ) const
+		void SplayTree<Key,Data>::findRecursive ( DArray<Data> *_array, Key const &_key, SplayNode<Key,Data> *_node ) const
 		{
 			CoreAssert ( _array );
 			if ( !_node ) return;
@@ -279,7 +279,7 @@ namespace CrissCross
 		}
 
 		template <class Key, class Data>
-		BinaryNode<Key,Data> *SplayTree<Key,Data>::findNode( Key const &key ) const
+		SplayNode<Key,Data> *SplayTree<Key,Data>::findNode( Key const &key ) const
 		{
 			splay( key, root );
 
@@ -298,13 +298,13 @@ namespace CrissCross
 		}
 
 		template <class Key, class Data>
-		void SplayTree<Key,Data>::splay ( Key const &key, BinaryNode<Key,Data> * & t ) const
+		void SplayTree<Key,Data>::splay ( Key const &key, SplayNode<Key,Data> * & t ) const
 		{
 
 			if ( !t ) return;
 
-			BinaryNode<Key,Data> *leftTreeMax, *rightTreeMin;
-			static BinaryNode<Key,Data> header;
+			SplayNode<Key,Data> *leftTreeMax, *rightTreeMin;
+			static SplayNode<Key,Data> header;
 
 			header.left = header.right = NULL;
 			leftTreeMax = rightTreeMin = &header;
@@ -347,9 +347,9 @@ namespace CrissCross
 
 
 		template <class Key, class Data>
-		void SplayTree<Key,Data>::rotateWithLeftChild( BinaryNode<Key,Data> * & k2 ) const
+		void SplayTree<Key,Data>::rotateWithLeftChild( SplayNode<Key,Data> * & k2 ) const
 		{
-			BinaryNode<Key,Data> *k1 = k2->left;
+			SplayNode<Key,Data> *k1 = k2->left;
 			k2->left = k1->right;
 			if ( k2->left )
 				k2->left->parent = k2;
@@ -360,9 +360,9 @@ namespace CrissCross
 		}
 
 		template <class Key, class Data>
-		void SplayTree<Key,Data>::rotateWithRightChild( BinaryNode<Key,Data> * & k1 ) const
+		void SplayTree<Key,Data>::rotateWithRightChild( SplayNode<Key,Data> * & k1 ) const
 		{
-			BinaryNode<Key,Data> *k2 = k1->right;
+			SplayNode<Key,Data> *k2 = k1->right;
 			k1->right = k2->left;
 			if ( k1->right )
 				k1->right->parent = k1;
@@ -389,7 +389,7 @@ namespace CrissCross
 		}
 
 		template <class Key, class Data>
-		void SplayTree<Key,Data>::RecursiveConvertToDArray ( DArray<Data> *darray, BinaryNode<Key,Data> *btree ) const
+		void SplayTree<Key,Data>::RecursiveConvertToDArray ( DArray<Data> *darray, SplayNode<Key,Data> *btree ) const
 		{
 			if ( !btree || btree == NULL ) return;
 			RecursiveConvertToDArray ( darray, btree->left );
@@ -398,7 +398,7 @@ namespace CrissCross
 		}
 
 		template <class Key, class Data>
-		void SplayTree<Key,Data>::RecursiveConvertIndexToDArray ( DArray<Key> *darray, BinaryNode<Key,Data> *btree ) const
+		void SplayTree<Key,Data>::RecursiveConvertIndexToDArray ( DArray<Key> *darray, SplayNode<Key,Data> *btree ) const
 		{
 			if ( !btree || btree == NULL ) return;
 			RecursiveConvertIndexToDArray ( darray, btree->left );
