@@ -18,12 +18,22 @@ namespace CrissCross
 {
     namespace Data
     {
+
+		/*
+			There's no real advantage to making these classes inherit
+			a common BinaryNode class. In fact, it will impact the
+			program negatively to inherit a common class because we
+			are forced to either cast every reference to left/right/parent
+			or override left/right/parent in the derived classes (and
+			doing so would waste memory: 12 bytes per node on 32-bit
+			machines).
+
+			So we no longer inherit a common node class.
+		*/
+
         //! A binary tree node.
-        /*!
-            \sa RedBlackNode
-         */
         template <class Key, class Data>
-        class BinaryNode
+        class SplayNode
         {
         public:
             //! The key for this node.
@@ -33,19 +43,105 @@ namespace CrissCross
             Data        data;
 
             //! The left branch of the tree from this node.
-            BinaryNode *left;
+            SplayNode *left;
 
             //! The right branch of the tree from this node.
-            BinaryNode *right;
+            SplayNode *right;
 
             //! The parent node.
-            BinaryNode *parent;
+            SplayNode *parent;
 
             //! The default constructor.
-            BinaryNode () : left(NULL), right(NULL), parent(NULL) {}
+            SplayNode () : left(NULL), right(NULL), parent(NULL) {}
 
 			//! The default destructor.
-			virtual ~BinaryNode ()
+			~SplayNode ()
+			{
+				Dealloc ( id );
+				delete left; left = NULL;
+				delete right; right = NULL;
+			}
+        };
+
+		//! The current balance status of a node
+		typedef enum AVLBalance
+		{
+			//! The left side of the tree is heaviest.
+			LEFTHEAVY,
+
+			//! The tree is well balanced.
+			BALANCED,
+
+			//! The right side of the tree is heaviest.
+			RIGHTHEAVY
+		};
+
+		template <class Key, class Data>
+		class AVLNode
+		{
+		public:
+            //! The key for this node.
+            Key         id;
+
+            //! The data held at this node.
+            Data        data;
+
+			//! The state of this part of the tree's balance.
+			/*!
+				\sa AVLBalance
+			 */
+			AVLBalance balance;
+
+            //! The left branch of the tree from this node.
+			AVLNode *left;
+
+            //! The right branch of the tree from this node.
+			AVLNode *right;
+
+            //! The parent node.
+			AVLNode *parent;
+
+            //! The default constructor.
+			AVLNode (): balance(BALANCED), left(NULL), right(NULL), parent(NULL) {}
+
+			//! The default destructor.
+			~AVLNode ()
+			{
+				Dealloc ( id );
+				delete left; left = NULL;
+				delete right; right = NULL;
+			}
+
+		};
+
+        //! A binary tree node used for RedBlackTree.
+        template <class Key, class Data>
+        class RedBlackNode
+        {
+        public:
+            //! The key for this node.
+            Key         id;
+
+            //! The data held at this node.
+            Data        data;
+
+            //! The color of the node (either red or black).
+            char        color;
+
+            //! The left branch of the tree from this node.
+            RedBlackNode *left;
+
+            //! The right branch of the tree from this node.
+            RedBlackNode *right;
+
+            //! The parent node.
+            RedBlackNode *parent;
+
+            //! The default constructor.
+            RedBlackNode () : left(NULL), right(NULL), parent(NULL) {}
+
+			//! The default destructor.
+			~RedBlackNode ()
 			{
 				Dealloc ( id );
 				delete left; left = NULL;

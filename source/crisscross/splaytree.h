@@ -42,27 +42,27 @@ namespace CrissCross
 			
 			// Mutable because splaying is an operation which changes
 			// the structure of the tree.
-			mutable BinaryNode<Key,Data> *root;
+			mutable SplayNode<Key,Data> *root;
 
-			void printTree( BinaryNode<Key,Data> *t ) const;
+			void printTree( SplayNode<Key,Data> *t ) const;
 
 			// Tree manipulations
-			void rotateWithLeftChild( BinaryNode<Key,Data> * & k2 ) const;
-			void rotateWithRightChild( BinaryNode<Key,Data> * & k1 ) const;
-			void splay ( Key const &key, BinaryNode<Key,Data> * & t ) const;
+			void rotateWithLeftChild( SplayNode<Key,Data> * & k2 ) const;
+			void rotateWithRightChild( SplayNode<Key,Data> * & k1 ) const;
+			void splay ( Key const &key, SplayNode<Key,Data> * & t ) const;
 			
-			BinaryNode<Key,Data> *findNode ( Key const &key ) const;
+			SplayNode<Key,Data> *findNode ( Key const &key ) const;
 
 			size_t m_size;
 
-            void RecursiveConvertIndexToDArray ( DArray <Key> *_darray, BinaryNode<Key,Data> *_btree ) const;
-            void RecursiveConvertToDArray ( DArray <Data> *_darray, BinaryNode<Key,Data> *_btree ) const;
+            void RecursiveConvertIndexToDArray ( DArray <Key> *_darray, SplayNode<Key,Data> *_btree ) const;
+            void RecursiveConvertToDArray ( DArray <Data> *_darray, SplayNode<Key,Data> *_btree ) const;
 
-			void findRecursive ( DArray<Data> *_array, Key const &_key, BinaryNode<Key,Data> *_node ) const;
+			void findRecursive ( DArray<Data> *_array, Key const &_key, SplayNode<Key,Data> *_node ) const;
 
-			bool erase ( Key const &key, Data const &rec, BinaryNode<Key,Data> *curnode );
+			bool erase ( Key const &key, Data const &rec, SplayNode<Key,Data> *curnode );
 
-			bool killNode ( BinaryNode<Key,Data> * z );
+			bool killNode ( SplayNode<Key,Data> * z );
 
 		public:
 
