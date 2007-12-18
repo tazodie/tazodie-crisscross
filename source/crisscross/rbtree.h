@@ -22,7 +22,7 @@ namespace CrissCross
 {
     namespace Data
     {
-
+// TODO: Does RedBlackNode need Parent, Left, and Right redefined?
         //! A binary tree node used for RedBlackTree.
 		/*!
 			\sa BinaryNode
@@ -95,6 +95,14 @@ namespace CrissCross
 
 			RedBlackNode<Key,Data> *findNode ( Key const &key ) const;
 
+            //! Verifies that a node is valid.
+			/*!
+				\param _node A node pointer.
+				\return True if the node is a valid node, false otherwise.
+			 */
+            inline bool valid ( const RedBlackNode<Key,Data> *_node ) const
+			{ return ( _node != NULL ); };
+
         public:
             //! @cond
             typedef enum { BLACK, RED } nodeColor;
@@ -156,16 +164,8 @@ namespace CrissCross
 			 */
 			_CC_DEPRECATE_FUNCTION_N Data find ( Key const &_key ) const;
 
-            //! Verifies that a node is valid.
-			/*!
-				\param _node A node pointer.
-				\return True if the node is a valid node, false otherwise.
-			 */
-            inline bool valid ( const RedBlackNode<Key,Data> *_node ) const
-			{ return ( _node != NULL ); };
-
 			//! Empties the entire tree.
-			inline void empty () { killAll(); rootNode = NULL_NODE; };
+			inline void empty () { killAll(); };
 
             //! Indicates the size of the tree.
 			/*!

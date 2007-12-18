@@ -223,6 +223,14 @@ namespace CrissCross
 			*/
 			void													findRecursive ( DArray<Data> *_array, Key const &_key, AVLNode<Key,Data> *_node ) const;
 
+            //! Verifies that a node is valid.
+            /*!
+                \param _node A node pointer.
+                \return True if the node is a valid node, false otherwise.
+             */
+            inline bool valid ( const AVLNode<Key,Data> *_node ) const
+			{ return ( _node != NULL ); };
+
 		public:
 
 			//! The default constructor.
@@ -318,14 +326,6 @@ namespace CrissCross
                 \return A DArray containing the keys in the tree.
              */
             DArray <Key>  *ConvertIndexToDArray () const;
-
-            //! Verifies that a node is valid.
-            /*!
-                \param _node A node pointer.
-                \return True if the node is a valid node, false otherwise.
-             */
-            inline bool valid ( const AVLNode<Key,Data> *_node ) const
-			{ return ( _node != NULL ); };
 		};
 	}
 }

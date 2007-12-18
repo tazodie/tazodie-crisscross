@@ -109,7 +109,7 @@ namespace CrissCross
 				{
 					RedBlackNode<Key,Data> *y = x->parent->parent->right;
 
-					if ( y->color == RED )
+					if ( y && y->color == RED )
 					{
 
 						/* uncle is RED */
@@ -342,17 +342,20 @@ namespace CrissCross
 			
 			bool killed = false;
 			
-			if ( Compare(curnode->key, key) == 0 && Compare(curnode->data, rec) == 0 )
+			if ( Compare ( curnode->id, key ) == 0 )
 			{
-				killNode ( curnode );
-				killed = true;
-			}
-			
-			if ( !killed )
-				killed = erase ( key, rec, curnode->left );
+				if ( Compare ( curnode->data, rec ) == 0 )
+				{
+					killNode ( curnode );
+					killed = true;
+				}
 				
-			if ( !killed )
-				killed = erase ( key, rec, curnode->right );
+				if ( !killed )
+					killed = erase ( key, rec, curnode->left );
+					
+				if ( !killed )
+					killed = erase ( key, rec, curnode->right );
+			}
 			
 			return killed;
 		}
@@ -539,9 +542,12 @@ namespace CrissCross
 		{
 			CoreAssert ( _array );
 			if ( !_node ) return;
-			findRecursive ( _array, _key, _node->left );
-			if ( Compare(_node->id, _key) == 0 ) _array->insert ( _node->data );
-			findRecursive ( _array, _key, _node->right );
+			if ( Compare ( _node->id, _key ) == 0 )
+			{
+				findRecursive ( _array, _key, _node->left );
+				_array->insert ( _node->data );
+				findRecursive ( _array, _key, _node->right );
+			}
 		}
 
 		template <class Key, class Data>
