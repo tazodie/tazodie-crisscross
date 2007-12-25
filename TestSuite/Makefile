@@ -13,6 +13,7 @@ compare.cpp \
 llist.cpp \
 hashtable.cpp \
 avltree.cpp \
+splaytree.cpp \
 rbtree.cpp \
 dstack.cpp \
 darray.cpp \
