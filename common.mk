@@ -158,9 +158,9 @@ CFLAGS := -std=c++98 -Wall -pedantic -Wno-long-long
 endif
 
 ifeq ($(CXXFLAGS),)
-CXXFLAGS = $(CFLAGS)
+CXXFLAGS = $(CFLAGS) -fno-rtti -fno-exceptions
 else
-CXXFLAGS := -std=c++98 -Wall -pedantic -Wno-long-long
+CXXFLAGS := -std=c++98 -Wall -pedantic -Wno-long-long -fno-rtti -fno-exceptions
 endif
 
 ifneq ($(CC_BUILDSTATIC),yes)
