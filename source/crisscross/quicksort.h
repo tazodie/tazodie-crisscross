@@ -24,29 +24,24 @@ namespace CrissCross
         class QuickSort : public Sorter<T>
         {
         private:
-            cc_uint64_t InternalSort ( T *_array, size_t _beginning, size_t _end )
+            int InternalSort ( T *_array, size_t _beginning, size_t _end )
 	        {
-				cc_uint64_t ret = 0;
 	            if ( _end > _beginning + 1 )
 	            {
 	                const T &piv = _array[_beginning];
 	                size_t l = _beginning + 1, r = _end;
 	                while ( l < r )
 	                {
-						ret++;
 	                    if ( Compare ( _array[l], piv ) <= 0 )
 	                        l++;
-						else {
+						else
 	                        Swap ( _array, l, --r );
-							ret++;
-						}
 	                }
-					ret++;
 	                Swap ( _array, --l, _beginning );
-	                ret += InternalSort ( _array, _beginning, l );
-	                ret += InternalSort ( _array, r, _end );
+	                InternalSort ( _array, _beginning, l );
+	                InternalSort ( _array, r, _end );
 	            }
-				return ret;
+				return 0;
 	        };
 
         public:
@@ -55,9 +50,11 @@ namespace CrissCross
             /*!
 				\param _array The array to sort.
 				\param _size The size of the array to sort.
-				\return Always 0, for the time being.
+				\return 0 on success.
+				\sa HeapSort ShellSort CombSort
+				\deprecated This is a slow sorting method. It is provided for educational purposes ONLY.
 			 */
-            _CC_DEPRECATE_SLOW("SEVERE") cc_uint64_t Sort ( T *_array, size_t _size )
+            _CC_DEPRECATE_SLOW("MODERATE") int Sort ( T *_array, size_t _size )
 	        {
 	            return InternalSort ( _array, 0, _size );
 	        };

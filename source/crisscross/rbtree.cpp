@@ -420,7 +420,7 @@ namespace CrissCross
 		}
 
 		template <class Key, class Data>
-			Data RedBlackTree<Key,Data>::find ( Key const &key ) const
+			Data const &RedBlackTree<Key,Data>::find ( Key const &key ) const
 		{
 			RedBlackNode<Key,Data> *current = rootNode;
 
@@ -437,7 +437,7 @@ namespace CrissCross
 				}
 			}
 
-			return (Data)0;
+			return NULL;
 		}
 
 		template <class Key, class Data>

@@ -107,8 +107,7 @@ namespace CrissCross
 
             //! Deletes a node from the tree, specified by the node's key.
 			/*!
-				This won't free the memory occupied by the data, so the data must be freed
-				seperately.
+                \warning This won't free the memory occupied by the data, so the data must be freed separately.
 				\param _key The key of the node to delete.
 				\return True on success, false on failure
 			 */
@@ -116,30 +115,38 @@ namespace CrissCross
 
             //! Deletes a node from the tree, specified by the node's key and data.
 			/*!
-				This won't free the memory occupied by the data, so the data must be freed
-				seperately.
+                \warning This won't free the memory occupied by the data, so the data must be freed separately.
 				\param _key The key of the node to delete.
 				\param _rec The data of the node to delete.
 				\return True on success, false on failure.
 			 */
             bool erase ( Key const &_key, Data const & _rec );
 
-            //! Finds a node in the tree and returns the data at that node.
-			/*!
-				\param _key The key of the node to find.
-				\param _data On return, will contain the data at the node. If not found, _data does not change.
+            //! Finds a node in the tree and copies the data from that node to a specified location.
+            /*!
+                \param _key The key of the node to find.
+                \param _data On return, will contain the data at the node. If not found, _data does not change.
 				\return True on success, false on failure.
-			 */
+             */
 			bool find ( Key const &_key, Data &_data ) const;
 
             //! Finds a node in the tree and returns the data at that node.
-			/*!
-				\param _key The key of the node to find.
-				\return The data at the node. NULL if not found.
-			 */
-			_CC_DEPRECATE_FUNCTION_N Data find ( Key const &_key ) const;
+            /*!
+                \param _key The key of the node to find.
+                \return The data at the node. NULL if not found.
+				\deprecated The return value of this function could be unpredictable if the
+					contents of the table was anything but pointers or integers.
+				\sa find
+             */
+			_CC_DEPRECATE_FUNCTION_N Data const &find ( Key const &_key ) const;
 
 			//! Empties the entire tree.
+			/*!
+                \warning This won't free the memory occupied by the data, so the data must be freed
+					separately. The preferred way to do this is to serialize the data into a DArray
+					with ConvertToDArray() and then iterate through it to delete the data in whatever
+					way is proper.
+			 */
 			inline void empty () { killAll(); };
 
             //! Indicates the size of the tree.
@@ -151,7 +158,8 @@ namespace CrissCross
             //! Finds all instances of the specified key in the tree.
 			/*!
 				\param _key The key of the node to find.
-				\return A DArray containing the data with key _key. MUST be deleted when done!
+				\return A DArray containing the data with key _key.
+				\warning Delete the returned DArray when done with it.
 			 */
 			DArray<Data> *findAll ( Key const &_key ) const;
 
@@ -165,12 +173,14 @@ namespace CrissCross
             //! Converts the tree data into a linearized DArray.
 			/*!
 				\return A DArray containing the data of the tree.
+				\warning Delete the returned DArray when done with it.
 			 */
             DArray <Data> *ConvertToDArray () const;
 
             //! Converts the tree keys into a linearized DArray.
 			/*!
 				\return A DArray containing the keys in the tree.
+				\warning Delete the returned DArray when done with it.
 			 */
             DArray <Key>  *ConvertIndexToDArray () const;
 

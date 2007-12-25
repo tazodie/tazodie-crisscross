@@ -54,7 +54,7 @@ namespace CrissCross
             //! The destructor.
             ~DStack         ();
 
-            //! Increases the array size by the number in step_
+            //! Increases the array size by the number in m_stepSize
             inline void grow       ();
 
             //! Pushes a value onto the stack.
@@ -73,7 +73,7 @@ namespace CrissCross
             /*!
                 \return The topmost value on the stack.
              */
-            const dataType &peek    ();
+            dataType const &peek    ();
 
             //! Indicates the number of items on the stack.
             /*!

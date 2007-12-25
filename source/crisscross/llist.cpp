@@ -19,17 +19,11 @@ namespace CrissCross
 {
 	namespace Data
 	{
-		template < class T > LListItem < T >::LListItem ()
+		template < class T > LListNode < T >::LListNode ()
 		{
 			m_next = NULL;
 			m_previous = NULL;
 		}
-
-
-		template < class T > LListItem < T >::~LListItem ()
-		{
-		}
-
 
 		template < class T > LList < T >::LList ()
 		{
@@ -40,12 +34,10 @@ namespace CrissCross
 			m_previousIndex = -1;
 		}
 
-
 		template < class T > LList < T >::~LList ()
 		{
 			empty ();
 		}
-
 
 		template < class T > LList < T >::LList ( const LList < T > &source ):
 			m_first ( NULL ),
@@ -59,7 +51,6 @@ namespace CrissCross
 				insert_back ( source.GetData ( i ) );
 			}
 		}
-
 
 		template < class T >
 			LList < T > &LList < T >::operator = ( const LList < T > &source )
@@ -75,7 +66,7 @@ namespace CrissCross
 
 		template < class T > void LList < T >::change ( const T &_rec, size_t _index )
 		{
-			LListItem < T > *li = getItem ( _index );
+			LListNode < T > *li = getItem ( _index );
 			li->m_data = _rec;
 		}
 
@@ -87,7 +78,7 @@ namespace CrissCross
 
 		template < class T > void LList < T >::insert_back ( const T & newdata )
 		{
-			LListItem < T > *li = new LListItem < T > ();
+			LListNode < T > *li = new LListNode < T > ();
 			li->m_data = newdata;
 			li->m_next = NULL;
 			li->m_previous = m_last;
@@ -108,10 +99,9 @@ namespace CrissCross
 			}
 		}
 
-
 		template < class T > void LList < T >::insert_front ( const T & newdata )
 		{
-			LListItem < T > *li = new LListItem < T > ();
+			LListNode < T > *li = new LListNode < T > ();
 			li->m_data = newdata;
 			li->m_previous = NULL;
 			++m_numItems;
@@ -135,7 +125,6 @@ namespace CrissCross
 			}
 		}
 
-
 		template < class T >
 			void LList < T >::insert_at ( const T & newdata, size_t index )
 		{
@@ -149,7 +138,7 @@ namespace CrissCross
 			}
 			else
 			{
-				LListItem < T > *current = m_first;
+				LListNode < T > *current = m_first;
 
 				for ( size_t i = 0; i < index - 1; ++i )
 				{
@@ -165,7 +154,7 @@ namespace CrissCross
 					return;
 				}
 
-				LListItem < T > *li = new LListItem < T > ();
+				LListNode < T > *li = new LListNode < T > ();
 				li->m_data = newdata;
 				li->m_previous = current;
 				li->m_next = current->m_next;
@@ -179,16 +168,14 @@ namespace CrissCross
 			}
 		}
 
-
 		template < class T > size_t LList < T >::size () const
 		{
 			return m_numItems;
 		}
 
-
 		template < class T > T const &LList < T >::get ( size_t index ) const
 		{
-			LListItem < T > const *item = getItem ( index );
+			LListNode < T > const *item = getItem ( index );
 
 			if ( item )
 			{
@@ -201,10 +188,9 @@ namespace CrissCross
 			return nullVar;
 		}
 
-
 		template < class T > T * LList < T >::getPointer ( size_t index ) const
 		{
-			LListItem < T > *item = getItem ( index );
+			LListNode < T > *item = getItem ( index );
 			if ( item )
 			{
 				T *ret = &item->m_data;
@@ -213,8 +199,7 @@ namespace CrissCross
 			return NULL;
 		}
 
-
-		template < class T > LListItem < T > *LList < T >::getItem ( size_t index ) const
+		template < class T > LListNode < T > *LList < T >::getItem ( size_t index ) const
 		{
 			if ( !valid ( index ) )
 			{
@@ -266,24 +251,22 @@ namespace CrissCross
 				m_previousIndex--;
 			}
 
-			LListItem<T> *temp = m_previous;
+			LListNode<T> *temp = m_previous;
 
 			return temp;
 		}
-
 
 		template < class T > bool LList < T >::valid ( size_t index ) const
 		{
 			return ( index < m_numItems );
 		}
 
-
 		template < class T > void LList < T >::empty ()
 		{
-			LListItem < T > *current = m_first;
+			LListNode < T > *current = m_first;
 			while ( current )
 			{
-				LListItem < T > *m_next = current->m_next;
+				LListNode < T > *m_next = current->m_next;
 				delete current;
 
 				current = m_next;
@@ -298,7 +281,7 @@ namespace CrissCross
 
 		template < class T > void LList < T >::remove ( size_t index )
 		{
-			LListItem < T > *current = getItem ( index );
+			LListNode < T > *current = getItem ( index );
 
 			if ( current == NULL )
 			{
@@ -377,13 +360,13 @@ namespace CrissCross
 
 		template < class T > T const & LList < T >::operator []( size_t index ) const
 		{
-			LListItem<T> *item = getItem ( index );
+			LListNode<T> *item = getItem ( index );
 			return item->m_data;
 		}
 
 		template < class T > T & LList < T >::operator []( size_t index )
 		{
-			LListItem<T> *item = getItem ( index );
+			LListNode<T> *item = getItem ( index );
 			return item->m_data;
 		}
 

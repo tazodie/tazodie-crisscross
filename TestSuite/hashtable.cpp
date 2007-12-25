@@ -34,7 +34,7 @@ int TestHashTable()
 	for ( i = 0; i < max; i += 2 )
 	{
 		sprintf ( buffer, "%lu", i );
-		if ( ht.remove ( buffer ) != 0 )
+		if ( !ht.erase ( buffer ) )
 			return i + 1;
 	}
 	//ht.print_statistics();

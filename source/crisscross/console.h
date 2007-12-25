@@ -66,7 +66,10 @@ namespace CrissCross
           public:
 
             //! The default constructor.
-            /*! Allocates a new console for stdout and stderr output. */
+            /*!
+				Allocates a new console for stdout and stderr output.
+				\param _clearOnInit If true, clears the output console if supported.
+			 */
             Console ( bool _clearOnInit = false );
 
             //! The alternate constructor

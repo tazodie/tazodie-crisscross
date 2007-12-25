@@ -27,11 +27,10 @@ namespace CrissCross
             /*!
 				\param _array The array to sort.
 				\param _size The size of the array to sort.
-				\return Always 0, for the time being.
+				\return 0 on success.
 			 */
-            cc_uint64_t Sort ( T *_array, size_t _size )
+            int Sort ( T *_array, size_t _size )
 	        {
-				cc_uint64_t ret = 0;
 				size_t h = 1;
 				while ((h * 3 + 1) < _size) {
 					h = 3 * h + 1;
@@ -39,19 +38,16 @@ namespace CrissCross
 				while( h > 0 ) {
 					for ( size_t i = h - 1; i < _size; i++ ) {
 						T B = _array[i];
-						ret++;
 						size_t j = i;
 						
 						for ( j = i; (j >= h) && ( Compare ( _array[j-h], B ) > 0 ); j -= h) {
-							ret += 2;
 							_array[j] = _array[j-h];
 						}
-						ret++;
 						_array[j] = B;
 					}
 					h = h / 3;
 				}
-				return ret;
+				return 0;
 	        };
         };
     }
