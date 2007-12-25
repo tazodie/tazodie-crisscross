@@ -38,20 +38,17 @@ namespace CrissCross
             /*!
 				\param _array The array to sort.
 				\param _size The size of the array to sort.
-				\return Always 0, for the time being.
+				\return 0 on success.
 			 */
-            cc_uint64_t Sort ( T *_array, size_t _size )
+            int Sort ( T *_array, size_t _size )
 	        {
-				cc_uint64_t ret = 0;
 	            size_t gap = _size;
 	            for (;;) {
 	                gap = NewGap(gap);
 	                bool swapped = false;
 	                for (size_t i = 0; i < _size - gap; i++) {
 	                    size_t j = i + gap;
-						ret++;
 	                    if ( Compare ( _array[i], _array[j] ) > 0 ) {
-							ret++;
 	                        Swap ( _array, i, j );
 	                        swapped = true;
 	                    }
@@ -59,7 +56,7 @@ namespace CrissCross
 	                if (gap == 1 && !swapped)
 	                break;
 	            }
-	            return ret;
+	            return 0;
 	        };
         };
     }

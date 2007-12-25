@@ -25,7 +25,6 @@ namespace CrissCross
         //! A dynamic array implementation.
         template < class T > class DArray
         {
-
         private:
             //! A DStack containing indices of empty nodes in the array.
             /*!
@@ -87,7 +86,6 @@ namespace CrissCross
 				which makes the DArray double in size on each grow() call (offers a pretty
 				good speedup).
                 \param _newStepSize The step size to use in grow().
-                \sa m_stepSize
              */
             DArray ( int _newStepSize );
 
@@ -107,14 +105,10 @@ namespace CrissCross
 				which makes the DArray double in size on each grow() call (offers a pretty
 				good speedup).
                 \param _newstepsize The step size to use in grow().
-                \sa m_stepSize
              */
             void setStepSize ( int _newstepsize );
 
             //! Sets the step size to double the array size when a Grow() is necessitated.
-            /*!
-                \sa m_stepSize
-             */
             void setStepDouble ();
 
             //! Gets the data at the given index.

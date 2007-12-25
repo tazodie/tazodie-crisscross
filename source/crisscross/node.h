@@ -76,6 +76,7 @@ namespace CrissCross
 			RIGHTHEAVY
 		};
 
+        //! A binary tree node used for AVLTree.
 		template <class Key, class Data>
 		class AVLNode
 		{
@@ -87,9 +88,6 @@ namespace CrissCross
             Data        data;
 
 			//! The state of this part of the tree's balance.
-			/*!
-				\sa AVLBalance
-			 */
 			AVLBalance balance;
 
             //! The left branch of the tree from this node.

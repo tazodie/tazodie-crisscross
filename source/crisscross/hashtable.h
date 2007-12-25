@@ -16,6 +16,12 @@ namespace CrissCross
 {
 	namespace Data
 	{
+        //! A simple HashTable.
+		/*!
+			Only accepts C-style strings as keys.
+			\warning This class is currently not recommended for general use. It hasn't been fully
+				tested yet and is only under consideration for being a future feature.
+		 */
 		template <class T>
 		class HashTable
 		{
@@ -39,26 +45,60 @@ namespace CrissCross
 			char		**m_keys;
 			size_t		m_size;
 			size_t		m_used;
-			size_t		m_searches;
-			size_t		m_hits;
+			mutable size_t		m_searches;
+			mutable size_t		m_hits;
 
-			size_t		m_insertions;
-			size_t		m_collisions;
+			mutable size_t		m_insertions;
+			mutable size_t		m_collisions;
 
-			size_t hash ( const char *_key, size_t _length );
+			size_t hash ( const char * const &_key, size_t _length ) const;
 			void grow ();
 
-			size_t findIndex ( const char * const &_key );
+			size_t findIndex ( const char * const &_key ) const;
 
 		public:
+			//! The constructor.
+			/*!
+				\param _initialSize The initial size of the hash table. Minimum is 500.
+			 */
 			HashTable ( size_t _initialSize = 500 );
-			virtual ~HashTable ();
+			~HashTable ();
 
-			int insert ( const char * const &_key, T const &_data );
-			T const &find ( const char * const &_key );
-			int remove ( const char * const &_key );
+            //! Inserts data into the table.
+			/*!
+				\param _key The key of the data.
+				\param _data The data to insert.
+				\return True on success, false on failure.
+			 */
+			bool insert ( const char * const &_key, T const &_data );
 
-			void print_statistics ();
+            //! Finds a node in the table and copies the data from that node to a specified location.
+            /*!
+                \param _key The key of the node to find.
+                \param _data On return, will contain the data at the node. If not found, _data does not change.
+				\return True on success, false on failure.
+             */
+			bool find ( const char * const &_key, T &_data ) const;
+
+            //! Finds a node in the table and returns the data at that node.
+            /*!
+                \param _key The key of the item to find.
+                \return The data at the node. NULL if not found.
+				\deprecated The return value of this function could be unpredictable if the
+					contents of the table was anything but pointers or integers.
+				\sa find
+             */
+			_CC_DEPRECATE_FUNCTION_N T const &find ( const char * const &_key ) const;
+
+            //! Deletes a node from the table, specified by the node's key.
+			/*!
+                \warning This won't free the memory occupied by the data, so the data must be freed separately.
+				\param _key The key of the node to delete.
+				\return True on success, false on failure
+			 */
+			bool erase ( const char * const &_key );
+
+			void print_statistics () const;
 
 		};
 	}

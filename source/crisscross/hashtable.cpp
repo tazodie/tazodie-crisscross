@@ -51,7 +51,7 @@ namespace CrissCross
 		}
 
 		template <class T>
-		size_t HashTable<T>::hash ( const char *_key, size_t _length )
+		size_t HashTable<T>::hash ( const char * const &_key, size_t _length ) const
 		{
 			CoreAssert ( _key );
 			size_t hash = 0; 
@@ -97,7 +97,7 @@ namespace CrissCross
 		}
 
 		template <class T>
-		size_t HashTable<T>::findIndex ( const char * const &_key )
+		size_t HashTable<T>::findIndex ( const char * const &_key ) const
 		{
 			size_t khash = hash ( _key, strlen ( _key ) );
 			size_t pos = khash % m_size;
@@ -131,7 +131,7 @@ namespace CrissCross
 		}
 
 		template <class T>
-		T const &HashTable<T>::find ( const char * const &_key )
+		T const &HashTable<T>::find ( const char * const &_key ) const
 		{
 			static T null(0);
 			size_t index = findIndex ( _key );
@@ -142,7 +142,19 @@ namespace CrissCross
 		}
 
 		template <class T>
-		void HashTable<T>::print_statistics ()
+		bool HashTable<T>::find ( const char * const &_key, T &_data ) const
+		{
+			size_t index = findIndex ( _key );
+			if ( m_keys[index] && strcmp ( m_keys[index], _key ) == 0 )
+			{
+				_data = m_array[index];
+				return true;
+			}
+			return false;
+		}
+
+		template <class T>
+		void HashTable<T>::print_statistics () const
 		{
 			double hitPercentage = ((double)m_hits / (double)m_searches) * 100.0,
 				   collisionPercentage = ((double)m_collisions / (double)m_insertions) * 100.0,
@@ -162,7 +174,7 @@ namespace CrissCross
 			double q1 = hitPercentage,
 				   q2 = ( 100.0 - collisionPercentage ),
 				   q3 = ( usagePercentage * ( 100.0 / HASH_TABLE_FILL_THRESHHOLD ) );
-			printf ( "*** OVERALL QUALITY : %0.2lf%% ( (%0.2lf%% + %0.2lf%% + %0.2lf%%) / 3.0 ) ***\n",
+			printf ( "*** OVERALL QUALITY ESTIMATION : %0.2lf%% ( (%0.2lf%% + %0.2lf%% + %0.2lf%%) / 3.0 ) ***\n",
 				( q1 + q2 + q3 ) / 3.0, q1, q2, q3 );
 			printf ( "\n" );
 
@@ -170,7 +182,7 @@ namespace CrissCross
 		}
 
 		template <class T>
-		int HashTable<T>::remove ( const char * const &_key )
+		bool HashTable<T>::erase ( const char * const &_key )
 		{
 			size_t index = findIndex ( _key );
 			if ( m_keys[index] && strcmp ( m_keys[index], _key ) == 0 )
@@ -178,14 +190,13 @@ namespace CrissCross
 				delete [] m_keys[index];
 				m_keys[index] = NULL;
 				m_used--;
-				return 0;
+				return true;
 			}
-			else
-				return 1;
+			return false;
 		}
 
 		template <class T>
-		int HashTable<T>::insert ( const char * const &_key, T const &_data )
+		bool HashTable<T>::insert ( const char * const &_key, T const &_data )
 		{
 			
 			if ( ( ( (double)m_used / (double)m_size ) * 100 ) > HASH_TABLE_FILL_THRESHHOLD )
@@ -224,7 +235,7 @@ namespace CrissCross
 			strcpy ( m_keys[pos], _key );
 			m_used++;
 
-			return 0;
+			return true;
 		}
 	}
 }

@@ -36,7 +36,7 @@ namespace CrissCross
 				\param _array The array to sort.
 				\param _size The size of the array to sort.
 			 */
-            virtual cc_uint64_t Sort ( T *_array, size_t _size ) = 0;
+            virtual int Sort ( T *_array, size_t _size ) = 0;
 
             //! The swap function.
             /*!

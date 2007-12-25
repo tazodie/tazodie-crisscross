@@ -249,10 +249,10 @@ namespace CrissCross
 		}
 
 		template <class Key, class Data>
-		Data AVLTree<Key,Data>::find ( Key const &_key ) const
+		Data const &AVLTree<Key,Data>::find ( Key const &_key ) const
 		{
 			AVLNode<Key,Data> *p_current = findNode ( _key );
-			if ( !p_current ) return Data(0);
+			if ( !p_current ) return NULL;
 			return p_current->data;
 		}
 

@@ -36,7 +36,7 @@ namespace CrissCross
 		template < class T >
 		DArray < T >::DArray ( int _newStepSize )
 		{
-			if ( _newStepSize < 1 && _newStepSize != -1 )
+			if ( _newStepSize < 1 )
 				m_stepSize = -1;
 			else
 				m_stepSize = _newStepSize;

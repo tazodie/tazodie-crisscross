@@ -27,25 +27,24 @@ namespace CrissCross
             /*!
 				\param _array The array to sort.
 				\param _size The size of the array to sort.
-				\return Always 0, for the time being.
+				\return 0 on success.
+				\sa HeapSort ShellSort CombSort
+				\deprecated This is an extremely slow sorting method. It is provided for educational purposes ONLY.
 			 */
-            _CC_DEPRECATE_SLOW("SEVERE") cc_uint64_t Sort ( T *_array, size_t _size )
+            _CC_DEPRECATE_SLOW("SEVERE") int Sort ( T *_array, size_t _size )
 			{
-				cc_uint64_t ret = 0;
 				for ( long i = 1; i < (long)_size; i++ )
 				{
 					long j = i;
 					T b = _array[i];
-					ret++;
 					while ( ( j > 0 ) && ( Compare ( _array[j-1], b ) > 0 ) )
 					{
-						ret += 2; // Compare and assignment
 						_array[j] = _array[j-1];
 						j--;
 					}
 					_array[j] = b;
 				}
-	            return ret;
+	            return 0;
 			};
         };
     }

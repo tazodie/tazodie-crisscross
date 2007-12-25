@@ -28,11 +28,10 @@ namespace CrissCross
             /*!
 				\param _array The array to sort.
 				\param _size The size of the array to sort.
-				\return Always 0, for the time being.
+				\return 0 on success.
 			 */
-            cc_uint64_t Sort ( T *_array, size_t _size )
+            int Sort ( T *_array, size_t _size )
 	        {
-				cc_uint64_t ret = 0;
 	            // Phase 1: make a heap by sifting down all non-leaf 
 	            // elements, one after another, starting with the last
 	            // non-leaf element and going backwards.
@@ -40,14 +39,10 @@ namespace CrissCross
 
 	                for ( size_t j = i; j * 2 + 1 < _size; ) {
 	                    size_t k = j * 2 + 1;
-						ret += 2;
 	                    if ( k + 1 < _size && Compare ( _array[k], _array[k + 1] ) < 0 )
 	                        k++;
 	                    if ( Compare ( _array[j], _array[k] ) < 0 )
-						{
 	                        Swap ( _array, j, k );
-							ret++;
-						}
 	                    else
 	                        break;
 	                    j = k;
@@ -59,24 +54,19 @@ namespace CrissCross
 	            // items at the end of the array. each time reconstructing the
 	            // heap in the slots of the array not yet sorted.
 	            for ( size_t i = _size - 1; (int)i > 0; i-- ) {
-					ret++;
 	                Swap ( _array, 0, i );
 	                for ( size_t j = 0; j *2 + 1 < i; ) {
 	                    size_t k = (j * 2) + 1;
-						ret += 2;
 	                    if ( k + 1 < i && Compare ( _array[k], _array[k + 1] ) < 0 )
 	                        k++;
 	                    if ( Compare ( _array[j], _array[k] ) < 0 )
-						{
 	                        Swap ( _array, j, k );
-							ret++;
-						}
 	                    else
 	                        break;
 	                    j = k;
 	                }
 	            }
-	            return ret;
+	            return 0;
 	        };
         };
     }

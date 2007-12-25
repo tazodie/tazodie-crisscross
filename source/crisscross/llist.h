@@ -22,35 +22,39 @@ namespace CrissCross
 {
     namespace Data
     {
-        //! @cond
-        template < class T > class LListItem
+		//! A linked list node.
+        template < class T > class LListNode
         {
         public:
+			//! The data contained in this node.
             T m_data;
-            LListItem *m_next;
-            LListItem *m_previous;
 
-            LListItem ();
-            ~LListItem ();
+			//! The following node in the list.
+            LListNode *m_next;
+
+			//! The preceding node in the list.
+            LListNode *m_previous;
+
+			//! The default constructor.
+            LListNode ();
         };
-        //! @endcond
-
 
         //! A doubly-linked list implementation.
-        template < class T > class LList
+        template <class T>
+		class LList
         {
         protected:
             //! The first node.
-            LListItem < T > *m_first;
+            LListNode < T > *m_first;
 
             //! The last node.
-            LListItem < T > *m_last;
+            LListNode < T > *m_last;
 
             //! The last accessed node.
             /*!
                 Speeds up searches and sequential access.
              */
-            mutable LListItem < T > *m_previous;    // Used to get quick access
+            mutable LListNode < T > *m_previous;    // Used to get quick access
             
             //! The last accessed index.
             /*!
@@ -62,7 +66,7 @@ namespace CrissCross
             size_t m_numItems;
 
         protected:
-            inline LListItem < T > *getItem ( size_t index ) const;
+            inline LListNode < T > *getItem ( size_t index ) const;
 
         public:
 
