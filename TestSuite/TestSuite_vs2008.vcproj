@@ -57,7 +57,6 @@
 				AssemblerOutput="4"
 				ProgramDataBaseFileName="$(OutDir)\$(ProjectName).pdb"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -75,10 +74,8 @@
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				RandomizedBaseAddress="1"
-				FixedBaseAddress="1"
 				DataExecutionPrevention="0"
 				TargetMachine="1"
-				Profile="true"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -139,7 +136,6 @@
 				AssemblerOutput="4"
 				ProgramDataBaseFileName="$(OutDir)\$(ProjectName).pdb"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -222,7 +218,6 @@
 				AssemblerOutput="4"
 				ProgramDataBaseFileName="$(OutDir)\$(ProjectName).pdb"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -306,7 +301,6 @@
 				AssemblerOutput="4"
 				ProgramDataBaseFileName="$(OutDir)\$(ProjectName).pdb"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -355,6 +349,14 @@
 	<References>
 	</References>
 	<Files>
+		<File
+			RelativePath=".\avltree.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\avltree.h"
+			>
+		</File>
 		<File
 			RelativePath=".\bubblesort.cpp"
 			>
@@ -501,6 +503,14 @@
 		</File>
 		<File
 			RelativePath=".\shellsort.h"
+			>
+		</File>
+		<File
+			RelativePath=".\splaytree.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\splaytree.h"
 			>
 		</File>
 		<File
