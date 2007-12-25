@@ -1,10 +1,17 @@
-VERSION ?????
-    * Added ShellSort
-    * Added InsertionSort
-    * Fixed Stopwatch on FreeBSD, NetBSD and OpenBSD.
-    * Added a DOM-compliant XML parser.
+VERSION 0.6.6 (r591?)
+	* Visual Studio 2008 support added.
+	* More example projects added.
+	* CPUID now detects AMD cache descriptors.
+	* ConvertToDArray and ConvertIndexToDArray functions optimized, deprecation notice removed
+    * Fixed Stopwatch on FreeBSD, NetBSD and OpenBSD
+	* Added AVLTree, SplayTree, ShellSort, InsertionSort, and BubbleSort (the last two for educational purposes only)
+	* Added a basic HashTable implementation.
+	* AVLTree, RedBlackTree, and SplayTree have close-to-identical (if not perfectly identical) APIs.
+	* Cleaned up some 'using namespace' statements that were causing hard-to-detect errors.
+	* Many, many minor fixes.
+    * Doxygen config updated to v1.5.4
 
-VERSION 0.6.5
+VERSION 0.6.5 (r427)
     * CrissCross::Data::Compare now can compare C-style strings.
     * x64 target added for Visual Studio 2005 projects.
     * New crisscross/crisscross.h added which basically includes every common CrissCross header.
