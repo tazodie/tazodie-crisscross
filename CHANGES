@@ -1,4 +1,4 @@
-VERSION 0.6.6 (r591?)
+VERSION 0.6.6 (r593)
 	* Visual Studio 2008 support added.
 	* More example projects added.
 	* CPUID now detects AMD cache descriptors.
