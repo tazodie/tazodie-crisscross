@@ -189,9 +189,10 @@ namespace CrissCross
 				Provided for compatibility with Tosser I
 			*/
 			//! @cond
-			_CC_DEPRECATE_FUNCTION(insert)	inline void	PutData		( Key const &_key, Data const & _rec )	{ return insert ( _key, _rec ); };
-			_CC_DEPRECATE_FUNCTION(erase)	inline void	RemoveData	( Key const &_key )						{ return erase ( _key ); };
-			_CC_DEPRECATE_FUNCTION(erase)	inline void	RemoveData	( Key const &_key, Data const & _rec  )	{ return erase ( _key, _rec ); };
+			_CC_DEPRECATE_FUNCTION(insert)	inline void	PutData		( Key const &_key, Data const & _rec )	{ insert ( _key, _rec ); };
+			_CC_DEPRECATE_FUNCTION(find)	inline Data const &GetData ( Key const &_key )					{ return find ( _key ); };
+			_CC_DEPRECATE_FUNCTION(erase)	inline void	RemoveData	( Key const &_key )						{ erase ( _key ); };
+			_CC_DEPRECATE_FUNCTION(erase)	inline void	RemoveData	( Key const &_key, Data const & _rec  )	{ erase ( _key, _rec ); };
 			_CC_DEPRECATE_FUNCTION(size)	inline int	Size		() const								{ return (int)size(); };
 			_CC_DEPRECATE_FUNCTION(empty)	inline void	Empty		()										{ empty(); };
 			//! @endcond
