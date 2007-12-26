@@ -4,7 +4,7 @@
  *
  *   A product of IO.IN Research.
  *
- *   (c) 2006-2007 Steven Noonan.
+ *   (c) 2006-2008 Steven Noonan.
  *   Licensed under the New BSD License.
  *
  */
