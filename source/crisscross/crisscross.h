@@ -40,6 +40,6 @@
 #include <crisscross/system.h>
 #include <crisscross/version.h>
 
-#define BTree RedBlackTree
+#define BTree CrissCross::Data::RedBlackTree
 
 #endif
