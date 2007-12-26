@@ -20,6 +20,9 @@ using namespace CrissCross::IO;
 #        pragma warning (disable: 4311)
 #    endif
 #else
+
+#include <dbghelp.h>
+
 #    pragma warning (disable: 4312)
 #    pragma comment( lib, "dbghelp" )
 
