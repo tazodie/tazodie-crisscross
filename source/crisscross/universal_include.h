@@ -92,7 +92,7 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #		define _CRT_NONSTDC_NO_DEPRECATE
 #	endif
 
-#   if !defined ( TARGET_COMPILER_VC ) && !defined ( TARGET_COMPILER_ICC )
+#   if ( !defined ( TARGET_COMPILER_VC ) && !defined ( TARGET_COMPILER_ICC ) ) || defined ( NO_DETECT_MEMORY_LEAKS )
 #       undef DETECT_MEMORY_LEAKS
 #   endif
 

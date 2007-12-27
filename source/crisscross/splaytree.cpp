@@ -46,7 +46,7 @@ namespace CrissCross
 				Dealloc ( newNode->id );
 			newNode->id = Duplicate ( key );
 			newNode->data = x;
-			newNode->parent = NULL;
+			newNode->parent = newNode->right = newNode->left = NULL;
 
 			if ( root == NULL )
 			{
@@ -391,7 +391,7 @@ namespace CrissCross
 		template <class Key, class Data>
 		void SplayTree<Key,Data>::RecursiveConvertToDArray ( DArray<Data> *darray, SplayNode<Key,Data> *btree ) const
 		{
-			if ( !btree || btree == NULL ) return;
+			if ( !btree ) return;
 			RecursiveConvertToDArray ( darray, btree->left );
 			darray->insert ( btree->data );
 			RecursiveConvertToDArray ( darray, btree->right );
@@ -400,7 +400,7 @@ namespace CrissCross
 		template <class Key, class Data>
 		void SplayTree<Key,Data>::RecursiveConvertIndexToDArray ( DArray<Key> *darray, SplayNode<Key,Data> *btree ) const
 		{
-			if ( !btree || btree == NULL ) return;
+			if ( !btree ) return;
 			RecursiveConvertIndexToDArray ( darray, btree->left );
 			darray->insert ( btree->id );
 			RecursiveConvertIndexToDArray ( darray, btree->right );

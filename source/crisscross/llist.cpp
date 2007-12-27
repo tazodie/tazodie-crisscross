@@ -46,7 +46,7 @@ namespace CrissCross
 			m_previousIndex ( -1 ),
 			m_numItems ( 0 )
 		{
-			for ( int i = 0; i < source.size (); i++ )
+			for ( size_t i = 0; i < source.size (); i++ )
 			{
 				insert_back ( source.GetData ( i ) );
 			}

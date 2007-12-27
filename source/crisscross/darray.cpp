@@ -301,9 +301,9 @@ namespace CrissCross
 		}
 
 		template < class T >
-		cc_uint64_t DArray < T >::sort ( Sorter<T> *_sortMethod )
+		int DArray < T >::sort ( Sorter<T> *_sortMethod )
 		{
-			cc_uint64_t ret;
+			int ret;
 
 			T *temp_array = new T[m_numUsed];
 			T *temp_ptr = temp_array;
@@ -337,7 +337,7 @@ namespace CrissCross
 		}
 
 		template < class T >
-		cc_uint64_t DArray < T >::sort ( Sorter<T> &_sortMethod )
+		int DArray < T >::sort ( Sorter<T> &_sortMethod )
 		{
 			return sort ( &_sortMethod );
 		}
@@ -347,7 +347,7 @@ namespace CrissCross
 		template <class T>
 		void DArray<T>::EmptyAndDelete()
 		{
-			for (int i = 0; i < m_arraySize; ++i)
+			for ( size_t i = 0; i < m_arraySize; ++i)
 			{
 				if (valid(i))
 				{
