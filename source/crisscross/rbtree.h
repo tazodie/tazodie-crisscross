@@ -138,7 +138,7 @@ namespace CrissCross
 					contents of the table was anything but pointers or integers.
 				\sa find
              */
-			_CC_DEPRECATE_FUNCTION_N Data const &find ( Key const &_key ) const;
+			_CC_DEPRECATE_FUNCTION_N Data find ( Key const &_key ) const;
 
 			//! Empties the entire tree.
 			/*!
@@ -190,7 +190,7 @@ namespace CrissCross
 			*/
 			//! @cond
 			_CC_DEPRECATE_FUNCTION(insert)	inline void	PutData		( Key const &_key, Data const & _rec )	{ insert ( _key, _rec ); };
-			_CC_DEPRECATE_FUNCTION(find)	inline Data const &GetData ( Key const &_key )					{ return find ( _key ); };
+			_CC_DEPRECATE_FUNCTION(find)	inline Data GetData		( Key const &_key )						{ return find ( _key ); };
 			_CC_DEPRECATE_FUNCTION(erase)	inline void	RemoveData	( Key const &_key )						{ erase ( _key ); };
 			_CC_DEPRECATE_FUNCTION(erase)	inline void	RemoveData	( Key const &_key, Data const & _rec  )	{ erase ( _key, _rec ); };
 			_CC_DEPRECATE_FUNCTION(size)	inline int	Size		() const								{ return (int)size(); };
