@@ -222,7 +222,7 @@ namespace CrissCross
 		}
 
 		template <class Key, class Data>
-		Data const &SplayTree<Key,Data>::find( Key const &key ) const
+		Data SplayTree<Key,Data>::find( Key const &key ) const
 		{
 			splay( key, root );
 

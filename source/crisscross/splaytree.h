@@ -121,7 +121,7 @@ namespace CrissCross
 					contents of the table was anything but pointers or integers.
 				\sa find
              */
-			_CC_DEPRECATE_FUNCTION_N Data const &find ( Key const &_key ) const;
+			_CC_DEPRECATE_FUNCTION_N Data find ( Key const &_key ) const;
 
             //! Finds all instances of the specified key in the tree.
 			/*!
@@ -167,6 +167,19 @@ namespace CrissCross
 				\warning Delete the returned DArray when done with it.
 			 */
             DArray <Key>  *ConvertIndexToDArray () const;
+
+			/*
+				Deprecated Compatibility Functions
+				Provided for compatibility with Tosser I
+			*/
+			//! @cond
+			_CC_DEPRECATE_FUNCTION(insert)	inline void	PutData		( Key const &_key, Data const & _rec )	{ insert ( _key, _rec ); };
+			_CC_DEPRECATE_FUNCTION(find)	inline Data GetData		( Key const &_key )						{ return find ( _key ); };
+			_CC_DEPRECATE_FUNCTION(erase)	inline void	RemoveData	( Key const &_key )						{ erase ( _key ); };
+			_CC_DEPRECATE_FUNCTION(erase)	inline void	RemoveData	( Key const &_key, Data const & _rec  )	{ erase ( _key, _rec ); };
+			_CC_DEPRECATE_FUNCTION(size)	inline int	Size		() const								{ return (int)size(); };
+			_CC_DEPRECATE_FUNCTION(empty)	inline void	Empty		()										{ empty(); };
+			//! @endcond
 
 		};
 	}
