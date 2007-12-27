@@ -208,7 +208,9 @@ namespace CrissCross
 			_CC_DEPRECATE_FUNCTION(find) inline size_t FindData ( T const & _rec ) { return find ( _rec ); };
 			_CC_DEPRECATE_FUNCTION(remove) inline void RemoveData ( size_t _index ) { remove ( _index ); };
             _CC_DEPRECATE_FUNCTION(change) void ChangeData ( T const & _rec, size_t _index );
-			_CC_DEPRECATE_FUNCTION(size) inline size_t Size () const { return size(); };
+			_CC_DEPRECATE_FUNCTION(size) inline int Size () const { return (int)size(); };
+			_CC_DEPRECATE_FUNCTION_N inline void EmptyAndDelete () { while ( valid(0) ) { delete get(0); remove(0); } };
+			_CC_DEPRECATE_FUNCTION_N inline void EmptyAndDeleteArray () { while ( valid(0) ) { delete [] get(0); remove(0); } };
 			_CC_DEPRECATE_FUNCTION_N inline void Empty () { empty(); };
 			_CC_DEPRECATE_FUNCTION(get) inline T getData ( size_t _index ) const { return get ( _index ); };
             _CC_DEPRECATE_FUNCTION(get) inline T GetData ( size_t _index ) const { return get ( _index ); };
