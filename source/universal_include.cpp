@@ -37,8 +37,8 @@ ParseMemoryLeakFile ( const char *_inputFilename,
     // Start up
     //
 
-    BTree<char *,int> combined;
-    BTree<char *,int> frequency;
+    RedBlackTree<char *,int> combined;
+    RedBlackTree<char *,int> frequency;
     int unrecognised = 0;
 
     //
@@ -53,55 +53,57 @@ ParseMemoryLeakFile ( const char *_inputFilename,
 
         memoryfile.getline ( thisline, 1024 );
 
-        if ( !strncmp ( thisline, " Data:", 6 ) == 0 &&    // This line is a data line - useless to us
-             strchr ( thisline, ':' ) )                    // This line does not have a source file location - useless to us
-        {
-            // Get the size
+        if ( !strncmp ( thisline, " Data:", 6 ) == 0 ) // This line is a data line - useless to us
+		{
+			if ( strchr ( thisline, ':' ) )                    // This line does not have a source file location - useless to us
+			{
+				// Get the size
 
-            char *lastcomma = strrchr ( thisline, ',' );
-            if ( lastcomma == 0 ) continue;
-            char *ssize = lastcomma + 2;
-            int size;
-            char unused[32];
+				char *lastcomma = strrchr ( thisline, ',' );
+				if ( lastcomma == 0 ) continue;
+				char *ssize = lastcomma + 2;
+				int size;
+				char unused[32];
 
-            sscanf ( ssize, "%d %s", &size, unused );
+				sscanf ( ssize, "%d %s", &size, unused );
 
-            // Get the source file name
+				// Get the source file name
 
-            char *sourcelocation = thisline;
-            char *colon = strrchr ( thisline, ':' );
+				char *sourcelocation = thisline;
+				char *colon = strrchr ( thisline, ':' );
 
-            *( colon - 1 ) = '\x0';
+				*( colon - 1 ) = '\x0';
 
-            // Put the result into our BTree
+				// Put the result into our BTree
 
-            if ( combined.exists ( sourcelocation ) )
-				combined.replace ( sourcelocation, combined.find ( sourcelocation ) + size );
-            else
-                combined.insert ( sourcelocation, size );
+				if ( combined.exists ( sourcelocation ) )
+					combined.replace ( sourcelocation, combined.find ( sourcelocation ) + size );
+				else
+					combined.insert ( sourcelocation, size );
 
-            if ( frequency.exists ( sourcelocation ) )
-				frequency.replace ( sourcelocation, frequency.find ( sourcelocation ) + size );
-            else
-                frequency.insert ( sourcelocation, 1 );
+				if ( frequency.exists ( sourcelocation ) )
+					frequency.replace ( sourcelocation, frequency.find ( sourcelocation ) + size );
+				else
+					frequency.insert ( sourcelocation, 1 );
 
-        }
-        else
-        {
-            char *lastcomma = strrchr ( thisline, ',' );
+			}
+			else
+			{
+				char *lastcomma = strrchr ( thisline, ',' );
 
-            if ( lastcomma )
-            {
+				if ( lastcomma )
+				{
 
-                char *ssize = lastcomma + 2;
-                int size;
-                char unused[32];
+					char *ssize = lastcomma + 2;
+					int size;
+					char unused[32];
 
-                sscanf ( ssize, "%d %s", &size, unused );
+					sscanf ( ssize, "%d %s", &size, unused );
 
-                unrecognised += size;
-            }
-        }
+					unrecognised += size;
+				}
+			}
+		}
     }
 
     memoryfile.close ();
@@ -168,23 +170,28 @@ ParseMemoryLeakFile ( const char *_inputFilename,
         fprintf ( output, "Total unrecognised memory leaks : %d Kbytes\n\n",
             int ( unrecognised / 1024 ) );
 
-        for ( size_t k = 0; k < sorted.size(); k++ )
+        for ( size_t k = sorted.size() - 1; k >= 0 && k < sorted.size(); k-- )
         {
-
             char *source = sorted.get(k);
 			CoreAssert ( source );
             int size; combined.find ( source, size );
             int freq; frequency.find ( source, freq );
 
-            if ( size > 2048 )
-            {
-                fprintf ( output, "%-95s (%d Kbytes in %d leaks)\n", source,
+			if ( size > 1048576 ) {
+
+                fprintf ( output, "%-95s (%d MB in %d leaks)\n", source,
+                        int ( size / 1048576 ), freq );
+
+			} else if ( size > 2048 ) {
+
+                fprintf ( output, "%-95s (%d KB in %d leaks)\n", source,
                         int ( size / 1024 ), freq );
-            }
-            else
-            {
+
+            } else {
+
                 fprintf ( output, "%-95s (%d  bytes in %d leaks)\n", source, size,
                         freq );
+
             }
         }
 
@@ -247,6 +254,17 @@ AppPrintMemoryLeaks ( char *_filename )
 }
 #endif
 
+void CrissCrossCleanup()
+{
+    
+	delete g_stderr; g_stderr = NULL;
+	delete g_stdout; g_stdout = NULL;
+
+#ifdef DETECT_MEMORY_LEAKS
+	AppPrintMemoryLeaks ( "memleak.txt" );
+#endif
+}
+
 #ifdef SDL_APPLICATION
 int CrissCrossInitialize ( int argc, char **argv )
 #else
@@ -270,6 +288,8 @@ int CrissCrossInitialize ( int argc, char **argv )
 	g_stderr = new Console ( stderr, NULL );
 	g_stdout = new Console ( stdout, NULL );
 
+	atexit ( CrissCrossCleanup );
+
 #ifdef ENABLE_CRASHREPORTS
 	__try
 #endif
@@ -284,12 +304,7 @@ int CrissCrossInitialize ( int argc, char **argv )
 	__except ( RecordExceptionInfo ( GetExceptionInformation(), "WinMain", CC_LIB_NAME, CC_LIB_VERSION ) ) {}
 #endif
     
-	delete g_stderr; g_stderr = NULL;
-	delete g_stdout; g_stdout = NULL;
 
-#ifdef DETECT_MEMORY_LEAKS
-	AppPrintMemoryLeaks ( "memleak.txt" );
-#endif
 	return retval;
 }
 

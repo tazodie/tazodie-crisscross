@@ -180,14 +180,14 @@ namespace CrissCross
 				\param _sortMethod The method to sort with.
 				\return The number of assignments and comparisons to finish the sort.
 			 */
-            cc_uint64_t sort ( CrissCross::Data::Sorter<T> *_sortMethod );
+            int sort ( CrissCross::Data::Sorter<T> *_sortMethod );
             
             //! Sorts the array using the provided method.
 			/*!
 				\param _sortMethod The method to sort with.
 				\return The number of assignments and comparisons to finish the sort.
 			 */
-            cc_uint64_t sort ( CrissCross::Data::Sorter<T> &_sortMethod );
+            int sort ( CrissCross::Data::Sorter<T> &_sortMethod );
 
             //! Gets the data at the given index.
             /*!
