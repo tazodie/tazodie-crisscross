@@ -212,7 +212,7 @@ namespace CrissCross
 			_CC_DEPRECATE_FUNCTION(insert) inline void PutData ( T const & _rec, size_t _index ) { insert ( _rec, _index ); };
 			_CC_DEPRECATE_FUNCTION(remove) inline void RemoveData ( size_t _index ) { remove ( _index ); };
             _CC_DEPRECATE_FUNCTION_N void ChangeData ( T const & _rec, size_t _index );
-			_CC_DEPRECATE_FUNCTION(size) inline size_t Size () const { return size(); };
+			_CC_DEPRECATE_FUNCTION(size) inline int Size () const { return (int)size(); };
 			_CC_DEPRECATE_FUNCTION(valid) inline bool validIndex ( size_t _index ) const { return valid ( _index ); };
 			_CC_DEPRECATE_FUNCTION(valid) inline bool ValidIndex ( size_t _index ) const { return valid ( _index ); };
 			_CC_DEPRECATE_FUNCTION(empty) inline void Empty () { empty(); };
