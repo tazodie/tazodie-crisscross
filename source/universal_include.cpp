@@ -254,17 +254,6 @@ AppPrintMemoryLeaks ( char *_filename )
 }
 #endif
 
-void CrissCrossCleanup()
-{
-    
-	delete g_stderr; g_stderr = NULL;
-	delete g_stdout; g_stdout = NULL;
-
-#ifdef DETECT_MEMORY_LEAKS
-	AppPrintMemoryLeaks ( "memleak.txt" );
-#endif
-}
-
 #ifdef SDL_APPLICATION
 int CrissCrossInitialize ( int argc, char **argv )
 #else
@@ -288,8 +277,6 @@ int CrissCrossInitialize ( int argc, char **argv )
 	g_stderr = new Console ( stderr, NULL );
 	g_stdout = new Console ( stdout, NULL );
 
-	atexit ( CrissCrossCleanup );
-
 #ifdef ENABLE_CRASHREPORTS
 	__try
 #endif
@@ -304,6 +291,12 @@ int CrissCrossInitialize ( int argc, char **argv )
 	__except ( RecordExceptionInfo ( GetExceptionInformation(), "WinMain", CC_LIB_NAME, CC_LIB_VERSION ) ) {}
 #endif
     
+	delete g_stderr; g_stderr = NULL;
+	delete g_stdout; g_stdout = NULL;
+
+#ifdef DETECT_MEMORY_LEAKS
+	AppPrintMemoryLeaks ( "memleak.txt" );
+#endif
 
 	return retval;
 }
