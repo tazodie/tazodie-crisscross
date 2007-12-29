@@ -68,6 +68,9 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 // Linux backtrace()
 #   define ENABLE_BACKTRACE
 
+// Case sensitive Compare() function
+//#	define CASE_SENSITIVE_COMPARE
+
 // ============================================================================
 // Dont edit anything below this line   
 // ============================================================================
@@ -138,7 +141,7 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #       include <fcntl.h>
 #       include <winsock2.h>
 #       include <windows.h>
-#       if defined ( DETECT_MEMORY_LEAKS )
+#       if defined ( ENABLE_SYMBOL_ENGINE )
 #           include <dbghelp.h>
 #			pragma comment (lib, "dbghelp.lib")
 #       endif

@@ -31,7 +31,7 @@ void Assert ( bool _condition, const char *_testcase, const char *_file,
 			g_stderr->WriteLine ( "\nAssertion failed : '%s'\nFile: %s\nLine: %d\n", \
 			#x, __FILE__, __LINE__ ); \
 			g_stderr->WriteLine ( "===== STACK TRACE =====" ); \
-			PrintStackTrace ( g_stderr ); \
+			CrissCross::Debug::PrintStackTrace ( g_stderr ); \
 			abort(); \
 		} \
 	}
@@ -39,11 +39,19 @@ void Assert ( bool _condition, const char *_testcase, const char *_file,
 #endif
 //! @endcond
 
-//! Prints a stack trace to _outputBuffer.
-/*!
-    \param _outputBuffer The CoreIO output buffer to write to.
-*/
-void PrintStackTrace ( CrissCross::IO::CoreIOWriter * _outputBuffer );
+namespace CrissCross {
+
+	namespace Debug {
+
+		//! Prints a stack trace to _outputBuffer.
+		/*!
+			\param _outputBuffer The CoreIO output buffer to write to.
+		*/
+		void PrintStackTrace ( CrissCross::IO::CoreIOWriter * _outputBuffer );
+
+	}
+
+}
 
 extern CrissCross::IO::Console *g_stderr;
 extern CrissCross::IO::Console *g_stdout;

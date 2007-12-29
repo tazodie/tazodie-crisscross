@@ -76,13 +76,19 @@ ParseMemoryLeakFile ( const char *_inputFilename,
 
 				// Put the result into our BTree
 
-				if ( combined.exists ( sourcelocation ) )
-					combined.replace ( sourcelocation, combined.find ( sourcelocation ) + size );
+				int result = 0;
+				bool found = combined.find ( sourcelocation, result );
+
+				if ( found )
+					combined.replace ( sourcelocation, result + size );
 				else
 					combined.insert ( sourcelocation, size );
 
+				
+				found = frequency.find ( sourcelocation, result );
+
 				if ( frequency.exists ( sourcelocation ) )
-					frequency.replace ( sourcelocation, frequency.find ( sourcelocation ) + size );
+					frequency.replace ( sourcelocation, result + size );
 				else
 					frequency.insert ( sourcelocation, 1 );
 
