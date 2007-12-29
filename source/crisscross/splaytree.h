@@ -117,11 +117,11 @@ namespace CrissCross
             /*!
                 \param _key The key of the node to find.
                 \return The data at the node. NULL if not found.
-				\deprecated The return value of this function could be unpredictable if the
+				\warning The return value of this function could be unpredictable if the
 					contents of the table was anything but pointers or integers.
 				\sa find
              */
-			_CC_DEPRECATE_FUNCTION_N Data find ( Key const &_key ) const;
+			Data find ( Key const &_key ) const;
 
             //! Finds all instances of the specified key in the tree.
 			/*!
