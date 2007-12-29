@@ -14,6 +14,10 @@
 
 #include <crisscross/debug.h>
 
+#ifdef TARGET_OS_WINDOWS
+#	define strcasecmp stricmp 
+#endif
+
 namespace CrissCross
 {
     namespace Data
@@ -41,7 +45,11 @@ namespace CrissCross
         __inline int Compare<char *> ( char * const &_first, char * const &_second )
         {
             CoreAssert ( _first ); CoreAssert ( _second );
+#ifdef CASE_SENSITIVE_COMPARE
             int ret = strcmp ( _first, _second );
+#else
+            int ret = strcasecmp ( _first, _second );
+#endif
             if ( ret < 0 ) return -1;
             else if ( ret > 0 ) return 1;
             else return 0;
@@ -52,7 +60,11 @@ namespace CrissCross
         __inline int Compare<const char *> ( const char * const &_first, const char * const &_second )
         {
             CoreAssert ( _first ); CoreAssert ( _second );
+#ifdef CASE_SENSITIVE_COMPARE
             int ret = strcmp ( _first, _second );
+#else
+            int ret = strcasecmp ( _first, _second );
+#endif
             if ( ret < 0 ) return -1;
             else if ( ret > 0 ) return 1;
             else return 0;
