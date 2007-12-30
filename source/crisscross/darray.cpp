@@ -358,6 +358,19 @@ namespace CrissCross
 		}
 
 		template <class T>
+		void DArray<T>::EmptyAndDeleteArray()
+		{
+			for ( size_t i = 0; i < m_arraySize; ++i)
+			{
+				if (valid(i))
+				{
+					delete [] m_array[i];
+				}
+			}
+			empty();
+		}
+
+		template <class T>
 		void DArray<T>::ChangeData ( T const & _rec, size_t index )
 		{
 			CoreAssert ( m_shadow[index] == 1 );
