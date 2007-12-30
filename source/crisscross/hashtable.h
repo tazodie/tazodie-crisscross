@@ -88,7 +88,7 @@ namespace CrissCross
 					contents of the table was anything but pointers or integers.
 				\sa find
              */
-			_CC_DEPRECATE_FUNCTION_N T const &find ( const char * const &_key ) const;
+			T const &find ( const char * const &_key ) const;
 
             //! Deletes a node from the table, specified by the node's key.
 			/*!

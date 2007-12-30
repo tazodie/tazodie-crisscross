@@ -19,10 +19,8 @@
 	<Configurations>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)/bin/$(ProjectFileName)/$(PlatformName)/$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)/obj/$(ProjectFileName)/$(PlatformName)/$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			InheritedPropertySheets="..\Common.vsprops"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
 			CharacterSet="0"
@@ -62,14 +60,12 @@
 				ExceptionHandling="0"
 				RuntimeLibrary="0"
 				BufferSecurityCheck="false"
-				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="crisscross/universal_include.h"
 				AssemblerOutput="4"
 				ProgramDataBaseFileName="$(OutDir)\$(ProjectName).pdb"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
-				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -104,10 +100,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|x64"
-			OutputDirectory="$(SolutionDir)/bin/$(ProjectFileName)/$(PlatformName)/$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)/obj/$(ProjectFileName)/$(PlatformName)/$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			InheritedPropertySheets="..\Common.vsprops"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
 			CharacterSet="0"
@@ -147,14 +141,12 @@
 				ExceptionHandling="0"
 				RuntimeLibrary="0"
 				BufferSecurityCheck="false"
-				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="crisscross/universal_include.h"
 				AssemblerOutput="4"
 				ProgramDataBaseFileName="$(OutDir)\$(ProjectName).pdb"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
-				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -189,10 +181,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)/bin/$(ProjectFileName)/$(PlatformName)/$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)/obj/$(ProjectFileName)/$(PlatformName)/$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			InheritedPropertySheets="..\Common.vsprops"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
 			CharacterSet="0"
@@ -230,7 +220,6 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				BufferSecurityCheck="false"
-				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="crisscross/universal_include.h"
 				AssemblerOutput="4"
@@ -238,7 +227,6 @@
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
-				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -273,10 +261,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|x64"
-			OutputDirectory="$(SolutionDir)/bin/$(ProjectFileName)/$(PlatformName)/$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)/obj/$(ProjectFileName)/$(PlatformName)/$(ConfigurationName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			InheritedPropertySheets="..\Common.vsprops"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
 			CharacterSet="0"
@@ -314,7 +300,6 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				BufferSecurityCheck="false"
-				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="crisscross/universal_include.h"
 				AssemblerOutput="4"
@@ -322,7 +307,6 @@
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
-				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="3"
 			/>
 			<Tool

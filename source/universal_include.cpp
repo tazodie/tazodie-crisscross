@@ -10,6 +10,8 @@
  */
 
 #include <crisscross/universal_include.h>
+#include <crisscross/rbtree.h>
+#include <crisscross/llist.h>
 #include <crisscross/debug.h>
 
 using namespace std;
