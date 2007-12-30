@@ -16,7 +16,6 @@
 #include <crisscross/internal_mem.h>
 #include <crisscross/darray.h>
 #include <crisscross/node.h>
-#include <crisscross/mutex.h>
 
 namespace CrissCross
 {

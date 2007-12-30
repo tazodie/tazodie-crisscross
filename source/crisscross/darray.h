@@ -13,10 +13,9 @@
 #define __included_cc_darray_h
 
 #include <crisscross/deprecate.h>
-#include <crisscross/darray.h>
+#include <crisscross/debug.h>
 #include <crisscross/dstack.h>
 #include <crisscross/sort.h>
-#include <crisscross/mutex.h>
 
 namespace CrissCross
 {
