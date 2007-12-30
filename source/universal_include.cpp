@@ -10,7 +10,7 @@
  */
 
 #include <crisscross/universal_include.h>
-#include <crisscross/crisscross.h>
+#include <crisscross/debug.h>
 
 using namespace std;
 using namespace CrissCross::Data;

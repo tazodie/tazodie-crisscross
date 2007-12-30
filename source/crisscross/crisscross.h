@@ -15,6 +15,7 @@
 #include <crisscross/universal_include.h>
 
 #include <crisscross/deprecate.h>
+#include <crisscross/datatypes.h>
 #include <crisscross/sort.h>
 #include <crisscross/dstack.h>
 #include <crisscross/darray.h>
