@@ -20,9 +20,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)/bin/$(ProjectFileName)/$(PlatformName)/$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)/obj/$(ProjectFileName)/$(PlatformName)/$(ConfigurationName)"
 			ConfigurationType="1"
+			InheritedPropertySheets="..\..\Common.vsprops;..\ExamplesCommmon.vsprops"
 			CharacterSet="0"
 			>
 			<Tool
@@ -43,8 +42,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../source"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
+				AdditionalIncludeDirectories=""
+				PreprocessorDefinitions="WIN32;_DEBUG"
 				MinimalRebuild="true"
 				ExceptionHandling="2"
 				BasicRuntimeChecks="3"
@@ -55,7 +54,6 @@
 				AssemblerOutput="4"
 				ProgramDataBaseFileName="$(OutDir)\$(ProjectName).pdb"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -72,7 +70,6 @@
 				AdditionalDependencies="ws2_32.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
-				SubSystem="1"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -105,6 +102,7 @@
 			OutputDirectory="$(SolutionDir)/bin/$(ProjectFileName)/$(PlatformName)/$(ConfigurationName)"
 			IntermediateDirectory="$(SolutionDir)/obj/$(ProjectFileName)/$(PlatformName)/$(ConfigurationName)"
 			ConfigurationType="1"
+			InheritedPropertySheets="..\..\Common.vsprops;..\ExamplesCommmon.vsprops"
 			CharacterSet="0"
 			>
 			<Tool
@@ -126,8 +124,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../source"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
+				AdditionalIncludeDirectories=""
+				PreprocessorDefinitions="WIN32;_DEBUG"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -137,7 +135,6 @@
 				AssemblerOutput="4"
 				ProgramDataBaseFileName="$(OutDir)\$(ProjectName).pdb"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -154,7 +151,6 @@
 				AdditionalDependencies="ws2_32.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
-				SubSystem="1"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -184,9 +180,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)/bin/$(ProjectFileName)/$(PlatformName)/$(ConfigurationName)"
-			IntermediateDirectory="$(SolutionDir)/obj/$(ProjectFileName)/$(PlatformName)/$(ConfigurationName)"
 			ConfigurationType="1"
+			InheritedPropertySheets="..\..\Common.vsprops;..\ExamplesCommmon.vsprops"
 			CharacterSet="0"
 			WholeProgramOptimization="0"
 			>
@@ -212,8 +207,8 @@
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
 				WholeProgramOptimization="false"
-				AdditionalIncludeDirectories="../../source"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				AdditionalIncludeDirectories=""
+				PreprocessorDefinitions="WIN32;NDEBUG"
 				StringPooling="true"
 				ExceptionHandling="2"
 				RuntimeLibrary="0"
@@ -224,7 +219,6 @@
 				AssemblerOutput="4"
 				ProgramDataBaseFileName="$(OutDir)\$(ProjectName).pdb"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -241,7 +235,6 @@
 				AdditionalDependencies="ws2_32.lib"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
-				SubSystem="1"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				TargetMachine="1"
@@ -276,6 +269,7 @@
 			OutputDirectory="$(SolutionDir)/bin/$(ProjectFileName)/$(PlatformName)/$(ConfigurationName)"
 			IntermediateDirectory="$(SolutionDir)/obj/$(ProjectFileName)/$(PlatformName)/$(ConfigurationName)"
 			ConfigurationType="1"
+			InheritedPropertySheets="..\..\Common.vsprops;..\ExamplesCommmon.vsprops"
 			CharacterSet="0"
 			WholeProgramOptimization="0"
 			>
@@ -301,8 +295,8 @@
 				InlineFunctionExpansion="1"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="../../source"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				AdditionalIncludeDirectories=""
+				PreprocessorDefinitions="WIN32;NDEBUG"
 				StringPooling="true"
 				RuntimeLibrary="2"
 				BufferSecurityCheck="false"
@@ -311,7 +305,6 @@
 				AssemblerOutput="4"
 				ProgramDataBaseFileName="$(OutDir)\$(ProjectName).pdb"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -328,7 +321,6 @@
 				AdditionalDependencies="ws2_32.lib"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
-				SubSystem="1"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				TargetMachine="17"

@@ -143,81 +143,73 @@ SymbolEngine::StackTrace ( PCONTEXT _pContext, CoreIOWriter * _outputBuffer )
     }
 }
 #endif
-
-namespace CrissCross
+void CrissCross::Debug::PrintStackTrace ( CrissCross::IO::CoreIOWriter * _outputBuffer )
 {
-	namespace Debug
-	{
-		void
-		PrintStackTrace ( CrissCross::IO::CoreIOWriter * _outputBuffer )
-		{
-		#if !defined ( TARGET_OS_MACOSX ) && !defined ( TARGET_OS_NETBSD ) && !defined ( TARGET_OS_FREEBSD ) && !defined ( TARGET_OS_OPENBSD )
+#if !defined ( TARGET_OS_MACOSX ) && !defined ( TARGET_OS_NETBSD ) && !defined ( TARGET_OS_FREEBSD ) && !defined ( TARGET_OS_OPENBSD )
 
-		#    ifdef ENABLE_SYMBOL_ENGINE
+#    ifdef ENABLE_SYMBOL_ENGINE
 
-			CONTEXT context = { CONTEXT_FULL };
-			::GetThreadContext ( GetCurrentThread (), &context );
-			_asm call $ + 5;
-			_asm pop eax;
-			_asm mov context.Eip, eax;
-			_asm mov eax, esp;
-			_asm mov context.Esp, eax;
-			_asm mov context.Ebp, ebp;
-			SymbolEngine::instance ().StackTrace ( &context, _outputBuffer );
+	CONTEXT context = { CONTEXT_FULL };
+	::GetThreadContext ( GetCurrentThread (), &context );
+	_asm call $ + 5;
+	_asm pop eax;
+	_asm mov context.Eip, eax;
+	_asm mov eax, esp;
+	_asm mov context.Esp, eax;
+	_asm mov context.Ebp, ebp;
+	SymbolEngine::instance ().StackTrace ( &context, _outputBuffer );
 
-		#    elif defined ( ENABLE_BACKTRACE )
+#    elif defined ( ENABLE_BACKTRACE )
 
-			void *array[20];
-			int size;
-			char **strings;
-			int i;
+	void *array[20];
+	int size;
+	char **strings;
+	int i;
 
-			//use -rdynamic flag when compiling
-			size = backtrace (array, 20);
-			strings = backtrace_symbols (array, size);
-		  
-			_outputBuffer->WriteLine ( "Obtained %d stack frames.", size );
+	//use -rdynamic flag when compiling
+	size = backtrace (array, 20);
+	strings = backtrace_symbols (array, size);
+  
+	_outputBuffer->WriteLine ( "Obtained %d stack frames.", size );
 
-			std::string bt = "";
+	std::string bt = "";
 
-			for ( i = 0; i < size; i++ )
-			  {
-		#if 1
-			bt += strings[i];
-			int status;
-			// extract the identifier from strings[i].  It's inside of parens.
-			char* firstparen = ::strchr(strings[i], '(');
-			char* lastparen = ::strchr(strings[i], '+');
-			if (firstparen != 0 && lastparen != 0 && firstparen < lastparen)
-			  {
-				bt += ": ";
-				*lastparen = '\0';
-				char* realname = abi::__cxa_demangle(firstparen+1, 0, 0, &status);
-				if ( realname != NULL )
-				  {
-				bt += realname;
-				  }
-				free(realname);
-			  }
-		#else
-				bt += "  ";
-				bt += strings[i];
-		#endif
-				bt += "\n";
-			}
-
-			_outputBuffer->WriteLine ( "%s\n", bt.c_str() );
-		  
-			free(strings);
-
-		#   else
-			_outputBuffer->WriteLine ( "FAIL: backtrace() function not available." );
-		#   endif
-		#else
-			_outputBuffer->WriteLine ( "Stack traces are not implemented for this platform." );
-		#endif // TARGET_OS_MACOSX
-		}
+	for ( i = 0; i < size; i++ )
+	  {
+#if 1
+	bt += strings[i];
+	int status;
+	// extract the identifier from strings[i].  It's inside of parens.
+	char* firstparen = ::strchr(strings[i], '(');
+	char* lastparen = ::strchr(strings[i], '+');
+	if (firstparen != 0 && lastparen != 0 && firstparen < lastparen)
+	  {
+		bt += ": ";
+		*lastparen = '\0';
+		char* realname = abi::__cxa_demangle(firstparen+1, 0, 0, &status);
+		if ( realname != NULL )
+		  {
+		bt += realname;
+		  }
+		free(realname);
+	  }
+#else
+		bt += "  ";
+		bt += strings[i];
+#endif
+		bt += "\n";
 	}
+
+	_outputBuffer->WriteLine ( "%s\n", bt.c_str() );
+  
+	free(strings);
+
+#   else
+	_outputBuffer->WriteLine ( "FAIL: backtrace() function not available." );
+#   endif
+#else
+	_outputBuffer->WriteLine ( "Stack traces are not implemented for this platform." );
+#endif // TARGET_OS_MACOSX
 }
 #ifndef USE_FAST_ASSERT
 void
