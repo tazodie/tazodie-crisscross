@@ -16,7 +16,6 @@
 
 #include <crisscross/sort.h>
 #include <crisscross/darray.h>
-#include <crisscross/mutex.h>
 
 namespace CrissCross
 {
