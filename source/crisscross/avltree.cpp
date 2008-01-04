@@ -603,8 +603,12 @@ namespace CrissCross
 				(*_subtree)->parent = p_tmp->parent;
 
 			if ( p_tmp )
+			{
 				Dealloc ( p_tmp->id );
-			delete p_tmp;
+				p_tmp->left = NULL;
+				p_tmp->right = NULL;
+				delete p_tmp;
+			}
 
 			return true;
 		}
