@@ -20,6 +20,9 @@ namespace CrissCross
 	namespace Data
 	{
         //! A splay tree implementation.
+		/*!
+			This is a tree which does NOT allow duplicate keys.
+		 */
 		template <class Key, class Data>
 		class SplayTree
 		{
@@ -138,15 +141,6 @@ namespace CrissCross
 				\return True on success, false on failure
 			 */
 			bool erase ( Key const &_key );
-
-            //! Deletes a node from the tree, specified by the node's key and data.
-            /*!
-                \warning This won't free the memory occupied by the data, so the data must be freed separately.
-                \param _key The key of the node to delete.
-                \param _data The data of the node to delete.
-                \return True on success, false on failure.
-             */
-			bool erase ( Key const &_key, Data const &_data );
 
             //! Indicates the size of the tree.
 			/*!
