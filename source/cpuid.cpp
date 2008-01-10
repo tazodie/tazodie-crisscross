@@ -9,6 +9,11 @@
  *
  */
 
+/*
+  Last updated 1/9/2008
+  using Intel CPUID documentation updated 12/2007
+ */
+
 #include <crisscross/universal_include.h>
 
 #ifdef ENABLE_CPUID
@@ -29,6 +34,7 @@ namespace CrissCross
 		#    define SSE3_FLAG 0x0001
 		#    define VME_FLAG 0x0002
 		#    define DE_FLAG 0x0004
+		#    define DTES64_FLAG 0x0004
 		#    define MONITOR_FLAG 0x0008
 		#    define PSE_FLAG 0x0008
 		#    define DS_CPL_FLAG 0x0010
@@ -36,13 +42,14 @@ namespace CrissCross
 		#    define MSR_FLAG 0x0020
 		#    define VMX_FLAG 0x0020
 		#    define PAE_FLAG 0x0040
+		#    define SMX_FLAG 0x0040
 		#    define EIST_FLAG 0x0080
 		#    define MCE_FLAG 0x0080
 		#    define CX8_FLAG 0x0100
 		#    define TM2_FLAG 0x0100
 		#    define APIC_FLAG 0x0200
 		#    define SSSE3_FLAG 0x0200
-		#    define CID_FLAG 0x0400
+		#    define CNXTID_FLAG 0x0400
 		#    define SEP_FLAG 0x0800
 		#    define SYSCALL_FLAG 0x0800
 		#    define MTRR_FLAG 0x1000
@@ -50,6 +57,7 @@ namespace CrissCross
 		#    define PGE_FLAG 0x2000
 		#    define MCA_FLAG 0x4000
 		#    define XTPR_FLAG 0x4000
+		#    define PDCM_FLAG 0x8000
 		#    define CMOV_FLAG 0x8000
 		#    define PAT_FLAG 0x10000
 		#    define PSE36_FLAG 0x20000
@@ -742,7 +750,7 @@ namespace CrissCross
 			switch ( x )
 			{
 			case 0:		break;
-			case 0x1:   AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_CODE_TLB, "4KB", 0, 4, 32, 0, false ) ); break;
+			case 0x1: AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_CODE_TLB, "4KB", 0, 4, 32, 0, false ) ); break;
 			case 0x2:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_CODE_TLB, "4MB", 0, 255, 2, 0, false ) ); break;
 			case 0x3:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_DATA_TLB, "4KB", 0, 4, 64, 0, false ) ); break;
 			case 0x4:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_DATA_TLB, "4MB", 0, 4, 8, 0, false ) ); break;
@@ -789,13 +797,12 @@ namespace CrissCross
 			case 0x4B:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L3, NULL, 8192, 16, 0, 64, false ) ); break;
 			case 0x4C:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L3, NULL, 12288, 12, 0, 64, false ) ); break;
 			case 0x4D:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L3, NULL, 16384, 16, 0, 64, false ) ); break;
-		#if defined ( ENABLE_SANDPILE )
 			case 0x4E:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 6144, 24, 0, 64, false ) ); break;
-		#endif
 			case 0x50:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_CODE_TLB, "4KB, 2MB or 4MB", 0, 255, 64, 0, false ) ); break;
 			case 0x51:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_CODE_TLB, "4KB, 2MB or 4MB", 0, 255, 128, 0, false ) ); break;
 			case 0x52:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_CODE_TLB, "4KB, 2MB or 4MB", 0, 255, 256, 0, false ) ); break;
-			case 0x56: case 0x57:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L0DATA_TLB, "4MB", 0, 4, 16, 0, false ) ); break;
+			case 0x56:  AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L1DATA_TLB, "4MB", 0, 4, 16, 0, false ) ); break;
+      case 0x57:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L1DATA_TLB, "4KB", 0, 4, 16, 0, false ) ); break;
 			case 0x5b:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_DATA_TLB, "4KB or 4MB", 0, 255, 64, 0, false ) ); break;
 			case 0x5c:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_DATA_TLB, "4KB or 4MB", 0, 255, 128, 0, false ) ); break;
 			case 0x5d:	AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_DATA_TLB, "4KB or 4MB", 0, 255, 256, 0, false ) ); break;
@@ -991,10 +998,11 @@ namespace CrissCross
 					DetectFeature ( &Ext[1].ecx, LAHF_FLAG, processor, "LAHF" );
 					DetectFeature ( &Std[1].ecx, DS_CPL_FLAG, processor, "DS_CPL" );
 					DetectFeature ( &Std[1].ecx, MONITOR_FLAG, processor, "MONITOR" );
+					DetectFeature ( &Std[1].ecx, DTES64_FLAG, processor, "DTES64" );
 					DetectFeature ( &Std[1].ecx, EIST_FLAG, processor, "EIST" );
 					DetectFeature ( &Std[1].ecx, TM2_FLAG, processor, "TM2" );
 					DetectFeature ( &Std[1].ecx, SSSE3_FLAG, processor, "SSSE3" );
-					DetectFeature ( &Std[1].ecx, CID_FLAG, processor, "CID" );
+					DetectFeature ( &Std[1].ecx, CNXTID_FLAG, processor, "CNXTID" );
 					DetectFeature ( &Ext[1].edx, SYSCALL_FLAG, processor, "SYSCALL" );
 					DetectFeature ( &Std[1].ecx, XTPR_FLAG, processor, "XTPR" );
 					DetectFeature ( &Ext[1].edx, XD_FLAG, processor, "XD" );
@@ -1003,6 +1011,8 @@ namespace CrissCross
 					DetectFeature ( &Std[1].ecx, SSE4_1_FLAG, processor, "SSE4.1" );
 					DetectFeature ( &Std[1].ecx, SSE4_2_FLAG, processor, "SSE4.2" );
 					DetectFeature ( &Std[1].ecx, VMX_FLAG, processor, "VMX" );
+					DetectFeature ( &Std[1].ecx, SMX_FLAG, processor, "SMX" );
+					DetectFeature ( &Std[1].ecx, PDCM_FLAG, processor, "PDCM" );
 				}
 				else if ( strcmp ( proc[processor]->Manufacturer, "AuthenticAMD" ) == 0 )
 				{
