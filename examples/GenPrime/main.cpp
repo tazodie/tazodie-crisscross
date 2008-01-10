@@ -292,7 +292,7 @@ RunApplication ( int argc, char **argv )
 	Stopwatch sw;
 
 	console->WriteLine ( "Compiler optimized:" );
-	for ( unsigned long i = 100000; i <= 1000000; i += 100000 )
+	for ( unsigned long i = 100000; i <= 500000; i += 100000 )
 	{
 		sw.Start();
 		genPrime ( i, isPrime );
@@ -304,7 +304,7 @@ RunApplication ( int argc, char **argv )
 #ifdef PREGEN
 	console->WriteLine ();
 	console->WriteLine ( "Intel C++ Compiler v10 optimized:" );
-	for ( unsigned long i = 100000; i <= 1000000; i += 100000 )
+	for ( unsigned long i = 100000; i <= 500000; i += 100000 )
 	{
 		sw.Start();
 		genPrime ( i, isPrime_asm );
@@ -312,6 +312,10 @@ RunApplication ( int argc, char **argv )
 		console->WriteLine ( "Time for %9d primes: %6.3lf seconds", i, sw.Elapsed() );
 	}
 #endif
+#endif
+
+#ifdef TARGET_OS_WINDOWS
+  system("PAUSE");
 #endif
 
     // End your application here.
