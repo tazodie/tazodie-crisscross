@@ -1,3 +1,7 @@
+VERSION ???
+	* CPUID updated with December 2007 Intel CPUID specification.
+	* Rare bug in AVLTree corrected.
+
 VERSION 0.6.6 (r593)
 	* Visual Studio 2008 support added.
 	* More example projects added.
