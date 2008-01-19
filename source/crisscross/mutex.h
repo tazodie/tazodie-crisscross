@@ -36,7 +36,7 @@ namespace CrissCross
 
 			  unsigned m_lockCount;
 
-        #    ifdef _WIN32
+        #    ifdef TARGET_OS_WINDOWS
             //! The critical section for the mutex.
             /*!
                Windows uses "critical sections" for safe threading.
