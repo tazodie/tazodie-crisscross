@@ -61,6 +61,14 @@ TARGET_COMPILER_ICC
 #        define PROCESSOR_DETECTED
 #    endif
 
+/* ARM */
+#    if !defined ( PROCESSOR_DETECTED )
+#       if defined ( __arm__ )
+#           define PROCESSOR_DETECTED
+#           define TARGET_CPU_ARM
+#       endif
+#    endif
+
 /* PowerPC */
 #    if !defined ( PROCESSOR_DETECTED )
 #       if defined ( _ARCH_PPC ) || defined ( __ppc__ ) || defined ( __ppc64__ ) || defined ( __PPC ) || defined ( powerpc ) || defined ( __PPC__ ) || defined ( __powerpc64__ ) || defined ( __powerpc64 )
@@ -137,6 +145,13 @@ TARGET_COMPILER_ICC
 #   endif
 
 #   if !defined ( OS_DETECTED )
+#       if defined ( TARGET_CPU_ARM )
+#           define OS_DETECTED
+#           define TARGET_OS_NDSFIRMWARE
+#       endif
+#   endif
+
+#   if !defined ( OS_DETECTED )
 #       if defined ( __linux__ ) || defined ( linux ) || defined ( __linux ) || defined ( __gnu_linux__ ) || defined ( __CYGWIN__ )
 #           define OS_DETECTED
 #           define TARGET_OS_LINUX
@@ -173,7 +188,7 @@ TARGET_COMPILER_ICC
 
 #    if defined(TARGET_CPU_IA64) || defined(TARGET_CPU_X64)
 #        define TARGET_CPU_BITS 64
-#    elif defined(TARGET_CPU_X86)
+#    elif defined(TARGET_CPU_X86) || defined(TARGET_CPU_ARM)
 #        define TARGET_CPU_BITS 32
 #    endif
 

@@ -153,7 +153,19 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #       undef ENABLE_SYMBOL_ENGINE
 #		undef ENABLE_CRASHREPORTS
 #   endif
-    
+
+#   if defined ( TARGET_OS_NDSFIRMWARE )
+#       define ANSI_COLOUR
+#		ifdef __cplusplus
+#			include <cxxabi.h>
+#		endif
+#       include <pthread.h>
+#       include <sys/types.h>
+#       include <unistd.h>
+#       include <errno.h>
+#       include <ctype.h>
+#   endif
+
 #   if defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
 #       define ANSI_COLOUR
 #		ifdef __cplusplus
@@ -178,7 +190,11 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #   include <string.h>
 #   include <assert.h>
 #   include <math.h>
-#   include <memory.h>
+#   if !defined ( TARGET_OS_NDSFIRMWARE )
+#       include <memory.h>
+#   else
+#       include <malloc.h>
+#   endif
 #   include <stdarg.h>
 #   include <stdio.h>
 #   include <stdlib.h>
