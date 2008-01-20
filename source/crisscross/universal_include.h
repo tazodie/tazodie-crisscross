@@ -235,12 +235,6 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #		endif
 #	endif
 
-#   if defined ( TARGET_OS_NDSFIRMWARE )
-#       define printf iprintf
-#       define fprintf fiprintf
-#       define sprintf siprintf
-#   endif
-
 #   if defined ( TARGET_OS_WINDOWS )
 #       if defined ( DETECT_MEMORY_LEAKS )
 #           ifndef _DBG_NEW

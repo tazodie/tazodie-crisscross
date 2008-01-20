@@ -12,9 +12,7 @@ main.cpp
 OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)
 
 ifneq ($(CC_BUILDSTATIC),yes)
-LINK += -rdynamic
-else
-LINK += -L../../source
+LDFLAGS += -rdynamic
 endif
 INCLUDES += -I. -I../../source
 CXXFLAGS += $(INCLUDES)
@@ -29,16 +27,24 @@ all: $(OUTDIR)/$(OUTBIN)
 precomp: $(GCH)
 
 test: $(OUTDIR)/$(OUTBIN)
+ifeq ($(GCC_NDS),)
 	LD_LIBRARY_PATH="$(OUTDIR)" $(OUTDIR)/$(OUTBIN)
+endif
 
 memcheck: $(OUTDIR)/$(OUTBIN)
+ifeq ($(GCC_NDS),)
 	LD_LIBRARY_PATH="$(OUTDIR)" valgrind --leak-check=full --db-command='gdb --nw %f %p' --db-attach=yes -v $(OUTDIR)/$(OUTBIN)
+endif
 
 clean:
 	-rm -rf obj
 	-rm -f .depend
 	-rm -rf .libs
 	-rm -f $(OUTDIR)/$(OUTBIN)
+ifneq ($(GCC_NDS),)
+	-rm -f $(OUTDIR)/$(OUTBIN).nds
+	-rm -f $(OUTDIR)/$(OUTBIN).arm9
+endif
 	-rm -f $(OUTDIR)/$(OUTBIN).map
 	-rm -f $(GCH)
 ifneq ($(CC_BUILDSTATIC),yes)
@@ -49,13 +55,17 @@ endif
 	
 $(OUTDIR)/$(OUTBIN): $(OBJECTS)
 ifneq ($(CC_BUILDSTATIC),yes)
-	$(LINK) $+ -lpthread -lstdc++ -L../../source -lCrissCross -o $(OUTDIR)/$(OUTBIN)
+	$(LINK) $+ $(LDFLAGS) -o $(OUTDIR)/$(OUTBIN)
 	ln -sf ../../source/$(LIBNAME).$(VERSION) $(LIBNAME)
 	ln -sf ../../source/$(LIBNAME).$(VERSION) $(LIBNAME).$(VERSION_MAJOR)
 	ln -sf ../../source/$(LIBNAME).$(VERSION) $(LIBNAME).$(VERSION)
 	ln -sf ../../source/$(LIBNAME) $(LIBNAME)
 else
-	$(LINK) $+ -lpthread -lstdc++ -lCrissCross -o $(OUTDIR)/$(OUTBIN)
+	$(LINK) $+ $(LDFLAGS) -o $(OUTDIR)/$(OUTBIN)
+endif
+ifneq ($(GCC_NDS),)
+	arm-eabi-objcopy -O binary $(OUTDIR)/$(OUTBIN) $(OUTDIR)/$(OUTBIN).arm9
+	ndstool -c $(OUTDIR)/$(OUTBIN).nds -9 $(OUTDIR)/$(OUTBIN).arm9
 endif
 ifneq ($(GCC_ISEMULATED),yes)
 	$(NM) $(OUTDIR)/$(OUTBIN) > $(OUTDIR)/$(OUTBIN).map

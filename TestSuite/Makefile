@@ -31,10 +31,6 @@ ifneq ($(CC_BUILDSTATIC),yes)
 LDFLAGS += -rdynamic
 endif
 
-ifeq ($(GCC_NDS),)
-LDFLAGS += -lpthread $(LDFLAGS)
-endif
-
 INCLUDES += -I. -I../source
 CXXFLAGS += $(INCLUDES)
 
@@ -62,6 +58,10 @@ clean:
 	-rm -f .depend
 	-rm -rf .libs
 	-rm -f $(OUTDIR)/$(OUTBIN)
+ifneq ($(GCC_NDS),)
+	-rm -f $(OUTDIR)/$(OUTBIN).nds
+	-rm -f $(OUTDIR)/$(OUTBIN).arm9
+endif
 	-rm -f $(OUTDIR)/$(OUTBIN).map
 	-rm -f $(GCH)
 ifneq ($(CC_BUILDSTATIC),yes)
@@ -80,10 +80,10 @@ ifneq ($(CC_BUILDSTATIC),yes)
 	ln -sf ../source/$(LIBNAME) $(LIBNAME)
 else
 	$(LINK) $+ $(LDFLAGS) -o $(OUTDIR)/$(OUTBIN)
+endif
 ifneq ($(GCC_NDS),)
 	arm-eabi-objcopy -O binary $(OUTDIR)/$(OUTBIN) $(OUTDIR)/$(OUTBIN).arm9
 	ndstool -c $(OUTDIR)/$(OUTBIN).nds -9 $(OUTDIR)/$(OUTBIN).arm9
-endif
 endif
 ifneq ($(GCC_ISEMULATED),yes)
 	$(NM) $(OUTDIR)/$(OUTBIN) > $(OUTDIR)/$(OUTBIN).map

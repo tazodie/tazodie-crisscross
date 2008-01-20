@@ -5,14 +5,14 @@ VERSION_MAJOR = 0
 
 OPTLEVEL = 3
 
-CXX = g++
-CC = gcc
+CXX = $(DEVKITARM)/bin/arm-eabi-g++
+CC = $(DEVKITARM)/bin/arm-eabi-gcc
 
 STDC = -pedantic
 STDCPP = -std=c++98 -pedantic
 
 LINK = $(CXX)
-LDFLAGS = -lstdc++ -L../source -lCrissCross
+LDFLAGS = -lstdc++ -L../source  -L../../source -lCrissCross
 
 GCC_APPLE    := $(shell $(CXX) -v 2>&1 | \
                     grep "Apple" )
@@ -172,6 +172,10 @@ LDFLAGS += -L$(DEVKITPRO)/libnds/lib -lfat -lnds9 -specs=ds_arm9.specs -g $(ARCH
 INCLUDES = -I$(DEVKITARM)/arm-eabi/include -I$(DEVKITPRO)/libnds/include
 
 include $(DEVKITARM)/ds_rules
+
+else
+
+LDFLAGS += -lpthread
 
 endif
 

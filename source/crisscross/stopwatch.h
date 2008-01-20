@@ -92,6 +92,12 @@ namespace CrissCross
              */
             double Elapsed();
 
+            //! Indicates the number of milliseconds elapsed.
+            /*!
+                \return Number of milliseconds elapsed between the Start() and Stop() calls.
+             */
+            unsigned long ElapsedMS();
+
 			//! Indicates the number of clock cycles elapsed. NOTE: CURRENTLY ONLY IMPLEMENTED ON WINDOWS
 			/*!
 				\return Number of clock cycles elapsed between Start() and Stop() calls.

@@ -14,11 +14,17 @@
 
 using namespace CrissCross;
 
+#ifndef TARGET_OS_NDSFIRMWARE
+#define COLUMN_LIMIT 69
+#else
+#define COLUMN_LIMIT 55
+#endif
+
 void WritePrefix ( const char *_prefix )
 {
     char temp[128];
     sprintf ( temp, "%s...", _prefix );
-    while ( strlen(temp) < 69 )
+    while ( strlen(temp) < COLUMN_LIMIT )
         strcat ( temp, " " );
     g_console->Write ( temp );
 }
