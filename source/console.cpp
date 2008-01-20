@@ -46,7 +46,7 @@ namespace CrissCross
         #elif defined ( TARGET_OS_NDSFIRMWARE )
             irqInit();
             irqEnable(IRQ_VBLANK);
-            videoSetMode(0);
+            videoSetMode(MODE_0_2D);
             videoSetModeSub(MODE_0_2D | DISPLAY_BG0_ACTIVE);
             vramSetBankC(VRAM_C_SUB_BG);
 	        SUB_BG0_CR = BG_MAP_BASE(31);
@@ -54,11 +54,19 @@ namespace CrissCross
 	        consoleInitDefault((u16*)SCREEN_BASE_BLOCK_SUB(31), (u16*)CHAR_BASE_BLOCK_SUB(0), 16);
 		#endif
 		#ifdef ENABLE_CREDITS
+        #if defined ( TARGET_OS_NDSFIRMWARE )
+			g_stdout->SetColour ( g_stdout->FG_GREEN | g_stdout->FG_INTENSITY );
+			g_stdout->WriteLine ( "Powered by " CC_LIB_NAME " " CC_LIB_VERSION "\n" );
+			g_stdout->SetColour ( 0 );
+			g_stdout->WriteLine ( CC_LIB_COPYRIGHT );
+			g_stdout->WriteLine ();
+        #else
 			g_stdout->SetColour ( g_stdout->FG_GREEN | g_stdout->FG_INTENSITY );
 			g_stdout->WriteLine ( "Powered by " CC_LIB_NAME " " CC_LIB_VERSION " (Codename " CC_LIB_CODENAME ")\n    " CC_LIB_URL );
 			g_stdout->SetColour ( 0 );
 			g_stdout->WriteLine ( CC_LIB_COPYRIGHT );
 			g_stdout->WriteLine ();
+        #endif
 		#endif
 		}
 

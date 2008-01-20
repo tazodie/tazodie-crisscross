@@ -278,8 +278,16 @@ RunApplication ( int argc, char **argv )
 
     // Begin your application here.
 
+#ifdef USE_INTEGERS
+	console->WriteLine ( "Using INTEGER math only.\n" );
+#else
+	console->WriteLine ( "Using FLOAT math only.\n" );
+#endif
+
 #ifdef PREGEN
+	console->Write ( "Pregenerating %d primes... ", PREGEN );
 	PrecalculatePrimes ();
+	console->WriteLine ( "OK\n" );
 #endif
 
 #ifdef TARGET_OS_WINDOWS
@@ -287,17 +295,27 @@ RunApplication ( int argc, char **argv )
 	HANDLE hProcess = GetCurrentProcess();
 	SetThreadPriority ( hThread, THREAD_PRIORITY_TIME_CRITICAL );
 	SetPriorityClass ( hProcess, HIGH_PRIORITY_CLASS );
+	
+	console->WriteLine ( "Compiler optimized:" );
+	
 #endif
 
 	Stopwatch sw;
 
-	console->WriteLine ( "Compiler optimized:" );
+#ifdef TARGET_OS_NDSFIRMWARE
+	for ( unsigned long i = 1000; i <= 100000; i += 1000 )
+#else
 	for ( unsigned long i = 100000; i <= 500000; i += 100000 )
+#endif
 	{
 		sw.Start();
 		genPrime ( i, isPrime );
 		sw.Stop();
+#ifdef TARGET_OS_NDSFIRMWARE
+		console->WriteLine ( "%d primes: %0.3lfs", i, sw.Elapsed() );
+#else
 		console->WriteLine ( "Time for %9d primes: %6.3lf seconds", i, sw.Elapsed() );
+#endif
 	}
 
 #ifdef TARGET_OS_WINDOWS
