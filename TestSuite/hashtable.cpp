@@ -22,7 +22,7 @@ int TestHashTable()
 	HashTable<int> ht;
 
 	char buffer[32];
-	const unsigned long max = 10000;
+	const unsigned long max = 1000;
 	unsigned long i;
 	for ( i = 0; i < max; i++ )
 	{

@@ -8,9 +8,11 @@ OPTLEVEL = 3
 CXX = g++
 CC = gcc
 
-LINK = $(CXX)
+STDC = -pedantic
+STDCPP = -std=c++98 -pedantic
 
-INCLUDES = 
+LINK = $(CXX)
+LDFLAGS = -lstdc++ -L../source -lCrissCross
 
 GCC_APPLE    := $(shell $(CXX) -v 2>&1 | \
                     grep "Apple" )
@@ -18,6 +20,8 @@ GCC_MINGW    := $(shell $(CXX) -v 2>&1 | \
                     grep "mingw" )
 GCC_CYGMING  := $(shell $(CXX) -v 2>&1 | \
                     grep "cygming" )
+GCC_NDS      := $(shell $(CXX) -v 2>&1 | \
+                    grep "devkitARM" )
 GCC_MAJOR    := $(shell $(CXX) -dumpversion 2>&1 | \
                         cut -d' ' -f3  | cut -d'.' -f1)
 GCC_MINOR    := $(shell $(CXX) -dumpversion 2>&1 | \
@@ -42,6 +46,8 @@ GCC_HAS_MMX = no
 GCC_HAS_SSE = no
 GCC_HAS_SSE2 = no
 CC_BUILDSTATIC = yes
+
+ifneq ($(GCC_NDS),)
 
 ifeq ($(GCC_PROC),i386)
 GCC_IS386 = yes
@@ -92,6 +98,8 @@ endif
 ifneq ($(GCC_APPLE),)
 GCC_ISAPPLE = yes
 CC_BUILDSTATIC = yes
+endif
+
 endif
 
 ifneq ($(GCC_CYGMING),)
@@ -151,16 +159,32 @@ else
     endif
 endif
 
+ifneq ($(GCC_NDS),)
+
+ifeq ($(strip $(DEVKITARM)),)
+    $(error "Please set DEVKITARM in your environment. export DEVKITARM=<path to>devkitARM)
+endif
+
+STDC =
+STDCPP =
+ARCH = -march=armv5te -mtune=arm946e-s -mthumb -mthumb-interwork -DARM9
+LDFLAGS += -L$(DEVKITPRO)/libnds/lib -lfat -lnds9 -specs=ds_arm9.specs -g $(ARCH) -mno-fpu
+INCLUDES = -I$(DEVKITARM)/arm-eabi/include -I$(DEVKITPRO)/libnds/include
+
+include $(DEVKITARM)/ds_rules
+
+endif
+
 ifeq ($(CFLAGS),)
-CFLAGS = -O$(OPTLEVEL) $(ARCH) -std=c++98 -Wall -pedantic -Wno-long-long -pipe -ggdb
+CFLAGS = -O$(OPTLEVEL) $(STDC) $(ARCH) -Wall -Wno-long-long -pipe -ggdb
 else
-CFLAGS := -std=c++98 -Wall -pedantic -Wno-long-long
+CFLAGS := $(STDC) -Wall -Wno-long-long
 endif
 
 ifeq ($(CXXFLAGS),)
-CXXFLAGS = $(CFLAGS) -fno-rtti -fno-exceptions
+CXXFLAGS = $(CFLAGS) $(STDCPP) -fno-rtti -fno-exceptions
 else
-CXXFLAGS := -std=c++98 -Wall -pedantic -Wno-long-long -fno-rtti -fno-exceptions
+CXXFLAGS := $(STDCPP) -Wall -Wno-long-long -fno-rtti -fno-exceptions
 endif
 
 ifneq ($(CC_BUILDSTATIC),yes)
@@ -173,3 +197,4 @@ AR = ar rc
 RANLIB = ranlib
 NM = nm
 STRIP = :
+ 

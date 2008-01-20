@@ -45,7 +45,9 @@ namespace CrissCross
 #elif defined ( TARGET_OS_MACOSX )
             uint64_t elapsed = m_finish - m_start;
             return double(elapsed) * ( m_timebase.numer / m_timebase.denom ) / 1000000000.0;
-#elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
+#elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || \
+      defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD ) || \
+      defined ( TARGET_OS_NDSFIRMWARE )
             return (double)(m_finish.tv_sec - m_start.tv_sec) +
                 ( (double)(m_finish.tv_usec) - (double)(m_start.tv_usec) ) / 1000000.0;
 #endif
@@ -62,7 +64,9 @@ namespace CrissCross
             return m_finish.QuadPart - m_start.QuadPart - overhead;
 #elif defined ( TARGET_OS_MACOSX )
             return 0;
-#elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
+#elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || \
+      defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD ) || \
+      defined ( TARGET_OS_NDSFIRMWARE )
             return 0;
 #endif
 		}

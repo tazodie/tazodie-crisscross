@@ -46,9 +46,9 @@ namespace CrissCross
         {
             CoreAssert ( _first ); CoreAssert ( _second );
 #ifdef CASE_SENSITIVE_COMPARE
-            int ret = strcmp ( _first, _second );
+            int ret = ::strcmp ( _first, _second );
 #else
-            int ret = strcasecmp ( _first, _second );
+            int ret = ::strcasecmp ( _first, _second );
 #endif
             if ( ret < 0 ) return -1;
             else if ( ret > 0 ) return 1;
@@ -61,9 +61,9 @@ namespace CrissCross
         {
             CoreAssert ( _first ); CoreAssert ( _second );
 #ifdef CASE_SENSITIVE_COMPARE
-            int ret = strcmp ( _first, _second );
+            int ret = ::strcmp ( _first, _second );
 #else
-            int ret = strcasecmp ( _first, _second );
+            int ret = ::strcasecmp ( _first, _second );
 #endif
             if ( ret < 0 ) return -1;
             else if ( ret > 0 ) return 1;

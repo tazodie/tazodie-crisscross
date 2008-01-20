@@ -19,7 +19,7 @@
 #if defined ( TARGET_OS_MACOSX )
 #   include <mach/mach.h>
 #   include <mach/mach_time.h>
-#elif defined ( TARGET_OS_LINUX )
+#elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_NDSFIRMWARE )
 #   include <sys/time.h>
 #   include <time.h>
 #endif
@@ -41,7 +41,9 @@ namespace CrissCross
             uint64_t                    m_start;
             uint64_t                    m_finish;
             mach_timebase_info_data_t     m_timebase;
-#elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
+#elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || \
+      defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD ) || \
+      defined ( TARGET_OS_NDSFIRMWARE )
             struct timeval              m_start;
             struct timeval              m_finish;
 #else
@@ -63,7 +65,9 @@ namespace CrissCross
 				QueryPerformanceCounter ( &m_start );
 			#elif defined ( TARGET_OS_MACOSX )
 				m_start = mach_absolute_time ();
-			#elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_OPENBSD ) || defined ( TARGET_OS_NETBSD )
+            #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || \
+                  defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD ) || \
+                  defined ( TARGET_OS_NDSFIRMWARE )
 				gettimeofday ( &m_start, NULL );
 			#endif
 			};
@@ -75,7 +79,9 @@ namespace CrissCross
 				QueryPerformanceCounter ( &m_finish );
 			#elif defined ( TARGET_OS_MACOSX )
 				m_finish = mach_absolute_time ();
-			#elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_OPENBSD ) || defined ( TARGET_OS_NETBSD )
+            #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || \
+                  defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD ) || \
+                  defined ( TARGET_OS_NDSFIRMWARE )
 				gettimeofday ( &m_finish, NULL );
 			#endif
 			};

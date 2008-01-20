@@ -87,6 +87,8 @@ namespace CrissCross
 		#ifndef __GNUC__
 			m_ioMutex.Lock ();
 		#endif
+
+#ifdef HAS_FPOS64
 			fpos64_t lastpos, endpos;
 #ifdef TARGET_OS_WINDOWS
 			lastpos = _ftelli64 ( m_fileInputPointer );
@@ -104,12 +106,20 @@ namespace CrissCross
 			fgetpos64 ( m_fileInputPointer, &endpos );
 			fsetpos64 ( m_fileInputPointer, &lastpos );
 #endif
+#else
+			fpos_t lastpos, endpos;
+            lastpos = ftell ( m_fileInputPointer );
+            fseek ( m_fileInputPointer, 0, SEEK_END );
+            endpos = ftell ( m_fileInputPointer );
+            fseek ( m_fileInputPointer, lastpos, SEEK_SET );
+#endif
 		#ifndef __GNUC__
 			m_ioMutex.Unlock ();
 		#endif
 
 		#if defined ( TARGET_OS_WINDOWS ) || defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_FREEBSD ) || \
-			defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD ) || defined ( TARGET_COMPILER_CYGWIN )
+			defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD ) || defined ( TARGET_COMPILER_CYGWIN ) || \
+            defined ( TARGET_OS_NDSFIRMWARE )
 			return endpos;
 		#elif defined ( TARGET_OS_LINUX )
 			return endpos.__pos;
@@ -233,13 +243,17 @@ namespace CrissCross
 		#ifndef __GNUC__
 			m_ioMutex.Lock ();
 		#endif
+#ifdef HAS_FPOS64
 #ifdef TARGET_OS_WINDOWS
 			int res = _fseeki64 ( m_fileInputPointer, _position, _origin );
 #elif defined ( TARGET_OS_MACOSX )
 			int res = fseek ( m_fileInputPointer, _position, _origin );
 #else
 			int res = fseeko64 ( m_fileInputPointer, _position, _origin );
-#endif			
+#endif
+#else
+            int res = fseek ( m_fileInputPointer, _position, _origin );
+#endif
 		#ifndef __GNUC__
 			m_ioMutex.Unlock ();
 		#endif
@@ -264,7 +278,8 @@ namespace CrissCross
 			{
 		#if defined ( TARGET_OS_WINDOWS )
 				_ending = CC_LN_CRLF;
-		#elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD ) || defined ( TARGET_OS_NDSFIRMWARE )
+		#elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_FREEBSD ) || \
+              defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD ) || defined ( TARGET_OS_NDSFIRMWARE )
 				_ending = CC_LN_LF;
 		#else
 		#        error You are not using a supported OS.

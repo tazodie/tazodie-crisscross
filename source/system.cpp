@@ -30,7 +30,9 @@ namespace CrissCross
         //! The time base information. (Mac OS X only)
         mach_timebase_info_data_t __m_timebase;
 
-    #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
+    #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || \
+          defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD ) || \
+          defined ( TARGET_OS_NDSFIRMWARE )
 
         //! The time index at which the timer started. (Linux only)
         timeval __m_start;
@@ -48,7 +50,9 @@ namespace CrissCross
     #elif defined ( TARGET_OS_MACOSX )
             mach_timebase_info ( &__m_timebase );
             __m_start = mach_absolute_time ();
-    #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
+    #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || \
+          defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD ) || \
+          defined ( TARGET_OS_NDSFIRMWARE )
             gettimeofday ( &__m_start, NULL );
     #endif
         }
@@ -65,7 +69,9 @@ namespace CrissCross
             uint64_t elapsed = mach_absolute_time () - __m_start;
             return double ( elapsed ) * ( __m_timebase.numer / __m_timebase.denom ) /
                 1000000000.0;
-    #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
+    #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || \
+          defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD ) || \
+          defined ( TARGET_OS_NDSFIRMWARE )
             timeval now;
             double t1, t2;
 
