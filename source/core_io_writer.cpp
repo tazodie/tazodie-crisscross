@@ -67,7 +67,8 @@ namespace CrissCross
 			{
 		#if defined ( TARGET_OS_WINDOWS )
 				_ending = CC_LN_CRLF;
-		#elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
+		#elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_FREEBSD ) || \
+              defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD ) || defined ( TARGET_OS_NDSFIRMWARE )
 				_ending = CC_LN_LF;
 		#else
 		#        error You are not using a supported OS.

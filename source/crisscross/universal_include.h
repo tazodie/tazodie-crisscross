@@ -99,6 +99,15 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #       undef DETECT_MEMORY_LEAKS
 #   endif
 
+#   if ( !defined ( TARGET_OS_NDSFIRMWARE ) )
+#       define HAS_FPOS64
+#   endif
+
+#   if ( defined ( TARGET_OS_NDSFIRMWARE ) )
+#       define CASE_SENSITIVE_COMPARE
+#       undef ENABLE_BACKTRACE
+#   endif
+
 // Doesn't work on non-x86, and Cygwin doesn't have the functionality for cpu_set_t.
 #   if ! ( defined ( TARGET_CPU_X86 ) || defined ( TARGET_CPU_X64 ) ) || defined ( TARGET_COMPILER_CYGWIN ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD ) || defined ( TARGET_OS_MACOSX )
 #       undef ENABLE_CPUID
@@ -159,8 +168,9 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #		ifdef __cplusplus
 #			include <cxxabi.h>
 #		endif
-#       include <pthread.h>
+#       include <nds.h>
 #       include <sys/types.h>
+#       include <sys/time.h>
 #       include <unistd.h>
 #       include <errno.h>
 #       include <ctype.h>
@@ -224,6 +234,12 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 			extern "C" __int64 __cdecl _ftelli64(FILE *);
 #		endif
 #	endif
+
+#   if defined ( TARGET_OS_NDSFIRMWARE )
+#       define printf iprintf
+#       define fprintf fiprintf
+#       define sprintf siprintf
+#   endif
 
 #   if defined ( TARGET_OS_WINDOWS )
 #       if defined ( DETECT_MEMORY_LEAKS )

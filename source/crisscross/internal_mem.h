@@ -33,14 +33,14 @@ namespace CrissCross
         __inline char *Duplicate ( char * const &_data )
         {
 			CoreAssert ( _data );
-            return strdup ( _data );
+            return ::strdup ( _data );
         }
 
         template <>
         __inline const char *Duplicate ( const char * const &_data )
         {
 			CoreAssert ( _data );
-            return strdup ( _data );
+            return ::strdup ( _data );
         }
 
         template < class T >
@@ -53,7 +53,7 @@ namespace CrissCross
         {
             if ( _data )
 			{
-				free ( _data );
+                ::free ( _data );
 				_data = NULL;
 			}
         }
@@ -63,7 +63,7 @@ namespace CrissCross
         {
             if ( _data )
 			{
-				free ( (char *)_data );
+                ::free ( (char *)_data );
 				_data = NULL;
 			}
         }

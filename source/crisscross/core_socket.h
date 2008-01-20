@@ -28,6 +28,10 @@
 # define socket_t int
 #endif
 
+/* We're leaving sockets unimplemented on the Nintendo DS for the moment. We
+   need to familiarize ourselves with the devkitARM API for sockets first */
+#if !defined ( TARGET_OS_NDSFIRMWARE )
+
 namespace CrissCross
 {
     namespace Network
@@ -212,5 +216,7 @@ namespace CrissCross
         };
     }
 }
+
+#endif
 
 #endif

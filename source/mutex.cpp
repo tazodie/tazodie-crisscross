@@ -13,6 +13,8 @@
 #include <crisscross/debug.h>
 #include <crisscross/mutex.h>
 
+#ifndef TARGET_OS_NDSFIRMWARE
+
 namespace CrissCross
 {
 	namespace System
@@ -68,3 +70,5 @@ namespace CrissCross
 		}
 	}
 }
+
+#endif

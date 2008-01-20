@@ -16,6 +16,8 @@
 #include <crisscross/universal_include.h>
 #endif
 
+#ifndef TARGET_OS_NDSFIRMWARE
+
 #if defined ( TARGET_OS_WINDOWS )
 #    include <windows.h>
 #else
@@ -65,4 +67,7 @@ namespace CrissCross
         };
     }
 }
+
+#endif
+
 #endif

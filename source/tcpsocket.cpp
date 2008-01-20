@@ -13,6 +13,10 @@
 #include <crisscross/core_socket.h>
 #include <crisscross/tcpsocket.h>
 
+/* We're leaving sockets unimplemented on the Nintendo DS for the moment. We
+   need to familiarize ourselves with the devkitARM API for sockets first */
+#if !defined ( TARGET_OS_NDSFIRMWARE )
+
 #if !defined ( TARGET_OS_WINDOWS )
 #    include <arpa/inet.h>
 #    include <errno.h>
@@ -293,3 +297,5 @@ namespace CrissCross
 		}
 	}
 }
+
+#endif

@@ -43,6 +43,15 @@ namespace CrissCross
 			if ( _clearOnInit ) Clear();
 
 			SetTitle ( CC_LIB_NAME " " CC_LIB_VERSION " (Codename " CC_LIB_CODENAME ")" );
+        #elif defined ( TARGET_OS_NDSFIRMWARE )
+            irqInit();
+            irqEnable(IRQ_VBLANK);
+            videoSetMode(0);
+            videoSetModeSub(MODE_0_2D | DISPLAY_BG0_ACTIVE);
+            vramSetBankC(VRAM_C_SUB_BG);
+	        SUB_BG0_CR = BG_MAP_BASE(31);
+	        BG_PALETTE_SUB[255] = RGB15(31,31,31);
+	        consoleInitDefault((u16*)SCREEN_BASE_BLOCK_SUB(31), (u16*)CHAR_BASE_BLOCK_SUB(0), 16);
 		#endif
 		#ifdef ENABLE_CREDITS
 			g_stdout->SetColour ( g_stdout->FG_GREEN | g_stdout->FG_INTENSITY );
