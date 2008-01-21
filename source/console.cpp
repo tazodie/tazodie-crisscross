@@ -56,9 +56,9 @@ namespace CrissCross
 		#ifdef ENABLE_CREDITS
         #if defined ( TARGET_OS_NDSFIRMWARE )
 			g_stdout->SetColour ( g_stdout->FG_GREEN | g_stdout->FG_INTENSITY );
-			g_stdout->WriteLine ( "Powered by " CC_LIB_NAME " " CC_LIB_VERSION "\n" );
+			g_stdout->WriteLine ( "Powered by " CC_LIB_NAME " v" CC_LIB_VERSION );
 			g_stdout->SetColour ( 0 );
-			g_stdout->WriteLine ( CC_LIB_COPYRIGHT );
+			g_stdout->WriteLine ( CC_LIB_NDS_COPYRIGHT );
 			g_stdout->WriteLine ();
         #else
 			g_stdout->SetColour ( g_stdout->FG_GREEN | g_stdout->FG_INTENSITY );
@@ -104,13 +104,14 @@ namespace CrissCross
 				SetConsoleTextAttribute ( hConsole, _flags );
 		#elif defined ( ANSI_COLOUR )
 			// Reset colours to defaults.
-			char codes[16];
-
-			sprintf ( codes, "\033[" );
-			Write ( "\033[0m" );
+			Write ( "\033[39m" );
 
 			if ( _flags == 0 )
 				return;
+
+			char codes[16];
+
+			sprintf ( codes, "\033[" );
 
 			if ( _flags & FG_INTENSITY )
 				strcat ( codes, "1;" );
@@ -191,8 +192,9 @@ namespace CrissCross
 			FillConsoleOutputAttribute ( hConsole, csbi.wAttributes, dwConSize,
 										 coordScreen, &cCharsWritten );
 			SetConsoleCursorPosition ( hConsole, coordScreen );
-		#elif defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_LINUX )
-			Write ( "%s", "\033[0;0H\033[2J" );
+		#elif defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_LINUX ) || \
+            defined ( TARGET_OS_NDSFIRMWARE )
+			Write ( "%s", "\033[2J" );
 		#endif
 		}
 

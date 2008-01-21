@@ -42,10 +42,11 @@ namespace CrissCross
             uint64_t                    m_finish;
             mach_timebase_info_data_t     m_timebase;
 #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || \
-      defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD ) || \
-      defined ( TARGET_OS_NDSFIRMWARE )
+      defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
             struct timeval              m_start;
             struct timeval              m_finish;
+#elif defined ( TARGET_OS_NDSFIRMWARE )
+            // Nothing here :)
 #else
 #error No target OS defined (did you forget to include crisscross/universal_include.h?)
 #endif
@@ -66,9 +67,15 @@ namespace CrissCross
 			#elif defined ( TARGET_OS_MACOSX )
 				m_start = mach_absolute_time ();
             #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || \
-                  defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD ) || \
-                  defined ( TARGET_OS_NDSFIRMWARE )
+                  defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
 				gettimeofday ( &m_start, NULL );
+            #elif defined ( TARGET_OS_NDSFIRMWARE )
+                TIMER0_CR = 0;
+                TIMER1_CR = 0;
+                TIMER0_DATA = 0;
+                TIMER1_DATA = 0;
+                TIMER1_CR = TIMER_ENABLE | TIMER_CASCADE;
+                TIMER0_CR = TIMER_ENABLE | TIMER_DIV_1;
 			#endif
 			};
 
@@ -80,9 +87,10 @@ namespace CrissCross
 			#elif defined ( TARGET_OS_MACOSX )
 				m_finish = mach_absolute_time ();
             #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || \
-                  defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD ) || \
-                  defined ( TARGET_OS_NDSFIRMWARE )
+                  defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
 				gettimeofday ( &m_finish, NULL );
+            #elif defined ( TARGET_OS_NDSFIRMWARE )
+                TIMER0_CR = 0;
 			#endif
 			};
 

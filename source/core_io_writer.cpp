@@ -42,6 +42,9 @@ namespace CrissCross
 			m_ioMutex.Lock ();
 		#endif
 			fflush ( m_fileOutputPointer );
+        #ifdef TARGET_OS_NDSFIRMWARE
+            swiWaitForVBlank();
+        #endif
 		#ifndef __GNUC__
 			m_ioMutex.Unlock ();
 		#endif
