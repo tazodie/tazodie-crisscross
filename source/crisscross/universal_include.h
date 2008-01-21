@@ -109,6 +109,10 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #       undef ENABLE_BACKTRACE
 #   endif
 
+#	if ( defined ( __STRICT_ANSI__ ) )
+#		define CASE_SENSITIVE_COMPARE
+#	endif
+
 // Doesn't work on non-x86, and Cygwin doesn't have the functionality for cpu_set_t.
 #   if ! ( defined ( TARGET_CPU_X86 ) || defined ( TARGET_CPU_X64 ) ) || defined ( TARGET_COMPILER_CYGWIN ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD ) || defined ( TARGET_OS_MACOSX )
 #       undef ENABLE_CPUID
@@ -192,6 +196,7 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 
 #   if defined ( TARGET_COMPILER_CYGWIN )
 #       undef ENABLE_BACKTRACE
+#		undef HAS_FPOS64
 #   endif
 
 #   if defined ( TARGET_OS_LINUX ) && defined ( ENABLE_BACKTRACE )
@@ -227,6 +232,10 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #	ifndef strdup
 #		define strdup _strdup
 #	endif
+#	endif
+
+#   ifndef strdup
+#		define strdup(x) strcpy((char *)malloc(strlen(x)),x)
 #	endif
 
 #	if defined ( TARGET_COMPILER_VC )

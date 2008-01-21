@@ -5,8 +5,13 @@ VERSION_MAJOR = 0
 
 OPTLEVEL = 3
 
+ifneq ($(BUILDFORNDS),1)
+CXX = g++
+CC = gcc
+else
 CXX = $(DEVKITARM)/bin/arm-eabi-g++
 CC = $(DEVKITARM)/bin/arm-eabi-gcc
+endif
 
 STDC = -pedantic
 STDCPP = -std=c++98 -pedantic
