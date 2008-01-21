@@ -92,7 +92,7 @@ namespace CrissCross
                Sets the console output colour using the flags specified in _flags.
                \param _flags A bitmask created by OR-ing Console::ColourTypes flags.
              */
-            void SetColour ( short _flags );
+            void SetColour ( int _flags );
 
 			//! Sets the title of the console window (Windows only).
 			/*!
