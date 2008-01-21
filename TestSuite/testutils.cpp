@@ -17,7 +17,7 @@ using namespace CrissCross;
 #ifndef TARGET_OS_NDSFIRMWARE
 #define COLUMN_LIMIT 69
 #else
-#define COLUMN_LIMIT 55
+#define COLUMN_LIMIT 54
 #endif
 
 void WritePrefix ( const char *_prefix )
