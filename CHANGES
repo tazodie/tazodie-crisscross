@@ -1,4 +1,11 @@
 VERSION ???
+	* Nintendo DS homebrew support added (compile with 'make BUILDFORNDS=1')
+		- Copyright changed to fit Nintendo DS screen.
+		- Cross-compiling is possible with devkitPro.
+		- Console class supports libnds console features.
+	* Fixed ANSI reset color code.
+	* GenPrime algorithm updated slightly to improve speed.
+	* SplayTree can't handle duplicate keys properly, so 1:1 compatibility with AVLTree/RedBlackTree has been broken to disable certain duplicate key handling functions.
 	* CPUID updated with December 2007 Intel CPUID specification.
 	* Rare bug in AVLTree corrected.
 
