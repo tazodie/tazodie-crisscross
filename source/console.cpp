@@ -104,7 +104,7 @@ namespace CrissCross
 				SetConsoleTextAttribute ( hConsole, _flags );
 		#elif defined ( ANSI_COLOUR )
 			// Reset colours to defaults.
-			Write ( "\033[39m" );
+			Write ( "\033[0m" );
 
 			if ( _flags == 0 )
 				return;
