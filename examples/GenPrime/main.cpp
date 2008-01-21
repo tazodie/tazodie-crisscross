@@ -14,9 +14,10 @@
 using namespace CrissCross::IO;
 using namespace CrissCross::System;
 
+/* 16K of data. Should fit in most L1 caches. */
 #define PREGEN 4096
 
-//#define USE_INTEGERS
+#define USE_INTEGERS
 
 #ifdef USE_INTEGERS
 typedef unsigned long prime_t;
@@ -182,9 +183,16 @@ isPrime ( unsigned long _candidate )
 
 	/* All numbers less than 4 are prime, except '1'. */
 	if ( _candidate < 4 ) return true;
+    
+	if ( _candidate == 5 ) return true;
 
 	/* All other numbers divisble by 2 are not prime. */
 	if ( _candidate % 2 == 0 ) return false;
+
+	/* All other numbers divisble by 2 are not prime. */
+	if ( _candidate % 5 == 0 ) return false;
+    
+    if ( ( _candidate + 1 ) % 6 != 0 && ( _candidate - 1) % 6 != 0 ) return false;
 
 	n = (prime_t)_candidate;
 
@@ -212,7 +220,7 @@ isPrime ( unsigned long _candidate )
 	/* Now test all other odd numbers up to sqrt(n) */
 	for ( i = next; i <= limit; i += 2 ) if ( _modulus ( n, i ) == 0 ) return false;
 
-	return true;
+    return false;
 #if defined ( TARGET_CPU_X86 )
 #if defined ( TARGET_COMPILER_VC )
 	__asm nop;
@@ -303,7 +311,7 @@ RunApplication ( int argc, char **argv )
 	Stopwatch sw;
 
 #ifdef TARGET_OS_NDSFIRMWARE
-	for ( unsigned long i = 1000; i <= 100000; i += 1000 )
+	for ( unsigned long i = 10000; i <= 50000; i += 1000 )
 #else
 	for ( unsigned long i = 100000; i <= 500000; i += 100000 )
 #endif
@@ -312,9 +320,11 @@ RunApplication ( int argc, char **argv )
 		genPrime ( i, isPrime );
 		sw.Stop();
 #ifdef TARGET_OS_NDSFIRMWARE
-		console->WriteLine ( "%d primes: %0.3lfs", i, sw.Elapsed() );
+        console->WriteLine ( "%5d primes: %d.%03ds (%lu PPS)", i, sw.ElapsedMS() / 1000,
+            sw.ElapsedMS() % 1000, (unsigned long)(i / sw.Elapsed()) );
 #else
-		console->WriteLine ( "Time for %9d primes: %6.3lf seconds", i, sw.Elapsed() );
+		console->WriteLine ( "Time for %9d primes: %6.3lf seconds (%lu PPS)", i, sw.Elapsed(),
+            (unsigned long)((double)i / sw.Elapsed()) );
 #endif
 	}
 
