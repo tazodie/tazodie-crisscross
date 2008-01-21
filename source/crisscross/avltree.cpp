@@ -193,10 +193,11 @@ namespace CrissCross
 		}
 		
 		template <class Key, class Data>
-		void AVLTree<Key,Data>::insert ( Key const &_key, Data const &_data )
+		bool AVLTree<Key,Data>::insert ( Key const &_key, Data const &_data )
 		{
 			insert ( NULL, &m_root, _key, _data );
 			++m_size;
+            return true;
 		}
 
 		template <class Key, class Data>
@@ -682,6 +683,15 @@ namespace CrissCross
 
 			return result;
 		}
+
+		template <class Key, class Data>
+			size_t AVLTree<Key,Data>::mem_usage () const
+        {
+            size_t ret = sizeof ( *this );
+            if ( !m_root ) return ret;
+            ret += m_root->mem_usage();
+            return ret;
+        }
 
 		template <class Key, class Data>
 			DArray<Data> *AVLTree<Key,Data>::ConvertToDArray () const

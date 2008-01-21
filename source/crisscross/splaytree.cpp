@@ -275,6 +275,7 @@ namespace CrissCross
 			static SplayNode<Key,Data> header;
 
 			header.left = header.right = NULL;
+
 			leftTreeMax = rightTreeMin = &header;
 
 			for( ; ; )
@@ -311,6 +312,8 @@ namespace CrissCross
 			rightTreeMin->left = t->right;
 			t->left = header.right;
 			t->right = header.left;
+
+			header.left = header.right = NULL;
 		}
 
 
@@ -339,6 +342,15 @@ namespace CrissCross
 				k1->parent = k2;
 			k1 = k2;
 		}
+
+		template <class Key, class Data>
+			size_t SplayTree<Key,Data>::mem_usage () const
+        {
+            size_t ret = sizeof ( *this );
+            if ( !root ) return ret;
+            ret += root->mem_usage();
+            return ret;
+        }
 
 		template <class Key, class Data>
 		DArray<Data> *SplayTree<Key,Data>::ConvertToDArray () const

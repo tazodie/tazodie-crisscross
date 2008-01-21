@@ -202,6 +202,12 @@ namespace CrissCross
              */
             inline T const & operator []( size_t _index ) const;
 
+            //! Returns the memory usage of the array.
+            /*!
+                \return Memory usage in bytes.
+             */
+            size_t mem_usage() const;
+
 			/*
 				Deprecated Compatibility Functions
 				Provided for compatibility with Tosser I

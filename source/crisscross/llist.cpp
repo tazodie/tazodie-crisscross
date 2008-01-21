@@ -325,6 +325,19 @@ namespace CrissCross
 			--m_numItems;
 		}
 
+		template < class T >
+			size_t LList<T>::mem_usage () const
+        {
+            LListNode<T> *node = m_first;
+            size_t ret = sizeof ( *this );
+            while ( node )
+            {
+                ret += sizeof ( *node );
+                node = node->m_next;
+            }
+            return ret;
+        }
+
 		template < class T > void LList < T >::sort ( CrissCross::Data::Sorter<T> &_sortMethod )
 		{
 			sort ( &_sortMethod );

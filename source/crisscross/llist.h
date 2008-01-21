@@ -25,14 +25,14 @@ namespace CrissCross
         template < class T > class LListNode
         {
         public:
-			//! The data contained in this node.
-            T m_data;
-
 			//! The following node in the list.
             LListNode *m_next;
 
 			//! The preceding node in the list.
             LListNode *m_previous;
+
+			//! The data contained in this node.
+            T m_data;
 
 			//! The default constructor.
             LListNode ();
@@ -194,6 +194,12 @@ namespace CrissCross
 				\param _sortMethod The method to sort with.
 			 */
             void sort ( CrissCross::Data::Sorter<T> &_sortMethod );
+
+            //! Returns the memory usage of the list and its nodes.
+            /*!
+                \return Memory usage in bytes.
+             */
+            size_t mem_usage() const;
 
 			/*
 				Deprecated Compatibility Functions
