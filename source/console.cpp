@@ -91,7 +91,7 @@ namespace CrissCross
 		}
 
 		void
-		Console::SetColour ( short _flags )
+		Console::SetColour ( int _flags )
 		{
 			CoreAssert ( this != NULL );
 
