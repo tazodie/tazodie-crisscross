@@ -196,6 +196,15 @@ namespace CrissCross
 		}
 
 		template <class T>
+			size_t HashTable<T>::mem_usage () const
+        {
+            size_t ret = sizeof ( *this );
+            ret += m_size * sizeof ( T );
+            ret += m_size * sizeof ( char * );
+            return ret;
+        }
+
+		template <class T>
 		bool HashTable<T>::insert ( const char * const &_key, T const &_data )
 		{
 			

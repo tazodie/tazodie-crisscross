@@ -21,10 +21,23 @@ fi
 
 PREINCLUDED="__included_build_number_h"
 
-echo "#ifndef ${PREINCLUDED}" > build_number.h
-echo "#define ${PREINCLUDED}" >> build_number.h
-echo "" >> build_number.h
-echo "#define BUILD_NUMBER ${BUILD}" >> build_number.h
-echo "" >> build_number.h
-echo "#endif" >> build_number.h
-echo "" >> build_number.h
+echo "#ifndef ${PREINCLUDED}" > build_number.h.tmp
+echo "#define ${PREINCLUDED}" >> build_number.h.tmp
+echo "" >> build_number.h.tmp
+echo "#define BUILD_NUMBER ${BUILD}" >> build_number.h.tmp
+echo "" >> build_number.h.tmp
+echo "#endif" >> build_number.h.tmp
+echo "" >> build_number.h.tmp
+
+touch build_number.h
+
+TEMPHEADERMD5=`md5sum build_number.h.tmp | cut -d' ' -f 1`
+HEADERMD5=`md5sum build_number.h | cut -d' ' -f 1`
+
+if [ "${TEMPHEADERMD5}" != "${HEADERMD5}" ]; then
+	echo "Header updated."
+	mv build_number.h.tmp build_number.h
+else
+	echo "Header is already up to date. Skipping update..."
+	rm build_number.h.tmp
+fi

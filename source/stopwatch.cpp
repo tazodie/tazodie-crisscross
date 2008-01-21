@@ -57,7 +57,7 @@ namespace CrissCross
         unsigned long Stopwatch::ElapsedMS()
         {
 #if defined ( TARGET_OS_WINDOWS )
-            return ( (double)m_finish.QuadPart - (double)m_start.QuadPart ) * m_tickInterval * 1000.0;
+            return (unsigned long)(( (double)m_finish.QuadPart - (double)m_start.QuadPart ) * m_tickInterval * 1000.0);
 #elif defined ( TARGET_OS_MACOSX )
             uint64_t elapsed = m_finish - m_start;
             return double(elapsed) * ( m_timebase.numer / m_timebase.denom ) / 1000000.0;

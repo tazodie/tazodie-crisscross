@@ -551,6 +551,15 @@ namespace CrissCross
 		}
 
 		template <class Key, class Data>
+			size_t RedBlackTree<Key,Data>::mem_usage () const
+        {
+            size_t ret = sizeof ( *this );
+            if ( !rootNode ) return ret;
+            ret += rootNode->mem_usage();
+            return ret;
+        }
+
+		template <class Key, class Data>
 			DArray<Data> *RedBlackTree<Key,Data>::ConvertToDArray () const
 		{
 			DArray<Data> *darray = new DArray<Data> ( (int)size() );

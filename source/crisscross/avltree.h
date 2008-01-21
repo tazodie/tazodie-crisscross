@@ -209,7 +209,7 @@ namespace CrissCross
                 \param _data The data to insert.
                 \return True on success, false on failure.
              */
-			void insert ( Key const &_key, Data const &_data );
+			bool insert ( Key const &_key, Data const &_data );
 
 			//! Deletes a node from the tree, specified by the node's key.
             /*!
@@ -297,6 +297,12 @@ namespace CrissCross
 				\warning Delete the returned DArray when done with it.
              */
             DArray <Key>  *ConvertIndexToDArray () const;
+
+            //! Returns the memory usage of the tree and its nodes.
+            /*!
+                \return Memory usage in bytes.
+             */
+            size_t mem_usage() const;
 
 			/*
 				Deprecated Compatibility Functions

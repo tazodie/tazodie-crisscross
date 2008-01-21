@@ -279,6 +279,15 @@ namespace CrissCross
 		}
 
 		template < class T >
+			size_t DArray<T>::mem_usage () const
+        {
+            size_t ret = sizeof ( *this );
+            ret += m_arraySize * sizeof(T);
+            ret += m_arraySize * sizeof(char);
+            return ret;
+        }
+
+		template < class T >
 		void DArray < T >::remove ( size_t index )
 		{
 			CoreAssert ( m_shadow[index] != 0 );

@@ -61,6 +61,15 @@ namespace CrissCross
 				delete left; left = NULL;
 				delete right; right = NULL;
 			}
+
+            //! Memory usage in bytes.
+            size_t mem_usage () const
+            {
+                size_t ret = sizeof ( *this );
+                if ( left ) ret += left->mem_usage();
+                if ( right ) ret += right->mem_usage();
+                return ret;
+            }
         };
 
 		//! The current balance status of a node
@@ -81,14 +90,6 @@ namespace CrissCross
 		class AVLNode
 		{
 		public:
-            //! The key for this node.
-            Key         id;
-
-            //! The data held at this node.
-            Data        data;
-
-			//! The state of this part of the tree's balance.
-			AVLBalance balance;
 
             //! The left branch of the tree from this node.
 			AVLNode *left;
@@ -99,8 +100,17 @@ namespace CrissCross
             //! The parent node.
 			AVLNode *parent;
 
+            //! The key for this node.
+            Key         id;
+
+            //! The data held at this node.
+            Data        data;
+
+			//! The state of this part of the tree's balance.
+			char balance;
+
             //! The default constructor.
-			AVLNode (): balance(BALANCED), left(NULL), right(NULL), parent(NULL) {}
+			AVLNode (): left(NULL), right(NULL), parent(NULL), balance(BALANCED) {}
 
 			//! The default destructor.
 			~AVLNode ()
@@ -110,6 +120,15 @@ namespace CrissCross
 				delete right; right = NULL;
 			}
 
+            //! Memory usage in bytes.
+            size_t mem_usage () const
+            {
+                size_t ret = sizeof ( *this );
+                if ( left ) ret += left->mem_usage();
+                if ( right ) ret += right->mem_usage();
+                return ret;
+            }
+
 		};
 
         //! A binary tree node used for RedBlackTree.
@@ -117,14 +136,6 @@ namespace CrissCross
         class RedBlackNode
         {
         public:
-            //! The key for this node.
-            Key         id;
-
-            //! The data held at this node.
-            Data        data;
-
-            //! The color of the node (either red or black).
-            char        color;
 
             //! The left branch of the tree from this node.
             RedBlackNode *left;
@@ -134,6 +145,15 @@ namespace CrissCross
 
             //! The parent node.
             RedBlackNode *parent;
+
+            //! The key for this node.
+            Key         id;
+
+            //! The data held at this node.
+            Data        data;
+
+            //! The color of the node (either red or black).
+            char        color;
 
             //! The default constructor.
             RedBlackNode () : left(NULL), right(NULL), parent(NULL) {}
@@ -145,6 +165,15 @@ namespace CrissCross
 				delete left; left = NULL;
 				delete right; right = NULL;
 			}
+
+            //! Memory usage in bytes.
+            size_t mem_usage () const
+            {
+                size_t ret = sizeof ( *this );
+                if ( left ) ret += left->mem_usage();
+                if ( right ) ret += right->mem_usage();
+                return ret;
+            }
         };
     }
 }

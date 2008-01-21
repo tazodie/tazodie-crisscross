@@ -52,7 +52,6 @@ namespace CrissCross
 			mutable size_t		m_collisions;
 
 			size_t hash ( const char * const &_key, size_t _length ) const;
-			void grow ();
 
 			size_t findIndex ( const char * const &_key ) const;
 
@@ -97,6 +96,25 @@ namespace CrissCross
 				\return True on success, false on failure
 			 */
 			bool erase ( const char * const &_key );
+
+            //! Indicates the size of the table.
+            /*!
+                \return Size of the table.
+             */
+			inline size_t size () const { return m_size; };
+
+            //! Returns the memory usage of the table.
+            /*!
+                \return Memory usage in bytes.
+             */
+            size_t mem_usage() const;
+            
+            //! Forces the table to increase in size.
+            /*!
+                It's highly recommended that you let the hash table manage this on its own and that
+                you don't call this function unless you know what the implications are.
+             */
+			void grow ();
 
 			void print_statistics () const;
 

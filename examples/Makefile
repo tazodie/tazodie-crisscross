@@ -2,28 +2,12 @@
 
 include ../common.mk
 
-all: cpuid-e genprime-e sortbenchmark-e emptyproject-e
+SUBDIRS := `ls | grep -v '^(svn)$$'`
 
-cpuid-e:
-	+$(MAKE) -C CPUID precomp
-	+$(MAKE) -C CPUID
-
-emptyproject-e:
-	+$(MAKE) -C EmptyProject precomp
-	+$(MAKE) -C EmptyProject
-
-genprime-e:
-	+$(MAKE) -C GenPrime precomp
-	+$(MAKE) -C GenPrime
-
-sortbenchmark-e:
-	+$(MAKE) -C SortBenchmark precomp
-	+$(MAKE) -C SortBenchmark
+all:
+	for i in $(SUBDIRS); do if test -e $$i/Makefile; then $(MAKE) -C $$i || { exit 1; } fi; done;
 
 clean:
-	$(MAKE) -C CPUID clean
-	$(MAKE) -C GenPrime clean
-	$(MAKE) -C SortBenchmark clean
-	$(MAKE) -C EmptyProject clean
+	for i in $(SUBDIRS); do if test -e $$i/Makefile; then $(MAKE) -C $$i clean || { exit 1; } fi; done;
 
 distclean: clean
