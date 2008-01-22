@@ -69,7 +69,10 @@ endif
 	$(STRIP) $(OUTDIR)/$(OUTBIN)
 ifneq ($(GCC_NDS),)
 	arm-eabi-objcopy -O binary $(OUTDIR)/$(OUTBIN) $(OUTDIR)/$(OUTBIN).arm9
-	ndstool -c $(OUTDIR)/$(OUTBIN).nds -9 $(OUTDIR)/$(OUTBIN).arm9
+	mkdir tmp__data
+	cp dataset tmp__data/
+	ndstool -c $(OUTDIR)/$(OUTBIN).nds -d tmp__data -9 $(OUTDIR)/$(OUTBIN).arm9
+	rm -rf tmp__data
 endif
 
 $(GCH): $(PCH)
