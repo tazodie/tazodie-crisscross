@@ -31,7 +31,7 @@ echo "" >> build_number.h.tmp
 
 touch build_number.h
 
-if [ "$(md5 -s test)" == "" ]; then
+if [ "$(md5 -s test 2> /dev/null)" == "" ]; then
 	TEMPHEADERMD5=`md5sum build_number.h.tmp | cut -d' ' -f 1`
 	HEADERMD5=`md5sum build_number.h | cut -d' ' -f 1`
 else
