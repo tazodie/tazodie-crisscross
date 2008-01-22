@@ -174,6 +174,7 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #			include <cxxabi.h>
 #		endif
 #       include <nds.h>
+#       include <fat.h>
 #       include <sys/types.h>
 #       include <sys/time.h>
 #       include <unistd.h>
