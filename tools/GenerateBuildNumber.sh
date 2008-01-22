@@ -31,8 +31,13 @@ echo "" >> build_number.h.tmp
 
 touch build_number.h
 
-TEMPHEADERMD5=`md5sum build_number.h.tmp | cut -d' ' -f 1`
-HEADERMD5=`md5sum build_number.h | cut -d' ' -f 1`
+if [ "$(md5 -s test)" == "" ]; then
+	TEMPHEADERMD5=`md5sum build_number.h.tmp | cut -d' ' -f 1`
+	HEADERMD5=`md5sum build_number.h | cut -d' ' -f 1`
+else
+	TEMPHEADERMD5=`md5 -q build_number.h.tmp`
+	HEADERMD5=`md5 -q build_number.h`
+fi
 
 if [ "${TEMPHEADERMD5}" != "${HEADERMD5}" ]; then
 	echo "Header updated."
