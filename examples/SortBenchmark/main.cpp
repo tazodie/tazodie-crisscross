@@ -28,16 +28,14 @@ BenchmarkDArray ( Sorter<char *> &sorter )
 	char buffer[512], format[64];
 
 #ifdef TARGET_OS_WINDOWS
-	sprintf ( format, "%s", "%lf seconds (%I64d clocks)." );
+	sprintf ( format, "%s", "%4.3lfs (%I64d clocks)." );
+#elif defined ( TARGET_OS_NDSFIRMWARE )
+	sprintf ( format, "%s", "%4.3lfs" );
 #else
-	sprintf ( format, "%s", "%lf seconds (%lld clocks)." );
+	sprintf ( format, "%s", "%4.3lfs (%lld clocks)." );
 #endif
 
 	TextReader file;
-
-#ifdef TARGET_OS_NDSFIRMWARE
-	chdir ( "/data/SortBenchmark/" );
-#endif
 
 	file.SetLineEndings ( CC_LN_LF );
 	file.Open ( "dataset" );
@@ -48,7 +46,7 @@ BenchmarkDArray ( Sorter<char *> &sorter )
 		data.setStepDouble();
 		rdata.setStepDouble();
 
-		console->Write ( "Successfully opened file, loading data... " );
+		console->Write ( "Loading... " );
 
 		sw.Start();
 
@@ -61,9 +59,9 @@ BenchmarkDArray ( Sorter<char *> &sorter )
 		
 		file.Close();
 
-		console->WriteLine ( "DArray contains %d items.", data.used() );
+		console->WriteLine ( "Loaded %d items.", data.used() );
 
-		console->Write ( "Sorting highly-randomized data:\t" );
+		console->Write ( "Random: " );
 		sw.Start();
 		data.sort ( sorter );
 		sw.Stop();
@@ -78,19 +76,17 @@ BenchmarkDArray ( Sorter<char *> &sorter )
 			}
 		}
 
-		console->Write ( "Sorting pre-sorted data:\t" );
+		console->Write ( "Pre-sorted: " );
 		sw.Start();
 		data.sort ( sorter );
 		sw.Stop();
 		console->WriteLine ( format, sw.Elapsed(), sw.Clocks() );
 
-		console->Write ( "Sorting reverse-sorted data:\t" );
+		console->Write ( "Reverse-sorted: " );
 		sw.Start();
 		rdata.sort ( sorter );
 		sw.Stop();
 		console->WriteLine ( format, sw.Elapsed(), sw.Clocks() );
-
-		console->WriteLine ();
 
 		for ( size_t i = 0; i < data.size(); i++ )
 		{
@@ -105,90 +101,7 @@ BenchmarkDArray ( Sorter<char *> &sorter )
 
 	} else {
 
-		console->WriteLine ( "File 'dataset' couldn't be opened... Is it in this directory?" );
-
-	}
-}
-
-void
-BenchmarkLList ( Sorter<char *> &sorter )
-{
-	LList<char *> data, rdata;
-	Stopwatch sw;
-	char buffer[512], format[64];
-
-#ifdef TARGET_OS_WINDOWS
-	sprintf ( format, "%s", "%lf seconds (%I64d clocks)." );
-#else
-	sprintf ( format, "%s", "%lf seconds (%lld clocks)." );
-#endif
-
-	TextReader file;
-
-	file.SetLineEndings ( CC_LN_LF );
-	file.Open ( "dataset" );
-
-	if ( file.IsOpen() )
-	{
-
-		console->Write ( "Successfully opened file, loading data... " );
-
-		sw.Start();
-
-		// Load the file into the data DArray
-		while ( file.ReadLine ( buffer, sizeof ( buffer ) ) )
-			data.insert ( strdup ( buffer ) );
-
-		sw.Stop();
-		console->WriteLine ( format, sw.Elapsed(), sw.Clocks() );
-		
-		file.Close();
-
-		console->WriteLine ( "LList contains %d items.", data.size() );
-
-		console->Write ( "Sorting highly-randomized data:\t" );
-		sw.Start();
-		data.sort ( sorter );
-		sw.Stop();
-		console->WriteLine ( format, sw.Elapsed(), sw.Clocks() );
-
-		// Create a reverse-sorted DArray
-		for ( long i = (long)data.size(); i >= 0; i-- )
-		{
-			if ( data.valid ( i ) )
-			{
-				rdata.insert ( data.get ( i ) );
-			}
-		}
-
-		console->Write ( "Sorting pre-sorted data:\t" );
-		sw.Start();
-		data.sort ( sorter );
-		sw.Stop();
-		console->WriteLine ( format, sw.Elapsed(), sw.Clocks() );
-
-		console->Write ( "Sorting reverse-sorted data:\t" );
-		sw.Start();
-		rdata.sort ( sorter );
-		sw.Stop();
-		console->WriteLine ( format, sw.Elapsed(), sw.Clocks() );
-
-		console->WriteLine ();
-
-		for ( size_t i = 0; i < data.size(); i++ )
-		{
-			if ( data.valid ( i ) )
-			{
-				free ( data.get ( i ) );
-				data.remove ( i );
-			}
-		}
-		data.empty ();
-		rdata.empty ();
-
-	} else {
-
-		console->WriteLine ( "File 'dataset' couldn't be opened... Is it in this directory?" );
+		console->WriteLine ( "Dataset not found." );
 
 	}
 }
@@ -207,34 +120,31 @@ RunApplication ( int argc, char **argv )
 	CombSort<char *> cs;
 	ShellSort<char *> ss;
 
-	console->WriteLine ( "Benchmarking HeapSort..." );
+#ifdef TARGET_OS_NDSFIRMWARE
+	chdir ( "/data/SortBenchmark/" );
+#endif
+	console->WriteLine ( "HeapSort..." );
 	BenchmarkDArray ( hs );
-	BenchmarkLList ( hs );
 	console->WriteLine ();
-	console->WriteLine ( "Benchmarking CombSort..." );
+	console->WriteLine ( "CombSort..." );
 	BenchmarkDArray ( cs );
-	BenchmarkLList ( cs );
 	console->WriteLine ();
-	console->WriteLine ( "Benchmarking ShellSort..." );
+	console->WriteLine ( "ShellSort..." );
 	BenchmarkDArray ( ss );
-	BenchmarkLList ( ss );
+	console->WriteLine ();
+	console->WriteLine ( "QuickSort..." );
+	BenchmarkDArray ( qs );
 #ifdef ENABLE_SLOWSORTS
 	console->WriteLine ();
-	console->WriteLine ( "Benchmarking BubbleSort..." );
+	console->WriteLine ( "BubbleSort..." );
 	BenchmarkDArray ( bs );
-	BenchmarkLList ( bs );
 	console->WriteLine ();
-	console->WriteLine ( "Benchmarking InsertionSort..." );
+	console->WriteLine ( "InsertionSort..." );
 	BenchmarkDArray ( is );
-	BenchmarkLList ( is );
 	console->WriteLine ();
-	console->WriteLine ( "Benchmarking QuickSort..." );
-	BenchmarkDArray ( qs );
-	BenchmarkLList ( qs );
 #else
-	console->WriteLine ( "Skipping BubbleSort benchmark (ENABLE_SLOWSORTS not defined)..." );
-	console->WriteLine ( "Skipping InsertionSort benchmark (ENABLE_SLOWSORTS not defined)..." );
-	console->WriteLine ( "Skipping QuickSort benchmark (ENABLE_SLOWSORTS not defined)..." );
+	console->WriteLine ( "Skipping BubbleSort..." );
+	console->WriteLine ( "Skipping InsertionSort..." );
 #endif
 	console->WriteLine ();
 
