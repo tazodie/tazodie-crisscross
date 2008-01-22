@@ -8,9 +8,17 @@ OPTLEVEL = 3
 ifneq ($(BUILDFORNDS),1)
 CXX = g++
 CC = gcc
+AR = ar
+RANLIB = ranlib
+NM = nm
+STRIP = strip
 else
 CXX = $(DEVKITARM)/bin/arm-eabi-g++
 CC = $(DEVKITARM)/bin/arm-eabi-gcc
+AR = $(DEVKITARM)/bin/arm-eabi-ar
+RANLIB = $(DEVKITARM)/bin/arm-eabi-ranlib
+NM = $(DEVKITARM)/bin/arm-eabi-nm
+STRIP = $(DEVKITARM)/bin/arm-eabi-strip
 endif
 
 STDC = -pedantic
@@ -200,10 +208,4 @@ ifneq ($(CC_BUILDSTATIC),yes)
 LIBNAME = libCrissCross-$(VERSION).so
 else
 LIBNAME = libCrissCross.a
-endif
-
-AR = ar rc
-RANLIB = ranlib
-NM = nm
-STRIP = :
- 
+endif 

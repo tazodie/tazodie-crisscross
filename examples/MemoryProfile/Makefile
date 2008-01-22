@@ -69,14 +69,14 @@ ifneq ($(CC_BUILDSTATIC),yes)
 else
 	$(LINK) $+ $(LDFLAGS) -o $(OUTDIR)/$(OUTBIN)
 endif
-ifneq ($(GCC_NDS),)
-	arm-eabi-objcopy -O binary $(OUTDIR)/$(OUTBIN) $(OUTDIR)/$(OUTBIN).arm9
-	ndstool -c $(OUTDIR)/$(OUTBIN).nds -9 $(OUTDIR)/$(OUTBIN).arm9
-endif
 ifneq ($(GCC_ISEMULATED),yes)
 	$(NM) $(OUTDIR)/$(OUTBIN) > $(OUTDIR)/$(OUTBIN).map
 endif   
 	$(STRIP) $(OUTDIR)/$(OUTBIN)
+ifneq ($(GCC_NDS),)
+	arm-eabi-objcopy -O binary $(OUTDIR)/$(OUTBIN) $(OUTDIR)/$(OUTBIN).arm9
+	ndstool -c $(OUTDIR)/$(OUTBIN).nds -9 $(OUTDIR)/$(OUTBIN).arm9
+endif
 
 $(GCH): $(PCH)
 	$(CXX) $(CXXFLAGS) -c $(PCH) -o $(GCH)

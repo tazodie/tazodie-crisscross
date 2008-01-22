@@ -92,11 +92,11 @@ endif
 	ln -sf $(OUTNAME).$(VERSION) $(OUTNAME)
 	ln -sf $(OUTNAME).$(VERSION) $(OUTNAME).$(VERSION_MAJOR)
 else
-	$(AR) $@ $+
+	$(AR) rc $@ $+
 	-($(RANLIB) $@ || true) >/dev/null 2>&1
 endif
 	$(NM) $(OUTDIR)/$(OUTBIN) > $(OUTDIR)/$(OUTBIN).map
-	$(STRIP) $(OUTDIR)/$(OUTBIN)
+#	$(STRIP) $(OUTDIR)/$(OUTBIN)
 
 $(GCH): $(PCH)
 	$(shell which bash) $(shell pwd)/../tools/GenerateBuildNumber.sh "$(shell pwd)/crisscross"
