@@ -19,6 +19,7 @@ AR = $(DEVKITARM)/bin/arm-eabi-ar
 RANLIB = $(DEVKITARM)/bin/arm-eabi-ranlib
 NM = $(DEVKITARM)/bin/arm-eabi-nm
 STRIP = : $(DEVKITARM)/bin/arm-eabi-strip
+NDSTOOL = $(DEVKITARM)/bin/ndstool -v
 endif
 
 STDC = -pedantic

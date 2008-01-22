@@ -279,6 +279,10 @@ int CrissCrossInitialize ( int argc, char **argv )
 {
 	int retval = 0;
 
+#ifdef TARGET_OS_NDSFIRMWARE
+	fatInitDefault();
+#endif
+
 #ifdef ENABLE_MEMLEAK_STATS
 	_CrtMemCheckpoint ( &s1 );
 #endif
