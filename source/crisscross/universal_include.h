@@ -234,8 +234,8 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #	endif
 #	endif
 
-#   ifndef strdup
-#		define strdup(x) strcpy((char *)malloc(strlen(x)),x)
+#	ifndef strdup
+#		define strdup(x) strcpy((char *)malloc(strlen(x)+1),x)
 #	endif
 
 #	if defined ( TARGET_COMPILER_VC )
