@@ -35,6 +35,10 @@ BenchmarkDArray ( Sorter<char *> &sorter )
 
 	TextReader file;
 
+#ifdef TARGET_OS_NDSFIRMWARE
+	chdir ( "/data/SortBenchmark/" );
+#endif
+
 	file.SetLineEndings ( CC_LN_LF );
 	file.Open ( "dataset" );
 
