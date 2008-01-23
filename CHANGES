@@ -1,4 +1,4 @@
-VERSION ???
+VERSION 0.7.0 (r???)
 	* Nintendo DS homebrew support added (compile with 'make BUILDFORNDS=1')
 		- Copyright changed to fit Nintendo DS screen.
 		- Cross-compiling is possible with devkitPro.
