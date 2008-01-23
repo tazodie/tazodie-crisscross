@@ -111,8 +111,6 @@ RunApplication ( int argc, char **argv )
 {
     console = new Console ();
 
-    // Begin your application here.
-
 	BubbleSort<char *> bs;
 	QuickSort<char *> qs;
 	HeapSort<char *> hs;
@@ -123,33 +121,44 @@ RunApplication ( int argc, char **argv )
 #ifdef TARGET_OS_NDSFIRMWARE
 	chdir ( "/data/SortBenchmark/" );
 #endif
+	console->SetColour ( console->FG_BLUE | console->FG_INTENSITY );
 	console->WriteLine ( "HeapSort..." );
+	console->SetColour ();
 	BenchmarkDArray ( hs );
 	console->WriteLine ();
+	console->SetColour ( console->FG_BLUE | console->FG_INTENSITY );
 	console->WriteLine ( "CombSort..." );
+	console->SetColour ();
 	BenchmarkDArray ( cs );
 	console->WriteLine ();
+	console->SetColour ( console->FG_BLUE | console->FG_INTENSITY );
 	console->WriteLine ( "ShellSort..." );
+	console->SetColour ();
 	BenchmarkDArray ( ss );
 	console->WriteLine ();
+	console->SetColour ( console->FG_BLUE | console->FG_INTENSITY );
 	console->WriteLine ( "QuickSort..." );
+	console->SetColour ();
 	BenchmarkDArray ( qs );
 #ifdef ENABLE_SLOWSORTS
 	console->WriteLine ();
+	console->SetColour ( console->FG_BLUE | console->FG_INTENSITY );
 	console->WriteLine ( "BubbleSort..." );
+	console->SetColour ();
 	BenchmarkDArray ( bs );
 	console->WriteLine ();
+	console->SetColour ( console->FG_BLUE | console->FG_INTENSITY );
 	console->WriteLine ( "InsertionSort..." );
+	console->SetColour ();
 	BenchmarkDArray ( is );
 	console->WriteLine ();
 #else
+	console->SetColour ( console->FG_BLUE | console->FG_INTENSITY );
 	console->WriteLine ( "Skipping BubbleSort..." );
 	console->WriteLine ( "Skipping InsertionSort..." );
+	console->SetColour ();
 #endif
 	console->WriteLine ();
-
-
-    // End your application here.
 
 #ifdef TARGET_OS_WINDOWS
     system ( "pause" );
