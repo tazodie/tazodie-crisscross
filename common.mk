@@ -196,13 +196,13 @@ endif
 ifeq ($(CFLAGS),)
 CFLAGS = -O$(OPTLEVEL) $(STDC) $(ARCH) -Wall -Wno-long-long -pipe -ggdb
 else
-CFLAGS := $(STDC) -Wall -Wno-long-long
+CFLAGS += $(STDC) -Wall -Wno-long-long
 endif
 
 ifeq ($(CXXFLAGS),)
 CXXFLAGS = $(CFLAGS) $(STDCPP) -fno-rtti -fno-exceptions
 else
-CXXFLAGS := $(STDCPP) -Wall -Wno-long-long -fno-rtti -fno-exceptions
+CXXFLAGS += $(STDCPP) -Wall -Wno-long-long -fno-rtti -fno-exceptions
 endif
 
 ifneq ($(CC_BUILDSTATIC),yes)
