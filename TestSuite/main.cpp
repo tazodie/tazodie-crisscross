@@ -28,6 +28,7 @@
 #include "insertionsort.h"
 #include "combsort.h"
 #include "stopwatch.h"
+#include "md2.h"
 #include "md5.h"
 #include "sha1.h"
 #include "sha256.h"
@@ -64,6 +65,7 @@ int RunApplication (int argc, char **argv) {
     WritePrefix ( "Size of cc_double_t" ); retval |= WriteResult ( TestDatatypes_Double() );
     WritePrefix ( "Size of cc_ptr_t" ); retval |= WriteResult ( TestDatatypes_Pointer() );
 
+    WritePrefix ( "MD2" ); retval |= WriteResult ( TestMD2() );
     WritePrefix ( "MD5" ); retval |= WriteResult ( TestMD5() );
     WritePrefix ( "SHA-1" ); retval |= WriteResult ( TestSHA1() );
     WritePrefix ( "SHA-256" ); retval |= WriteResult ( TestSHA256() );

@@ -73,6 +73,19 @@ RunApplication ( int argc, char **argv )
 
 
     console->SetColour ( console->FG_BLUE | console->FG_INTENSITY );
+    console->WriteLine ( "MD2" );
+    console->SetColour ();
+    CrissCross::Crypto::MD2Hash md2;
+    sw.Start();
+    for ( int r = 0; r < MAX_RUNS; r++ )
+        for ( int i = 0; i < DATASET_SIZE; i++ )
+            md2.Process ( randomStrings.get(i), ENTRY_LENGTH );
+    sw.Stop();
+    console->WriteLine ( "%lu MD2Marks", (unsigned long)((double)(DATASET_SIZE * MAX_RUNS) / sw.Elapsed()) );
+    console->WriteLine();
+
+
+    console->SetColour ( console->FG_BLUE | console->FG_INTENSITY );
     console->WriteLine ( "MD5" );
     console->SetColour ();
     CrissCross::Crypto::MD5Hash md5;

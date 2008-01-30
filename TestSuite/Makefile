@@ -19,6 +19,7 @@ insertionsort.cpp \
 llist.cpp \
 quicksort.cpp \
 rbtree.cpp \
+md2.cpp \
 md5.cpp \
 sha1.cpp \
 sha256.cpp \

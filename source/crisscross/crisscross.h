@@ -40,6 +40,7 @@
 #include <crisscross/stopwatch.h>
 #include <crisscross/system.h>
 #include <crisscross/hash.h>
+#include <crisscross/md2.h>
 #include <crisscross/md5.h>
 #include <crisscross/sha1.h>
 #include <crisscross/sha256.h>

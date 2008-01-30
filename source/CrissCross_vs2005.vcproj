@@ -911,6 +911,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\md2.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\crisscross\md2.h"
+				>
+			</File>
+			<File
 				RelativePath=".\md5.cpp"
 				>
 			</File>
