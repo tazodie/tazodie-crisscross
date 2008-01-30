@@ -5,7 +5,8 @@ VERSION_MAJOR = 0
 
 OPTLEVEL = 3
 
-CHOST = i386-pc-linux-gnu
+# Define a custom CHOST here.
+#CHOST = i386-pc-linux-gnu
 
 ifneq ($(CHOST),)
 PREFIX = $(CHOST)-
