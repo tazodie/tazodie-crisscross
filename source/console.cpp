@@ -42,7 +42,7 @@ namespace CrissCross
 
 			if ( _clearOnInit ) Clear();
 
-			SetTitle ( CC_LIB_NAME " " CC_LIB_VERSION " (Codename " CC_LIB_CODENAME ")" );
+			SetTitle ( CC_LIB_NAME " " CC_LIB_VERSION );
         #elif defined ( TARGET_OS_NDSFIRMWARE )
             irqInit();
             irqEnable(IRQ_VBLANK);
@@ -62,7 +62,7 @@ namespace CrissCross
 			g_stdout->WriteLine ();
         #else
 			g_stdout->SetColour ( g_stdout->FG_GREEN | g_stdout->FG_INTENSITY );
-			g_stdout->WriteLine ( "Powered by " CC_LIB_NAME " " CC_LIB_VERSION " (Codename " CC_LIB_CODENAME ")\n    " CC_LIB_URL );
+			g_stdout->WriteLine ( "Powered by " CC_LIB_NAME " " CC_LIB_VERSION "\n    " CC_LIB_URL );
 			g_stdout->SetColour ( 0 );
 			g_stdout->WriteLine ( CC_LIB_COPYRIGHT );
 			g_stdout->WriteLine ();
