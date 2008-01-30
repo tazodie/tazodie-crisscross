@@ -13,8 +13,6 @@
 
 #include "adler32.h"
 #include "crc32.h"
-#include "md5.h"
-#include "sha256.h"
 #include "random.h"
 
 using namespace CrissCross::IO;
@@ -77,34 +75,52 @@ RunApplication ( int argc, char **argv )
     console->SetColour ( console->FG_BLUE | console->FG_INTENSITY );
     console->WriteLine ( "MD5" );
     console->SetColour ();
+    CrissCross::Crypto::MD5Hash md5;
     sw.Start();
     for ( int r = 0; r < MAX_RUNS; r++ )
         for ( int i = 0; i < DATASET_SIZE; i++ )
-        {
-	        MD5_CTX state;
-	        MD5Init(&state);
-	        MD5Update(&state,(unsigned char *)randomStrings.get(i),ENTRY_LENGTH);
-	        MD5Final(&state);
-        }
+            md5.Process ( randomStrings.get(i), ENTRY_LENGTH );
     sw.Stop();
     console->WriteLine ( "%lu MD5Marks", (unsigned long)((double)(DATASET_SIZE * MAX_RUNS) / sw.Elapsed()) );
     console->WriteLine();
 
-    
+
     console->SetColour ( console->FG_BLUE | console->FG_INTENSITY );
-    console->WriteLine ( "SHA256" );
+    console->WriteLine ( "SHA1" );
     console->SetColour ();
+    CrissCross::Crypto::SHA1Hash sha1;
     sw.Start();
     for ( int r = 0; r < MAX_RUNS; r++ )
         for ( int i = 0; i < DATASET_SIZE; i++ )
-        {
-	        sha256_state state;
-	        sha256_init(&state);
-	        sha256_process(&state,(unsigned char *)randomStrings.get(i),ENTRY_LENGTH);
-	        //sha256_done(&state);
-        }
+            sha1.Process ( randomStrings.get(i), ENTRY_LENGTH );
+    sw.Stop();
+    console->WriteLine ( "%lu SHA1Marks", (unsigned long)((double)(DATASET_SIZE * MAX_RUNS) / sw.Elapsed()) );
+    console->WriteLine();
+
+
+    console->SetColour ( console->FG_BLUE | console->FG_INTENSITY );
+    console->WriteLine ( "SHA256" );
+    console->SetColour ();
+    CrissCross::Crypto::SHA256Hash sha256;
+    sw.Start();
+    for ( int r = 0; r < MAX_RUNS; r++ )
+        for ( int i = 0; i < DATASET_SIZE; i++ )
+            sha256.Process ( randomStrings.get(i), ENTRY_LENGTH );
     sw.Stop();
     console->WriteLine ( "%lu SHA256Marks", (unsigned long)((double)(DATASET_SIZE * MAX_RUNS) / sw.Elapsed()) );
+    console->WriteLine();
+
+
+    console->SetColour ( console->FG_BLUE | console->FG_INTENSITY );
+    console->WriteLine ( "SHA512" );
+    console->SetColour ();
+    CrissCross::Crypto::SHA512Hash sha512;
+    sw.Start();
+    for ( int r = 0; r < MAX_RUNS; r++ )
+        for ( int i = 0; i < DATASET_SIZE; i++ )
+            sha512.Process ( randomStrings.get(i), ENTRY_LENGTH );
+    sw.Stop();
+    console->WriteLine ( "%lu SHA512Marks", (unsigned long)((double)(DATASET_SIZE * MAX_RUNS) / sw.Elapsed()) );
     console->WriteLine();
 
 

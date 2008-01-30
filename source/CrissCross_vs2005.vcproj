@@ -899,6 +899,50 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="Hash"
+			>
+			<File
+				RelativePath=".\hash.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\crisscross\hash.h"
+				>
+			</File>
+			<File
+				RelativePath=".\md5.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\crisscross\md5.h"
+				>
+			</File>
+			<File
+				RelativePath=".\sha1.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\crisscross\sha1.h"
+				>
+			</File>
+			<File
+				RelativePath=".\sha256.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\crisscross\sha256.h"
+				>
+			</File>
+			<File
+				RelativePath=".\sha512.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\crisscross\sha512.h"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>
