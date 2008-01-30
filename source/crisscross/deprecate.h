@@ -28,7 +28,7 @@
 
 #   if !defined(_CC_NO_DEPRECATE)
 #       ifndef _CC_SLOW_NO_DEPRECATE
-#           define _CC_DEPRECATE_SLOW(x)                    _CC_DEPRECATE_TEXT("This function can result in a " x " slowdown in execution speed.")
+#           define _CC_DEPRECATE_SLOW(x)                    _CC_DEPRECATE_TEXT("When used, this function or class can result in a " x " slowdown in execution speed.")
 #       else
 #           define _CC_DEPRECATE_SLOW(x)
 #       endif
