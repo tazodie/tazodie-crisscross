@@ -493,6 +493,30 @@
 			>
 		</File>
 		<File
+			RelativePath=".\sha1.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\sha1.h"
+			>
+		</File>
+		<File
+			RelativePath=".\sha256.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\sha256.h"
+			>
+		</File>
+		<File
+			RelativePath=".\sha512.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\sha512.h"
+			>
+		</File>
+		<File
 			RelativePath=".\shellsort.cpp"
 			>
 		</File>

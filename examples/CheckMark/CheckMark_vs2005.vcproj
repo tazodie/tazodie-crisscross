@@ -409,27 +409,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\md5.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\md5.h"
-			>
-		</File>
-		<File
 			RelativePath=".\random.cpp"
 			>
 		</File>
 		<File
 			RelativePath=".\random.h"
-			>
-		</File>
-		<File
-			RelativePath=".\sha256.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\sha256.h"
 			>
 		</File>
 	</Files>

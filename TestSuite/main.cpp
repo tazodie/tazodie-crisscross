@@ -28,6 +28,9 @@
 #include "insertionsort.h"
 #include "combsort.h"
 #include "stopwatch.h"
+#include "sha1.h"
+#include "sha256.h"
+#include "sha512.h"
 
 using namespace CrissCross;
 
@@ -59,6 +62,10 @@ int RunApplication (int argc, char **argv) {
     WritePrefix ( "Size of cc_float_t" ); retval |= WriteResult ( TestDatatypes_Float() );
     WritePrefix ( "Size of cc_double_t" ); retval |= WriteResult ( TestDatatypes_Double() );
     WritePrefix ( "Size of cc_ptr_t" ); retval |= WriteResult ( TestDatatypes_Pointer() );
+
+    WritePrefix ( "SHA-1" ); retval |= WriteResult ( TestSHA1() );
+    WritePrefix ( "SHA-256" ); retval |= WriteResult ( TestSHA256() );
+    WritePrefix ( "SHA-512" ); retval |= WriteResult ( TestSHA512() );
 
     WritePrefix ( "Stopwatch" ); retval |= WriteResult ( TestStopwatch() );
 

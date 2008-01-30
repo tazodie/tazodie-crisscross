@@ -14,14 +14,14 @@
 Preprocessor Definitions
 ------------------------
 
+TARGET_CPU_ARM
+    ARM processor
 TARGET_CPU_X86
     x86 processor
 TARGET_CPU_X64
     64-bit processor
 TARGET_CPU_PPC
     PowerPC processor
-TARGET_CPU_ALPHA
-    Alpha processor (not supported)
 
 TARGET_OS_WINDOWS
     Windows
@@ -30,11 +30,13 @@ TARGET_OS_LINUX
 TARGET_OS_MACOSX
     Mac OS X
 TARGET_OS_FREEBSD
-    FreeBSD (not supported)
+    FreeBSD
 TARGET_OS_NETBSD
-    NetBSD (not supported)
+    NetBSD
 TARGET_OS_OPENBSD
-    OpenBSD (not supported)
+    OpenBSD
+TARGET_OS_NDSFIRMWARE
+    Nintendo DS firmware
 
 TARGET_COMPILER_GCC
     GNU C++ Compiler
@@ -66,6 +68,7 @@ TARGET_COMPILER_ICC
 #       if defined ( __arm__ )
 #           define PROCESSOR_DETECTED
 #           define TARGET_CPU_ARM
+#           define TARGET_LITTLE_ENDIAN
 #       endif
 #    endif
 
@@ -78,6 +81,7 @@ TARGET_COMPILER_ICC
 #           else
 #               define TARGET_CPU_PPC 32
 #           endif
+#           define TARGET_BIG_ENDIAN
 #       endif
 #   endif
 
@@ -86,6 +90,7 @@ TARGET_COMPILER_ICC
 #       if defined ( __i386__ ) || defined ( __i386 ) || defined ( i386 ) || defined ( _X86_ ) || defined ( _M_IX86 )
 #           define PROCESSOR_DETECTED
 #           define TARGET_CPU_X86
+#           define TARGET_LITTLE_ENDIAN
 #       endif
 #   endif
 
@@ -94,6 +99,7 @@ TARGET_COMPILER_ICC
 #       if defined ( __x86_64__ ) || defined ( __x86_64 ) || defined ( __amd64 ) || defined ( __amd64__ ) || defined ( _AMD64_ ) || defined ( _M_X64 )
 #           define PROCESSOR_DETECTED
 #           define TARGET_CPU_X64
+#           define TARGET_LITTLE_ENDIAN
 #       endif
 #   endif
 
@@ -102,6 +108,7 @@ TARGET_COMPILER_ICC
 #       if defined ( __ia64__ ) || defined ( _IA64 ) || defined ( __ia64 ) || defined ( _M_IA64 )
 #           define PROCESSOR_DETECTED
 #           define TARGET_CPU_IA64
+#           define TARGET_LITTLE_ENDIAN
 #       endif
 #   endif
 
