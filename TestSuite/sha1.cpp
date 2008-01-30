@@ -33,6 +33,7 @@ int TestSHA1()
     if ( strcmp ( sha1.ToString(), "84983e441c3bd26ebaae4aa1f95129e5e54670f1" ) )
         return 2;
 
+#ifdef HIGH_INTENSITY
     char *tempstring = new char[1000001];
     memset(tempstring, 'a', 1000000);
     tempstring[1000000] = '\0';
@@ -41,6 +42,7 @@ int TestSHA1()
     if ( strcmp ( sha1.ToString(), "34aa973cd4c4daa4f61eeb2bdbad27316534016f" ) )
         return 3;
     delete [] tempstring;
+#endif
     
     return 0;
 }

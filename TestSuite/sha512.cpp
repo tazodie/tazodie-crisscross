@@ -33,6 +33,7 @@ int TestSHA512()
     if ( strcmp ( sha512.ToString(), "8e959b75dae313da8cf4f72814fc143f8f7779c6eb9f7fa17299aeadb6889018501d289e4900f7e4331b99dec4b5433ac7d329eeb6dd26545e96e55b874be909" ) )
         return 2;
 
+#ifdef HIGH_INTENSITY
     char *tempstring = new char[1000001];
     memset(tempstring, 'a', 1000000);
     tempstring[1000000] = '\0';
@@ -41,6 +42,7 @@ int TestSHA512()
     if ( strcmp ( sha512.ToString(), "e718483d0ce769644e2e42c7bc15b4638e1f98b13b2044285632a803afa973ebde0ff244877ea60a4cb0432ce577c31beb009c5c2c49aa2e4eadb217ad8cc09b" ) )
         return 3;
     delete [] tempstring;
+#endif
     
     return 0;
 }
