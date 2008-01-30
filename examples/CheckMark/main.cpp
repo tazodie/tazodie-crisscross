@@ -71,7 +71,8 @@ RunApplication ( int argc, char **argv )
     console->WriteLine ( "%lu CRCMarks", (unsigned long)((double)(DATASET_SIZE * MAX_RUNS) / sw.Elapsed()) );
     console->WriteLine();
 
-
+    // It's too slow. Disabled.
+#if 0
     console->SetColour ( console->FG_BLUE | console->FG_INTENSITY );
     console->WriteLine ( "MD2" );
     console->SetColour ();
@@ -83,6 +84,7 @@ RunApplication ( int argc, char **argv )
     sw.Stop();
     console->WriteLine ( "%lu MD2Marks", (unsigned long)((double)(DATASET_SIZE * MAX_RUNS) / sw.Elapsed()) );
     console->WriteLine();
+#endif
 
 
     console->SetColour ( console->FG_BLUE | console->FG_INTENSITY );
@@ -147,6 +149,19 @@ RunApplication ( int argc, char **argv )
             sha512.Process ( randomStrings.get(i), ENTRY_LENGTH );
     sw.Stop();
     console->WriteLine ( "%lu SHA512Marks", (unsigned long)((double)(DATASET_SIZE * MAX_RUNS) / sw.Elapsed()) );
+    console->WriteLine();
+
+
+    console->SetColour ( console->FG_BLUE | console->FG_INTENSITY );
+    console->WriteLine ( "Tiger" );
+    console->SetColour ();
+    CrissCross::Crypto::TigerHash tiger;
+    sw.Start();
+    for ( int r = 0; r < MAX_RUNS; r++ )
+        for ( int i = 0; i < DATASET_SIZE; i++ )
+            tiger.Process ( randomStrings.get(i), ENTRY_LENGTH );
+    sw.Stop();
+    console->WriteLine ( "%lu TigerMarks", (unsigned long)((double)(DATASET_SIZE * MAX_RUNS) / sw.Elapsed()) );
     console->WriteLine();
 
 

@@ -299,6 +299,7 @@ namespace CrissCross
     namespace Crypto
     {
         MD4Hash::MD4Hash()
+            : m_hash(NULL)
         {
         }
 
@@ -329,6 +330,7 @@ namespace CrissCross
 
         void MD4Hash::Reset ()
         {
+            delete [] m_hash; m_hash = NULL;
             delete [] m_hashString; m_hashString = NULL;
         }
     }

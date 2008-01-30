@@ -38,8 +38,8 @@
 #   define CC_LIB_VERSION             "0.7.0"
 #   define CC_LIB_BRANCH_AT_VERSION   "0.8.0"
 #   define CC_LIB_VERSION_MAJOR       0
-#   define CC_LIB_VERSION_MINOR       6
-#   define CC_LIB_VERSION_REVISION    6
+#   define CC_LIB_VERSION_MINOR       7
+#   define CC_LIB_VERSION_REVISION    0
 const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #   undef BUILD_NUMBER
 #   undef __included_build_number_h

@@ -958,6 +958,14 @@
 				RelativePath=".\crisscross\sha512.h"
 				>
 			</File>
+			<File
+				RelativePath=".\tiger.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\crisscross\tiger.h"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

@@ -31,6 +31,7 @@ sha512.cpp \
 system.cpp \
 stopwatch.cpp \
 tcpsocket.cpp \
+tiger.cpp \
 udpsocket.cpp \
 textreader.cpp \
 textwriter.cpp \

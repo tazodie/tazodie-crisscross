@@ -572,6 +572,14 @@
 			RelativePath=".\testutils.h"
 			>
 		</File>
+		<File
+			RelativePath=".\tiger.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\tiger.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

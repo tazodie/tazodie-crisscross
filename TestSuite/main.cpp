@@ -34,6 +34,7 @@
 #include "sha1.h"
 #include "sha256.h"
 #include "sha512.h"
+#include "tiger.h"
 
 using namespace CrissCross;
 
@@ -72,6 +73,7 @@ int RunApplication (int argc, char **argv) {
     WritePrefix ( "SHA-1" ); retval |= WriteResult ( TestSHA1() );
     WritePrefix ( "SHA-256" ); retval |= WriteResult ( TestSHA256() );
     WritePrefix ( "SHA-512" ); retval |= WriteResult ( TestSHA512() );
+    WritePrefix ( "Tiger" ); retval |= WriteResult ( TestTiger() );
 
     WritePrefix ( "Stopwatch" ); retval |= WriteResult ( TestStopwatch() );
 
