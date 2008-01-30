@@ -31,17 +31,20 @@ RunApplication ( int argc, char **argv )
     CrissCross::Data::DArray<char *> randomStrings;
     CrissCross::System::Stopwatch sw;
 
+    console->SetColour ( console->FG_RED | console->FG_INTENSITY );
     console->WriteLine ( "CheckMark v" CC_LIB_VERSION );
+    console->SetColour ();
     console->WriteLine ( "A checksum algorithm benchmark." );
     console->WriteLine ();
 
     /* Generate some data for checksum speed tests. */
-    console->Write ( "Generating random data... " );
+    console->Write ( "Generating data... " );
     sw.Start();
     GenerateRandom ( randomStrings );
     sw.Stop();
     console->WriteLine ( "%5.3lfs", sw.Elapsed() );
     console->WriteLine ();
+
 
     console->SetColour ( console->FG_BLUE | console->FG_INTENSITY );
     console->WriteLine ( "Adler32" );
@@ -87,7 +90,7 @@ RunApplication ( int argc, char **argv )
     console->WriteLine ( "%lu MD5Marks", (unsigned long)((double)(DATASET_SIZE * MAX_RUNS) / sw.Elapsed()) );
     console->WriteLine();
 
-
+    
     console->SetColour ( console->FG_BLUE | console->FG_INTENSITY );
     console->WriteLine ( "SHA256" );
     console->SetColour ();
@@ -103,7 +106,6 @@ RunApplication ( int argc, char **argv )
     sw.Stop();
     console->WriteLine ( "%lu SHA256Marks", (unsigned long)((double)(DATASET_SIZE * MAX_RUNS) / sw.Elapsed()) );
     console->WriteLine();
-
 
 
     randomStrings.EmptyAndDeleteArray();
