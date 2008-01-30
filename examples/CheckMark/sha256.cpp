@@ -17,6 +17,8 @@
 #   define ENDIAN_BIG
 #elif defined TARGET_CPU_X86 || defined TARGET_CPU_X64 || defined TARGET_CPU_IA64
 #   define ENDIAN_LITTLE
+#elif defined TARGET_CPU_ARM
+#   define ENDIAN_NEUTRAL
 #else
 #   error "Whoops. No endianness figured out. Add a processor check here."
 #endif
