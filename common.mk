@@ -5,13 +5,21 @@ VERSION_MAJOR = 0
 
 OPTLEVEL = 3
 
+CHOST = i386-pc-linux-gnu
+
+ifneq ($(CHOST),)
+PREFIX = $(CHOST)-
+else
+PREFIX =
+endif
+
 ifneq ($(BUILDFORNDS),1)
-CXX = g++
-CC = gcc
-AR = ar
-RANLIB = ranlib
-NM = nm
-STRIP = : strip
+CXX = $(PREFIX)g++
+CC = $(PREFIX)gcc
+AR = $(PREFIX)ar
+RANLIB = $(PREFIX)ranlib
+NM = $(PREFIX)nm
+STRIP = : $(PREFIX)strip
 else
 CXX = $(DEVKITARM)/bin/arm-eabi-g++
 CC = $(DEVKITARM)/bin/arm-eabi-gcc

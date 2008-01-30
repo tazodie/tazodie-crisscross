@@ -20,7 +20,12 @@ console.cpp \
 cpuid.cpp \
 debug.cpp \
 error.cpp \
+hash.cpp \
+md5.cpp \
 mutex.cpp \
+sha1.cpp \
+sha256.cpp \
+sha512.cpp \
 system.cpp \
 stopwatch.cpp \
 tcpsocket.cpp \

@@ -6,23 +6,26 @@ OUTNAME = crisscross-test
 OUTBIN = $(OUTNAME)
 
 SOURCES = \
-testutils.cpp \
-stopwatch.cpp \
-datatypes.cpp \
-compare.cpp \
-llist.cpp \
-hashtable.cpp \
 avltree.cpp \
-splaytree.cpp \
-rbtree.cpp \
-dstack.cpp \
-darray.cpp \
 bubblesort.cpp \
 combsort.cpp \
+compare.cpp \
+darray.cpp \
+datatypes.cpp \
+dstack.cpp \
+hashtable.cpp \
 heapsort.cpp \
 insertionsort.cpp \
+llist.cpp \
 quicksort.cpp \
+rbtree.cpp \
+sha1.cpp \
+sha256.cpp \
+sha512.cpp \
 shellsort.cpp \
+splaytree.cpp \
+stopwatch.cpp \
+testutils.cpp \
 main.cpp
 
 OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)

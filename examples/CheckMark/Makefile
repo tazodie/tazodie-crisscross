@@ -9,9 +9,7 @@ SOURCES = \
 header.cpp \
 adler32.cpp \
 crc32.cpp \
-md5.cpp \
 random.cpp \
-sha256.cpp \
 main.cpp
 
 OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)
