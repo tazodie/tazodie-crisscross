@@ -33,6 +33,7 @@ int TestSHA256()
     if ( strcmp ( sha256.ToString(), "248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1" ) )
         return 2;
 
+#ifdef HIGH_INTENSITY
     char *tempstring = new char[1000001];
     memset(tempstring, 'a', 1000000);
     tempstring[1000000] = '\0';
@@ -41,6 +42,7 @@ int TestSHA256()
     if ( strcmp ( sha256.ToString(), "cdc76e5c9914fb9281a1c7e284d73e67f1809a48a497200e046d39ccc7112cd0" ) )
         return 3;
     delete [] tempstring;
+#endif
     
     return 0;
 }

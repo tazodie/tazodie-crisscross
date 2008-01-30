@@ -14,5 +14,7 @@
 
 #include <crisscross/crisscross.h>
 
+//#define HIGH_INTENSITY
+
 #endif
 
