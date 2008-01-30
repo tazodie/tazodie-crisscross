@@ -206,6 +206,7 @@ namespace CrissCross
     namespace Crypto
     {
         MD2Hash::MD2Hash()
+            : m_hash(NULL)
         {
         }
 
@@ -236,6 +237,7 @@ namespace CrissCross
 
         void MD2Hash::Reset ()
         {
+            delete [] m_hash; m_hash = NULL;
             delete [] m_hashString; m_hashString = NULL;
         }
     }

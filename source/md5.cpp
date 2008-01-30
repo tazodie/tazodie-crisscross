@@ -932,6 +932,7 @@ namespace CrissCross
     namespace Crypto
     {
         MD5Hash::MD5Hash()
+            : m_hash(NULL)
         {
         }
 
@@ -962,6 +963,7 @@ namespace CrissCross
 
         void MD5Hash::Reset ()
         {
+            delete [] m_hash; m_hash = NULL;
             delete [] m_hashString; m_hashString = NULL;
         }
     }

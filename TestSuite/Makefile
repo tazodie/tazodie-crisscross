@@ -29,6 +29,7 @@ shellsort.cpp \
 splaytree.cpp \
 stopwatch.cpp \
 testutils.cpp \
+tiger.cpp \
 main.cpp
 
 OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)
