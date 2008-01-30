@@ -485,6 +485,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\md4.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\md4.h"
+			>
+		</File>
+		<File
 			RelativePath=".\md5.cpp"
 			>
 		</File>
