@@ -14,12 +14,16 @@
 
 #include <crisscross/hash.h>
 
-/* Data structure for MD5 (Message Digest) computation */
-typedef struct {
-    cc_int32_t i[2];          /* number of _bits_ handled mod 2^64 */
-    cc_int32_t buf[4];        /* scratch buffer */
-    unsigned char in[64];     /* input buffer */
-    unsigned char digest[16]; /* actual digest after MD5Final call */
+#define	MD5_DIGEST_LENGTH	16
+
+/* MD5 context. */
+typedef struct	{
+	cc_uint32_t state[4];	/* state (ABCD) */
+	cc_uint32_t count[2];	/* number of bits, modulo 2^64 (lsb first) */
+	union	{
+		cc_uint8_t  buf8[64];	/* undigested input */
+		cc_uint32_t	buf32[16];	/* realigned input */
+	} buf_un;
 } cc_md5_ctx;
 
 namespace CrissCross
@@ -29,6 +33,7 @@ namespace CrissCross
         class MD5Hash : public Hash
         {
         private:
+            unsigned char *m_hash;
             cc_md5_ctx m_state;
 
         public:
