@@ -52,7 +52,9 @@ ifneq ($(GCC_NDS),)
 	-rm -f $(OUTDIR)/$(OUTBIN).arm9
 endif
 	-rm -f $(OUTDIR)/$(OUTBIN).map
+ifeq ($(GCC_MAJOR),4)
 	-rm -f $(GCH)
+endif
 ifneq ($(CC_BUILDSTATIC),yes)
 	-rm -f $(LIBNAME)
 	-rm -f $(LIBNAME).$(VERSION_MAJOR)

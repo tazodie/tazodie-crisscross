@@ -76,7 +76,9 @@ clean:
 	-rm -f crisscross/build_number.h
 	-rm -f $(OUTDIR)/$(OUTBIN)
 	-rm -f $(OUTDIR)/$(OUTBIN).map
+ifeq ($(GCC_MAJOR),4)
 	-rm -f $(GCH)
+endif
 ifneq ($(CC_BUILDSTATIC),yes)
 	-rm -f $(OUTNAME).$(VERSION_MAJOR)
 endif
