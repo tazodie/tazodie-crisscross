@@ -22,7 +22,7 @@
 #ifdef TARGET_OS_NDSFIRMWARE
 #define MAX_RUNS        10
 #else
-#define MAX_RUNS        5000
+#define MAX_RUNS        500
 #endif
 
 #endif

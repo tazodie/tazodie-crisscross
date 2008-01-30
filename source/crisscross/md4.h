@@ -9,35 +9,34 @@
  *
  */
 
-#ifndef __included_cc_md2_h
-#define __included_cc_md2_h
+#ifndef __included_cc_md4_h
+#define __included_cc_md4_h
 
 #include <crisscross/deprecate.h>
 #include <crisscross/hash.h>
 
-#define	MD2_DIGEST_LENGTH	16
+#define	MD4_DIGEST_LENGTH	16
 
-/* MD2 context. */
+/* MD4 context. */
 typedef struct	{
-  unsigned char state[16];                                 /* state */
-  unsigned char checksum[16];                           /* checksum */
-  unsigned int count;                 /* number of bytes, modulo 16 */
-  unsigned char buffer[16];                         /* input buffer */
-} cc_md2_ctx;
+  cc_uint32_t state[4];                                   /* state (ABCD) */
+  cc_uint32_t count[2];        /* number of bits, modulo 2^64 (lsb first) */
+  unsigned char buffer[64];                         /* input buffer */
+} cc_md4_ctx;
 
 namespace CrissCross
 {
     namespace Crypto
     {
-        class MD2Hash : public Hash
+        class MD4Hash : public Hash
         {
         private:
             unsigned char *m_hash;
-            cc_md2_ctx m_state;
+            cc_md4_ctx m_state;
 
         public:
-            _CC_DEPRECATE_SLOW("SEVERE") MD2Hash();
-            virtual ~MD2Hash();
+            MD4Hash();
+            virtual ~MD4Hash();
 
             int Process ( const void *_data, size_t _length );
             void Reset();

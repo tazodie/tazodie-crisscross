@@ -22,6 +22,7 @@ debug.cpp \
 error.cpp \
 hash.cpp \
 md2.cpp \
+md4.cpp \
 md5.cpp \
 mutex.cpp \
 sha1.cpp \

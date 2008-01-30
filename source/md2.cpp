@@ -220,7 +220,7 @@ namespace CrissCross
             if ( !_data ) return -1;
 	        MD2Init ( &m_state );
 	        MD2Update ( &m_state, (unsigned char *)_data, _length );
-            m_hash = new unsigned char[MD5_DIGEST_LENGTH];
+            m_hash = new unsigned char[MD2_DIGEST_LENGTH];
 	        MD2Final ( (unsigned char *)m_hash, &m_state );
             return 0;
         }
@@ -229,7 +229,7 @@ namespace CrissCross
         {
             if ( m_hashString ) return m_hashString;
             m_hashString = new char[33];
-            for ( int i = 0; i < MD5_DIGEST_LENGTH; i++ )
+            for ( int i = 0; i < MD2_DIGEST_LENGTH; i++ )
                 sprintf ( m_hashString + (i * 2), "%02x", m_hash[i] );
             return m_hashString;
         }
