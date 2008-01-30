@@ -68,6 +68,15 @@ static cc_int32_t sha256_k[64] =
           + SHA256_F3(w[i - 15]) + w[i - 16]; \
 }
 
+#define SHA256_EXP(a, b, c, d, e, f, g, h, j)               \
+{                                                           \
+    t1 = wv[h] + SHA256_F2(wv[e]) + CH(wv[e], wv[f], wv[g]) \
+         + sha256_k[j] + w[j];                              \
+    t2 = SHA256_F1(wv[a]) + MAJ(wv[a], wv[b], wv[c]);       \
+    wv[d] += t1;                                            \
+    wv[h] = t1 + t2;                                        \
+}
+
 static void sha256_transf ( cc_sha256_ctx *ctx, const unsigned char *message,
                      unsigned int block_nb )
 {

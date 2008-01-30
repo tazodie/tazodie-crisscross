@@ -70,7 +70,6 @@
           + SHA512_F3(w[i - 15]) + w[i - 16]; \
 }
 
-
 #define SHA512_EXP(a, b, c, d, e, f, g ,h, j)               \
 {                                                           \
     t1 = wv[h] + SHA512_F2(wv[e]) + CH(wv[e], wv[f], wv[g]) \
