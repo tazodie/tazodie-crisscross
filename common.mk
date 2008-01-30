@@ -30,7 +30,7 @@ STRIP = : $(DEVKITARM)/bin/arm-eabi-strip
 NDSTOOL = $(DEVKITARM)/bin/ndstool -v
 endif
 
-STDC = -pedantic
+STDC = -std=c99 -pedantic
 STDCPP = -std=c++98 -pedantic
 
 LINK = $(CXX)
@@ -69,7 +69,7 @@ GCC_HAS_SSE = no
 GCC_HAS_SSE2 = no
 CC_BUILDSTATIC = yes
 
-ifneq ($(GCC_NDS),)
+ifeq ($(GCC_NDS),)
 
 ifeq ($(GCC_PROC),i386)
 GCC_IS386 = yes
@@ -208,7 +208,7 @@ CFLAGS += $(STDC) -Wall -Wno-long-long
 endif
 
 ifeq ($(CXXFLAGS),)
-CXXFLAGS = $(CFLAGS) $(STDCPP) -fno-rtti -fno-exceptions
+CXXFLAGS = -O$(OPTLEVEL) $(STDCPP) $(ARCH) -Wall -Wno-long-long -pipe -ggdb -fno-rtti -fno-exceptions
 else
 CXXFLAGS += $(STDCPP) -Wall -Wno-long-long -fno-rtti -fno-exceptions
 endif
