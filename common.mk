@@ -8,6 +8,8 @@ OPTLEVEL = 3
 # Define a custom CHOST here.
 #CHOST = i386-pc-linux-gnu
 
+TARGET_BITS = -m32
+
 ifneq ($(CHOST),)
 PREFIX = $(CHOST)-
 else
@@ -35,7 +37,7 @@ STDC = -std=c99 -pedantic
 STDCPP = -std=c++98 -pedantic
 
 LINK = $(CXX)
-LDFLAGS = -lstdc++ -L../source  -L../../source -lCrissCross
+LDFLAGS = $(TARGET_BITS) -lstdc++ -L../source  -L../../source -lCrissCross
 
 GCC_APPLE    := $(shell $(CXX) -v 2>&1 | \
                     grep "Apple" )
@@ -73,23 +75,43 @@ CC_BUILDSTATIC = yes
 ifeq ($(GCC_NDS),)
 
 ifeq ($(GCC_PROC),i386)
-GCC_IS386 = yes
-GCC_ISINTEL = yes
+	ifeq ($(TARGET_BITS),-m64)
+		GCC_ISX64 = yes
+		GCC_ISINTEL = yes
+	else
+		GCC_IS386 = yes
+		GCC_ISINTEL = yes
+	endif
 endif
 
 ifeq ($(GCC_PROC),i486)
-GCC_IS486 = yes
-GCC_ISINTEL = yes
+	ifeq ($(TARGET_BITS),-m64)
+		GCC_ISX64 = yes
+		GCC_ISINTEL = yes
+	else
+		GCC_IS486 = yes
+		GCC_ISINTEL = yes
+	endif
 endif
 
 ifeq ($(GCC_PROC),i586)
-GCC_IS586 = yes
-GCC_ISINTEL = yes
+	ifeq ($(TARGET_BITS),-m64)
+		GCC_ISX64 = yes
+		GCC_ISINTEL = yes
+	else
+		GCC_IS586 = yes
+		GCC_ISINTEL = yes
+	endif
 endif
 
 ifeq ($(GCC_PROC),i686)
-GCC_IS686 = yes
-GCC_ISINTEL = yes
+	ifeq ($(TARGET_BITS),-m64)
+		GCC_ISX64 = yes
+		GCC_ISINTEL = yes
+	else
+		GCC_IS686 = yes
+		GCC_ISINTEL = yes
+	endif
 endif
 
 ifeq ($(GCC_PROC),x86_64)
@@ -142,7 +164,11 @@ ARCH =
 ifeq ($(GCC_ISAPPLE),yes)
     ifeq ($(GCC_ISINTEL),yes)
         # Intel Core Duo or Core 2 Duo (Intel Mac)
-        ARCH = -march=prescott
+        ifeq ($(TARGET_BITS),-m64)
+            ARCH = -march=nocona
+	else
+	    ARCH = -march=prescott
+        endif
     endif
     ifeq ($(GCC_ISPPC),yes)
         ARCH = -mtune=G4
@@ -203,13 +229,13 @@ LDFLAGS += -lpthread
 endif
 
 ifeq ($(CFLAGS),)
-CFLAGS = -O$(OPTLEVEL) $(STDC) $(ARCH) -Wall -Wno-long-long -pipe -ggdb
+CFLAGS = -O$(OPTLEVEL) $(TARGET_BITS) $(STDC) $(ARCH) -Wall -Wno-long-long -pipe -ggdb
 else
 CFLAGS += $(STDC) -Wall -Wno-long-long
 endif
 
 ifeq ($(CXXFLAGS),)
-CXXFLAGS = -O$(OPTLEVEL) $(STDCPP) $(ARCH) -Wall -Wno-long-long -pipe -ggdb -fno-rtti -fno-exceptions
+CXXFLAGS = -O$(OPTLEVEL) $(TARGET_BITS) $(STDCPP) $(ARCH) -Wall -Wno-long-long -pipe -ggdb -fno-rtti -fno-exceptions
 else
 CXXFLAGS += $(STDCPP) -Wall -Wno-long-long -fno-rtti -fno-exceptions
 endif
