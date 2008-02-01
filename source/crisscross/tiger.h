@@ -24,6 +24,9 @@ namespace CrissCross
             cc_uint64_t m_hash[3];
 
         public:
+		#if TARGET_CPU_BITS < 64
+			_CC_DEPRECATE_SLOW("MODERATE")
+		#endif
             TigerHash();
             virtual ~TigerHash();
 

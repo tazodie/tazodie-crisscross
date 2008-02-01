@@ -17,8 +17,8 @@
 #define SHA1_DIGEST_SIZE 20
 
 typedef struct {
-    unsigned long state[5];
-    unsigned long count[2];
+    unsigned int state[5];
+    unsigned int count[2];
     unsigned char buffer[64];
 } cc_sha1_ctx;
 

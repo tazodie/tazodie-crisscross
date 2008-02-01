@@ -528,13 +528,13 @@ cc_uint64_t table[4*256] = {
     0xC83223F1720AEF96LL   /* 1022 */,    0xC3A0396F7363A51FLL   /* 1023 */};
 
 typedef unsigned long long int word64;
-typedef unsigned long word32;
+typedef unsigned int word32;
 typedef unsigned char byte;
 
 /* The following macro denotes that an optimization    */
 /* for Alpha is required. It is used only for          */
 /* optimization of time. Otherwise it does nothing.    */
-#ifdef __alpha
+#ifdef TARGET_CPU_BITS == 64
 #define OPTIMIZE_FOR_ALPHA
 #endif
 
@@ -757,8 +757,8 @@ namespace CrissCross
         {
             if ( m_hashString ) return m_hashString;
             m_hashString = new char[49];
-            m_hashString[48] = 0;
-            sprintf( m_hashString, "%08lx%08lx%08lx%08lx%08lx%08lx",
+			m_hashString[48] = 0;
+            sprintf( m_hashString, "%08x%08x%08x%08x%08x%08x",
                 (word32)(m_hash[0]>>32),
                 (word32)(m_hash[0]),
                 (word32)(m_hash[1]>>32),

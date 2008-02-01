@@ -35,6 +35,9 @@ namespace CrissCross
             unsigned char *m_hash;
 
         public:
+		#if TARGET_CPU_BITS < 64
+			_CC_DEPRECATE_SLOW("MODERATE")
+		#endif
             SHA512Hash();
             virtual ~SHA512Hash();
 
