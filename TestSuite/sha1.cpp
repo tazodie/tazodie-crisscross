@@ -16,7 +16,7 @@ using namespace CrissCross::Crypto;
 
 int TestSHA1()
 {
-	SHA1Hash sha1;
+    SHA1Hash sha1;
 
     const char *teststring = NULL;
     size_t length = 0;
@@ -24,7 +24,7 @@ int TestSHA1()
     /* These tests are from FIPS PUB 180-1 */
 
     teststring = "abc"; length = strlen(teststring);
-    sha1.Process(teststring, length);
+    sha1.Process ( teststring, length );
     if ( strcmp ( sha1.ToString(), "a9993e364706816aba3e25717850c26c9cd0d89d" ) )
         return 1;
 
