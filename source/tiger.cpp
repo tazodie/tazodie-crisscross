@@ -534,7 +534,7 @@ typedef unsigned char byte;
 /* The following macro denotes that an optimization    */
 /* for Alpha is required. It is used only for          */
 /* optimization of time. Otherwise it does nothing.    */
-#ifdef TARGET_CPU_BITS == 64
+#if TARGET_CPU_BITS == 64
 #define OPTIMIZE_FOR_ALPHA
 #endif
 
