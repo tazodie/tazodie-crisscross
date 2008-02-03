@@ -44,6 +44,11 @@ TARGET_COMPILER_VC
     Visual C++
 TARGET_COMPILER_ICC
     Intel C++ Compiler
+	
+TARGET_BIG_ENDIAN
+	Running on a big endian byte order architecture.
+TARGET_LITTLE_ENDIAN
+	Running on a little endian byte order architecture.
 
  */
 
