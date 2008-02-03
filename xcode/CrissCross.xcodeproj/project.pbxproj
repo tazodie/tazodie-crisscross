@@ -511,7 +511,12 @@
 		4FADC24808B4156D00ABE55E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(VALID_ARCHS)";
+				ARCHS = (
+					i386,
+					x86_64,
+					ppc,
+					ppc64,
+				);
 				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -522,6 +527,7 @@
 				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/../source/\"";
 				PREBINDING = NO;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = static;
 			};
 			name = Release;
 		};
