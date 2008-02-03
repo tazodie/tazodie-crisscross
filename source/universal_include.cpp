@@ -178,7 +178,7 @@ ParseMemoryLeakFile ( const char *_inputFilename,
         fprintf ( output, "Total unrecognised memory leaks : %d Kbytes\n\n",
             int ( unrecognised / 1024 ) );
 
-        for ( size_t k = sorted.size() - 1; k >= 0 && k < sorted.size(); k-- )
+        for ( int k = (int)sorted.size() - 1; k >= 0 && k < (int)sorted.size(); k-- )
         {
             char *source = sorted.get(k);
 			CoreAssert ( source );
