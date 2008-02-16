@@ -12,8 +12,8 @@
 #ifndef __included_heapsort_test_h
 #define __included_heapsort_test_h
 
-int TestHeapSort_IntArray();
-int TestHeapSort_DArray();
-int TestHeapSort_LList();
+int TestHeapSort_IntArray ();
+int TestHeapSort_DArray ();
+int TestHeapSort_LList ();
 
 #endif

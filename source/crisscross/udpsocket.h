@@ -31,11 +31,11 @@ namespace CrissCross
          */
         class UDPSocket : public CoreSocket
         {
-        private:
+private:
 
             int SetAttributes ( socket_t _socket );
 
-        public:
+public:
             //! The constructor.
             UDPSocket ();
             //! The destructor.
@@ -43,16 +43,16 @@ namespace CrissCross
 
             //! Binds an outbound UDP/IP socket to the specified address and port.
             /*!
-                \param _address The remote address to bind to. Can be a hostname, as it will be resolved by gethostbyname().
-                \param _port The remote port to bind to.
-                \return Due to the use of Berkley sockets, this returns zero on success, and a nonzero value on failure.
+             \param _address The remote address to bind to. Can be a hostname, as it will be resolved by gethostbyname().
+             \param _port The remote port to bind to.
+             \return Due to the use of Berkley sockets, this returns zero on success, and a nonzero value on failure.
              */
             CrissCross::Errors Bind ( const char *_address, unsigned short _port );
-            
+
             //! Binds an inbound UDP/IP socket on the specified port.
             /*!
-                \param _port The port to bind.
-                \return Due to the use of Berkley sockets, this returns zero on success, and a nonzero value on failure.
+             \param _port The port to bind.
+             \return Due to the use of Berkley sockets, this returns zero on success, and a nonzero value on failure.
              */
             CrissCross::Errors Listen ( unsigned short _port );
 

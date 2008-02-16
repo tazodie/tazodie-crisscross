@@ -35,12 +35,12 @@ RunApplication ( int argc, char **argv )
 
     cpuid->Go ();
 
-	// NOTES
+    // NOTES
     // The Virtual count is the number of processors that the operating system sees,
     // but does not take into account whether any of the processors counted are
     // hyperthreads, cores, or truly physical CPUs.
     //
-    // If the Physical and Logical counts are equal, the number of Physical/Logical is the 
+    // If the Physical and Logical counts are equal, the number of Physical/Logical is the
     // core count, because it's a dual core system.
 
     console->WriteLine ( "There are %d processors in the system (%d cores per package, %d logical per package).",
@@ -48,22 +48,24 @@ RunApplication ( int argc, char **argv )
                          cpuid->CoresPerPackage (),
                          cpuid->LogicalPerPackage () );
 
-	if ( cpuid->VirtualCount() > 1 )
-	{
-		if ( cpuid->CoresPerPackage () == cpuid->LogicalPerPackage () )
-			console->WriteLine ( "This is a multi-core system." );
-		else if ( cpuid->CoresPerPackage () > 1 && cpuid->LogicalPerPackage () > cpuid->CoresPerPackage () )
-			console->WriteLine ( "This is a hyperthreaded multi-core system." );
-		else if ( cpuid->CoresPerPackage () == 1 && cpuid->LogicalPerPackage () > 1 )
-			console->WriteLine ( "This is a hyperthreaded system." );
+    if ( cpuid->VirtualCount () > 1 )
+    {
+        if ( cpuid->CoresPerPackage () == cpuid->LogicalPerPackage () )
+            console->WriteLine ( "This is a multi-core system." );
+        else if ( cpuid->CoresPerPackage () > 1 && cpuid->LogicalPerPackage () > cpuid->CoresPerPackage () )
+            console->WriteLine ( "This is a hyperthreaded multi-core system." );
+        else if ( cpuid->CoresPerPackage () == 1 && cpuid->LogicalPerPackage () > 1 )
+            console->WriteLine ( "This is a hyperthreaded system." );
 
-		if ( cpuid->VirtualCount() > cpuid->LogicalPerPackage() )
-			console->WriteLine ( "This is a multi-processor system." );
-	} else {
-		console->WriteLine ( "This is a single processor system." );
-	}
+        if ( cpuid->VirtualCount () > cpuid->LogicalPerPackage () )
+            console->WriteLine ( "This is a multi-processor system." );
+    }
+    else
+    {
+        console->WriteLine ( "This is a single processor system." );
+    }
 
-	console->WriteLine ();
+    console->WriteLine ();
 
     for ( int i = 0; i < MAX_PROCESSORS; i++ )
     {
@@ -73,7 +75,7 @@ RunApplication ( int argc, char **argv )
             // Print out the manufacturer string
             console->WriteLine ( "CPU[%d] Manufacturer: %s", i,
                                  cpuid->proc[i]->Manufacturer );
-            
+
             // Print out the CPU name string, if available.
             if ( strlen ( cpuid->proc[i]->ProcessorName ) > 0 )
                 console->WriteLine ( "CPU[%d] Name: %s", i,
@@ -100,18 +102,19 @@ RunApplication ( int argc, char **argv )
             // Print out CPU features (MMX, SSE, and so on).
             console->Write ( "CPU[%d] Features: ", i );
 
-			CrissCross::Data::DArray<const char *> *featureIDs =
-				cpuid->proc[i]->features.ConvertIndexToDArray();
+            CrissCross::Data::DArray<const char *> *featureIDs =
+                cpuid->proc[i]->features.ConvertIndexToDArray ();
 
-			CrissCross::Data::DArray<CrissCross::System::Feature *> *features =
-				cpuid->proc[i]->features.ConvertToDArray();
+            CrissCross::Data::DArray<CrissCross::System::Feature *> *features =
+                cpuid->proc[i]->features.ConvertToDArray ();
 
-			for ( size_t i = 0; i < featureIDs->size(); i++ )
-			{
-				if ( featureIDs->valid ( i ) )
-					if ( features->get(i)->Enabled )
-						console->Write ( "%s ", featureIDs->get(i) );
-			}
+            for ( size_t i = 0; i < featureIDs->size (); i++ )
+            {
+                if ( featureIDs->valid ( i ) )
+                    if ( features->get (i)->Enabled )
+                        console->Write ( "%s ", featureIDs->get (i) );
+
+            }
             console->WriteLine ();
             console->WriteLine ();
         }

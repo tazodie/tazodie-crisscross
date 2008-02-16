@@ -13,7 +13,7 @@
 #define __included_cc_core_io_h
 
 #ifndef __GNUC__
-#include <crisscross/universal_include.h>
+#  include <crisscross/universal_include.h>
 #endif
 
 namespace CrissCross
@@ -29,11 +29,11 @@ namespace CrissCross
             CC_FILE_CREATE,                   /*!< Default. Will create a new file if the one opened does not exist. */
             CC_FILE_APPEND                    /*!< Write operations will append data to the end of the file. */
         };
-        
+
         //! Line ending conventions.
         /*!
            An enumeration of different ending types.
-        */
+         */
         enum LineEndingType
         {
             CC_LN_NATIVE,                     /*!< Automatically selects the appropriate line ending for the running platform. */

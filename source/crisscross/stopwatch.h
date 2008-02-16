@@ -13,15 +13,15 @@
 #define __included_cc_stopwatch_h
 
 #ifndef __GNUC__
-#include <crisscross/universal_include.h>
+#  include <crisscross/universal_include.h>
 #endif
 
 #if defined ( TARGET_OS_MACOSX )
-#   include <mach/mach.h>
-#   include <mach/mach_time.h>
+#  include <mach/mach.h>
+#  include <mach/mach_time.h>
 #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_NDSFIRMWARE )
-#   include <sys/time.h>
-#   include <time.h>
+#  include <sys/time.h>
+#  include <time.h>
 #endif
 
 namespace CrissCross
@@ -31,44 +31,44 @@ namespace CrissCross
         //! A timer class designed for code profiling.
         class Stopwatch
         {
-        protected:
+protected:
 #if defined ( TARGET_OS_WINDOWS )
-            LARGE_INTEGER               m_start, m_finish;
-            double                      m_tickInterval;
+            LARGE_INTEGER m_start, m_finish;
+            double m_tickInterval;
 
-			void RecalculateFrequency();
+            void RecalculateFrequency ();
 #elif defined ( TARGET_OS_MACOSX )
-            uint64_t                    m_start;
-            uint64_t                    m_finish;
-            mach_timebase_info_data_t     m_timebase;
+            uint64_t m_start;
+            uint64_t m_finish;
+            mach_timebase_info_data_t m_timebase;
 #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || \
-      defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
-            struct timeval              m_start;
-            struct timeval              m_finish;
+    defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
+            struct timeval m_start;
+            struct timeval m_finish;
 #elif defined ( TARGET_OS_NDSFIRMWARE )
             // Nothing here :)
 #else
-#error No target OS defined (did you forget to include crisscross/universal_include.h?)
+#  error No target OS defined (did you forget to include crisscross/universal_include.h?)
 #endif
 
-        public:
+public:
             //! The constructor.
-            Stopwatch();
+            Stopwatch ();
 
             //! The destructor.
-            ~Stopwatch();
+            ~Stopwatch ();
 
             //! Starts the timer counter.
-			inline void Start()
-			{
-			#if defined ( TARGET_OS_WINDOWS )
-				RecalculateFrequency();
-				QueryPerformanceCounter ( &m_start );
-			#elif defined ( TARGET_OS_MACOSX )
-				m_start = mach_absolute_time ();
+            inline void Start ()
+            {
+                        #if defined ( TARGET_OS_WINDOWS )
+                RecalculateFrequency ();
+                QueryPerformanceCounter ( &m_start );
+                        #elif defined ( TARGET_OS_MACOSX )
+                m_start = mach_absolute_time ();
             #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || \
-                  defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
-				gettimeofday ( &m_start, NULL );
+    defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
+                gettimeofday ( &m_start, NULL );
             #elif defined ( TARGET_OS_NDSFIRMWARE )
                 TIMER0_CR = 0;
                 TIMER1_CR = 0;
@@ -76,41 +76,41 @@ namespace CrissCross
                 TIMER1_DATA = 0;
                 TIMER1_CR = TIMER_ENABLE | TIMER_CASCADE;
                 TIMER0_CR = TIMER_ENABLE | TIMER_DIV_1;
-			#endif
-			};
+                        #endif
+            };
 
             //! Stops the timer counter.
-            inline void Stop()
-			{
-			#if defined ( TARGET_OS_WINDOWS )
-				QueryPerformanceCounter ( &m_finish );
-			#elif defined ( TARGET_OS_MACOSX )
-				m_finish = mach_absolute_time ();
+            inline void Stop ()
+            {
+                        #if defined ( TARGET_OS_WINDOWS )
+                QueryPerformanceCounter ( &m_finish );
+                        #elif defined ( TARGET_OS_MACOSX )
+                m_finish = mach_absolute_time ();
             #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || \
-                  defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
-				gettimeofday ( &m_finish, NULL );
+    defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
+                gettimeofday ( &m_finish, NULL );
             #elif defined ( TARGET_OS_NDSFIRMWARE )
                 TIMER0_CR = 0;
-			#endif
-			};
+                        #endif
+            };
 
             //! Indicates the number of seconds elapsed.
             /*!
-                \return Number of seconds elapsed between the Start() and Stop() calls.
+             \return Number of seconds elapsed between the Start() and Stop() calls.
              */
-            double Elapsed();
+            double Elapsed ();
 
             //! Indicates the number of milliseconds elapsed.
             /*!
-                \return Number of milliseconds elapsed between the Start() and Stop() calls.
+             \return Number of milliseconds elapsed between the Start() and Stop() calls.
              */
-            unsigned long ElapsedMS();
+            unsigned long ElapsedMS ();
 
-			//! Indicates the number of clock cycles elapsed. NOTE: CURRENTLY ONLY IMPLEMENTED ON WINDOWS
-			/*!
-				\return Number of clock cycles elapsed between Start() and Stop() calls.
-			 */
-			cc_uint64_t Clocks();
+            //! Indicates the number of clock cycles elapsed. NOTE: CURRENTLY ONLY IMPLEMENTED ON WINDOWS
+            /*!
+             \return Number of clock cycles elapsed between Start() and Stop() calls.
+             */
+            cc_uint64_t Clocks ();
         };
     }
 }

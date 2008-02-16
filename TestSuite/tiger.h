@@ -12,6 +12,6 @@
 #ifndef __included_tiger_test_h
 #define __included_tiger_test_h
 
-int TestTiger();
+int TestTiger ();
 
 #endif

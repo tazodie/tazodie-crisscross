@@ -12,6 +12,6 @@
 #ifndef __included_md5_test_h
 #define __included_md5_test_h
 
-int TestMD5();
+int TestMD5 ();
 
 #endif

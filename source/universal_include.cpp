@@ -24,11 +24,11 @@ Console *g_stdout;
 
 #ifdef DETECT_MEMORY_LEAKS
 
-#    pragma warning ( disable: 4312 )
+#  pragma warning ( disable: 4312 )
 
-#    ifdef ENABLE_MEMLEAK_STATS
+#  ifdef ENABLE_MEMLEAK_STATS
 _CrtMemState s1, s2, s3;
-#    endif
+#  endif
 
 void
 ParseMemoryLeakFile ( const char *_inputFilename,
@@ -49,69 +49,68 @@ ParseMemoryLeakFile ( const char *_inputFilename,
 
     std::ifstream memoryfile ( _inputFilename );
 
-    while ( !memoryfile.eof () && !memoryfile.fail() )
+    while ( !memoryfile.eof () && !memoryfile.fail () )
     {
         char thisline[1024];
 
         memoryfile.getline ( thisline, 1024 );
 
         if ( !strncmp ( thisline, " Data:", 6 ) == 0 ) // This line is a data line - useless to us
-		{
-			if ( strchr ( thisline, ':' ) )                    // This line does not have a source file location - useless to us
-			{
-				// Get the size
+        {
+            if ( strchr ( thisline, ':' ) )                               // This line does not have a source file location - useless to us
+            {
+                // Get the size
 
-				char *lastcomma = strrchr ( thisline, ',' );
-				if ( lastcomma == 0 ) continue;
-				char *ssize = lastcomma + 2;
-				int size;
-				char unused[32];
+                char *lastcomma = strrchr ( thisline, ',' );
+                if ( lastcomma == 0 ) continue;
 
-				sscanf ( ssize, "%d %s", &size, unused );
+                char *ssize = lastcomma + 2;
+                int size;
+                char unused[32];
 
-				// Get the source file name
+                sscanf ( ssize, "%d %s", &size, unused );
 
-				char *sourcelocation = thisline;
-				char *colon = strrchr ( thisline, ':' );
+                // Get the source file name
 
-				*( colon - 1 ) = '\x0';
+                char *sourcelocation = thisline;
+                char *colon = strrchr ( thisline, ':' );
 
-				// Put the result into our BTree
+                *( colon - 1 ) = '\x0';
 
-				int result = 0;
-				bool found = combined.find ( sourcelocation, result );
+                // Put the result into our BTree
 
-				if ( found )
-					combined.replace ( sourcelocation, result + size );
-				else
-					combined.insert ( sourcelocation, size );
+                int result = 0;
+                bool found = combined.find ( sourcelocation, result );
 
-				
-				found = frequency.find ( sourcelocation, result );
+                if ( found )
+                    combined.replace ( sourcelocation, result + size );
+                else
+                    combined.insert ( sourcelocation, size );
 
-				if ( frequency.exists ( sourcelocation ) )
-					frequency.replace ( sourcelocation, result + size );
-				else
-					frequency.insert ( sourcelocation, 1 );
+                found = frequency.find ( sourcelocation, result );
 
-			}
-			else
-			{
-				char *lastcomma = strrchr ( thisline, ',' );
+                if ( frequency.exists ( sourcelocation ) )
+                    frequency.replace ( sourcelocation, result + size );
+                else
+                    frequency.insert ( sourcelocation, 1 );
+            }
+            else
+            {
+                char *lastcomma = strrchr ( thisline, ',' );
 
-				if ( lastcomma )
-				{
+                if ( lastcomma )
+                {
 
-					char *ssize = lastcomma + 2;
-					int size;
-					char unused[32];
+                    char *ssize = lastcomma + 2;
+                    int size;
+                    char unused[32];
 
-					sscanf ( ssize, "%d %s", &size, unused );
+                    sscanf ( ssize, "%d %s", &size, unused );
 
-					unrecognised += size;
-				}
-			}
-		}
+                    unrecognised += size;
+                }
+            }
+        }
     }
 
     memoryfile.close ();
@@ -122,83 +121,87 @@ ParseMemoryLeakFile ( const char *_inputFilename,
     //
 
     LList<char *> sorted;
-	DArray<char *> *dataI = combined.ConvertIndexToDArray();
-	DArray<int> *dataD = combined.ConvertToDArray();
+    DArray<char *> *dataI = combined.ConvertIndexToDArray ();
+    DArray<int> *dataD = combined.ConvertToDArray ();
 
     int totalsize = 0;
 
-    for ( size_t i = 0; i < dataI->size(); i++ )
+    for ( size_t i = 0; i < dataI->size (); i++ )
     {
-		if ( dataI->valid(i) )
-		{
-			char *newsource = dataI->get(i);
-			int newsize = dataD->get(i);
+        if ( dataI->valid (i) )
+        {
+            char *newsource = dataI->get (i);
+            int newsize = dataD->get (i);
 
-			totalsize += newsize;
-			bool inserted = false;
+            totalsize += newsize;
+            bool inserted = false;
 
-			for ( size_t i = 0; i < sorted.size(); i++ )
-			{
-				char *existingsource = sorted.get(i);
-				int existingsize;
-				
-				combined.find ( existingsource, existingsize );
+            for ( size_t i = 0; i < sorted.size (); i++ )
+            {
+                char *existingsource = sorted.get (i);
+                int existingsize;
 
-				if ( newsize <= existingsize )
-				{
-					sorted.insert_at ( newsource, i );
-					inserted = true;
-					break;
-				}
-			}
+                combined.find ( existingsource, existingsize );
 
-			if ( !inserted )
-				sorted.insert ( newsource );
-		}
+                if ( newsize <= existingsize )
+                {
+                    sorted.insert_at ( newsource, i );
+                    inserted = true;
+                    break;
+                }
+            }
+
+            if ( !inserted )
+                sorted.insert ( newsource );
+        }
     }
 
-	delete dataI;
-	delete dataD;
+    delete dataI;
+    delete dataD;
 
 
     //
     // Open the output file
     //
 
-    if ( sorted.size() )
+    if ( sorted.size () )
     {
         FILE *output = fopen ( _outputFilename, "wt" );
 
         //
         // Print out our sorted list
-        // 
+        //
 
         fprintf ( output, "Total recognised memory leaks   : %d Kbytes\n",
-            int ( totalsize / 1024 ) );
+                  int ( totalsize / 1024 ) );
         fprintf ( output, "Total unrecognised memory leaks : %d Kbytes\n\n",
-            int ( unrecognised / 1024 ) );
+                  int ( unrecognised / 1024 ) );
 
-        for ( int k = (int)sorted.size() - 1; k >= 0 && k < (int)sorted.size(); k-- )
+        for ( int k = (int)sorted.size () - 1; k >= 0 && k < (int)sorted.size (); k-- )
         {
-            char *source = sorted.get(k);
-			CoreAssert ( source );
+            char *source = sorted.get (k);
+            CoreAssert ( source );
             int size; combined.find ( source, size );
             int freq; frequency.find ( source, freq );
 
-			if ( size > 1048576 ) {
+            if ( size > 1048576 ){
 
                 fprintf ( output, "%-95s (%d MB in %d leaks)\n", source,
-                        int ( size / 1048576 ), freq );
+                          int ( size / 1048576 ), freq );
 
-			} else if ( size > 2048 ) {
+            }
+            else if ( size > 2048 )
+            {
 
                 fprintf ( output, "%-95s (%d KB in %d leaks)\n", source,
-                        int ( size / 1024 ), freq );
+                          int ( size / 1024 ), freq );
 
-            } else {
+            }
+            else
+            {
 
                 fprintf ( output, "%-95s (%d  bytes in %d leaks)\n", source, size,
-                        freq );
+                          freq );
 
             }
         }
@@ -218,9 +221,9 @@ AppPrintMemoryLeaks ( char *_filename )
     //
     // Print all raw memory leak data to a temporary file
 
-#    ifdef ENABLE_MEMLEAK_STATS
+#  ifdef ENABLE_MEMLEAK_STATS
     _CrtMemCheckpoint ( &s2 );
-#    endif
+#  endif
 
     char tmpFilename[512];
 
@@ -232,13 +235,13 @@ AppPrintMemoryLeaks ( char *_filename )
                             OF_CREATE );
 
     _CrtSetReportMode ( _CRT_WARN, _CRTDBG_MODE_FILE );
-    _CrtSetReportFile ( _CRT_WARN, ( _HFILE ) file );
+    _CrtSetReportFile ( _CRT_WARN, ( _HFILE )file );
 
     _CrtDumpMemoryLeaks ();
-#    ifdef ENABLE_MEMLEAK_STATS
+#  ifdef ENABLE_MEMLEAK_STATS
     _CrtMemDifference ( &s3, &s1, &s2 );
     _CrtMemDumpStatistics ( &s3 );
-#    endif
+#  endif
 
     _lclose ( file );
 
@@ -253,11 +256,11 @@ AppPrintMemoryLeaks ( char *_filename )
     //
     // Delete the temporary file
 
-#    ifdef TARGET_OS_WINDOWS
+#  ifdef TARGET_OS_WINDOWS
     DeleteFileA ( tmpFilename );
-#    else
+#  else
     unlink ( tmpFilename );
-#    endif
+#  endif
 
 }
 #endif
@@ -265,59 +268,60 @@ AppPrintMemoryLeaks ( char *_filename )
 #ifdef SDL_APPLICATION
 int CrissCrossInitialize ( int argc, char **argv )
 #else
-	#ifndef TARGET_OS_WINDOWS
-		int main ( int argc, char **argv )
-	#else
-		#ifndef _WINDOWS
-			int main ( int argc, char **argv )
-		#else
-			int WINAPI WinMain(HINSTANCE _hInstance, HINSTANCE _hPrevInstance, 
-							   LPSTR _cmdLine, int _iCmdShow)
-		#endif
-	#endif
+        #  ifndef TARGET_OS_WINDOWS
+int main ( int argc, char **argv )
+        #  else
+                #    ifndef _WINDOWS
+int main ( int argc, char **argv )
+                #    else
+int WINAPI WinMain (HINSTANCE _hInstance, HINSTANCE _hPrevInstance,
+                    LPSTR _cmdLine, int _iCmdShow)
+                #    endif
+        #  endif
 #endif
 {
-	int retval = 0;
+    int retval = 0;
 
 #ifdef TARGET_OS_NDSFIRMWARE
-	fatInitDefault();
+    fatInitDefault ();
 #endif
 
 #ifdef ENABLE_MEMLEAK_STATS
-	_CrtMemCheckpoint ( &s1 );
+    _CrtMemCheckpoint ( &s1 );
 #endif
-	g_stderr = new Console ( stderr, NULL );
-	g_stdout = new Console ( stdout, NULL );
+    g_stderr = new Console ( stderr, NULL );
+    g_stdout = new Console ( stdout, NULL );
 
 #ifdef ENABLE_CRASHREPORTS
-	__try
+    __try
 #endif
-	{
+    {
 #ifndef _WINDOWS
-		retval = RunApplication ( argc, argv );
+        retval = RunApplication ( argc, argv );
 #else
-		retval = RunApplication ( __argc, __argv );
+        retval = RunApplication ( __argc, __argv );
 #endif
-	}
+    }
 #ifdef ENABLE_CRASHREPORTS
-	__except ( RecordExceptionInfo ( GetExceptionInformation(), "WinMain", CC_LIB_NAME, CC_LIB_VERSION ) ) {}
+    __except ( RecordExceptionInfo ( GetExceptionInformation (), "WinMain", CC_LIB_NAME, CC_LIB_VERSION ) ) {
+    }
 #endif
-    
-	delete g_stderr; g_stderr = NULL;
-	delete g_stdout; g_stdout = NULL;
+
+    delete g_stderr; g_stderr = NULL;
+    delete g_stdout; g_stdout = NULL;
 
 #ifdef DETECT_MEMORY_LEAKS
-	AppPrintMemoryLeaks ( "memleak.txt" );
+    AppPrintMemoryLeaks ( "memleak.txt" );
 #endif
 
-	return retval;
+    return retval;
 }
 
 #ifdef SDL_APPLICATION
 extern "C" {
-	int SDL_main ( int argc, char **argv )
-	{
-		return CrissCrossInitialize(argc,argv);
-	}
+    int SDL_main ( int argc, char **argv )
+    {
+        return CrissCrossInitialize (argc,argv);
+    }
 }
 #endif

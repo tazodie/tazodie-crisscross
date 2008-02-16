@@ -12,18 +12,18 @@
 #ifndef __included_datatypes_h
 #define __included_datatypes_h
 
-int TestDatatypes_Uint8();
-int TestDatatypes_Uint16();
-int TestDatatypes_Uint32();
-int TestDatatypes_Uint64();
+int TestDatatypes_Uint8 ();
+int TestDatatypes_Uint16 ();
+int TestDatatypes_Uint32 ();
+int TestDatatypes_Uint64 ();
 
-int TestDatatypes_Ulong();
+int TestDatatypes_Ulong ();
 
-int TestDatatypes_Bool();
+int TestDatatypes_Bool ();
 
-int TestDatatypes_Float();
-int TestDatatypes_Double();
+int TestDatatypes_Float ();
+int TestDatatypes_Double ();
 
-int TestDatatypes_Pointer();
+int TestDatatypes_Pointer ();
 
 #endif

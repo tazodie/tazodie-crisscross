@@ -14,8 +14,8 @@
 
 #include <crisscross/hash.h>
 
-#define SHA256_DIGEST_SIZE ( 256 / 8)
-#define SHA256_BLOCK_SIZE  ( 512 / 8)
+#define SHA256_DIGEST_SIZE ( 256 / 8 )
+#define SHA256_BLOCK_SIZE  ( 512 / 8 )
 
 typedef struct {
     unsigned int tot_len;
@@ -30,16 +30,16 @@ namespace CrissCross
     {
         class SHA256Hash : public Hash
         {
-        private:
+private:
             cc_sha256_ctx m_state;
             unsigned char *m_hash;
 
-        public:
-            SHA256Hash();
-            virtual ~SHA256Hash();
+public:
+            SHA256Hash ();
+            virtual ~SHA256Hash ();
 
             int Process ( const void *_data, size_t _length );
-            void Reset();
+            void Reset ();
             virtual const char *ToString () const;
 
         };

@@ -12,6 +12,6 @@
 #ifndef __included_md4_test_h
 #define __included_md4_test_h
 
-int TestMD4();
+int TestMD4 ();
 
 #endif

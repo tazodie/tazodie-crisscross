@@ -12,6 +12,6 @@
 #ifndef __included_splaytree_test_h
 #define __included_splaytree_test_h
 
-int ProfileSplayTree();
+int ProfileSplayTree ();
 
 #endif

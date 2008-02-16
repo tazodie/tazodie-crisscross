@@ -16,25 +16,25 @@
 
 using namespace CrissCross::Data;
 
-int TestDArray()
+int TestDArray ()
 {
     DArray<int> *darray = new DArray<int>();
-    
+
     darray->insert ( 1 );
     darray->insert ( 3 );
     darray->insert ( 5 );
     darray->insert ( 7 );
-    
-    if ( darray->get(0) != 1 )
+
+    if ( darray->get (0) != 1 )
         return 1;
 
-    if ( darray->get(3) != 7 )
+    if ( darray->get (3) != 7 )
         return 2;
 
-    if ( darray->get(1) != 3 )
+    if ( darray->get (1) != 3 )
         return 3;
-        
+
     delete darray;
-    
+
     return 0;
 }
