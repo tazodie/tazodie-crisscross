@@ -57,6 +57,10 @@ all: precomp $(OUTDIR)/$(OUTBIN)
 
 precomp: $(GCH)
 
+pretty:
+	-dos2unix *.cpp *.h crisscross/*.cpp crisscross/*.h
+	-uncrustify --no-backup -c uncrustify-crisscross.cfg *.cpp *.h crisscross/*.cpp crisscross/*.h
+
 install: $(OUTDIR)/$(OUTBIN)
 	-rm -rf $(prefix)/include/crisscross
 	mkdir -p $(prefix)/include/crisscross

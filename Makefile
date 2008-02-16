@@ -8,6 +8,11 @@ main:
 	+$(MAKE) -C source precomp
 	+$(MAKE) -C source
 	
+pretty:
+	+$(MAKE) -C source pretty
+	+$(MAKE) -C examples pretty
+	+$(MAKE) -C TestSuite pretty
+
 example: main
 	+$(MAKE) -C examples
 

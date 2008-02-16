@@ -27,6 +27,10 @@ endif
 
 all: $(OUTDIR)/$(OUTBIN)
 
+pretty:
+	-dos2unix *.cpp *.h
+	-uncrustify --no-backup -c ../../source/uncrustify-crisscross.cfg *.cpp *.h
+
 precomp: $(GCH)
 
 test: $(OUTDIR)/$(OUTBIN)
