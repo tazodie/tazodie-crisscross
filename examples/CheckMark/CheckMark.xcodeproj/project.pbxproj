@@ -21,14 +21,14 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = B0B268BF0D553C5E007C4D4A /* CrissCross.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = B0BD2C480BE26BDC00F71A26 /* libCrissCross Static.a */;
+			remoteGlobalIDString = B0BD2C480BE26BDC00F71A26;
 			remoteInfo = "CrissCross Static";
 		};
 		B0B268CA0D553C70007C4D4A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B0B268BF0D553C5E007C4D4A /* CrissCross.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = B0BD2C470BE26BDB00F71A26 /* CrissCross Static */;
+			remoteGlobalIDString = B0BD2C470BE26BDB00F71A26;
 			remoteInfo = "CrissCross Static";
 		};
 /* End PBXContainerItemProxy section */
