@@ -50,6 +50,10 @@ all: $(OUTDIR)/$(OUTBIN)
 
 precomp: $(GCH)
 
+pretty:
+	-dos2unix *.cpp *.h
+	-uncrustify --no-backup -c ../source/uncrustify-crisscross.cfg *.cpp *.h
+
 test: $(OUTDIR)/$(OUTBIN)
 ifeq ($(GCC_NDS),)
 	LD_LIBRARY_PATH="$(OUTDIR)" $(OUTDIR)/$(OUTBIN)
