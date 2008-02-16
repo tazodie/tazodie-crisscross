@@ -57,7 +57,6 @@ namespace CrissCross
 			return true;
 		}
 
-
 		template <class Key, class Data>
 		typename AVLTree<Key,Data>::Result AVLTree<Key,Data>::erase( AVLNode<Key,Data> **_node, Key const &_key, Data const &_data )
 		{

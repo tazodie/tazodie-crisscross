@@ -32,9 +32,7 @@ namespace CrissCross
 				*stdout = *hf;
 				int i = setvbuf ( stdout, NULL, _IONBF, 0 );
 
-				hCrt =
-					_open_osfhandle ( ( intptr_t ) GetStdHandle ( STD_ERROR_HANDLE ),
-									  _O_TEXT );
+				hCrt = _open_osfhandle ( ( intptr_t ) GetStdHandle ( STD_ERROR_HANDLE ), _O_TEXT );
 				hf = _fdopen ( hCrt, "w" );
 				*stderr = *hf;
 				i = setvbuf ( stdout, NULL, _IONBF, 0 );
