@@ -12,8 +12,8 @@
 #ifndef __included_splaytree_test_h
 #define __included_splaytree_test_h
 
-int TestSplayTree_CString();
-int TestSplayTree_String();
-int TestSplayTree_Int();
+int TestSplayTree_CString ();
+int TestSplayTree_String ();
+int TestSplayTree_Int ();
 
 #endif

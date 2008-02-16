@@ -24,12 +24,12 @@ namespace CrissCross
 
         class Hash
         {
-        protected:
+protected:
             mutable char *m_hashString;
 
-        public:
-            Hash();
-            virtual ~Hash();
+public:
+            Hash ();
+            virtual ~Hash ();
 
             virtual int Process ( const void *_data, size_t _length ) = 0;
             virtual void Reset () = 0;

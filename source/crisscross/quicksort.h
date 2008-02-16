@@ -23,41 +23,42 @@ namespace CrissCross
         template <class T>
         class QuickSort : public Sorter<T>
         {
-        private:
+private:
             int InternalSort ( T *_array, size_t _beginning, size_t _end )
-	        {
-	            if ( _end > _beginning + 1 )
-	            {
-	                const T &piv = _array[_beginning];
-	                size_t l = _beginning + 1, r = _end;
-	                while ( l < r )
-	                {
-	                    if ( Compare ( _array[l], piv ) <= 0 )
-	                        l++;
-						else
-	                        Swap ( _array, l, --r );
-	                }
-	                Swap ( _array, --l, _beginning );
-	                InternalSort ( _array, _beginning, l );
-	                InternalSort ( _array, r, _end );
-	            }
-				return 0;
-	        };
+            {
+                if ( _end > _beginning + 1 )
+                {
+                    const T &piv = _array[_beginning];
+                    size_t l = _beginning + 1, r = _end;
+                    while ( l < r )
+                    {
+                        if ( Compare ( _array[l], piv ) <= 0 )
+                            l++;
+                        else
+                            Swap ( _array, l, --r );
+                    }
+                    Swap ( _array, --l, _beginning );
+                    InternalSort ( _array, _beginning, l );
+                    InternalSort ( _array, r, _end );
+                }
 
-        public:
+                return 0;
+            };
+
+public:
 
             //! Sorts an array using the QuickSort method.
             /*!
-				\param _array The array to sort.
-				\param _size The size of the array to sort.
-				\return 0 on success.
-				\sa HeapSort ShellSort CombSort
-				\deprecated This is a slow sorting method. It is provided for educational purposes ONLY.
-			 */
-            _CC_DEPRECATE_SLOW("MODERATE") int Sort ( T *_array, size_t _size )
-	        {
-	            return InternalSort ( _array, 0, _size );
-	        };
+             \param _array The array to sort.
+             \param _size The size of the array to sort.
+             \return 0 on success.
+             \sa HeapSort ShellSort CombSort
+             \deprecated This is a slow sorting method. It is provided for educational purposes ONLY.
+             */
+            _CC_DEPRECATE_SLOW ("MODERATE") int Sort ( T *_array, size_t _size )
+            {
+                return InternalSort ( _array, 0, _size );
+            };
         };
     }
 }

@@ -18,10 +18,10 @@ void GenerateRandom ( CrissCross::Data::DArray<char *> &data )
 {
     char *string = NULL;
 
-    charsetlen = strlen(charset);
-    
-    CrissCross::System::SeedRandom();
-    data.setSize(DATASET_SIZE);
+    charsetlen = strlen (charset);
+
+    CrissCross::System::SeedRandom ();
+    data.setSize (DATASET_SIZE);
     for ( int i = 0; i < DATASET_SIZE; i++ )
     {
         string = new char[ENTRY_LENGTH];
@@ -30,7 +30,7 @@ void GenerateRandom ( CrissCross::Data::DArray<char *> &data )
         string[ENTRY_LENGTH - 1] = 0;
         for ( int j = 0; j < ENTRY_LENGTH - 1; j++ )
         {
-            string[j] = charset[CrissCross::System::RandomNumber() % charsetlen];
+            string[j] = charset[CrissCross::System::RandomNumber () % charsetlen];
         }
 
         /* printf ( "%s\n", string ); */

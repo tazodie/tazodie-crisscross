@@ -12,6 +12,6 @@
 #ifndef __included_sha1_test_h
 #define __included_sha1_test_h
 
-int TestSHA1();
+int TestSHA1 ();
 
 #endif

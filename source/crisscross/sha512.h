@@ -15,8 +15,8 @@
 #include <crisscross/deprecate.h>
 #include <crisscross/hash.h>
 
-#define SHA512_DIGEST_SIZE ( 512 / 8)
-#define SHA512_BLOCK_SIZE  (1024 / 8)
+#define SHA512_DIGEST_SIZE ( 512 / 8 )
+#define SHA512_BLOCK_SIZE  ( 1024 / 8 )
 
 typedef struct {
     unsigned int tot_len;
@@ -31,19 +31,19 @@ namespace CrissCross
     {
         class SHA512Hash : public Hash
         {
-        private:
+private:
             cc_sha512_ctx m_state;
             unsigned char *m_hash;
 
-        public:
-		#if TARGET_CPU_BITS < 64
-			_CC_DEPRECATE_SLOW("MODERATE")
-		#endif
-            SHA512Hash();
-            virtual ~SHA512Hash();
+public:
+                #if TARGET_CPU_BITS < 64
+            _CC_DEPRECATE_SLOW ("MODERATE")
+                #endif
+            SHA512Hash ();
+            virtual ~SHA512Hash ();
 
             int Process ( const void *_data, size_t _length );
-            void Reset();
+            void Reset ();
             virtual const char *ToString () const;
 
         };

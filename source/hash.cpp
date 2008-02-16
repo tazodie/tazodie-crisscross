@@ -17,12 +17,11 @@ namespace CrissCross
 {
     namespace Crypto
     {
-        Hash::Hash()
-            : m_hashString(NULL)
+        Hash::Hash () : m_hashString (NULL)
         {
         }
 
-        Hash::~Hash()
+        Hash::~Hash ()
         {
         }
     }

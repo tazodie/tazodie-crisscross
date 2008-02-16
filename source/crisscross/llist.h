@@ -21,28 +21,28 @@ namespace CrissCross
 {
     namespace Data
     {
-		//! A linked list node.
+        //! A linked list node.
         template < class T > class LListNode
         {
-        public:
-			//! The following node in the list.
+public:
+            //! The following node in the list.
             LListNode *m_next;
 
-			//! The preceding node in the list.
+            //! The preceding node in the list.
             LListNode *m_previous;
 
-			//! The data contained in this node.
+            //! The data contained in this node.
             T m_data;
 
-			//! The default constructor.
+            //! The default constructor.
             LListNode ();
         };
 
         //! A doubly-linked list implementation.
         template <class T>
-		class LList
+        class LList
         {
-        protected:
+protected:
             //! The first node.
             LListNode < T > *m_first;
 
@@ -54,7 +54,7 @@ namespace CrissCross
                 Speeds up searches and sequential access.
              */
             mutable LListNode < T > *m_previous;    // Used to get quick access
-            
+
             //! The last accessed index.
             /*!
                 Speeds up searches and sequential access.
@@ -64,10 +64,10 @@ namespace CrissCross
             //! The number of nodes in the list.
             size_t m_numItems;
 
-        protected:
+protected:
             inline LListNode < T > *getItem ( size_t index ) const;
 
-        public:
+public:
 
             //! The default constructor.
             LList ();
@@ -83,42 +83,42 @@ namespace CrissCross
 
             //! Adds data at the end of the list.
             /*!
-                \param _newdata The data to add to the list.
+             \param _newdata The data to add to the list.
              */
             inline void insert ( const T & _newdata );
 
             //! Adds data at the end of the list.
             /*!
-                \param _newdata The data to add to the list.
+             \param _newdata The data to add to the list.
              */
             void insert_back ( const T & _newdata );
 
             //! Adds data at the start of the list.
             /*!
-                \param _newdata The data to add to the list.
+             \param _newdata The data to add to the list.
              */
             void insert_front ( const T & _newdata );
 
             //! Adds data at the specified index.
             /*!
-                \param _newdata The data to add to the list.
-                \param _index The index where the node should be added.
+             \param _newdata The data to add to the list.
+             \param _index The index where the node should be added.
              */
             void insert_at ( const T & _newdata, size_t _index );
 
             //! Gets the data at the specified index.
             /*!
                 WARNING: Slow unless you're sequentially iterating through.
-                \param _index The index of the data to fetch.
-                \return The data contained in the node at the index.
+             \param _index The index of the data to fetch.
+             \return The data contained in the node at the index.
              */
             inline T const &get ( size_t _index ) const;
 
             //! Gets the address of where the data at the specified index is stored.
             /*!
                 WARNING: Slow unless you're sequentially iterating through.
-                \param _index The index of the node to find.
-                \return The pointer to where the data record is stored.
+             \param _index The index of the node to find.
+             \return The pointer to where the data record is stored.
              */
             inline T *getPointer ( size_t _index ) const;
 
@@ -126,16 +126,16 @@ namespace CrissCross
             /*!
                 This does not delete the data at the node, just the node itself.
                 WARNING: Slow unless you're sequentially iterating through.
-				\param _rec The new value for the given index.
-                \param _index The index of the node to modify.
+             \param _rec The new value for the given index.
+             \param _index The index of the node to modify.
              */
-			void change ( T const & _rec, size_t _index );
+            void change ( T const & _rec, size_t _index );
 
             //! Removes the node at the given index.
             /*!
                 This does not delete the data at the node, just the node itself.
                 WARNING: Slow unless you're sequentially iterating through.
-                \param _index The index of the node to delete.
+             \param _index The index of the node to delete.
              */
             void remove ( size_t _index );
 
@@ -148,80 +148,108 @@ namespace CrissCross
 
             //! Finds a node's index by searching for the given data.
             /*!
-                \param _data The data to find.
-                \return -1 if not found, otherwise returns the index.
+             \param _data The data to find.
+             \return -1 if not found, otherwise returns the index.
              */
             size_t find ( const T & _data );
 
             //! Indicates the size of the linked list.
             /*!
-                \return The size of the linked list.
+             \return The size of the linked list.
              */
             inline size_t size () const;
 
             //! Determines whether a given index is within the bounds of the list.
             /*!
-                \param _index The index to validate.
-                \return True if the index is valid, false otherwise.
+             \param _index The index to validate.
+             \return True if the index is valid, false otherwise.
              */
             inline bool valid ( size_t _index ) const;
 
             //! Deletes all nodes in the list, but does not free memory allocated by data.
-            void empty();
+            void empty ();
 
             //! Gets the data at the given index.
             /*!
-                \param _index The index of the node to get data from.
-                \return The data stored at the index.
+             \param _index The index of the node to get data from.
+             \return The data stored at the index.
              */
-            T & operator []( size_t _index );
+            T & operator [] ( size_t _index );
 
             //! Gets the data at the given index.
             /*!
-                \param _index The index of the node to get data from.
-                \return The data stored at the index.
+             \param _index The index of the node to get data from.
+             \return The data stored at the index.
              */
-            T const & operator []( size_t _index ) const;
-            
+            T const & operator [] ( size_t _index ) const;
+
             //! Sorts the array using the provided method.
-			/*!
-				\param _sortMethod The method to sort with.
-			 */
+            /*!
+             \param _sortMethod The method to sort with.
+             */
             void sort ( CrissCross::Data::Sorter<T> *_sortMethod );
-            
+
             //! Sorts the array using the provided method.
-			/*!
-				\param _sortMethod The method to sort with.
-			 */
+            /*!
+             \param _sortMethod The method to sort with.
+             */
             void sort ( CrissCross::Data::Sorter<T> &_sortMethod );
 
             //! Returns the memory usage of the list and its nodes.
             /*!
-                \return Memory usage in bytes.
+             \return Memory usage in bytes.
              */
-            size_t mem_usage() const;
+            size_t mem_usage () const;
 
-			/*
-				Deprecated Compatibility Functions
-				Provided for compatibility with Tosser I
-			*/
-			//! @cond
-			_CC_DEPRECATE_FUNCTION(insert) inline void PutData ( T const & _rec ) { insert ( _rec ); };
-            _CC_DEPRECATE_FUNCTION(insert_back) inline void PutDataAtStart ( T const & _rec ) { insert_front ( _rec ); };
-            _CC_DEPRECATE_FUNCTION(insert_back) inline void PutDataAtEnd ( T const & _rec ) { insert_back ( _rec ); };
-            _CC_DEPRECATE_FUNCTION(insert_at) inline void PutDataAtIndex ( T const & _rec, size_t _index ) { insert_at ( _rec, _index ); };
-			_CC_DEPRECATE_FUNCTION(find) inline size_t FindData ( T const & _rec ) { return find ( _rec ); };
-			_CC_DEPRECATE_FUNCTION(remove) inline void RemoveData ( size_t _index ) { remove ( _index ); };
-            _CC_DEPRECATE_FUNCTION(change) void ChangeData ( T const & _rec, size_t _index );
-			_CC_DEPRECATE_FUNCTION(size) inline int Size () const { return (int)size(); };
-			_CC_DEPRECATE_FUNCTION_N inline void EmptyAndDelete () { while ( valid(0) ) { delete get(0); remove(0); } };
-			_CC_DEPRECATE_FUNCTION_N inline void EmptyAndDeleteArray () { while ( valid(0) ) { delete [] get(0); remove(0); } };
-			_CC_DEPRECATE_FUNCTION_N inline void Empty () { empty(); };
-			_CC_DEPRECATE_FUNCTION(get) inline T getData ( size_t _index ) const { return get ( _index ); };
-            _CC_DEPRECATE_FUNCTION(get) inline T GetData ( size_t _index ) const { return get ( _index ); };
-            _CC_DEPRECATE_FUNCTION(valid) inline bool validIndex ( size_t _index ) const { return valid ( _index ); };
-			_CC_DEPRECATE_FUNCTION(valid) inline bool ValidIndex ( size_t _index ) const { return valid ( _index ); };
-			//! @endcond
+            /*
+                    Deprecated Compatibility Functions
+                    Provided for compatibility with Tosser I
+             */
+            //! @cond
+            _CC_DEPRECATE_FUNCTION (insert) inline void PutData ( T const & _rec ) {
+                insert ( _rec );
+            };
+            _CC_DEPRECATE_FUNCTION (insert_back) inline void PutDataAtStart ( T const & _rec ) {
+                insert_front ( _rec );
+            };
+            _CC_DEPRECATE_FUNCTION (insert_back) inline void PutDataAtEnd ( T const & _rec ) {
+                insert_back ( _rec );
+            };
+            _CC_DEPRECATE_FUNCTION (insert_at) inline void PutDataAtIndex ( T const & _rec, size_t _index ) {
+                insert_at ( _rec, _index );
+            };
+            _CC_DEPRECATE_FUNCTION (find) inline size_t FindData ( T const & _rec ) {
+                return find ( _rec );
+            };
+            _CC_DEPRECATE_FUNCTION (remove) inline void RemoveData ( size_t _index ) {
+                remove ( _index );
+            };
+            _CC_DEPRECATE_FUNCTION (change) void ChangeData ( T const & _rec, size_t _index );
+            _CC_DEPRECATE_FUNCTION (size) inline int Size () const {
+                return (int)size ();
+            };
+            _CC_DEPRECATE_FUNCTION_N inline void EmptyAndDelete () {
+                while ( valid (0) ){ delete get (0); remove (0); }
+            };
+            _CC_DEPRECATE_FUNCTION_N inline void EmptyAndDeleteArray () {
+                while ( valid (0) ){ delete [] get (0); remove (0); }
+            };
+            _CC_DEPRECATE_FUNCTION_N inline void Empty () {
+                empty ();
+            };
+            _CC_DEPRECATE_FUNCTION (get) inline T getData ( size_t _index ) const {
+                return get ( _index );
+            };
+            _CC_DEPRECATE_FUNCTION (get) inline T GetData ( size_t _index ) const {
+                return get ( _index );
+            };
+            _CC_DEPRECATE_FUNCTION (valid) inline bool validIndex ( size_t _index ) const {
+                return valid ( _index );
+            };
+            _CC_DEPRECATE_FUNCTION (valid) inline bool ValidIndex ( size_t _index ) const {
+                return valid ( _index );
+            };
+            //! @endcond
         };
     }
 }

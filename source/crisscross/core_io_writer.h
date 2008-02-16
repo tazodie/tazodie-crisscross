@@ -23,10 +23,10 @@ namespace CrissCross
         //! The core output class.
         /*!
             A class inherited by most I/O classes, including Console and TextWriter.
-        */
+         */
         class CoreIOWriter
         {
-          protected:
+protected:
 
             //! Line ending buffer.
             /*!
@@ -48,14 +48,14 @@ namespace CrissCross
             CrissCross::System::Mutex m_ioMutex;
         #endif
 
-          public:
+public:
             //! The constructor.
             /*!
                Creates a new CoreIOWriter instance. Will initialize line endings to the platform's
                default, also initializes CoreIOWriter::m_ioMutex.
-               \param _outputBuffer The buffer to be used for write operations.
-               \param _isUnicode The buffer is going to be a Unicode I/O buffer. (UNIMPLEMENTED)
-               \param _lnEnding The line ending to use.
+             \param _outputBuffer The buffer to be used for write operations.
+             \param _isUnicode The buffer is going to be a Unicode I/O buffer. (UNIMPLEMENTED)
+             \param _lnEnding The line ending to use.
              */
             CoreIOWriter ( FILE * _outputBuffer, bool _isUnicode, LineEndingType _lnEnding = CC_LN_NATIVE );
 
@@ -64,25 +64,25 @@ namespace CrissCross
 
             //! Validates that the file buffer isn't NULL.
             /*!
-               \return Boolean indicating whether the file is safe to write to.
+             \return Boolean indicating whether the file is safe to write to.
              */
             virtual bool IsOpen ();
 
             //! Sets the line ending convention used by this CoreIOWriter instance.
             /*!
-               \param _ending Any of the LineEndingType values.
+             \param _ending Any of the LineEndingType values.
              */
             virtual CrissCross::Errors SetLineEndings ( LineEndingType _ending );
 
             //! Writes a string to the buffer.
             /*!
-               \param _format The format of the string to be written.
+             \param _format The format of the string to be written.
              */
             virtual CrissCross::Errors Write ( const char *_format, ... );
 
             //! Writes a string to the buffer.
             /*!
-               \param _string The string to be written.
+             \param _string The string to be written.
              */
             virtual CrissCross::Errors Write ( std::string &_string );
 
@@ -96,8 +96,8 @@ namespace CrissCross
             /*!
                Prints the string to the buffer, and then prints the line terminator in the
                format specified by CoreIOWriter::m_lineEnding.
-               \param _format The format of the string to be written.
-               \return Standard CrissCross::Errors values.
+             \param _format The format of the string to be written.
+             \return Standard CrissCross::Errors values.
              */
             virtual CrissCross::Errors WriteLine ( const char *_format, ... );
 
@@ -105,8 +105,8 @@ namespace CrissCross
             /*!
                Prints the string to the buffer, and then prints the line terminator in the
                format specified by CoreIOWriter::m_lineEnding.
-               \param _string The std::string to write.
-               \return Standard CrissCross::Errors values.
+             \param _string The std::string to write.
+             \return Standard CrissCross::Errors values.
              */
             virtual CrissCross::Errors WriteLine ( std::string &_string );
 

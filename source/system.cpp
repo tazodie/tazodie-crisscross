@@ -31,8 +31,8 @@ namespace CrissCross
         mach_timebase_info_data_t __m_timebase;
 
     #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || \
-          defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD ) || \
-          defined ( TARGET_OS_NDSFIRMWARE )
+    defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD ) || \
+    defined ( TARGET_OS_NDSFIRMWARE )
 
         //! The time index at which the timer started. (Linux only)
         timeval __m_start;
@@ -46,13 +46,13 @@ namespace CrissCross
             LARGE_INTEGER freq;
 
             QueryPerformanceFrequency ( &freq );
-            __m_tickInterval = 1.0 / ( double ) freq.QuadPart;
+            __m_tickInterval = 1.0 / ( double )freq.QuadPart;
     #elif defined ( TARGET_OS_MACOSX )
             mach_timebase_info ( &__m_timebase );
             __m_start = mach_absolute_time ();
     #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || \
-          defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD ) || \
-          defined ( TARGET_OS_NDSFIRMWARE )
+    defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD ) || \
+    defined ( TARGET_OS_NDSFIRMWARE )
             gettimeofday ( &__m_start, NULL );
     #endif
         }
@@ -64,22 +64,22 @@ namespace CrissCross
             LARGE_INTEGER count;
 
             QueryPerformanceCounter ( &count );
-            return ( double ) count.QuadPart * __m_tickInterval;
+            return ( double )count.QuadPart * __m_tickInterval;
     #elif defined ( TARGET_OS_MACOSX )
             uint64_t elapsed = mach_absolute_time () - __m_start;
             return double ( elapsed ) * ( __m_timebase.numer / __m_timebase.denom ) /
-                1000000000.0;
+                   1000000000.0;
     #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || \
-          defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD ) || \
-          defined ( TARGET_OS_NDSFIRMWARE )
+    defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD ) || \
+    defined ( TARGET_OS_NDSFIRMWARE )
             timeval now;
             double t1, t2;
 
             gettimeofday ( &now, NULL );
 
-            t1 = ( double ) __m_start.tv_sec +
-                ( double ) __m_start.tv_usec / ( 1000 * 1000 );
-            t2 = ( double ) now.tv_sec + ( double ) now.tv_usec / ( 1000 * 1000 );
+            t1 = ( double )__m_start.tv_sec +
+                 ( double )__m_start.tv_usec / ( 1000 * 1000 );
+            t2 = ( double )now.tv_sec + ( double )now.tv_usec / ( 1000 * 1000 );
             return t2 - t1;
     #endif
         }
@@ -87,7 +87,8 @@ namespace CrissCross
         void
         ThreadSleep ( int _msec )
         {
-			if ( _msec < 0 ) return;
+            if ( _msec < 0 ) return;
+
             /* TODO: Mac OS X port of this function. */
     #if defined ( TARGET_OS_WINDOWS )
             Sleep ( _msec );
@@ -119,18 +120,18 @@ namespace CrissCross
         }
     #endif
         int
-        RandomNumber()
+        RandomNumber ()
         {
-            return rand();
+            return rand ();
         }
 
         void
-        SeedRandom()
+        SeedRandom ()
         {
 #if defined ( TARGET_OS_WINDOWS )
-            srand ( GetTickCount() );
+            srand ( GetTickCount () );
 #else
-            srand ( time(NULL) );
+            srand ( time (NULL) );
 #endif
         }
     }

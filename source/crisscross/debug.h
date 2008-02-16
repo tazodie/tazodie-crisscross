@@ -22,34 +22,34 @@
 
 void Assert ( bool _condition, const char *_testcase, const char *_file,
               int _line );
-#    define CoreAssert(x)       Assert((x), #x, __FILE__, __LINE__ )
+#  define CoreAssert(x)       Assert (( x ), # x, __FILE__, __LINE__ )
 
 #else
 
-#	define CoreAssert(x) { \
-		if ( !(x) ) { \
-			g_stderr->WriteLine ( "\nAssertion failed : '%s'\nFile: %s\nLine: %d\n", \
-			#x, __FILE__, __LINE__ ); \
-			g_stderr->WriteLine ( "===== STACK TRACE =====" ); \
-			CrissCross::Debug::PrintStackTrace ( g_stderr ); \
-			abort(); \
-		} \
-	}
+#  define CoreAssert(x) { \
+        if ( !( x ) ){ \
+            g_stderr->WriteLine ( "\nAssertion failed : '%s'\nFile: %s\nLine: %d\n", \
+                                  # x, __FILE__, __LINE__ ); \
+            g_stderr->WriteLine ( "===== STACK TRACE =====" ); \
+            CrissCross::Debug::PrintStackTrace ( g_stderr ); \
+            abort (); \
+        } \
+}
 
 #endif
 //! @endcond
 
 namespace CrissCross {
 
-	namespace Debug {
+    namespace Debug {
 
-		//! Prints a stack trace to _outputBuffer.
-		/*!
-			\param _outputBuffer The CoreIO output buffer to write to.
-		*/
-		void PrintStackTrace ( CrissCross::IO::CoreIOWriter * _outputBuffer );
+        //! Prints a stack trace to _outputBuffer.
+        /*!
+         \param _outputBuffer The CoreIO output buffer to write to.
+         */
+        void PrintStackTrace ( CrissCross::IO::CoreIOWriter * _outputBuffer );
 
-	}
+    }
 
 }
 

@@ -30,14 +30,14 @@ RunApplication ( int argc, char **argv )
 
     // Begin your application here.
 
-    ProfileAVLTree();
-    ProfileRedBlackTree();
-    ProfileSplayTree();
+    ProfileAVLTree ();
+    ProfileRedBlackTree ();
+    ProfileSplayTree ();
 #ifndef TARGET_OS_NDSFIRMWARE
-    ProfileHashTable();
+    ProfileHashTable ();
 #endif
-    ProfileLList();
-    ProfileDArray();
+    ProfileLList ();
+    ProfileDArray ();
 
     // End your application here.
 

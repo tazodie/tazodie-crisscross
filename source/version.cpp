@@ -17,27 +17,27 @@ namespace CrissCross
 {
     namespace Version
     {
-        const char *Version()
+        const char *Version ()
         {
             return CC_LIB_VERSION;
         }
 
-        int Major()
+        int Major ()
         {
             return CC_LIB_VERSION_MAJOR;
         }
 
-        int Minor()
+        int Minor ()
         {
             return CC_LIB_VERSION_MINOR;
         }
 
-        int Revision()
+        int Revision ()
         {
             return CC_LIB_VERSION_REVISION;
         }
 
-        int Build()
+        int Build ()
         {
             return CC_LIB_VERSION_BUILD;
         }

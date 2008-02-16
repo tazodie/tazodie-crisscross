@@ -15,13 +15,13 @@
 #include <crisscross/deprecate.h>
 #include <crisscross/hash.h>
 
-#define	MD4_DIGEST_LENGTH	16
+#define MD4_DIGEST_LENGTH       16
 
 /* MD4 context. */
-typedef struct	{
-  cc_uint32_t state[4];                                   /* state (ABCD) */
-  cc_uint32_t count[2];        /* number of bits, modulo 2^64 (lsb first) */
-  unsigned char buffer[64];                         /* input buffer */
+typedef struct  {
+    cc_uint32_t state[4];                                 /* state (ABCD) */
+    cc_uint32_t count[2];      /* number of bits, modulo 2^64 (lsb first) */
+    unsigned char buffer[64];                       /* input buffer */
 } cc_md4_ctx;
 
 namespace CrissCross
@@ -30,16 +30,16 @@ namespace CrissCross
     {
         class MD4Hash : public Hash
         {
-        private:
+private:
             unsigned char *m_hash;
             cc_md4_ctx m_state;
 
-        public:
-            MD4Hash();
-            virtual ~MD4Hash();
+public:
+            MD4Hash ();
+            virtual ~MD4Hash ();
 
             int Process ( const void *_data, size_t _length );
-            void Reset();
+            void Reset ();
             virtual const char *ToString () const;
 
         };

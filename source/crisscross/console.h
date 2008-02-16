@@ -21,11 +21,11 @@ namespace CrissCross
         //! The core console input/output class.
         class Console : public CoreIOWriter, public CoreIOReader
         {
-		  protected:
+protected:
 #ifdef TARGET_OS_WINDOWS
-			  bool m_consoleAllocated;
+            bool m_consoleAllocated;
 #endif
-          public:
+public:
 
             //! Flags used for describing console colour output.
             typedef enum
@@ -38,7 +38,7 @@ namespace CrissCross
                 BG_GREEN = 0x0020,              /*!< Green Background */
                 BG_RED = 0x0040,                /*!< Red Background */
                 BG_INTENSITY = 0x0080,          /*!< Background intensity (makes the foreground colour a shade brighter) */
-        #    if !defined ( ANSI_COLOUR ) && defined ( TARGET_OS_WINDOWS )
+        #if !defined ( ANSI_COLOUR ) && defined ( TARGET_OS_WINDOWS )
                 FG_BROWN = 0x0000,                                      /*!< Brown Foreground (POSIX only) */
                 FG_MAGENTA = FG_BLUE | FG_RED,                          /*!< Magenta Foreground */
                 FG_CYAN = FG_BLUE | FG_GREEN,                           /*!< Cyan Foreground */
@@ -49,7 +49,7 @@ namespace CrissCross
                 FG_WHITE = FG_BLUE | FG_GREEN | FG_RED | FG_INTENSITY,  /*!< White Foreground */
                 BG_GRAY = BG_BLUE | BG_GREEN | BG_RED,                  /*!< Gray Background */
                 BG_WHITE = BG_BLUE | BG_GREEN | BG_RED | BG_INTENSITY   /*!< White Background */
-        #    elif defined ( ANSI_COLOUR )
+        #elif defined ( ANSI_COLOUR )
                 FG_BROWN = 0x0100,          /*!< Brown Foreground (POSIX only) */
                 FG_MAGENTA = 0x0200,        /*!< Magenta Foreground */
                 FG_CYAN = 0x0400,           /*!< Cyan Foreground */
@@ -60,29 +60,29 @@ namespace CrissCross
                 FG_WHITE = 0x8000,          /*!< White Foreground */
                 BG_GRAY = 0x10000,          /*!< Gray Background */
                 BG_WHITE = 0x20000          /*!< White Background */
-        #    endif
+        #endif
             } ColourTypes;
 
-          public:
+public:
 
             //! The default constructor.
             /*!
-				Allocates a new console for stdout and stderr output.
-				\param _clearOnInit If true, clears the output console if supported.
-			 */
+                                Allocates a new console for stdout and stderr output.
+             \param _clearOnInit If true, clears the output console if supported.
+             */
             Console ( bool _clearOnInit = false );
 
             //! The alternate constructor
             /*!
                Does not allocate a new console, and instead uses the specified FILE* parameters for input/output.
-               \param _outputBuffer The buffer for Console output.
-               \param _inputBuffer The buffer for Console input.
-               \sa Console()
+             \param _outputBuffer The buffer for Console output.
+             \param _inputBuffer The buffer for Console input.
+             \sa Console()
              */
             Console ( FILE * _outputBuffer, FILE *_inputBuffer );
 
             //! The destructor.
-             ~Console ();
+            ~Console ();
 
             //! Sets the console output colour to the default.
             void SetColour ();
@@ -90,23 +90,23 @@ namespace CrissCross
             //! Sets the console output colour.
             /*!
                Sets the console output colour using the flags specified in _flags.
-               \param _flags A bitmask created by OR-ing Console::ColourTypes flags.
+             \param _flags A bitmask created by OR-ing Console::ColourTypes flags.
              */
             void SetColour ( int _flags );
 
-			//! Sets the title of the console window (Windows only).
-			/*!
+            //! Sets the title of the console window (Windows only).
+            /*!
                Sets the console window title using the value in the _title parameter.
-			   \param _title The title requested for the console window.
-		     */
-			void SetTitle ( const char *_title );
+             \param _title The title requested for the console window.
+             */
+            void SetTitle ( const char *_title );
 
-			//! Sets the title of the console window (Windows only).
-			/*!
+            //! Sets the title of the console window (Windows only).
+            /*!
                Sets the console window title using the value in the _title parameter.
-			   \param _title The title requested for the console window.
-		     */
-			void SetTitle ( std::string &_title );
+             \param _title The title requested for the console window.
+             */
+            void SetTitle ( std::string &_title );
 
             //! Clears the console.
             /*!
@@ -117,7 +117,7 @@ namespace CrissCross
             //! Move the cursor up a given number of lines.
             /*!
                Permits you to overwrite previous lines. Good for a status display.
-               \param _lines Number of lines to move the cursor
+             \param _lines Number of lines to move the cursor
              */
             void MoveUp ( int _lines );
 
@@ -127,8 +127,8 @@ namespace CrissCross
             //! Reads a char from the console.
             /*!
                 If both _min and _max are zero, the input will be returned, no matter what the value is (no bounds checking).
-                \param _min The minimum input value.
-                \param _max The maximum input value.
+             \param _min The minimum input value.
+             \param _max The maximum input value.
              */
             char ReadChar ( char _min, char _max );
 
@@ -138,8 +138,8 @@ namespace CrissCross
             //! Reads an integer from the console.
             /*!
                 If both _min and _max are zero, the input will be returned, no matter what the value is (no bounds checking).
-                \param _min The minimum input value.
-                \param _max The maximum input value.
+             \param _min The minimum input value.
+             \param _max The maximum input value.
              */
             int ReadInt ( int _min = 0, int _max = 0 );
 
@@ -149,8 +149,8 @@ namespace CrissCross
             //! Reads a long integer from the console.
             /*!
                 If both _min and _max are zero, the input will be returned, no matter what the value is (no bounds checking).
-                \param _min The minimum input value.
-                \param _max The maximum input value.
+             \param _min The minimum input value.
+             \param _max The maximum input value.
              */
             long ReadLong ( long _min = 0, long _max = 0 );
 
@@ -160,8 +160,8 @@ namespace CrissCross
             //! Reads a float from the console.
             /*!
                 If both _min and _max are zero, the input will be returned, no matter what the value is (no bounds checking).
-                \param _min The minimum input value.
-                \param _max The maximum input value.
+             \param _min The minimum input value.
+             \param _max The maximum input value.
              */
             float ReadFloat ( float _min = 0, float _max = 0 );
 
@@ -171,15 +171,15 @@ namespace CrissCross
             //! Reads a double from the console.
             /*!
                 If both _min and _max are zero, the input will be returned, no matter what the value is (no bounds checking).
-                \param _min The minimum input value.
-                \param _max The maximum input value.
+             \param _min The minimum input value.
+             \param _max The maximum input value.
              */
             double ReadDouble ( double _min = 0, double _max = 0 );
 
             //! Flushes the input and output buffers.
             void Flush ();
 
-        private:
+private:
             bool EndOfFile ();
             int Forward ( cc_int64_t _position );
             int Seek ( cc_int64_t _position );

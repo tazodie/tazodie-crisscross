@@ -12,6 +12,6 @@
 #ifndef __included_sha512_test_h
 #define __included_sha512_test_h
 
-int TestSHA512();
+int TestSHA512 ();
 
 #endif

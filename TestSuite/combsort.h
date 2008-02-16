@@ -12,8 +12,8 @@
 #ifndef __included_combsort_test_h
 #define __included_combsort_test_h
 
-int TestCombSort_IntArray();
-int TestCombSort_DArray();
-int TestCombSort_LList();
+int TestCombSort_IntArray ();
+int TestCombSort_DArray ();
+int TestCombSort_LList ();
 
 #endif

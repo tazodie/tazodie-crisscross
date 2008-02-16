@@ -12,6 +12,6 @@
 #ifndef __included_dstack_test_h
 #define __included_dstack_test_h
 
-int TestDStack();
+int TestDStack ();
 
 #endif

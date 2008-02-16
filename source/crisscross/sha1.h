@@ -28,16 +28,16 @@ namespace CrissCross
     {
         class SHA1Hash : public Hash
         {
-        private:
+private:
             cc_sha1_ctx m_state;
             unsigned char *m_hash;
 
-        public:
-            SHA1Hash();
-            virtual ~SHA1Hash();
+public:
+            SHA1Hash ();
+            virtual ~SHA1Hash ();
 
             int Process ( const void *_data, size_t _length );
-            void Reset();
+            void Reset ();
             virtual const char *ToString () const;
 
         };
