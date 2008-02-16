@@ -1,4 +1,12 @@
 VERSION 0.7.0 (r???)
+	* Added several checksum methods:
+		- MD2
+		- MD4
+		- MD5
+		- SHA-1
+		- SHA-256
+		- SHA-512
+		- Tiger
 	* Nintendo DS homebrew support added (compile with 'make BUILDFORNDS=1')
 		- Copyright changed to fit Nintendo DS screen.
 		- Cross-compiling is possible with devkitPro.
