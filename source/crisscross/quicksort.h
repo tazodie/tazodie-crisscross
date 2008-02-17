@@ -20,6 +20,9 @@ namespace CrissCross
     namespace Data
     {
         //! A QuickSort implementation for sorting arrays.
+		/*!
+             \deprecated This is a slow sorting method. It is provided for educational purposes ONLY.
+		 */
         template <class T>
         class QuickSort : public Sorter<T>
         {
@@ -53,7 +56,6 @@ public:
              \param _size The size of the array to sort.
              \return 0 on success.
              \sa HeapSort ShellSort CombSort
-             \deprecated This is a slow sorting method. It is provided for educational purposes ONLY.
              */
             _CC_DEPRECATE_SLOW ("MODERATE") int Sort ( T *_array, size_t _size )
             {
