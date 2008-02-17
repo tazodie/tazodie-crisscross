@@ -22,7 +22,7 @@ namespace CrissCross
     {
         //! The core output class.
         /*!
-            A class inherited by most I/O classes, including Console and TextWriter.
+            A class inherited by most I/O classes, including Console and FileWriter.
          */
         class CoreIOWriter
         {

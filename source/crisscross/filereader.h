@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __included_cc_textreader_h
-#define __included_cc_textreader_h
+#ifndef __included_cc_filereader_h
+#define __included_cc_filereader_h
 
 #include <crisscross/error.h>
 
@@ -18,11 +18,11 @@ namespace CrissCross
 {
     namespace IO
     {
-        //! The text file input class.
+        //! The file input class.
         /*!
             Inherits CoreIO, so functions like CoreIO::Read and CoreIO::ReadLine are accessible to the programmer.
          */
-        class TextReader : public CoreIOReader
+        class FileReader : public CoreIOReader
         {
 
 protected:
@@ -31,13 +31,13 @@ protected:
 
 public:
             //! The constructor.
-            TextReader ();
+            FileReader ();
 
             //! The destructor
             /*!
-                Closes the file and deallocates memory used by TextReader.
+                Closes the file and deallocates memory used by FileReader.
              */
-            ~TextReader ();
+            ~FileReader ();
 
             //! Opens the provided file for read access.
             /*!
@@ -48,7 +48,7 @@ public:
 
             //! Closes the file.
             /*!
-                Closes the file and deallocates memory used by TextReader.
+                Closes the file and deallocates memory used by FileReader.
              \return Standard CrissCross::Errors values.
              */
             CrissCross::Errors Close ();

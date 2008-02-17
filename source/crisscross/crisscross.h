@@ -28,8 +28,8 @@
 #include <crisscross/error.h>
 #include <crisscross/core_io.h>
 #include <crisscross/console.h>
-#include <crisscross/textreader.h>
-#include <crisscross/textwriter.h>
+#include <crisscross/filereader.h>
+#include <crisscross/filewriter.h>
 #include <crisscross/core_network.h>
 #include <crisscross/core_socket.h>
 #include <crisscross/tcpsocket.h>
