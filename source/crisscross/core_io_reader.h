@@ -22,7 +22,7 @@ namespace CrissCross
     {
         //! The core input class.
         /*!
-            A class inherited by most I/O classes, including Console and TextReader.
+            A class inherited by most I/O classes, including Console and FileReader.
          */
         class CoreIOReader
         {

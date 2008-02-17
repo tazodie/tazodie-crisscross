@@ -20,6 +20,8 @@ console.cpp \
 cpuid.cpp \
 debug.cpp \
 error.cpp \
+filereader.cpp \
+filewriter.cpp \
 md2.cpp \
 md4.cpp \
 md5.cpp \
@@ -32,8 +34,6 @@ stopwatch.cpp \
 tcpsocket.cpp \
 tiger.cpp \
 udpsocket.cpp \
-textreader.cpp \
-textwriter.cpp \
 version.cpp \
 universal_include.cpp
 

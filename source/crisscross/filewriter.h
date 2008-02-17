@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __included_cc_textwriter_h
-#define __included_cc_textwriter_h
+#ifndef __included_cc_filewriter_h
+#define __included_cc_filewriter_h
 
 #include <crisscross/error.h>
 
@@ -18,11 +18,11 @@ namespace CrissCross
 {
     namespace IO
     {
-        //! The text file output class.
+        //! The file output class.
         /*!
             Inherits CoreIO, so functions like CoreIO::Write and CoreIO::WriteLine are accessible to the programmer.
          */
-        class TextWriter : public CoreIOWriter
+        class FileWriter : public CoreIOWriter
         {
 
 protected:
@@ -31,13 +31,13 @@ protected:
 
 public:
             //! The constructor.
-            TextWriter ();
+            FileWriter ();
 
             //! The destructor
             /*!
-                Flushes the output buffer, closes the file, and deallocates memory used by TextWriter.
+                Flushes the output buffer, closes the file, and deallocates memory used by FileWriter.
              */
-            ~TextWriter ();
+            ~FileWriter ();
 
             //! Opens the provided file.
             /*!
@@ -51,7 +51,7 @@ public:
 
             //! Closes the file.
             /*!
-                Flushes the output buffer, closes the file, and deallocates memory used by TextWriter.
+                Flushes the output buffer, closes the file, and deallocates memory used by FileWriter.
              \return Standard CrissCross::Errors values.
              */
             CrissCross::Errors Close ();

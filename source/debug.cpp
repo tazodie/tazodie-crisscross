@@ -11,7 +11,7 @@
 
 #include <crisscross/universal_include.h>
 #include <crisscross/debug.h>
-#include <crisscross/textwriter.h>
+#include <crisscross/filewriter.h>
 
 using namespace CrissCross::IO;
 

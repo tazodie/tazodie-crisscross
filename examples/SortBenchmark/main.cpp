@@ -35,7 +35,7 @@ BenchmarkDArray ( Sorter<char *> &sorter )
     sprintf ( format, "%s", "%4.3lfs (%lld clocks)." );
 #endif
 
-    TextReader file;
+    FileReader file;
 
     file.SetLineEndings ( CC_LN_LF );
     file.Open ( "dataset" );
