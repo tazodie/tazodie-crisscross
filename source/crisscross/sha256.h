@@ -65,6 +65,18 @@ public:
 				is destructed.
 			 */
             virtual const char *ToString () const;
+			
+			//! Equality operator.
+			/*!
+				Compares two instances of SHA256Hash to see if the hashes are equal.
+			 */
+			bool operator== ( const SHA256Hash &_other ) const;
+			
+			//! Inequality operator.
+			/*!
+				Compares two instances of SHA256Hash to see if the hashes are not equal.
+			 */
+			inline bool operator!= ( const SHA256Hash &_other ) const { return !( *this == _other ); };
 
         };
     }

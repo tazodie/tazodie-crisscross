@@ -44,6 +44,15 @@ int TestSHA1 ()
 
     delete [] tempstring;
 #endif
+        
+    SHA1Hash otherhash;
+    otherhash.Process ( "cheese", 6 );
+    if ( otherhash == sha1 || sha1 == otherhash )
+        return 4;
+        
+    otherhash.Process ( teststring, length );
+    if ( otherhash != sha1 || sha1 != otherhash )
+        return 5;
 
     return 0;
 }

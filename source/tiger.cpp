@@ -776,5 +776,10 @@ namespace CrissCross
             delete [] m_hashString; m_hashString = NULL;
             memset ( m_hash, 0, sizeof( m_hash ) );
         }
+		
+		bool TigerHash::operator== ( const TigerHash &_other ) const
+		{
+			return ( memcmp ( &m_hash, &_other.m_hash, sizeof(m_hash) ) == 0 );
+		}
     }
 }
