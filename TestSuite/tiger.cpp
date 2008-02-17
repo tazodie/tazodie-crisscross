@@ -25,37 +25,37 @@ int TestTiger ()
 
     teststring = ""; length = strlen (teststring);
     tiger.Process (teststring, length);
-    if ( strcmp ( tiger.ToString (), "24f0130c63ac933216166e76b1bb925ff373de2d49584e7a" ) )
+    if ( strcmp ( tiger.ToString (), "3293ac630c13f0245f92bbb1766e16167a4e58492dde73f3" ) )
         return 1;
 
     teststring = "a"; length = strlen (teststring);
     tiger.Process (teststring, length);
-    if ( strcmp ( tiger.ToString (), "abf87e2eeffbbe77fca787f53bf9c82e0978245f7f243e61" ) )
+    if ( strcmp ( tiger.ToString (), "77befbef2e7ef8ab2ec8f93bf587a7fc613e247f5f247809" ) )
         return 2;
 
     teststring = "abc"; length = strlen (teststring);
     tiger.Process (teststring, length);
-    if ( strcmp ( tiger.ToString (), "f258c1e88414ab2a527ab541ffc5b8bf935f7b951c132951" ) )
+    if ( strcmp ( tiger.ToString (), "2aab1484e8c158f2bfb8c5ff41b57a525129131c957b5f93" ) )
         return 3;
 
     teststring = "message digest"; length = strlen (teststring);
     tiger.Process (teststring, length);
-    if ( strcmp ( tiger.ToString (), "951a2078cbf881d91c441e754830cf0df6295aa51aca7f51" ) )
+    if ( strcmp ( tiger.ToString (), "d981f8cb78201a950dcf3048751e441c517fca1aa55a29f6" ) )
         return 4;
 
     teststring = "abcdefghijklmnopqrstuvwxyz"; length = strlen (teststring);
     tiger.Process (teststring, length);
-    if ( strcmp ( tiger.ToString (), "307de5ee72a414172a0355ccbf120404e9ee7bf32f60110b" ) )
+    if ( strcmp ( tiger.ToString (), "1714a472eee57d30040412bfcc55032a0b11602ff37beee9" ) )
         return 5;
 
     teststring = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"; length = strlen (teststring);
     tiger.Process (teststring, length);
-    if ( strcmp ( tiger.ToString (), "ee8375a180a6ce8d5186363c8aa32b50cca849dcccfb0f89" ) )
+    if ( strcmp ( tiger.ToString (), "8dcea680a17583ee502ba38a3c368651890ffbccdc49a8cc" ) )
         return 6;
 
     teststring = "12345678901234567890123456789012345678901234567890123456789012345678901234567890"; length = strlen (teststring);
     tiger.Process (teststring, length);
-    if ( strcmp ( tiger.ToString (), "209ffd295579141ce8112fc5848f957afd1bd9dfab0cfa87" ) )
+    if ( strcmp ( tiger.ToString (), "1c14795529fd9f207a958f84c52f11e887fa0cabdfd91bfd" ) )
         return 7;
 
     TigerHash otherhash;

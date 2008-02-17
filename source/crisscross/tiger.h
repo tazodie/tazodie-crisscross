@@ -14,6 +14,17 @@
 
 #include <crisscross/deprecate.h>
 
+#define TIGER_DIGEST_SIZE 24
+
+//!@cond
+typedef struct {
+    uint64_t a, b, c;
+    unsigned char buf[64];
+    int count;
+    uint32_t nblocks;
+} cc_tiger_ctx;
+//!@endcond
+
 namespace CrissCross
 {
     namespace Crypto
@@ -28,11 +39,9 @@ namespace CrissCross
         class TigerHash
         {
 private:
-			mutable char *m_hashString;
-            cc_uint64_t m_hash[3];
-			
-			int ProcessBlock ( const void *_data, size_t _length );
-			void Finalize();
+            mutable char *m_hashString;
+            unsigned char *m_hash;
+            cc_tiger_ctx m_state;
 
 public:
             //! The default constructor.
@@ -52,6 +61,25 @@ public:
              \return Zero on success, nonzero on failure.
              */
             int Process ( const void *_data, size_t _length );
+
+            //! Runs a hash on the file provided.
+            /*!
+             \param _reader The pre-opened CoreIOReader to run the hash on.
+             \return Zero on success, nonzero on failure.
+             */
+            int Process ( CrissCross::IO::CoreIOReader *_reader );
+
+            //! Processes a piece of the dataset.
+            /*!
+               This function will process only a segment of a larger dataset. It is designed
+               to be called multiple times before an eventual Finalize() call.
+             \param _data The data segment to hash.
+             \param _length The length of the data segment in bytes.
+             */
+            int ProcessBlock ( const void *_data, size_t _length );
+
+            //! Finalizes the ProcessBlock() calls and generates the final hash value.
+            void Finalize ();
 
             //! Resets the internal Tiger context and hash buffer.
             void Reset ();

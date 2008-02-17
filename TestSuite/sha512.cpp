@@ -54,13 +54,14 @@ int TestSHA512 ()
     otherhash.Process ( teststring, length );
     if ( otherhash != sha512 || sha512 != otherhash )
         return 5;
-        
+
 #ifdef FILE_CHECKSUM
     TextReader file;
     file.Open ( "testfile" );
     sha512.Process ( (CoreIOReader *)&file );
-    if ( strcmp ( sha512.ToString(), "eff2c94b0ea2926ead15770c9082ee2b2bd30a976aef69630e6ba552a10a4cad51e9e50f4694f69a46243ebc3fd7f78e3f20c2088b5953a5ad28cd9a6890e4d9" ) )
+    if ( strcmp ( sha512.ToString (), "eff2c94b0ea2926ead15770c9082ee2b2bd30a976aef69630e6ba552a10a4cad51e9e50f4694f69a46243ebc3fd7f78e3f20c2088b5953a5ad28cd9a6890e4d9" ) )
         return 6;
+
 #endif
 
     return 0;
