@@ -87,16 +87,19 @@ namespace CrissCross
             fpos64_t lastpos;
 #  ifdef TARGET_OS_WINDOWS
             lastpos = _ftelli64 ( m_fileInputPointer );
+            return lastpos;
 #  elif defined ( TARGET_OS_MACOSX )
             fgetpos ( m_fileInputPointer, &lastpos );
+            return lastpos;
 #  else
             fgetpos64 ( m_fileInputPointer, &lastpos );
+            return lastpos.__pos;
 #  endif
 #else
             fpos_t lastpos, endpos;
             lastpos = ftell ( m_fileInputPointer );
-#endif
             return lastpos;
+#endif
 
         }
 
