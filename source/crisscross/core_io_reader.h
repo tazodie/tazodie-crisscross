@@ -118,6 +118,12 @@ public:
              \param _ending Any of the LineEndingType values.
              */
             virtual CrissCross::Errors SetLineEndings ( LineEndingType _ending );
+			
+			//! Gets the current position in the buffer.
+			/*!
+				\return The current position in the buffer.
+			 */
+			 virtual cc_int64_t Position ();
 
             //! Seeks to a location in the buffer.
             /*!

@@ -13,6 +13,7 @@
 #include "md5.h"
 
 using namespace CrissCross::Crypto;
+using namespace CrissCross::IO;
 
 int TestMD5 ()
 {
@@ -66,6 +67,14 @@ int TestMD5 ()
     otherhash.Process ( teststring, length );
     if ( otherhash != md5 || md5 != otherhash )
         return 9;
+        
+#ifdef FILE_CHECKSUM
+    TextReader file;
+    file.Open ( "testfile" );
+    md5.Process ( (CoreIOReader *)&file );
+    if ( strcmp ( md5.ToString(), "bc2471d759c6ae2eb44482f571b02a40" ) )
+        return 10;
+#endif
 
     return 0;
 }

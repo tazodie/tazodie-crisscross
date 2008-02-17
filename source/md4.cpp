@@ -11,6 +11,7 @@
 
 #include <crisscross/universal_include.h>
 
+#include <crisscross/core_io_reader.h>
 #include <crisscross/md4.h>
 
 #define MD4_CTX cc_md4_ctx
@@ -299,8 +300,9 @@ namespace CrissCross
 {
     namespace Crypto
     {
-        MD4Hash::MD4Hash () : m_hash (NULL)
+        MD4Hash::MD4Hash () : m_hashString (NULL), m_hash (NULL)
         {
+			Reset ();
         }
 
         MD4Hash::~MD4Hash ()
@@ -313,12 +315,43 @@ namespace CrissCross
             Reset ();
             if ( !_data ) return -1;
 
-            MD4Init ( &m_state );
             MD4Update ( &m_state, (unsigned char *)_data, _length );
             m_hash = new unsigned char[MD4_DIGEST_LENGTH];
             MD4Final ( (unsigned char *)m_hash, &m_state );
             return 0;
         }
+		
+		int MD4Hash::Process ( CrissCross::IO::CoreIOReader *_reader )
+		{
+			Reset();
+			if ( !_reader ) return -1;
+			cc_int64_t pos = _reader->Position();
+			_reader->Seek ( 0 );
+			char buffer[8192]; int bytesRead = 0;
+			do
+			{
+				bytesRead = _reader->Read ( buffer, sizeof(buffer), 0, sizeof(buffer) );
+				if ( bytesRead >= 0 )
+					ProcessBlock ( buffer, bytesRead );
+			} while ( bytesRead == sizeof(buffer) && !_reader->EndOfFile() );
+			Finalize();
+			_reader->Seek ( pos );
+			return 0;			
+		}
+		
+		int MD4Hash::ProcessBlock ( const void * _data, size_t _length )
+		{
+			if ( !_data ) return -1;
+            MD4Update ( &m_state, (unsigned char *)_data, _length );
+			return 0;
+		}
+		
+		void MD4Hash::Finalize ()
+		{
+			if ( m_hash ) delete [] m_hash;
+            m_hash = new unsigned char[MD4_DIGEST_LENGTH];
+            MD4Final ( (unsigned char *)m_hash, &m_state );
+		}
 
         const char *MD4Hash::ToString () const
         {
@@ -334,6 +367,8 @@ namespace CrissCross
         {
             delete [] m_hash; m_hash = NULL;
             delete [] m_hashString; m_hashString = NULL;
+			
+            MD4Init ( &m_state );
         }
 
         bool MD4Hash::operator== ( const MD4Hash &_other ) const

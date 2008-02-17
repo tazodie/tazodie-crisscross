@@ -737,8 +737,9 @@ namespace CrissCross
 {
     namespace Crypto
     {
-        TigerHash::TigerHash ()
+        TigerHash::TigerHash () : m_hashString (NULL)
         {
+			Reset ();
         }
 
         TigerHash::~TigerHash ()
@@ -754,6 +755,15 @@ namespace CrissCross
             tiger ( (word64 *)_data, _length, m_hash );
             return 0;
         }
+		
+		int TigerHash::ProcessBlock ( const void * _data, size_t _length )
+		{
+			return -1;
+		}
+		
+		void TigerHash::Finalize ()
+		{
+		}
 
         const char *TigerHash::ToString () const
         {

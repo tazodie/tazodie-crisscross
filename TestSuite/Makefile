@@ -59,6 +59,8 @@ ifeq ($(GCC_NDS),)
 	LD_LIBRARY_PATH="$(OUTDIR)" $(OUTDIR)/$(OUTBIN)
 endif
 
+check: test
+
 memcheck: $(OUTDIR)/$(OUTBIN)
 ifeq ($(GCC_NDS),)
 	LD_LIBRARY_PATH="$(OUTDIR)" valgrind --leak-check=full --db-command='gdb --nw %f %p' --db-attach=yes -v $(OUTDIR)/$(OUTBIN)

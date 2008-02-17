@@ -21,7 +21,6 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		B01CB6730D52D2970081CCAC /* hash.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B01CB66B0D52D2970081CCAC /* hash.cpp */; };
 		B01CB6740D52D2970081CCAC /* md2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B01CB66C0D52D2970081CCAC /* md2.cpp */; };
 		B01CB6750D52D2970081CCAC /* md4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B01CB66D0D52D2970081CCAC /* md4.cpp */; };
 		B01CB6760D52D2970081CCAC /* md5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B01CB66E0D52D2970081CCAC /* md5.cpp */; };
@@ -33,7 +32,6 @@
 		B01CB6910D52D2B40081CCAC /* bubblesort.h in Headers */ = {isa = PBXBuildFile; fileRef = B01CB67D0D52D2B40081CCAC /* bubblesort.h */; };
 		B01CB6920D52D2B40081CCAC /* build_number.h in Headers */ = {isa = PBXBuildFile; fileRef = B01CB67E0D52D2B40081CCAC /* build_number.h */; };
 		B01CB6930D52D2B40081CCAC /* datatypes.h in Headers */ = {isa = PBXBuildFile; fileRef = B01CB67F0D52D2B40081CCAC /* datatypes.h */; };
-		B01CB6940D52D2B40081CCAC /* hash.h in Headers */ = {isa = PBXBuildFile; fileRef = B01CB6800D52D2B40081CCAC /* hash.h */; };
 		B01CB6960D52D2B40081CCAC /* hashtable.h in Headers */ = {isa = PBXBuildFile; fileRef = B01CB6820D52D2B40081CCAC /* hashtable.h */; };
 		B01CB6970D52D2B40081CCAC /* insertionsort.h in Headers */ = {isa = PBXBuildFile; fileRef = B01CB6830D52D2B40081CCAC /* insertionsort.h */; };
 		B01CB6980D52D2B40081CCAC /* internal_mem.h in Headers */ = {isa = PBXBuildFile; fileRef = B01CB6840D52D2B40081CCAC /* internal_mem.h */; };
@@ -112,7 +110,6 @@
 		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		32BAE0B70371A74B00C91783 /* CrissCross_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrissCross_Prefix.pch; sourceTree = "<group>"; };
 		8D07F2C70486CC7A007CD1D0 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		B01CB66B0D52D2970081CCAC /* hash.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hash.cpp; path = ../source/hash.cpp; sourceTree = SOURCE_ROOT; };
 		B01CB66C0D52D2970081CCAC /* md2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md2.cpp; path = ../source/md2.cpp; sourceTree = SOURCE_ROOT; };
 		B01CB66D0D52D2970081CCAC /* md4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md4.cpp; path = ../source/md4.cpp; sourceTree = SOURCE_ROOT; };
 		B01CB66E0D52D2970081CCAC /* md5.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md5.cpp; path = ../source/md5.cpp; sourceTree = SOURCE_ROOT; };
@@ -124,7 +121,6 @@
 		B01CB67D0D52D2B40081CCAC /* bubblesort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bubblesort.h; path = ../source/crisscross/bubblesort.h; sourceTree = SOURCE_ROOT; };
 		B01CB67E0D52D2B40081CCAC /* build_number.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = build_number.h; path = ../source/crisscross/build_number.h; sourceTree = SOURCE_ROOT; };
 		B01CB67F0D52D2B40081CCAC /* datatypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = datatypes.h; path = ../source/crisscross/datatypes.h; sourceTree = SOURCE_ROOT; };
-		B01CB6800D52D2B40081CCAC /* hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hash.h; path = ../source/crisscross/hash.h; sourceTree = SOURCE_ROOT; };
 		B01CB6810D52D2B40081CCAC /* hashtable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hashtable.cpp; path = ../source/crisscross/hashtable.cpp; sourceTree = SOURCE_ROOT; };
 		B01CB6820D52D2B40081CCAC /* hashtable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hashtable.h; path = ../source/crisscross/hashtable.h; sourceTree = SOURCE_ROOT; };
 		B01CB6830D52D2B40081CCAC /* insertionsort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = insertionsort.h; path = ../source/crisscross/insertionsort.h; sourceTree = SOURCE_ROOT; };
@@ -241,7 +237,6 @@
 				B01CB67D0D52D2B40081CCAC /* bubblesort.h */,
 				B01CB67E0D52D2B40081CCAC /* build_number.h */,
 				B01CB67F0D52D2B40081CCAC /* datatypes.h */,
-				B01CB6800D52D2B40081CCAC /* hash.h */,
 				B01CB6810D52D2B40081CCAC /* hashtable.cpp */,
 				B01CB6820D52D2B40081CCAC /* hashtable.h */,
 				B01CB6830D52D2B40081CCAC /* insertionsort.h */,
@@ -256,7 +251,6 @@
 				B01CB68C0D52D2B40081CCAC /* splaytree.cpp */,
 				B01CB68D0D52D2B40081CCAC /* splaytree.h */,
 				B01CB68E0D52D2B40081CCAC /* tiger.h */,
-				B01CB66B0D52D2970081CCAC /* hash.cpp */,
 				B01CB66C0D52D2970081CCAC /* md2.cpp */,
 				B01CB66D0D52D2970081CCAC /* md4.cpp */,
 				B01CB66E0D52D2970081CCAC /* md5.cpp */,
@@ -365,7 +359,6 @@
 				B01CB6910D52D2B40081CCAC /* bubblesort.h in Headers */,
 				B01CB6920D52D2B40081CCAC /* build_number.h in Headers */,
 				B01CB6930D52D2B40081CCAC /* datatypes.h in Headers */,
-				B01CB6940D52D2B40081CCAC /* hash.h in Headers */,
 				B01CB6960D52D2B40081CCAC /* hashtable.h in Headers */,
 				B01CB6970D52D2B40081CCAC /* insertionsort.h in Headers */,
 				B01CB6980D52D2B40081CCAC /* internal_mem.h in Headers */,
@@ -460,7 +453,6 @@
 				B0BD2C810BE26C3200F71A26 /* tcpsocket.cpp in Sources */,
 				B0BD2C830BE26C3300F71A26 /* stopwatch.cpp in Sources */,
 				B0A6251C0BFA8FA1006F2B68 /* version.cpp in Sources */,
-				B01CB6730D52D2970081CCAC /* hash.cpp in Sources */,
 				B01CB6740D52D2970081CCAC /* md2.cpp in Sources */,
 				B01CB6750D52D2970081CCAC /* md4.cpp in Sources */,
 				B01CB6760D52D2970081CCAC /* md5.cpp in Sources */,

@@ -77,6 +77,28 @@ namespace CrissCross
             int res = Seek ( _position, SEEK_CUR );
             return ( res == 0 );
         }
+		
+		cc_int64_t
+		CoreIOReader::Position ()
+		{
+            CoreAssert ( this != NULL );
+            CoreAssert ( IsOpen () );
+#ifdef HAS_FPOS64
+            fpos64_t lastpos;
+#  ifdef TARGET_OS_WINDOWS
+            lastpos = _ftelli64 ( m_fileInputPointer );
+#  elif defined ( TARGET_OS_MACOSX )
+            fgetpos ( m_fileInputPointer, &lastpos );
+#  else
+            fgetpos64 ( m_fileInputPointer, &lastpos );
+#  endif
+#else
+            fpos_t lastpos, endpos;
+            lastpos = ftell ( m_fileInputPointer );
+#endif
+			return lastpos;
+			
+		}
 
         cc_int64_t
         CoreIOReader::Length ()
@@ -152,7 +174,7 @@ namespace CrissCross
             size_t retval;
 
             CoreAssert ( _buffer != NULL );
-            CoreAssert ( _bufferLength - _bufferIndex > _count );
+            CoreAssert ( _bufferLength - _bufferIndex <= _count );
             CoreAssert ( _count > 0 );
                 #ifndef __GNUC__
             m_ioMutex.Lock ();

@@ -13,7 +13,6 @@
 #define __included_cc_tiger_h
 
 #include <crisscross/deprecate.h>
-#include <crisscross/hash.h>
 
 namespace CrissCross
 {
@@ -26,10 +25,14 @@ namespace CrissCross
                         to generate than a SHA-256 hash or even a SHA-512 hash.
          \sa Hash SHA1Hash SHA256Hash SHA512Hash
          */
-        class TigerHash : public Hash
+        class TigerHash
         {
 private:
+			mutable char *m_hashString;
             cc_uint64_t m_hash[3];
+			
+			int ProcessBlock ( const void *_data, size_t _length );
+			void Finalize();
 
 public:
             //! The default constructor.

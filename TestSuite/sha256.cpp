@@ -13,6 +13,7 @@
 #include "sha256.h"
 
 using namespace CrissCross::Crypto;
+using namespace CrissCross::IO;
 
 int TestSHA256 ()
 {
@@ -53,6 +54,14 @@ int TestSHA256 ()
     otherhash.Process ( teststring, length );
     if ( otherhash != sha256 || sha256 != otherhash )
         return 5;
+        
+#ifdef FILE_CHECKSUM
+    TextReader file;
+    file.Open ( "testfile" );
+    sha256.Process ( (CoreIOReader *)&file );
+    if ( strcmp ( sha256.ToString(), "e6f106d98b2937a68a1700c747e37c4d942a364ee0a529cb5b49e9e4cf66b7fe" ) )
+        return 6;
+#endif
 
     return 0;
 }
