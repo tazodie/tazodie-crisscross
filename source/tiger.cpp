@@ -691,7 +691,7 @@ transform ( cc_tiger_ctx *hd, unsigned char *data )
     x[7] = MKWORD (data, 7);
     #  undef MKWORD
   #else
-    memcpy ( &x[0], data, 64 );
+    memcpy ( x, data, 64 );
   #endif
 
     /* save */
@@ -743,7 +743,12 @@ tiger_update (cc_tiger_ctx *hd, unsigned char *inbuf, size_t inlen)
     if ( hd->count ){
         for ( ; inlen && hd->count < 64; inlen-- )
             hd->buf[hd->count++] = *inbuf++;
-        tiger_update ( hd, NULL, 0 );
+        if ( hd->count == 64 ){         /* flush the buffer */
+            transform ( hd, hd->buf );
+            hd->count = 0;
+            hd->nblocks++;
+        }
+
         if ( !inlen ){
             return;
         }
