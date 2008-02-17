@@ -74,12 +74,14 @@ public:
 			//! Equality operator.
 			/*!
 				Compares two instances of MD2Hash to see if the hashes are equal.
+				\param _other The other instance of MD2Hash to compare to.
 			 */
 			bool operator== ( const MD2Hash &_other ) const;
 			
 			//! Inequality operator.
 			/*!
 				Compares two instances of MD2Hash to see if the hashes are not equal.
+				\param _other The other instance of MD2Hash to compare to.
 			 */
 			inline bool operator!= ( const MD2Hash &_other ) const { return !( *this == _other ); };
 

@@ -66,12 +66,14 @@ public:
 			//! Equality operator.
 			/*!
 				Compares two instances of TigerHash to see if the hashes are equal.
+				\param _other The other instance of TigerHash to compare to.
 			 */
 			bool operator== ( const TigerHash &_other ) const;
 			
 			//! Inequality operator.
 			/*!
 				Compares two instances of TigerHash to see if the hashes are not equal.
+				\param _other The other instance of TigerHash to compare to.
 			 */
 			inline bool operator!= ( const TigerHash &_other ) const { return !( *this == _other ); };
 

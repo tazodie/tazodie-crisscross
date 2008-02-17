@@ -291,6 +291,15 @@ int CrissCrossInitialize ( int argc, char **argv );
  */
 namespace CrissCross
 {
+
+	//! The cryptographic routine namespace.
+	/*!
+		Contains a variety of hashing algorithms for general use.
+	 */
+	namespace Crypto
+	{
+	}
+
     //! The data structure namespace.
     /*!
         Contains basic data structures to assist in sorting and searching
