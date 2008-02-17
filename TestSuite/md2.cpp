@@ -57,12 +57,12 @@ int TestMD2 ()
     md2.Process (teststring, length);
     if ( strcmp ( md2.ToString (), "d5976f79d83d3a0dc9806c3c66f3efd8" ) )
         return 7;
-        
+
     MD2Hash otherhash;
     otherhash.Process ( "cheese", 6 );
     if ( otherhash == md2 || md2 == otherhash )
         return 8;
-        
+
     otherhash.Process ( teststring, length );
     if ( otherhash != md2 || md2 != otherhash )
         return 9;

@@ -16,26 +16,26 @@ namespace CrissCross
 {
     namespace Crypto
     {
-		//! An abstract Hash class.
+        //! An abstract Hash class.
         class Hash
         {
 protected:
             mutable char *m_hashString;
 
 public:
-			//! The default constructor.
+            //! The default constructor.
             Hash ();
-			
-			//! The default destructor.
+
+            //! The default destructor.
             virtual ~Hash ();
 
-			//! Abstract hash generator function.
+            //! Abstract hash generator function.
             virtual int Process ( const void *_data, size_t _length ) = 0;
-			
-			//! Abstract reset function.
+
+            //! Abstract reset function.
             virtual void Reset () = 0;
-			
-			//! Abstract string conversion function.
+
+            //! Abstract string conversion function.
             virtual const char *ToString () const = 0;
         };
     }

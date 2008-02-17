@@ -31,14 +31,14 @@ namespace CrissCross
 {
     namespace Crypto
     {
-		//! An MD2 hash generator.
-		/*!
-			\deprecated MD2 hashes are rarely used anymore because they are very slow to
-				generate. The code for them is optimized for 8-bit machines and is no longer
-				suitable for production use. It's highly recommended that you use MD4 or MD5
-				as a replacement of MD2.
-			\sa Hash MD4Hash MD5Hash
-		 */
+        //! An MD2 hash generator.
+        /*!
+         \deprecated MD2 hashes are rarely used anymore because they are very slow to
+                        generate. The code for them is optimized for 8-bit machines and is no longer
+                        suitable for production use. It's highly recommended that you use MD4 or MD5
+                        as a replacement of MD2.
+         \sa Hash MD4Hash MD5Hash
+         */
         class MD2Hash : public Hash
         {
 private:
@@ -46,44 +46,46 @@ private:
             cc_md2_ctx m_state;
 
 public:
-			//! The default constructor.
+            //! The default constructor.
             _CC_DEPRECATE_SLOW ("SEVERE") MD2Hash ();
-			
-			//! The default destructor.
+
+            //! The default destructor.
             virtual ~MD2Hash ();
 
-			//! Runs an MD2 hash on the data provided.
-			/*!
-				\param _data The data to hash. The buffer does not need to be null
-					terminated.
-				\param _length The data length in bytes.
-				\return Zero on success, nonzero on failure.
-			 */
+            //! Runs an MD2 hash on the data provided.
+            /*!
+             \param _data The data to hash. The buffer does not need to be null
+                            terminated.
+             \param _length The data length in bytes.
+             \return Zero on success, nonzero on failure.
+             */
             int Process ( const void *_data, size_t _length );
-			
-			//! Resets the internal MD2 context and hash buffer.
+
+            //! Resets the internal MD2 context and hash buffer.
             void Reset ();
-			
-			//! Converts the internal hash data into an hex string, a human readable format.
-			/*!
-				The memory location returned by this function is freed when the class
-				is destructed.
-			 */
+
+            //! Converts the internal hash data into an hex string, a human readable format.
+            /*!
+                    The memory location returned by this function is freed when the class
+                    is destructed.
+             */
             virtual const char *ToString () const;
-			
-			//! Equality operator.
-			/*!
-				Compares two instances of MD2Hash to see if the hashes are equal.
-				\param _other The other instance of MD2Hash to compare to.
-			 */
-			bool operator== ( const MD2Hash &_other ) const;
-			
-			//! Inequality operator.
-			/*!
-				Compares two instances of MD2Hash to see if the hashes are not equal.
-				\param _other The other instance of MD2Hash to compare to.
-			 */
-			inline bool operator!= ( const MD2Hash &_other ) const { return !( *this == _other ); };
+
+            //! Equality operator.
+            /*!
+                    Compares two instances of MD2Hash to see if the hashes are equal.
+             \param _other The other instance of MD2Hash to compare to.
+             */
+            bool operator== ( const MD2Hash &_other ) const;
+
+            //! Inequality operator.
+            /*!
+                    Compares two instances of MD2Hash to see if the hashes are not equal.
+             \param _other The other instance of MD2Hash to compare to.
+             */
+            inline bool operator!= ( const MD2Hash &_other ) const {
+                return !( *this == _other );
+            };
 
         };
     }

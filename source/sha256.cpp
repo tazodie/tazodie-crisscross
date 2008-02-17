@@ -322,10 +322,10 @@ namespace CrissCross
             delete [] m_hash; m_hash = NULL;
             delete [] m_hashString; m_hashString = NULL;
         }
-		
-		bool SHA256Hash::operator== ( const SHA256Hash &_other ) const
-		{
-			return ( memcmp ( m_hash, _other.m_hash, SHA256_DIGEST_SIZE ) == 0 );
-		}
+
+        bool SHA256Hash::operator== ( const SHA256Hash &_other ) const
+        {
+            return ( memcmp ( m_hash, _other.m_hash, SHA256_DIGEST_SIZE ) == 0 );
+        }
     }
 }

@@ -62,10 +62,10 @@ int TestMD4 ()
     otherhash.Process ( "cheese", 6 );
     if ( otherhash == md4 || md4 == otherhash )
         return 8;
-        
+
     otherhash.Process ( teststring, length );
     if ( otherhash != md4 || md4 != otherhash )
         return 9;
-        
+
     return 0;
 }

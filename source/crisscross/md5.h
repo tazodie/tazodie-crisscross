@@ -32,16 +32,16 @@ namespace CrissCross
 {
     namespace Crypto
     {
-		//! An MD5 hash generator.
-		/*!
-			In recent years, MD5 hashes have waned in popularity because researchers
-			have found that collisions for MD5 are easy to generate. However, this
-			sort of attack can be rendered useless when a salt is added to the 
-			input dataset.
-			
-			\warning Because MD5 is known to have weaknesses, use at your own risk!
-			\sa Hash MD2Hash MD4Hash
-		 */
+        //! An MD5 hash generator.
+        /*!
+                In recent years, MD5 hashes have waned in popularity because researchers
+                have found that collisions for MD5 are easy to generate. However, this
+                sort of attack can be rendered useless when a salt is added to the
+                input dataset.
+
+         \warning Because MD5 is known to have weaknesses, use at your own risk!
+         \sa Hash MD2Hash MD4Hash
+         */
         class MD5Hash : public Hash
         {
 private:
@@ -49,44 +49,46 @@ private:
             cc_md5_ctx m_state;
 
 public:
-			//! The default constructor.
+            //! The default constructor.
             MD5Hash ();
-			
-			//! The default destructor.
+
+            //! The default destructor.
             virtual ~MD5Hash ();
 
-			//! Runs an MD5 hash on the data provided.
-			/*!
-				\param _data The data to hash. The buffer does not need to be null
-					terminated.
-				\param _length The data length in bytes.
-				\return Zero on success, nonzero on failure.
-			 */
+            //! Runs an MD5 hash on the data provided.
+            /*!
+             \param _data The data to hash. The buffer does not need to be null
+                            terminated.
+             \param _length The data length in bytes.
+             \return Zero on success, nonzero on failure.
+             */
             int Process ( const void *_data, size_t _length );
-			
-			//! Resets the internal MD5 context and hash buffer.
+
+            //! Resets the internal MD5 context and hash buffer.
             void Reset ();
 
-			//! Converts the internal hash data into an hex string, a human readable format.
-			/*!
-				The memory location returned by this function is freed when the class
-				is destructed.
-			 */
+            //! Converts the internal hash data into an hex string, a human readable format.
+            /*!
+                    The memory location returned by this function is freed when the class
+                    is destructed.
+             */
             virtual const char *ToString () const;
-			
-			//! Equality operator.
-			/*!
-				Compares two instances of MD5Hash to see if the hashes are equal.
-				\param _other The other instance of MD5Hash to compare to.
-			 */
-			bool operator== ( const MD5Hash &_other ) const;
-			
-			//! Inequality operator.
-			/*!
-				Compares two instances of MD5Hash to see if the hashes are not equal.
-				\param _other The other instance of MD5Hash to compare to.
-			 */
-			inline bool operator!= ( const MD5Hash &_other ) const { return !( *this == _other ); };
+
+            //! Equality operator.
+            /*!
+                    Compares two instances of MD5Hash to see if the hashes are equal.
+             \param _other The other instance of MD5Hash to compare to.
+             */
+            bool operator== ( const MD5Hash &_other ) const;
+
+            //! Inequality operator.
+            /*!
+                    Compares two instances of MD5Hash to see if the hashes are not equal.
+             \param _other The other instance of MD5Hash to compare to.
+             */
+            inline bool operator!= ( const MD5Hash &_other ) const {
+                return !( *this == _other );
+            };
 
         };
     }

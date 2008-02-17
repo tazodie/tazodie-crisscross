@@ -911,7 +911,7 @@ Encode (cc_uint8_t * output, const cc_uint32_t * input,
 #ifdef TARGET_LITTLE_ENDIAN
 
 #  ifdef _MD5_CHECK_ALIGNMENT
-        if ((uintptr_t)output & 0x3)            /* Not 4-byte aligned */
+        if ((uintptr_t)output & 0x3)  /* Not 4-byte aligned */
             bcopy (input + i, output + j, 4);
         else *(cc_uint32_t *)( output + j ) = input[i];
 
@@ -970,10 +970,10 @@ namespace CrissCross
             delete [] m_hash; m_hash = NULL;
             delete [] m_hashString; m_hashString = NULL;
         }
-		
-		bool MD5Hash::operator== ( const MD5Hash &_other ) const
-		{
-			return ( memcmp ( m_hash, _other.m_hash, MD5_DIGEST_LENGTH ) == 0 );
-		}
+
+        bool MD5Hash::operator== ( const MD5Hash &_other ) const
+        {
+            return ( memcmp ( m_hash, _other.m_hash, MD5_DIGEST_LENGTH ) == 0 );
+        }
     }
 }

@@ -19,9 +19,9 @@ namespace CrissCross
     namespace Data
     {
         //! A InsertionSort implementation for sorting arrays.
-		/*!
-             \deprecated This is an extremely slow sorting method. It is provided for educational purposes ONLY.
-		 */
+        /*!
+         \deprecated This is an extremely slow sorting method. It is provided for educational purposes ONLY.
+         */
         template <class T>
         class InsertionSort : public Sorter<T>
         {

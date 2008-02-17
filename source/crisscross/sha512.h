@@ -31,13 +31,13 @@ namespace CrissCross
 {
     namespace Crypto
     {
-		//! A SHA-512 hash generator.
-		/*!
-			\warning When compiled as 32-bit code, this hash is particularly slow.
-				When compiled as 64-bit code, this hash type can actually be faster
-				to generate than a SHA-256 hash.
-			\sa Hash SHA1Hash SHA256Hash TigerHash
-		 */
+        //! A SHA-512 hash generator.
+        /*!
+         \warning When compiled as 32-bit code, this hash is particularly slow.
+                        When compiled as 64-bit code, this hash type can actually be faster
+                        to generate than a SHA-256 hash.
+         \sa Hash SHA1Hash SHA256Hash TigerHash
+         */
         class SHA512Hash : public Hash
         {
 private:
@@ -45,47 +45,49 @@ private:
             unsigned char *m_hash;
 
 public:
-			//! The default constructor.
+            //! The default constructor.
                 #if TARGET_CPU_BITS < 64
             _CC_DEPRECATE_SLOW ("MODERATE")
                 #endif
             SHA512Hash ();
-			
-			//! The default destructor.
+
+            //! The default destructor.
             virtual ~SHA512Hash ();
 
-			//! Runs a SHA-512 hash on the data provided.
-			/*!
-				\param _data The data to hash. The buffer does not need to be null
-					terminated.
-				\param _length The data length in bytes.
-				\return Zero on success, nonzero on failure.
-			 */
+            //! Runs a SHA-512 hash on the data provided.
+            /*!
+             \param _data The data to hash. The buffer does not need to be null
+                            terminated.
+             \param _length The data length in bytes.
+             \return Zero on success, nonzero on failure.
+             */
             int Process ( const void *_data, size_t _length );
-			
-			//! Resets the internal SHA-512 context and hash buffer.
+
+            //! Resets the internal SHA-512 context and hash buffer.
             void Reset ();
 
-			//! Converts the internal hash data into an hex string, a human readable format.
-			/*!
-				The memory location returned by this function is freed when the class
-				is destructed.
-			 */
+            //! Converts the internal hash data into an hex string, a human readable format.
+            /*!
+                    The memory location returned by this function is freed when the class
+                    is destructed.
+             */
             virtual const char *ToString () const;
-			
-			//! Equality operator.
-			/*!
-				Compares two instances of SHA512Hash to see if the hashes are equal.
-				\param _other The other instance of SHA512Hash to compare to.
-			 */
-			bool operator== ( const SHA512Hash &_other ) const;
-			
-			//! Inequality operator.
-			/*!
-				Compares two instances of SHA512Hash to see if the hashes are not equal.
-				\param _other The other instance of SHA512Hash to compare to.
-			 */
-			inline bool operator!= ( const SHA512Hash &_other ) const { return !( *this == _other ); };
+
+            //! Equality operator.
+            /*!
+                    Compares two instances of SHA512Hash to see if the hashes are equal.
+             \param _other The other instance of SHA512Hash to compare to.
+             */
+            bool operator== ( const SHA512Hash &_other ) const;
+
+            //! Inequality operator.
+            /*!
+                    Compares two instances of SHA512Hash to see if the hashes are not equal.
+             \param _other The other instance of SHA512Hash to compare to.
+             */
+            inline bool operator!= ( const SHA512Hash &_other ) const {
+                return !( *this == _other );
+            };
 
         };
     }
