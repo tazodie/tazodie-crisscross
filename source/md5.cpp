@@ -970,5 +970,10 @@ namespace CrissCross
             delete [] m_hash; m_hash = NULL;
             delete [] m_hashString; m_hashString = NULL;
         }
+		
+		bool MD5Hash::operator== ( const MD5Hash &_other ) const
+		{
+			return ( memcmp ( m_hash, _other.m_hash, MD5_DIGEST_LENGTH ) == 0 );
+		}
     }
 }

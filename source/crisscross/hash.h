@@ -37,7 +37,6 @@ public:
 			
 			//! Abstract string conversion function.
             virtual const char *ToString () const = 0;
-
         };
     }
 }

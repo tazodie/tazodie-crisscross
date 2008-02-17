@@ -353,5 +353,10 @@ namespace CrissCross
             delete [] m_hash; m_hash = NULL;
             delete [] m_hashString; m_hashString = NULL;
         }
+		
+		bool SHA512Hash::operator== ( const SHA512Hash &_other ) const
+		{
+			return ( memcmp ( m_hash, _other.m_hash, SHA512_DIGEST_SIZE ) == 0 );
+		}
     }
 }

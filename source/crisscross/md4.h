@@ -73,6 +73,18 @@ public:
 				is destructed.
 			 */
             virtual const char *ToString () const;
+			
+			//! Equality operator.
+			/*!
+				Compares two instances of MD4Hash to see if the hashes are equal.
+			 */
+			bool operator== ( const MD4Hash &_other ) const;
+			
+			//! Inequality operator.
+			/*!
+				Compares two instances of MD4Hash to see if the hashes are not equal.
+			 */
+			inline bool operator!= ( const MD4Hash &_other ) const { return !( *this == _other ); };
 
         };
     }

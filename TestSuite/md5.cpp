@@ -57,6 +57,15 @@ int TestMD5 ()
     md5.Process (teststring, length);
     if ( strcmp ( md5.ToString (), "57edf4a22be3c955ac49da2e2107b67a" ) )
         return 7;
+        
+    MD5Hash otherhash;
+    otherhash.Process ( "cheese", 6 );
+    if ( otherhash == md5 || md5 == otherhash )
+        return 8;
+        
+    otherhash.Process ( teststring, length );
+    if ( otherhash != md5 || md5 != otherhash )
+        return 9;
 
     return 0;
 }

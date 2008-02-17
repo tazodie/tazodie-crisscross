@@ -1,6 +1,5 @@
 Checksums:
 	- Add CoreIO support.
-	- Logical comparison operators.
 
 Sockets:
 	- Test applications.

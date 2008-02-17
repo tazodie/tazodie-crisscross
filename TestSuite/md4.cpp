@@ -58,5 +58,14 @@ int TestMD4 ()
     if ( strcmp ( md4.ToString (), "e33b4ddc9c38f2199c3e7b164fcc0536" ) )
         return 7;
 
+    MD4Hash otherhash;
+    otherhash.Process ( "cheese", 6 );
+    if ( otherhash == md4 || md4 == otherhash )
+        return 8;
+        
+    otherhash.Process ( teststring, length );
+    if ( otherhash != md4 || md4 != otherhash )
+        return 9;
+        
     return 0;
 }

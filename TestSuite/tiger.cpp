@@ -57,6 +57,15 @@ int TestTiger ()
     tiger.Process (teststring, length);
     if ( strcmp ( tiger.ToString (), "209ffd295579141ce8112fc5848f957afd1bd9dfab0cfa87" ) )
         return 7;
+        
+    TigerHash otherhash;
+    otherhash.Process ( "cheese", 6 );
+    if ( otherhash == tiger || tiger == otherhash )
+        return 8;
+        
+    otherhash.Process ( teststring, length );
+    if ( otherhash != tiger || tiger != otherhash )
+        return 9;
 
     return 0;
 }
