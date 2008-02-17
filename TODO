@@ -1,6 +1,9 @@
 Checksums:
 	- Add CoreIO support.
-	- DOCUMENT
+	- Logical comparison operators.
 
 Sockets:
 	- Test applications.
+
+Documentation:
+	- Any undocumented functions, classes, etc.

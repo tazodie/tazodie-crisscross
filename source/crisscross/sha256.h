@@ -17,17 +17,23 @@
 #define SHA256_DIGEST_SIZE ( 256 / 8 )
 #define SHA256_BLOCK_SIZE  ( 512 / 8 )
 
+//@cond
 typedef struct {
     unsigned int tot_len;
     unsigned int len;
     unsigned char block[2 * SHA256_BLOCK_SIZE];
     cc_uint32_t h[8];
 } cc_sha256_ctx;
+//@endcond
 
 namespace CrissCross
 {
     namespace Crypto
     {
+		//! A SHA-256 hash generator.
+		/*!
+			\sa Hash SHA1Hash SHA512Hash TigerHash
+		 */
         class SHA256Hash : public Hash
         {
 private:
@@ -35,11 +41,29 @@ private:
             unsigned char *m_hash;
 
 public:
+			//! The default constructor.
             SHA256Hash ();
+			
+			//! The default destructor.
             virtual ~SHA256Hash ();
 
+			//! Runs a SHA-256 hash on the data provided.
+			/*!
+				\param _data The data to hash. The buffer does not need to be null
+					terminated.
+				\param _length The data length in bytes.
+				\return Zero on success, nonzero on failure.
+			 */
             int Process ( const void *_data, size_t _length );
+			
+			//! Resets the internal SHA-256 context and hash buffer.
             void Reset ();
+
+			//! Converts the internal hash data into an hex string, a human readable format.
+			/*!
+				The memory location returned by this function is freed when the class
+				is destructed.
+			 */
             virtual const char *ToString () const;
 
         };
