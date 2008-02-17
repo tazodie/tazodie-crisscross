@@ -8,7 +8,7 @@ OPTLEVEL = 3
 # Define a custom CHOST here.
 #CHOST = i386-pc-linux-gnu
 
-TARGET_BITS = -m32
+TARGET_BITS = -m64
 
 ifneq ($(CHOST),)
 PREFIX = $(CHOST)-

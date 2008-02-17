@@ -179,7 +179,7 @@ namespace CrissCross
     {
         SHA1Hash::SHA1Hash () : m_hashString (NULL), m_hash (NULL)
         {
-			Reset ();
+            Reset ();
         }
 
         SHA1Hash::~SHA1Hash ()
@@ -197,38 +197,41 @@ namespace CrissCross
             SHA1Final ( m_hash, &m_state );
             return 0;
         }
-		
-		int SHA1Hash::Process ( CrissCross::IO::CoreIOReader *_reader )
-		{
-			Reset();
-			if ( !_reader ) return -1;
-			cc_int64_t pos = _reader->Position();
-			_reader->Seek ( 0 );
-			char buffer[8192]; int bytesRead = 0;
-			do
-			{
-				bytesRead = _reader->Read ( buffer, sizeof(buffer), 0, sizeof(buffer) );
-				if ( bytesRead >= 0 )
-					ProcessBlock ( buffer, bytesRead );
-			} while ( bytesRead == sizeof(buffer) && !_reader->EndOfFile() );
-			Finalize();
-			_reader->Seek ( pos );
-			return 0;			
-		}
-		
-		int SHA1Hash::ProcessBlock ( const void * _data, size_t _length )
-		{
-			if ( !_data ) return -1;
+
+        int SHA1Hash::Process ( CrissCross::IO::CoreIOReader *_reader )
+        {
+            Reset ();
+            if ( !_reader ) return -1;
+
+            cc_int64_t pos = _reader->Position ();
+            _reader->Seek ( 0 );
+            char buffer[8192]; int bytesRead = 0;
+            do
+            {
+                bytesRead = _reader->Read ( buffer, sizeof( buffer ), 0, sizeof( buffer ) );
+                if ( bytesRead >= 0 )
+                    ProcessBlock ( buffer, bytesRead );
+            } while ( bytesRead == sizeof( buffer ) && !_reader->EndOfFile () );
+            Finalize ();
+            _reader->Seek ( pos );
+            return 0;
+        }
+
+        int SHA1Hash::ProcessBlock ( const void * _data, size_t _length )
+        {
+            if ( !_data ) return -1;
+
             SHA1Update ( &m_state, (unsigned char *)_data, _length );
-			return 0;
-		}
-		
-		void SHA1Hash::Finalize ()
-		{
-			if ( m_hash ) delete [] m_hash;
+            return 0;
+        }
+
+        void SHA1Hash::Finalize ()
+        {
+            if ( m_hash ) delete [] m_hash;
+
             m_hash = new unsigned char[SHA1_DIGEST_SIZE];
             SHA1Final ( m_hash, &m_state );
-		}
+        }
 
         const char *SHA1Hash::ToString () const
         {
@@ -244,7 +247,7 @@ namespace CrissCross
         {
             delete [] m_hash; m_hash = NULL;
             delete [] m_hashString; m_hashString = NULL;
-			
+
             SHA1Init ( &m_state );
         }
 

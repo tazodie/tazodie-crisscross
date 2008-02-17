@@ -67,13 +67,14 @@ int TestMD2 ()
     otherhash.Process ( teststring, length );
     if ( otherhash != md2 || md2 != otherhash )
         return 9;
-        
+
 #ifdef FILE_CHECKSUM
     TextReader file;
     file.Open ( "testfile" );
     md2.Process ( (CoreIOReader *)&file );
-    if ( strcmp ( md2.ToString(), "2d6190f1df530f8056fbdb4b9bacf966" ) )
+    if ( strcmp ( md2.ToString (), "2d6190f1df530f8056fbdb4b9bacf966" ) )
         return 10;
+
 #endif
 
     return 0;

@@ -937,7 +937,7 @@ namespace CrissCross
     {
         MD5Hash::MD5Hash () : m_hashString (NULL), m_hash (NULL)
         {
-			Reset ();
+            Reset ();
         }
 
         MD5Hash::~MD5Hash ()
@@ -955,38 +955,41 @@ namespace CrissCross
             MD5Final ( (unsigned char *)m_hash, &m_state );
             return 0;
         }
-		
-		int MD5Hash::Process ( CrissCross::IO::CoreIOReader *_reader )
-		{
-			Reset();
-			if ( !_reader ) return -1;
-			cc_int64_t pos = _reader->Position();
-			_reader->Seek ( 0 );
-			char buffer[8192]; int bytesRead = 0;
-			do
-			{
-				bytesRead = _reader->Read ( buffer, sizeof(buffer), 0, sizeof(buffer) );
-				if ( bytesRead >= 0 )
-					ProcessBlock ( buffer, bytesRead );
-			} while ( bytesRead == sizeof(buffer) && !_reader->EndOfFile() );
-			Finalize();
-			_reader->Seek ( pos );
-			return 0;			
-		}
-		
-		int MD5Hash::ProcessBlock ( const void * _data, size_t _length )
-		{
-			if ( !_data ) return -1;
+
+        int MD5Hash::Process ( CrissCross::IO::CoreIOReader *_reader )
+        {
+            Reset ();
+            if ( !_reader ) return -1;
+
+            cc_int64_t pos = _reader->Position ();
+            _reader->Seek ( 0 );
+            char buffer[8192]; int bytesRead = 0;
+            do
+            {
+                bytesRead = _reader->Read ( buffer, sizeof( buffer ), 0, sizeof( buffer ) );
+                if ( bytesRead >= 0 )
+                    ProcessBlock ( buffer, bytesRead );
+            } while ( bytesRead == sizeof( buffer ) && !_reader->EndOfFile () );
+            Finalize ();
+            _reader->Seek ( pos );
+            return 0;
+        }
+
+        int MD5Hash::ProcessBlock ( const void * _data, size_t _length )
+        {
+            if ( !_data ) return -1;
+
             MD5Update ( &m_state, (unsigned char *)_data, _length );
-			return 0;
-		}
-		
-		void MD5Hash::Finalize ()
-		{
-			if ( m_hash ) delete [] m_hash;
+            return 0;
+        }
+
+        void MD5Hash::Finalize ()
+        {
+            if ( m_hash ) delete [] m_hash;
+
             m_hash = new unsigned char[MD5_DIGEST_LENGTH];
             MD5Final ( (unsigned char *)m_hash, &m_state );
-		}
+        }
 
         const char *MD5Hash::ToString () const
         {
@@ -1002,7 +1005,7 @@ namespace CrissCross
         {
             delete [] m_hash; m_hash = NULL;
             delete [] m_hashString; m_hashString = NULL;
-			
+
             MD5Init ( &m_state );
         }
 
