@@ -77,12 +77,14 @@ public:
 			//! Equality operator.
 			/*!
 				Compares two instances of MD4Hash to see if the hashes are equal.
+				\param _other The other instance of MD4Hash to compare to.
 			 */
 			bool operator== ( const MD4Hash &_other ) const;
 			
 			//! Inequality operator.
 			/*!
 				Compares two instances of MD4Hash to see if the hashes are not equal.
+				\param _other The other instance of MD4Hash to compare to.
 			 */
 			inline bool operator!= ( const MD4Hash &_other ) const { return !( *this == _other ); };
 

@@ -67,12 +67,14 @@ public:
 			//! Equality operator.
 			/*!
 				Compares two instances of SHA1Hash to see if the hashes are equal.
+				\param _other The other instance of SHA1Hash to compare to.
 			 */
 			bool operator== ( const SHA1Hash &_other ) const;
 			
 			//! Inequality operator.
 			/*!
 				Compares two instances of SHA1Hash to see if the hashes are not equal.
+				\param _other The other instance of SHA1Hash to compare to.
 			 */
 			inline bool operator!= ( const SHA1Hash &_other ) const { return !( *this == _other ); };
 
