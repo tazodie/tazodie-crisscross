@@ -50,7 +50,7 @@ public:
             _CC_DEPRECATE_SLOW ("SEVERE") MD2Hash ();
 
             //! The default destructor.
-            virtual ~MD2Hash ();
+            ~MD2Hash ();
 
             //! Runs an MD2 hash on the data provided.
             /*!
@@ -88,7 +88,7 @@ public:
                     The memory location returned by this function is freed when the class
                     is destructed.
              */
-            virtual const char *ToString () const;
+            const char *ToString () const;
 
             //! Equality operator.
             /*!

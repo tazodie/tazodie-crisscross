@@ -44,7 +44,7 @@ public:
             SHA256Hash ();
 
             //! The default destructor.
-            virtual ~SHA256Hash ();
+            ~SHA256Hash ();
 
             //! Runs a SHA-256 hash on the data provided.
             /*!
@@ -82,7 +82,7 @@ public:
                     The memory location returned by this function is freed when the class
                     is destructed.
              */
-            virtual const char *ToString () const;
+            const char *ToString () const;
 
             //! Equality operator.
             /*!

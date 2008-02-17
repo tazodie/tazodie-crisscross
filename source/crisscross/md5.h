@@ -52,7 +52,7 @@ public:
             MD5Hash ();
 
             //! The default destructor.
-            virtual ~MD5Hash ();
+            ~MD5Hash ();
 
             //! Runs an MD5 hash on the data provided.
             /*!
@@ -90,7 +90,7 @@ public:
                     The memory location returned by this function is freed when the class
                     is destructed.
              */
-            virtual const char *ToString () const;
+            const char *ToString () const;
 
             //! Equality operator.
             /*!
