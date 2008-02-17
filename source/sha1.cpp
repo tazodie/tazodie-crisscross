@@ -212,10 +212,10 @@ namespace CrissCross
             delete [] m_hash; m_hash = NULL;
             delete [] m_hashString; m_hashString = NULL;
         }
-		
-		bool SHA1Hash::operator== ( const SHA1Hash &_other ) const
-		{
-			return ( memcmp ( m_hash, _other.m_hash, SHA1_DIGEST_SIZE ) == 0 );
-		}
+
+        bool SHA1Hash::operator== ( const SHA1Hash &_other ) const
+        {
+            return ( memcmp ( m_hash, _other.m_hash, SHA1_DIGEST_SIZE ) == 0 );
+        }
     }
 }

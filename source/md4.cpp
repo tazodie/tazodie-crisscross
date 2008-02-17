@@ -335,10 +335,10 @@ namespace CrissCross
             delete [] m_hash; m_hash = NULL;
             delete [] m_hashString; m_hashString = NULL;
         }
-		
-		bool MD4Hash::operator== ( const MD4Hash &_other ) const
-		{
-			return ( memcmp ( m_hash, _other.m_hash, MD4_DIGEST_LENGTH ) == 0 );
-		}
+
+        bool MD4Hash::operator== ( const MD4Hash &_other ) const
+        {
+            return ( memcmp ( m_hash, _other.m_hash, MD4_DIGEST_LENGTH ) == 0 );
+        }
     }
 }

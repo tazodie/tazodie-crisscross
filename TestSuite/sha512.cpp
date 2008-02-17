@@ -44,12 +44,12 @@ int TestSHA512 ()
 
     delete [] tempstring;
 #endif
-        
+
     SHA512Hash otherhash;
     otherhash.Process ( "cheese", 6 );
     if ( otherhash == sha512 || sha512 == otherhash )
         return 4;
-        
+
     otherhash.Process ( teststring, length );
     if ( otherhash != sha512 || sha512 != otherhash )
         return 5;

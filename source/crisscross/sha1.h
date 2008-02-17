@@ -28,10 +28,10 @@ namespace CrissCross
 {
     namespace Crypto
     {
-		//! A SHA-1 hash generator.
-		/*!
-			\sa Hash SHA256Hash SHA512Hash TigerHash
-		 */
+        //! A SHA-1 hash generator.
+        /*!
+         \sa Hash SHA256Hash SHA512Hash TigerHash
+         */
         class SHA1Hash : public Hash
         {
 private:
@@ -39,44 +39,46 @@ private:
             unsigned char *m_hash;
 
 public:
-			//! The default constructor.
+            //! The default constructor.
             SHA1Hash ();
-			
-			//! The default destructor.
+
+            //! The default destructor.
             virtual ~SHA1Hash ();
 
-			//! Runs a SHA-1 hash on the data provided.
-			/*!
-				\param _data The data to hash. The buffer does not need to be null
-					terminated.
-				\param _length The data length in bytes.
-				\return Zero on success, nonzero on failure.
-			 */
+            //! Runs a SHA-1 hash on the data provided.
+            /*!
+             \param _data The data to hash. The buffer does not need to be null
+                            terminated.
+             \param _length The data length in bytes.
+             \return Zero on success, nonzero on failure.
+             */
             int Process ( const void *_data, size_t _length );
-			
-			//! Resets the internal SHA-1 context and hash buffer.
+
+            //! Resets the internal SHA-1 context and hash buffer.
             void Reset ();
 
-			//! Converts the internal hash data into an hex string, a human readable format.
-			/*!
-				The memory location returned by this function is freed when the class
-				is destructed.
-			 */
+            //! Converts the internal hash data into an hex string, a human readable format.
+            /*!
+                    The memory location returned by this function is freed when the class
+                    is destructed.
+             */
             virtual const char *ToString () const;
-			
-			//! Equality operator.
-			/*!
-				Compares two instances of SHA1Hash to see if the hashes are equal.
-				\param _other The other instance of SHA1Hash to compare to.
-			 */
-			bool operator== ( const SHA1Hash &_other ) const;
-			
-			//! Inequality operator.
-			/*!
-				Compares two instances of SHA1Hash to see if the hashes are not equal.
-				\param _other The other instance of SHA1Hash to compare to.
-			 */
-			inline bool operator!= ( const SHA1Hash &_other ) const { return !( *this == _other ); };
+
+            //! Equality operator.
+            /*!
+                    Compares two instances of SHA1Hash to see if the hashes are equal.
+             \param _other The other instance of SHA1Hash to compare to.
+             */
+            bool operator== ( const SHA1Hash &_other ) const;
+
+            //! Inequality operator.
+            /*!
+                    Compares two instances of SHA1Hash to see if the hashes are not equal.
+             \param _other The other instance of SHA1Hash to compare to.
+             */
+            inline bool operator!= ( const SHA1Hash &_other ) const {
+                return !( *this == _other );
+            };
 
         };
     }
