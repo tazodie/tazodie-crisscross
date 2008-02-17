@@ -11,6 +11,7 @@
 
 #include <crisscross/universal_include.h>
 
+#include <crisscross/core_io_reader.h>
 #include <crisscross/sha512.h>
 
 #define SHFR(x, n)    ( x >> n )
@@ -317,8 +318,9 @@ namespace CrissCross
 {
     namespace Crypto
     {
-        SHA512Hash::SHA512Hash () : m_hash (NULL)
+        SHA512Hash::SHA512Hash () : m_hashString (NULL), m_hash (NULL)
         {
+			Reset ();
         }
 
         SHA512Hash::~SHA512Hash ()
@@ -331,12 +333,43 @@ namespace CrissCross
             Reset ();
             if ( !_length || !_data ) return -1;
 
-            sha512_init ( &m_state );
             sha512_update ( &m_state,(const unsigned char *)_data, _length );
             m_hash = new unsigned char[SHA512_DIGEST_SIZE];
             sha512_final ( &m_state, m_hash );
             return 0;
         }
+		
+		int SHA512Hash::Process ( CrissCross::IO::CoreIOReader *_reader )
+		{
+			Reset();
+			if ( !_reader ) return -1;
+			cc_int64_t pos = _reader->Position();
+			_reader->Seek ( 0 );
+			char buffer[8192]; int bytesRead = 0;
+			do
+			{
+				bytesRead = _reader->Read ( buffer, sizeof(buffer), 0, sizeof(buffer) );
+				if ( bytesRead >= 0 )
+					ProcessBlock ( buffer, bytesRead );
+			} while ( bytesRead == sizeof(buffer) && !_reader->EndOfFile() );
+			Finalize();
+			_reader->Seek ( pos );
+			return 0;			
+		}
+		
+		int SHA512Hash::ProcessBlock ( const void * _data, size_t _length )
+		{
+			if ( !_data ) return -1;
+            sha512_update ( &m_state, (unsigned char *)_data, _length );
+			return 0;
+		}
+		
+		void SHA512Hash::Finalize ()
+		{
+			if ( m_hash ) delete [] m_hash;
+            m_hash = new unsigned char[SHA512_DIGEST_SIZE];
+            sha512_final ( &m_state, m_hash );
+		}
 
         const char *SHA512Hash::ToString () const
         {
@@ -352,6 +385,8 @@ namespace CrissCross
         {
             delete [] m_hash; m_hash = NULL;
             delete [] m_hashString; m_hashString = NULL;
+			
+            sha512_init ( &m_state );
         }
 
         bool SHA512Hash::operator== ( const SHA512Hash &_other ) const

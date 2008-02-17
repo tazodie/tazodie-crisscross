@@ -13,6 +13,7 @@
 #include "md4.h"
 
 using namespace CrissCross::Crypto;
+using namespace CrissCross::IO;
 
 int TestMD4 ()
 {
@@ -66,6 +67,14 @@ int TestMD4 ()
     otherhash.Process ( teststring, length );
     if ( otherhash != md4 || md4 != otherhash )
         return 9;
+        
+#ifdef FILE_CHECKSUM
+    TextReader file;
+    file.Open ( "testfile" );
+    md4.Process ( (CoreIOReader *)&file );
+    if ( strcmp ( md4.ToString(), "a0834d1fc7fd9849a9f489112491b43e" ) )
+        return 10;
+#endif
 
     return 0;
 }

@@ -13,6 +13,7 @@
 #include "sha1.h"
 
 using namespace CrissCross::Crypto;
+using namespace CrissCross::IO;
 
 int TestSHA1 ()
 {
@@ -53,6 +54,14 @@ int TestSHA1 ()
     otherhash.Process ( teststring, length );
     if ( otherhash != sha1 || sha1 != otherhash )
         return 5;
+        
+#ifdef FILE_CHECKSUM
+    TextReader file;
+    file.Open ( "testfile" );
+    sha1.Process ( (CoreIOReader *)&file );
+    if ( strcmp ( sha1.ToString(), "951a6307067df1931ee1637a57ea4b9ad4a01a7c" ) )
+        return 6;
+#endif
 
     return 0;
 }

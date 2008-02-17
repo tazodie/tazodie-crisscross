@@ -39,7 +39,6 @@
 #include <crisscross/mutex.h>
 #include <crisscross/stopwatch.h>
 #include <crisscross/system.h>
-#include <crisscross/hash.h>
 #include <crisscross/md2.h>
 #include <crisscross/md4.h>
 #include <crisscross/md5.h>

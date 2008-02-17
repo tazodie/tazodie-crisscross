@@ -12,8 +12,6 @@
 #ifndef __included_cc_md5_h
 #define __included_cc_md5_h
 
-#include <crisscross/hash.h>
-
 #define MD5_DIGEST_LENGTH       16
 
 /* MD5 context. */
@@ -42,9 +40,10 @@ namespace CrissCross
          \warning Because MD5 is known to have weaknesses, use at your own risk!
          \sa Hash MD2Hash MD4Hash
          */
-        class MD5Hash : public Hash
+        class MD5Hash
         {
 private:
+			mutable char *m_hashString;
             unsigned char *m_hash;
             cc_md5_ctx m_state;
 
@@ -63,6 +62,25 @@ public:
              \return Zero on success, nonzero on failure.
              */
             int Process ( const void *_data, size_t _length );
+			
+			//! Runs a hash on the file provided.
+			/*!
+			 \param _reader The pre-opened CoreIOReader to run the hash on.
+			 \return Zero on success, nonzero on failure.
+			 */
+			int Process ( CrissCross::IO::CoreIOReader *_reader );
+			
+			//! Processes a piece of the dataset.
+			/*!
+			 This function will process only a segment of a larger dataset. It is designed
+			 to be called multiple times before an eventual Finalize() call.
+			 \param _data The data segment to hash.
+			 \param _length The length of the data segment in bytes.
+			 */
+			int ProcessBlock ( const void *_data, size_t _length );
+			
+			//! Finalizes the ProcessBlock() calls and generates the final hash value.
+			void Finalize();
 
             //! Resets the internal MD5 context and hash buffer.
             void Reset ();

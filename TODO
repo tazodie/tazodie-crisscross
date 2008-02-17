@@ -6,3 +6,8 @@ Sockets:
 
 Documentation:
 	- Any undocumented functions, classes, etc.
+
+IO:
+	- BinaryReader
+	- BinaryWriter
+

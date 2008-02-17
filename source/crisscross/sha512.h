@@ -13,7 +13,6 @@
 #define __included_cc_sha512_h
 
 #include <crisscross/deprecate.h>
-#include <crisscross/hash.h>
 
 #define SHA512_DIGEST_SIZE ( 512 / 8 )
 #define SHA512_BLOCK_SIZE  ( 1024 / 8 )
@@ -38,9 +37,10 @@ namespace CrissCross
                         to generate than a SHA-256 hash.
          \sa Hash SHA1Hash SHA256Hash TigerHash
          */
-        class SHA512Hash : public Hash
+        class SHA512Hash
         {
 private:
+			mutable char *m_hashString;
             cc_sha512_ctx m_state;
             unsigned char *m_hash;
 
@@ -62,6 +62,25 @@ public:
              \return Zero on success, nonzero on failure.
              */
             int Process ( const void *_data, size_t _length );
+			
+			//! Runs a hash on the file provided.
+			/*!
+			 \param _reader The pre-opened CoreIOReader to run the hash on.
+			 \return Zero on success, nonzero on failure.
+			 */
+			int Process ( CrissCross::IO::CoreIOReader *_reader );
+			
+			//! Processes a piece of the dataset.
+			/*!
+			 This function will process only a segment of a larger dataset. It is designed
+			 to be called multiple times before an eventual Finalize() call.
+			 \param _data The data segment to hash.
+			 \param _length The length of the data segment in bytes.
+			 */
+			int ProcessBlock ( const void *_data, size_t _length );
+			
+			//! Finalizes the ProcessBlock() calls and generates the final hash value.
+			void Finalize();
 
             //! Resets the internal SHA-512 context and hash buffer.
             void Reset ();
