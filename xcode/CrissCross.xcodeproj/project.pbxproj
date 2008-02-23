@@ -44,6 +44,10 @@
 		B01CB69F0D52D2B40081CCAC /* shellsort.h in Headers */ = {isa = PBXBuildFile; fileRef = B01CB68B0D52D2B40081CCAC /* shellsort.h */; };
 		B01CB6A10D52D2B40081CCAC /* splaytree.h in Headers */ = {isa = PBXBuildFile; fileRef = B01CB68D0D52D2B40081CCAC /* splaytree.h */; };
 		B01CB6A20D52D2B40081CCAC /* tiger.h in Headers */ = {isa = PBXBuildFile; fileRef = B01CB68E0D52D2B40081CCAC /* tiger.h */; };
+		B07FD4B10D6CD41400464636 /* filereader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B07FD4AF0D6CD41400464636 /* filereader.cpp */; };
+		B07FD4B20D6CD41400464636 /* filewriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B07FD4B00D6CD41400464636 /* filewriter.cpp */; };
+		B07FD4B50D6CD42300464636 /* filereader.h in Headers */ = {isa = PBXBuildFile; fileRef = B07FD4B30D6CD42300464636 /* filereader.h */; };
+		B07FD4B60D6CD42300464636 /* filewriter.h in Headers */ = {isa = PBXBuildFile; fileRef = B07FD4B40D6CD42300464636 /* filewriter.h */; };
 		B0A6251C0BFA8FA1006F2B68 /* version.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0A6251B0BFA8FA1006F2B68 /* version.cpp */; };
 		B0A625280BFA8FB5006F2B68 /* combsort.h in Headers */ = {isa = PBXBuildFile; fileRef = B0A6251E0BFA8FB5006F2B68 /* combsort.h */; };
 		B0A6252A0BFA8FB5006F2B68 /* heapsort.h in Headers */ = {isa = PBXBuildFile; fileRef = B0A625200BFA8FB5006F2B68 /* heapsort.h */; };
@@ -81,10 +85,6 @@
 		B0BD2C780BE26C2F00F71A26 /* universal_include.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0BD2BA70BE2541300F71A26 /* universal_include.cpp */; };
 		B0BD2C790BE26C3000F71A26 /* udpsocket.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BCE0BE2542600F71A26 /* udpsocket.h */; };
 		B0BD2C7A0BE26C3000F71A26 /* udpsocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0BD2BA60BE2541300F71A26 /* udpsocket.cpp */; };
-		B0BD2C7C0BE26C3100F71A26 /* textwriter.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BCC0BE2542600F71A26 /* textwriter.h */; };
-		B0BD2C7D0BE26C3100F71A26 /* textreader.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BCB0BE2542600F71A26 /* textreader.h */; };
-		B0BD2C7E0BE26C3200F71A26 /* textwriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0BD2BA50BE2541300F71A26 /* textwriter.cpp */; };
-		B0BD2C7F0BE26C3200F71A26 /* textreader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0BD2BA40BE2541300F71A26 /* textreader.cpp */; };
 		B0BD2C800BE26C3200F71A26 /* tcpsocket.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BCA0BE2542600F71A26 /* tcpsocket.h */; };
 		B0BD2C810BE26C3200F71A26 /* tcpsocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0BD2BA30BE2541300F71A26 /* tcpsocket.cpp */; };
 		B0BD2C820BE26C3300F71A26 /* stopwatch.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BD2BC90BE2542600F71A26 /* stopwatch.h */; };
@@ -136,6 +136,10 @@
 		B01CB68D0D52D2B40081CCAC /* splaytree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = splaytree.h; path = ../source/crisscross/splaytree.h; sourceTree = SOURCE_ROOT; };
 		B01CB68E0D52D2B40081CCAC /* tiger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tiger.h; path = ../source/crisscross/tiger.h; sourceTree = SOURCE_ROOT; };
 		B01CB6A50D52D2E60081CCAC /* avltree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = avltree.cpp; path = ../source/crisscross/avltree.cpp; sourceTree = SOURCE_ROOT; };
+		B07FD4AF0D6CD41400464636 /* filereader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = filereader.cpp; path = ../source/filereader.cpp; sourceTree = SOURCE_ROOT; };
+		B07FD4B00D6CD41400464636 /* filewriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = filewriter.cpp; path = ../source/filewriter.cpp; sourceTree = SOURCE_ROOT; };
+		B07FD4B30D6CD42300464636 /* filereader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = filereader.h; path = ../source/crisscross/filereader.h; sourceTree = SOURCE_ROOT; };
+		B07FD4B40D6CD42300464636 /* filewriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = filewriter.h; path = ../source/crisscross/filewriter.h; sourceTree = SOURCE_ROOT; };
 		B0A6251B0BFA8FA1006F2B68 /* version.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = version.cpp; path = ../source/version.cpp; sourceTree = SOURCE_ROOT; };
 		B0A6251E0BFA8FB5006F2B68 /* combsort.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = combsort.h; path = ../source/crisscross/combsort.h; sourceTree = SOURCE_ROOT; };
 		B0A625200BFA8FB5006F2B68 /* heapsort.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = heapsort.h; path = ../source/crisscross/heapsort.h; sourceTree = SOURCE_ROOT; };
@@ -156,8 +160,6 @@
 		B0BD2B950BE2540900F71A26 /* system.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = system.cpp; path = ../source/system.cpp; sourceTree = SOURCE_ROOT; };
 		B0BD2BA20BE2541300F71A26 /* stopwatch.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = stopwatch.cpp; path = ../source/stopwatch.cpp; sourceTree = SOURCE_ROOT; };
 		B0BD2BA30BE2541300F71A26 /* tcpsocket.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = tcpsocket.cpp; path = ../source/tcpsocket.cpp; sourceTree = SOURCE_ROOT; };
-		B0BD2BA40BE2541300F71A26 /* textreader.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = textreader.cpp; path = ../source/textreader.cpp; sourceTree = SOURCE_ROOT; };
-		B0BD2BA50BE2541300F71A26 /* textwriter.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = textwriter.cpp; path = ../source/textwriter.cpp; sourceTree = SOURCE_ROOT; };
 		B0BD2BA60BE2541300F71A26 /* udpsocket.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = udpsocket.cpp; path = ../source/udpsocket.cpp; sourceTree = SOURCE_ROOT; };
 		B0BD2BA70BE2541300F71A26 /* universal_include.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = universal_include.cpp; path = ../source/universal_include.cpp; sourceTree = SOURCE_ROOT; };
 		B0BD2BAE0BE2542600F71A26 /* compare.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = compare.h; path = ../source/crisscross/compare.h; sourceTree = SOURCE_ROOT; };
@@ -183,8 +185,6 @@
 		B0BD2BC40BE2542600F71A26 /* rbtree.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = rbtree.h; path = ../source/crisscross/rbtree.h; sourceTree = SOURCE_ROOT; };
 		B0BD2BC90BE2542600F71A26 /* stopwatch.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = stopwatch.h; path = ../source/crisscross/stopwatch.h; sourceTree = SOURCE_ROOT; };
 		B0BD2BCA0BE2542600F71A26 /* tcpsocket.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = tcpsocket.h; path = ../source/crisscross/tcpsocket.h; sourceTree = SOURCE_ROOT; };
-		B0BD2BCB0BE2542600F71A26 /* textreader.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = textreader.h; path = ../source/crisscross/textreader.h; sourceTree = SOURCE_ROOT; };
-		B0BD2BCC0BE2542600F71A26 /* textwriter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = textwriter.h; path = ../source/crisscross/textwriter.h; sourceTree = SOURCE_ROOT; };
 		B0BD2BCE0BE2542600F71A26 /* udpsocket.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = udpsocket.h; path = ../source/crisscross/udpsocket.h; sourceTree = SOURCE_ROOT; };
 		B0BD2BCF0BE2542600F71A26 /* universal_include.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = universal_include.h; path = ../source/crisscross/universal_include.h; sourceTree = SOURCE_ROOT; };
 		B0BD2C480BE26BDC00F71A26 /* libCrissCross Static.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libCrissCross Static.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -232,6 +232,10 @@
 		08FB77ACFE841707C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				B07FD4B30D6CD42300464636 /* filereader.h */,
+				B07FD4B40D6CD42300464636 /* filewriter.h */,
+				B07FD4AF0D6CD41400464636 /* filereader.cpp */,
+				B07FD4B00D6CD41400464636 /* filewriter.cpp */,
 				B01CB6A50D52D2E60081CCAC /* avltree.cpp */,
 				B01CB67C0D52D2B40081CCAC /* avltree.h */,
 				B01CB67D0D52D2B40081CCAC /* bubblesort.h */,
@@ -290,14 +294,10 @@
 				B0BD2BC40BE2542600F71A26 /* rbtree.h */,
 				B0BD2BC90BE2542600F71A26 /* stopwatch.h */,
 				B0BD2BCA0BE2542600F71A26 /* tcpsocket.h */,
-				B0BD2BCB0BE2542600F71A26 /* textreader.h */,
-				B0BD2BCC0BE2542600F71A26 /* textwriter.h */,
 				B0BD2BCE0BE2542600F71A26 /* udpsocket.h */,
 				B0BD2BCF0BE2542600F71A26 /* universal_include.h */,
 				B0BD2BA20BE2541300F71A26 /* stopwatch.cpp */,
 				B0BD2BA30BE2541300F71A26 /* tcpsocket.cpp */,
-				B0BD2BA40BE2541300F71A26 /* textreader.cpp */,
-				B0BD2BA50BE2541300F71A26 /* textwriter.cpp */,
 				B0BD2BA60BE2541300F71A26 /* udpsocket.cpp */,
 				B0BD2BA70BE2541300F71A26 /* universal_include.cpp */,
 				B0BD2B8A0BE2540900F71A26 /* console.cpp */,
@@ -342,8 +342,6 @@
 				B0BD2C6B0BE26C0F00F71A26 /* system.h in Headers */,
 				B0BD2C770BE26C2F00F71A26 /* universal_include.h in Headers */,
 				B0BD2C790BE26C3000F71A26 /* udpsocket.h in Headers */,
-				B0BD2C7C0BE26C3100F71A26 /* textwriter.h in Headers */,
-				B0BD2C7D0BE26C3100F71A26 /* textreader.h in Headers */,
 				B0BD2C800BE26C3200F71A26 /* tcpsocket.h in Headers */,
 				B0BD2C820BE26C3300F71A26 /* stopwatch.h in Headers */,
 				B0BD2C8A0BE26C3700F71A26 /* CrissCross_Prefix.pch in Headers */,
@@ -371,6 +369,8 @@
 				B01CB69F0D52D2B40081CCAC /* shellsort.h in Headers */,
 				B01CB6A10D52D2B40081CCAC /* splaytree.h in Headers */,
 				B01CB6A20D52D2B40081CCAC /* tiger.h in Headers */,
+				B07FD4B50D6CD42300464636 /* filereader.h in Headers */,
+				B07FD4B60D6CD42300464636 /* filewriter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,8 +448,6 @@
 				B0BD2C6A0BE26C0E00F71A26 /* system.cpp in Sources */,
 				B0BD2C780BE26C2F00F71A26 /* universal_include.cpp in Sources */,
 				B0BD2C7A0BE26C3000F71A26 /* udpsocket.cpp in Sources */,
-				B0BD2C7E0BE26C3200F71A26 /* textwriter.cpp in Sources */,
-				B0BD2C7F0BE26C3200F71A26 /* textreader.cpp in Sources */,
 				B0BD2C810BE26C3200F71A26 /* tcpsocket.cpp in Sources */,
 				B0BD2C830BE26C3300F71A26 /* stopwatch.cpp in Sources */,
 				B0A6251C0BFA8FA1006F2B68 /* version.cpp in Sources */,
@@ -460,6 +458,8 @@
 				B01CB6780D52D2970081CCAC /* sha256.cpp in Sources */,
 				B01CB6790D52D2970081CCAC /* sha512.cpp in Sources */,
 				B01CB67A0D52D2970081CCAC /* tiger.cpp in Sources */,
+				B07FD4B10D6CD41400464636 /* filereader.cpp in Sources */,
+				B07FD4B20D6CD41400464636 /* filewriter.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
