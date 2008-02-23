@@ -31,6 +31,7 @@ RANLIB = $(DEVKITARM)/bin/arm-eabi-ranlib
 NM = $(DEVKITARM)/bin/arm-eabi-nm
 STRIP = : $(DEVKITARM)/bin/arm-eabi-strip
 NDSTOOL = $(DEVKITARM)/bin/ndstool -v
+TARGET_BITS =
 endif
 
 STDC = -std=c99 -pedantic
@@ -165,13 +166,13 @@ ifeq ($(GCC_ISAPPLE),yes)
     ifeq ($(GCC_ISINTEL),yes)
         # Intel Core Duo or Core 2 Duo (Intel Mac)
         ifeq ($(TARGET_BITS),-m64)
-            ARCH = -march=nocona
+            ARCH = -march=nocona -arch x86_64
 	else
-	    ARCH = -march=prescott
+	    ARCH = -march=prescott -arch i386
         endif
     endif
     ifeq ($(GCC_ISPPC),yes)
-        ARCH = -mtune=G4
+        ARCH = -mtune=G4 -arch ppc
     endif
 else
     ifeq ($(GCC_IS386),yes)
@@ -216,9 +217,10 @@ endif
 
 STDC =
 STDCPP =
-ARCH = -march=armv5te -mtune=arm946e-s -mthumb -mthumb-interwork -DARM9
-LDFLAGS += -L$(DEVKITPRO)/libnds/lib -lfat -lnds9 -specs=ds_arm9.specs -g $(ARCH) -mno-fpu
-INCLUDES = -I$(DEVKITARM)/arm-eabi/include -I$(DEVKITPRO)/libnds/include
+# ARCH = -march=armv5te -mtune=arm946e-s -mthumb -mthumb-interwork -DARM9
+ARCH = -march=armv5te -mtune=arm946e-s -DARM9
+LDFLAGS += -L$(DEVKITPRO)/libnds/lib -L$(DEVKITPRO)/dswifi/lib -L$(DEVKITPRO)/libfat/nds/lib -lfat -lnds9 -specs=ds_arm9.specs -g $(ARCH) -mno-fpu
+INCLUDES = -I$(DEVKITARM)/arm-eabi/include -I$(DEVKITPRO)/libnds/include -I$(DEVKITPRO)/libfat/include -I$(DEVKITPRO)/dswifi/include
 
 include $(DEVKITARM)/ds_rules
 
