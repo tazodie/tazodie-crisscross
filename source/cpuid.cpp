@@ -11,7 +11,7 @@
 
 /*
    Last updated 1/9/2008
-   using Intel CPUID documentation updated 12/2007
+   using Intel CPUID documentation (AP-485) updated 12/2007
  */
 
 #include <crisscross/universal_include.h>
@@ -447,8 +447,6 @@ namespace CrissCross
         void
         CPUID::DetectCacheInfo ( int processor )
         {
-            // Compliant with Intel document #241618.
-
             if ( proc[processor]->Manufacturer )
             {
                 if ( strcmp ( proc[processor]->Manufacturer, "GenuineIntel" ) == 0 )
