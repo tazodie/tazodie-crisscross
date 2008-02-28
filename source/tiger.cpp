@@ -673,14 +673,14 @@ static cc_uint64_t sbox4[256] = {
 static void
 transform ( cc_tiger_ctx *hd, unsigned char *data )
 {
-    uint64_t a,b,c,aa,bb,cc;
-    uint64_t x[8];
+    cc_uint64_t a,b,c,aa,bb,cc;
+    cc_uint64_t x[8];
   #ifdef TARGET_BIG_ENDIAN
     #  define MKWORD(d,n) \
-    (  ((uint64_t)( d )[8*( n )+7] ) << 56 | ((uint64_t)( d )[8*( n )+6] ) << 48  \
-       | ((uint64_t)( d )[8*( n )+5] ) << 40 | ((uint64_t)( d )[8*( n )+4] ) << 32  \
-       | ((uint64_t)( d )[8*( n )+3] ) << 24 | ((uint64_t)( d )[8*( n )+2] ) << 16  \
-       | ((uint64_t)( d )[8*( n )+1] ) << 8  | ((uint64_t)( d )[8*( n )        ] )       )
+    (  ((cc_uint64_t)( d )[8*( n )+7] ) << 56 | ((cc_uint64_t)( d )[8*( n )+6] ) << 48  \
+       | ((cc_uint64_t)( d )[8*( n )+5] ) << 40 | ((cc_uint64_t)( d )[8*( n )+4] ) << 32  \
+       | ((cc_uint64_t)( d )[8*( n )+3] ) << 24 | ((cc_uint64_t)( d )[8*( n )+2] ) << 16  \
+       | ((cc_uint64_t)( d )[8*( n )+1] ) << 8  | ((cc_uint64_t)( d )[8*( n )        ] )       )
     x[0] = MKWORD (data, 0);
     x[1] = MKWORD (data, 1);
     x[2] = MKWORD (data, 2);
@@ -769,7 +769,7 @@ tiger_update (cc_tiger_ctx *hd, unsigned char *inbuf, size_t inlen)
 static void
 tiger_final (unsigned char *hash, cc_tiger_ctx *hd)
 {
-    uint32_t t, msb, lsb;
+    cc_uint32_t t, msb, lsb;
     unsigned char *p;
     int i, j;
 
@@ -818,14 +818,14 @@ tiger_final (unsigned char *hash, cc_tiger_ctx *hd)
 
     p = hd->buf;
   #ifdef TARGET_BIG_ENDIAN
-    #  define X(a) do { *(uint64_t *)p = hd->a ; p += 8; } while (0)
+    #  define X(a) do { *(cc_uint64_t *)p = hd->a ; p += 8; } while (0)
     // Original code - modified by jk to deal with gcc changes
     //    #define X(a) do { *(u64*)p = hd->##a ; p += 8; } while(0)
   #else /* little endian */
-    #  define X(a) do { *p++ = hd->a >> 56; *p++ = hd->a >> 48; \
-                        *p++ = hd->a >> 40; *p++ = hd->a >> 32; \
-                        *p++ = hd->a >> 24; *p++ = hd->a >> 16; \
-                        *p++ = hd->a >>  8; *p++ = hd->a; } while (0)
+    #  define X(a) do { *p++ = (unsigned char)(hd->a >> 56); *p++ = (unsigned char)(hd->a >> 48); \
+                        *p++ = (unsigned char)(hd->a >> 40); *p++ = (unsigned char)(hd->a >> 32); \
+                        *p++ = (unsigned char)(hd->a >> 24); *p++ = (unsigned char)(hd->a >> 16); \
+                        *p++ = (unsigned char)(hd->a >>  8); *p++ = (unsigned char)(hd->a); } while (0)
 
     /* Original code - modified by jk to deal with gcc changes
      #define X(a) do { *p++ = hd->##a >> 56; *p++ = hd->##a >> 48; \
@@ -844,13 +844,13 @@ tiger_final (unsigned char *hash, cc_tiger_ctx *hd)
     // Modified by jk to produce little endian output like MD5 or SHA-1
     j=0;
     for (i=0; i<8; i++)
-        hash[j++] = ( hd->a >> 8*i ) & 0xff;
+        hash[j++] = (unsigned char)(( hd->a >> 8*i ) & 0xff);
     j=8;
     for (i=0; i<8; i++)
-        hash[j++] = ( hd->b >> 8*i ) & 0xff;
+        hash[j++] = (unsigned char)(( hd->b >> 8*i ) & 0xff);
     j=16;
     for (i=0; i<8; i++)
-        hash[j++] = ( hd->c >> 8*i ) & 0xff;
+        hash[j++] = (unsigned char)(( hd->c >> 8*i ) & 0xff);
 
 
     /* Original code, produces output in big endian

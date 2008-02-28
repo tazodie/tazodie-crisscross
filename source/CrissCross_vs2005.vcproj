@@ -375,19 +375,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\textreader.cpp"
+				RelativePath=".\filereader.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\crisscross\textreader.h"
+				RelativePath=".\crisscross\filereader.h"
 				>
 			</File>
 			<File
-				RelativePath=".\textwriter.cpp"
+				RelativePath=".\filewriter.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\crisscross\textwriter.h"
+				RelativePath=".\crisscross\filewriter.h"
 				>
 			</File>
 		</Filter>
@@ -902,14 +902,6 @@
 		<Filter
 			Name="Hash"
 			>
-			<File
-				RelativePath=".\hash.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\crisscross\hash.h"
-				>
-			</File>
 			<File
 				RelativePath=".\md2.cpp"
 				>

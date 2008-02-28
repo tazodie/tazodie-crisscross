@@ -50,10 +50,10 @@ protected:
             size_t m_numUsed;
 
             //! The actual array which stores our data.
-            T              *m_array;
+            T *m_array;
 
             //! An array to indicate which nodes in m_array are in use.
-            char           *m_shadow;
+            char *m_shadow;
 
             //! Increases the size of the array.
             inline void grow ();

@@ -41,8 +41,8 @@ private:
             HashTable<T> &operator = ( const HashTable<T> & );
 
 protected:
-            T                       *m_array;
-            char            **m_keys;
+            T *m_array;
+            char **m_keys;
             size_t m_size;
             size_t m_used;
             mutable size_t m_searches;

@@ -18,10 +18,10 @@
 
 //!@cond
 typedef struct {
-    uint64_t a, b, c;
+    cc_uint64_t a, b, c;
     unsigned char buf[64];
     int count;
-    uint32_t nblocks;
+    cc_uint32_t nblocks;
 } cc_tiger_ctx;
 //!@endcond
 
