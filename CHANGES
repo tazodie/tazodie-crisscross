@@ -1,3 +1,6 @@
+VERSION ??? (r???)
+	* Corrected a dangerous bug with the strdup macro.
+
 VERSION 0.7.0 (r684)
 	* Added several checksum methods:
 		- MD2
