@@ -230,7 +230,7 @@ typedef long intptr_t;
 #endif
 
 #ifndef strdup
-#  define strdup(x) strcpy ((char *)malloc (strlen (x)+1),x)
+__inline char *strdup(const char *x) {return strcpy((char *)malloc(strlen(x)+1),x);};
 #endif
 
 #if defined ( TARGET_COMPILER_VC )
