@@ -31,7 +31,7 @@ namespace CrissCross
             m_last = NULL;
             m_numItems = 0;
             m_previous = NULL;
-            m_previousIndex = -1;
+            m_previousIndex = (size_t)-1;
         }
 
         template < class T > LList < T >::~LList ()
@@ -277,7 +277,7 @@ namespace CrissCross
             m_last = NULL;
             m_numItems = 0;
             m_previous = NULL;
-            m_previousIndex = -1;
+            m_previousIndex = (size_t)-1;
         }
 
         template < class T > void LList < T >::remove ( size_t index )
@@ -303,7 +303,7 @@ namespace CrissCross
             {
                 if ( m_numItems == 1 )
                 {
-                    m_previousIndex = -1;
+                    m_previousIndex = (size_t)-1;
                     m_previous = NULL;
                 }
                 else if ( index > 0 )
