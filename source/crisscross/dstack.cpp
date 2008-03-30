@@ -23,7 +23,7 @@ namespace CrissCross
         DStack<dataType>::DStack ( size_t N )
         {
             if ( N < 1 )
-                m_stepSize = -1;
+                m_stepSize = (size_t)-1;
             else
                 m_stepSize = N;
 
