@@ -167,7 +167,8 @@ isPrime ( unsigned long _candidate )
 {
     prime_t i, limit, next, *p, n;
 
-    if ( _candidate == 1 ) return false;
+	/* 1 and 0 aren't prime */
+    if ( _candidate < 2 ) return false;
 
     /* All numbers less than 4 are prime, except '1'. */
     if ( _candidate < 4 ) return true;

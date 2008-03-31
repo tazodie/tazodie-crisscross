@@ -61,37 +61,37 @@ public:
             //! Starts the timer counter.
             inline void Start ()
             {
-                        #if defined ( TARGET_OS_WINDOWS )
+#if defined ( TARGET_OS_WINDOWS )
                 RecalculateFrequency ();
                 QueryPerformanceCounter ( &m_start );
-                        #elif defined ( TARGET_OS_MACOSX )
+#elif defined ( TARGET_OS_MACOSX )
                 m_start = mach_absolute_time ();
-            #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || \
-    defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
+#elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || \
+      defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
                 gettimeofday ( &m_start, NULL );
-            #elif defined ( TARGET_OS_NDSFIRMWARE )
+#elif defined ( TARGET_OS_NDSFIRMWARE )
                 TIMER0_CR = 0;
                 TIMER1_CR = 0;
                 TIMER0_DATA = 0;
                 TIMER1_DATA = 0;
                 TIMER1_CR = TIMER_ENABLE | TIMER_CASCADE;
                 TIMER0_CR = TIMER_ENABLE | TIMER_DIV_1;
-                        #endif
+#endif
             };
 
             //! Stops the timer counter.
             inline void Stop ()
             {
-                        #if defined ( TARGET_OS_WINDOWS )
+#if defined ( TARGET_OS_WINDOWS )
                 QueryPerformanceCounter ( &m_finish );
-                        #elif defined ( TARGET_OS_MACOSX )
+#elif defined ( TARGET_OS_MACOSX )
                 m_finish = mach_absolute_time ();
-            #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || \
-    defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
+#elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || \
+      defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
                 gettimeofday ( &m_finish, NULL );
-            #elif defined ( TARGET_OS_NDSFIRMWARE )
+#elif defined ( TARGET_OS_NDSFIRMWARE )
                 TIMER0_CR = 0;
-                        #endif
+#endif
             };
 
             //! Indicates the number of seconds elapsed.
