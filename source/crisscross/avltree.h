@@ -271,7 +271,7 @@ public:
                             way is proper.
              */
             inline void empty () {
-                delete m_root; m_root = NULL;
+                delete m_root; m_root = NULL; m_size = 0;
             };
 
             //! Indicates the size of the tree.
