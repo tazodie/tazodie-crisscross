@@ -23,6 +23,10 @@ namespace CrissCross
 #elif defined ( TARGET_OS_MACOSX )
             mach_timebase_info ( &m_timebase );
 #endif
+
+			// We start it here for static Stopwatch instances
+			// where it's impractical to do an initial Start() call
+			Start();
         }
 
         Stopwatch::~Stopwatch ()
