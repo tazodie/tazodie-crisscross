@@ -229,9 +229,7 @@ typedef long intptr_t;
 #  include <sstream>
 #endif
 
-#ifndef strdup
-__inline char *strdup(const char *x) throw() {return strcpy((char *)malloc(strlen(x)+1),x);}
-#endif
+__inline char *cc_strdup(const char *x) throw() {return strcpy((char *)malloc(strlen(x)+1),x);}
 
 #if defined ( TARGET_COMPILER_VC )
 #  if _MSC_VER < 1400
