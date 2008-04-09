@@ -236,6 +236,18 @@ namespace CrissCross
             if ( err == -1 ) return errno;
 
             /* SO_KEEPALIVE */
+#ifdef TARGET_OS_WINDOWS
+			DWORD bytesReturned = 0;
+			tcp_keepalive vals;
+			vals.keepalivetime = 30000;
+			vals.keepaliveinterval = 10000;
+			vals.onoff = 1;
+			err = WSAIoctl ( _socket, SIO_KEEPALIVE_VALS,
+				(char *)&vals, sizeof(vals), NULL, 0,
+				&bytesReturned, NULL, NULL );
+
+			if ( err == -1 ) return WSAGetLastError();
+#endif
             optlen = sizeof optval;
             err = setsockopt ( _socket, SOL_SOCKET, SO_KEEPALIVE,
                                (char *)&optval, optlen );
