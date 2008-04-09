@@ -81,17 +81,6 @@ namespace CrissCross
         }
 
         CrissCross::Errors
-        CoreSocket::Ban ( unsigned long _host )
-        {
-                #  if defined ( ENABLE_PROTECTION )
-            if ( m_banned_hosts.findNode ( &_host ) == NULL )
-                m_banned_hosts.insert ( &_host, (char *)1 );
-
-                #  endif
-            return CC_ERR_NONE;
-        }
-
-        CrissCross::Errors
         CoreSocket::Close ()
         {
             if ( m_sock == INVALID_SOCKET ) return CC_ERR_ENOTSOCK;
@@ -168,17 +157,6 @@ namespace CrissCross
         {
             // ugh. Allow the user to do whatever they want with the socket.
             return m_sock;
-        }
-
-        bool
-        CoreSocket::IsBanned ( unsigned long _host ) const
-        {
-                #  if defined ( ENABLE_PROTECTION )
-            if ( m_banned_hosts.find ( &_host ) )
-                return true;
-            else
-                #  endif
-            return false;
         }
 
         int

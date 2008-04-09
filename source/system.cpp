@@ -89,11 +89,10 @@ namespace CrissCross
         {
             if ( _msec < 0 ) return;
 
-            /* TODO: Mac OS X port of this function. */
     #if defined ( TARGET_OS_WINDOWS )
             Sleep ( _msec );
-    #elif defined ( TARGET_OS_LINUX )
-            unsigned sleep_time = _msec * 1000;
+    #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX )
+            unsigned int sleep_time = _msec * 1000;
 
             while ( sleep_time > 1000000 )
             {
