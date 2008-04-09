@@ -193,8 +193,6 @@ namespace CrissCross
         template < class T >
         void DArray < T >::insert ( T const & newdata, size_t index )
         {
-            CoreAssert ( index >= 0 );
-
             while ( index >= m_arraySize ) grow ();
 
             m_array[index] = newdata;
