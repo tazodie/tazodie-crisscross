@@ -171,7 +171,7 @@ public:
              */
             inline bool valid ( size_t _index ) const
             {
-                return ( _index < m_arraySize && _index >= 0 && m_shadow[_index] );
+                return ( _index < m_arraySize && m_shadow[_index] );
             };
 
             //! Empties the array but does NOT free any pointers stored in the array.
