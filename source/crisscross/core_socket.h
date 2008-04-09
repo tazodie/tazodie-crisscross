@@ -19,8 +19,6 @@
 #include <crisscross/core_network.h>
 #include <crisscross/rbtree.h>
 
-//#define ENABLE_PROTECTION
-
 #ifdef TARGET_OS_WINDOWS
 #  include <windows.h>
 #  define socket_t SOCKET
@@ -61,11 +59,6 @@ namespace CrissCross
         class CoreSocket
         {
 protected:
-#  if defined ( ENABLE_PROTECTION )
-            //! A #include of banned hosts.
-            #    include <char*,u_long*> m_banned_hosts;
-#  endif
-
             //! The maximum number of bytes to read per CoreSocket::Read or CoreSocket::ReadLine call.
             int m_bufferSize;
 
@@ -98,16 +91,6 @@ public:
 
             //! The destructor.
             virtual ~CoreSocket ();
-
-            //! Will add a host to the banned hosts list.
-            /*!
-                Doing this, when ENABLE_PROTECTION is defined will prevent the banned
-                host from connecting (or, if the instance is a non-streaming socket,
-                ignore data sent by the host).
-             \param _host The host to ban (retrieve this with GetRemoteHost()).
-             \return Currently always returns CC_ERR_NONE.
-             */
-            CrissCross::Errors Ban ( unsigned long _host );
 
             //! Close the socket.
             /*!
@@ -156,13 +139,6 @@ public:
              \return CoreSocket::m_sock
              */
             socket_t GetSocket ();
-
-            //! Indicates whether the specified host is banned or not.
-            /*!
-             \param _host The host to ban (retrieve this with GetRemoteHost()).
-             \return True or false, depending on whether the host is banned or not.
-             */
-            bool IsBanned ( unsigned long _host ) const;
 
             //! Fetch the state of the socket.
             /*!

@@ -63,44 +63,6 @@ namespace CrissCross
             // Did we truly accept a connection?
             if ( sock != INVALID_SOCKET )
             {
-                #  if defined ( ENABLE_PROTECTION )
-                struct sockaddr_in saddr_sock; int sock_size = sizeof( saddr_sock );
-
-                // Clear the sockaddr_in struct.
-                memset ( &saddr_sock, 0, sizeof( saddr_sock ) );
-
-                // Resolve our peer's name.
-                int ret = getpeername ( sock, (sockaddr *)&saddr_sock, (socklen_t *)&sock_size );
-                if ( ret != 0 )
-                {
-                    // Couldn't get the peer name, we'll have to block it.
-                #    ifdef TARGET_OS_WINDOWS
-                    closesocket ( sock );
-                #    else
-                    close ( sock );
-                #    endif
-                    *_socket = NULL;
-                    return getError ();
-                }
-
-                // Check if the address is banned.
-                if ( IsBanned ( saddr_sock.sin_addr.s_addr ) )
-                {
-
-                    // It's banned. Nuke it!
-                #    ifdef TARGET_OS_WINDOWS
-                    closesocket ( sock );
-                #    else
-                    close ( sock );
-                #    endif
-
-                    // No socket accepted.
-                    *_socket = NULL;
-                    return CC_ERR_NO_SOCK;
-                }
-
-                #  endif
-
                 // Set up the typical transmission attributes.
                 SetAttributes ( sock );
 
