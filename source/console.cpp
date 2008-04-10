@@ -20,27 +20,65 @@ namespace CrissCross
         Console::Console ( bool _clearOnInit ) : CoreIOWriter ( stdout, false, CC_LN_LF ),
             CoreIOReader ( stdin, false, CC_LN_LF )
         {
-                #ifdef TARGET_OS_WINDOWS
+#ifdef TARGET_OS_WINDOWS
             m_consoleAllocated = false;
             if ( AllocConsole () == TRUE )
             {
                 m_consoleAllocated = true;
+
+				// Redirect stdout to the console.
                 int hCrt = _open_osfhandle ( ( intptr_t )GetStdHandle ( STD_OUTPUT_HANDLE ), _O_TEXT );
                 FILE *hf = _fdopen ( hCrt, "w" );
 
                 *stdout = *hf;
                 int i = setvbuf ( stdout, NULL, _IONBF, 0 );
 
+				// Redirect stderr to the console.
                 hCrt = _open_osfhandle ( ( intptr_t )GetStdHandle ( STD_ERROR_HANDLE ), _O_TEXT );
                 hf = _fdopen ( hCrt, "w" );
                 *stderr = *hf;
                 i = setvbuf ( stdout, NULL, _IONBF, 0 );
+
+				char findWindowFlag[64];
+				sprintf ( findWindowFlag, "%s%08X", CC_LIB_NAME, (unsigned long)this );
+				RECT rect; CONSOLE_SCREEN_BUFFER_INFO csbi;
+				HWND consoleWindowHandle = NULL;
+				HANDLE consoleHandle = GetStdHandle ( STD_OUTPUT_HANDLE );
+
+				// We need to know the console's maximum sizes.
+				GetConsoleScreenBufferInfo ( consoleHandle, &csbi );
+
+				// Set us up for the maximums.
+				csbi.srWindow.Right = csbi.dwMaximumWindowSize.X - 1;
+				csbi.srWindow.Bottom = csbi.dwMaximumWindowSize.Y - 1;
+				csbi.srWindow.Top = 0;
+				csbi.srWindow.Left = 0;
+
+				// Our console needs to fill the screen. It gets hairy after this.
+				SetConsoleWindowInfo ( consoleHandle, TRUE, &csbi.srWindow );
+
+				// We have to cheat to find the window, unfortunately...
+				SetTitle ( findWindowFlag );
+				Sleep ( 1 );
+
+				// Try a few times to find the window or else bail out.
+				for ( int i = 0; i < 3 && !consoleWindowHandle; i++ )
+				{
+					consoleWindowHandle = FindWindowA ( NULL, findWindowFlag );
+					Sleep ( 10 );
+				}
+
+				if ( consoleWindowHandle )
+				{
+					if ( GetWindowRect ( consoleWindowHandle, &rect ) )
+						MoveWindow ( consoleWindowHandle, 0, 0, rect.right - rect.left, rect.bottom - rect.top, TRUE );
+				}
             }
 
             if ( _clearOnInit ) Clear ();
 
             SetTitle ( CC_LIB_NAME " " CC_LIB_VERSION );
-        #elif defined ( TARGET_OS_NDSFIRMWARE )
+#elif defined ( TARGET_OS_NDSFIRMWARE )
             irqInit ();
             irqEnable (IRQ_VBLANK);
             videoSetMode (MODE_0_2D);
@@ -49,22 +87,22 @@ namespace CrissCross
             SUB_BG0_CR = BG_MAP_BASE (31);
             BG_PALETTE_SUB[255] = RGB15 (31,31,31);
             consoleInitDefault ((u16*)SCREEN_BASE_BLOCK_SUB (31), (u16*)CHAR_BASE_BLOCK_SUB (0), 16);
-                #endif
-                #ifdef ENABLE_CREDITS
-        #  if defined ( TARGET_OS_NDSFIRMWARE )
+#endif
+#ifdef ENABLE_CREDITS
+#  if defined ( TARGET_OS_NDSFIRMWARE )
             g_stdout->SetColour ( g_stdout->FG_GREEN | g_stdout->FG_INTENSITY );
             g_stdout->WriteLine ( "Powered by " CC_LIB_NAME " v" CC_LIB_VERSION );
             g_stdout->SetColour ( 0 );
             g_stdout->WriteLine ( CC_LIB_NDS_COPYRIGHT );
             g_stdout->WriteLine ();
-        #  else
+#  else
             g_stdout->SetColour ( g_stdout->FG_GREEN | g_stdout->FG_INTENSITY );
             g_stdout->WriteLine ( "Powered by " CC_LIB_NAME " " CC_LIB_VERSION "\n    " CC_LIB_URL );
             g_stdout->SetColour ( 0 );
             g_stdout->WriteLine ( CC_LIB_COPYRIGHT );
             g_stdout->WriteLine ();
-        #  endif
-                #endif
+#  endif
+#endif
         }
 
         Console::Console ( FILE * _outputBuffer, FILE *_inputBuffer ) : CoreIOWriter ( _outputBuffer, false, CC_LN_LF ),
@@ -75,10 +113,9 @@ namespace CrissCross
         Console::~Console ()
         {
             SetColour ( 0 );
-                #ifdef TARGET_OS_WINDOWS
+#ifdef TARGET_OS_WINDOWS
             if ( m_consoleAllocated ) FreeConsole ();
-
-                #endif
+#endif
         }
 
         void
@@ -92,7 +129,7 @@ namespace CrissCross
         {
             CoreAssert ( this != NULL );
 
-                #if !defined ( ANSI_COLOUR ) && defined ( TARGET_OS_WINDOWS )
+#if !defined ( ANSI_COLOUR ) && defined ( TARGET_OS_WINDOWS )
             HANDLE hConsole = GetStdHandle ( STD_OUTPUT_HANDLE );
 
             if ( _flags == 0 )
@@ -100,7 +137,7 @@ namespace CrissCross
             else
                 SetConsoleTextAttribute ( hConsole, _flags );
 
-                #elif defined ( ANSI_COLOUR )
+#elif defined ( ANSI_COLOUR )
             // Reset colours to defaults.
             Write ( "\033[0m" );
 
@@ -167,15 +204,15 @@ namespace CrissCross
             codes[strlen ( codes ) - 1] = 'm';
 
             Write ( "%s", codes );
-                #endif
+#endif
         }
 
         void
         Console::SetTitle ( const char *_title )
         {
-                #ifdef TARGET_OS_WINDOWS
+#ifdef TARGET_OS_WINDOWS
             SetConsoleTitleA ( _title );
-                #endif
+#endif
         }
 
         void
@@ -189,7 +226,7 @@ namespace CrissCross
         {
             CoreAssert ( this != NULL );
 
-                #if defined ( TARGET_OS_WINDOWS )
+#if defined ( TARGET_OS_WINDOWS )
             COORD coordScreen = { 0, 0 };
             DWORD cCharsWritten;
             CONSOLE_SCREEN_BUFFER_INFO csbi;
@@ -204,10 +241,10 @@ namespace CrissCross
             FillConsoleOutputAttribute ( hConsole, csbi.wAttributes, dwConSize,
                                          coordScreen, &cCharsWritten );
             SetConsoleCursorPosition ( hConsole, coordScreen );
-                #elif defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_LINUX ) || \
-    defined ( TARGET_OS_NDSFIRMWARE )
+#elif defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_LINUX ) || \
+      defined ( TARGET_OS_NDSFIRMWARE )
             Write ( "%s", "\033[2J" );
-                #endif
+#endif
         }
 
         void
@@ -220,7 +257,7 @@ namespace CrissCross
         void
         Console::MoveUp ( int _lines )
         {
-                #if defined ( TARGET_OS_WINDOWS )
+#if defined ( TARGET_OS_WINDOWS )
             COORD coordScreen = { 0, 0 };
             CONSOLE_SCREEN_BUFFER_INFO csbi;
             HANDLE hConsole = GetStdHandle ( STD_OUTPUT_HANDLE );
@@ -231,9 +268,9 @@ namespace CrissCross
             if ( coordScreen.Y < 0 ) coordScreen.Y = 0;
 
             SetConsoleCursorPosition ( hConsole, coordScreen );
-                #elif defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_LINUX )
+#elif defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_LINUX )
             Write ( "%s%d%s", "\033[", _lines, "A" );
-                #endif
+#endif
         }
 
         char Console::ReadChar ()
