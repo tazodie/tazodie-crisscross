@@ -154,6 +154,7 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #  include <io.h>
 #  include <fcntl.h>
 #  include <winsock2.h>
+#  include <mstcpip.h>
 #  include <windows.h>
 #  if defined ( ENABLE_SYMBOL_ENGINE )
 #    include <dbghelp.h>
