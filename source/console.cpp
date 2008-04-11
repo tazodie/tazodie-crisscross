@@ -62,7 +62,7 @@ namespace CrissCross
 				Sleep ( 1 );
 
 				// Try a few times to find the window or else bail out.
-				for ( int i = 0; i < 3 && !consoleWindowHandle; i++ )
+				for ( int i = 0; i < 50 && !consoleWindowHandle; i++ )
 				{
 					consoleWindowHandle = FindWindowA ( NULL, findWindowFlag );
 					Sleep ( 10 );
