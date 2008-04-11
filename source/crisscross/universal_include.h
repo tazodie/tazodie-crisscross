@@ -19,7 +19,7 @@
 #include <crisscross/build_number.h>
 
 #ifndef SDL_APPLICATION
-//#  define SDL_APPLICATION // Define if your application uses SDLmain.
+#  define SDL_APPLICATION // Define if your application uses SDLmain.
 #endif
 
 #define CC_LIB_NAME                "CrissCross"
@@ -231,6 +231,9 @@ typedef long intptr_t;
 #endif
 
 __inline char *cc_strdup(const char *x) throw() {return strcpy((char *)malloc(strlen(x)+1),x);}
+
+#define cc_min(x,y) ( (x < y) ? x : y )
+#define cc_max(x,y) ( (x > y) ? x : y )
 
 #if defined ( TARGET_COMPILER_VC )
 #  if _MSC_VER < 1400
