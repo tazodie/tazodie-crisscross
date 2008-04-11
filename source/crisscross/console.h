@@ -57,13 +57,13 @@ public:
                 FG_CYAN = 0x0400,           /*!< Cyan Foreground */
                 FG_GRAY = 0x0800,           /*!< Gray Foreground */
                 FG_WHITE = 0x1000,          /*!< White Foreground */
-				FG_YELLOW = FG_BROWN,       /*!< Yellow Foreground */
+				FG_YELLOW = FG_BROWN | BG_INTENSITY, /*!< Yellow Foreground */
                 BG_BROWN = 0x4000,          /*!< Brown Background (POSIX only) */
                 BG_MAGENTA = 0x8000,        /*!< Magenta Background */
                 BG_CYAN = 0x10000,          /*!< Cyan Background */
                 BG_GRAY = 0x20000,          /*!< Gray Background */
                 BG_WHITE = 0x40000,         /*!< White Background */
-				BG_YELLOW = BG_BROWN        /*!< Yellow Background */
+				BG_YELLOW = BG_BROWN | FG_INTENSITY /*!< Yellow Background */
         #endif
             } ColourTypes;
 
