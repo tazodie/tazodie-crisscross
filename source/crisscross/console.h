@@ -42,24 +42,28 @@ public:
                 FG_BROWN = 0x0000,                                      /*!< Brown Foreground (POSIX only) */
                 FG_MAGENTA = FG_BLUE | FG_RED,                          /*!< Magenta Foreground */
                 FG_CYAN = FG_BLUE | FG_GREEN,                           /*!< Cyan Foreground */
+                FG_GRAY = FG_BLUE | FG_GREEN | FG_RED,                  /*!< Gray Foreground */
+                FG_WHITE = FG_BLUE | FG_GREEN | FG_RED | FG_INTENSITY,  /*!< White Foreground */
+				FG_YELLOW = FG_GREEN | FG_RED,                          /*!< Yellow Foreground */
                 BG_BROWN = 0x0000,                                      /*!< Brown Background (POSIX only) */
                 BG_MAGENTA = BG_BLUE | BG_RED,                          /*!< Magenta Background */
                 BG_CYAN = BG_GREEN | BG_BLUE,                           /*!< Cyan Background */
-                FG_GRAY = FG_BLUE | FG_GREEN | FG_RED,                  /*!< Gray Foreground */
-                FG_WHITE = FG_BLUE | FG_GREEN | FG_RED | FG_INTENSITY,  /*!< White Foreground */
                 BG_GRAY = BG_BLUE | BG_GREEN | BG_RED,                  /*!< Gray Background */
-                BG_WHITE = BG_BLUE | BG_GREEN | BG_RED | BG_INTENSITY   /*!< White Background */
+                BG_WHITE = BG_BLUE | BG_GREEN | BG_RED | BG_INTENSITY,  /*!< White Background */
+				BG_YELLOW = BG_GREEN | BG_RED                           /*!< Yellow Background */
         #elif defined ( ANSI_COLOUR )
                 FG_BROWN = 0x0100,          /*!< Brown Foreground (POSIX only) */
                 FG_MAGENTA = 0x0200,        /*!< Magenta Foreground */
                 FG_CYAN = 0x0400,           /*!< Cyan Foreground */
-                BG_BROWN = 0x0800,          /*!< Brown Background (POSIX only) */
-                BG_MAGENTA = 0x1000,        /*!< Magenta Background */
-                BG_CYAN = 0x2000,           /*!< Cyan Background */
-                FG_GRAY = 0x4000,           /*!< Gray Foreground */
-                FG_WHITE = 0x8000,          /*!< White Foreground */
-                BG_GRAY = 0x10000,          /*!< Gray Background */
-                BG_WHITE = 0x20000          /*!< White Background */
+                FG_GRAY = 0x0800,           /*!< Gray Foreground */
+                FG_WHITE = 0x1000,          /*!< White Foreground */
+				FG_YELLOW = FG_BROWN,       /*!< Yellow Foreground */
+                BG_BROWN = 0x4000,          /*!< Brown Background (POSIX only) */
+                BG_MAGENTA = 0x8000,        /*!< Magenta Background */
+                BG_CYAN = 0x10000,          /*!< Cyan Background */
+                BG_GRAY = 0x20000,          /*!< Gray Background */
+                BG_WHITE = 0x40000,         /*!< White Background */
+				BG_YELLOW = BG_BROWN        /*!< Yellow Background */
         #endif
             } ColourTypes;
 
