@@ -17,7 +17,8 @@ namespace CrissCross
 {
     namespace IO
     {
-        Console::Console ( bool _clearOnInit ) : CoreIOWriter ( stdout, false, CC_LN_LF ),
+        Console::Console ( bool _clearOnInit, bool _fillScreen )
+		  : CoreIOWriter ( stdout, false, CC_LN_LF ),
             CoreIOReader ( stdin, false, CC_LN_LF )
         {
 #ifdef TARGET_OS_WINDOWS
@@ -39,39 +40,42 @@ namespace CrissCross
                 *stderr = *hf;
                 i = setvbuf ( stdout, NULL, _IONBF, 0 );
 
-				char findWindowFlag[64];
-				sprintf ( findWindowFlag, "%s%08X", CC_LIB_NAME, (unsigned long)this );
-				RECT rect; CONSOLE_SCREEN_BUFFER_INFO csbi;
-				HWND consoleWindowHandle = NULL;
-				HANDLE consoleHandle = GetStdHandle ( STD_OUTPUT_HANDLE );
-
-				// We need to know the console's maximum sizes.
-				GetConsoleScreenBufferInfo ( consoleHandle, &csbi );
-
-				// Set us up for the maximums.
-				csbi.srWindow.Right = csbi.dwMaximumWindowSize.X - 1;
-				csbi.srWindow.Bottom = csbi.dwMaximumWindowSize.Y - 1;
-				csbi.srWindow.Top = 0;
-				csbi.srWindow.Left = 0;
-
-				// Our console needs to fill the screen. It gets hairy after this.
-				SetConsoleWindowInfo ( consoleHandle, TRUE, &csbi.srWindow );
-
-				// We have to cheat to find the window, unfortunately...
-				SetTitle ( findWindowFlag );
-				Sleep ( 1 );
-
-				// Try a few times to find the window or else bail out.
-				for ( int i = 0; i < 50 && !consoleWindowHandle; i++ )
+				if ( _fillScreen )
 				{
-					consoleWindowHandle = FindWindowA ( NULL, findWindowFlag );
-					Sleep ( 10 );
-				}
+					char findWindowFlag[64];
+					sprintf ( findWindowFlag, "%s%08X", CC_LIB_NAME, (unsigned long)this );
+					RECT rect; CONSOLE_SCREEN_BUFFER_INFO csbi;
+					HWND consoleWindowHandle = NULL;
+					HANDLE consoleHandle = GetStdHandle ( STD_OUTPUT_HANDLE );
 
-				if ( consoleWindowHandle )
-				{
-					if ( GetWindowRect ( consoleWindowHandle, &rect ) )
-						MoveWindow ( consoleWindowHandle, 0, 0, rect.right - rect.left, rect.bottom - rect.top, TRUE );
+					// We need to know the console's maximum sizes.
+					GetConsoleScreenBufferInfo ( consoleHandle, &csbi );
+
+					// Set us up for the maximums.
+					csbi.srWindow.Right = csbi.dwMaximumWindowSize.X - 1;
+					csbi.srWindow.Bottom = csbi.dwMaximumWindowSize.Y - 1;
+					csbi.srWindow.Top = 0;
+					csbi.srWindow.Left = 0;
+
+					// Our console needs to fill the screen. It gets hairy after this.
+					SetConsoleWindowInfo ( consoleHandle, TRUE, &csbi.srWindow );
+
+					// We have to cheat to find the window, unfortunately...
+					SetTitle ( findWindowFlag );
+					Sleep ( 1 );
+
+					// Try a few times to find the window or else bail out.
+					for ( int i = 0; i < 50 && !consoleWindowHandle; i++ )
+					{
+						consoleWindowHandle = FindWindowA ( NULL, findWindowFlag );
+						Sleep ( 10 );
+					}
+
+					if ( consoleWindowHandle )
+					{
+						if ( GetWindowRect ( consoleWindowHandle, &rect ) )
+							MoveWindow ( consoleWindowHandle, 0, 0, rect.right - rect.left, rect.bottom - rect.top, TRUE );
+					}
 				}
             }
 
