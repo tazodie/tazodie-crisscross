@@ -73,8 +73,9 @@ public:
             /*!
                                 Allocates a new console for stdout and stderr output.
              \param _clearOnInit If true, clears the output console if supported.
+			 \param _fillScreen On Windows machines, this moves the console window to the extreme left and switches to the maximum possible window height.
              */
-            Console ( bool _clearOnInit = false );
+            Console ( bool _clearOnInit = false, bool _fillScreen = false );
 
             //! The alternate constructor
             /*!
