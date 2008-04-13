@@ -86,11 +86,11 @@ namespace CrissCross
             if ( m_sock == INVALID_SOCKET ) return CC_ERR_ENOTSOCK;
 
             // Close the socket.
-                #  ifdef TARGET_OS_WINDOWS
+#  ifdef TARGET_OS_WINDOWS
             closesocket ( m_sock );
-                #  else
+#  else
             close ( m_sock );
-                #  endif
+#  endif
             m_sock = INVALID_SOCKET;
             m_state = SOCKET_STATE_NOT_CREATED;
             return CC_ERR_NONE;
@@ -206,19 +206,26 @@ namespace CrissCross
         }
 
         CrissCross::Errors
-        CoreSocket::GetError ()
+        CoreSocket::GetError () const
         {
             CoreAssert ( m_sock != 0 );
             int retval = 0;
 
-                #  if !defined ( TARGET_OS_WINDOWS )
-            //int retsize = sizeof ( int ), ret = 0;
-            //ret = getsockopt ( m_sock, SOL_SOCKET, SO_ERROR, (char *)&retval, (socklen_t*)&retsize );
-            //if ( ret != 0 ) return CC_ERR_INTERNAL;
+#  if !defined ( TARGET_OS_WINDOWS )
             retval = errno;
-                #  else
+#  else
+            int retsize = sizeof ( int ), ret = 0;
+
             retval = WSAGetLastError ();
-                #  endif
+            WSASetLastError ( 0 );
+
+            if ( retval == WSAEWOULDBLOCK || retval == 0 )
+            {
+                getsockopt ( m_sock, SOL_SOCKET, SO_ERROR, (char *)&ret, (socklen_t*)&retsize );
+                if ( ret != 0 )
+                    return GetErrorNumber ( ret );
+            }
+#  endif
             return GetErrorNumber ( retval );
         }
 
@@ -228,7 +235,7 @@ namespace CrissCross
             CoreAssert ( m_sock != 0 );
 
             int sent = 0;
-                #  ifdef PACKET_DEBUG
+#  ifdef PACKET_DEBUG
             char *temp_buf = new char[m_bufferSize];
             memset ( temp_buf, 0, m_bufferSize );
             char *p = temp_buf, *d = (char *)_data;
@@ -241,7 +248,7 @@ namespace CrissCross
             }
             fprintf ( stdout, "<<< '%s'\n", temp_buf );
             delete [] temp_buf;
-                #  endif
+#  endif
             sent = send ( m_sock, (const char *)_data, (int)_length, 0 );
             return sent;
         }
@@ -252,7 +259,7 @@ namespace CrissCross
             CoreAssert ( m_sock != 0 );
 
             int sent = 0;
-                #  ifdef PACKET_DEBUG
+#  ifdef PACKET_DEBUG
             char *temp_buf = new char[m_bufferSize];
             memset ( temp_buf, 0, m_bufferSize );
             char *p = temp_buf, *d = (char *)_data.c_str ();
@@ -265,7 +272,7 @@ namespace CrissCross
             }
             fprintf ( stdout, "<<< '%s'\n", temp_buf );
             delete [] temp_buf;
-                #  endif
+#  endif
             sent = send ( m_sock, _data.c_str (), (int)_data.size (), 0 );
             return sent;
         }

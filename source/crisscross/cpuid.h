@@ -74,7 +74,7 @@ public:
 
 protected:
 
-                #  ifdef TARGET_OS_WINDOWS
+#  ifdef TARGET_OS_WINDOWS
 
             struct GoThreadProc_Params
             {
@@ -89,9 +89,9 @@ protected:
                                   ( ( GoThreadProc_Params * )lpParameter )->processor );
             };
             DWORD WINAPI GoThread ( LPVOID * params );
-                #  else
+#  else
             long int GoThread ( int processor );
-                #  endif
+#  endif
 
             typedef enum
             {

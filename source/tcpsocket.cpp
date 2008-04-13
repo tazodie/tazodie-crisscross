@@ -66,17 +66,17 @@ namespace CrissCross
                 // Set up the typical transmission attributes.
                 SetAttributes ( sock );
 
-                #  if defined ( ENABLE_NONBLOCKING )
+#  if defined ( ENABLE_NONBLOCKING )
                 unsigned long arg = 1;
 
                 // Non-blocking I/O, if possible. Ignore any errors.
-                #    if defined ( TARGET_OS_WINDOWS )
+#    if defined ( TARGET_OS_WINDOWS )
                 ioctlsocket ( m_sock, FIONBIO, &arg );
-                #    else
+#    else
                 ioctl ( m_sock, FIONBIO, &arg );
-                #    endif
+#    endif
 
-                #  endif
+#  endif
 
                 // Create a new wrapper for our socket.
                 TCPSocket *csock = new TCPSocket ( sock );
@@ -109,7 +109,19 @@ namespace CrissCross
                 return GetError ();
 
             // Set up the typical transmission attributes.
-            SetAttributes ( m_sock );
+            //SetAttributes ( m_sock );
+
+#  if defined ( ENABLE_NONBLOCKING )
+            unsigned long arg = 1;
+
+            // Non-blocking I/O, if possible. Ignore any errors.
+#    if defined ( TARGET_OS_WINDOWS )
+            ioctlsocket ( m_sock, FIONBIO, &arg );
+#    else
+            ioctl ( m_sock, FIONBIO, &arg );
+#    endif
+
+#  endif
 
             // Resolve the IP of the host we're trying to connect to.
             host = gethostbyname ( _address );
@@ -126,27 +138,24 @@ namespace CrissCross
             {
                 CrissCross::Errors err = GetError ();
 
-                // Close the connection, it failed.
-                #  ifdef TARGET_OS_WINDOWS
-                closesocket ( m_sock );
-                #  else
-                close ( m_sock );
-                #  endif
-
-                return err;
+                // If this is a non-blocking socket, we need to handle appropriately.
+                if ( err == CC_ERR_EWOULDBLOCK )
+                {
+                    m_state = SOCKET_STATE_CONNECTING;
+                    return err;
+                }
+                else
+                {
+                    m_state = SOCKET_STATE_ERROR;
+                    // Close the connection, it failed.
+#  ifdef TARGET_OS_WINDOWS
+                    closesocket ( m_sock );
+#  else
+                    close ( m_sock );
+#  endif
+                    return err;
+                }
             }
-
-                #  if defined ( ENABLE_NONBLOCKING )
-            unsigned long arg = 1;
-
-            // Non-blocking I/O, if possible. Ignore any errors.
-                #    if defined ( TARGET_OS_WINDOWS )
-            ioctlsocket ( m_sock, FIONBIO, &arg );
-                #    else
-            ioctl ( m_sock, FIONBIO, &arg );
-                #    endif
-
-                #  endif
 
             m_state = SOCKET_STATE_CONNECTED;
             return CC_ERR_NONE;
@@ -175,17 +184,17 @@ namespace CrissCross
             // Set up the typical transmission attributes.
             SetAttributes ( m_sock );
 
-                #  if defined ( ENABLE_NONBLOCKING )
+#  if defined ( ENABLE_NONBLOCKING )
             unsigned long arg = 1;
 
             // Non-blocking I/O, if possible. Ignore any errors.
-                #    if defined ( TARGET_OS_WINDOWS )
+#    if defined ( TARGET_OS_WINDOWS )
             ioctlsocket ( m_sock, FIONBIO, &arg );
-                #    else
+#    else
             ioctl ( m_sock, FIONBIO, &arg );
-                #    endif
+#    endif
 
-                #  endif
+#  endif
 
             // Bind our socket to our given port number.
             if ( bind ( m_sock, (sockaddr *)&sin, sizeof ( sin ) ) != 0 )
@@ -193,11 +202,11 @@ namespace CrissCross
                 // Bind failure, for some reason.
                 CrissCross::Errors err = GetError ();
 
-                #  ifdef TARGET_OS_WINDOWS
+#  ifdef TARGET_OS_WINDOWS
                 closesocket ( m_sock );
-                #  else
+#  else
                 close ( m_sock );
-                #  endif
+#  endif
 
                 return err;
             }
@@ -206,11 +215,11 @@ namespace CrissCross
             if ( listen ( m_sock, 10 ) == SOCKET_ERROR )
             {
                 // Listen failure, for some reason.
-                #  ifdef TARGET_OS_WINDOWS
+#  ifdef TARGET_OS_WINDOWS
                 closesocket ( m_sock );
-                #  else
+#  else
                 close ( m_sock );
-                #  endif
+#  endif
                 return GetError ();
             }
 
@@ -255,7 +264,7 @@ namespace CrissCross
 
             /* SO_SNDTIMEO and SO_RCVTIMEO */
             struct timeval tv;
-            tv.tv_sec = 7;
+            tv.tv_sec = 5;
             tv.tv_usec = 0;
 
             err = setsockopt ( _socket, SOL_SOCKET, SO_SNDTIMEO,
@@ -267,6 +276,55 @@ namespace CrissCross
             if ( err == -1 ) return errno;
 
             return CC_ERR_NONE;
+        }
+
+        socketState
+        TCPSocket::State () const
+        {
+            // Make sure there have been no spontaneous state changes.
+            switch ( m_state )
+            {
+            case SOCKET_STATE_CONNECTING:
+                {
+                    struct timeval timeout;
+                    fd_set fd_r, fd_w;
+
+                    // Not sure what these do, but documentation mandates we use them.
+                    FD_ZERO ( &fd_r );
+                    FD_ZERO ( &fd_w );
+                    FD_SET ( m_sock, &fd_r );
+                    FD_SET ( m_sock, &fd_w );
+
+                    // We only take 0.001 seconds to check
+                    timeout.tv_sec         = 0;
+                    timeout.tv_usec        = 1000;
+
+                    // Let's select() to see what happens.
+                    int ret = select ( m_sock + 1, &fd_r, &fd_w, NULL, &timeout );
+
+                    CrissCross::Errors err = GetError();
+
+                    // ret < 0   is error
+                    // ret == 0  is in progress
+                    // ret > 0   is success
+                    if ( ret < 0 || err )
+                    {
+                        // Bugger. Operation timed out.
+                        m_state = SOCKET_STATE_ERROR;
+                    }
+                    else if ( ret == 0 )
+                    {
+                        // Keep going. No state change.
+                    }
+                    else
+                    {
+                        // Success!
+                        m_state = SOCKET_STATE_CONNECTED;
+                    }
+                }
+                break;
+            }
+            return m_state;
         }
     }
 }

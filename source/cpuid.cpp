@@ -29,80 +29,80 @@ namespace CrissCross
 {
     namespace System
     {
-                #  define FPU_FLAG 0x0001
-                #  define LAHF_FLAG 0x0001
-                #  define SSE3_FLAG 0x0001
-                #  define VME_FLAG 0x0002
-                #  define DE_FLAG 0x0004
-                #  define DTES64_FLAG 0x0004
-                #  define MONITOR_FLAG 0x0008
-                #  define PSE_FLAG 0x0008
-                #  define DS_CPL_FLAG 0x0010
-                #  define TSC_FLAG 0x0010
-                #  define MSR_FLAG 0x0020
-                #  define VMX_FLAG 0x0020
-                #  define PAE_FLAG 0x0040
-                #  define SMX_FLAG 0x0040
-                #  define EIST_FLAG 0x0080
-                #  define MCE_FLAG 0x0080
-                #  define CX8_FLAG 0x0100
-                #  define TM2_FLAG 0x0100
-                #  define APIC_FLAG 0x0200
-                #  define SSSE3_FLAG 0x0200
-                #  define CNXTID_FLAG 0x0400
-                #  define SEP_FLAG 0x0800
-                #  define SYSCALL_FLAG 0x0800
-                #  define MTRR_FLAG 0x1000
-                #  define CX16_FLAG 0x2000
-                #  define PGE_FLAG 0x2000
-                #  define MCA_FLAG 0x4000
-                #  define XTPR_FLAG 0x4000
-                #  define PDCM_FLAG 0x8000
-                #  define CMOV_FLAG 0x8000
-                #  define PAT_FLAG 0x10000
-                #  define PSE36_FLAG 0x20000
-                #  define DCA_FLAG 0x40000
-                #  define PSNUM_FLAG 0x40000
-                #  define CLFLUSH_FLAG 0x80000
-                #  define SSE4_1_FLAG 0x80000
-                #  define SSE4_2_FLAG 0x100000
-                #  define XD_FLAG 0x100000
-                #  define DTS_FLAG 0x200000
-                #  define ACPI_FLAG 0x400000
-                #  define MMX_FLAG 0x800000
-                #  define FXSR_FLAG 0x1000000
-                #  define SSE_FLAG 0x2000000
-                #  define SSE2_FLAG 0x4000000
-                #  define SS_FLAG 0x8000000
-                #  define HTT_FLAG 0x10000000
-                #  define EM64T_FLAG 0x20000000
-                #  define TM1_FLAG 0x20000000
-                #  define IA64_FLAG 0x40000000
-                #  define PBE_FLAG 0x80000000
+#  define FPU_FLAG 0x0001
+#  define LAHF_FLAG 0x0001
+#  define SSE3_FLAG 0x0001
+#  define VME_FLAG 0x0002
+#  define DE_FLAG 0x0004
+#  define DTES64_FLAG 0x0004
+#  define MONITOR_FLAG 0x0008
+#  define PSE_FLAG 0x0008
+#  define DS_CPL_FLAG 0x0010
+#  define TSC_FLAG 0x0010
+#  define MSR_FLAG 0x0020
+#  define VMX_FLAG 0x0020
+#  define PAE_FLAG 0x0040
+#  define SMX_FLAG 0x0040
+#  define EIST_FLAG 0x0080
+#  define MCE_FLAG 0x0080
+#  define CX8_FLAG 0x0100
+#  define TM2_FLAG 0x0100
+#  define APIC_FLAG 0x0200
+#  define SSSE3_FLAG 0x0200
+#  define CNXTID_FLAG 0x0400
+#  define SEP_FLAG 0x0800
+#  define SYSCALL_FLAG 0x0800
+#  define MTRR_FLAG 0x1000
+#  define CX16_FLAG 0x2000
+#  define PGE_FLAG 0x2000
+#  define MCA_FLAG 0x4000
+#  define XTPR_FLAG 0x4000
+#  define PDCM_FLAG 0x8000
+#  define CMOV_FLAG 0x8000
+#  define PAT_FLAG 0x10000
+#  define PSE36_FLAG 0x20000
+#  define DCA_FLAG 0x40000
+#  define PSNUM_FLAG 0x40000
+#  define CLFLUSH_FLAG 0x80000
+#  define SSE4_1_FLAG 0x80000
+#  define SSE4_2_FLAG 0x100000
+#  define XD_FLAG 0x100000
+#  define DTS_FLAG 0x200000
+#  define ACPI_FLAG 0x400000
+#  define MMX_FLAG 0x800000
+#  define FXSR_FLAG 0x1000000
+#  define SSE_FLAG 0x2000000
+#  define SSE2_FLAG 0x4000000
+#  define SS_FLAG 0x8000000
+#  define HTT_FLAG 0x10000000
+#  define EM64T_FLAG 0x20000000
+#  define TM1_FLAG 0x20000000
+#  define IA64_FLAG 0x40000000
+#  define PBE_FLAG 0x80000000
 
         // AMD 8000_0001 EDX flags
-                #  define _3DNOW_FLAG 0x80000000
-                #  define _3DNOWEXT_FLAG 0x40000000
-                #  define LM_FLAG 0x20000000
-                #  define RDTSCP_FLAG 0x8000000
-                #  define FFXSR_FLAG 0x2000000
-                #  define FXSR_FLAG 0x1000000
-                #  define MMXEXT_FLAG 0x800000
-                #  define NX_FLAG 0x100000
+#  define _3DNOW_FLAG 0x80000000
+#  define _3DNOWEXT_FLAG 0x40000000
+#  define LM_FLAG 0x20000000
+#  define RDTSCP_FLAG 0x8000000
+#  define FFXSR_FLAG 0x2000000
+#  define FXSR_FLAG 0x1000000
+#  define MMXEXT_FLAG 0x800000
+#  define NX_FLAG 0x100000
 
         // AMD 8000_0001 ECX flags
-                #  define WDT_FLAG 0x2000
-                #  define SKINIT_FLAG 0x1000
-                #  define OSVW_FLAG 0x200
-                #  define _3DNP_FLAG 0x100
-                #  define MAS_FLAG 0x80
-                #  define SSE4A_FLAG 0x40
-                #  define ABM_FLAG 0x20
-                #  define AMC8_FLAG 0x10
-                #  define EAS_FLAG 0x8
-                #  define SVM_FLAG 0x4
-                #  define CL_FLAG 0x2
-                #  define LS_FLAG 0x1
+#  define WDT_FLAG 0x2000
+#  define SKINIT_FLAG 0x1000
+#  define OSVW_FLAG 0x200
+#  define _3DNP_FLAG 0x100
+#  define MAS_FLAG 0x80
+#  define SSE4A_FLAG 0x40
+#  define ABM_FLAG 0x20
+#  define AMC8_FLAG 0x10
+#  define EAS_FLAG 0x8
+#  define SVM_FLAG 0x4
+#  define CL_FLAG 0x2
+#  define LS_FLAG 0x1
 
         struct Registers
         {
@@ -117,7 +117,7 @@ namespace CrissCross
         struct Registers *Ext;
         unsigned int ExtMax;
 
-                #  if defined ( TARGET_COMPILER_GCC )
+#  if defined ( TARGET_COMPILER_GCC )
 
         /* If the current processor supports the CPUID instruction, execute
            one, with REQUEST in %eax, and set *EAX, *EBX, *ECX, and *EDX to
@@ -126,16 +126,16 @@ namespace CrissCross
         static bool
         call_cpuid (unsigned int request, unsigned int *eax, unsigned int *ebx, unsigned int *ecx, unsigned int *edx)
         {
-                #    ifndef TARGET_CPU_X64
+#    ifndef TARGET_CPU_X64
             unsigned int pre_change, post_change;
             const unsigned int id_flag = 0x200000;
-                #    endif
+#    endif
 
             /* This is pretty much the standard way to detect whether the CPUID
                    instruction is supported: try to change the ID bit in the EFLAGS
                    register.  If we can change it, then the CPUID instruction is
                    implemented.  */
-                #    ifndef TARGET_CPU_X64
+#    ifndef TARGET_CPU_X64
             asm ( "pushfl\n\t"          /* Save %eflags to restore later.  */
                   "pushfl\n\t"              /* Push second copy, for manipulation.  */
                   "popl %1\n\t"              /* Pop it into post_change.  */
@@ -148,13 +148,13 @@ namespace CrissCross
                   "popfl"                    /* Restore original value.  */
                   : "=&r" ( pre_change ), "=&r" ( post_change )
                   : "ir" ( id_flag ));
-                #    endif
+#    endif
 
             /* If the bit changed, then we support the CPUID instruction.  */
-                #    ifndef TARGET_CPU_X64
+#    ifndef TARGET_CPU_X64
             if (( pre_change ^ post_change ) & id_flag)
             {
-                #    endif
+#    endif
             asm volatile ( "mov %%ebx, %%esi\n\t"           /* Save %ebx.  */
                            "xorl %%ecx, %%ecx\n\t"
                            "cpuid\n\t"
@@ -164,14 +164,14 @@ namespace CrissCross
                            : "memory" );
 
             return true;
-                #    ifndef TARGET_CPU_X64
+#    ifndef TARGET_CPU_X64
         }
         else
             return false;
-                #    endif
+#    endif
         }
 
-                #  else
+#  else
 
         static void
         call_cpuid ( unsigned int op, unsigned int *_eax, unsigned int *_ebx,
@@ -193,7 +193,7 @@ namespace CrissCross
             }
         }
 
-                #  endif
+#  endif
 
         CPUID::CPUID ()
         {
@@ -223,18 +223,18 @@ namespace CrissCross
 
             if ( StdMax > 31 )
             {
-                #  ifdef CPUID_DEBUG
+#  ifdef CPUID_DEBUG
                 g_console->WriteLine ( "CPUID.0.EAX has an invalid value: %d",
                                        StdMax );
-                #  endif
+#  endif
                 StdMax = 31;
             }
             else
             {
-                #  ifdef CPUID_DEBUG
+#  ifdef CPUID_DEBUG
                 g_console->WriteLine ( "Standard CPUID maximum input is %d.",
                                        StdMax );
-                #  endif
+#  endif
             }
 
             for ( i = 1; i <= StdMax; i++ )
@@ -314,18 +314,18 @@ namespace CrissCross
             return proc[0]->LogicalPerPackage;
         }
 
-                #  ifdef TARGET_OS_WINDOWS
+#  ifdef TARGET_OS_WINDOWS
         DWORD WINAPI
         CPUID::GoThread ( LPVOID * params )
-                #  else
+#  else
         long int
         CPUID::GoThread ( int processor )
-                #  endif
+#  endif
         {
-                #  ifdef TARGET_OS_WINDOWS
+#  ifdef TARGET_OS_WINDOWS
             int processor;
             memcpy ( &processor, params, sizeof ( int ) );
-                #  endif
+#  endif
             if ( processor < 0 || processor > MAX_PROCESSORS )
             {
                 return 1;
@@ -346,7 +346,7 @@ namespace CrissCross
         CPUID::Go ()
         {
             CoreAssert ( this );
-                #  ifdef TARGET_OS_WINDOWS
+#  ifdef TARGET_OS_WINDOWS
             DWORD dThread = NULL;
             SYSTEM_INFO siSystem;
             int iCount = 0;
@@ -377,7 +377,7 @@ namespace CrissCross
                 ResumeThread ( hThread );
                 WaitForSingleObject ( hThread, INFINITE );
             }
-                #  elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX )
+#  elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX )
             int NUM_PROCS = sysconf ( _SC_NPROCESSORS_CONF ), i;
             cpu_set_t mask;
             cpu_set_t originalmask;
@@ -391,7 +391,7 @@ namespace CrissCross
                 GoThread ( i );
             }
             sched_setaffinity ( 0, sizeof ( originalmask ), &originalmask );
-                #  endif
+#  endif
         }
 
         void
@@ -759,15 +759,15 @@ namespace CrissCross
             case 0x6:       AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L1CODE, NULL, 8, 4, 0, 32, false ) ); break;
             case 0x8:       AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L1CODE, NULL, 16, 4, 0, 32, false ) ); break;
             case 0xa:       AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L1DATA, NULL, 8, 2, 0, 32, false ) ); break;
-                #  if defined ( ENABLE_SANDPILE )
+#  if defined ( ENABLE_SANDPILE )
             case 0xb:       AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_CODE_TLB, "4MB", 0, 4, 4, 0, false ) ); break;
-                #  endif
+#  endif
             case 0xc:       AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L1DATA, NULL, 16, 4, 0, 32, false ) ); break;
-                #  if defined ( ENABLE_SANDPILE )
+#  if defined ( ENABLE_SANDPILE )
             case 0x10:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L1DATA, NULL, 16, 4, 0, 32, false ) ); break;
             case 0x15:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L1CODE, NULL, 16, 4, 0, 32, false ) ); break;
             case 0x1A:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 96, 6, 0, 64, false ) ); break;
-                #  endif
+#  endif
             case 0x22:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L3, NULL, 512, 4, 0, 64, true ) ); break;
             case 0x23:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L3, NULL, 1024, 8, 0, 64, true ) ); break;
             case 0x25:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L3, NULL, 2048, 8, 0, 64, true ) ); break;
@@ -788,9 +788,9 @@ namespace CrissCross
             case 0x45:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 2048, 4, 0, 32, false ) ); break;
             case 0x46:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L3, NULL, 4096, 4, 0, 64, false ) ); break;
             case 0x47:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L3, NULL, 8192, 8, 0, 64, false ) ); break;
-                #  if defined ( ENABLE_SANDPILE )
+#  if defined ( ENABLE_SANDPILE )
             case 0x48:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 3072, 12, 0, 64, false ) ); break;
-                #  endif
+#  endif
             case 0x49:      AddCacheDescription ( processor, CreateCacheDescription (
                                                       // This is an L3 on the P4 and an L2 on the Core 2
                                                       proc[processor]->features.find ("SSSE3")->Enabled ? CACHE_TYPE_L2 : CACHE_TYPE_L3, NULL, 4096, 16, 0, 64, false ) ); break;
@@ -815,29 +815,29 @@ namespace CrissCross
             case 0x71:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_TRACE, NULL, 16, 8, 0, 0, false ) ); break;
             case 0x72:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_TRACE, NULL, 32, 8, 0, 0, false ) ); break;
             case 0x73:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_TRACE, NULL, 64, 8, 0, 0, false ) ); break;
-                #  if defined ( ENABLE_SANDPILE )
+#  if defined ( ENABLE_SANDPILE )
             case 0x77:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L1CODE, NULL, 16, 4, 0, 64, true ) ); break;
-                #  endif
+#  endif
             case 0x78:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 1024, 4, 0, 64, false ) ); break;
             case 0x79:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 128, 8, 0, 64, true ) ); break;
             case 0x7A:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 256, 8, 0, 64, true ) ); break;
             case 0x7B:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 512, 8, 0, 64, true ) ); break;
             case 0x7C:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 1024, 8, 0, 64, true ) ); break;
             case 0x7D:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 2048, 8, 0, 64, false ) ); break;
-                #  if defined ( ENABLE_SANDPILE )
+#  if defined ( ENABLE_SANDPILE )
             case 0x7E:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 256, 8, 0, 128, true ) ); break;
-                #  endif
+#  endif
             case 0x7F:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 512, 2, 0, 64, false ) ); break;
-                #  if defined ( ENABLE_SANDPILE )
+#  if defined ( ENABLE_SANDPILE )
             case 0x81:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 128, 8, 0, 128, true ) ); break;
-                #  endif
+#  endif
             case 0x82:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 256, 8, 0, 32, false ) ); break;
             case 0x83:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 512, 8, 0, 32, false ) ); break;
             case 0x84:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 1024, 8, 0, 32, false ) ); break;
             case 0x85:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 2048, 8, 0, 32, false ) ); break;
             case 0x86:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 512, 4, 0, 64, false ) ); break;
             case 0x87:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2, NULL, 1024, 8, 0, 64, false ) ); break;
-                #  if defined ( ENABLE_SANDPILE )
+#  if defined ( ENABLE_SANDPILE )
             case 0x88:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L3, NULL, 2048, 4, 0, 64, false ) ); break;
             case 0x89:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L3, NULL, 4096, 4, 0, 64, false ) ); break;
             case 0x8A:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L3, NULL, 8192, 4, 0, 64, false ) ); break;
@@ -845,7 +845,7 @@ namespace CrissCross
             case 0x90:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_CODE_TLB, "4KB or 256MB", 0, 255, 64, 0, false ) ); break;
             case 0x96:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L1DATA_TLB, "4KB or 256MB", 0, 255, 32, 0, false ) ); break;
             case 0x9B:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_L2DATA_TLB, "4KB or 256MB", 0, 255, 96, 0, false ) ); break;
-                #  endif
+#  endif
             case 0xB0:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_CODE_TLB, "4KB", 0, 4, 128, 0, false ) ); break;
             case 0xB1:      AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_CODE_TLB, "4MB", 0, 4, 4, 0, false ) );
                 AddCacheDescription ( processor, CreateCacheDescription ( CACHE_TYPE_CODE_TLB, "2MB", 0, 4, 8, 0, false ) ); break;

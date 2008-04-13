@@ -271,12 +271,12 @@ int CrissCrossInitialize ( int argc, char **argv )
         #  ifndef TARGET_OS_WINDOWS
 int main ( int argc, char **argv )
         #  else
-                #    ifndef _WINDOWS
+#    ifndef _WINDOWS
 int main ( int argc, char **argv )
-                #    else
+#    else
 int WINAPI WinMain (HINSTANCE _hInstance, HINSTANCE _hPrevInstance,
                     LPSTR _cmdLine, int _iCmdShow)
-                #    endif
+#    endif
         #  endif
 #endif
 {

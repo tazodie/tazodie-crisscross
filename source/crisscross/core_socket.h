@@ -39,8 +39,10 @@ namespace CrissCross
         {
             SOCKET_STATE_UNKNOWN,           //!< The state has not yet been specified or is currently not known.
             SOCKET_STATE_NOT_CREATED,       //!< The socket is not yet instantiated.
+            SOCKET_STATE_ERROR,             //!< The socket has encountered an error.
             SOCKET_STATE_CLOSED,            //!< The socket is closed.
             SOCKET_STATE_LISTENING,         //!< The socket is listening for incoming connections (or data, if UDP).
+            SOCKET_STATE_CONNECTING,        //!< The socket is doing an asynchronous connect to a remote host.
             SOCKET_STATE_CONNECTED          //!< The socket is connected to a remote host.
         } socketState;
 
@@ -72,7 +74,7 @@ protected:
             socketProtocol m_proto;
 
             //! Indicates the current state of m_sock.
-            socketState m_state;
+            mutable socketState m_state;
 
             //! Sets some important attributes on the socket.
             /*!
@@ -104,7 +106,7 @@ public:
             /*!
              \return The error value for the socket.
              */
-            virtual CrissCross::Errors GetError ();
+            virtual CrissCross::Errors GetError () const;
 
             //! Fetches the IP address of the remote host.
             /*!
@@ -145,7 +147,7 @@ public:
              \return The current state of m_sock.
              \sa CrissCross::Network::socketState
              */
-            socketState State () const;
+            virtual socketState State () const;
 
             //! Opens the port specified to listen for incoming connections.
             /*!

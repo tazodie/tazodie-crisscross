@@ -37,16 +37,16 @@ namespace CrissCross
             CoreAssert ( this != NULL );
             if ( !IsOpen () ) return;
 
-                #ifndef __GNUC__
+#ifndef __GNUC__
             m_ioMutex.Lock ();
-                #endif
+#endif
             fflush ( m_fileOutputPointer );
         #ifdef TARGET_OS_NDSFIRMWARE
             swiWaitForVBlank ();
         #endif
-                #ifndef __GNUC__
+#ifndef __GNUC__
             m_ioMutex.Unlock ();
-                #endif
+#endif
         }
 
         bool
@@ -67,14 +67,14 @@ namespace CrissCross
 
             if ( _ending == CC_LN_NATIVE )
             {
-                #if defined ( TARGET_OS_WINDOWS )
+#if defined ( TARGET_OS_WINDOWS )
                 _ending = CC_LN_CRLF;
-                #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_FREEBSD ) || \
+#elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_FREEBSD ) || \
     defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD ) || defined ( TARGET_OS_NDSFIRMWARE )
                 _ending = CC_LN_LF;
-                #else
-                #  error You are not using a supported OS.
-                #endif
+#else
+#  error You are not using a supported OS.
+#endif
             }
 
             switch ( _ending )
@@ -103,9 +103,9 @@ namespace CrissCross
             if ( _format == NULL )
                 return CC_ERR_BADPARAMETER;
 
-                #ifndef __GNUC__
+#ifndef __GNUC__
             m_ioMutex.Lock ();
-                #endif
+#endif
 
             va_list args;
 
@@ -121,9 +121,9 @@ namespace CrissCross
 
             Flush ();
 
-                #ifndef __GNUC__
+#ifndef __GNUC__
             m_ioMutex.Unlock ();
-                #endif
+#endif
 
             return CC_ERR_NONE;
         }
@@ -137,18 +137,18 @@ namespace CrissCross
             if ( _string.empty () == true )
                 return CC_ERR_BADPARAMETER;
 
-                #ifndef __GNUC__
+#ifndef __GNUC__
             m_ioMutex.Lock ();
-                #endif
+#endif
 
             if ( fprintf ( m_fileOutputPointer, "%s%s", _string.c_str (), m_lineEnding ) < 0 )
                 return CC_ERR_WRITE;
 
             Flush ();
 
-                #ifndef __GNUC__
+#ifndef __GNUC__
             m_ioMutex.Unlock ();
-                #endif
+#endif
 
             return CC_ERR_NONE;
         }
@@ -162,16 +162,16 @@ namespace CrissCross
             if ( _string.empty () == true )
                 return CC_ERR_BADPARAMETER;
 
-                #ifndef __GNUC__
+#ifndef __GNUC__
             m_ioMutex.Lock ();
-                #endif
+#endif
 
             if ( fprintf ( m_fileOutputPointer, "%s", _string.c_str () ) < 0 )
                 return CC_ERR_WRITE;
 
-                #ifndef __GNUC__
+#ifndef __GNUC__
             m_ioMutex.Unlock ();
-                #endif
+#endif
 
             return CC_ERR_NONE;
         }
@@ -183,16 +183,16 @@ namespace CrissCross
             CoreAssert ( this != NULL );
             if ( !IsOpen () ) return CC_ERR_INVALID_BUFFER;
 
-                #ifndef __GNUC__
+#ifndef __GNUC__
             m_ioMutex.Lock ();
-                #endif
+#endif
 
             if ( fprintf ( m_fileOutputPointer, m_lineEnding ) < 0 )
                 return CC_ERR_WRITE;
 
-                #ifndef __GNUC__
+#ifndef __GNUC__
             m_ioMutex.Unlock ();
-                #endif
+#endif
 
             return CC_ERR_NONE;
         }
@@ -206,9 +206,9 @@ namespace CrissCross
             if ( _format == NULL )
                 return CC_ERR_BADPARAMETER;
 
-                #ifndef __GNUC__
+#ifndef __GNUC__
             m_ioMutex.Lock ();
-                #endif
+#endif
 
             va_list args;
 
@@ -221,9 +221,9 @@ namespace CrissCross
             fflush ( m_fileOutputPointer );
 
             va_end ( args );
-                #ifndef __GNUC__
+#ifndef __GNUC__
             m_ioMutex.Unlock ();
-                #endif
+#endif
 
             return CC_ERR_NONE;
         }
