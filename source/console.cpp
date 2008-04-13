@@ -74,7 +74,7 @@ namespace CrissCross
 					if ( consoleWindowHandle )
 					{
 						if ( GetWindowRect ( consoleWindowHandle, &rect ) )
-							MoveWindow ( consoleWindowHandle, 0, 0, rect.right - rect.left, rect.bottom - rect.top, TRUE );
+							MoveWindow ( consoleWindowHandle, 0, 0, rect.right - rect.left, rect.bottom - rect.top - 16, TRUE );
 					}
 				}
             }

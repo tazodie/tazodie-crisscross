@@ -223,6 +223,7 @@ typedef long intptr_t;
 #ifdef __cplusplus
 #  include <exception>
 #  include <iostream>
+#  include <iomanip>
 #  include <istream>
 #  include <fstream>
 #  include <list>

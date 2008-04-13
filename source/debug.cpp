@@ -72,7 +72,7 @@ std::string SymbolEngine::addressToString ( DWORD address )
     std::ostringstream oss;
 
     // First the raw address
-    oss << "0x" << ( PVOID )address;
+    oss << "0x" << std::hex << std::setw(8) << std::setfill ('0') << ( PVOID )address << std::dec << std::setfill(' ');
 
     // Then any name for the symbol
     struct tagSymInfo
@@ -138,7 +138,7 @@ SymbolEngine::StackTrace ( PCONTEXT _pContext, CoreIOWriter * _outputBuffer )
                           NULL,::SymFunctionTableAccess,::SymGetModuleBase,
                           NULL ) )
     {
-        _outputBuffer->WriteLine ( " 0x%xd %s", stackFrame.AddrFrame.Offset,
+        _outputBuffer->WriteLine ( " 0x%08xd %s", stackFrame.AddrFrame.Offset,
                                    addressToString ( stackFrame.AddrPC.
                                                      Offset ).c_str () );
     }
