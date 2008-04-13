@@ -75,6 +75,12 @@ namespace CrissCross
 					{
 						if ( GetWindowRect ( consoleWindowHandle, &rect ) )
 							MoveWindow ( consoleWindowHandle, 0, 0, rect.right - rect.left, rect.bottom - rect.top - 16, TRUE );
+
+                        // Windows API is kind of clunky and requires a bit of kicking to get it to work.
+                        // In this case, we have to set the window to be topmost and then immediately after, not topmost, in order
+                        // to bring the window to the top of the Zorder. Believe me, other methods work -sparingly-.
+                        SetWindowPos ( consoleWindowHandle, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW );
+                        SetWindowPos ( consoleWindowHandle, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW );
 					}
 				}
             }
