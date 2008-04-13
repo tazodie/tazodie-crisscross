@@ -29,7 +29,7 @@ void Assert ( bool _condition, const char *_testcase, const char *_file,
 #  define CoreAssert(x) { \
         if ( !( x ) ){ \
             g_stderr->WriteLine ( "\nAssertion failed : '%s'\nFile: %s\nLine: %d\n", \
-                                  # x, __FILE__, __LINE__ ); \
+                  # x, __FILE__, __LINE__ ); \
             g_stderr->WriteLine ( "===== STACK TRACE =====" ); \
             CrissCross::Debug::PrintStackTrace ( g_stderr ); \
             abort (); \

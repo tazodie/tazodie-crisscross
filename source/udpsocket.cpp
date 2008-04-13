@@ -71,11 +71,11 @@ namespace CrissCross
                 CrissCross::Errors err = GetError ();
 
                 // Close the connection, it failed.
-                #  ifdef TARGET_OS_WINDOWS
+#  ifdef TARGET_OS_WINDOWS
                 closesocket ( m_sock );
-                #  else
+#  else
                 close ( m_sock );
-                #  endif
+#  endif
 
                 return err;
             }
@@ -106,25 +106,25 @@ namespace CrissCross
 
             SetAttributes ( m_sock );
 
-                #  if defined ( ENABLE_NONBLOCKING )
+#  if defined ( ENABLE_NONBLOCKING )
             unsigned long arg = 1;
-                #    if defined ( TARGET_OS_WINDOWS )
+#    if defined ( TARGET_OS_WINDOWS )
             ioctlsocket ( m_sock, FIONBIO, &arg );
-                #    else
+#    else
             ioctl ( m_sock, FIONBIO, &arg );
-                #    endif
-                #  endif
+#    endif
+#  endif
 
             if ( bind ( m_sock, (sockaddr *)&sin, sizeof ( sin ) ) != 0 )
             {
                 CrissCross::Errors err = GetError ();
 
                 // Close the connection, it failed.
-                #  ifdef TARGET_OS_WINDOWS
+#  ifdef TARGET_OS_WINDOWS
                 closesocket ( m_sock );
-                #  else
+#  else
                 close ( m_sock );
-                #  endif
+#  endif
 
                 return err;
             }

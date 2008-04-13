@@ -22,9 +22,9 @@ namespace CrissCross
         Mutex::Mutex ()
         {
             m_lockCount = 0;
-                #  ifdef TARGET_OS_WINDOWS
+#  ifdef TARGET_OS_WINDOWS
             InitializeCriticalSection (&m_criticalSection);
-                #  else
+#  else
             int error;
             error = pthread_mutexattr_init ( &m_mutexAttr );
             CoreAssert ( error == 0 );
@@ -32,41 +32,41 @@ namespace CrissCross
             CoreAssert ( error == 0 );
             error = pthread_mutex_init ( &m_hMutex, &m_mutexAttr );
             CoreAssert ( error == 0 );
-                #  endif
+#  endif
         }
 
         Mutex::~Mutex ()
         {
             CoreAssert ( m_lockCount == 0 );
-                #  ifdef TARGET_OS_WINDOWS
+#  ifdef TARGET_OS_WINDOWS
             DeleteCriticalSection (&m_criticalSection);
-                #  else
+#  else
             pthread_mutex_destroy (&m_hMutex);
-                #  endif
+#  endif
         }
 
         void
         Mutex::Lock ()
         {
             m_lockCount++;
-                #  ifdef TARGET_OS_WINDOWS
+#  ifdef TARGET_OS_WINDOWS
             EnterCriticalSection (&m_criticalSection);
-                #  else
+#  else
             int error = pthread_mutex_lock (&m_hMutex);
             CoreAssert ( error == 0 );
-                #  endif
+#  endif
         }
 
         void
         Mutex::Unlock ()
         {
             m_lockCount--;
-                #  ifdef TARGET_OS_WINDOWS
+#  ifdef TARGET_OS_WINDOWS
             LeaveCriticalSection (&m_criticalSection);
-                #  else
+#  else
             int error = pthread_mutex_unlock (&m_hMutex);
             CoreAssert ( error == 0 );
-                #  endif
+#  endif
         }
     }
 }

@@ -45,9 +45,9 @@ private:
 
 public:
             //! The default constructor.
-                #if TARGET_CPU_BITS < 64
+#if TARGET_CPU_BITS < 64
             _CC_DEPRECATE_SLOW ("MODERATE")
-                #endif
+#endif
             TigerHash ();
 
             //! The default destructor.

@@ -62,6 +62,13 @@ public:
              */
             CrissCross::Errors Listen ( unsigned short _port );
 
+            //! Fetch the state of the socket.
+            /*!
+             \return The current state of m_sock.
+             \sa CrissCross::Network::socketState
+             */
+            socketState State () const;
+
         };
     }
 }
