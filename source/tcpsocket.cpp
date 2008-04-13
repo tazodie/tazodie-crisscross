@@ -139,10 +139,10 @@ namespace CrissCross
                 CrissCross::Errors err = GetError ();
 
                 // If this is a non-blocking socket, we need to handle appropriately.
-                if ( err == CC_ERR_EWOULDBLOCK )
+                if ( err == CC_ERR_EWOULDBLOCK || err == CC_ERR_EINPROGRESS )
                 {
                     m_state = SOCKET_STATE_CONNECTING;
-                    return err;
+                    return CC_ERR_EINPROGRESS;
                 }
                 else
                 {
