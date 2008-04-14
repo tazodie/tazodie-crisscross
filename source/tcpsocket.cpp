@@ -299,15 +299,17 @@ namespace CrissCross
                     timeout.tv_sec         = 0;
                     timeout.tv_usec        = 1000;
 
+                    CrissCross::Errors errbefore = GetError(), errafter = CC_ERR_NONE;
+
                     // Let's select() to see what happens.
                     int ret = select ( m_sock + 1, &fd_r, &fd_w, NULL, &timeout );
 
-                    CrissCross::Errors err = GetError();
+					errafter = GetError();
 
                     // ret < 0   is error
                     // ret == 0  is in progress
                     // ret > 0   is success
-                    if ( ret < 0 || ( err && err != CC_ERR_EINPROGRESS && err != CC_ERR_TRY_AGAIN ) )
+                    if ( ret < 0 || ( errafter && errafter != errbefore && errafter != CC_ERR_EINPROGRESS && errafter != CC_ERR_TRY_AGAIN ) )
                     {
                         // Bugger. Operation timed out.
                         m_state = SOCKET_STATE_ERROR;

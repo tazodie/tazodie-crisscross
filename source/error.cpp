@@ -138,12 +138,20 @@ namespace CrissCross
             if (why == errmap[i].w)
                 return errmap[i].e;
 
+        printf ( "CrissCross: Error %d (%s) couldn't be mapped to a CrissCross internal error number.\n", why, strerror(why) );
+
         return CC_ERR_INTERNAL;
     }
 
     const char *
     GetErrorDescription (CrissCross::Errors why)
     {
+        static char buffer[4096];
+
+        int retval = strerror_r ( why, buffer, 4096 );
+        if ( retval == 0 )
+            return buffer;
+
         for (int i = 0; errmap[i].e != CC_ERR_NONE; ++i)
             if (why == errmap[i].e)
                 return errmap[i].s;
