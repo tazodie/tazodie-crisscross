@@ -307,9 +307,8 @@ namespace CrissCross
                     // ret < 0   is error
                     // ret == 0  is in progress
                     // ret > 0   is success
-                    if ( ret < 0 || ( err && err != CC_ERR_EINPROGRESS ) )
+                    if ( ret < 0 || ( err && err != CC_ERR_EINPROGRESS && err != CC_ERR_TRY_AGAIN ) )
                     {
-                        printf ( "Something buggered: %d, %d, %d\n", ret, err, CC_ERR_EINPROGRESS );
                         // Bugger. Operation timed out.
                         m_state = SOCKET_STATE_ERROR;
                     }

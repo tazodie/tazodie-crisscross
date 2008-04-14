@@ -126,9 +126,8 @@ namespace CrissCross
         {EREMOTE, "EREMOTE", CC_ERR_EREMOTE},
         {EINVAL, "EINVAL", CC_ERR_EINVAL},
         {EFAULT, "EFAULT", CC_ERR_EFAULT},
-        {0, "NOERROR", CC_ERR_NONE},
         {0, "UNKNOWN_ERROR", CC_ERR_INTERNAL},
-        {0, NULL, CC_ERR_NONE}
+        {0, "NO_ERROR", CC_ERR_NONE}
     };
         #endif
 
@@ -148,7 +147,7 @@ namespace CrissCross
         for (int i = 0; errmap[i].e != CC_ERR_NONE; ++i)
             if (why == errmap[i].e)
                 return errmap[i].s;
-
+		
         return NULL;
     }
 }
