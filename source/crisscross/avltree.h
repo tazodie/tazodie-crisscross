@@ -167,23 +167,23 @@ protected:
 
             //! Recursively convert the tree's keys into a DArray
             /*!
-             \param _darray										Array to insert keys into
-             \param _btree										The node being traversed
+             \param _darray                                        Array to insert keys into
+             \param _btree                                        The node being traversed
              */
             void RecursiveConvertIndexToDArray ( DArray <Key> *_darray, AVLNode<Key,Data> *_btree ) const;
 
             //! Recursively convert the tree's data into a DArray
             /*!
-             \param _darray										Array to insert data into
-             \param _btree										The node being traversed
+             \param _darray                                        Array to insert data into
+             \param _btree                                        The node being traversed
              */
             void RecursiveConvertToDArray ( DArray <Data> *_darray, AVLNode<Key,Data> *_btree ) const;
 
             //! Recursively find all nodes with the specified key
             /*!
-             \param _darray										Array to insert data into
-             \param _key											Identifier of nodes to find
-             \param _node										The node being traversed
+             \param _darray                                        Array to insert data into
+             \param _key                                            Identifier of nodes to find
+             \param _node                                        The node being traversed
              */
             void findRecursive ( DArray<Data> *_darray, Key const &_key, AVLNode<Key,Data> *_node ) const;
 

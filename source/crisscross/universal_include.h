@@ -70,7 +70,7 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #define ENABLE_BACKTRACE
 
 // Case sensitive Compare() function
-//#	define CASE_SENSITIVE_COMPARE
+//#    define CASE_SENSITIVE_COMPARE
 
 // ============================================================================
 // Dont edit anything below this line

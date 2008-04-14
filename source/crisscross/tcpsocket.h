@@ -62,11 +62,11 @@ public:
              */
             CrissCross::Errors Listen ( unsigned short _port );
 
-			//! In asynchronous sockets, this verifies that no state changes have occurred.
-			/*!
-			 \sa State
-			 */
-			void UpdateState ();
+            //! In asynchronous sockets, this verifies that no state changes have occurred.
+            /*!
+             \sa State
+             */
+            void UpdateState ();
 
             //! Fetch the state of the socket.
             /*!

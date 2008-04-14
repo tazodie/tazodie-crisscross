@@ -246,16 +246,16 @@ namespace CrissCross
 
             /* SO_KEEPALIVE */
 #ifdef TARGET_OS_WINDOWS
-			DWORD bytesReturned = 0;
-			tcp_keepalive vals;
-			vals.keepalivetime = 30000;
-			vals.keepaliveinterval = 10000;
-			vals.onoff = 1;
-			err = WSAIoctl ( _socket, SIO_KEEPALIVE_VALS,
-				(char *)&vals, sizeof(vals), NULL, 0,
-				&bytesReturned, NULL, NULL );
+            DWORD bytesReturned = 0;
+            tcp_keepalive vals;
+            vals.keepalivetime = 30000;
+            vals.keepaliveinterval = 10000;
+            vals.onoff = 1;
+            err = WSAIoctl ( _socket, SIO_KEEPALIVE_VALS,
+                (char *)&vals, sizeof(vals), NULL, 0,
+                &bytesReturned, NULL, NULL );
 
-			if ( err == -1 ) return WSAGetLastError();
+            if ( err == -1 ) return WSAGetLastError();
 #endif
             optlen = sizeof optval;
             err = setsockopt ( _socket, SOL_SOCKET, SO_KEEPALIVE,
@@ -278,9 +278,9 @@ namespace CrissCross
             return CC_ERR_NONE;
         }
 
-		void
-		TCPSocket::UpdateState ()
-		{
+        void
+        TCPSocket::UpdateState ()
+        {
             // Make sure there have been no spontaneous state changes.
             switch ( m_state )
             {
@@ -309,7 +309,7 @@ namespace CrissCross
                     // ret > 0   is success
                     if ( ret < 0 || ( err && err != CC_ERR_EINPROGRESS ) )
                     {
-						printf ( "Something buggered: %d, %d, %d\n", ret, err, CC_ERR_EINPROGRESS );
+                        printf ( "Something buggered: %d, %d, %d\n", ret, err, CC_ERR_EINPROGRESS );
                         // Bugger. Operation timed out.
                         m_state = SOCKET_STATE_ERROR;
                     }
@@ -325,7 +325,7 @@ namespace CrissCross
                 }
                 break;
             }
-		}
+        }
 
         socketState
         TCPSocket::State () const
