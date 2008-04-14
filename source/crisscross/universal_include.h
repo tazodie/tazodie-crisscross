@@ -110,7 +110,7 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #endif
 
 #if ( defined ( __STRICT_ANSI__ ) )
-#  define CASE_SENSITIVE_COMPARE
+//#  define CASE_SENSITIVE_COMPARE
 #endif
 
 // Doesn't work on non-x86, and Cygwin doesn't have the functionality for cpu_set_t.

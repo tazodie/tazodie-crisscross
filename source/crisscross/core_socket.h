@@ -74,7 +74,7 @@ protected:
             socketProtocol m_proto;
 
             //! Indicates the current state of m_sock.
-            mutable socketState m_state;
+            socketState m_state;
 
             //! Sets some important attributes on the socket.
             /*!
