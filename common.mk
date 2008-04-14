@@ -231,15 +231,15 @@ LDFLAGS += -lpthread
 endif
 
 ifeq ($(CFLAGS),)
-CFLAGS = -O$(OPTLEVEL) $(TARGET_BITS) $(STDC) $(ARCH) -Wall -Wno-long-long -pipe -ggdb
+CFLAGS = -O$(OPTLEVEL) $(TARGET_BITS) $(STDC) $(ARCH) -Wall -Wno-long-long -rdynamic -pipe -ggdb
 else
-CFLAGS += $(STDC) -Wall -Wno-long-long
+CFLAGS += $(STDC) -rdynamic -Wall -Wno-long-long
 endif
 
 ifeq ($(CXXFLAGS),)
-CXXFLAGS = -O$(OPTLEVEL) $(TARGET_BITS) $(STDCPP) $(ARCH) -Wall -Wno-long-long -pipe -ggdb -fno-rtti -fno-exceptions
+CXXFLAGS = -O$(OPTLEVEL) $(TARGET_BITS) $(STDCPP) $(ARCH) -Wall -Wno-long-long -pipe -ggdb -rdynamic -fno-rtti -fno-exceptions
 else
-CXXFLAGS += $(STDCPP) -Wall -Wno-long-long -fno-rtti -fno-exceptions
+CXXFLAGS += $(STDCPP) -Wall -Wno-long-long -rdynamic -fno-rtti -fno-exceptions
 endif
 
 ifneq ($(CC_BUILDSTATIC),yes)

@@ -278,9 +278,9 @@ namespace CrissCross
             return CC_ERR_NONE;
         }
 
-        socketState
-        TCPSocket::State () const
-        {
+		void
+		TCPSocket::UpdateState ()
+		{
             // Make sure there have been no spontaneous state changes.
             switch ( m_state )
             {
@@ -307,8 +307,9 @@ namespace CrissCross
                     // ret < 0   is error
                     // ret == 0  is in progress
                     // ret > 0   is success
-                    if ( ret < 0 || err )
+                    if ( ret < 0 || ( err && err != CC_ERR_EINPROGRESS ) )
                     {
+						printf ( "Something buggered: %d, %d, %d\n", ret, err, CC_ERR_EINPROGRESS );
                         // Bugger. Operation timed out.
                         m_state = SOCKET_STATE_ERROR;
                     }
@@ -324,6 +325,11 @@ namespace CrissCross
                 }
                 break;
             }
+		}
+
+        socketState
+        TCPSocket::State () const
+        {
             return m_state;
         }
     }
