@@ -331,7 +331,7 @@ load_little_32 (cc_uint32_t *addr)
     cc_uint32_t value;
 
     __asm__ (
-        "lduwa	[%1] %2, %0\n\t"
+        "lduwa    [%1] %2, %0\n\t"
         : "=r" ( value )
         : "r" ( addr ), "i" ( ASI_PL ));
 
@@ -344,7 +344,7 @@ load_little_16 (uint16_t *addr)
     uint16_t value;
 
     __asm__ (
-        "lduha	[%1] %2, %0\n\t"
+        "lduha    [%1] %2, %0\n\t"
         : "=r" ( value )
         : "r" ( addr ), "i" ( ASI_PL ));
 
@@ -412,7 +412,7 @@ static __inline__ void
 set_little (uint8_t asi)
 {
     __asm__ __volatile__ (
-        "wr	%%g0, %0, %%asi\n\t"
+        "wr    %%g0, %0, %%asi\n\t"
         : /* Nothing */
         : "r" ( asi ));
 }
@@ -423,7 +423,7 @@ get_little (void)
     uint8_t asi;
 
     __asm__ __volatile__ (
-        "rd	%%asi, %0\n\t"
+        "rd    %%asi, %0\n\t"
         : "=r" ( asi ));
 
     return ( asi );
@@ -440,7 +440,7 @@ get_little (void)
     {                                               \
         cc_uint32_t value;                              \
         __asm__ (                                \
-            "lduwa	[%1 + %2]%%asi, %0\n\t"\
+            "lduwa    [%1 + %2]%%asi, %0\n\t"\
             : "=r" ( value )                           \
             : "r" ( addr ), "i" (( 0x ## __off ) << 2 ));    \
         return ( value );                         \
@@ -505,7 +505,7 @@ static void Encode (cc_uint8_t * output, const cc_uint32_t * input, size_t input
  * MD5Init()
  *
  * purpose: initializes the md5 context and begins and md5 digest operation
- *   input: MD5_CTX *	: the context to initialize.
+ *   input: MD5_CTX *    : the context to initialize.
  *  output: void
  */
 
@@ -526,8 +526,8 @@ MD5Init (MD5_CTX *ctx)
  *
  * purpose: continues an md5 digest operation, using the message block
  *          to update the context.
- *   input: MD5_CTX *	: the context to update
- *          cc_uint8_t *	: the message block
+ *   input: MD5_CTX *    : the context to update
+ *          cc_uint8_t *    : the message block
  *          cc_uint32_t    : the length of the message block in bytes
  *  output: void
  *
@@ -603,7 +603,7 @@ MD5Update (MD5_CTX *ctx, const void *inpp, unsigned int input_len)
  *
  * purpose: ends an md5 digest operation, finalizing the message digest and
  *          zeroing the context.
- *   input: cc_uint8_t *	: a buffer to store the digest in
+ *   input: cc_uint8_t *    : a buffer to store the digest in
  *          MD5_CTX *   : the context to finalize, save, and zero
  *  output: void
  */
@@ -634,10 +634,10 @@ MD5Final (unsigned char *digest, MD5_CTX *ctx)
  * MD5Transform()
  *
  * purpose: md5 transformation -- updates the digest based on `block'
- *   input: cc_uint32_t	: bytes  1 -  4 of the digest
- *          cc_uint32_t	: bytes  5 -  8 of the digest
- *          cc_uint32_t	: bytes  9 - 12 of the digest
- *          cc_uint32_t	: bytes 12 - 16 of the digest
+ *   input: cc_uint32_t    : bytes  1 -  4 of the digest
+ *          cc_uint32_t    : bytes  5 -  8 of the digest
+ *          cc_uint32_t    : bytes  9 - 12 of the digest
+ *          cc_uint32_t    : bytes 12 - 16 of the digest
  *          MD5_CTX *   : the context to update
  *          cc_uint8_t [64]: the block to use to update the digest
  *  output: void
@@ -895,9 +895,9 @@ MD5Transform (cc_uint32_t a, cc_uint32_t b, cc_uint32_t c, cc_uint32_t d,
  * Encode()
  *
  * purpose: to convert a list of numbers from big endian to little endian
- *   input: cc_uint8_t *	: place to store the converted little endian numbers
- *	    cc_uint32_t *	: place to get numbers to convert from
- *          size_t	: the length of the input in bytes
+ *   input: cc_uint8_t *    : place to store the converted little endian numbers
+ *        cc_uint32_t *    : place to get numbers to convert from
+ *          size_t    : the length of the input in bytes
  *  output: void
  */
 

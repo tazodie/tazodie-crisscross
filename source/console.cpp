@@ -18,7 +18,7 @@ namespace CrissCross
     namespace IO
     {
         Console::Console ( bool _clearOnInit, bool _fillScreen )
-		  : CoreIOWriter ( stdout, false, CC_LN_LF ),
+          : CoreIOWriter ( stdout, false, CC_LN_LF ),
             CoreIOReader ( stdin, false, CC_LN_LF )
         {
 #ifdef TARGET_OS_WINDOWS
@@ -27,62 +27,62 @@ namespace CrissCross
             {
                 m_consoleAllocated = true;
 
-				// Redirect stdout to the console.
+                // Redirect stdout to the console.
                 int hCrt = _open_osfhandle ( ( intptr_t )GetStdHandle ( STD_OUTPUT_HANDLE ), _O_TEXT );
                 FILE *hf = _fdopen ( hCrt, "w" );
 
                 *stdout = *hf;
                 int i = setvbuf ( stdout, NULL, _IONBF, 0 );
 
-				// Redirect stderr to the console.
+                // Redirect stderr to the console.
                 hCrt = _open_osfhandle ( ( intptr_t )GetStdHandle ( STD_ERROR_HANDLE ), _O_TEXT );
                 hf = _fdopen ( hCrt, "w" );
                 *stderr = *hf;
                 i = setvbuf ( stdout, NULL, _IONBF, 0 );
 
-				if ( _fillScreen )
-				{
-					char findWindowFlag[64];
-					sprintf ( findWindowFlag, "%s%08X", CC_LIB_NAME, (unsigned long)this );
-					RECT rect; CONSOLE_SCREEN_BUFFER_INFO csbi;
-					HWND consoleWindowHandle = NULL;
-					HANDLE consoleHandle = GetStdHandle ( STD_OUTPUT_HANDLE );
+                if ( _fillScreen )
+                {
+                    char findWindowFlag[64];
+                    sprintf ( findWindowFlag, "%s%08X", CC_LIB_NAME, (unsigned long)this );
+                    RECT rect; CONSOLE_SCREEN_BUFFER_INFO csbi;
+                    HWND consoleWindowHandle = NULL;
+                    HANDLE consoleHandle = GetStdHandle ( STD_OUTPUT_HANDLE );
 
-					// We need to know the console's maximum sizes.
-					GetConsoleScreenBufferInfo ( consoleHandle, &csbi );
+                    // We need to know the console's maximum sizes.
+                    GetConsoleScreenBufferInfo ( consoleHandle, &csbi );
 
-					// Set us up for the maximums.
-					csbi.srWindow.Right = csbi.dwMaximumWindowSize.X - 1;
-					csbi.srWindow.Bottom = csbi.dwMaximumWindowSize.Y - 1;
-					csbi.srWindow.Top = 0;
-					csbi.srWindow.Left = 0;
+                    // Set us up for the maximums.
+                    csbi.srWindow.Right = csbi.dwMaximumWindowSize.X - 1;
+                    csbi.srWindow.Bottom = csbi.dwMaximumWindowSize.Y - 1;
+                    csbi.srWindow.Top = 0;
+                    csbi.srWindow.Left = 0;
 
-					// Our console needs to fill the screen. It gets hairy after this.
-					SetConsoleWindowInfo ( consoleHandle, TRUE, &csbi.srWindow );
+                    // Our console needs to fill the screen. It gets hairy after this.
+                    SetConsoleWindowInfo ( consoleHandle, TRUE, &csbi.srWindow );
 
-					// We have to cheat to find the window, unfortunately...
-					SetTitle ( findWindowFlag );
-					Sleep ( 1 );
+                    // We have to cheat to find the window, unfortunately...
+                    SetTitle ( findWindowFlag );
+                    Sleep ( 1 );
 
-					// Try a few times to find the window or else bail out.
-					for ( int i = 0; i < 50 && !consoleWindowHandle; i++ )
-					{
-						consoleWindowHandle = FindWindowA ( NULL, findWindowFlag );
-						Sleep ( 10 );
-					}
+                    // Try a few times to find the window or else bail out.
+                    for ( int i = 0; i < 50 && !consoleWindowHandle; i++ )
+                    {
+                        consoleWindowHandle = FindWindowA ( NULL, findWindowFlag );
+                        Sleep ( 10 );
+                    }
 
-					if ( consoleWindowHandle )
-					{
-						if ( GetWindowRect ( consoleWindowHandle, &rect ) )
-							MoveWindow ( consoleWindowHandle, 0, 0, rect.right - rect.left, rect.bottom - rect.top - 16, TRUE );
+                    if ( consoleWindowHandle )
+                    {
+                        if ( GetWindowRect ( consoleWindowHandle, &rect ) )
+                            MoveWindow ( consoleWindowHandle, 0, 0, rect.right - rect.left, rect.bottom - rect.top - 16, TRUE );
 
                         // Windows API is kind of clunky and requires a bit of kicking to get it to work.
                         // In this case, we have to set the window to be topmost and then immediately after, not topmost, in order
                         // to bring the window to the top of the Zorder. Believe me, other methods work -sparingly-.
                         SetWindowPos ( consoleWindowHandle, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW );
                         SetWindowPos ( consoleWindowHandle, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW );
-					}
-				}
+                    }
+                }
             }
 
             if ( _clearOnInit ) Clear ();
