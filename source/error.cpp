@@ -146,11 +146,13 @@ namespace CrissCross
     const char *
     GetErrorDescription (CrissCross::Errors why)
     {
-        static char buffer[4096];
+#ifndef TARGET_OS_WINDOWS
+        static char buffer[128];
 
-        int retval = strerror_r ( why, buffer, 4096 );
+        int retval = strerror_r ( why, buffer, 128 );
         if ( retval == 0 )
             return buffer;
+#endif
 
         for (int i = 0; errmap[i].e != CC_ERR_NONE; ++i)
             if (why == errmap[i].e)
