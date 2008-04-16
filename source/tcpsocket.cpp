@@ -286,43 +286,8 @@ namespace CrissCross
             {
             case SOCKET_STATE_CONNECTING:
                 {
-                    struct timeval timeout;
-                    fd_set fd_r, fd_w;
-
-                    // Not sure what these do, but documentation mandates we use them.
-                    FD_ZERO ( &fd_r );
-                    FD_ZERO ( &fd_w );
-                    FD_SET ( m_sock, &fd_r );
-                    FD_SET ( m_sock, &fd_w );
-
-                    // We only take 0.001 seconds to check
-                    timeout.tv_sec         = 0;
-                    timeout.tv_usec        = 1000;
-
-                    CrissCross::Errors errbefore = GetError(), errafter = CC_ERR_NONE;
-
-                    // Let's select() to see what happens.
-                    int ret = select ( m_sock + 1, &fd_r, &fd_w, NULL, &timeout );
-
-					errafter = GetError();
-
-                    // ret < 0   is error
-                    // ret == 0  is in progress
-                    // ret > 0   is success
-                    if ( ret < 0 || ( errafter && errafter != errbefore && errafter != CC_ERR_EINPROGRESS && errafter != CC_ERR_TRY_AGAIN ) )
-                    {
-                        // Bugger. Operation timed out.
-                        m_state = SOCKET_STATE_ERROR;
-                    }
-                    else if ( ret == 0 )
-                    {
-                        // Keep going. No state change.
-                    }
-                    else
-                    {
-                        // Success!
+					if ( IsReadable() || IsWritable() )
                         m_state = SOCKET_STATE_CONNECTED;
-                    }
                 }
                 break;
             }

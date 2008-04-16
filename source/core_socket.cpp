@@ -217,7 +217,6 @@ namespace CrissCross
             int retsize = sizeof ( int ), ret = 0;
 
             retval = WSAGetLastError ();
-            WSASetLastError ( 0 );
 
             if ( retval == WSAEWOULDBLOCK || retval == 0 )
             {
@@ -275,6 +274,88 @@ namespace CrissCross
 #  endif
             sent = send ( m_sock, _data.c_str (), (int)_data.size (), 0 );
             return sent;
+        }
+
+        bool
+        CoreSocket::IsReadable() const
+        {
+            int ret;
+            fd_set read;
+            struct timeval timeout;
+
+            // We only take 0.001 seconds to check
+            timeout.tv_sec         = 0;
+            timeout.tv_usec        = 1000;
+
+            FD_ZERO(&read);
+            FD_SET(m_sock, &read);
+
+            CrissCross::Errors errbefore = GetError(), errafter = CC_ERR_NONE;
+
+            // Select to check if it's readable.
+            ret = select ( m_sock + 1, &read, NULL, NULL, &timeout );
+
+            errafter = GetError();
+
+            // ret < 0   is error
+            // ret == 0  is in progress
+            // ret > 0   is success
+            if ( ret < 0 || ( errafter && errafter != errbefore && errafter != CC_ERR_EINPROGRESS && errafter != CC_ERR_TRY_AGAIN ) )
+            {
+                // Bugger. Operation timed out.
+                m_state = SOCKET_STATE_ERROR;
+                return false;
+            }
+            else if ( ret == 0 )
+            {
+                // Keep going. No state change.
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        bool
+        CoreSocket::IsWritable() const
+        {
+            int ret;
+            fd_set write;
+            struct timeval timeout;
+
+            // We only take 0.001 seconds to check
+            timeout.tv_sec         = 0;
+            timeout.tv_usec        = 1000;
+
+            FD_ZERO(&write);
+            FD_SET(m_sock, &write);
+
+            CrissCross::Errors errbefore = GetError(), errafter = CC_ERR_NONE;
+
+            // Select to check if it's readable.
+            ret = select ( m_sock + 1, NULL, &write, NULL, &timeout );
+
+            errafter = GetError();
+
+            // ret < 0   is error
+            // ret == 0  is in progress
+            // ret > 0   is success
+            if ( ret < 0 || ( errafter && errafter != errbefore && errafter != CC_ERR_EINPROGRESS && errafter != CC_ERR_TRY_AGAIN ) )
+            {
+                // Bugger. Operation timed out.
+                m_state = SOCKET_STATE_ERROR;
+                return false;
+            }
+            else if ( ret == 0 )
+            {
+                // Keep going. No state change.
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         socketState
