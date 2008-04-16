@@ -74,7 +74,7 @@ protected:
             socketProtocol m_proto;
 
             //! Indicates the current state of m_sock.
-            socketState m_state;
+            mutable socketState m_state;
 
             //! Sets some important attributes on the socket.
             /*!
@@ -141,6 +141,26 @@ public:
              \return CoreSocket::m_sock
              */
             socket_t GetSocket ();
+
+            //! Determines whether the socket is ready for a Read operation.
+            /*!
+             \return True if the socket is writable, false otherwise.
+             \warning If the return value is false, check the return value of State()
+             to make sure that the socket hasn't entered an error state.
+             \sa State
+             \sa CrissCross::Network::socketState
+             */
+            virtual bool IsReadable () const;
+
+            //! Determines whether the socket is ready for a Read operation.
+            /*!
+             \return True if the socket is writable, false otherwise.
+             \warning If the return value is false, check the return value of State()
+             to make sure that the socket hasn't entered an error state.
+             \sa State
+             \sa CrissCross::Network::socketState
+             */
+            virtual bool IsWritable () const;
 
             //! Fetch the state of the socket.
             /*!
