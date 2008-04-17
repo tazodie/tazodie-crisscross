@@ -19,6 +19,8 @@
 	<Configurations>
 		<Configuration
 			Name="Release|Win32"
+			OutputDirectory="$(ProjectDir)/../bin/$(ProjectFileName)/$(PlatformName)/$(ConfigurationName)"
+			IntermediateDirectory="$(ProjectDir)/../obj/$(ProjectFileName)/$(PlatformName)/$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\Common.vsprops"
 			UseOfMFC="0"
@@ -181,6 +183,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
+			OutputDirectory="$(ProjectDir)/../bin/$(ProjectFileName)/$(PlatformName)/$(ConfigurationName)"
+			IntermediateDirectory="$(ProjectDir)/../obj/$(ProjectFileName)/$(PlatformName)/$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\Common.vsprops"
 			UseOfMFC="0"
@@ -216,7 +220,7 @@
 				AdditionalIncludeDirectories="."
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
-				ExceptionHandling="2"
+				ExceptionHandling="0"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				BufferSecurityCheck="false"
