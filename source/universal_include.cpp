@@ -47,13 +47,13 @@ ParseMemoryLeakFile ( const char *_inputFilename,
     // Open the file and start parsing
     //
 
-    std::ifstream memoryfile ( _inputFilename );
+    FILE *memoryfile = fopen ( _inputFilename, "rb" );
 
-    while ( !memoryfile.eof () && !memoryfile.fail () )
+    while ( memoryfile && !feof ( memoryfile ) )
     {
         char thisline[1024];
 
-        memoryfile.getline ( thisline, 1024 );
+        fgets ( thisline, 1024, memoryfile );
 
         if ( !strncmp ( thisline, " Data:", 6 ) == 0 ) // This line is a data line - useless to us
         {
@@ -113,7 +113,7 @@ ParseMemoryLeakFile ( const char *_inputFilename,
         }
     }
 
-    memoryfile.close ();
+    fclose ( memoryfile );
 
 
     //
@@ -234,10 +234,12 @@ AppPrintMemoryLeaks ( char *_filename )
                             &ofstruct,
                             OF_CREATE );
 
+    CoreAssert ( file );
+
     _CrtSetReportMode ( _CRT_WARN, _CRTDBG_MODE_FILE );
     _CrtSetReportFile ( _CRT_WARN, ( _HFILE )file );
 
-    _CrtDumpMemoryLeaks ();
+    BOOL memLeakFound = _CrtDumpMemoryLeaks ();
 #  ifdef ENABLE_MEMLEAK_STATS
     _CrtMemDifference ( &s3, &s1, &s2 );
     _CrtMemDumpStatistics ( &s3 );
@@ -249,7 +251,8 @@ AppPrintMemoryLeaks ( char *_filename )
     //
     // Parse the temp file into a sensible format
 
-    ParseMemoryLeakFile ( tmpFilename, _filename );
+    if ( memLeakFound )
+        ParseMemoryLeakFile ( tmpFilename, _filename );
 
 
 
