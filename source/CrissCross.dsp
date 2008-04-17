@@ -282,6 +282,31 @@ SOURCE=.\universal_include.cpp
 # Begin Source File
 
 SOURCE=.\crisscross\universal_include.h
+
+!IF  "$(CFG)" == "CrissCross - Win32 Release"
+
+# Begin Custom Build - Generating build number...
+ProjDir=.
+InputPath=.\crisscross\universal_include.h
+
+"$(ProjDir)\crisscross\build_number.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	$(ProjDir)\..\tools\GenerateBuildNumber.exe $(ProjDir)\crisscross
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "CrissCross - Win32 Debug"
+
+# Begin Custom Build - Generating build number...
+ProjDir=.
+InputPath=.\crisscross\universal_include.h
+
+"$(ProjDir)\crisscross\build_number.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	$(ProjDir)\..\tools\GenerateBuildNumber.exe $(ProjDir)\crisscross
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # End Group
 # Begin Group "IO"
