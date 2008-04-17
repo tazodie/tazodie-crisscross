@@ -231,7 +231,12 @@ typedef long intptr_t;
 #  include <sstream>
 #endif
 
-__inline char *cc_strdup(const char *x) throw() {return strcpy((char *)malloc(strlen(x)+1),x);}
+__inline char *cc_strdup(const char *x) {
+	if ( !x ) return NULL;
+	char *dup = (char *)malloc ( strlen ( x ) + 1 );
+	if ( !dup ) return NULL;
+	return strcpy ( dup, x );
+}
 
 #define cc_min(x,y) ( (x < y) ? x : y )
 #define cc_max(x,y) ( (x > y) ? x : y )

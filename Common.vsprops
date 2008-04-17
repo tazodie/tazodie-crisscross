@@ -14,6 +14,7 @@
 	/>
 	<Tool
 		Name="VCLinkerTool"
+		GenerateDebugInformation="true"
 		SubSystem="2"
 	/>
 </VisualStudioPropertySheet>
