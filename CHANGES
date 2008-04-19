@@ -1,5 +1,6 @@
 VERSION ??? (r???)
 	* Corrected a dangerous bug with the strdup macro.
+	* Now support for Xterm window creation with the Console class.
 
 VERSION 0.7.0 (r684)
 	* Added several checksum methods:
