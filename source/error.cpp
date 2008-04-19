@@ -148,9 +148,9 @@ namespace CrissCross
     {
 #ifndef TARGET_OS_WINDOWS
         static char buffer[128];
-
-        int retval = strerror_r ( why, buffer, 128 );
-        if ( retval == 0 )
+		memset ( buffer, 0, sizeof(buffer) );
+        strerror_r ( why, buffer, 128 );
+        if ( strlen(buffer) )
             return buffer;
 #endif
 

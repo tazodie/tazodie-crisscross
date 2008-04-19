@@ -289,6 +289,7 @@ namespace CrissCross
 					if ( IsReadable() || IsWritable() )
                         m_state = SOCKET_STATE_CONNECTED;
                 }
+            default:
                 break;
             }
         }
