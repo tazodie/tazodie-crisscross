@@ -189,6 +189,7 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #    include <cxxabi.h>
 #  endif
 #  include <pthread.h>
+#  include <sys/fcntl.h>
 #  include <sys/types.h>
 #  include <unistd.h>
 #  include <errno.h>

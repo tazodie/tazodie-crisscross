@@ -13,19 +13,26 @@
 #include <crisscross/debug.h>
 #include <crisscross/console.h>
 
+#ifndef TARGET_OS_WINDOWS
+#  include <sys/ioctl.h>
+#  include <sys/wait.h>
+#  include <fcntl.h>
+#  include <signal.h>
+#endif
+
 namespace CrissCross
 {
     namespace IO
     {
         Console::Console ( bool _clearOnInit, bool _fillScreen )
           : CoreIOWriter ( stdout, false, CC_LN_LF ),
-            CoreIOReader ( stdin, false, CC_LN_LF )
+            CoreIOReader ( stdin, false, CC_LN_LF ),
+            m_consoleAllocated ( false )
         {
+        	AllocateConsole();
 #ifdef TARGET_OS_WINDOWS
-            m_consoleAllocated = false;
-            if ( AllocConsole () == TRUE )
+            if ( m_consoleAllocated )
             {
-                m_consoleAllocated = true;
 
                 // Redirect stdout to the console.
                 int hCrt = _open_osfhandle ( ( intptr_t )GetStdHandle ( STD_OUTPUT_HANDLE ), _O_TEXT );
@@ -84,20 +91,26 @@ namespace CrissCross
                     }
                 }
             }
-
+#elif defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_FREEBSD ) || \
+      defined ( TARGET_OS_OPENBSD ) || defined ( TARGE_OS_NETBSD )
+			if ( m_consoleAllocated )
+			{
+				freopen ( m_slaveName, "w", stdout );
+				freopen ( m_slaveName, "w", stderr );
+			}
+			if ( _fillScreen )
+			{
+				// Set position
+				Write ( "\033[3;0;0;t" );
+				
+				// Set size
+				Write ( "\033[8;60;150;t" );
+			}
+#endif
             if ( _clearOnInit ) Clear ();
 
             SetTitle ( CC_LIB_NAME " " CC_LIB_VERSION );
-#elif defined ( TARGET_OS_NDSFIRMWARE )
-            irqInit ();
-            irqEnable (IRQ_VBLANK);
-            videoSetMode (MODE_0_2D);
-            videoSetModeSub (MODE_0_2D | DISPLAY_BG0_ACTIVE);
-            vramSetBankC (VRAM_C_SUB_BG);
-            SUB_BG0_CR = BG_MAP_BASE (31);
-            BG_PALETTE_SUB[255] = RGB15 (31,31,31);
-            consoleInitDefault ((u16*)SCREEN_BASE_BLOCK_SUB (31), (u16*)CHAR_BASE_BLOCK_SUB (0), 16);
-#endif
+
 #ifdef ENABLE_CREDITS
 #  if defined ( TARGET_OS_NDSFIRMWARE )
             g_stdout->SetColour ( g_stdout->FG_GREEN | g_stdout->FG_INTENSITY );
@@ -125,7 +138,84 @@ namespace CrissCross
             SetColour ( 0 );
 #ifdef TARGET_OS_WINDOWS
             if ( m_consoleAllocated ) FreeConsole ();
+#elif defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_FREEBSD ) || \
+      defined ( TARGET_OS_OPENBSD ) || defined ( TARGE_OS_NETBSD )
+			if ( m_consoleAllocated )
+			{
+				kill ( m_childPID, SIGTERM );
+				wait (0);
+			}
 #endif
+        }
+        
+        bool
+        Console::AllocateConsole ()
+        {
+#ifdef TARGET_OS_WINDOWS
+			m_consoleAllocated = ( AllocConsole() == TRUE );
+#elif defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_FREEBSD ) || \
+      defined ( TARGET_OS_OPENBSD ) || defined ( TARGE_OS_NETBSD )
+			/* BSD-style pty code. */
+			char buf[64];
+			const char *ptymajors = "pqrstuvwxyzabcdefghijklmnoABCDEFGHIJKLMNOPQRSTUVWXYZ";
+			const char *ptyminors = "0123456789abcdef";
+			int num_minors = strlen(ptyminors);
+			int num_ptys = strlen(ptymajors) * num_minors;
+			
+			for ( int i = 0; i < num_ptys; i++ ) {
+				sprintf ( buf, "/dev/pty%c%c", ptymajors[i / num_minors], ptyminors[i % num_minors] );
+				m_ptyfd = open(buf, O_RDWR | O_NOCTTY);
+				if ( m_ptyfd < 0 )
+					continue;
+				sprintf ( m_slaveName, "/dev/tty%c%c", ptymajors[i / num_minors], ptyminors[i % num_minors] );
+				
+				/* Open the slave side. */
+				m_ttyfd = open ( m_slaveName, O_RDWR | O_NOCTTY );
+				if ( m_ttyfd < 0 ) {
+					close ( m_ptyfd );
+					break;
+				}
+				m_consoleAllocated = true;
+				break;
+			}
+			
+			if ( m_consoleAllocated )
+			{
+				m_childPID = fork();
+				if ( m_childPID == -1 )
+				{
+					m_consoleAllocated = false;
+					close ( m_ttyfd );
+					close ( m_ptyfd );
+					return m_consoleAllocated;
+				}
+				if ( m_childPID == 0 )
+				{
+					/* child */
+					close ( m_ttyfd );
+					char call[128];
+					char *pt = &m_slaveName[strlen(m_slaveName)-1];
+					const char *xterm = "/usr/X11/bin/xterm";
+					sprintf ( call, "-S%s/%d", pt, m_ptyfd );
+					execl ( xterm, xterm, "-bg", "black", "-fg", "white", "-geometry", "132x50", call, NULL );
+					exit(0);
+				} else {
+					/* master */
+					close ( m_ptyfd );
+				}
+			}
+#elif defined ( TARGET_OS_NDSFIRMWARE )
+            irqInit ();
+            irqEnable (IRQ_VBLANK);
+            videoSetMode (MODE_0_2D);
+            videoSetModeSub (MODE_0_2D | DISPLAY_BG0_ACTIVE);
+            vramSetBankC (VRAM_C_SUB_BG);
+            SUB_BG0_CR = BG_MAP_BASE (31);
+            BG_PALETTE_SUB[255] = RGB15 (31,31,31);
+            consoleInitDefault ((u16*)SCREEN_BASE_BLOCK_SUB (31), (u16*)CHAR_BASE_BLOCK_SUB (0), 16);
+            m_consoleAllocated = true;
+#endif
+			return m_consoleAllocated;
         }
 
         void
@@ -222,6 +312,10 @@ namespace CrissCross
         {
 #ifdef TARGET_OS_WINDOWS
             SetConsoleTitleA ( _title );
+#else
+			char buffer[4096];
+			sprintf ( buffer, "\033]2;%s\007", _title );
+			Write ( buffer );
 #endif
         }
 

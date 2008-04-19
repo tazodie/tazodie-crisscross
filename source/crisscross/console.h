@@ -22,9 +22,15 @@ namespace CrissCross
         class Console : public CoreIOWriter, public CoreIOReader
         {
 protected:
-#ifdef TARGET_OS_WINDOWS
             bool m_consoleAllocated;
+#if defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_FREEBSD ) || \
+      defined ( TARGET_OS_OPENBSD ) || defined ( TARGE_OS_NETBSD )
+			int m_ptyfd;
+			int m_ttyfd;
+			char m_slaveName[32];
+			pid_t m_childPID;
 #endif
+			bool AllocateConsole();
 public:
 
             //! Flags used for describing console colour output.
@@ -71,9 +77,9 @@ public:
 
             //! The default constructor.
             /*!
-                                Allocates a new console for stdout and stderr output.
+             Allocates a new console for stdout and stderr output.
              \param _clearOnInit If true, clears the output console if supported.
-             \param _fillScreen On Windows machines, this moves the console window to the extreme left and switches to the maximum possible window height.
+             \param _fillScreen This moves the console window to the extreme left and switches to the maximum possible window height.
              */
             Console ( bool _clearOnInit = false, bool _fillScreen = false );
 
@@ -99,14 +105,14 @@ public:
              */
             void SetColour ( int _flags );
 
-            //! Sets the title of the console window (Windows only).
+            //! Sets the title of the terminal window.
             /*!
                Sets the console window title using the value in the _title parameter.
              \param _title The title requested for the console window.
              */
             void SetTitle ( const char *_title );
 
-            //! Sets the title of the console window (Windows only).
+            //! Sets the title of the terminal window.
             /*!
                Sets the console window title using the value in the _title parameter.
              \param _title The title requested for the console window.
