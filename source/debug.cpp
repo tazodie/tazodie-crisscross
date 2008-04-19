@@ -69,10 +69,10 @@ SymbolEngine::~SymbolEngine ()
 
 std::string SymbolEngine::addressToString ( DWORD address )
 {
-    std::ostringstream oss;
+    char buffer[4096];
 
     // First the raw address
-    oss << "0x" << std::hex << std::setw(8) << std::setfill ('0') << ( PVOID )address << std::dec << std::setfill(' ');
+	sprintf ( buffer, "0x%08x", address );
 
     // Then any name for the symbol
     struct tagSymInfo
@@ -94,7 +94,8 @@ std::string SymbolEngine::addressToString ( DWORD address )
          ( GetCurrentProcess (), ( DWORD )address, &dwDisplacement,
            pSym ) )
     {
-        oss << " " << pSym->Name;
+		strcat ( buffer, " " );
+		strcat ( buffer, pSym->Name );
         /*if ( dwDisplacement != 0 )
            oss << "+0x" << std::hex << dwDisplacement << std::dec; */
     }
@@ -107,13 +108,12 @@ std::string SymbolEngine::addressToString ( DWORD address )
            &lineInfo ) )
     {
         const char *pDelim = strrchr ( lineInfo.FileName, '\\' );
-
-        oss << " at " << ( pDelim ? pDelim +
-                           1 : lineInfo.FileName ) << "(" << lineInfo.
-        LineNumber << ")";
+		char temp[1024];
+		sprintf ( temp, " at %s(%u)", ( pDelim ? pDelim + 1 : lineInfo.FileName ), lineInfo.LineNumber );
+		strcat ( buffer, temp );
     }
 
-    return oss.str ();
+	return std::string(buffer);
 }
 
 void
