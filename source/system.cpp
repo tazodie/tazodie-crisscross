@@ -17,10 +17,12 @@ namespace CrissCross
 {
     namespace System
     {
+		static long holdrand = 1L;
+
     #if defined ( TARGET_OS_WINDOWS )
 
         //! The result of QueryPerformanceFrequency(). (Windows only)
-        double __m_tickInterval;
+        static double __m_tickInterval;
 
     #elif defined ( TARGET_OS_MACOSX )
 
@@ -121,16 +123,16 @@ namespace CrissCross
         int
         RandomNumber ()
         {
-            return rand ();
+            return (((holdrand = holdrand * 214013L + 2531011L) >> 16) & 0x7fff);
         }
 
         void
         SeedRandom ()
         {
 #if defined ( TARGET_OS_WINDOWS )
-            srand ( GetTickCount () );
+            holdrand = GetTickCount();
 #else
-            srand ( time (NULL) );
+            holdrand = time ( NULL );
 #endif
         }
     }
