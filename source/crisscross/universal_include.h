@@ -139,7 +139,7 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #  if _MSC_VER > 1200 && _MSC_VER < 1400
 #    pragma warning ( disable : 4345 4100 4800 )
 #  endif
-#  if _MSC_VER <= 1100
+#  if _MSC_VER <= 1200
 #    undef DETECT_MEMORY_LEAKS
 #  endif
 #  if defined ( _DEBUG )
@@ -156,6 +156,7 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #  include <winsock2.h>
 #  include <mstcpip.h>
 #  include <windows.h>
+#  include <crtdbg.h>
 #  if defined ( ENABLE_SYMBOL_ENGINE )
 #    include <dbghelp.h>
 #    pragma comment (lib, "dbghelp.lib")
@@ -252,7 +253,6 @@ extern "C" __int64 __cdecl _ftelli64 (FILE *);
 #if defined ( TARGET_OS_WINDOWS )
 #  if defined ( DETECT_MEMORY_LEAKS )
 #    ifndef _DBG_NEW
-#      include <crtdbg.h>
 inline void *
 __operator_new ( size_t __n )
 {

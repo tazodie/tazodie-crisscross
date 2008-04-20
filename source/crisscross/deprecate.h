@@ -19,8 +19,10 @@
 #elif defined ( TARGET_COMPILER_VC )
 #  if _MSC_FULL_VER >= 140050320
 #    define _CC_DEPRECATE_TEXT(_Text) __declspec (deprecated (_Text))
-#  else
+#  elif _MSC_VER > 1200
 #    define _CC_DEPRECATE_TEXT(_Text) __declspec (deprecated)
+#  else
+#    define _CC_DEPRECATE_TEXT(_Text)
 #  endif
 #else
 #  define _CC_DEPRECATE_TEXT(_Text)
