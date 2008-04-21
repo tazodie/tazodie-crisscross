@@ -12,6 +12,8 @@
 #ifndef __included_cc_shellsort_h
 #define __included_cc_shellsort_h
 
+#ifdef ENABLE_SORTS
+
 #include <crisscross/sort.h>
 
 namespace CrissCross
@@ -52,5 +54,7 @@ public:
         };
     }
 }
+
+#endif
 
 #endif

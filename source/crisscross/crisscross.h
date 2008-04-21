@@ -16,7 +16,9 @@
 
 #include <crisscross/deprecate.h>
 #include <crisscross/datatypes.h>
-#include <crisscross/sort.h>
+#ifdef ENABLE_SORTS
+#  include <crisscross/sort.h>
+#endif
 #include <crisscross/dstack.h>
 #include <crisscross/darray.h>
 #include <crisscross/llist.h>
@@ -39,13 +41,15 @@
 #include <crisscross/mutex.h>
 #include <crisscross/stopwatch.h>
 #include <crisscross/system.h>
-#include <crisscross/md2.h>
-#include <crisscross/md4.h>
-#include <crisscross/md5.h>
-#include <crisscross/sha1.h>
-#include <crisscross/sha256.h>
-#include <crisscross/sha512.h>
-#include <crisscross/tiger.h>
+#ifdef ENABLE_HASHES
+#  include <crisscross/md2.h>
+#  include <crisscross/md4.h>
+#  include <crisscross/md5.h>
+#  include <crisscross/sha1.h>
+#  include <crisscross/sha256.h>
+#  include <crisscross/sha512.h>
+#  include <crisscross/tiger.h>
+#endif
 #include <crisscross/version.h>
 
 #endif

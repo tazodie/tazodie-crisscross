@@ -12,6 +12,8 @@
 #ifndef __included_cc_md2_h
 #define __included_cc_md2_h
 
+#ifdef ENABLE_HASHES
+
 #include <crisscross/deprecate.h>
 
 #define MD2_DIGEST_LENGTH       16
@@ -109,5 +111,7 @@ public:
         };
     }
 }
+
+#endif
 
 #endif

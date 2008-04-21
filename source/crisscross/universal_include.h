@@ -50,6 +50,8 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 
 // Disabling these will save space but limit functionality.
 #define ENABLE_CPUID
+#define ENABLE_HASHES
+#define ENABLE_SORTS
 #define ENABLE_CRASHREPORTS // Enables XCrashReports on Windows.
 
 // Enables non-blocking sockets.

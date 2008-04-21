@@ -183,6 +183,7 @@ public:
              */
             T const & operator [] ( size_t _index ) const;
 
+#ifdef ENABLE_SORTS
             //! Sorts the array using the provided method.
             /*!
              \param _sortMethod The method to sort with.
@@ -194,6 +195,7 @@ public:
              \param _sortMethod The method to sort with.
              */
             void sort ( CrissCross::Data::Sorter<T> &_sortMethod );
+#endif
 
             //! Returns the memory usage of the list and its nodes.
             /*!

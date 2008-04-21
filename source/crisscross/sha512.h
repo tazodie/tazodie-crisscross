@@ -12,6 +12,8 @@
 #ifndef __included_cc_sha512_h
 #define __included_cc_sha512_h
 
+#ifdef ENABLE_HASHES
+
 #include <crisscross/deprecate.h>
 
 #define SHA512_DIGEST_SIZE ( 512 / 8 )
@@ -111,5 +113,7 @@ public:
         };
     }
 }
+
+#endif
 
 #endif
