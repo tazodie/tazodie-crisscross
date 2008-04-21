@@ -12,6 +12,8 @@
 #ifndef __included_cc_combsort_h
 #define __included_cc_combsort_h
 
+#ifdef ENABLE_SORTS
+
 #include <crisscross/sort.h>
 
 namespace CrissCross
@@ -63,5 +65,7 @@ public:
         };
     }
 }
+
+#endif
 
 #endif

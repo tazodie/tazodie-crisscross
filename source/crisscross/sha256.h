@@ -12,6 +12,8 @@
 #ifndef __included_cc_sha256_h
 #define __included_cc_sha256_h
 
+#ifdef ENABLE_HASHES
+
 #define SHA256_DIGEST_SIZE ( 256 / 8 )
 #define SHA256_BLOCK_SIZE  ( 512 / 8 )
 
@@ -103,5 +105,7 @@ public:
         };
     }
 }
+
+#endif
 
 #endif

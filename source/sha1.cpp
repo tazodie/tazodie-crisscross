@@ -11,6 +11,8 @@
 
 #include <crisscross/universal_include.h>
 
+#ifdef ENABLE_HASHES
+
 #include <crisscross/core_io_reader.h>
 #include <crisscross/sha1.h>
 
@@ -257,3 +259,5 @@ namespace CrissCross
         }
     }
 }
+
+#endif

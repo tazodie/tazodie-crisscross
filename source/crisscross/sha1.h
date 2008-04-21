@@ -12,6 +12,8 @@
 #ifndef __included_cc_sha1_h
 #define __included_cc_sha1_h
 
+#ifdef ENABLE_HASHES
+
 #define SHA1_DIGEST_SIZE 20
 
 //@cond
@@ -101,5 +103,7 @@ public:
         };
     }
 }
+
+#endif
 
 #endif

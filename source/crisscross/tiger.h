@@ -12,6 +12,8 @@
 #ifndef __included_cc_tiger_h
 #define __included_cc_tiger_h
 
+#ifdef ENABLE_HASHES
+
 #include <crisscross/deprecate.h>
 
 #define TIGER_DIGEST_SIZE 24
@@ -113,5 +115,7 @@ public:
         };
     }
 }
+
+#endif
 
 #endif

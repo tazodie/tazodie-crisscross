@@ -12,6 +12,8 @@
 #ifndef __included_cc_sort_h
 #define __included_cc_sort_h
 
+#ifdef ENABLE_SORTS
+
 #include <crisscross/deprecate.h>
 #include <crisscross/compare.h>
 
@@ -66,5 +68,7 @@ public:
 
 #define FastestSort                ShellSort
 #define MemoryEfficientSort        HeapSort
+
+#endif
 
 #endif

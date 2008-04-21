@@ -12,6 +12,8 @@
 #ifndef __included_cc_md5_h
 #define __included_cc_md5_h
 
+#ifdef ENABLE_HASHES
+
 #define MD5_DIGEST_LENGTH       16
 
 /* MD5 context. */
@@ -111,5 +113,7 @@ public:
         };
     }
 }
+
+#endif
 
 #endif
