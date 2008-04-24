@@ -17,8 +17,8 @@ PREFIX =
 endif
 
 ifneq ($(BUILDFORNDS),1)
-CXX = $(PREFIX)g++43
-CC = $(PREFIX)gcc43
+CXX = $(PREFIX)g++
+CC = $(PREFIX)gcc
 AR = $(PREFIX)ar
 RANLIB = $(PREFIX)ranlib
 NM = $(PREFIX)nm
