@@ -24,7 +24,7 @@ namespace CrissCross
 protected:
             bool m_consoleAllocated;
 #if defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_FREEBSD ) || \
-      defined ( TARGET_OS_OPENBSD ) || defined ( TARGE_OS_NETBSD )
+      defined ( TARGET_OS_OPENBSD ) || defined ( TARGET_OS_NETBSD )
 			int m_ptyfd;
 			int m_ttyfd;
 			char m_slaveName[32];
