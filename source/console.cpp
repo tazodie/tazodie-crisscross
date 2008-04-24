@@ -92,7 +92,7 @@ namespace CrissCross
                 }
             }
 #elif defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_FREEBSD ) || \
-      defined ( TARGET_OS_OPENBSD ) || defined ( TARGE_OS_NETBSD )
+      defined ( TARGET_OS_OPENBSD ) || defined ( TARGET_OS_NETBSD )
 			if ( m_consoleAllocated )
 			{
 				freopen ( m_slaveName, "w", stdout );
@@ -139,7 +139,7 @@ namespace CrissCross
 #ifdef TARGET_OS_WINDOWS
             if ( m_consoleAllocated ) FreeConsole ();
 #elif defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_FREEBSD ) || \
-      defined ( TARGET_OS_OPENBSD ) || defined ( TARGE_OS_NETBSD )
+      defined ( TARGET_OS_OPENBSD ) || defined ( TARGET_OS_NETBSD )
 			if ( m_consoleAllocated )
 			{
 				kill ( m_childPID, SIGTERM );
@@ -154,7 +154,7 @@ namespace CrissCross
 #ifdef TARGET_OS_WINDOWS
 			m_consoleAllocated = ( AllocConsole() == TRUE );
 #elif defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_FREEBSD ) || \
-      defined ( TARGET_OS_OPENBSD ) || defined ( TARGE_OS_NETBSD )
+      defined ( TARGET_OS_OPENBSD ) || defined ( TARGET_OS_NETBSD )
 			/* BSD-style pty code. */
 			char buf[64];
 			const char *ptymajors = "pqrstuvwxyzabcdefghijklmnoABCDEFGHIJKLMNOPQRSTUVWXYZ";
