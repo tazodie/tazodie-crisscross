@@ -88,7 +88,8 @@ namespace CrissCross
 #  ifdef TARGET_OS_WINDOWS
             lastpos = _ftelli64 ( m_fileInputPointer );
             return lastpos;
-#  elif defined ( TARGET_OS_MACOSX )
+#  elif defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_NETBSD ) || \
+        defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_OPENBSD )
             fgetpos ( m_fileInputPointer, &lastpos );
             return lastpos;
 #  else
@@ -120,7 +121,8 @@ namespace CrissCross
             _fseeki64 ( m_fileInputPointer, 0, SEEK_END );
             endpos = _ftelli64 ( m_fileInputPointer );
             _fseeki64 ( m_fileInputPointer, lastpos, SEEK_SET );
-#  elif defined ( TARGET_OS_MACOSX )
+#  elif defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_NETBSD ) || \
+        defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_OPENBSD )
             fgetpos ( m_fileInputPointer, &lastpos );
             fseek ( m_fileInputPointer, 0, SEEK_END );
             fgetpos ( m_fileInputPointer, &endpos );
@@ -277,7 +279,8 @@ namespace CrissCross
 #ifdef HAS_FPOS64
 #  ifdef TARGET_OS_WINDOWS
             int res = _fseeki64 ( m_fileInputPointer, _position, _origin );
-#  elif defined ( TARGET_OS_MACOSX )
+#  elif defined ( TARGET_OS_MACOSX ) || defined ( TARGET_OS_NETBSD ) || \
+        defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_OPENBSD )
             int res = fseek ( m_fileInputPointer, _position, _origin );
 #  else
             int res = fseeko64 ( m_fileInputPointer, _position, _origin );

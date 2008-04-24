@@ -49,7 +49,7 @@ protected:
             size_t m_size;
 
             //! Result of tree operation
-            typedef enum Result
+            typedef enum
             {
                 //! None of the subtrees has grown in height, entire tree is still balanced
                 OK,
@@ -59,7 +59,7 @@ protected:
 
                 //! Error
                 INVALID
-            };
+            } Result;
 
             //! Rotate tree left
             /*!
