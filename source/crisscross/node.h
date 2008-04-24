@@ -76,7 +76,7 @@ public:
         };
 
         //! The current balance status of a node
-        typedef enum AVLBalance
+        typedef enum
         {
             //! The left side of the tree is heaviest.
             LEFTHEAVY,
@@ -86,7 +86,7 @@ public:
 
             //! The right side of the tree is heaviest.
             RIGHTHEAVY
-        };
+        } AVLBalance;
 
         //! A binary tree node used for AVLTree.
         template <class Key, class Data>
