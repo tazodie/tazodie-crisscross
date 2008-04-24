@@ -226,6 +226,9 @@ typedef long intptr_t;
 #endif
 #ifdef __cplusplus
 #  include <exception>
+#  include <functional>
+#  include <queue>
+#  include <vector>
 #  include <iostream>
 #  include <iomanip>
 #  include <istream>
