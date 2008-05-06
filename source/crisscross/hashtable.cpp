@@ -15,7 +15,7 @@
 
 #include <crisscross/stopwatch.h>
 
-#define HASH_TABLE_FILL_THRESHHOLD 50.0
+#define HASH_TABLE_FILL_THRESHHOLD 75.0
 #define HASH_TABLE_SIZE_MAGNITUDE 2
 
 namespace CrissCross
