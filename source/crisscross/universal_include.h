@@ -19,7 +19,7 @@
 #include <crisscross/build_number.h>
 
 #ifndef SDL_APPLICATION
-//#  define SDL_APPLICATION // Define if your application uses SDLmain.
+#  define SDL_APPLICATION // Define if your application uses SDLmain.
 #endif
 
 #define CC_LIB_NAME                "CrissCross"
@@ -63,7 +63,7 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #define ENABLE_CREDITS
 
 // Sorry, this is Windows-only... (Use Valgrind on Linux)
-#define DETECT_MEMORY_LEAKS
+//#define DETECT_MEMORY_LEAKS
 
 // Don't use it. It doesn't do anything except potentially screw up memory leak detection.
 //# define ENABLE_MEMLEAK_STATS
