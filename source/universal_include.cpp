@@ -326,5 +326,11 @@ extern "C" {
     {
         return CrissCrossInitialize (argc,argv);
     }
+#ifdef TARGET_OS_LINUX
+    int main ( int argc, char **argv )
+    {
+        return CrissCrossInitialize (argc,argv);
+    }
+#endif
 }
 #endif
