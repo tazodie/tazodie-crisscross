@@ -109,7 +109,8 @@ namespace CrissCross
             {
                 // Hmm. The data isn't at the location it should be.
                 size_t collisionNum = 0, attempts = 0;
-                while ( m_keys[pos] && strcmp ( m_keys[pos], _key ) != 0 )
+
+                while ( !m_keys[pos] || strcmp ( m_keys[pos], _key ) != 0 )
                 {
                     pos += 2 * ++collisionNum - 1;
                     if ( pos >= m_size )
@@ -119,8 +120,10 @@ namespace CrissCross
                     if ( attempts > 128 )
                         return 0; // Kills us if something's seriously wrong
                 }
-				if ( !m_keys[pos] )
-					return 0;
+
+                //if ( !m_keys[pos] )
+                //    return 0;
+
                 m_hits++;
 
                 CoreAssert ( pos < m_size );

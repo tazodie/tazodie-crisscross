@@ -14,6 +14,10 @@
 #include <crisscross/llist.h>
 #include <crisscross/debug.h>
 
+#ifdef SDL_APPLICATION
+#include <SDL/SDL.h>
+#endif
+
 using namespace std;
 using namespace CrissCross::Data;
 using namespace CrissCross::Debug;
@@ -268,19 +272,15 @@ AppPrintMemoryLeaks ( char *_filename )
 }
 #endif
 
-#ifdef SDL_APPLICATION
-int CrissCrossInitialize ( int argc, char **argv )
+#ifndef TARGET_OS_WINDOWS
+int main ( int argc, char **argv )
 #else
-        #  ifndef TARGET_OS_WINDOWS
+#  ifndef _WINDOWS
 int main ( int argc, char **argv )
-        #  else
-#    ifndef _WINDOWS
-int main ( int argc, char **argv )
-#    else
+#  else
 int WINAPI WinMain (HINSTANCE _hInstance, HINSTANCE _hPrevInstance,
                     LPSTR _cmdLine, int _iCmdShow)
-#    endif
-        #  endif
+#  endif
 #endif
 {
     int retval = 0;
@@ -319,18 +319,3 @@ int WINAPI WinMain (HINSTANCE _hInstance, HINSTANCE _hPrevInstance,
 
     return retval;
 }
-
-#ifdef SDL_APPLICATION
-extern "C" {
-    int SDL_main ( int argc, char **argv )
-    {
-        return CrissCrossInitialize (argc,argv);
-    }
-#ifdef TARGET_OS_LINUX
-    int main ( int argc, char **argv )
-    {
-        return CrissCrossInitialize (argc,argv);
-    }
-#endif
-}
-#endif
