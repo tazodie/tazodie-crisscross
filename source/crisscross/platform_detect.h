@@ -90,20 +90,20 @@
 #  endif
 #endif
 
-/* Intel x86 */
-#if !defined ( PROCESSOR_DETECTED )
-#  if defined ( __i386__ ) || defined ( __i386 ) || defined ( i386 ) || defined ( _X86_ ) || defined ( _M_IX86 )
-#    define PROCESSOR_DETECTED
-#    define TARGET_CPU_X86
-#    define TARGET_LITTLE_ENDIAN
-#  endif
-#endif
-
 /* x64/AMD64 */
 #if !defined ( PROCESSOR_DETECTED )
 #  if defined ( __x86_64__ ) || defined ( __x86_64 ) || defined ( __amd64 ) || defined ( __amd64__ ) || defined ( _AMD64_ ) || defined ( _M_X64 )
 #    define PROCESSOR_DETECTED
 #    define TARGET_CPU_X64
+#    define TARGET_LITTLE_ENDIAN
+#  endif
+#endif
+
+/* Intel x86 */
+#if !defined ( PROCESSOR_DETECTED )
+#  if defined ( __i386__ ) || defined ( __i386 ) || defined ( i386 ) || defined ( _X86_ ) || defined ( _M_IX86 )
+#    define PROCESSOR_DETECTED
+#    define TARGET_CPU_X86
 #    define TARGET_LITTLE_ENDIAN
 #  endif
 #endif
