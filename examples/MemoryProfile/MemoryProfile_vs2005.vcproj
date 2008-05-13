@@ -111,9 +111,9 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="Copying dataset to the target directory"
-				CommandLine="copy $(ProjectDir)\dataset $(TargetDir)\&#x0D;&#x0A;"
-				Outputs="$(TargetDir)\dataset"
+				Description=""
+				CommandLine=""
+				Outputs=""
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -132,7 +132,7 @@
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
 				BufferSecurityCheck="false"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="header.h"
@@ -281,9 +281,9 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				Description="Copying dataset to the target directory"
-				CommandLine="copy $(ProjectDir)\dataset $(TargetDir)\&#x0D;&#x0A;"
-				Outputs="$(TargetDir)\dataset"
+				Description=""
+				CommandLine=""
+				Outputs=""
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -304,7 +304,7 @@
 				AdditionalIncludeDirectories=""
 				PreprocessorDefinitions="WIN32;NDEBUG"
 				StringPooling="true"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				BufferSecurityCheck="false"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="header.h"

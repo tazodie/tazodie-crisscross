@@ -15,7 +15,11 @@
 #include <crisscross/debug.h>
 
 #ifdef SDL_APPLICATION
-#include <SDL/SDL.h>
+#  ifndef TARGET_OS_WINDOWS
+#    include <SDL/SDL.h>
+#  else
+#    define main SDL_main
+#  endif
 #endif
 
 using namespace std;
