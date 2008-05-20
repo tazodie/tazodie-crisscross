@@ -18,7 +18,10 @@ namespace CrissCross
     namespace System
     {
 		static long holdrand = 1L;
-
+		
+		static double pausedAt = 0.0;
+		static double timeShift = 0.0;
+		static bool timerPaused = false;
     #if defined ( TARGET_OS_WINDOWS )
 
         //! The result of QueryPerformanceFrequency(). (Windows only)
@@ -57,19 +60,42 @@ namespace CrissCross
     defined ( TARGET_OS_NDSFIRMWARE )
             gettimeofday ( &__m_start, NULL );
     #endif
+			timerPaused = false;
         }
+		
+		void
+		SetTimerState ( bool _paused )
+		{
+			if ( _paused && !timerPaused )
+			{
+				pausedAt = GetHighResTime();
+				timerPaused = true;
+			}
+			else if ( !_paused && timerPaused )
+			{
+				timeShift = GetHighResTime() - pausedAt;
+				timerPaused = false;
+			}
+		}
+		
+		void
+		AdvancePausedTimer ( double _seconds )
+		{
+			pausedAt += _seconds;
+		}
 
         double
         GetHighResTime ()
         {
+			double retval;
     #if defined ( TARGET_OS_WINDOWS )
             LARGE_INTEGER count;
 
             QueryPerformanceCounter ( &count );
-            return ( double )count.QuadPart * __m_tickInterval;
+            retval = ( double )count.QuadPart * __m_tickInterval;
     #elif defined ( TARGET_OS_MACOSX )
             uint64_t elapsed = mach_absolute_time () - __m_start;
-            return double ( elapsed ) * ( __m_timebase.numer / __m_timebase.denom ) /
+            retval = double ( elapsed ) * ( __m_timebase.numer / __m_timebase.denom ) /
                    1000000000.0;
     #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || \
     defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD ) || \
@@ -82,8 +108,9 @@ namespace CrissCross
             t1 = ( double )__m_start.tv_sec +
                  ( double )__m_start.tv_usec / ( 1000 * 1000 );
             t2 = ( double )now.tv_sec + ( double )now.tv_usec / ( 1000 * 1000 );
-            return t2 - t1;
+            retval = t2 - t1;
     #endif
+			return retval - timeShift;
         }
 
         void
