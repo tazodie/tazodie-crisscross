@@ -32,6 +32,28 @@ namespace CrissCross
 {
     namespace System
     {
+		//! Initializes the high-resolution timer.
+		void InitTimer ();
+		
+		//! Pauses or resumes the high-resolution timer.
+		/*!
+			If _paused is true, the current timestamp on the high-resolution timer is locked.
+		    If _paused is false, the GetHighResTime() will compensate for the pause duration.
+			\param _paused Indicates whether to pause or unpause the timer.
+		 */
+		void SetTimerState ( bool _paused );
+		
+		//! Increments the paused timer by the specified value.
+		/*!
+			\param _seconds Time in seconds to increase the timer by.
+	     */
+		void AdvancePausedTimer ( double _seconds );
+		
+		//! Gets the time since InitTimer() was called.
+		/*!
+			\return Time in seconds since InitTimer().
+		 */
+		double GetHighResTime ();
 
         //! Sleeps the current thread for a specified time.
         /*!
