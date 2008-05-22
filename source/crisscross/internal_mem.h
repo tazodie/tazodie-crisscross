@@ -32,15 +32,39 @@ namespace CrissCross
         template <>
         __inline char *Duplicate ( char * const &_data )
         {
-            CoreAssert ( _data );
+            if ( !_data ) return NULL;
             return ::cc_strdup ( _data );
         }
 
         template <>
         __inline const char *Duplicate ( const char * const &_data )
         {
-            CoreAssert ( _data );
+            if ( !_data ) return NULL;
             return ::cc_strdup ( _data );
+        }
+
+        template < class T >
+        __inline T NullKey ()
+        {
+            return 0;
+        }
+
+        template <>
+        __inline char *NullKey ()
+        {
+            return NULL;
+        }
+
+        template <>
+        __inline const char *NullKey ()
+        {
+            return NULL;
+        }
+
+        template <>
+        __inline std::string NullKey ()
+        {
+            return std::string("");
         }
 
         template < class T >

@@ -26,7 +26,12 @@ namespace CrissCross
         template <class Key, class Data>
         RedBlackTree<Key,Data>::RedBlackTree ()
         {
-            rootNode = NULL;
+            nullNode = new RedBlackNode<Key,Data>();
+            nullNode->left = nullNode->right = nullNode->parent = nullNode;
+            nullNode->color = BLACK;
+            nullNode->id = NullKey<Key>();
+
+            rootNode = nullNode;
             m_cachedSize = 0;
         }
 
@@ -34,6 +39,8 @@ namespace CrissCross
         RedBlackTree<Key,Data>::~RedBlackTree ()
         {
             killAll ();
+            nullNode->right = nullNode->left = NULL;
+            delete nullNode;
         }
 
         template <class Key, class Data>
@@ -43,11 +50,11 @@ namespace CrissCross
 
             /* establish x->right link */
             x->right = y->left;
-            if ( y->left != NULL )
+            if ( y->left != nullNode )
                 y->left->parent = x;
 
             /* establish y->parent link */
-            if ( y != NULL )
+            if ( y != nullNode )
                 y->parent = x->parent;
 
             if ( x->parent )
@@ -64,7 +71,7 @@ namespace CrissCross
 
             /* link x and y */
             y->left = x;
-            if ( x != NULL )
+            if ( x != nullNode )
                 x->parent = y;
         }
 
@@ -75,11 +82,11 @@ namespace CrissCross
 
             /* establish x->left link */
             x->left = y->right;
-            if ( y->right != NULL )
+            if ( y->right != nullNode )
                 y->right->parent = x;
 
             /* establish y->parent link */
-            if ( y != NULL )
+            if ( y != nullNode )
                 y->parent = x->parent;
 
             if ( x->parent )
@@ -96,7 +103,7 @@ namespace CrissCross
 
             /* link x and y */
             y->right = x;
-            if ( x != NULL )
+            if ( x != nullNode )
                 x->parent = y;
         }
 
@@ -185,11 +192,11 @@ namespace CrissCross
         template <class Key, class Data>
         bool RedBlackTree<Key,Data>::insert ( Key const &key, Data const & rec )
         {
-            RedBlackNode<Key,Data> *current = NULL, *parent = NULL, *x = NULL;
+            RedBlackNode<Key,Data> *current = nullNode, *parent = NULL, *x = nullNode;
 
             /* find future parent */
             current = rootNode;
-            while ( current != NULL )
+            while ( current != nullNode )
             {
                 parent = current;
                 current = ( Compare ( key, current->id ) <= 0 ) ?
@@ -203,8 +210,8 @@ namespace CrissCross
             }
 
             x->parent = parent;
-            x->left = NULL;
-            x->right = NULL;
+            x->left = nullNode;
+            x->right = nullNode;
             x->color = RED;
             x->id = Duplicate ( key );
             x->data = rec;
@@ -319,7 +326,7 @@ namespace CrissCross
             z = rootNode;
             parent = 0;
 
-            while ( z != NULL )
+            while ( z != nullNode )
             {
                 if ( Compare ( key, z->id ) == 0 )
                     break;
@@ -330,7 +337,7 @@ namespace CrissCross
                 }
             }
 
-            if ( z == NULL ){
+            if ( z == nullNode ) {
                 return false;
             }
 
@@ -374,22 +381,22 @@ namespace CrissCross
         {
             RedBlackNode<Key,Data> *x, *y;
 
-            if ( z->left == NULL || z->right == NULL )
+            if ( z->left == nullNode || z->right == nullNode )
             {
-                /* y has a NULL node as a child */
+                /* y has a null node as a child */
                 y = z;
             }
             else
             {
-                /* find tree successor with a NULL node as a child */
+                /* find tree successor with a null node as a child */
                 y = z->right;
 
-                while ( y->left != NULL )
+                while ( y->left != nullNode )
                     y = y->left;
             }
 
             /* x is y's only child */
-            if ( y->left != NULL )
+            if ( y->left != nullNode )
                 x = y->left;
             else
                 x = y->right;
@@ -435,7 +442,7 @@ namespace CrissCross
         {
             RedBlackNode<Key,Data> *current = rootNode;
 
-            while ( current != NULL )
+            while ( current != nullNode )
             {
                 if ( Compare ( key, current->id ) == 0 )
                 {
@@ -456,7 +463,7 @@ namespace CrissCross
         {
             RedBlackNode<Key,Data> *current = rootNode;
 
-            while ( current != NULL )
+            while ( current != nullNode )
             {
                 if ( Compare ( key, current->id ) == 0 )
                 {
@@ -478,7 +485,7 @@ namespace CrissCross
         {
             RedBlackNode<Key,Data> * current = rootNode;
 
-            while ( current != NULL )
+            while ( current != nullNode )
             {
                 if ( Compare ( key, current->id ) == 0 )
                 {
@@ -505,24 +512,24 @@ namespace CrissCross
         void RedBlackTree<Key,Data>::killAll ( RedBlackNode<Key,Data> *rec )
         {
 
-            if ( rec == NULL )
+            if ( rec == nullNode )
             {
                 return;
             }
 
             // First kill our subnodes:
-            if ( rec->left != NULL )
+            if ( rec->left != nullNode )
                 killAll ( rec->left );
 
-            if ( rec->right != NULL )
+            if ( rec->right != nullNode )
                 killAll ( rec->right );
 
             if ( rec->parent != NULL )                // We're not root.
             {
                 if ( rec->parent->left == rec )
-                    rec->parent->left = NULL;
+                    rec->parent->left = nullNode;
                 else
-                    rec->parent->right = NULL;
+                    rec->parent->right = nullNode;
             }
 
             Dealloc ( rec->id );
@@ -535,7 +542,7 @@ namespace CrissCross
         void RedBlackTree<Key,Data>::killAll ()
         {
             killAll ( rootNode );
-            rootNode = NULL;
+            rootNode = nullNode;
             m_cachedSize = 0;
         }
 
@@ -591,7 +598,7 @@ namespace CrissCross
         template <class Key, class Data>
         void RedBlackTree<Key,Data>::RecursiveConvertToDArray ( DArray<Data> *darray, RedBlackNode<Key,Data> *btree ) const
         {
-            if ( !btree || btree == NULL ) return;
+            if ( !btree || btree == nullNode ) return;
 
             RecursiveConvertToDArray ( darray, btree->left );
             darray->insert ( btree->data );
@@ -601,7 +608,7 @@ namespace CrissCross
         template <class Key, class Data>
         void RedBlackTree<Key,Data>::RecursiveConvertIndexToDArray ( DArray<Key> *darray, RedBlackNode<Key,Data> *btree ) const
         {
-            if ( !btree || btree == NULL ) return;
+            if ( !btree || btree == nullNode ) return;
 
             RecursiveConvertIndexToDArray ( darray, btree->left );
             darray->insert ( btree->id );
