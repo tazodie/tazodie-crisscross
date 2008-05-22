@@ -47,6 +47,9 @@ protected:
             //! The root node at the top of the tree.
             RedBlackNode<Key,Data> *rootNode;
 
+            //! The "null" node. Added so we don't need special cases to check for null pointers.
+            RedBlackNode<Key,Data> *nullNode;
+
             //! The cached size() return value. Changes on each tree modification (insertions and deletions).
             size_t m_cachedSize;
 
