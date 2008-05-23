@@ -16,6 +16,8 @@ else
 PREFIX =
 endif
 
+MAKEFLAGS += -rR
+
 ifneq ($(BUILDFORNDS),1)
 CXX = $(PREFIX)g++
 CC = $(PREFIX)gcc
