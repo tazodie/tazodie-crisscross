@@ -14,6 +14,10 @@
 #include <crisscross/llist.h>
 #include <crisscross/debug.h>
 
+#ifdef TARGET_OS_MACOSX
+#	include <Cocoa/Cocoa.h>
+#endif
+
 #ifdef SDL_APPLICATION
 #  ifndef TARGET_OS_WINDOWS
 #    include <SDL/SDL.h>
@@ -273,6 +277,13 @@ AppPrintMemoryLeaks ( char *_filename )
     unlink ( tmpFilename );
 #  endif
 
+}
+#endif
+
+#ifdef COCOA_APPLICATION
+int RunApplication ( int argc, char **argv )
+{
+	NSApplicationMain ( argc, argv );
 }
 #endif
 
