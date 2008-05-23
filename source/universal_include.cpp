@@ -283,7 +283,7 @@ AppPrintMemoryLeaks ( char *_filename )
 #ifdef COCOA_APPLICATION
 int RunApplication ( int argc, char **argv )
 {
-	NSApplicationMain ( argc, argv );
+    return NSApplicationMain ( argc, (const char **)argv );
 }
 #endif
 
