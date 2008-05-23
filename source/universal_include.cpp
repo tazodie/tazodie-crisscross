@@ -15,7 +15,7 @@
 #include <crisscross/debug.h>
 
 #ifdef TARGET_OS_MACOSX
-#	include <Cocoa/Cocoa.h>
+extern "C" int NSApplicationMain ( int argc, const char *argv[] );
 #endif
 
 #ifdef SDL_APPLICATION
