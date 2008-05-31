@@ -15,7 +15,7 @@ using namespace CrissCross::IO;
 using namespace CrissCross::System;
 
 /* 16K of data. Should fit in most L1 caches. */
-//#define PREGEN 4096
+#define PREGEN 4096
 
 #define USE_INTEGERS
 
