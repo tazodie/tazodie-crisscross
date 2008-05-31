@@ -21,10 +21,10 @@ MAKEFLAGS += -rR
 ifneq ($(BUILDFORNDS),1)
 CXX = $(PREFIX)g++
 CC = $(PREFIX)gcc
-AR = $(PREFIX)ar
-RANLIB = $(PREFIX)ranlib
-NM = $(PREFIX)nm
-STRIP = : $(PREFIX)strip
+AR = ar
+RANLIB = ranlib
+NM = nm
+STRIP = : strip
 else
 CXX = $(DEVKITARM)/bin/arm-eabi-g++
 CC = $(DEVKITARM)/bin/arm-eabi-gcc
