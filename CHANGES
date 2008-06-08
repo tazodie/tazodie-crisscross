@@ -12,6 +12,7 @@ VERSION 0.7.1 (r???)
 	* Fixed a bug in AVLTree where the size may be incorrectly reported.
 	* Fixed a few compiler warnings.
 	* Fixed ThreadSleep on Mac OS X.
+	* Coding style changes implemented in the uncrustify config.
 
 VERSION 0.7.0 (r684)
 	* Added several checksum methods:
