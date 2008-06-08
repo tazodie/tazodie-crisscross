@@ -28,16 +28,16 @@
 
 #define CC_LIB_NAME                "CrissCross"
 
-//#  define CC_LIB_CODENAME            "Technetium"    // v0.1.0 codename ( Milestone 1 )
+//#  define CC_LIB_CODENAME            "Technetium"    // v0.1.0 codename
 //#  define CC_LIB_CODENAME            "Freya"         // v0.2.0 codename
 //#  define CC_LIB_CODENAME            "Hodur"         // v0.3.0 codename
 //#  define CC_LIB_CODENAME            "Baldur"        // v0.4.0 codename
-//#  define CC_LIB_CODENAME            "Loki"          // v0.5.0 codename ( Milestone 2 )
+//#  define CC_LIB_CODENAME            "Loki"          // v0.5.0 codename
 //#  define CC_LIB_CODENAME            "Ragnarok"      // v0.6.0 codename
 #define CC_LIB_CODENAME            "Heimdall"      // v0.7.0 codename
-//#  define CC_LIB_CODENAME            "Odin"          // v0.8.0 codename ( Milestone 3 )
-//#  define CC_LIB_CODENAME            "Thor"          // v0.9.0 codename ( Milestone 4 )
-//#  define CC_LIB_CODENAME            "Valhalla"      // v1.0.0 codename ( Milestone 5 )
+//#  define CC_LIB_CODENAME            "Odin"          // v0.8.0 codename
+//#  define CC_LIB_CODENAME            "Thor"          // v0.9.0 codename
+//#  define CC_LIB_CODENAME            "Valhalla"      // v1.0.0 codename
 
 #define CC_LIB_VERSION             "0.7.1"
 #define CC_LIB_BRANCH_AT_VERSION   "0.8.0"
