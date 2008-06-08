@@ -23,185 +23,185 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 // ctor
-CMiniVersion::CMiniVersion(LPCTSTR lpszPath)
+CMiniVersion::CMiniVersion ( LPCTSTR lpszPath )
 {
-    ZeroMemory(m_szPath, sizeof(m_szPath));
+	ZeroMemory ( m_szPath, sizeof( m_szPath ));
 
-    if (lpszPath && lpszPath[0] != 0)
-    {
-        lstrcpyn(m_szPath, lpszPath, sizeof(m_szPath)-1);
-    }
-    else
-    {
-    }
+	if ( lpszPath && lpszPath[0] != 0 )
+	{
+		lstrcpyn ( m_szPath, lpszPath, sizeof( m_szPath ) - 1 );
+	}
+	else
+	{
+	}
 
-    m_pData = NULL;
-    m_dwHandle = 0;
+	m_pData = NULL;
+	m_dwHandle = 0;
 
-    for (int i = 0; i < 4; i++)
-    {
-        m_wFileVersion[i] = 0;
-        m_wProductVersion[i] = 0;
-    }
+	for ( int i = 0; i < 4; i++ )
+	{
+		m_wFileVersion[i] = 0;
+		m_wProductVersion[i] = 0;
+	}
 
-    m_dwFileFlags = 0;
-    m_dwFileOS = 0;
-    m_dwFileType = 0;
-    m_dwFileSubtype = 0;
+	m_dwFileFlags = 0;
+	m_dwFileOS = 0;
+	m_dwFileType = 0;
+	m_dwFileSubtype = 0;
 
-    ZeroMemory(m_szCompanyName, sizeof(m_szCompanyName));
-    ZeroMemory(m_szProductName, sizeof(m_szProductName));
-    ZeroMemory(m_szFileDescription, sizeof(m_szFileDescription));
+	ZeroMemory ( m_szCompanyName, sizeof( m_szCompanyName ));
+	ZeroMemory ( m_szProductName, sizeof( m_szProductName ));
+	ZeroMemory ( m_szFileDescription, sizeof( m_szFileDescription ));
 
-    Init();
+	Init ();
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////
 // Init
-BOOL CMiniVersion::Init()
+BOOL CMiniVersion::Init ()
 {
-    DWORD dwHandle;
-    DWORD dwSize;
-    BOOL rc;
+	DWORD dwHandle;
+	DWORD dwSize;
+	BOOL rc;
 
-    dwSize = ::GetFileVersionInfoSize((LPSTR)(LPCTSTR)m_szPath, &dwHandle);
-    if (dwSize == 0)
-        return FALSE;
-        
-    m_pData = new BYTE [dwSize + 1];    
-    ZeroMemory(m_pData, dwSize+1);
+	dwSize = ::GetFileVersionInfoSize ((LPSTR)(LPCTSTR)m_szPath, &dwHandle );
+	if ( dwSize == 0 )
+		return FALSE;
 
-    rc = ::GetFileVersionInfo((LPSTR)(LPCTSTR)m_szPath, dwHandle, dwSize, m_pData);
-    if (!rc)
-        return FALSE;
+	m_pData = new BYTE [dwSize + 1];
+	ZeroMemory ( m_pData, dwSize + 1 );
 
-    // get fixed info
+	rc = ::GetFileVersionInfo ((LPSTR)(LPCTSTR)m_szPath, dwHandle, dwSize, m_pData );
+	if ( !rc )
+		return FALSE;
 
-    VS_FIXEDFILEINFO FixedInfo;
-    
-    if (GetFixedInfo(FixedInfo))
-    {
-        m_wFileVersion[0] = HIWORD(FixedInfo.dwFileVersionMS);
-        m_wFileVersion[1] = LOWORD(FixedInfo.dwFileVersionMS);
-        m_wFileVersion[2] = HIWORD(FixedInfo.dwFileVersionLS);
-        m_wFileVersion[3] = LOWORD(FixedInfo.dwFileVersionLS);
+	// get fixed info
 
-        m_wProductVersion[0] = HIWORD(FixedInfo.dwProductVersionMS);
-        m_wProductVersion[1] = LOWORD(FixedInfo.dwProductVersionMS);
-        m_wProductVersion[2] = HIWORD(FixedInfo.dwProductVersionLS);
-        m_wProductVersion[3] = LOWORD(FixedInfo.dwProductVersionLS);
+	VS_FIXEDFILEINFO FixedInfo;
 
-        m_dwFileFlags   = FixedInfo.dwFileFlags;
-        m_dwFileOS      = FixedInfo.dwFileOS;
-        m_dwFileType    = FixedInfo.dwFileType;
-        m_dwFileSubtype = FixedInfo.dwFileSubtype;
-    }
-    else
-        return FALSE;
+	if ( GetFixedInfo ( FixedInfo ))
+	{
+		m_wFileVersion[0] = HIWORD ( FixedInfo.dwFileVersionMS );
+		m_wFileVersion[1] = LOWORD ( FixedInfo.dwFileVersionMS );
+		m_wFileVersion[2] = HIWORD ( FixedInfo.dwFileVersionLS );
+		m_wFileVersion[3] = LOWORD ( FixedInfo.dwFileVersionLS );
 
-    // get string info
+		m_wProductVersion[0] = HIWORD ( FixedInfo.dwProductVersionMS );
+		m_wProductVersion[1] = LOWORD ( FixedInfo.dwProductVersionMS );
+		m_wProductVersion[2] = HIWORD ( FixedInfo.dwProductVersionLS );
+		m_wProductVersion[3] = LOWORD ( FixedInfo.dwProductVersionLS );
 
-    GetStringInfo(_T("CompanyName"),     m_szCompanyName);
-    GetStringInfo(_T("FileDescription"), m_szFileDescription);
-    GetStringInfo(_T("ProductName"),     m_szProductName);
+		m_dwFileFlags = FixedInfo.dwFileFlags;
+		m_dwFileOS = FixedInfo.dwFileOS;
+		m_dwFileType = FixedInfo.dwFileType;
+		m_dwFileSubtype = FixedInfo.dwFileSubtype;
+	}
+	else
+		return FALSE;
 
-    return TRUE;        
+	// get string info
+
+	GetStringInfo ( _T ( "CompanyName" ),     m_szCompanyName );
+	GetStringInfo ( _T ( "FileDescription" ), m_szFileDescription );
+	GetStringInfo ( _T ( "ProductName" ),     m_szProductName );
+
+	return TRUE;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 // Release
-void CMiniVersion::Release()
+void CMiniVersion::Release ()
 {
-    // do this manually, because we can't use objects requiring
-    // a dtor within an exception handler
-    if (m_pData)
-        delete [] m_pData;
-    m_pData = NULL;
+	// do this manually, because we can't use objects requiring
+	// a dtor within an exception handler
+	if ( m_pData )
+		delete [] m_pData;
+	m_pData = NULL;
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////
 // GetFileVersion
-BOOL CMiniVersion::GetFileVersion(WORD * pwVersion)
+BOOL CMiniVersion::GetFileVersion ( WORD * pwVersion )
 {
-    for (int i = 0; i < 4; i++)
-        *pwVersion++ = m_wFileVersion[i];
-    return TRUE;
-}                          
+	for ( int i = 0; i < 4; i++ )
+		*pwVersion++ = m_wFileVersion[i];
+	return TRUE;
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 // GetProductVersion
-BOOL CMiniVersion::GetProductVersion(WORD * pwVersion)
+BOOL CMiniVersion::GetProductVersion ( WORD * pwVersion )
 {
-    for (int i = 0; i < 4; i++)
-        *pwVersion++ = m_wProductVersion[i];
-    return TRUE;
+	for ( int i = 0; i < 4; i++ )
+		*pwVersion++ = m_wProductVersion[i];
+	return TRUE;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 // GetFileFlags
-BOOL CMiniVersion::GetFileFlags(DWORD& rdwFlags)
+BOOL CMiniVersion::GetFileFlags ( DWORD& rdwFlags )
 {
-    rdwFlags = m_dwFileFlags;
-    return TRUE;
+	rdwFlags = m_dwFileFlags;
+	return TRUE;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 // GetFileOS
-BOOL CMiniVersion::GetFileOS(DWORD& rdwOS)
+BOOL CMiniVersion::GetFileOS ( DWORD& rdwOS )
 {
-    rdwOS = m_dwFileOS;
-    return TRUE;
+	rdwOS = m_dwFileOS;
+	return TRUE;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 // GetFileType
-BOOL CMiniVersion::GetFileType(DWORD& rdwType)
+BOOL CMiniVersion::GetFileType ( DWORD& rdwType )
 {
-    rdwType = m_dwFileType;
-    return TRUE;
+	rdwType = m_dwFileType;
+	return TRUE;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 // GetFileSubtype
-BOOL CMiniVersion::GetFileSubtype(DWORD& rdwType)
+BOOL CMiniVersion::GetFileSubtype ( DWORD& rdwType )
 {
-    rdwType = m_dwFileSubtype;
-    return TRUE;
+	rdwType = m_dwFileSubtype;
+	return TRUE;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 // GetCompanyName
-BOOL CMiniVersion::GetCompanyName(LPTSTR lpszCompanyName, int nSize)
+BOOL CMiniVersion::GetCompanyName ( LPTSTR lpszCompanyName, int nSize )
 {
-    if (!lpszCompanyName)
-        return FALSE;
-    ZeroMemory(lpszCompanyName, nSize);
-    lstrcpyn(lpszCompanyName, m_szCompanyName, nSize-1);
-    return TRUE;
+	if ( !lpszCompanyName )
+		return FALSE;
+	ZeroMemory ( lpszCompanyName, nSize );
+	lstrcpyn ( lpszCompanyName, m_szCompanyName, nSize - 1 );
+	return TRUE;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 // GetFileDescription
-BOOL CMiniVersion::GetFileDescription(LPTSTR lpszFileDescription, int nSize)
+BOOL CMiniVersion::GetFileDescription ( LPTSTR lpszFileDescription, int nSize )
 {
-    if (!lpszFileDescription)
-        return FALSE;
-    ZeroMemory(lpszFileDescription, nSize);
-    lstrcpyn(lpszFileDescription, m_szFileDescription, nSize-1);
-    return TRUE;
+	if ( !lpszFileDescription )
+		return FALSE;
+	ZeroMemory ( lpszFileDescription, nSize );
+	lstrcpyn ( lpszFileDescription, m_szFileDescription, nSize - 1 );
+	return TRUE;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 // GetProductName
-BOOL CMiniVersion::GetProductName(LPTSTR lpszProductName, int nSize)
+BOOL CMiniVersion::GetProductName ( LPTSTR lpszProductName, int nSize )
 {
-    if (!lpszProductName)
-        return FALSE;
-    ZeroMemory(lpszProductName, nSize);
-    lstrcpyn(lpszProductName, m_szProductName, nSize-1);
-    return TRUE;
+	if ( !lpszProductName )
+		return FALSE;
+	ZeroMemory ( lpszProductName, nSize );
+	lstrcpyn ( lpszProductName, m_szProductName, nSize - 1 );
+	return TRUE;
 }
 
 
@@ -217,62 +217,62 @@ BOOL CMiniVersion::GetProductName(LPTSTR lpszProductName, int nSize)
 
 ///////////////////////////////////////////////////////////////////////////////
 // GetFixedInfo
-BOOL CMiniVersion::GetFixedInfo(VS_FIXEDFILEINFO& rFixedInfo)
+BOOL CMiniVersion::GetFixedInfo ( VS_FIXEDFILEINFO& rFixedInfo )
 {
-    BOOL rc;
-    UINT nLength;
-    VS_FIXEDFILEINFO *pFixedInfo = NULL;
+	BOOL rc;
+	UINT nLength;
+	VS_FIXEDFILEINFO *pFixedInfo = NULL;
 
-    if (!m_pData)
-        return FALSE;
+	if ( !m_pData )
+		return FALSE;
 
-    if (m_pData)
-        rc = ::VerQueryValue(m_pData, _T("\\"), (void **) &pFixedInfo, &nLength);
-    else
-        rc = FALSE;
-        
-    if (rc)
-        memcpy (&rFixedInfo, pFixedInfo, sizeof (VS_FIXEDFILEINFO));    
+	if ( m_pData )
+		rc = ::VerQueryValue ( m_pData, _T ( "\\" ), (void **)&pFixedInfo, &nLength );
+	else
+		rc = FALSE;
 
-    return rc;
+	if ( rc )
+		memcpy ( &rFixedInfo, pFixedInfo, sizeof ( VS_FIXEDFILEINFO ));
+
+	return rc;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 // GetStringInfo
-BOOL CMiniVersion::GetStringInfo(LPCSTR lpszKey, LPTSTR lpszReturnValue)
+BOOL CMiniVersion::GetStringInfo ( LPCSTR lpszKey, LPTSTR lpszReturnValue )
 {
-    BOOL rc;
-    DWORD *pdwTranslation;
-    UINT nLength;
-    LPTSTR lpszValue;
-    
-    if (m_pData == NULL)
-        return FALSE;
+	BOOL rc;
+	DWORD *pdwTranslation;
+	UINT nLength;
+	LPTSTR lpszValue;
 
-    if (!lpszReturnValue)
-        return FALSE;
+	if ( m_pData == NULL )
+		return FALSE;
 
-    if (!lpszKey)
-        return FALSE;
+	if ( !lpszReturnValue )
+		return FALSE;
 
-    *lpszReturnValue = 0;
+	if ( !lpszKey )
+		return FALSE;
 
-    rc = ::VerQueryValue(m_pData, _T("\\VarFileInfo\\Translation"), 
-                                (void**) &pdwTranslation, &nLength);
-    if (!rc)
-        return FALSE;
+	*lpszReturnValue = 0;
 
-    char szKey[2000];
-    wsprintf(szKey, _T("\\StringFileInfo\\%04x%04x\\%s"),
-                 LOWORD (*pdwTranslation), HIWORD (*pdwTranslation),
-                 lpszKey);
+	rc = ::VerQueryValue ( m_pData, _T ( "\\VarFileInfo\\Translation" ),
+	                       (void**)&pdwTranslation, &nLength );
+	if ( !rc )
+		return FALSE;
 
-    rc = ::VerQueryValue(m_pData, szKey, (void**) &lpszValue, &nLength);
+	char szKey[2000];
+	wsprintf ( szKey, _T ( "\\StringFileInfo\\%04x%04x\\%s" ),
+	           LOWORD ( *pdwTranslation ), HIWORD ( *pdwTranslation ),
+	           lpszKey );
 
-    if (!rc)
-        return FALSE;
-        
-    lstrcpy(lpszReturnValue, lpszValue);
+	rc = ::VerQueryValue ( m_pData, szKey, (void**)&lpszValue, &nLength );
 
-    return TRUE;
+	if ( !rc )
+		return FALSE;
+
+	lstrcpy ( lpszReturnValue, lpszValue );
+
+	return TRUE;
 }
