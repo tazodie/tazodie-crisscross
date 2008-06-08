@@ -55,7 +55,7 @@ public:
             SplayNode () : left (NULL), right (NULL), parent (NULL) {
             }
 
-            //! The default destructor.
+            //! The destructor.
             ~SplayNode ()
             {
                 Dealloc ( id );
