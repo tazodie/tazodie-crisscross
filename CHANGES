@@ -1,4 +1,4 @@
-VERSION 0.7.1 (r???)
+VERSION 0.7.1 (r768)
 	* Added Objective-C support via the NSApplicationMain entry point. Define COCOA_APPLICATION in universal_include.h to use.
 	* In-progress connections now report EINPROGRESS instead of EWOULDBLOCK.
 	* TCPSockets generally overhauled after lots of practical use of them in ARC++.
