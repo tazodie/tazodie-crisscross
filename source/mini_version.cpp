@@ -14,9 +14,8 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <crisscross/universal_include.h>
-
 #include <tchar.h>
-#include "MiniVersion.h"
+#include <crisscross/mini_version.h>
 
 #pragma comment(lib, "version.lib")
 

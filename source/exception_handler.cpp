@@ -503,8 +503,6 @@ static TCHAR * GetFilePart(LPCTSTR source)
     return result;
 }
 
-///////////////////////////////////////////////////////////////////////////////
-// DumpStack
 static void DumpStack(HANDLE LogFile, DWORD *pStack)
 {
     hprintf(LogFile, _T("\r\n\r\nStack:\r\n"));
@@ -590,8 +588,6 @@ static void DumpStack(HANDLE LogFile, DWORD *pStack)
     }
 }
 
-///////////////////////////////////////////////////////////////////////////////
-// DumpRegisters
 static void DumpRegisters(HANDLE LogFile, PCONTEXT Context)
 {
     // Print out the register values in an XP error window compatible format.
@@ -607,15 +603,6 @@ static void DumpRegisters(HANDLE LogFile, PCONTEXT Context)
                 Context->EFlags, Context->Esp, Context->SegSs);
 }
 
-
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-//
-// RecordExceptionInfo
-//
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-
 int __cdecl RecordExceptionInfo(PEXCEPTION_POINTERS pExceptPtrs,
                                 LPCTSTR lpszMessage,
                                 LPCTSTR lpszAppMagic,
@@ -625,9 +612,6 @@ int __cdecl RecordExceptionInfo(PEXCEPTION_POINTERS pExceptPtrs,
     if (!bFirstTime)    // Going recursive! That must mean this routine crashed!
         return EXCEPTION_CONTINUE_SEARCH;
     bFirstTime = false;
-
-    // Create a filename to record the error information to.
-    // Storing it in the executable directory works well.
 
     TCHAR szModuleName[MAX_PATH*2];
     ZeroMemory(szModuleName, sizeof(szModuleName));
