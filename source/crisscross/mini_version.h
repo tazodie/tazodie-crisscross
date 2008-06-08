@@ -11,7 +11,6 @@
 // or implied warranty.  I accept no liability for any
 // damage or loss of business that this software may cause.
 //
-///////////////////////////////////////////////////////////////////////////////
 
 #ifndef __included_cc_miniversion_h
 #define __included_cc_miniversion_h
@@ -51,8 +50,8 @@ protected:
 
     BYTE*        m_pData;
     DWORD        m_dwHandle;
-    WORD        m_wFileVersion[4];
-    WORD        m_wProductVersion[4];
+    WORD         m_wFileVersion[4];
+    WORD         m_wProductVersion[4];
     DWORD        m_dwFileFlags;
     DWORD        m_dwFileOS;
     DWORD        m_dwFileType;
@@ -67,4 +66,3 @@ protected:
 //! @endcond
 
 #endif
-///////////////////////////////////////////////////////////////////////////////

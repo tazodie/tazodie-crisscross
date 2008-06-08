@@ -13,14 +13,9 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <crisscross/universal_include.h>
+#include <tchar.h>
+#include <crisscross/windows_version.h>
 
-#include "tchar.h"
-#include "GetWinVer.h"
-
-// #include "mmgr.h"
-
-
-// from winbase.h
 #ifndef VER_PLATFORM_WIN32s
 #define VER_PLATFORM_WIN32s             0
 #endif
@@ -34,34 +29,6 @@
 #define VER_PLATFORM_WIN32_CE           3
 #endif
 
-
-/*
-    This table has been assembled from Usenet postings, personal
-    observations, and reading other people's code.  Please feel
-    free to add to it or correct it.
-
-
-         dwPlatFormID  dwMajorVersion  dwMinorVersion  dwBuildNumber
-95             1              4               0             950
-95 SP1         1              4               0        >950 && <=1080
-95 OSR2        1              4             <10           >1080
-98             1              4              10            1998
-98 SP1         1              4              10       >1998 && <2183
-98 SE          1              4              10          >=2183
-ME             1              4              90            3000
-
-NT 3.51        2              3              51
-NT 4           2              4               0            1381
-2000           2              5               0            2195
-XP             2              5               1            2600
-2003 Server    2              5               2            3790
-
-CE             3
-
-*/
-
-///////////////////////////////////////////////////////////////////////////////
-// GetWinVer
 BOOL GetWinVer(LPTSTR pszVersion, int *nVersion, LPTSTR pszMajorMinorBuild)
 {
     if (!pszVersion || !nVersion || !pszMajorMinorBuild)
@@ -148,6 +115,11 @@ BOOL GetWinVer(LPTSTR pszVersion, int *nVersion, LPTSTR pszMajorMinorBuild)
         {
             lstrcpy(pszVersion, W2003SERVERSTR);
             *nVersion = W2003SERVER;
+        }
+        else if ((dwMajorVersion == 6) && (dwMinorVersion == 0))
+        {
+            lstrcpy(pszVersion, WVISTASTR);
+            *nVersion = WVISTA;
         }
     }
     else if (dwPlatformId == VER_PLATFORM_WIN32_CE)
