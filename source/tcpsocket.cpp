@@ -54,9 +54,6 @@ namespace CrissCross
         CrissCross::Errors
         TCPSocket::Accept ( TCPSocket **_socket )
         {
-            /* TODO: Implement a much more elegant ability to
-                             REJECT a connection if it IsBanned(). */
-
             // We're forced to accept any incoming connection, unfortunately.
             socket_t sock = accept ( m_sock, 0, 0 );
 
