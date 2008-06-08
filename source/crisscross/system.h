@@ -30,67 +30,67 @@
 
 namespace CrissCross
 {
-    namespace System
-    {
+	namespace System
+	{
 		//! Initializes the high-resolution timer.
 		void InitTimer ();
-		
+
 		//! Pauses or resumes the high-resolution timer.
 		/*!
-			If _paused is true, the current timestamp on the high-resolution timer is locked.
-		    If _paused is false, the GetHighResTime() will compensate for the pause duration.
-			\param _paused Indicates whether to pause or unpause the timer.
+		 *  If _paused is true, the current timestamp on the high-resolution timer is locked.
+		 *  If _paused is false, the GetHighResTime() will compensate for the pause duration.
+		 *  \param _paused Indicates whether to pause or unpause the timer.
 		 */
 		void SetTimerState ( bool _paused );
-		
+
 		//! Increments the paused timer by the specified value.
 		/*!
-			\param _seconds Time in seconds to increase the timer by.
-	     */
+		 *  \param _seconds Time in seconds to increase the timer by.
+		 */
 		void AdvancePausedTimer ( double _seconds );
-		
+
 		//! Gets the time since InitTimer() was called.
 		/*!
-			\return Time in seconds since InitTimer().
+		 *  \return Time in seconds since InitTimer().
 		 */
 		double GetHighResTime ();
 
-        //! Sleeps the current thread for a specified time.
-        /*!
-         \param _msec Time to sleep for, in milliseconds.
-         */
-        void ThreadSleep ( int _msec );
+		//! Sleeps the current thread for a specified time.
+		/*!
+		 * \param _msec Time to sleep for, in milliseconds.
+		 */
+		void ThreadSleep ( int _msec );
 
-        //! Generates a random number.
-        /*!
-           Don't forget to use SeedRandom() first!
-         \sa SeedRandom()
-         */
-        int RandomNumber ();
+		//! Generates a random number.
+		/*!
+		 * Don't forget to use SeedRandom() first!
+		 * \sa SeedRandom()
+		 */
+		int RandomNumber ();
 
-        //! Generates a random number.
-        /*!
-           Seeds the random number generator with the current time.
-         */
-        void SeedRandom ();
+		//! Generates a random number.
+		/*!
+		 * Seeds the random number generator with the current time.
+		 */
+		void SeedRandom ();
 
 #if defined ( TARGET_OS_WINDOWS )
-        //! Waits for the specified thread to finish executing.
-        /*!
-         \param _thread Thread to wait for.
-         \param _timeout The maximum wait time. (currently ignored)
-         \return Always zero, until _timeout is implemented.
-         */
-        int WaitForThread ( HANDLE _thread, DWORD _timeout );
+		//! Waits for the specified thread to finish executing.
+		/*!
+		 * \param _thread Thread to wait for.
+		 * \param _timeout The maximum wait time. (currently ignored)
+		 * \return Always zero, until _timeout is implemented.
+		 */
+		int WaitForThread ( HANDLE _thread, DWORD _timeout );
 #elif defined ( TARGET_OS_LINUX ) || defined ( TARGET_OS_FREEBSD ) || defined ( TARGET_OS_NETBSD ) || defined ( TARGET_OS_OPENBSD )
-        //! Waits for the specified thread to finish executing.
-        /*!
-         \param _thread Thread to wait for.
-         \param _timeout The maximum wait time. (currently ignored)
-         \return Always zero, until _timeout is implemented.
-         */
-        int WaitForThread ( pthread_t _thread, int _timeout );
+		//! Waits for the specified thread to finish executing.
+		/*!
+		 * \param _thread Thread to wait for.
+		 * \param _timeout The maximum wait time. (currently ignored)
+		 * \return Always zero, until _timeout is implemented.
+		 */
+		int WaitForThread ( pthread_t _thread, int _timeout );
 #endif
-    }
+	}
 }
 #endif

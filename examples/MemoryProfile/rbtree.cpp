@@ -17,27 +17,27 @@ using namespace CrissCross::Data;
 
 int ProfileRedBlackTree ()
 {
-    RedBlackTree<size_t,item_t> *tree = new RedBlackTree<size_t,item_t>();
-    g_stdout->SetColour ( g_stdout->FG_WHITE | g_stdout->FG_INTENSITY );
-    g_stdout->WriteLine ( "RedBlackTree Statistics" );
-    g_stdout->SetColour ();
+	RedBlackTree<size_t,item_t> *tree = new RedBlackTree<size_t,item_t>();
+	g_stdout->SetColour ( g_stdout->FG_WHITE | g_stdout->FG_INTENSITY );
+	g_stdout->WriteLine ( "RedBlackTree Statistics" );
+	g_stdout->SetColour ();
 
-    size_t usage = 0, i;
-    for ( i = 0; i <= MAX_NODES; i += ( i ) ? i : 1 )
-    {
-        while ( tree->size () < i )
-        {
-            size_t random = rand () * rand ();
-            if ( !tree->exists ( random ) )
-                CoreAssert ( tree->insert ( random, 0 ) );
-        }
-        usage = tree->mem_usage ();
-        g_stdout->WriteLine ( "%3d items: %4d bytes (%4.2lf KB)", tree->size (), usage, (double)usage / 1024.0 );
-    }
+	size_t usage = 0, i;
+	for ( i = 0; i <= MAX_NODES; i += ( i ) ? i : 1 )
+	{
+		while ( tree->size () < i )
+		{
+			size_t random = rand () * rand ();
+			if ( !tree->exists ( random ) )
+				CoreAssert ( tree->insert ( random, 0 ) );
+		}
+		usage = tree->mem_usage ();
+		g_stdout->WriteLine ( "%3d items: %4d bytes (%4.2lf KB)", tree->size (), usage, (double)usage / 1024.0 );
+	}
 
-    g_stdout->WriteLine ();
+	g_stdout->WriteLine ();
 
-    delete tree;
+	delete tree;
 
-    return 0;
+	return 0;
 }
