@@ -1,6 +1,17 @@
-VERSION ??? (r???)
-	* Corrected a dangerous bug with the strdup macro.
-	* Now support for Xterm window creation with the Console class.
+VERSION 0.7.1 (r???)
+	* Added Objective-C support via the NSApplicationMain entry point. Define COCOA_APPLICATION in universal_include.h to use.
+	* In-progress connections now report EINPROGRESS instead of EWOULDBLOCK.
+	* TCPSockets generally overhauled after lots of practical use of them in ARC++.
+	* FG_YELLOW now exists as an alias of FG_BROWN | FG_INTENSITY.
+	* GenerateBuildNumber.exe is now statically linked.
+	* Stopwatch now calls Start() on initialization (largely for cases such as static instantiations of the class).
+	* Removed an extra semicolon which caused compiler errors on newer versions of GCC.
+	* Removed the largely unimplemented "ban" system in sockets.
+	* Renamed the internal strdup macro to cc_strdup to avoid conflicts.
+	* Fixed a critical bug in RedBlackTree where a null pointer is dereferenced.
+	* Fixed a bug in AVLTree where the size may be incorrectly reported.
+	* Fixed a few compiler warnings.
+	* Fixed ThreadSleep on Mac OS X.
 
 VERSION 0.7.0 (r684)
 	* Added several checksum methods:
