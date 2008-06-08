@@ -54,7 +54,7 @@ public:
             //! The default constructor.
             MD4Hash ();
 
-            //! The default destructor.
+            //! The destructor.
             ~MD4Hash ();
 
             //! Runs an MD4 hash on the data provided.

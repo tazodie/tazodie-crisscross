@@ -23,7 +23,7 @@ namespace CrissCross
     {
         //! A QuickSort implementation for sorting arrays.
         /*!
-         \deprecated This is a slow sorting method. It is provided for educational purposes ONLY.
+         \deprecated This is a slow sorting method (worst case would be with sorting a reverse-sorted dataset). It is provided for educational purposes ONLY.
          */
         template <class T>
         class QuickSort : public Sorter<T>

@@ -51,7 +51,7 @@ public:
             //! The default constructor.
             _CC_DEPRECATE_SLOW ("SEVERE") MD2Hash ();
 
-            //! The default destructor.
+            //! The destructor.
             ~MD2Hash ();
 
             //! Runs an MD2 hash on the data provided.

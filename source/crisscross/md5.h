@@ -53,7 +53,7 @@ public:
             //! The default constructor.
             MD5Hash ();
 
-            //! The default destructor.
+            //! The destructor.
             ~MD5Hash ();
 
             //! Runs an MD5 hash on the data provided.

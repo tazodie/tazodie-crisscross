@@ -51,7 +51,7 @@ public:
             //! The parent node.
             SplayNode *parent;
 
-            //! The default constructor.
+            //! The constructor.
             SplayNode () : left (NULL), right (NULL), parent (NULL) {
             }
 
@@ -116,7 +116,7 @@ public:
             AVLNode () : left (NULL), right (NULL), parent (NULL), balance (BALANCED) {
             }
 
-            //! The default destructor.
+            //! The destructor.
             ~AVLNode ()
             {
                 Dealloc ( id );
@@ -165,7 +165,7 @@ public:
             RedBlackNode () : left (NULL), right (NULL), parent (NULL) {
             }
 
-            //! The default destructor.
+            //! The destructor.
             ~RedBlackNode ()
             {
                 Dealloc ( id );

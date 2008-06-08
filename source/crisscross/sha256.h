@@ -45,7 +45,7 @@ public:
             //! The default constructor.
             SHA256Hash ();
 
-            //! The default destructor.
+            //! The destructor.
             ~SHA256Hash ();
 
             //! Runs a SHA-256 hash on the data provided.

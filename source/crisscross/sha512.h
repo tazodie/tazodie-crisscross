@@ -53,7 +53,7 @@ public:
 #endif
             SHA512Hash ();
 
-            //! The default destructor.
+            //! The destructor.
             ~SHA512Hash ();
 
             //! Runs a SHA-512 hash on the data provided.
