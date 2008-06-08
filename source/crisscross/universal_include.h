@@ -39,11 +39,11 @@
 //#  define CC_LIB_CODENAME            "Thor"          // v0.9.0 codename ( Milestone 4 )
 //#  define CC_LIB_CODENAME            "Valhalla"      // v1.0.0 codename ( Milestone 5 )
 
-#define CC_LIB_VERSION             "0.7.0"
+#define CC_LIB_VERSION             "0.7.1"
 #define CC_LIB_BRANCH_AT_VERSION   "0.8.0"
 #define CC_LIB_VERSION_MAJOR       0
 #define CC_LIB_VERSION_MINOR       7
-#define CC_LIB_VERSION_REVISION    0
+#define CC_LIB_VERSION_REVISION    1
 const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #undef BUILD_NUMBER
 #undef __included_build_number_h
@@ -67,7 +67,7 @@ const int CC_LIB_VERSION_BUILD      = BUILD_NUMBER;
 #define ENABLE_CREDITS
 
 // Sorry, this is Windows-only... (Use Valgrind on Linux)
-//#define DETECT_MEMORY_LEAKS
+#define DETECT_MEMORY_LEAKS
 
 // Don't use it. It doesn't do anything except potentially screw up memory leak detection.
 //# define ENABLE_MEMLEAK_STATS
