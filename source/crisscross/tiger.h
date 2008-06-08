@@ -52,7 +52,7 @@ public:
 #endif
             TigerHash ();
 
-            //! The default destructor.
+            //! The destructor.
             ~TigerHash ();
 
             //! Runs a Tiger hash on the data provided.

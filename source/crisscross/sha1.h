@@ -43,7 +43,7 @@ public:
             //! The default constructor.
             SHA1Hash ();
 
-            //! The default destructor.
+            //! The destructor.
             ~SHA1Hash ();
 
             //! Runs a SHA-1 hash on the data provided.
