@@ -23,33 +23,30 @@
 
 typedef struct _EXCEPTION_POINTERS EXCEPTION_POINTERS, *PEXCEPTION_POINTERS;
 
-int __cdecl RecordExceptionInfo(PEXCEPTION_POINTERS pExceptPtrs,
-                                const char *lpszMessage,
-                                const char *lpszAppMagic,
-                                const char *lpszAppVersion);
+int __cdecl RecordExceptionInfo ( PEXCEPTION_POINTERS pExceptPtrs,const char *lpszMessage,const char *lpszAppMagic,const char *lpszAppVersion );
 
 //! @endcond
 
 /*
-// Sample usage - put the code that used to be in main into HandledMain.
-// To hook it in to an MFC app add ExceptionAttacher.cpp from the mfctest
-// application into your project.
-int main(int argc, char *argv[])
-{
-    int Result = -1;
-    __try
-    {
-        Result = HandledMain(argc, argv);
-    }
-    __except(RecordExceptionInfo(GetExceptionInformation(), "main thread"))
-    {
-        // Do nothing here - RecordExceptionInfo() has already done
-        // everything that is needed. Actually this code won't even
-        // get called unless you return EXCEPTION_EXECUTE_HANDLER from
-        // the __except clause.
-    }
-    return Result;
-}
-*/
+ * // Sample usage - put the code that used to be in main into HandledMain.
+ * // To hook it in to an MFC app add ExceptionAttacher.cpp from the mfctest
+ * // application into your project.
+ * int main(int argc, char *argv[])
+ * {
+ *  int Result = -1;
+ *  __try
+ *  {
+ *      Result = HandledMain(argc, argv);
+ *  }
+ *  __except(RecordExceptionInfo(GetExceptionInformation(), "main thread"))
+ *  {
+ *      // Do nothing here - RecordExceptionInfo() has already done
+ *      // everything that is needed. Actually this code won't even
+ *      // get called unless you return EXCEPTION_EXECUTE_HANDLER from
+ *      // the __except clause.
+ *  }
+ *  return Result;
+ * }
+ */
 
 #endif

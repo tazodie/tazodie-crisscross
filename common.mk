@@ -190,10 +190,7 @@ else
         ARCH = -march=pentiumpro
     endif
     ifeq ($(GCC_HAS_MMX),yes)
-        ARCH = -march=pentium2
-    endif
-    ifeq ($(GCC_HAS_MMX),yes)
-        ARCH = -march=pentium2
+        ARCH = -march=pentium-mmx
     endif
     ifeq ($(GCC_HAS_SSE),yes)
         ARCH = -march=pentium3
