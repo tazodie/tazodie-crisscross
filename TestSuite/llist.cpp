@@ -19,44 +19,44 @@ using namespace CrissCross::Data;
 
 int TestLList ()
 {
-    LList<char *> *llist = new LList<char *>();
-    if ( !llist ) return 1;
+	LList<char *> *llist = new LList<char *>();
+	if ( !llist ) return 1;
 
-    llist->insert ( newStr ("one") );
-    llist->insert ( newStr ("two") );
-    llist->insert ( newStr ("three") );
-    llist->insert ( newStr ("four") );
+	llist->insert ( newStr ( "one" ) );
+	llist->insert ( newStr ( "two" ) );
+	llist->insert ( newStr ( "three" ) );
+	llist->insert ( newStr ( "four" ) );
 
-    if ( strcmp ( llist->get (0), "one" ) != 0 )
-        return 2;
+	if ( strcmp ( llist->get ( 0 ), "one" ) != 0 )
+		return 2;
 
-    if ( strcmp ( llist->get (2), "three" ) != 0 )
-        return 3;
+	if ( strcmp ( llist->get ( 2 ), "three" ) != 0 )
+		return 3;
 
-    if ( strcmp ( llist->get (3), "four" ) != 0 )
-        return 4;
+	if ( strcmp ( llist->get ( 3 ), "four" ) != 0 )
+		return 4;
 
-    if ( strcmp ( llist->get (1), "two" ) != 0 )
-        return 5;
+	if ( strcmp ( llist->get ( 1 ), "two" ) != 0 )
+		return 5;
 
-    delete [] llist->get (1);
-    llist->remove ( 1 );
+	delete [] llist->get ( 1 );
+	llist->remove ( 1 );
 
-    if ( strcmp ( llist->get (0), "one" ) != 0 )
-        return 6;
+	if ( strcmp ( llist->get ( 0 ), "one" ) != 0 )
+		return 6;
 
-    if ( strcmp ( llist->get (1), "three" ) != 0 )
-        return 7;
+	if ( strcmp ( llist->get ( 1 ), "three" ) != 0 )
+		return 7;
 
-    if ( strcmp ( llist->get (2), "four" ) != 0 )
-        return 8;
+	if ( strcmp ( llist->get ( 2 ), "four" ) != 0 )
+		return 8;
 
-    while ( llist->valid (0) )
-    {
-        delete [] llist->get (0);
-        llist->remove (0);
-    }
-    delete llist;
+	while ( llist->valid ( 0 ) )
+	{
+		delete [] llist->get ( 0 );
+		llist->remove ( 0 );
+	}
+	delete llist;
 
-    return 0;
+	return 0;
 }

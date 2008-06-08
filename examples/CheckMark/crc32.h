@@ -12,6 +12,6 @@
 #ifndef __included_crc_h
 #define __included_crc_h
 
-unsigned long crc32 ( const char *_data, size_t _size);
+unsigned long crc32 ( const char *_data, size_t _size );
 
 #endif

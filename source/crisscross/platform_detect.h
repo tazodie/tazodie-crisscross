@@ -10,46 +10,46 @@
  */
 
 /*
-
-   Preprocessor Definitions
-   ------------------------
-
-   TARGET_CPU_ARM
-    ARM processor
-   TARGET_CPU_X86
-    x86 processor
-   TARGET_CPU_X64
-    64-bit processor
-   TARGET_CPU_PPC
-    PowerPC processor
-
-   TARGET_OS_WINDOWS
-    Windows
-   TARGET_OS_LINUX
-    Linux
-   TARGET_OS_MACOSX
-    Mac OS X
-   TARGET_OS_FREEBSD
-    FreeBSD
-   TARGET_OS_NETBSD
-    NetBSD
-   TARGET_OS_OPENBSD
-    OpenBSD
-   TARGET_OS_NDSFIRMWARE
-    Nintendo DS firmware
-
-   TARGET_COMPILER_GCC
-    GNU C++ Compiler
-   TARGET_COMPILER_VC
-    Visual C++
-   TARGET_COMPILER_ICC
-    Intel C++ Compiler
-
-   TARGET_BIG_ENDIAN
-        Running on a big endian byte order architecture.
-   TARGET_LITTLE_ENDIAN
-        Running on a little endian byte order architecture.
-
+ *
+ * Preprocessor Definitions
+ * ------------------------
+ *
+ * TARGET_CPU_ARM
+ *  ARM processor
+ * TARGET_CPU_X86
+ *  x86 processor
+ * TARGET_CPU_X64
+ *  64-bit processor
+ * TARGET_CPU_PPC
+ *  PowerPC processor
+ *
+ * TARGET_OS_WINDOWS
+ *  Windows
+ * TARGET_OS_LINUX
+ *  Linux
+ * TARGET_OS_MACOSX
+ *  Mac OS X
+ * TARGET_OS_FREEBSD
+ *  FreeBSD
+ * TARGET_OS_NETBSD
+ *  NetBSD
+ * TARGET_OS_OPENBSD
+ *  OpenBSD
+ * TARGET_OS_NDSFIRMWARE
+ *  Nintendo DS firmware
+ *
+ * TARGET_COMPILER_GCC
+ *  GNU C++ Compiler
+ * TARGET_COMPILER_VC
+ *  Visual C++
+ * TARGET_COMPILER_ICC
+ *  Intel C++ Compiler
+ *
+ * TARGET_BIG_ENDIAN
+ *      Running on a big endian byte order architecture.
+ * TARGET_LITTLE_ENDIAN
+ *      Running on a little endian byte order architecture.
+ *
  */
 
 #ifndef __included_cc_platform_detect_h

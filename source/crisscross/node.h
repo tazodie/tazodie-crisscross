@@ -16,175 +16,176 @@
 
 namespace CrissCross
 {
-    namespace Data
-    {
+	namespace Data
+	{
+		/*
+		 *      There's no real advantage to making these classes inherit
+		 *      a common BinaryNode class. In fact, it will impact the
+		 *      program negatively to inherit a common class because we
+		 *      are forced to either cast every reference to left/right/parent
+		 *      or override left/right/parent in the derived classes (and
+		 *      doing so would waste memory: 12 bytes per node on 32-bit
+		 *      machines).
+		 *
+		 *      So we no longer inherit a common node class.
+		 */
 
-        /*
-                There's no real advantage to making these classes inherit
-                a common BinaryNode class. In fact, it will impact the
-                program negatively to inherit a common class because we
-                are forced to either cast every reference to left/right/parent
-                or override left/right/parent in the derived classes (and
-                doing so would waste memory: 12 bytes per node on 32-bit
-                machines).
+		//! A binary tree node.
+		template <class Key, class Data>
+		class SplayNode
+		{
+			public:
+				//! The key for this node.
+				Key id;
 
-                So we no longer inherit a common node class.
-         */
+				//! The data held at this node.
+				Data data;
 
-        //! A binary tree node.
-        template <class Key, class Data>
-        class SplayNode
-        {
-public:
-            //! The key for this node.
-            Key id;
+				//! The left branch of the tree from this node.
+				SplayNode *left;
 
-            //! The data held at this node.
-            Data data;
+				//! The right branch of the tree from this node.
+				SplayNode *right;
 
-            //! The left branch of the tree from this node.
-            SplayNode *left;
+				//! The parent node.
+				SplayNode *parent;
 
-            //! The right branch of the tree from this node.
-            SplayNode *right;
+				//! The constructor.
+				SplayNode () : left ( NULL ), right ( NULL ), parent ( NULL )
+				{
+				}
 
-            //! The parent node.
-            SplayNode *parent;
+				//! The destructor.
+				~SplayNode ()
+				{
+					Dealloc ( id );
+					delete left; left = NULL;
+					delete right; right = NULL;
+				}
 
-            //! The constructor.
-            SplayNode () : left (NULL), right (NULL), parent (NULL) {
-            }
+				//! Memory usage in bytes.
+				size_t mem_usage () const
+				{
+					size_t ret = sizeof ( *this );
+					if ( left ) ret += left->mem_usage ();
 
-            //! The destructor.
-            ~SplayNode ()
-            {
-                Dealloc ( id );
-                delete left; left = NULL;
-                delete right; right = NULL;
-            }
+					if ( right ) ret += right->mem_usage ();
 
-            //! Memory usage in bytes.
-            size_t mem_usage () const
-            {
-                size_t ret = sizeof ( *this );
-                if ( left ) ret += left->mem_usage ();
+					return ret;
+				}
+		};
 
-                if ( right ) ret += right->mem_usage ();
+		//! The current balance status of a node
+		typedef enum
+		{
+			//! The left side of the tree is heaviest.
+			LEFTHEAVY,
 
-                return ret;
-            }
-        };
+			//! The tree is well balanced.
+			BALANCED,
 
-        //! The current balance status of a node
-        typedef enum
-        {
-            //! The left side of the tree is heaviest.
-            LEFTHEAVY,
+			//! The right side of the tree is heaviest.
+			RIGHTHEAVY
+		} AVLBalance;
 
-            //! The tree is well balanced.
-            BALANCED,
+		//! A binary tree node used for AVLTree.
+		template <class Key, class Data>
+		class AVLNode
+		{
+			public:
 
-            //! The right side of the tree is heaviest.
-            RIGHTHEAVY
-        } AVLBalance;
+				//! The left branch of the tree from this node.
+				AVLNode *left;
 
-        //! A binary tree node used for AVLTree.
-        template <class Key, class Data>
-        class AVLNode
-        {
-public:
+				//! The right branch of the tree from this node.
+				AVLNode *right;
 
-            //! The left branch of the tree from this node.
-            AVLNode *left;
+				//! The parent node.
+				AVLNode *parent;
 
-            //! The right branch of the tree from this node.
-            AVLNode *right;
+				//! The key for this node.
+				Key id;
 
-            //! The parent node.
-            AVLNode *parent;
+				//! The data held at this node.
+				Data data;
 
-            //! The key for this node.
-            Key id;
+				//! The state of this part of the tree's balance.
+				char balance;
 
-            //! The data held at this node.
-            Data data;
+				//! The default constructor.
+				AVLNode () : left ( NULL ), right ( NULL ), parent ( NULL ), balance ( BALANCED )
+				{
+				}
 
-            //! The state of this part of the tree's balance.
-            char balance;
+				//! The destructor.
+				~AVLNode ()
+				{
+					Dealloc ( id );
+					delete left; left = NULL;
+					delete right; right = NULL;
+				}
 
-            //! The default constructor.
-            AVLNode () : left (NULL), right (NULL), parent (NULL), balance (BALANCED) {
-            }
+				//! Memory usage in bytes.
+				size_t mem_usage () const
+				{
+					size_t ret = sizeof ( *this );
+					if ( left ) ret += left->mem_usage ();
 
-            //! The destructor.
-            ~AVLNode ()
-            {
-                Dealloc ( id );
-                delete left; left = NULL;
-                delete right; right = NULL;
-            }
+					if ( right ) ret += right->mem_usage ();
 
-            //! Memory usage in bytes.
-            size_t mem_usage () const
-            {
-                size_t ret = sizeof ( *this );
-                if ( left ) ret += left->mem_usage ();
+					return ret;
+				}
+		};
 
-                if ( right ) ret += right->mem_usage ();
+		//! A binary tree node used for RedBlackTree.
+		template <class Key, class Data>
+		class RedBlackNode
+		{
+			public:
 
-                return ret;
-            }
+				//! The left branch of the tree from this node.
+				RedBlackNode *left;
 
-        };
+				//! The right branch of the tree from this node.
+				RedBlackNode *right;
 
-        //! A binary tree node used for RedBlackTree.
-        template <class Key, class Data>
-        class RedBlackNode
-        {
-public:
+				//! The parent node.
+				RedBlackNode *parent;
 
-            //! The left branch of the tree from this node.
-            RedBlackNode *left;
+				//! The key for this node.
+				Key id;
 
-            //! The right branch of the tree from this node.
-            RedBlackNode *right;
+				//! The data held at this node.
+				Data data;
 
-            //! The parent node.
-            RedBlackNode *parent;
+				//! The color of the node (either red or black).
+				char color;
 
-            //! The key for this node.
-            Key id;
+				//! The default constructor.
+				RedBlackNode () : left ( NULL ), right ( NULL ), parent ( NULL )
+				{
+				}
 
-            //! The data held at this node.
-            Data data;
+				//! The destructor.
+				~RedBlackNode ()
+				{
+					Dealloc ( id );
+					delete left; left = NULL;
+					delete right; right = NULL;
+				}
 
-            //! The color of the node (either red or black).
-            char color;
+				//! Memory usage in bytes.
+				size_t mem_usage () const
+				{
+					size_t ret = sizeof ( *this );
+					if ( left ) ret += left->mem_usage ();
 
-            //! The default constructor.
-            RedBlackNode () : left (NULL), right (NULL), parent (NULL) {
-            }
+					if ( right ) ret += right->mem_usage ();
 
-            //! The destructor.
-            ~RedBlackNode ()
-            {
-                Dealloc ( id );
-                delete left; left = NULL;
-                delete right; right = NULL;
-            }
-
-            //! Memory usage in bytes.
-            size_t mem_usage () const
-            {
-                size_t ret = sizeof ( *this );
-                if ( left ) ret += left->mem_usage ();
-
-                if ( right ) ret += right->mem_usage ();
-
-                return ret;
-            }
-        };
-    }
+					return ret;
+				}
+		};
+	}
 }
 
 #endif
