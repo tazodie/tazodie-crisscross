@@ -19,7 +19,7 @@
 #include <crisscross/build_number.h>
 
 #ifndef SDL_APPLICATION
-//#  define SDL_APPLICATION // Define if your application uses SDLmain.
+#  define SDL_APPLICATION // Define if your application uses SDLmain.
 #endif
 
 #ifndef COCOA_APPLICATION
@@ -89,6 +89,18 @@ const int CC_LIB_VERSION_BUILD = BUILD_NUMBER;
 // -----------------------
 // RESULTANT CONFIGURATION
 // -----------------------
+
+#if defined ( TARGET_OS_WINDOWS )
+#  define _WIN32_WINNT 0x0500 // Windows 2000
+#  define _WIN32_IE_   0x0550 // IE 5.5
+#endif
+
+#if defined ( SDL_APPLICATION )
+#  if !defined ( _CONSOLE )
+#    undef  _WINDOWS
+#    define _CONSOLE
+#  endif
+#endif
 
 #if defined ( _OPENMP )
 #  include <omp.h>
