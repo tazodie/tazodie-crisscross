@@ -268,6 +268,10 @@ void AppPrintMemoryLeaks ( char *_filename )
 }
 #endif
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #ifdef COCOA_APPLICATION
 int RunApplication ( int argc, char **argv )
 {
@@ -278,7 +282,7 @@ int RunApplication ( int argc, char **argv )
 #ifndef TARGET_OS_WINDOWS
 int main ( int argc, char **argv )
 #else
-#  ifndef _WINDOWS
+#  if !defined ( _WINDOWS ) || defined ( _CONSOLE )
 int main ( int argc, char **argv )
 #  else
 int WINAPI WinMain ( HINSTANCE _hInstance, HINSTANCE _hPrevInstance,LPSTR _cmdLine, int _iCmdShow )
@@ -321,3 +325,7 @@ int WINAPI WinMain ( HINSTANCE _hInstance, HINSTANCE _hPrevInstance,LPSTR _cmdLi
 
 	return retval;
 }
+
+#ifdef __cplusplus
+}
+#endif
