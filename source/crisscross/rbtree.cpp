@@ -555,12 +555,12 @@ namespace CrissCross
 			CoreAssert ( _array );
 			if ( !_node ) return;
 
+			findRecursive ( _array, _key, _node->left );
 			if ( Compare ( _node->id, _key ) == 0 )
 			{
-				findRecursive ( _array, _key, _node->left );
 				_array->insert ( _node->data );
-				findRecursive ( _array, _key, _node->right );
 			}
+			findRecursive ( _array, _key, _node->right );
 		}
 
 		template <class Key, class Data>
