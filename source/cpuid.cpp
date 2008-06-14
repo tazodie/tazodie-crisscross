@@ -278,6 +278,7 @@ namespace CrissCross
 					if ( nodes->valid ( j ) )
 						delete nodes->get ( j );
 				}
+				delete nodes;
 
 				delete [] (char *)proc[i]->Manufacturer;
 				delete [] (char *)proc[i]->ProcessorName;
