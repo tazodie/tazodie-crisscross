@@ -36,8 +36,8 @@
 
 #  include "windows.h"
 #  include <tchar.h>
-#  include "GetWinVer.h"
-#  include "miniversion.h"
+#  include <crisscross/windows_version.h>
+#  include <crisscross/mini_version.h>
 #  include "dbghelp.h"
 
 #  define XCRASHREPORT_WRITE_MINIDUMP    1
