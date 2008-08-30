@@ -167,7 +167,7 @@ const int CC_LIB_VERSION_BUILD = BUILD_NUMBER;
 #    define _CRTDBG_MAP_ALLOC
 #  endif
 #  if defined ( ENABLE_CRASHREPORTS )
-#    include "XCrashReports/exception_handler.h"
+#    include "exception_handler.h"
 #  endif
 #  include <io.h>
 #  include <fcntl.h>
