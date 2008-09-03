@@ -279,15 +279,7 @@ int RunApplication ( int argc, char **argv )
 }
 #endif
 
-#ifndef TARGET_OS_WINDOWS
 int main ( int argc, char **argv )
-#else
-#  if !defined ( _WINDOWS ) || defined ( _CONSOLE )
-int main ( int argc, char **argv )
-#  else
-int WINAPI WinMain ( HINSTANCE _hInstance, HINSTANCE _hPrevInstance,LPSTR _cmdLine, int _iCmdShow )
-#  endif
-#endif
 {
 	int retval = 0;
 
@@ -325,6 +317,15 @@ int WINAPI WinMain ( HINSTANCE _hInstance, HINSTANCE _hPrevInstance,LPSTR _cmdLi
 
 	return retval;
 }
+
+#ifdef TARGET_OS_WINDOWS
+#ifndef SDL_APPLICATION
+int WINAPI WinMain ( HINSTANCE _hInstance, HINSTANCE _hPrevInstance,LPSTR _cmdLine, int _iCmdShow )
+{
+	main ( __argc, __argv );
+}
+#endif
+#endif
 
 #ifdef __cplusplus
 }

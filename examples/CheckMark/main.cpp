@@ -42,23 +42,31 @@ int RunApplication ( int argc, char **argv )
 	console->WriteLine ( "%5.3lfs", sw.Elapsed () );
 	console->WriteLine ();
 
-	sw.Start ();
-	for ( int r = 0; r < MAX_RUNS; r++ )
-		for ( int i = 0; i < DATASET_SIZE; i++ )
-		{
-			adler32 ( 0,randomStrings.get ( i ),ENTRY_LENGTH );
-		}
-	sw.Stop ();
-	console->WriteLine ( "%8lu AdlerMarks", (unsigned long)((double)( DATASET_SIZE * MAX_RUNS ) / sw.Elapsed ()) );
+	// This variable just makes the compiler think
+	// the data is being used somehow.
+	unsigned long killOptimization = 0;
 
 	sw.Start ();
 	for ( int r = 0; r < MAX_RUNS; r++ )
 		for ( int i = 0; i < DATASET_SIZE; i++ )
 		{
-			crc32 ( randomStrings.get ( i ),ENTRY_LENGTH );
+			killOptimization = adler32 ( 0, randomStrings.get ( i ), ENTRY_LENGTH );
 		}
 	sw.Stop ();
-	console->WriteLine ( "%8lu CRCMarks", (unsigned long)((double)( DATASET_SIZE * MAX_RUNS ) / sw.Elapsed ()) );
+	console->WriteLine ( "%8lu AdlerMarks",
+		(unsigned long)((double)( DATASET_SIZE * MAX_RUNS ) / sw.Elapsed ()),
+		killOptimization );
+
+	sw.Start ();
+	for ( int r = 0; r < MAX_RUNS; r++ )
+		for ( int i = 0; i < DATASET_SIZE; i++ )
+		{
+			killOptimization = crc32 ( randomStrings.get ( i ), ENTRY_LENGTH );
+		}
+	sw.Stop ();
+	console->WriteLine ( "%8lu CRCMarks",
+		(unsigned long)((double)( DATASET_SIZE * MAX_RUNS ) / sw.Elapsed ()),
+		killOptimization );
 
 	// It's too slow. Disabled.
 #if 0
@@ -68,7 +76,8 @@ int RunApplication ( int argc, char **argv )
 		for ( int i = 0; i < DATASET_SIZE; i++ )
 			md2.Process ( randomStrings.get ( i ), ENTRY_LENGTH );
 	sw.Stop ();
-	console->WriteLine ( "%8lu MD2Marks", (unsigned long)((double)( DATASET_SIZE * MAX_RUNS ) / sw.Elapsed ()) );
+	console->WriteLine ( "%8lu MD2Marks",
+		(unsigned long)(((double)( DATASET_SIZE * MAX_RUNS ) / sw.Elapsed ()) / 1024.0) );
 #endif
 
 
@@ -78,8 +87,8 @@ int RunApplication ( int argc, char **argv )
 		for ( int i = 0; i < DATASET_SIZE; i++ )
 			md4.Process ( randomStrings.get ( i ), ENTRY_LENGTH );
 	sw.Stop ();
-	console->WriteLine ( "%8lu MD4Marks", (unsigned long)((double)( DATASET_SIZE * MAX_RUNS ) / sw.Elapsed ()) );
-
+	console->WriteLine ( "%8lu MD4Marks",
+		(unsigned long)((double)( DATASET_SIZE * MAX_RUNS ) / sw.Elapsed ()) );
 
 	CrissCross::Crypto::MD5Hash md5;
 	sw.Start ();
@@ -87,8 +96,8 @@ int RunApplication ( int argc, char **argv )
 		for ( int i = 0; i < DATASET_SIZE; i++ )
 			md5.Process ( randomStrings.get ( i ), ENTRY_LENGTH );
 	sw.Stop ();
-	console->WriteLine ( "%8lu MD5Marks", (unsigned long)((double)( DATASET_SIZE * MAX_RUNS ) / sw.Elapsed ()) );
-
+	console->WriteLine ( "%8lu MD5Marks",
+		(unsigned long)((double)( DATASET_SIZE * MAX_RUNS ) / sw.Elapsed ()) );
 
 	CrissCross::Crypto::SHA1Hash sha1;
 	sw.Start ();
@@ -96,8 +105,8 @@ int RunApplication ( int argc, char **argv )
 		for ( int i = 0; i < DATASET_SIZE; i++ )
 			sha1.Process ( randomStrings.get ( i ), ENTRY_LENGTH );
 	sw.Stop ();
-	console->WriteLine ( "%8lu SHA1Marks", (unsigned long)((double)( DATASET_SIZE * MAX_RUNS ) / sw.Elapsed ()) );
-
+	console->WriteLine ( "%8lu SHA1Marks",
+		(unsigned long)((double)( DATASET_SIZE * MAX_RUNS ) / sw.Elapsed ()) );
 
 	CrissCross::Crypto::SHA256Hash sha256;
 	sw.Start ();
@@ -105,8 +114,8 @@ int RunApplication ( int argc, char **argv )
 		for ( int i = 0; i < DATASET_SIZE; i++ )
 			sha256.Process ( randomStrings.get ( i ), ENTRY_LENGTH );
 	sw.Stop ();
-	console->WriteLine ( "%8lu SHA256Marks", (unsigned long)((double)( DATASET_SIZE * MAX_RUNS ) / sw.Elapsed ()) );
-
+	console->WriteLine ( "%8lu SHA256Marks",
+		(unsigned long)((double)( DATASET_SIZE * MAX_RUNS ) / sw.Elapsed ()) );
 
 	CrissCross::Crypto::SHA512Hash sha512;
 	sw.Start ();
@@ -114,8 +123,8 @@ int RunApplication ( int argc, char **argv )
 		for ( int i = 0; i < DATASET_SIZE; i++ )
 			sha512.Process ( randomStrings.get ( i ), ENTRY_LENGTH );
 	sw.Stop ();
-	console->WriteLine ( "%8lu SHA512Marks", (unsigned long)((double)( DATASET_SIZE * MAX_RUNS ) / sw.Elapsed ()) );
-
+	console->WriteLine ( "%8lu SHA512Marks",
+		(unsigned long)((double)( DATASET_SIZE * MAX_RUNS ) / sw.Elapsed ()) );
 
 	CrissCross::Crypto::TigerHash tiger;
 	sw.Start ();
@@ -123,7 +132,8 @@ int RunApplication ( int argc, char **argv )
 		for ( int i = 0; i < DATASET_SIZE; i++ )
 			tiger.Process ( randomStrings.get ( i ), ENTRY_LENGTH );
 	sw.Stop ();
-	console->WriteLine ( "%8lu TigerMarks", (unsigned long)((double)( DATASET_SIZE * MAX_RUNS ) / sw.Elapsed ()) );
+	console->WriteLine ( "%8lu TigerMarks",
+		(unsigned long)((double)( DATASET_SIZE * MAX_RUNS ) / sw.Elapsed ()) );
 
 
 	randomStrings.EmptyAndDeleteArray ();

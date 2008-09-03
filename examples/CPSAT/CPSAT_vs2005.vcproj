@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="CheckMark"
-	ProjectGUID="{9B4DEA8B-3651-40DD-BD44-6826F10E4FA8}"
-	RootNamespace="CheckMark"
+	Name="CPSAT"
+	ProjectGUID="{B0283112-3B07-4967-BAF9-CDF849284FB4}"
+	RootNamespace="CPSAT"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -29,6 +29,9 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
+				Description=""
+				CommandLine=""
+				Outputs=""
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -108,6 +111,9 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
+				Description=""
+				CommandLine=""
+				Outputs=""
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -188,6 +194,9 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
+				Description=""
+				CommandLine=""
+				Outputs=""
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -272,6 +281,9 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
+				Description=""
+				CommandLine=""
+				Outputs=""
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -351,22 +363,6 @@
 	</References>
 	<Files>
 		<File
-			RelativePath=".\adler32.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\adler32.h"
-			>
-		</File>
-		<File
-			RelativePath=".\crc32.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\crc32.h"
-			>
-		</File>
-		<File
 			RelativePath=".\header.cpp"
 			>
 			<FileConfiguration
@@ -411,11 +407,19 @@
 			>
 		</File>
 		<File
-			RelativePath=".\random.cpp"
+			RelativePath=".\rijndael-alg-fst.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\random.h"
+			RelativePath=".\rijndael-alg-fst.h"
+			>
+		</File>
+		<File
+			RelativePath=".\rijndael.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\rijndael.h"
 			>
 		</File>
 	</Files>
