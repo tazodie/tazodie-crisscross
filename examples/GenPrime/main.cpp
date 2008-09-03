@@ -38,129 +38,6 @@ prime_t primeCache[PREGEN]; prime_t *primeCachePtr;
 //		 as a waste of time and optimizing it out.
 //
 
-#ifdef TARGET_OS_WINDOWS
-#  ifdef PREGEN
-bool isPrime_asm ( unsigned long _candidate )
-{
-	int retval = 0;
-	unsigned int floatpacket1[4] = {0, 0, 0, 0x041f00000};
-	unsigned int floatpacket2[4] = {0, 0, 0, 0x041f00000};
-	unsigned int floatpacket3 = 0x040000000;
-	unsigned int floatpacket4 = 0x040400000;
-	__asm {
-		mov eax, _candidate
-
-		sub esp, 20
-
-		// 1 isn't prime
-		cmp eax, 1
-		je notprime
-
-		// Anything else less than four is prime.
-		cmp eax, 4
-		jb prime
-
-		// Anything else divisible by 2 isn't prime.
-		test al, 1
-		je notprime
-
-		movss xmm3, DWORD PTR primeCache
-		mov DWORD PTR [esp], eax
-		fild DWORD PTR [esp]
-		mov DWORD PTR [esp], eax
-		fild DWORD PTR [esp]
-		mov edx, eax
-		shr edx, 31
-		fxch st ( 1 )
-		fadd QWORD PTR floatpacket2[0 + edx * 8]
-		fstp DWORD PTR [esp + 8]
-		shr eax, 31
-		fadd QWORD PTR floatpacket2[0 + eax * 8]
-		fsqrt
-		mov edx, OFFSET primeCache
-		movss xmm2, DWORD PTR [esp + 8]
-		fstp DWORD PTR[esp + 8]
-		movss xmm0, DWORD PTR [esp + 8]
-		xorps xmm1, xmm1
-		ucomiss xmm3, xmm1
-		jp b5_5
-		je b5_22
-		b5_5 :           movss xmm3, DWORD PTR [edx]
-			b5_6 :           comiss xmm0, xmm3
-				jb b5_10
-
-				movss DWORD PTR [esp], xmm2
-				fld DWORD PTR [esp]
-				movss DWORD PTR [esp], xmm3
-				fld DWORD PTR [esp]
-				fxch st ( 1 )
-				L19 :            fprem
-					fnstsw ax
-					sahf
-					jp L19
-					fstp st ( 1 )
-
-					fstp DWORD PTR [esp + 8]
-					movss xmm3, DWORD PTR [esp + 8]
-					cvttss2si eax, xmm3
-					test eax, eax
-					je notprime
-
-					movss xmm3, DWORD PTR [edx + 4]
-					add edx, 4
-					ucomiss xmm3, xmm1
-					jne b5_6
-					jp b5_6
-
-					b5_10 : // Why did we exit the loop? Too high a divisor?
-						comiss xmm3, xmm0
-						jae prime
-
-						movss xmm5, DWORD PTR primeCache + PREGEN - 2
-						ucomiss xmm5, xmm1
-						movss xmm4, DWORD PTR floatpacket3
-						movaps xmm3, xmm4
-						addss xmm3, xmm5
-						movss xmm6, DWORD PTR floatpacket4
-						jne L20
-						jp L20
-						movaps xmm3, xmm6
-						L20 :            comiss xmm0, xmm3
-							jb prime
-
-							movss DWORD PTR [esp], xmm2
-							fld DWORD PTR [esp]
-							fstp DWORD PTR [esp + 16]
-							b5_13 :          fld DWORD PTR [esp + 16]
-								movss DWORD PTR [esp], xmm3
-								fld DWORD PTR [esp]
-								fxch st ( 1 )
-								L21 :            fprem
-									fnstsw ax
-									sahf
-									jp L21
-									fstp st ( 1 )
-
-									fstp DWORD PTR [esp + 8]
-									movss xmm1, DWORD PTR [esp + 8]
-									cvttss2si eax, xmm1
-									test eax, eax
-									je notprime
-
-									addss xmm3, xmm4
-									comiss xmm0, xmm3
-									jae b5_13
-
-									b5_22 :          movss xmm3, DWORD PTR [ebx]
-										jmp b5_10
-										prime :          mov retval, 1
-											notprime :       add esp, 20
-	}
-	return ( retval != 0 );
-}
-#  endif
-#endif
-
 bool isPrime ( unsigned long _candidate )
 {
 	prime_t i, limit, next, *p, n;
@@ -208,11 +85,19 @@ bool isPrime ( unsigned long _candidate )
 	for ( i = next; i <= limit; i += 2 ) if ( _modulus ( n, i ) == 0 ) return false;
 
 	return true;
+#if defined ( TARGET_CPU_X86 ) || defined ( TARGET_CPU_X64 )
+#  if defined ( TARGET_COMPILER_GCC )
+	asm ( "nop" );
+#  endif
+#endif
+
 #if defined ( TARGET_CPU_X86 )
 #  if defined ( TARGET_COMPILER_VC )
 	__asm nop;
-#  elif defined ( TARGET_COMPILER_GCC )
-	asm ( "nop" );
+#  endif
+#elif defined ( TARGET_CPU_X64 )
+#  if defined ( TARGET_OS_WINDOWS ) && defined ( TARGET_COMPILER_ICC )
+	__asm nop;
 #  endif
 #endif
 }
@@ -229,13 +114,7 @@ unsigned long genPrime ( unsigned long _maxToFind, isPrimeFunc _func )
 		}
 	}
 	return count;
-#if defined ( TARGET_CPU_X86 )
-#  if defined ( TARGET_COMPILER_VC )
-	__asm nop;
-#  elif defined ( TARGET_COMPILER_GCC )
-	asm ( "nop" );
-#  endif
-#endif
+	NOP;
 }
 
 #ifdef PREGEN
@@ -290,8 +169,6 @@ int RunApplication ( int argc, char **argv )
 	SetThreadPriority ( hThread, THREAD_PRIORITY_TIME_CRITICAL );
 	SetPriorityClass ( hProcess, HIGH_PRIORITY_CLASS );
 
-	console->WriteLine ( "Compiler optimized:" );
-
 #endif
 
 	Stopwatch sw;
@@ -313,20 +190,6 @@ int RunApplication ( int argc, char **argv )
 		                     (unsigned long)((double)i / sw.Elapsed ()) );
 #endif
 	}
-
-#ifdef TARGET_OS_WINDOWS
-#  ifdef PREGEN
-	console->WriteLine ();
-	console->WriteLine ( "Intel C++ Compiler v10 optimized:" );
-	for ( unsigned long i = 100000; i <= 500000; i += 100000 )
-	{
-		sw.Start ();
-		genPrime ( i, isPrime_asm );
-		sw.Stop ();
-		console->WriteLine ( "Time for %9d primes: %6.3lf seconds", i, sw.Elapsed () );
-	}
-#  endif
-#endif
 
 #ifdef TARGET_OS_WINDOWS
 	system ( "PAUSE" );

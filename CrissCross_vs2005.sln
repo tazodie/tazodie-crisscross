@@ -37,6 +37,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CheckMark", "examples\Check
 		{9520273D-42A8-4E63-A2DC-C209AAAC2B6A} = {9520273D-42A8-4E63-A2DC-C209AAAC2B6A}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CPSAT", "examples\CPSAT\CPSAT_vs2005.vcproj", "{B0283112-3B07-4967-BAF9-CDF849284FB4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9520273D-42A8-4E63-A2DC-C209AAAC2B6A} = {9520273D-42A8-4E63-A2DC-C209AAAC2B6A}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -109,6 +114,14 @@ Global
 		{9B4DEA8B-3651-40DD-BD44-6826F10E4FA8}.Release|Win32.Build.0 = Release|Win32
 		{9B4DEA8B-3651-40DD-BD44-6826F10E4FA8}.Release|x64.ActiveCfg = Release|x64
 		{9B4DEA8B-3651-40DD-BD44-6826F10E4FA8}.Release|x64.Build.0 = Release|x64
+		{B0283112-3B07-4967-BAF9-CDF849284FB4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B0283112-3B07-4967-BAF9-CDF849284FB4}.Debug|Win32.Build.0 = Debug|Win32
+		{B0283112-3B07-4967-BAF9-CDF849284FB4}.Debug|x64.ActiveCfg = Debug|x64
+		{B0283112-3B07-4967-BAF9-CDF849284FB4}.Debug|x64.Build.0 = Debug|x64
+		{B0283112-3B07-4967-BAF9-CDF849284FB4}.Release|Win32.ActiveCfg = Release|Win32
+		{B0283112-3B07-4967-BAF9-CDF849284FB4}.Release|Win32.Build.0 = Release|Win32
+		{B0283112-3B07-4967-BAF9-CDF849284FB4}.Release|x64.ActiveCfg = Release|x64
+		{B0283112-3B07-4967-BAF9-CDF849284FB4}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
