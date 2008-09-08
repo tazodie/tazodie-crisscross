@@ -307,9 +307,11 @@ namespace CrissCross
 #ifdef TARGET_OS_WINDOWS
 			SetConsoleTitleA ( _title );
 #else
+#if 0 /* Random bug just cropped up round this. */
 			char buffer[4096];
 			sprintf ( buffer, "\033]2;%s\007", _title );
 			Write ( buffer );
+#endif
 #endif
 		}
 
