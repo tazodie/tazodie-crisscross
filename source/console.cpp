@@ -14,7 +14,9 @@
 #include <crisscross/console.h>
 
 #ifndef TARGET_OS_WINDOWS
-#  include <sys/ioctl.h>
+#  ifndef TARGET_OS_NDSFIRMWARE
+#    include <sys/ioctl.h>
+#  endif
 #  include <sys/wait.h>
 #  include <fcntl.h>
 #  include <signal.h>
