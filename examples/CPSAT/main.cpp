@@ -23,9 +23,11 @@ int RunApplication ( int argc, char **argv )
 
 	// Begin your application here.
 
+	console->SetColour ( Console::FG_RED | Console::FG_INTENSITY );
 	console->WriteLine ( "=======================================" );
 	console->WriteLine ( "= RIJNDAEL (AES) ENCRYPTION BENCHMARK =" );
 	console->WriteLine ( "=======================================" );
+	console->SetColour ();
 	console->WriteLine ();
 	rijndaelSpeed ( 128 );
 	rijndaelSpeed ( 192 );

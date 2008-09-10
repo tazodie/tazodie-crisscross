@@ -2,11 +2,13 @@ include ../../common.mk
 
 OBJDIR = obj/linux
 OUTDIR = .
-OUTNAME = genprime
+OUTNAME = cpsat
 OUTBIN = $(OUTNAME)
 
 SOURCES = \
 header.cpp \
+rijndael.cpp \
+rijndael-alg-fst.cpp \
 main.cpp
 
 OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)
@@ -15,7 +17,7 @@ ifneq ($(CC_BUILDSTATIC),yes)
 LDFLAGS += -rdynamic
 endif
 INCLUDES += -I. -I../../source
-CXXFLAGS += $(INCLUDES) -ffast-math
+CXXFLAGS += $(INCLUDES)
 
 ifeq ($(GCC_MAJOR),4)
 PCH = header.h
