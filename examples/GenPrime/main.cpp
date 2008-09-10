@@ -17,7 +17,7 @@ using namespace CrissCross::System;
 /* 16K of data. Should fit in most L1 caches. */
 #define PREGEN 4096
 
-#define USE_INTEGERS
+// #define USE_INTEGERS
 
 #ifdef USE_INTEGERS
 typedef unsigned long prime_t;
@@ -104,17 +104,32 @@ bool isPrime ( unsigned long _candidate )
 
 unsigned long genPrime ( unsigned long _maxToFind, isPrimeFunc _func )
 {
-	unsigned long count = 0;
+	unsigned long count = 0, lastprime = 0;
 	for ( unsigned long num = 1; count < _maxToFind; num++ )
 	{
 		//CoreAssert ( isPrime ( num ) == _func ( num ) );
 		if ( _func ( num ) )
 		{
 			count++;
+			lastprime = num;
 		}
 	}
-	return count;
-	NOP;
+	return lastprime;
+#if defined ( TARGET_CPU_X86 ) || defined ( TARGET_CPU_X64 )
+#  if defined ( TARGET_COMPILER_GCC )
+	asm ( "nop" );
+#  endif
+#endif
+
+#if defined ( TARGET_CPU_X86 )
+#  if defined ( TARGET_COMPILER_VC )
+	__asm nop;
+#  endif
+#elif defined ( TARGET_CPU_X64 )
+#  if defined ( TARGET_OS_WINDOWS ) && defined ( TARGET_COMPILER_ICC )
+	__asm nop;
+#  endif
+#endif
 }
 
 #ifdef PREGEN
@@ -151,10 +166,36 @@ int RunApplication ( int argc, char **argv )
 
 	// Begin your application here.
 
+	unsigned long inc, max;
+
+	if ( argc < 3 )
+	{
+		console->WriteLine ( "Not enough parameters." );
+		delete console;
+		return 0;
+	}
+
+	inc = atoi(argv[1]);
+	max = atoi(argv[2]);
+
+	if ( !( inc <= max ) )
+	{
+		console->WriteLine ( "Increment cannot be less than zero or greater than the max." );
+		delete console;
+		return 0;
+	}
+
+	if ( !( max < ((unsigned long)-1) / 2 ) )
+	{
+		console->WriteLine ( "Maximum is too high." );
+		delete console;
+		return 0;
+	}
+
 #ifdef USE_INTEGERS
-	console->WriteLine ( "Using INTEGER math only.\n" );
+	console->WriteLine ( "Using integer math.\n" );
 #else
-	console->WriteLine ( "Using FLOAT math only.\n" );
+	console->WriteLine ( "Using floating-point math.\n" );
 #endif
 
 #ifdef PREGEN
@@ -173,21 +214,23 @@ int RunApplication ( int argc, char **argv )
 
 	Stopwatch sw;
 
+	unsigned long lastprime;
+
 #ifdef TARGET_OS_NDSFIRMWARE
 	for ( unsigned long i = 10000; i <= 50000; i += 1000 )
 #else
-	for ( unsigned long i = 100000; i <= 500000; i += 100000 )
+	for ( unsigned long i = inc; i <= max; i += inc )
 #endif
 	{
 		sw.Start ();
-		genPrime ( i, isPrime );
+		lastprime = genPrime ( i, isPrime );
 		sw.Stop ();
 #ifdef TARGET_OS_NDSFIRMWARE
-		console->WriteLine ( "%5d primes: %d.%03ds (%lu PPS)", i, sw.ElapsedMS () / 1000,
-		                     sw.ElapsedMS () % 1000, (unsigned long)( i / sw.Elapsed ()) );
+		console->WriteLine ( "%5d primes: %d.%03ds (%lu PPS, LP: %lu)", i, sw.ElapsedMS () / 1000,
+		                     sw.ElapsedMS () % 1000, (unsigned long)( i / sw.Elapsed ()), lastprime );
 #else
-		console->WriteLine ( "Time for %9d primes: %6.3lf seconds (%lu PPS)", i, sw.Elapsed (),
-		                     (unsigned long)((double)i / sw.Elapsed ()) );
+		console->WriteLine ( "Time for %9d primes: %6.3lf seconds (%lu PPS, LP: %lu)", i, sw.Elapsed (),
+		                     (unsigned long)((double)i / sw.Elapsed ()), lastprime );
 #endif
 	}
 

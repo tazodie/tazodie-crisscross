@@ -36,11 +36,19 @@ NDSTOOL = $(DEVKITARM)/bin/ndstool -v
 TARGET_BITS =
 endif
 
+ifneq ($(CXX),icpc)
+ifneq ($(CC),icc)
 STDC = -std=c99 -pedantic
 STDCPP = -std=c++98 -pedantic
+endif
+endif
 
 LINK = $(CXX)
 LDFLAGS = $(TARGET_BITS) -lstdc++ -L../source  -L../../source -lCrissCross
+
+ifeq ($(CXX),icpc)
+LDFLAGS += -lguide
+endif
 
 GCC_APPLE    := $(shell $(CXX) -v 2>&1 | \
                     grep "Apple" )
@@ -228,6 +236,8 @@ else
 LDFLAGS += -lpthread
 
 endif
+
+# ARCH=-xP -funroll-loops -parallel -fp-model fast -ssp
 
 ifeq ($(CFLAGS),)
 CFLAGS = -O$(OPTLEVEL) $(TARGET_BITS) $(STDC) $(ARCH) -Wall -Wno-long-long -rdynamic -pipe -ggdb
