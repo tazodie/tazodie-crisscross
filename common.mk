@@ -8,7 +8,7 @@ OPTLEVEL = 3
 # Define a custom CHOST here.
 #CHOST = i386-pc-linux-gnu
 
-TARGET_BITS =
+#TARGET_BITS =
 
 ifneq ($(CHOST),)
 PREFIX = $(CHOST)-
@@ -62,6 +62,16 @@ GCC_MAJOR    := $(shell $(CXX) -dumpversion 2>&1 | \
                         cut -d' ' -f3  | cut -d'.' -f1)
 GCC_MINOR    := $(shell $(CXX) -dumpversion 2>&1 | \
                         cut -d' ' -f3  | cut -d'.' -f2)
+GCC4_OR_GREATER := $(shell $(PWD)/tools/is_ge.sh $(GCC_MAJOR) 4)
+ifeq ($(GCC4_OR_GREATER),yes)
+	ifeq ($(GCC_MAJOR),4)
+		GCC42_OR_GREATER := $(shell $(PWD)/tools/is_ge.sh $(GCC_MINOR) 2)
+	else
+		GCC42_OR_GREATER := yes
+	endif
+else
+	GCC42_OR_GREATER := no
+endif
 GCC_PROC     := $(shell uname -m)
 GCC_MMX      := $(shell cat /proc/cpuinfo 2> /dev/null | grep mmx)
 GCC_SSE      := $(shell cat /proc/cpuinfo 2> /dev/null | grep sse)
@@ -203,7 +213,7 @@ else
     ifeq ($(GCC_HAS_SSE),yes)
         ARCH = -march=pentium3
     endif
-    ifeq ($(GCC_MAJOR),4)
+    ifeq ($(GCC4_OR_GREATER),yes)
         ifeq ($(GCC_HAS_SSE2),yes)
             ARCH = -march=pentium-m -mtune=pentium-m
         endif
@@ -213,6 +223,9 @@ else
     endif
     ifeq ($(GCC_ISX64),yes)
         ARCH = -march=nocona
+    endif
+    ifeq ($(GCC42_OR_GREATER),yes)
+        ARCH = -march=native
     endif
 endif
 
