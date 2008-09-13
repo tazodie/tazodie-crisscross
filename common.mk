@@ -62,10 +62,10 @@ GCC_MAJOR    := $(shell $(CXX) -dumpversion 2>&1 | \
                         cut -d' ' -f3  | cut -d'.' -f1)
 GCC_MINOR    := $(shell $(CXX) -dumpversion 2>&1 | \
                         cut -d' ' -f3  | cut -d'.' -f2)
-GCC4_OR_GREATER := $(shell $(PWD)/tools/is_ge.sh $(GCC_MAJOR) 4)
+GCC4_OR_GREATER := $(shell /bin/bash -c 'if [ $(GCC_MAJOR) -ge 4 ]; then echo "yes"; else echo "no"; fi' )
 ifeq ($(GCC4_OR_GREATER),yes)
 	ifeq ($(GCC_MAJOR),4)
-		GCC42_OR_GREATER := $(shell $(PWD)/tools/is_ge.sh $(GCC_MINOR) 2)
+		GCC42_OR_GREATER := $(shell /bin/bash -c 'if [ $(GCC_MINOR) -ge 2 ]; then echo "yes"; else echo "no"; fi' )
 	else
 		GCC42_OR_GREATER := yes
 	endif
