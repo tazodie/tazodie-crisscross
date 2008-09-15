@@ -30,7 +30,6 @@ namespace CrissCross
 			nullNode->left = nullNode->right = nullNode->parent = nullNode;
 			nullNode->color = BLACK;
 			nullNode->id = NullKey<Key>();
-
 			rootNode = nullNode;
 			m_cachedSize = 0;
 		}
@@ -553,7 +552,7 @@ namespace CrissCross
 		void RedBlackTree<Key,Data>::findRecursive ( DArray<Data> *_array, Key const &_key, RedBlackNode<Key,Data> *_node ) const
 		{
 			CoreAssert ( _array );
-			if ( !_node ) return;
+			if ( !_node || _node == nullNode ) return;
 
 			findRecursive ( _array, _key, _node->left );
 			if ( Compare ( _node->id, _key ) == 0 )
@@ -567,9 +566,9 @@ namespace CrissCross
 		size_t RedBlackTree<Key,Data>::mem_usage () const
 		{
 			size_t ret = sizeof ( *this );
-			if ( !rootNode ) return ret;
+			if ( !rootNode || rootNode == nullNode ) return ret;
 
-			ret += rootNode->mem_usage ();
+			ret += rootNode->mem_usage ( this );
 			return ret;
 		}
 

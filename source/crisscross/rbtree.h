@@ -230,6 +230,9 @@ namespace CrissCross
 					empty ();
 				};
 				//! @endcond
+
+				template <class K, class D>
+				friend class RedBlackNode;
 		};
 	}
 }

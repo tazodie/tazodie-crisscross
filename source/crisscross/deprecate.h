@@ -13,8 +13,10 @@
 #define __included_cc_deprecate_h
 
 #if defined ( TARGET_COMPILER_GCC )
-#  if ( __GNUC__ > 3 || ( __GNUC__ == 3 && __GNUC_MINOR__ >= 1 ))
+#  if ( __GNUC__ >= 4 )
 #    define _CC_DEPRECATE_TEXT( _Text )  __attribute__(( __deprecated__ ))
+#  else
+#    define _CC_DEPRECATE_TEXT( _Text )
 #  endif
 #elif defined ( TARGET_COMPILER_VC )
 #  if _MSC_FULL_VER >= 140050320

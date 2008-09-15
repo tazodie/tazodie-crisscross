@@ -68,9 +68,7 @@ namespace CrissCross
 				{
 					size_t ret = sizeof ( *this );
 					if ( left ) ret += left->mem_usage ();
-
 					if ( right ) ret += right->mem_usage ();
-
 					return ret;
 				}
 		};
@@ -137,6 +135,9 @@ namespace CrissCross
 				}
 		};
 
+		template <class Key, class Data>
+		class RedBlackTree;
+
 		//! A binary tree node used for RedBlackTree.
 		template <class Key, class Data>
 		class RedBlackNode
@@ -175,13 +176,11 @@ namespace CrissCross
 				}
 
 				//! Memory usage in bytes.
-				size_t mem_usage () const
+				size_t mem_usage ( CrissCross::Data::RedBlackTree<Key,Data> const *_parentTree ) const
 				{
 					size_t ret = sizeof ( *this );
-					if ( left ) ret += left->mem_usage ();
-
-					if ( right ) ret += right->mem_usage ();
-
+					if ( left && left != _parentTree->nullNode ) ret += left->mem_usage ( _parentTree );
+					if ( right && right != _parentTree->nullNode ) ret += right->mem_usage ( _parentTree );
 					return ret;
 				}
 		};
