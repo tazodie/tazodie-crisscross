@@ -10,7 +10,7 @@
  */
 
 #ifndef __included_cc_rbtree_h
-#  error "This file shouldn't be compiled directly."
+#error "This file shouldn't be compiled directly."
 #endif
 
 #include <stdlib.h>
@@ -24,9 +24,9 @@ namespace CrissCross
 	namespace Data
 	{
 		template <class Key, class Data>
-		RedBlackTree<Key,Data>::RedBlackTree ()
+		RedBlackTree<Key, Data>::RedBlackTree()
 		{
-			nullNode = new RedBlackNode<Key,Data>();
+			nullNode = new RedBlackNode<Key, Data>();
 			nullNode->left = nullNode->right = nullNode->parent = nullNode;
 			nullNode->color = BLACK;
 			nullNode->id = NullKey<Key>();
@@ -35,137 +35,120 @@ namespace CrissCross
 		}
 
 		template <class Key, class Data>
-		RedBlackTree<Key,Data>::~RedBlackTree ()
+		RedBlackTree<Key, Data>::~RedBlackTree()
 		{
-			killAll ();
+			killAll();
 			nullNode->right = nullNode->left = NULL;
 			delete nullNode;
 		}
 
 		template <class Key, class Data>
-		void RedBlackTree<Key,Data>::rotateLeft ( RedBlackNode<Key,Data> * x )
+		void RedBlackTree<Key, Data>::rotateLeft(RedBlackNode<Key, Data> * x)
 		{
-			RedBlackNode<Key,Data> *y = x->right;
+			RedBlackNode<Key, Data> *y = x->right;
 
 			/* establish x->right link */
 			x->right = y->left;
-			if ( y->left != nullNode )
+			if (y->left != nullNode)
 				y->left->parent = x;
 
 			/* establish y->parent link */
-			if ( y != nullNode )
+			if (y != nullNode)
 				y->parent = x->parent;
 
-			if ( x->parent )
-			{
-				if ( x == x->parent->left )
+			if (x->parent) {
+				if (x == x->parent->left)
 					x->parent->left = y;
 				else
 					x->parent->right = y;
-			}
-			else
-			{
+			} else	{
 				rootNode = y;
 			}
 
 			/* link x and y */
 			y->left = x;
-			if ( x != nullNode )
+			if (x != nullNode)
 				x->parent = y;
 		}
 
 		template <class Key, class Data>
-		void RedBlackTree<Key,Data>::rotateRight ( RedBlackNode<Key,Data> * x )
+		void RedBlackTree<Key, Data>::rotateRight(RedBlackNode<Key, Data> * x)
 		{
-			RedBlackNode<Key,Data> *y = x->left;
+			RedBlackNode<Key, Data> *y = x->left;
 
 			/* establish x->left link */
 			x->left = y->right;
-			if ( y->right != nullNode )
+			if (y->right != nullNode)
 				y->right->parent = x;
 
 			/* establish y->parent link */
-			if ( y != nullNode )
+			if (y != nullNode)
 				y->parent = x->parent;
 
-			if ( x->parent )
-			{
-				if ( x == x->parent->right )
+			if (x->parent) {
+				if (x == x->parent->right)
 					x->parent->right = y;
 				else
 					x->parent->left = y;
-			}
-			else
-			{
+			} else	{
 				rootNode = y;
 			}
 
 			/* link x and y */
 			y->right = x;
-			if ( x != nullNode )
+			if (x != nullNode)
 				x->parent = y;
 		}
 
 		template <class Key, class Data>
-		void RedBlackTree<Key,Data>::insertFixup ( RedBlackNode<Key,Data> * x )
+		void RedBlackTree<Key, Data>::insertFixup(RedBlackNode<Key, Data> * x)
 		{
 			/* check Red-Black properties */
-			while ( x != rootNode && x->parent->color == RED )
+			while (x != rootNode && x->parent->color == RED)
 			{
 				/* we have a violation */
-				if ( x->parent == x->parent->parent->left )
-				{
-					RedBlackNode<Key,Data> *y = x->parent->parent->right;
+				if (x->parent == x->parent->parent->left) {
+					RedBlackNode<Key, Data> *y = x->parent->parent->right;
 
-					if ( y && y->color == RED )
-					{
+					if (y && y->color == RED) {
 						/* uncle is RED */
 						x->parent->color = BLACK;
 						y->color = BLACK;
 						x->parent->parent->color = RED;
 						x = x->parent->parent;
-					}
-					else
-					{
+					} else	{
 						/* uncle is BLACK */
-						if ( x == x->parent->right )
-						{
+						if (x == x->parent->right) {
 							/* make x a left child */
 							x = x->parent;
-							rotateLeft ( x );
+							rotateLeft(x);
 						}
 
 						/* recolor and rotate */
 						x->parent->color = BLACK;
 						x->parent->parent->color = RED;
-						rotateRight ( x->parent->parent );
+						rotateRight(x->parent->parent);
 					}
-				}
-				else
-				{
+				} else	{
 					/* mirror image of above code */
-					RedBlackNode<Key,Data> *y = x->parent->parent->left;
+					RedBlackNode<Key, Data> *y = x->parent->parent->left;
 
-					if ( y && y->color == RED )
-					{
+					if (y && y->color == RED) {
 						/* uncle is RED */
 						x->parent->color = BLACK;
 						y->color = BLACK;
 						x->parent->parent->color = RED;
 						x = x->parent->parent;
-					}
-					else
-					{
+					} else	{
 						/* uncle is BLACK */
-						if ( x == x->parent->left )
-						{
+						if (x == x->parent->left) {
 							x = x->parent;
-							rotateRight ( x );
+							rotateRight(x);
 						}
 
 						x->parent->color = BLACK;
 						x->parent->parent->color = RED;
-						rotateLeft ( x->parent->parent );
+						rotateLeft(x->parent->parent);
 					}
 				}
 			}
@@ -173,33 +156,32 @@ namespace CrissCross
 		}
 
 		template <class Key, class Data>
-		bool RedBlackTree<Key,Data>::replace ( Key const &key, Data const & rec )
+		bool RedBlackTree<Key, Data>::replace(Key const &key, Data const & rec)
 		{
-			RedBlackNode<Key,Data> *current;
-			current = findNode ( key );
-			if ( !valid ( current ) ) return false;
+			RedBlackNode<Key, Data> *current;
+			current = findNode(key);
+			if (!valid(current)) return false;
 
 			current->data = rec;
 			return true;
 		}
 
 		template <class Key, class Data>
-		bool RedBlackTree<Key,Data>::insert ( Key const &key, Data const & rec )
+		bool RedBlackTree<Key, Data>::insert(Key const &key, Data const & rec)
 		{
-			RedBlackNode<Key,Data> *current = nullNode, *parent = NULL, *x = nullNode;
+			RedBlackNode<Key, Data> *current = nullNode, *parent = NULL, *x = nullNode;
 
 			/* find future parent */
 			current = rootNode;
-			while ( current != nullNode )
+			while (current != nullNode)
 			{
 				parent = current;
-				current = ( Compare ( key, current->id ) <= 0 ) ?
+				current = (Compare(key, current->id) <= 0) ?
 				          current->left : current->right;
 			}
 
 			/* setup new node */
-			if ( ( x = new RedBlackNode<Key,Data>()) == 0 )
-			{
+			if ((x = new RedBlackNode<Key, Data>()) == 0) {
 				return false;
 			}
 
@@ -207,101 +189,85 @@ namespace CrissCross
 			x->left = nullNode;
 			x->right = nullNode;
 			x->color = RED;
-			x->id = Duplicate ( key );
+			x->id = Duplicate(key);
 			x->data = rec;
 
 			/* insert node in tree */
-			if ( parent != NULL )
-			{
-				if ( Compare ( key, parent->id ) <= 0 )
+			if (parent != NULL)	{
+				if (Compare(key, parent->id) <= 0)
 					parent->left = x;
 				else
 					parent->right = x;
-			}
-			else
-			{
+			} else	{
 				rootNode = x;
 			}
 
 			m_cachedSize++;
 
-			insertFixup ( x );
+			insertFixup(x);
 
 			return true;
 		}
 
 		template <class Key, class Data>
-		void RedBlackTree<Key,Data>::deleteFixup ( RedBlackNode<Key,Data> * x )
+		void RedBlackTree<Key, Data>::deleteFixup(RedBlackNode<Key, Data> * x)
 		{
-			if ( !x ) return;
+			if (!x) return;
 
-			while ( x != rootNode && x->color == BLACK )
+			while (x != rootNode && x->color == BLACK)
 			{
-				if ( x == x->parent->left )
-				{
-					RedBlackNode<Key,Data> *w = x->parent->right;
+				if (x == x->parent->left) {
+					RedBlackNode<Key, Data> *w = x->parent->right;
 
-					if ( w->color == RED )
-					{
+					if (w->color == RED) {
 						w->color = BLACK;
 						x->parent->color = RED;
-						rotateLeft ( x->parent );
+						rotateLeft(x->parent);
 						w = x->parent->right;
 					}
 
-					if ( w->left->color == BLACK && w->right->color == BLACK )
-					{
+					if (w->left->color == BLACK && w->right->color == BLACK) {
 						w->color = RED;
 						x = x->parent;
-					}
-					else
-					{
-						if ( w->right->color == BLACK )
-						{
+					} else	{
+						if (w->right->color == BLACK) {
 							w->left->color = BLACK;
 							w->color = RED;
-							rotateRight ( w );
+							rotateRight(w);
 							w = x->parent->right;
 						}
 
 						w->color = x->parent->color;
 						x->parent->color = BLACK;
 						w->right->color = BLACK;
-						rotateLeft ( x->parent );
+						rotateLeft(x->parent);
 						x = rootNode;
 					}
-				}
-				else
-				{
-					RedBlackNode<Key,Data> *w = x->parent->left;
+				} else	{
+					RedBlackNode<Key, Data> *w = x->parent->left;
 
-					if ( w->color == RED )
-					{
+					if (w->color == RED) {
 						w->color = BLACK;
 						x->parent->color = RED;
-						rotateRight ( x->parent );
+						rotateRight(x->parent);
 						w = x->parent->left;
 					}
 
-					if ( w->right->color == BLACK && w->left->color == BLACK )
-					{
+					if (w->right->color == BLACK && w->left->color == BLACK) {
 						w->color = RED;
 						x = x->parent;
-					}
-					else
-					{
-						if ( w->left->color == BLACK )
-						{
+					} else	{
+						if (w->left->color == BLACK) {
 							w->right->color = BLACK;
 							w->color = RED;
-							rotateLeft ( w );
+							rotateLeft(w);
 							w = x->parent->left;
 						}
 
 						w->color = x->parent->color;
 						x->parent->color = BLACK;
 						w->left->color = BLACK;
-						rotateRight ( x->parent );
+						rotateRight(x->parent);
 						x = rootNode;
 					}
 				}
@@ -310,117 +276,106 @@ namespace CrissCross
 		}
 
 		template <class Key, class Data>
-		bool RedBlackTree<Key,Data>::erase ( Key const &key )
+		bool RedBlackTree<Key, Data>::erase(Key const &key)
 		{
-			RedBlackNode<Key,Data> *z, *parent;
+			RedBlackNode<Key, Data> *z, *parent;
 
-			//  delete node z from tree
+			/*  delete node z from tree */
 
 			/* find node in tree */
 			z = rootNode;
 			parent = 0;
 
-			while ( z != nullNode )
+			while (z != nullNode)
 			{
-				if ( Compare ( key, z->id ) == 0 )
+				if (Compare(key, z->id) == 0)
 					break;
-				else
-				{
+				else{
 					parent = z;
-					z = ( Compare ( key, z->id ) <= 0 ) ? z->left : z->right;
+					z = (Compare(key, z->id) <= 0) ? z->left : z->right;
 				}
 			}
 
-			if ( z == nullNode ){
+			if (z == nullNode) {
 				return false;
 			}
 
-			return killNode ( z );
+			return killNode(z);
 		}
 
 		template <class Key, class Data>
-		bool RedBlackTree<Key,Data>::erase ( Key const &key, Data const &rec )
+		bool RedBlackTree<Key, Data>::erase(Key const &key, Data const &rec)
 		{
-			RedBlackNode<Key,Data>        *node = findNode ( key );
-			return erase ( key, rec, node );
+			RedBlackNode<Key, Data>        *node = findNode(key);
+			return erase(key, rec, node);
 		}
 
 		template <class Key, class Data>
-		bool RedBlackTree<Key,Data>::erase ( Key const &key, Data const &rec, RedBlackNode<Key,Data> *curnode )
+		bool RedBlackTree<Key, Data>::erase(Key const &key, Data const &rec, RedBlackNode<Key, Data> *curnode)
 		{
-			if ( !valid ( curnode ) ) return false;
+			if (!valid(curnode)) return false;
 
 			bool killed = false;
 
-			if ( Compare ( curnode->id, key ) == 0 )
-			{
-				if ( Compare ( curnode->data, rec ) == 0 )
-				{
-					killNode ( curnode );
+			if (Compare(curnode->id, key) == 0)	{
+				if (Compare(curnode->data, rec) == 0) {
+					killNode(curnode);
 					killed = true;
 				}
 
-				if ( !killed )
-					killed = erase ( key, rec, curnode->left );
+				if (!killed)
+					killed = erase(key, rec, curnode->left);
 
-				if ( !killed )
-					killed = erase ( key, rec, curnode->right );
+				if (!killed)
+					killed = erase(key, rec, curnode->right);
 			}
 
 			return killed;
 		}
 
 		template <class Key, class Data>
-		bool RedBlackTree<Key,Data>::killNode ( RedBlackNode<Key,Data> * z )
+		bool RedBlackTree<Key, Data>::killNode(RedBlackNode<Key, Data> * z)
 		{
-			RedBlackNode<Key,Data> *x, *y;
+			RedBlackNode<Key, Data> *x, *y;
 
-			if ( z->left == nullNode || z->right == nullNode )
-			{
+			if (z->left == nullNode || z->right == nullNode) {
 				/* y has a null node as a child */
 				y = z;
-			}
-			else
-			{
+			} else	{
 				/* find tree successor with a null node as a child */
 				y = z->right;
 
-				while ( y->left != nullNode )
+				while (y->left != nullNode)
 					y = y->left;
 			}
 
 			/* x is y's only child */
-			if ( y->left != nullNode )
+			if (y->left != nullNode)
 				x = y->left;
 			else
 				x = y->right;
 
 			/* remove y from the parent chain */
-			if ( x ) x->parent = y->parent;
+			if (x) x->parent = y->parent;
 
-			if ( y->parent )
-			{
-				if ( y == y->parent->left )
+			if (y->parent) {
+				if (y == y->parent->left)
 					y->parent->left = x;
 				else
 					y->parent->right = x;
-			}
-			else
+			} else
 				rootNode = x;
 
-			if ( y != z )
-			{
-				Dealloc ( z->id );
-				z->id = Duplicate ( y->id );
+			if (y != z)	{
+				Dealloc(z->id);
+				z->id = Duplicate(y->id);
 				z->data = y->data;
-			}
-			else
-			{
-				Dealloc ( y->id );
+			} else	{
+				Dealloc(y->id);
 			}
 
-			if ( y->color == BLACK )
-				deleteFixup ( x );
+			if (y->color == BLACK)
+				deleteFixup(x);
 
 			m_cachedSize--;
 
@@ -432,19 +387,16 @@ namespace CrissCross
 		}
 
 		template <class Key, class Data>
-		Data RedBlackTree<Key,Data>::find ( Key const &key ) const
+		Data RedBlackTree<Key, Data>::find(Key const &key) const
 		{
-			RedBlackNode<Key,Data> *current = rootNode;
+			RedBlackNode<Key, Data> *current = rootNode;
 
-			while ( current != nullNode )
+			while (current != nullNode)
 			{
-				if ( Compare ( key, current->id ) == 0 )
-				{
+				if (Compare(key, current->id) == 0)	{
 					return current->data;
-				}
-				else
-				{
-					current = ( Compare ( key, current->id ) <= 0 ) ?
+				} else	{
+					current = (Compare(key, current->id) <= 0) ?
 					          current->left : current->right;
 				}
 			}
@@ -453,20 +405,17 @@ namespace CrissCross
 		}
 
 		template <class Key, class Data>
-		bool RedBlackTree<Key,Data>::find ( Key const &key, Data &_data ) const
+		bool RedBlackTree<Key, Data>::find(Key const &key, Data &_data) const
 		{
-			RedBlackNode<Key,Data> *current = rootNode;
+			RedBlackNode<Key, Data> *current = rootNode;
 
-			while ( current != nullNode )
+			while (current != nullNode)
 			{
-				if ( Compare ( key, current->id ) == 0 )
-				{
+				if (Compare(key, current->id) == 0)	{
 					_data = current->data;
 					return true;
-				}
-				else
-				{
-					current = ( Compare ( key, current->id ) <= 0 ) ?
+				} else	{
+					current = (Compare(key, current->id) <= 0) ?
 					          current->left : current->right;
 				}
 			}
@@ -475,19 +424,16 @@ namespace CrissCross
 		}
 
 		template <class Key, class Data>
-		RedBlackNode<Key,Data> * RedBlackTree<Key,Data>::findNode ( Key const &key ) const
+		RedBlackNode<Key, Data> * RedBlackTree<Key, Data>::findNode(Key const &key) const
 		{
-			RedBlackNode<Key,Data> * current = rootNode;
+			RedBlackNode<Key, Data> * current = rootNode;
 
-			while ( current != nullNode )
+			while (current != nullNode)
 			{
-				if ( Compare ( key, current->id ) == 0 )
-				{
+				if (Compare(key, current->id) == 0)	{
 					return current;
-				}
-				else
-				{
-					current = ( Compare ( key, current->id ) <= 0 ) ? current->left : current->right;
+				} else	{
+					current = (Compare(key, current->id) <= 0) ? current->left : current->right;
 				}
 			}
 
@@ -495,117 +441,114 @@ namespace CrissCross
 		}
 
 		template <class Key, class Data>
-		bool RedBlackTree<Key,Data>::exists ( Key const &_key ) const
+		bool RedBlackTree<Key, Data>::exists(Key const &_key) const
 		{
-			RedBlackNode<Key,Data> *p_current = findNode ( _key );
-			if ( !p_current ) return false;
+			RedBlackNode<Key, Data> *p_current = findNode(_key);
+			if (!p_current) return false;
 			else return true;
 		}
 
 		template <class Key, class Data>
-		void RedBlackTree<Key,Data>::killAll ( RedBlackNode<Key,Data> *rec )
+		void RedBlackTree<Key, Data>::killAll(RedBlackNode<Key, Data> *rec)
 		{
-			if ( rec == nullNode )
-			{
+			if (rec == nullNode) {
 				return;
 			}
 
-			// First kill our subnodes:
-			if ( rec->left != nullNode )
-				killAll ( rec->left );
+			/* First kill our subnodes: */
+			if (rec->left != nullNode)
+				killAll(rec->left);
 
-			if ( rec->right != nullNode )
-				killAll ( rec->right );
+			if (rec->right != nullNode)
+				killAll(rec->right);
 
-			if ( rec->parent != NULL )                // We're not root.
-			{
-				if ( rec->parent->left == rec )
+			if (rec->parent != NULL) {                /* We're not root. */
+				if (rec->parent->left == rec)
 					rec->parent->left = nullNode;
 				else
 					rec->parent->right = nullNode;
 			}
 
-			Dealloc ( rec->id );
+			Dealloc(rec->id);
 			rec->left = NULL;
 			rec->right = NULL;
 			delete rec;
 		}
 
 		template <class Key, class Data>
-		void RedBlackTree<Key,Data>::killAll ()
+		void RedBlackTree<Key, Data>::killAll()
 		{
-			killAll ( rootNode );
+			killAll(rootNode);
 			rootNode = nullNode;
 			m_cachedSize = 0;
 		}
 
 		template <class Key, class Data>
-		DArray<Data> *RedBlackTree<Key,Data>::findAll ( Key const &_key ) const
+		DArray<Data> *RedBlackTree<Key, Data>::findAll(Key const &_key) const
 		{
-			RedBlackNode<Key,Data> *p_current = findNode ( _key );
+			RedBlackNode<Key, Data> *p_current = findNode(_key);
 			DArray<Data> *data = new DArray<Data>();
-			findRecursive ( data, _key, p_current );
+			findRecursive(data, _key, p_current);
 			return data;
 		}
 
-		template<class Key, class Data>
-		void RedBlackTree<Key,Data>::findRecursive ( DArray<Data> *_array, Key const &_key, RedBlackNode<Key,Data> *_node ) const
+		template <class Key, class Data>
+		void RedBlackTree<Key, Data>::findRecursive(DArray<Data> *_array, Key const &_key, RedBlackNode<Key, Data> *_node) const
 		{
-			CoreAssert ( _array );
-			if ( !_node || _node == nullNode ) return;
+			CoreAssert(_array);
+			if (!_node || _node == nullNode) return;
 
-			findRecursive ( _array, _key, _node->left );
-			if ( Compare ( _node->id, _key ) == 0 )
-			{
-				_array->insert ( _node->data );
+			findRecursive(_array, _key, _node->left);
+			if (Compare(_node->id, _key) == 0) {
+				_array->insert(_node->data);
 			}
-			findRecursive ( _array, _key, _node->right );
+			findRecursive(_array, _key, _node->right);
 		}
 
 		template <class Key, class Data>
-		size_t RedBlackTree<Key,Data>::mem_usage () const
+		size_t RedBlackTree<Key, Data>::mem_usage() const
 		{
-			size_t ret = sizeof ( *this );
-			if ( !rootNode || rootNode == nullNode ) return ret;
+			size_t ret = sizeof(*this);
+			if (!rootNode || rootNode == nullNode) return ret;
 
-			ret += rootNode->mem_usage ( this );
+			ret += rootNode->mem_usage(this);
 			return ret;
 		}
 
 		template <class Key, class Data>
-		DArray<Data> *RedBlackTree<Key,Data>::ConvertToDArray () const
+		DArray<Data> *RedBlackTree<Key, Data>::ConvertToDArray() const
 		{
-			DArray<Data> *darray = new DArray<Data> ( (int)size () );
-			RecursiveConvertToDArray ( darray, rootNode );
+			DArray<Data> *darray = new DArray<Data> ((int)size());
+			RecursiveConvertToDArray(darray, rootNode);
 			return darray;
 		}
 
 		template <class Key, class Data>
-		DArray<Key> *RedBlackTree<Key,Data>::ConvertIndexToDArray () const
+		DArray<Key> *RedBlackTree<Key, Data>::ConvertIndexToDArray() const
 		{
-			DArray<Key> *darray = new DArray<Key> ( (int)size () );
-			RecursiveConvertIndexToDArray ( darray, rootNode );
+			DArray<Key> *darray = new DArray<Key> ((int)size());
+			RecursiveConvertIndexToDArray(darray, rootNode);
 			return darray;
 		}
 
 		template <class Key, class Data>
-		void RedBlackTree<Key,Data>::RecursiveConvertToDArray ( DArray<Data> *darray, RedBlackNode<Key,Data> *btree ) const
+		void RedBlackTree<Key, Data>::RecursiveConvertToDArray(DArray<Data> *darray, RedBlackNode<Key, Data> *btree) const
 		{
-			if ( !btree || btree == nullNode ) return;
+			if (!btree || btree == nullNode) return;
 
-			RecursiveConvertToDArray ( darray, btree->left );
-			darray->insert ( btree->data );
-			RecursiveConvertToDArray ( darray, btree->right );
+			RecursiveConvertToDArray(darray, btree->left);
+			darray->insert(btree->data);
+			RecursiveConvertToDArray(darray, btree->right);
 		}
 
 		template <class Key, class Data>
-		void RedBlackTree<Key,Data>::RecursiveConvertIndexToDArray ( DArray<Key> *darray, RedBlackNode<Key,Data> *btree ) const
+		void RedBlackTree<Key, Data>::RecursiveConvertIndexToDArray(DArray<Key> *darray, RedBlackNode<Key, Data> *btree) const
 		{
-			if ( !btree || btree == nullNode ) return;
+			if (!btree || btree == nullNode) return;
 
-			RecursiveConvertIndexToDArray ( darray, btree->left );
-			darray->insert ( btree->id );
-			RecursiveConvertIndexToDArray ( darray, btree->right );
+			RecursiveConvertIndexToDArray(darray, btree->left);
+			darray->insert(btree->id);
+			RecursiveConvertIndexToDArray(darray, btree->right);
 		}
 	}
 }

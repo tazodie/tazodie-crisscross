@@ -14,10 +14,10 @@
 
 #ifdef ENABLE_HASHES
 
-#  define MD5_DIGEST_LENGTH       16
+#define MD5_DIGEST_LENGTH       16
 
 /* MD5 context. */
-//@cond
+/* @cond */
 typedef struct  {
 	cc_uint32_t state[4];       /* state (ABCD) */
 	cc_uint32_t count[2];       /* number of bits, modulo 2^64 (lsb first) */
@@ -26,13 +26,13 @@ typedef struct  {
 		cc_uint32_t buf32[16];                  /* realigned input */
 	} buf_un;
 } cc_md5_ctx;
-//@endcond
+/* @endcond */
 
 namespace CrissCross
 {
 	namespace Crypto
 	{
-		//! An MD5 hash generator.
+		/* ! An MD5 hash generator. */
 		/*!
 		 *      In recent years, MD5 hashes have waned in popularity because researchers
 		 *      have found that collisions for MD5 are easy to generate. However, this
@@ -50,65 +50,65 @@ namespace CrissCross
 				cc_md5_ctx m_state;
 
 			public:
-				//! The default constructor.
-				MD5Hash ();
+				/* ! The default constructor. */
+				MD5Hash();
 
-				//! The destructor.
-				~MD5Hash ();
+				/* ! The destructor. */
+				~MD5Hash();
 
-				//! Runs an MD5 hash on the data provided.
+				/* ! Runs an MD5 hash on the data provided. */
 				/*!
 				 * \param _data The data to hash. The buffer does not need to be null
 				 *              terminated.
 				 * \param _length The data length in bytes.
 				 * \return Zero on success, nonzero on failure.
 				 */
-				int Process ( const void *_data, size_t _length );
+				int Process(const void *_data, size_t _length);
 
-				//! Runs a hash on the file provided.
+				/* ! Runs a hash on the file provided. */
 				/*!
 				 * \param _reader The pre-opened CoreIOReader to run the hash on.
 				 * \return Zero on success, nonzero on failure.
 				 */
-				int Process ( CrissCross::IO::CoreIOReader *_reader );
+				int Process(CrissCross::IO::CoreIOReader *_reader);
 
-				//! Processes a piece of the dataset.
+				/* ! Processes a piece of the dataset. */
 				/*!
 				 * This function will process only a segment of a larger dataset. It is designed
 				 * to be called multiple times before an eventual Finalize() call.
 				 * \param _data The data segment to hash.
 				 * \param _length The length of the data segment in bytes.
 				 */
-				int ProcessBlock ( const void *_data, size_t _length );
+				int ProcessBlock(const void *_data, size_t _length);
 
-				//! Finalizes the ProcessBlock() calls and generates the final hash value.
-				void Finalize ();
+				/* ! Finalizes the ProcessBlock() calls and generates the final hash value. */
+				void Finalize();
 
-				//! Resets the internal MD5 context and hash buffer.
-				void Reset ();
+				/* ! Resets the internal MD5 context and hash buffer. */
+				void Reset();
 
-				//! Converts the internal hash data into an hex string, a human readable format.
+				/* ! Converts the internal hash data into an hex string, a human readable format. */
 				/*!
 				 *      The memory location returned by this function is freed when the class
 				 *      is destructed.
 				 */
-				const char *ToString () const;
+				const char *ToString() const;
 
-				//! Equality operator.
+				/* ! Equality operator. */
 				/*!
 				 *      Compares two instances of MD5Hash to see if the hashes are equal.
 				 * \param _other The other instance of MD5Hash to compare to.
 				 */
-				bool operator== ( const MD5Hash &_other ) const;
+				bool operator==(const MD5Hash &_other) const;
 
-				//! Inequality operator.
+				/* ! Inequality operator. */
 				/*!
 				 *      Compares two instances of MD5Hash to see if the hashes are not equal.
 				 * \param _other The other instance of MD5Hash to compare to.
 				 */
-				inline bool operator!= ( const MD5Hash &_other ) const
+				inline bool operator!=(const MD5Hash &_other) const
 				{
-					return !( *this == _other );
+					return !(*this == _other);
 				};
 		};
 	}

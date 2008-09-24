@@ -12,8 +12,8 @@
 #ifndef __included_avltree_test_h
 #define __included_avltree_test_h
 
-int TestAVLTree_CString ();
-int TestAVLTree_String ();
-int TestAVLTree_Int ();
+int TestAVLTree_CString();
+int TestAVLTree_String();
+int TestAVLTree_Int();
 
 #endif

@@ -18,81 +18,79 @@ namespace CrissCross
 {
 	namespace Data
 	{
-		//! @cond
+		/* ! @cond */
 
-		// These functions are designed for internal use.
-		// You generally shouldn't use them unless you know what you're doing.
+		/* These functions are designed for internal use. */
+		/* You generally shouldn't use them unless you know what you're doing. */
 
 		template <class T>
-		__inline T Duplicate ( T const &_data )
+		__inline T Duplicate(T const &_data)
 		{
 			return _data;
 		}
 
 		template <>
-		__inline char *Duplicate ( char * const &_data )
+		__inline char *Duplicate(char * const &_data)
 		{
-			if ( !_data ) return NULL;
-			return ::cc_strdup ( _data );
+			if (!_data) return NULL;
+			return ::cc_strdup(_data);
 		}
 
 		template <>
-		__inline const char *Duplicate ( const char * const &_data )
+		__inline const char *Duplicate(const char * const &_data)
 		{
-			if ( !_data ) return NULL;
-			return ::cc_strdup ( _data );
+			if (!_data) return NULL;
+			return ::cc_strdup(_data);
 		}
 
 		template <class T>
-		__inline T NullKey ()
+		__inline T NullKey()
 		{
 			return 0;
 		}
 
 		template <>
-		__inline char *NullKey ()
+		__inline char *NullKey()
 		{
 			return NULL;
 		}
 
 		template <>
-		__inline const char *NullKey ()
+		__inline const char *NullKey()
 		{
 			return NULL;
 		}
 
 		template <>
-		__inline std::string NullKey ()
+		__inline std::string NullKey()
 		{
-			return std::string ( "" );
+			return std::string("");
 		}
 
 		template <class T>
-		__inline void Dealloc ( T &_data )
+		__inline void Dealloc(T &_data)
 		{
 		}
 
 		template <>
-		__inline void Dealloc ( char *&_data )
+		__inline void Dealloc(char *&_data)
 		{
-			if ( _data )
-			{
-				::free ( _data );
+			if (_data) {
+				::free(_data);
 				_data = NULL;
 			}
 		}
 
 		template <>
-		__inline void Dealloc ( const char *&_data )
+		__inline void Dealloc(const char *&_data)
 		{
-			if ( _data )
-			{
-				::free ( (char *)_data );
+			if (_data) {
+				::free((char *)_data);
 				_data = NULL;
 			}
 		}
 
-		//! @endcond
+		/* ! @endcond */
 	}
 }
 

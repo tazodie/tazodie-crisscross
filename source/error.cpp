@@ -13,7 +13,7 @@
 #include <crisscross/error.h>
 
 #ifndef TARGET_OS_WINDOWS
-#  include <netdb.h>
+#include <netdb.h>
 #endif
 
 namespace CrissCross
@@ -25,7 +25,7 @@ namespace CrissCross
 		CrissCross::Errors e;
 	};
 
-	    #if defined ( TARGET_OS_WINDOWS )
+		#if defined (TARGET_OS_WINDOWS)
 	const struct tl errmap [] =
 	{
 		{WSANO_DATA, "WSANO_DATA", CC_ERR_NO_DATA},
@@ -77,15 +77,15 @@ namespace CrissCross
 		{0, "UNKNOWN_ERROR", CC_ERR_INTERNAL},
 		{0, NULL, CC_ERR_NONE}
 	};
-	    #else
+		#else
 	const struct tl errmap [] =
 	{
-#  if !defined ( TARGET_OS_NDSFIRMWARE )
+#if !defined (TARGET_OS_NDSFIRMWARE)
 		{NO_DATA, "NO_DATA", CC_ERR_NO_DATA},
 		{HOST_NOT_FOUND, "HOST_NOT_FOUND", CC_ERR_HOST_NOT_FOUND},
 		{NO_RECOVERY, "NO_RECOVERY", CC_ERR_NO_RECOVERY},
 		{TRY_AGAIN, "TRY_AGAIN", CC_ERR_TRY_AGAIN},
-#  endif
+#endif
 		{EINTR, "EINTR", CC_ERR_EINTR},
 		{EWOULDBLOCK, "EWOULDBLOCK", CC_ERR_EWOULDBLOCK},
 		{EINPROGRESS, "EINPROGRESS", CC_ERR_EINPROGRESS},
@@ -129,31 +129,31 @@ namespace CrissCross
 		{0, "UNKNOWN_ERROR", CC_ERR_INTERNAL},
 		{0, "NO_ERROR", CC_ERR_NONE}
 	};
-	    #endif
+		#endif
 
-	CrissCross::Errors GetErrorNumber ( int why )
+	CrissCross::Errors GetErrorNumber(int why)
 	{
-		for ( int i = 0; errmap[i].s != NULL; ++i )
-			if ( why == errmap[i].w )
+		for (int i = 0; errmap[i].s != NULL; ++i)
+			if (why == errmap[i].w)
 				return errmap[i].e;
 
-		printf ( "CrissCross: Error %d (%s) couldn't be mapped to a CrissCross internal error number.\n", why, strerror ( why ) );
+		printf("CrissCross: Error %d (%s) couldn't be mapped to a CrissCross internal error number.\n", why, strerror(why));
 
 		return CC_ERR_INTERNAL;
 	}
 
-	const char *GetErrorDescription ( CrissCross::Errors why )
+	const char *GetErrorDescription(CrissCross::Errors why)
 	{
 #ifndef TARGET_OS_WINDOWS
 		static char buffer[128];
-		memset ( buffer, 0, sizeof( buffer ) );
-		strerror_r ( why, buffer, 128 );
-		if ( strlen ( buffer ) )
+		memset(buffer, 0, sizeof(buffer));
+		strerror_r(why, buffer, 128);
+		if (strlen(buffer))
 			return buffer;
 #endif
 
-		for ( int i = 0; errmap[i].e != CC_ERR_NONE; ++i )
-			if ( why == errmap[i].e )
+		for (int i = 0; errmap[i].e != CC_ERR_NONE; ++i)
+			if (why == errmap[i].e)
 				return errmap[i].s;
 
 		return NULL;

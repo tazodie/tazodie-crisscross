@@ -19,37 +19,35 @@
 
 using namespace CrissCross::Data;
 
-int TestBubbleSort_IntArray ()
+int TestBubbleSort_IntArray()
 {
 	int int_array [] = {0, 4, 3, 6, 2, 1, 5, 7, 9, 8 };
 	BubbleSort<int> *bs = new BubbleSort<int>();
-	bs->Sort ( int_array, 10 );
-	for ( int i = 0; i < 10; i++ )
-	{
-		if ( int_array[i] != i )
+	bs->Sort(int_array, 10);
+	for (int i = 0; i < 10; i++) {
+		if (int_array[i] != i)
 			return i + 1;
 	}
 	delete bs;
 	return 0;
 }
 
-int TestBubbleSort_DArray ()
+int TestBubbleSort_DArray()
 {
 	DArray<int> *darray = new DArray<int>();
 
-	darray->insert ( 4 );
-	darray->insert ( 2 );
-	darray->insert ( 0 );
-	darray->insert ( 3 );
-	darray->insert ( 1 );
+	darray->insert(4);
+	darray->insert(2);
+	darray->insert(0);
+	darray->insert(3);
+	darray->insert(1);
 
 	BubbleSort<int> *bs = new BubbleSort<int>();
-	darray->sort ( bs );
+	darray->sort(bs);
 	delete bs;
 
-	for ( int i = 0; i < 5; i++ )
-	{
-		if ( darray->get ( i ) != i )
+	for (int i = 0; i < 5; i++)	{
+		if (darray->get(i) != i)
 			return i + 1;
 	}
 
@@ -57,23 +55,22 @@ int TestBubbleSort_DArray ()
 	return 0;
 }
 
-int TestBubbleSort_LList ()
+int TestBubbleSort_LList()
 {
 	LList<int> *llist = new LList<int>();
 
-	llist->insert ( 4 );
-	llist->insert ( 2 );
-	llist->insert ( 0 );
-	llist->insert ( 3 );
-	llist->insert ( 1 );
+	llist->insert(4);
+	llist->insert(2);
+	llist->insert(0);
+	llist->insert(3);
+	llist->insert(1);
 
 	BubbleSort<int> *bs = new BubbleSort<int>();
-	llist->sort ( bs );
+	llist->sort(bs);
 	delete bs;
 
-	for ( int i = 0; i < 5; i++ )
-	{
-		if ( llist->get ( i ) != i )
+	for (int i = 0; i < 5; i++)	{
+		if (llist->get(i) != i)
 			return i + 1;
 	}
 

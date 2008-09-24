@@ -12,6 +12,6 @@
 #ifndef __included_adler32_h
 #define __included_adler32_h
 
-unsigned long adler32 ( unsigned long adler, const char *buf, size_t len );
+unsigned long adler32(unsigned long adler, const char *buf, size_t len);
 
 #endif

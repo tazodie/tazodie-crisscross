@@ -1,31 +1,31 @@
-// ExceptionHandler.h  Version 1.1
-//
-// Copyright © 1998 Bruce Dawson
-//
-// Author:       Bruce Dawson
-//               brucedawson@cygnus-software.com
-//
-// Modified by:  Hans Dietrich
-//               hdietrich2@hotmail.com
-//
-// A paper by the original author can be found at:
-//     http://www.cygnus-software.com/papers/release_debugging.html
-//
-///////////////////////////////////////////////////////////////////////////////
+/* ExceptionHandler.h  Version 1.1 */
+/* */
+/* Copyright © 1998 Bruce Dawson */
+/* */
+/* Author:       Bruce Dawson */
+/*               brucedawson@cygnus-software.com */
+/* */
+/* Modified by:  Hans Dietrich */
+/*               hdietrich2@hotmail.com */
+/* */
+/* A paper by the original author can be found at: */
+/*     http://www.cygnus-software.com/papers/release_debugging.html */
+/* */
+/* ///////////////////////////////////////////////////////////////////////////// */
 
 #ifndef    __included_cc_exceptionhandler_h
 #define    __included_cc_exceptionhandler_h
 
-// We forward declare PEXCEPTION_POINTERS so that the function
-// prototype doesn't needlessly require windows.h.
+/* We forward declare PEXCEPTION_POINTERS so that the function */
+/* prototype doesn't needlessly require windows.h. */
 
-//! @cond
+/* ! @cond */
 
 typedef struct _EXCEPTION_POINTERS EXCEPTION_POINTERS, *PEXCEPTION_POINTERS;
 
-int __cdecl RecordExceptionInfo ( PEXCEPTION_POINTERS pExceptPtrs,const char *lpszMessage,const char *lpszAppMagic,const char *lpszAppVersion );
+int __cdecl RecordExceptionInfo(PEXCEPTION_POINTERS pExceptPtrs, const char *lpszMessage, const char *lpszAppMagic, const char *lpszAppVersion);
 
-//! @endcond
+/* ! @endcond */
 
 /*
  * // Sample usage - put the code that used to be in main into HandledMain.

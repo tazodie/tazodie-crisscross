@@ -12,6 +12,6 @@
 #ifndef __included_darray_test_h
 #define __included_darray_test_h
 
-int TestDArray ();
+int TestDArray();
 
 #endif

@@ -14,7 +14,7 @@
 
 #include <crisscross/crisscross.h>
 
-//#define HIGH_INTENSITY
-//#define FILE_CHECKSUM
+/* #define HIGH_INTENSITY */
+/* #define FILE_CHECKSUM */
 
 #endif

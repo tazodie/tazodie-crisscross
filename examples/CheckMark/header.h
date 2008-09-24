@@ -19,11 +19,11 @@
 
 #define DATASET_SIZE    10
 #ifdef TARGET_OS_NDSFIRMWARE
-#  define ENTRY_LENGTH    1024
-#  define MAX_RUNS        10
+#define ENTRY_LENGTH    1024
+#define MAX_RUNS        10
 #else
-#  define ENTRY_LENGTH    1048576
-#  define MAX_RUNS        20
+#define ENTRY_LENGTH    1048576
+#define MAX_RUNS        20
 #endif
 
 #endif
