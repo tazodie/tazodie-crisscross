@@ -15,6 +15,10 @@
 
 using namespace CrissCross::IO;
 
+#ifdef TARGET_OS_MACOSX
+#  include <dlfcn.h>
+#endif
+
 #ifndef ENABLE_SYMBOL_ENGINE
 #  ifdef TARGET_OS_WINDOWS
 #    pragma warning (disable: 4311)
@@ -210,7 +214,34 @@ void CrissCross::Debug::PrintStackTrace ( CrissCross::IO::CoreIOWriter * _output
 	_outputBuffer->WriteLine ( "FAIL: backtrace() function not available." );
 #  endif
 #else
-	_outputBuffer->WriteLine ( "Stack traces are not implemented for this platform." );
+	int (*backtraceFunction)(void**,int);
+	void (*backtraceSymbolsFdFunction)(void* const*, int, int);
+	backtraceFunction = (int (*)(void**,int))dlsym(RTLD_DEFAULT, "backtrace");
+	backtraceSymbolsFdFunction = (void (*)(void* const*, int, int))dlsym(RTLD_DEFAULT, "backtrace_symbols_fd");
+	if (backtraceFunction)
+	{
+		void* addresses[256];
+		int backtraceSize = backtraceFunction(addresses, 256);
+		if (backtraceSymbolsFdFunction)
+		{
+			_outputBuffer->WriteLine ( "Stack trace:" );
+			backtraceSymbolsFdFunction(addresses, backtraceSize, 1);
+		}
+		else
+		{
+			_outputBuffer->WriteLine ( "Stack trace addresses:" );
+			char lineBuffer[64];
+			for (int i = 0; i < backtraceSize; i++)
+			{
+				sprintf(lineBuffer, "%3d: %p\n", i, addresses[i]);
+				_outputBuffer->WriteLine ( lineBuffer );
+			}
+		}
+	}
+	else
+	{
+		_outputBuffer->WriteLine ( "Stack traces are not implemented for this platform." );
+	}
 #endif // TARGET_OS_MACOSX
 }
 #ifndef USE_FAST_ASSERT
