@@ -12,6 +12,6 @@
 #ifndef __included_random_h
 #define __included_random_h
 
-void GenerateRandom ( CrissCross::Data::DArray<char *> &data );
+void GenerateRandom(CrissCross::Data::DArray<char *> &data);
 
 #endif

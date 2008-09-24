@@ -17,13 +17,13 @@
 
 /* We're leaving sockets unimplemented on the Nintendo DS for the moment. We
  * need to familiarize ourselves with the devkitARM API for sockets first */
-#if !defined ( TARGET_OS_NDSFIRMWARE )
+#if !defined (TARGET_OS_NDSFIRMWARE)
 
 namespace CrissCross
 {
 	namespace Network
 	{
-		//! UDP/IP socket class.
+		/* ! UDP/IP socket class. */
 		/*!
 		 *  Used for connectionless UDP/IP communication. Note that this is one-way,
 		 *  and there must be a second UDP/IP socket created for communication in
@@ -33,28 +33,28 @@ namespace CrissCross
 		{
 			private:
 
-				int SetAttributes ( socket_t _socket );
+				int SetAttributes(socket_t _socket);
 
 			public:
-				//! The constructor.
-				UDPSocket ();
-				//! The destructor.
-				~UDPSocket ();
+				/* ! The constructor. */
+				UDPSocket();
+				/* ! The destructor. */
+				~UDPSocket();
 
-				//! Binds an outbound UDP/IP socket to the specified address and port.
+				/* ! Binds an outbound UDP/IP socket to the specified address and port. */
 				/*!
 				 * \param _address The remote address to bind to. Can be a hostname, as it will be resolved by gethostbyname().
 				 * \param _port The remote port to bind to.
 				 * \return Due to the use of Berkley sockets, this returns zero on success, and a nonzero value on failure.
 				 */
-				CrissCross::Errors Bind ( const char *_address, unsigned short _port );
+				CrissCross::Errors Bind(const char *_address, unsigned short _port);
 
-				//! Binds an inbound UDP/IP socket on the specified port.
+				/* ! Binds an inbound UDP/IP socket on the specified port. */
 				/*!
 				 * \param _port The port to bind.
 				 * \return Due to the use of Berkley sockets, this returns zero on success, and a nonzero value on failure.
 				 */
-				CrissCross::Errors Listen ( unsigned short _port );
+				CrissCross::Errors Listen(unsigned short _port);
 		};
 	}
 }

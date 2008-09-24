@@ -13,17 +13,17 @@
 #define __included_cc_cpuid_h
 
 #ifndef __GNUC__
-#  include <crisscross/universal_include.h>
+#include <crisscross/universal_include.h>
 #endif
 
 #ifdef ENABLE_CPUID
 
-#  ifdef TARGET_OS_WINDOWS
-#    include <windows.h>
-#  endif
+#ifdef TARGET_OS_WINDOWS
+#include <windows.h>
+#endif
 
-#  include "darray.h"
-#  include "rbtree.h"
+#include "darray.h"
+#include "rbtree.h"
 
 namespace CrissCross
 {
@@ -33,12 +33,12 @@ namespace CrissCross
 		{
 			public:
 				bool Enabled;
-				Feature ()
+				Feature()
 				{
 					Enabled = 0;
 				}
 
-				~Feature ()
+				~Feature()
 				{
 				}
 		};
@@ -58,11 +58,11 @@ namespace CrissCross
 				CrissCross::Data::RedBlackTree<const char *, Feature *> features;
 				CrissCross::Data::DArray <char *> caches;
 			public:
-				Processor ()
+				Processor()
 				{
 				}
 
-				~Processor ()
+				~Processor()
 				{
 				}
 		};
@@ -72,7 +72,7 @@ namespace CrissCross
 		{
 			protected:
 
-#  ifdef TARGET_OS_WINDOWS
+#ifdef TARGET_OS_WINDOWS
 
 				struct GoThreadProc_Params
 				{
@@ -80,16 +80,16 @@ namespace CrissCross
 					int processor;
 				};
 
-				static DWORD CALLBACK s_GoThreadProc ( LPVOID lpParameter )
+				static DWORD CALLBACK s_GoThreadProc(LPVOID lpParameter)
 				{
-					return ( ( GoThreadProc_Params * )lpParameter )->cpuid_class->
-					       GoThread ( ( LPVOID * )&
-					                  ( ( GoThreadProc_Params * )lpParameter )->processor );
+					return (( GoThreadProc_Params * )lpParameter)->cpuid_class->
+					       GoThread(( LPVOID * )&
+					                (( GoThreadProc_Params * )lpParameter)->processor);
 				};
-				DWORD WINAPI GoThread ( LPVOID * params );
-#  else
-				long int GoThread ( int processor );
-#  endif
+				DWORD WINAPI GoThread(LPVOID * params);
+#else
+				long int GoThread(int processor);
+#endif
 
 				typedef enum
 				{
@@ -114,41 +114,41 @@ namespace CrissCross
 					CACHE_TYPE_L3
 				} cacheType;
 
-				const char *CreateCacheDescription ( cacheType _type, const char *_pages, unsigned int _size,unsigned int _assoc, unsigned int _entries, unsigned int _linesize,bool _sectored );
-				void AddCacheDescription ( int processor, const char *description );
-				void AddIntelCacheData ( int processor, int x );
-				void DetectManufacturer ( int processor );
-				void DetectProcessorName ( int processor );
-				void DetectCacheInfo ( int processor );
-				void DecodeAMDCacheIdentifiers ( int processor );
-				void DetectFMS ( int processor );
-				void DetectBrandID ( int processor );
-				void DetectCount ( int processor );
-				void DetectAPIC ( int processor );
-				void DetectFeatures ( int processor );
-				void DetectFeature ( const unsigned int *_register, long _flag, int _processor, const char *_name );
+				const char *CreateCacheDescription(cacheType _type, const char *_pages, unsigned int _size, unsigned int _assoc, unsigned int _entries, unsigned int _linesize, bool _sectored);
+				void AddCacheDescription(int processor, const char *description);
+				void AddIntelCacheData(int processor, int x);
+				void DetectManufacturer(int processor);
+				void DetectProcessorName(int processor);
+				void DetectCacheInfo(int processor);
+				void DecodeAMDCacheIdentifiers(int processor);
+				void DetectFMS(int processor);
+				void DetectBrandID(int processor);
+				void DetectCount(int processor);
+				void DetectAPIC(int processor);
+				void DetectFeatures(int processor);
+				void DetectFeature(const unsigned int *_register, long _flag, int _processor, const char *_name);
 
 			public:
-				CPUID ();
-				~CPUID ();
-				void Go ();
+				CPUID();
+				~CPUID();
+				void Go();
 
 				/*!
 				 * \return The number of hardware threads per physical package.
 				 */
-				int LogicalPerPackage ();
+				int LogicalPerPackage();
 
 				/*!
 				 * \return The number of physical cores per package.
 				 */
-				int CoresPerPackage ();
+				int CoresPerPackage();
 
 				/*!
 				 * \return The number of virtual processors detected, including all cores and hardware threads.
 				 */
-				int VirtualCount ();
+				int VirtualCount();
 
-				Processor *proc[MAX_PROCESSORS];            // Support up to MAX_PROCESSORS
+				Processor *proc[MAX_PROCESSORS];            /* Support up to MAX_PROCESSORS */
 		};
 	}
 }

@@ -12,6 +12,6 @@
 #ifndef __included_avltree_test_h
 #define __included_avltree_test_h
 
-int ProfileAVLTree ();
+int ProfileAVLTree();
 
 #endif

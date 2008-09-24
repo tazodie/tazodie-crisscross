@@ -19,27 +19,27 @@ namespace CrissCross
 		/*!
 		 * \return A C string containing the version number of the CrissCross library.
 		 */
-		const char *Version ();
+		const char *Version();
 
 		/*!
 		 * \return The major version number (i.e. in v1.2.3.4, it would be '1').
 		 */
-		int Major ();
+		int Major();
 
 		/*!
 		 * \return The minor version number (i.e. in v1.2.3.4, it would be '2').
 		 */
-		int Minor ();
+		int Minor();
 
 		/*!
 		 * \return The revision version number (i.e. in v1.2.3.4, it would be '3').
 		 */
-		int Revision ();
+		int Revision();
 
 		/*!
 		 * \return The build number (i.e. in v1.2.3.4, it would be '4').
 		 */
-		int Build ();
+		int Build();
 	}
 }
 

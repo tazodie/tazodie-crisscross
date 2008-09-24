@@ -7,10 +7,11 @@ using namespace CrissCross::System;
 
 #define ITERATIONS 10000000
 
-void rijndaelSpeed(int keyBits) {
+void rijndaelSpeed(int keyBits)
+{
 	int Nr, i;
-	u32 rk[4*(MAXNR + 1)];
-	u8 cipherKey[256/8], pt[16], ct[16];
+	u32 rk[4 * (MAXNR + 1)];
+	u8 cipherKey[256 / 8], pt[16], ct[16];
 	Stopwatch sw;
 	double sec;
 
@@ -28,7 +29,7 @@ void rijndaelSpeed(int keyBits) {
 	sw.Stop();
 	sec = sw.Elapsed();
 	printf("Encryption key schedule:\t%.1f s, %.0f MB/s\n",
-		sec, (double)ITERATIONS*128.0/sec/1048576.0);
+	       sec, (double)ITERATIONS * 128.0 / sec / 1048576.0);
 
 	/*
 	 * Encryption timing:
@@ -46,8 +47,8 @@ void rijndaelSpeed(int keyBits) {
 	 * during the loop above (i.e. the end result "is" used)
 	 */
 	printf("Encryption:\t\t\t%.1f s, %.0f MB/s\n",
-		sec, (double)ITERATIONS*128.0/sec/1048576.0,
-		pt[0], ct[1]);
+	       sec, (double)ITERATIONS * 128.0 / sec / 1048576.0,
+	       pt[0], ct[1]);
 
 	/*
 	 * Decryption key setup timing:
@@ -59,7 +60,7 @@ void rijndaelSpeed(int keyBits) {
 	sw.Stop();
 	sec = sw.Elapsed();
 	printf("Decryption key schedule:\t%.1f s, %.0f MB/s\n",
-		sec, (double)ITERATIONS*128.0/sec/1048576.0);
+	       sec, (double)ITERATIONS * 128.0 / sec / 1048576.0);
 
 	/*
 	 * Decryption timing:
@@ -75,7 +76,6 @@ void rijndaelSpeed(int keyBits) {
 	 * but this is intentional. See above explanation.
 	 */
 	printf("Decryption:\t\t\t%.1f s, %.0f MB/s\n\n",
-		sec, (double)ITERATIONS*128.0/sec/1048576.0,
-		pt[0], ct[1]);
-
+	       sec, (double)ITERATIONS * 128.0 / sec / 1048576.0,
+	       pt[0], ct[1]);
 }

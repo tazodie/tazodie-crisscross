@@ -1,52 +1,52 @@
-// MiniVersion.h  Version 1.1
-//
-// Author:  Hans Dietrich
-//          hdietrich2@hotmail.com
-//
-// This software is released into the public domain.
-// You are free to use it in any way you like, except
-// that you may not sell this source code.
-//
-// This software is provided "as is" with no expressed
-// or implied warranty.  I accept no liability for any
-// damage or loss of business that this software may cause.
-//
+/* MiniVersion.h  Version 1.1 */
+/* */
+/* Author:  Hans Dietrich */
+/*          hdietrich2@hotmail.com */
+/* */
+/* This software is released into the public domain. */
+/* You are free to use it in any way you like, except */
+/* that you may not sell this source code. */
+/* */
+/* This software is provided "as is" with no expressed */
+/* or implied warranty.  I accept no liability for any */
+/* damage or loss of business that this software may cause. */
+/* */
 
 #ifndef __included_cc_miniversion_h
 #define __included_cc_miniversion_h
 
-//! @cond
+/* ! @cond */
 
 class CMiniVersion
 {
-	// constructors
+	/* constructors */
 	public:
-		CMiniVersion ( LPCTSTR lpszPath = NULL );
-		BOOL Init ();
-		void Release ();
+		CMiniVersion(LPCTSTR lpszPath = NULL);
+		BOOL Init();
+		void Release();
 
-		// operations
+		/* operations */
 	public:
 
-		// attributes
+		/* attributes */
 	public:
-		// fixed info
-		BOOL GetFileVersion ( WORD *pwVersion );
-		BOOL GetProductVersion ( WORD* pwVersion );
-		BOOL GetFileFlags ( DWORD& rdwFlags );
-		BOOL GetFileOS ( DWORD& rdwOS );
-		BOOL GetFileType ( DWORD& rdwType );
-		BOOL GetFileSubtype ( DWORD& rdwType );
+		/* fixed info */
+		BOOL GetFileVersion(WORD *pwVersion);
+		BOOL GetProductVersion(WORD* pwVersion);
+		BOOL GetFileFlags(DWORD& rdwFlags);
+		BOOL GetFileOS(DWORD& rdwOS);
+		BOOL GetFileType(DWORD& rdwType);
+		BOOL GetFileSubtype(DWORD& rdwType);
 
-		// string info
-		BOOL GetCompanyName ( LPTSTR lpszCompanyName, int nSize );
-		BOOL GetFileDescription ( LPTSTR lpszFileDescription, int nSize );
-		BOOL GetProductName ( LPTSTR lpszProductName, int nSize );
+		/* string info */
+		BOOL GetCompanyName(LPTSTR lpszCompanyName, int nSize);
+		BOOL GetFileDescription(LPTSTR lpszFileDescription, int nSize);
+		BOOL GetProductName(LPTSTR lpszProductName, int nSize);
 
-		// implementation
+		/* implementation */
 	protected:
-		BOOL GetFixedInfo ( VS_FIXEDFILEINFO& rFixedInfo );
-		BOOL GetStringInfo ( LPCTSTR lpszKey, LPTSTR lpszValue );
+		BOOL GetFixedInfo(VS_FIXEDFILEINFO& rFixedInfo);
+		BOOL GetStringInfo(LPCTSTR lpszKey, LPTSTR lpszValue);
 
 		BYTE*        m_pData;
 		DWORD m_dwHandle;
@@ -63,6 +63,6 @@ class CMiniVersion
 		TCHAR m_szFileDescription[MAX_PATH * 2];
 };
 
-//! @endcond
+/* ! @endcond */
 
 #endif

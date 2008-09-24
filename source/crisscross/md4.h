@@ -14,24 +14,24 @@
 
 #ifdef ENABLE_HASHES
 
-#  include <crisscross/deprecate.h>
+#include <crisscross/deprecate.h>
 
-#  define MD4_DIGEST_LENGTH       16
+#define MD4_DIGEST_LENGTH       16
 
 /* MD4 context. */
-//@cond
+/* @cond */
 typedef struct  {
 	cc_uint32_t state[4];                                 /* state (ABCD) */
 	cc_uint32_t count[2];      /* number of bits, modulo 2^64 (lsb first) */
 	unsigned char buffer[64];                       /* input buffer */
 } cc_md4_ctx;
-//@endcond
+/* @endcond */
 
 namespace CrissCross
 {
 	namespace Crypto
 	{
-		//! An MD4 hash generator.
+		/* ! An MD4 hash generator. */
 		/*!
 		 *      MD4 hashes are rarely used anymore due to the advent of MD5. MD5 was
 		 *      created because several speculated that MD4 was vulnerable to collisions
@@ -51,65 +51,65 @@ namespace CrissCross
 				cc_md4_ctx m_state;
 
 			public:
-				//! The default constructor.
-				MD4Hash ();
+				/* ! The default constructor. */
+				MD4Hash();
 
-				//! The destructor.
-				~MD4Hash ();
+				/* ! The destructor. */
+				~MD4Hash();
 
-				//! Runs an MD4 hash on the data provided.
+				/* ! Runs an MD4 hash on the data provided. */
 				/*!
 				 * \param _data The data to hash. The buffer does not need to be null
 				 *              terminated.
 				 * \param _length The data length in bytes.
 				 * \return Zero on success, nonzero on failure.
 				 */
-				int Process ( const void *_data, size_t _length );
+				int Process(const void *_data, size_t _length);
 
-				//! Runs a hash on the file provided.
+				/* ! Runs a hash on the file provided. */
 				/*!
 				 * \param _reader The pre-opened CoreIOReader to run the hash on.
 				 * \return Zero on success, nonzero on failure.
 				 */
-				int Process ( CrissCross::IO::CoreIOReader *_reader );
+				int Process(CrissCross::IO::CoreIOReader *_reader);
 
-				//! Processes a piece of the dataset.
+				/* ! Processes a piece of the dataset. */
 				/*!
 				 * This function will process only a segment of a larger dataset. It is designed
 				 * to be called multiple times before an eventual Finalize() call.
 				 * \param _data The data segment to hash.
 				 * \param _length The length of the data segment in bytes.
 				 */
-				int ProcessBlock ( const void *_data, size_t _length );
+				int ProcessBlock(const void *_data, size_t _length);
 
-				//! Finalizes the ProcessBlock() calls and generates the final hash value.
-				void Finalize ();
+				/* ! Finalizes the ProcessBlock() calls and generates the final hash value. */
+				void Finalize();
 
-				//! Resets the internal MD4 context and hash buffer.
-				void Reset ();
+				/* ! Resets the internal MD4 context and hash buffer. */
+				void Reset();
 
-				//! Converts the internal hash data into an hex string, a human readable format.
+				/* ! Converts the internal hash data into an hex string, a human readable format. */
 				/*!
 				 *      The memory location returned by this function is freed when the class
 				 *      is destructed.
 				 */
-				const char *ToString () const;
+				const char *ToString() const;
 
-				//! Equality operator.
+				/* ! Equality operator. */
 				/*!
 				 *      Compares two instances of MD4Hash to see if the hashes are equal.
 				 * \param _other The other instance of MD4Hash to compare to.
 				 */
-				bool operator== ( const MD4Hash &_other ) const;
+				bool operator==(const MD4Hash &_other) const;
 
-				//! Inequality operator.
+				/* ! Inequality operator. */
 				/*!
 				 *      Compares two instances of MD4Hash to see if the hashes are not equal.
 				 * \param _other The other instance of MD4Hash to compare to.
 				 */
-				inline bool operator!= ( const MD4Hash &_other ) const
+				inline bool operator!=(const MD4Hash &_other) const
 				{
-					return !( *this == _other );
+					return !(*this == _other);
 				};
 		};
 	}

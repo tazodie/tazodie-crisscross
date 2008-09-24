@@ -12,8 +12,8 @@
 #ifndef __included_quicksort_test_h
 #define __included_quicksort_test_h
 
-int TestQuickSort_IntArray ();
-int TestQuickSort_DArray ();
-int TestQuickSort_LList ();
+int TestQuickSort_IntArray();
+int TestQuickSort_DArray();
+int TestQuickSort_LList();
 
 #endif

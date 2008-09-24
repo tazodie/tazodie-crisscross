@@ -12,6 +12,6 @@
 #ifndef __included_hashtable_test_h
 #define __included_hashtable_test_h
 
-int TestHashTable ();
+int TestHashTable();
 
 #endif

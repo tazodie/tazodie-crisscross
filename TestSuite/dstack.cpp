@@ -16,20 +16,18 @@
 
 using namespace CrissCross::Data;
 
-int TestDStack ()
+int TestDStack()
 {
 	DStack<int> *dstack = new DStack<int>();
 
-	for ( int i = 0; i < 16; i++ )
-	{
-		dstack->push ( i );
+	for (int i = 0; i < 16; i++) {
+		dstack->push(i);
 	}
 
-	if ( dstack->peek () != 15 ) return 1;
+	if (dstack->peek() != 15) return 1;
 
-	for ( int i = 15; i >= 0; i-- )
-	{
-		if ( dstack->pop () != i )
+	for (int i = 15; i >= 0; i--) {
+		if (dstack->pop() != i)
 			return i + 1;
 	}
 
