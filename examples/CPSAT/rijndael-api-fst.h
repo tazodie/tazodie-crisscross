@@ -72,18 +72,18 @@ typedef unsigned char BYTE;
 
 /*  The structure for key information */
 typedef struct {
-	BYTE direction;                 /* Key used for encrypting or decrypting? */
-	int keyLen;                     /* Length of the key  */
-	char keyMaterial[MAX_KEY_SIZE + 1];  /* Raw key data in ASCII, e.g., user input or KAT values */
-	int Nr;                         /* key-length-dependent number of rounds */
-	u32 rk[4 * (MAXNR + 1)];        /* key schedule */
-	u32 ek[4 * (MAXNR + 1)];        /* CFB1 key schedule (encryption only) */
+    BYTE direction;                     /* Key used for encrypting or decrypting? */
+    int keyLen;                         /* Length of the key  */
+    char keyMaterial[MAX_KEY_SIZE + 1];      /* Raw key data in ASCII, e.g., user input or KAT values */
+    int Nr;                             /* key-length-dependent number of rounds */
+    u32 rk[4 * (MAXNR + 1)];            /* key schedule */
+    u32 ek[4 * (MAXNR + 1)];            /* CFB1 key schedule (encryption only) */
 } keyInstance;
 
 /*  The structure for cipher information */
 typedef struct {                    /* changed order of the components */
-	BYTE mode;                      /* MODE_ECB, MODE_CBC, or MODE_CFB1 */
-	BYTE IV[MAX_IV_SIZE];           /* A possible Initialization Vector for ciphering */
+    BYTE mode;                          /* MODE_ECB, MODE_CBC, or MODE_CFB1 */
+    BYTE IV[MAX_IV_SIZE];               /* A possible Initialization Vector for ciphering */
 } cipherInstance;
 
 /*  Function prototypes  */

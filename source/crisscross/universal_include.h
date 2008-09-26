@@ -256,10 +256,12 @@ typedef long intptr_t;
 
 __inline char *cc_strdup(const char *x)
 {
-	if (!x) return NULL;
-	char *dup = (char *)malloc(strlen(x) + 1);
-	if (!dup) return NULL;
-	return strcpy(dup, x);
+    if (!x) return NULL;
+
+    char *dup = (char *)malloc(strlen(x) + 1);
+    if (!dup) return NULL;
+
+    return strcpy(dup, x);
 }
 
 #define cc_min(x, y) ((x < y) ? x : y)
@@ -277,19 +279,19 @@ extern "C" __int64 __cdecl _ftelli64(FILE *);
 #ifndef _DBG_NEW
 inline void *__operator_new(size_t __n)
 {
-	return ::operator  new(__n, _NORMAL_BLOCK, __FILE__, __LINE__);
+    return ::operator  new(__n, _NORMAL_BLOCK, __FILE__, __LINE__);
 }
 
 inline void *_cdecl operator
 new(size_t __n, const char *__fname, int __line)
 {
-	return ::operator  new(__n, _NORMAL_BLOCK, __fname, __line);
+    return ::operator  new(__n, _NORMAL_BLOCK, __fname, __line);
 }
 
 inline void _cdecl operator
 delete(void *__p, const char *, int)
 {
-	::operator  delete(__p);
+    ::operator  delete(__p);
 }
 
 #define _DBG_NEW new (__FILE__, __LINE__)
@@ -303,9 +305,9 @@ static char THIS_FILE [] = __FILE__;
 #endif
 
 /* ! The application entry point. */
-extern int RunApplication(int argc, char **argv);
+extern int RunApplication(int argc, char * *argv);
 /* ! An internal initialization function for the program. */
-int CrissCrossInitialize(int argc, char **argv);
+int CrissCrossInitialize(int argc, char * *argv);
 
 /* Namespace Definitions */
 /* Primarily here for centralised documentation */
@@ -316,67 +318,67 @@ int CrissCrossInitialize(int argc, char **argv);
  */
 namespace CrissCross
 {
-	/* ! The cryptographic routine namespace. */
-	/*!
-	 *      Contains a variety of hashing algorithms for general use.
-	 */
-	namespace Crypto
-	{
-	}
+    /* ! The cryptographic routine namespace. */
+    /*!
+     *      Contains a variety of hashing algorithms for general use.
+     */
+    namespace Crypto
+    {
+    }
 
-	/* ! The data structure namespace. */
-	/*!
-	 *  Contains basic data structures to assist in sorting and searching
-	 *  for data.
-	 */
-	namespace Data
-	{
-	}
+    /* ! The data structure namespace. */
+    /*!
+     *  Contains basic data structures to assist in sorting and searching
+     *  for data.
+     */
+    namespace Data
+    {
+    }
 
-	/* ! The debug namespace. */
-	/*!
-	 *  Contains classes and functions designed to assist programmers
-	 *  in debugging their software.
-	 */
-	namespace Debug
-	{
-	}
+    /* ! The debug namespace. */
+    /*!
+     *  Contains classes and functions designed to assist programmers
+     *  in debugging their software.
+     */
+    namespace Debug
+    {
+    }
 
-	/* ! The input/output namespace. */
-	/*!
-	 *  Contains classes for console and file I/O.
-	 */
-	namespace IO
-	{
-	}
+    /* ! The input/output namespace. */
+    /*!
+     *  Contains classes for console and file I/O.
+     */
+    namespace IO
+    {
+    }
 
-	/* ! The network input/output namespace. */
-	/*!
-	 *  Contains classes which enable programmers to use TCP, UDP,
-	 *  and other network protocols to transfer data.
-	 */
-	namespace Network
-	{
-	}
+    /* ! The network input/output namespace. */
+    /*!
+     *  Contains classes which enable programmers to use TCP, UDP,
+     *  and other network protocols to transfer data.
+     */
+    namespace Network
+    {
+    }
 
-	/* ! The system call namespace. */
-	/*!
-	 *  Contains platform-specific API call wrappers, which allow the programmer
-	 *  to write code which is cross-platform and functions identically on all
-	 *  platforms.
-	 */
-	namespace System
-	{
-	}
+    /* ! The system call namespace. */
+    /*!
+     *  Contains platform-specific API call wrappers, which allow the programmer
+     *  to write code which is cross-platform and functions identically on all
+     *  platforms.
+     */
+    namespace System
+    {
+    }
 
-	/* ! The library version namespace. */
-	/*!
-	 *  Contains some simple functions for identifying the compiled CrissCross
-	 *  library version.
-	 */
-	namespace Version
-	{
-	}
+    /* ! The library version namespace. */
+    /*!
+     *  Contains some simple functions for identifying the compiled CrissCross
+     *  library version.
+     */
+    namespace Version
+    {
+    }
 }
 
 #include <crisscross/datatypes.h>

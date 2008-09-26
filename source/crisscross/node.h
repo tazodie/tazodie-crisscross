@@ -16,175 +16,179 @@
 
 namespace CrissCross
 {
-	namespace Data
+    namespace Data
+    {
+	/*
+	 *      There's no real advantage to making these classes inherit
+	 *      a common BinaryNode class. In fact, it will impact the
+	 *      program negatively to inherit a common class because we
+	 *      are forced to either cast every reference to left/right/parent
+	 *      or override left/right/parent in the derived classes (and
+	 *      doing so would waste memory: 12 bytes per node on 32-bit
+	 *      machines).
+	 *
+	 *      So we no longer inherit a common node class.
+	 */
+
+	/* ! A binary tree node. */
+	template <class Key, class Data>
+	class SplayNode
 	{
-		/*
-		 *      There's no real advantage to making these classes inherit
-		 *      a common BinaryNode class. In fact, it will impact the
-		 *      program negatively to inherit a common class because we
-		 *      are forced to either cast every reference to left/right/parent
-		 *      or override left/right/parent in the derived classes (and
-		 *      doing so would waste memory: 12 bytes per node on 32-bit
-		 *      machines).
-		 *
-		 *      So we no longer inherit a common node class.
-		 */
+	    public:
+		/* ! The key for this node. */
+		Key        id;
 
-		/* ! A binary tree node. */
-		template <class Key, class Data>
-		class SplayNode
+		/* ! The data held at this node. */
+		Data       data;
+
+		/* ! The left branch of the tree from this node. */
+		SplayNode *left;
+
+		/* ! The right branch of the tree from this node. */
+		SplayNode *right;
+
+		/* ! The parent node. */
+		SplayNode *parent;
+
+		/* ! The constructor. */
+		SplayNode() : left(NULL), right(NULL), parent(NULL)
 		{
-			public:
-				/* ! The key for this node. */
-				Key id;
+		}
 
-				/* ! The data held at this node. */
-				Data data;
-
-				/* ! The left branch of the tree from this node. */
-				SplayNode *left;
-
-				/* ! The right branch of the tree from this node. */
-				SplayNode *right;
-
-				/* ! The parent node. */
-				SplayNode *parent;
-
-				/* ! The constructor. */
-				SplayNode() : left(NULL), right(NULL), parent(NULL)
-				{
-				}
-
-				/* ! The destructor. */
-				~SplayNode()
-				{
-					Dealloc(id);
-					delete left; left = NULL;
-					delete right; right = NULL;
-				}
-
-				/* ! Memory usage in bytes. */
-				size_t mem_usage() const
-				{
-					size_t ret = sizeof(*this);
-					if (left) ret += left->mem_usage();
-					if (right) ret += right->mem_usage();
-					return ret;
-				}
-		};
-
-		/* ! The current balance status of a node */
-		typedef enum
+		/* ! The destructor. */
+		~SplayNode()
 		{
-			/* ! The left side of the tree is heaviest. */
-			LEFTHEAVY,
+		    Dealloc(id);
+		    delete left; left = NULL;
+		    delete right; right = NULL;
+		}
 
-			/* ! The tree is well balanced. */
-			BALANCED,
-
-			/* ! The right side of the tree is heaviest. */
-			RIGHTHEAVY
-		} AVLBalance;
-
-		/* ! A binary tree node used for AVLTree. */
-		template <class Key, class Data>
-		class AVLNode
+		/* ! Memory usage in bytes. */
+		size_t mem_usage() const
 		{
-			public:
+		    size_t ret = sizeof(*this);
+		    if (left) ret += left->mem_usage();
 
-				/* ! The left branch of the tree from this node. */
-				AVLNode *left;
+		    if (right) ret += right->mem_usage();
 
-				/* ! The right branch of the tree from this node. */
-				AVLNode *right;
+		    return ret;
+		}
+	};
 
-				/* ! The parent node. */
-				AVLNode *parent;
+	/* ! The current balance status of a node */
+	typedef enum
+	{
+	    /* ! The left side of the tree is heaviest. */
+	    LEFTHEAVY,
 
-				/* ! The key for this node. */
-				Key id;
+	    /* ! The tree is well balanced. */
+	    BALANCED,
 
-				/* ! The data held at this node. */
-				Data data;
+	    /* ! The right side of the tree is heaviest. */
+	    RIGHTHEAVY
+	} AVLBalance;
 
-				/* ! The state of this part of the tree's balance. */
-				char balance;
+	/* ! A binary tree node used for AVLTree. */
+	template <class Key, class Data>
+	class AVLNode
+	{
+	    public:
 
-				/* ! The default constructor. */
-				AVLNode() : left(NULL), right(NULL), parent(NULL), balance(BALANCED)
-				{
-				}
+		/* ! The left branch of the tree from this node. */
+		AVLNode *left;
 
-				/* ! The destructor. */
-				~AVLNode()
-				{
-					Dealloc(id);
-					delete left; left = NULL;
-					delete right; right = NULL;
-				}
+		/* ! The right branch of the tree from this node. */
+		AVLNode *right;
 
-				/* ! Memory usage in bytes. */
-				size_t mem_usage() const
-				{
-					size_t ret = sizeof(*this);
-					if (left) ret += left->mem_usage();
+		/* ! The parent node. */
+		AVLNode *parent;
 
-					if (right) ret += right->mem_usage();
+		/* ! The key for this node. */
+		Key      id;
 
-					return ret;
-				}
-		};
+		/* ! The data held at this node. */
+		Data     data;
 
-		template <class Key, class Data>
-		class RedBlackTree;
+		/* ! The state of this part of the tree's balance. */
+		char     balance;
 
-		/* ! A binary tree node used for RedBlackTree. */
-		template <class Key, class Data>
-		class RedBlackNode
+		/* ! The default constructor. */
+		AVLNode() : left(NULL), right(NULL), parent(NULL), balance(BALANCED)
 		{
-			public:
+		}
 
-				/* ! The left branch of the tree from this node. */
-				RedBlackNode *left;
+		/* ! The destructor. */
+		~AVLNode()
+		{
+		    Dealloc(id);
+		    delete left; left = NULL;
+		    delete right; right = NULL;
+		}
 
-				/* ! The right branch of the tree from this node. */
-				RedBlackNode *right;
+		/* ! Memory usage in bytes. */
+		size_t mem_usage() const
+		{
+		    size_t ret = sizeof(*this);
+		    if (left) ret += left->mem_usage();
 
-				/* ! The parent node. */
-				RedBlackNode *parent;
+		    if (right) ret += right->mem_usage();
 
-				/* ! The key for this node. */
-				Key id;
+		    return ret;
+		}
+	};
 
-				/* ! The data held at this node. */
-				Data data;
+	template <class Key, class Data>
+	class RedBlackTree;
 
-				/* ! The color of the node (either red or black). */
-				char color;
+	/* ! A binary tree node used for RedBlackTree. */
+	template <class Key, class Data>
+	class RedBlackNode
+	{
+	    public:
 
-				/* ! The default constructor. */
-				RedBlackNode() : left(NULL), right(NULL), parent(NULL)
-				{
-				}
+		/* ! The left branch of the tree from this node. */
+		RedBlackNode *left;
 
-				/* ! The destructor. */
-				~RedBlackNode()
-				{
-					Dealloc(id);
-					delete left; left = NULL;
-					delete right; right = NULL;
-				}
+		/* ! The right branch of the tree from this node. */
+		RedBlackNode *right;
 
-				/* ! Memory usage in bytes. */
-				size_t mem_usage(CrissCross::Data::RedBlackTree<Key, Data> const *_parentTree) const
-				{
-					size_t ret = sizeof(*this);
-					if (left && left != _parentTree->nullNode) ret += left->mem_usage(_parentTree);
-					if (right && right != _parentTree->nullNode) ret += right->mem_usage(_parentTree);
-					return ret;
-				}
-		};
-	}
+		/* ! The parent node. */
+		RedBlackNode *parent;
+
+		/* ! The key for this node. */
+		Key           id;
+
+		/* ! The data held at this node. */
+		Data          data;
+
+		/* ! The color of the node (either red or black). */
+		char          color;
+
+		/* ! The default constructor. */
+		RedBlackNode() : left(NULL), right(NULL), parent(NULL)
+		{
+		}
+
+		/* ! The destructor. */
+		~RedBlackNode()
+		{
+		    Dealloc(id);
+		    delete left; left = NULL;
+		    delete right; right = NULL;
+		}
+
+		/* ! Memory usage in bytes. */
+		size_t mem_usage(CrissCross::Data::RedBlackTree<Key, Data> const *_parentTree) const
+		{
+		    size_t ret = sizeof(*this);
+		    if (left && left != _parentTree->nullNode) ret += left->mem_usage(_parentTree);
+
+		    if (right && right != _parentTree->nullNode) ret += right->mem_usage(_parentTree);
+
+		    return ret;
+		}
+	};
+    }
 }
 
 #endif

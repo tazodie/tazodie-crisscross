@@ -56,18 +56,18 @@
 
 static void SHA1Transform(unsigned int state[5], unsigned char buffer[64])
 {
-    unsigned int a, b, c, d, e;
+    unsigned int         a, b, c, d, e;
     typedef union {
         unsigned char c[64];
         unsigned int l[16];
-	} CHAR64LONG16;
-    CHAR64LONG16* block;
+    } CHAR64LONG16;
+    CHAR64LONG16       * block;
 #ifdef SHA1HANDSOFF
     static unsigned char workspace[64];
-    block = (CHAR64LONG16*)workspace;
+    block = (CHAR64LONG16 *)workspace;
     memcpy(block, buffer, 64);
 #else
-    block = (CHAR64LONG16*)buffer;
+    block = (CHAR64LONG16 *)buffer;
 #endif
     /* Copy context->state[] to working vars */
     a = state[0];
@@ -108,7 +108,7 @@ static void SHA1Transform(unsigned int state[5], unsigned char buffer[64])
 
 /* SHA1Init - Initialize new context */
 
-static void SHA1Init(cc_sha1_ctx* context)
+static void SHA1Init(cc_sha1_ctx * context)
 {
     /* SHA1 initialization constants */
     context->state[0] = 0x67452301;
@@ -122,7 +122,7 @@ static void SHA1Init(cc_sha1_ctx* context)
 
 /* Run your data through this. */
 
-static void SHA1Update(cc_sha1_ctx* context, unsigned char* data, unsigned int len)
+static void SHA1Update(cc_sha1_ctx * context, unsigned char * data, unsigned int len)
 {
     unsigned int i, j;
 
@@ -135,9 +135,10 @@ static void SHA1Update(cc_sha1_ctx* context, unsigned char* data, unsigned int l
         SHA1Transform(context->state, context->buffer);
         for ( ; i + 63 < len; i += 64) {
             SHA1Transform(context->state, &data[i]);
-		}
+	}
+
         j = 0;
-	} else i = 0;
+    } else i = 0;
 
     memcpy(&context->buffer[j], &data[i], len - i);
 }
@@ -145,7 +146,7 @@ static void SHA1Update(cc_sha1_ctx* context, unsigned char* data, unsigned int l
 
 /* Add padding and return the message digest. */
 
-static void SHA1Final(unsigned char digest[20], cc_sha1_ctx* context)
+static void SHA1Final(unsigned char digest[20], cc_sha1_ctx * context)
 {
     unsigned long i, j;
     unsigned char finalcount[8];
@@ -153,16 +154,18 @@ static void SHA1Final(unsigned char digest[20], cc_sha1_ctx* context)
     for (i = 0; i < 8; i++) {
         finalcount[i] = (unsigned char)((context->count[(i >= 4 ? 0 : 1)]
                                          >> ((3 - (i & 3)) * 8)) & 255);        /* Endian independent */
-	}
+    }
+
     SHA1Update(context, (unsigned char *)"\200", 1);
     while ((context->count[0] & 504) != 448) {
         SHA1Update(context, (unsigned char *)"\0", 1);
-	}
+    }
     SHA1Update(context, finalcount, 8);     /* Should cause a SHA1Transform() */
     for (i = 0; i < 20; i++) {
         digest[i] = (unsigned char)
                     ((context->state[i >> 2] >> ((3 - (i & 3)) * 8)) & 255);
-	}
+    }
+
     /* Wipe variables */
     i = j = 0;
     memset(context->buffer, 0, 64);
@@ -181,12 +184,12 @@ namespace CrissCross
         SHA1Hash::SHA1Hash() : m_hashString(NULL), m_hash(NULL)
         {
             Reset();
-		}
+	}
 
         SHA1Hash::~SHA1Hash()
         {
             Reset();
-		}
+	}
 
         int SHA1Hash::Process(const void * _data, size_t _length)
         {
@@ -197,7 +200,7 @@ namespace CrissCross
             m_hash = new unsigned char[SHA1_DIGEST_SIZE];
             SHA1Final(m_hash, &m_state);
             return 0;
-		}
+	}
 
         int SHA1Hash::Process(CrissCross::IO::CoreIOReader *_reader)
         {
@@ -206,17 +209,17 @@ namespace CrissCross
 
             cc_int64_t pos = _reader->Position();
             _reader->Seek(0);
-            char buffer[8192]; int bytesRead = 0;
+            char       buffer[8192]; int bytesRead = 0;
             do
             {
                 bytesRead = _reader->Read(buffer, sizeof(buffer), 0, sizeof(buffer));
                 if (bytesRead >= 0)
-					ProcessBlock(buffer, bytesRead);
-			} while (bytesRead == sizeof(buffer) && !_reader->EndOfFile());
+		    ProcessBlock(buffer, bytesRead);
+	    } while (bytesRead == sizeof(buffer) && !_reader->EndOfFile());
             Finalize();
             _reader->Seek(pos);
             return 0;
-		}
+	}
 
         int SHA1Hash::ProcessBlock(const void * _data, size_t _length)
         {
@@ -224,7 +227,7 @@ namespace CrissCross
 
             SHA1Update(&m_state, (unsigned char *)_data, _length);
             return 0;
-		}
+	}
 
         void SHA1Hash::Finalize()
         {
@@ -232,7 +235,7 @@ namespace CrissCross
 
             m_hash = new unsigned char[SHA1_DIGEST_SIZE];
             SHA1Final(m_hash, &m_state);
-		}
+	}
 
         const char *SHA1Hash::ToString() const
         {
@@ -240,9 +243,10 @@ namespace CrissCross
 
             m_hashString = new char[SHA1_DIGEST_SIZE * 2 + 1];
             for (int i = 0; i < SHA1_DIGEST_SIZE; i++)
-				sprintf(m_hashString + (i * 2), "%02x", m_hash[i]);
+		sprintf(m_hashString + (i * 2), "%02x", m_hash[i]);
+
             return m_hashString;
-		}
+	}
 
         void SHA1Hash::Reset()
         {
@@ -250,13 +254,13 @@ namespace CrissCross
             delete [] m_hashString; m_hashString = NULL;
 
             SHA1Init(&m_state);
-		}
+	}
 
         bool SHA1Hash::operator==(const SHA1Hash &_other) const
         {
             return (memcmp(m_hash, _other.m_hash, SHA1_DIGEST_SIZE) == 0);
-		}
 	}
+    }
 }
 
 #endif

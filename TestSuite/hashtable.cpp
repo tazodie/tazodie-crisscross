@@ -18,37 +18,41 @@ using namespace CrissCross::Data;
 
 int TestHashTable()
 {
-	HashTable<int> ht;
+    HashTable<int>      ht;
 
-	char buffer[32];
-	const unsigned long max = 1000;
-	unsigned long i;
-	for (i = 0; i < max; i++) {
-		sprintf(buffer, "%lu", i);
-		ht.insert(buffer, max - i);
-	}
-	/* ht.print_statistics(); */
+    char                buffer[32];
+    const unsigned long max = 1000;
+    unsigned long       i;
+    for (i = 0; i < max; i++) {
+	sprintf(buffer, "%lu", i);
+	ht.insert(buffer, max - i);
+    }
 
-	for (i = 0; i < max; i += 2) {
-		sprintf(buffer, "%lu", i);
-		if (!ht.erase(buffer))
-			return i + 1;
-	}
-	/* ht.print_statistics(); */
+    /* ht.print_statistics(); */
 
-	for (i = 0; i < max; i += 2) {
-		sprintf(buffer, "%lu", i);
-		if (ht.find(buffer) != 0)
-			return i + 1;
-	}
-	/* ht.print_statistics(); */
+    for (i = 0; i < max; i += 2) {
+	sprintf(buffer, "%lu", i);
+	if (!ht.erase(buffer))
+	    return i + 1;
+    }
 
-	for (i = 1; i < max; i += 2) {
-		sprintf(buffer, "%lu", i);
-		if (ht.find(buffer) != (int)(max - i))
-			return i + 1;
-	}
-	/* ht.print_statistics(); */
+    /* ht.print_statistics(); */
 
-	return 0;
+    for (i = 0; i < max; i += 2) {
+	sprintf(buffer, "%lu", i);
+	if (ht.find(buffer) != 0)
+	    return i + 1;
+    }
+
+    /* ht.print_statistics(); */
+
+    for (i = 1; i < max; i += 2) {
+	sprintf(buffer, "%lu", i);
+	if (ht.find(buffer) != (int)(max - i))
+	    return i + 1;
+    }
+
+    /* ht.print_statistics(); */
+
+    return 0;
 }
