@@ -34,102 +34,102 @@ typedef int socklen_t;
 
 namespace CrissCross
 {
-	namespace Network
+    namespace Network
+    {
+	UDPSocket::UDPSocket() : CoreSocket()
 	{
-		UDPSocket::UDPSocket() : CoreSocket()
-		{
-			m_proto = PROTOCOL_UDP;
-		}
+	    m_proto = PROTOCOL_UDP;
+	}
 
-		UDPSocket::~UDPSocket()
-		{
-		}
+	UDPSocket::~UDPSocket()
+	{
+	}
 
-		CrissCross::Errors UDPSocket::Bind(const char *_address, unsigned short _port)
-		{
-			struct sockaddr_in sin;
-			struct hostent *host;
+	CrissCross::Errors UDPSocket::Bind(const char *_address, unsigned short _port)
+	{
+	    struct sockaddr_in sin;
+	    struct hostent    *host;
 
-			if (m_sock != INVALID_SOCKET) return CC_ERR_ENOTSOCK;
+	    if (m_sock != INVALID_SOCKET) return CC_ERR_ENOTSOCK;
 
-			m_sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_IP);
-			if (m_sock == INVALID_SOCKET)
-				return GetError();
+	    m_sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_IP);
+	    if (m_sock == INVALID_SOCKET)
+		return GetError();
 
-			SetAttributes(m_sock);
+	    SetAttributes(m_sock);
 
-			host = gethostbyname(_address);
-			if (!host) return GetError();
+	    host = gethostbyname(_address);
+	    if (!host) return GetError();
 
-			memset(&sin, 0, sizeof(sin));
-			sin.sin_family = AF_INET;
-			sin.sin_addr.s_addr = (( struct in_addr * )(host->h_addr))->s_addr;
-			sin.sin_port = htons(_port);
+	    memset(&sin, 0, sizeof(sin));
+	    sin.sin_family = AF_INET;
+	    sin.sin_addr.s_addr = (( struct in_addr * )(host->h_addr))->s_addr;
+	    sin.sin_port = htons(_port);
 
-			if (connect(m_sock, (( struct sockaddr * )&sin), sizeof(sin)) != 0)	{
-				CrissCross::Errors err = GetError();
+	    if (connect(m_sock, (( struct sockaddr * )&sin), sizeof(sin)) != 0)	{
+		CrissCross::Errors err = GetError();
 
-				/* Close the connection, it failed. */
+		/* Close the connection, it failed. */
 #ifdef TARGET_OS_WINDOWS
-				closesocket(m_sock);
+		closesocket(m_sock);
 #else
-				close(m_sock);
+		close(m_sock);
 #endif
 
-				return err;
-			}
+		return err;
+	    }
 
-			return CC_ERR_NONE;
-		}
+	    return CC_ERR_NONE;
+	}
 
-		int UDPSocket::SetAttributes(socket_t _socket)
-		{
-			return 0;
-		}
+	int UDPSocket::SetAttributes(socket_t _socket)
+	{
+	    return 0;
+	}
 
-		CrissCross::Errors UDPSocket::Listen(unsigned short _port)
-		{
-			struct sockaddr_in sin;
+	CrissCross::Errors UDPSocket::Listen(unsigned short _port)
+	{
+	    struct sockaddr_in sin;
 
-			if (m_sock != INVALID_SOCKET) return CC_ERR_ENOTSOCK;
+	    if (m_sock != INVALID_SOCKET) return CC_ERR_ENOTSOCK;
 
-			memset(&sin, 0, sizeof(sin));
+	    memset(&sin, 0, sizeof(sin));
 
-			sin.sin_family = PF_INET;
-			sin.sin_addr.s_addr = INADDR_ANY;
-			sin.sin_port = htons(_port);
-			m_sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_IP);
+	    sin.sin_family = PF_INET;
+	    sin.sin_addr.s_addr = INADDR_ANY;
+	    sin.sin_port = htons(_port);
+	    m_sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_IP);
 
-			if (m_sock == INVALID_SOCKET)
-				return GetError();
+	    if (m_sock == INVALID_SOCKET)
+		return GetError();
 
-			SetAttributes(m_sock);
+	    SetAttributes(m_sock);
 
 #if defined (ENABLE_NONBLOCKING)
-			unsigned long arg = 1;
+	    unsigned long arg = 1;
 #if defined (TARGET_OS_WINDOWS)
-			ioctlsocket(m_sock, FIONBIO, &arg);
+	    ioctlsocket(m_sock, FIONBIO, &arg);
 #else
-			ioctl(m_sock, FIONBIO, &arg);
+	    ioctl(m_sock, FIONBIO, &arg);
 #endif
 #endif
 
-			if (bind(m_sock, (sockaddr *)&sin, sizeof(sin)) != 0) {
-				CrissCross::Errors err = GetError();
+	    if (bind(m_sock, (sockaddr *)&sin, sizeof(sin)) != 0) {
+		CrissCross::Errors err = GetError();
 
-				/* Close the connection, it failed. */
+		/* Close the connection, it failed. */
 #ifdef TARGET_OS_WINDOWS
-				closesocket(m_sock);
+		closesocket(m_sock);
 #else
-				close(m_sock);
+		close(m_sock);
 #endif
 
-				return err;
-			}
+		return err;
+	    }
 
-			return CC_ERR_NONE;
-		}
+	    return CC_ERR_NONE;
 	}
+    }
 }
 
 #endif

@@ -16,14 +16,14 @@
 
 namespace CrissCross
 {
-	namespace Network
-	{
-		/* Undocumented for a reason. Don't call them. */
-		/* ! @cond */
-		CrissCross::Errors __initialise_network();
-		CrissCross::Errors __cleanup_network();
-		/* ! @endcond */
-	}
+    namespace Network
+    {
+	/* Undocumented for a reason. Don't call them. */
+	/* ! @cond */
+	CrissCross::Errors __initialise_network();
+	CrissCross::Errors __cleanup_network();
+	/* ! @endcond */
+    }
 }
 
 #endif

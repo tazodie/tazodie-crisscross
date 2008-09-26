@@ -22,137 +22,138 @@ Console *console = NULL;
 
 void BenchmarkDArray(Sorter<char *> &sorter)
 {
-	DArray<char *> data, rdata;
-	Stopwatch sw;
-	char buffer[512], format[64];
+    DArray<char *> data, rdata;
+    Stopwatch      sw;
+    char           buffer[512], format[64];
 
 #ifdef TARGET_OS_WINDOWS
-	sprintf(format, "%s", "%4.3lfs (%I64d clocks).");
+    sprintf(format, "%s", "%4.3lfs (%I64d clocks).");
 #elif defined (TARGET_OS_NDSFIRMWARE)
-	sprintf(format, "%s", "%4.3lfs");
+    sprintf(format, "%s", "%4.3lfs");
 #else
-	sprintf(format, "%s", "%4.3lfs (%lld clocks).");
+    sprintf(format, "%s", "%4.3lfs (%lld clocks).");
 #endif
 
-	FileReader file;
+    FileReader     file;
 
-	file.SetLineEndings(CC_LN_LF);
-	file.Open("dataset");
+    file.SetLineEndings(CC_LN_LF);
+    file.Open("dataset");
 
-	if (file.IsOpen()) {
-		data.setStepDouble();
-		rdata.setStepDouble();
+    if (file.IsOpen()) {
+	data.setStepDouble();
+	rdata.setStepDouble();
 
-		console->Write("Loading... ");
+	console->Write("Loading... ");
 
-		sw.Start();
+	sw.Start();
 
-		/* Load the file into the data DArray */
-		while (file.ReadLine(buffer, sizeof(buffer)))
-			data.insert(strdup(buffer));
+	/* Load the file into the data DArray */
+	while (file.ReadLine(buffer, sizeof(buffer)))
+	    data.insert(strdup(buffer));
 
-		sw.Stop();
-		console->WriteLine(format, sw.Elapsed(), sw.Clocks());
+	sw.Stop();
+	console->WriteLine(format, sw.Elapsed(), sw.Clocks());
 
-		file.Close();
+	file.Close();
 
-		console->WriteLine("Loaded %d items.", data.used());
+	console->WriteLine("Loaded %d items.", data.used());
 
-		console->Write("Random: ");
-		sw.Start();
-		data.sort(sorter);
-		sw.Stop();
-		console->WriteLine(format, sw.Elapsed(), sw.Clocks());
+	console->Write("Random: ");
+	sw.Start();
+	data.sort(sorter);
+	sw.Stop();
+	console->WriteLine(format, sw.Elapsed(), sw.Clocks());
 
-		/* Create a reverse-sorted DArray */
-		for (long i = (long)data.size(); i >= 0; i--) {
-			if (data.valid(i)) {
-				rdata.insert(data.get(i));
-			}
-		}
-
-		console->Write("Pre-sorted: ");
-		sw.Start();
-		data.sort(sorter);
-		sw.Stop();
-		console->WriteLine(format, sw.Elapsed(), sw.Clocks());
-
-		console->Write("Reverse-sorted: ");
-		sw.Start();
-		rdata.sort(sorter);
-		sw.Stop();
-		console->WriteLine(format, sw.Elapsed(), sw.Clocks());
-
-		for (size_t i = 0; i < data.size(); i++) {
-			if (data.valid(i)) {
-				free(data.get(i));
-				data.remove(i);
-			}
-		}
-		data.empty();
-		rdata.empty();
-	} else	{
-		console->WriteLine("Dataset not found.");
+	/* Create a reverse-sorted DArray */
+	for (long i = (long)data.size(); i >= 0; i--) {
+	    if (data.valid(i)) {
+		rdata.insert(data.get(i));
+	    }
 	}
+
+	console->Write("Pre-sorted: ");
+	sw.Start();
+	data.sort(sorter);
+	sw.Stop();
+	console->WriteLine(format, sw.Elapsed(), sw.Clocks());
+
+	console->Write("Reverse-sorted: ");
+	sw.Start();
+	rdata.sort(sorter);
+	sw.Stop();
+	console->WriteLine(format, sw.Elapsed(), sw.Clocks());
+
+	for (size_t i = 0; i < data.size(); i++) {
+	    if (data.valid(i)) {
+		free(data.get(i));
+		data.remove(i);
+	    }
+	}
+
+	data.empty();
+	rdata.empty();
+    } else {
+	console->WriteLine("Dataset not found.");
+    }
 }
 
-int RunApplication(int argc, char **argv)
+int RunApplication(int argc, char * *argv)
 {
-	console = new Console();
+    console = new Console();
 
-	BubbleSort<char *> bs;
-	QuickSort<char *> qs;
-	HeapSort<char *> hs;
-	InsertionSort<char *> is;
-	CombSort<char *> cs;
-	ShellSort<char *> ss;
+    BubbleSort<char *>    bs;
+    QuickSort<char *>     qs;
+    HeapSort<char *>      hs;
+    InsertionSort<char *> is;
+    CombSort<char *>      cs;
+    ShellSort<char *>     ss;
 
 #ifdef TARGET_OS_NDSFIRMWARE
-	chdir("/data/SortBenchmark/");
+    chdir("/data/SortBenchmark/");
 #endif
-	console->SetColour(console->FG_BLUE | console->FG_INTENSITY);
-	console->WriteLine("HeapSort...");
-	console->SetColour();
-	BenchmarkDArray(hs);
-	console->WriteLine();
-	console->SetColour(console->FG_BLUE | console->FG_INTENSITY);
-	console->WriteLine("CombSort...");
-	console->SetColour();
-	BenchmarkDArray(cs);
-	console->WriteLine();
-	console->SetColour(console->FG_BLUE | console->FG_INTENSITY);
-	console->WriteLine("ShellSort...");
-	console->SetColour();
-	BenchmarkDArray(ss);
-	console->WriteLine();
-	console->SetColour(console->FG_BLUE | console->FG_INTENSITY);
-	console->WriteLine("QuickSort...");
-	console->SetColour();
-	BenchmarkDArray(qs);
+    console->SetColour(console->FG_BLUE | console->FG_INTENSITY);
+    console->WriteLine("HeapSort...");
+    console->SetColour();
+    BenchmarkDArray(hs);
+    console->WriteLine();
+    console->SetColour(console->FG_BLUE | console->FG_INTENSITY);
+    console->WriteLine("CombSort...");
+    console->SetColour();
+    BenchmarkDArray(cs);
+    console->WriteLine();
+    console->SetColour(console->FG_BLUE | console->FG_INTENSITY);
+    console->WriteLine("ShellSort...");
+    console->SetColour();
+    BenchmarkDArray(ss);
+    console->WriteLine();
+    console->SetColour(console->FG_BLUE | console->FG_INTENSITY);
+    console->WriteLine("QuickSort...");
+    console->SetColour();
+    BenchmarkDArray(qs);
 #ifdef ENABLE_SLOWSORTS
-	console->WriteLine();
-	console->SetColour(console->FG_BLUE | console->FG_INTENSITY);
-	console->WriteLine("BubbleSort...");
-	console->SetColour();
-	BenchmarkDArray(bs);
-	console->WriteLine();
-	console->SetColour(console->FG_BLUE | console->FG_INTENSITY);
-	console->WriteLine("InsertionSort...");
-	console->SetColour();
-	BenchmarkDArray(is);
-	console->WriteLine();
+    console->WriteLine();
+    console->SetColour(console->FG_BLUE | console->FG_INTENSITY);
+    console->WriteLine("BubbleSort...");
+    console->SetColour();
+    BenchmarkDArray(bs);
+    console->WriteLine();
+    console->SetColour(console->FG_BLUE | console->FG_INTENSITY);
+    console->WriteLine("InsertionSort...");
+    console->SetColour();
+    BenchmarkDArray(is);
+    console->WriteLine();
 #else
-	console->SetColour(console->FG_BLUE | console->FG_INTENSITY);
-	console->WriteLine("Skipping BubbleSort...");
-	console->WriteLine("Skipping InsertionSort...");
-	console->SetColour();
+    console->SetColour(console->FG_BLUE | console->FG_INTENSITY);
+    console->WriteLine("Skipping BubbleSort...");
+    console->WriteLine("Skipping InsertionSort...");
+    console->SetColour();
 #endif
-	console->WriteLine();
+    console->WriteLine();
 
 #ifdef TARGET_OS_WINDOWS
-	system("pause");
+    system("pause");
 #endif
 
-	delete console;
-	return 0;
+    delete console;
+    return 0;
 }

@@ -26,45 +26,45 @@
 
 namespace CrissCross
 {
-	namespace System
+    namespace System
+    {
+	/* ! The safe threading mutex class. */
+	/*!
+	 *  Allows for safe threading by locking via thread ID.
+	 */
+	class Mutex
 	{
-		/* ! The safe threading mutex class. */
-		/*!
-		 *  Allows for safe threading by locking via thread ID.
-		 */
-		class Mutex
-		{
-			protected:
+	    protected:
 
-				unsigned m_lockCount;
+		unsigned            m_lockCount;
 
 		#ifdef TARGET_OS_WINDOWS
-				/* ! The critical section for the mutex. */
-				/*!
-				 * Windows uses "critical sections" for safe threading.
-				 */
-				CRITICAL_SECTION m_criticalSection;
+		/* ! The critical section for the mutex. */
+		/*!
+		 * Windows uses "critical sections" for safe threading.
+		 */
+		CRITICAL_SECTION    m_criticalSection;
 		#else
-				/* ! POSIX threading mutex. */
+		/* ! POSIX threading mutex. */
 
-				pthread_mutexattr_t m_mutexAttr;
-				pthread_mutex_t m_hMutex;
+		pthread_mutexattr_t m_mutexAttr;
+		pthread_mutex_t     m_hMutex;
 		#endif
-			public:
+	    public:
 
-				/* ! The constructor. */
-				Mutex();
+		/* ! The constructor. */
+		Mutex();
 
-				/* ! The destructor. */
-				~Mutex();
+		/* ! The destructor. */
+		~Mutex();
 
-				/* ! Locks the mutex. */
-				void Lock();
+		/* ! Locks the mutex. */
+		void Lock();
 
-				/* ! Unlocks the mutex. */
-				void Unlock();
-		};
-	}
+		/* ! Unlocks the mutex. */
+		void Unlock();
+	};
+    }
 }
 
 #endif

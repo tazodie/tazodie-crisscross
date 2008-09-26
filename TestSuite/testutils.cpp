@@ -22,37 +22,37 @@ using namespace CrissCross;
 
 void WritePrefix(const char *_prefix)
 {
-	char temp[128];
-	sprintf(temp, "%s...", _prefix);
-	while (strlen(temp) < COLUMN_LIMIT)
-		strcat(temp, " ");
-	g_console->Write(temp);
+    char temp[128];
+    sprintf(temp, "%s...", _prefix);
+    while (strlen(temp) < COLUMN_LIMIT)
+	strcat(temp, " ");
+    g_console->Write(temp);
 }
 
 int WriteResult(int _result)
 {
-	g_console->Write("[ ");
-	if (_result) {
-		g_console->SetColour(IO::Console::FG_RED | IO::Console::FG_INTENSITY);
-		g_console->Write("FAILED");
-	} else	{
-		g_console->SetColour(IO::Console::FG_GREEN | IO::Console::FG_INTENSITY);
-		g_console->Write("PASSED");
-	}
+    g_console->Write("[ ");
+    if (_result) {
+	g_console->SetColour(IO::Console::FG_RED | IO::Console::FG_INTENSITY);
+	g_console->Write("FAILED");
+    } else {
+	g_console->SetColour(IO::Console::FG_GREEN | IO::Console::FG_INTENSITY);
+	g_console->Write("PASSED");
+    }
 
-	g_console->SetColour();
-	g_console->WriteLine(" ]");
+    g_console->SetColour();
+    g_console->WriteLine(" ]");
 
-	if (_result) {
-		g_console->WriteLine("\ton internal test number %d\n", _result);
-	}
+    if (_result) {
+	g_console->WriteLine("\ton internal test number %d\n", _result);
+    }
 
-	return _result;
+    return _result;
 }
 
 char *newStr(const char *_string)
 {
-	char *retval = new char[strlen(_string) + 1];
-	strcpy(retval, _string);
-	return retval;
+    char *retval = new char[strlen(_string) + 1];
+    strcpy(retval, _string);
+    return retval;
 }

@@ -21,59 +21,60 @@ using namespace CrissCross::Data;
 
 int TestShellSort_IntArray()
 {
-	int int_array [] = {0, 4, 3, 6, 2, 1, 5, 7, 9, 8 };
-	ShellSort<int> *ss = new ShellSort<int>();
-	ss->Sort(int_array, 10);
-	for (int i = 0; i < 10; i++) {
-		if (int_array[i] != i)
-			return i + 1;
-	}
-	delete ss;
-	return 0;
+    int             int_array [] = {0, 4, 3, 6, 2, 1, 5, 7, 9, 8 };
+    ShellSort<int> *ss = new ShellSort<int>();
+    ss->Sort(int_array, 10);
+    for (int i = 0; i < 10; i++) {
+	if (int_array[i] != i)
+	    return i + 1;
+    }
+
+    delete ss;
+    return 0;
 }
 
 int TestShellSort_DArray()
 {
-	DArray<int> *darray = new DArray<int>();
+    DArray<int>    *darray = new DArray<int>();
 
-	darray->insert(4);
-	darray->insert(2);
-	darray->insert(0);
-	darray->insert(3);
-	darray->insert(1);
+    darray->insert(4);
+    darray->insert(2);
+    darray->insert(0);
+    darray->insert(3);
+    darray->insert(1);
 
-	ShellSort<int> *ss = new ShellSort<int>();
-	darray->sort(ss);
-	delete ss;
+    ShellSort<int> *ss = new ShellSort<int>();
+    darray->sort(ss);
+    delete ss;
 
-	for (int i = 0; i < 5; i++)	{
-		if (darray->get(i) != i)
-			return i + 1;
-	}
+    for (int i = 0; i < 5; i++)	{
+	if (darray->get(i) != i)
+	    return i + 1;
+    }
 
-	delete darray;
-	return 0;
+    delete darray;
+    return 0;
 }
 
 int TestShellSort_LList()
 {
-	LList<int> *llist = new LList<int>();
+    LList<int>     *llist = new LList<int>();
 
-	llist->insert(4);
-	llist->insert(2);
-	llist->insert(0);
-	llist->insert(3);
-	llist->insert(1);
+    llist->insert(4);
+    llist->insert(2);
+    llist->insert(0);
+    llist->insert(3);
+    llist->insert(1);
 
-	ShellSort<int> *ss = new ShellSort<int>();
-	llist->sort(ss);
-	delete ss;
+    ShellSort<int> *ss = new ShellSort<int>();
+    llist->sort(ss);
+    delete ss;
 
-	for (int i = 0; i < 5; i++)	{
-		if (llist->get(i) != i)
-			return i + 1;
-	}
+    for (int i = 0; i < 5; i++)	{
+	if (llist->get(i) != i)
+	    return i + 1;
+    }
 
-	delete llist;
-	return 0;
+    delete llist;
+    return 0;
 }

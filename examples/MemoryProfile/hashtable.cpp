@@ -17,21 +17,21 @@ using namespace CrissCross::Data;
 
 int ProfileHashTable()
 {
-	HashTable<item_t> *table = new HashTable<item_t>();
-	g_stdout->SetColour(g_stdout->FG_WHITE | g_stdout->FG_INTENSITY);
-	g_stdout->WriteLine("HashTable Statistics");
-	g_stdout->SetColour();
+    HashTable<item_t> *table = new HashTable<item_t>();
+    g_stdout->SetColour(g_stdout->FG_WHITE | g_stdout->FG_INTENSITY);
+    g_stdout->WriteLine("HashTable Statistics");
+    g_stdout->SetColour();
 
-	size_t usage = 0, i;
-	for (i = 0; i < 10; i++) {
-		usage = table->mem_usage();
-		g_stdout->WriteLine("%6d items: %7d bytes (%4.2lf KB)", table->size(), usage, (double)usage / 1024.0);
-		table->grow();
-	}
+    size_t             usage = 0, i;
+    for (i = 0; i < 10; i++) {
+	usage = table->mem_usage();
+	g_stdout->WriteLine("%6d items: %7d bytes (%4.2lf KB)", table->size(), usage, (double)usage / 1024.0);
+	table->grow();
+    }
 
-	g_stdout->WriteLine();
+    g_stdout->WriteLine();
 
-	delete table;
+    delete table;
 
-	return 0;
+    return 0;
 }

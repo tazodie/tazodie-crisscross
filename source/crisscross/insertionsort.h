@@ -18,39 +18,40 @@
 
 namespace CrissCross
 {
-	namespace Data
+    namespace Data
+    {
+	/* ! A InsertionSort implementation for sorting arrays. */
+	/*!
+	 * \deprecated This is an extremely slow sorting method. It is provided for educational purposes ONLY.
+	 */
+	template <class T>
+	class InsertionSort : public Sorter<T>
 	{
-		/* ! A InsertionSort implementation for sorting arrays. */
+	    public:
+		/* ! Sorts an array using the InsertionSort method. */
 		/*!
-		 * \deprecated This is an extremely slow sorting method. It is provided for educational purposes ONLY.
+		 * \param _array The array to sort.
+		 * \param _size The size of the array to sort.
+		 * \return 0 on success.
+		 * \sa HeapSort ShellSort CombSort
 		 */
-		template <class T>
-		class InsertionSort : public Sorter<T>
+		_CC_DEPRECATE_SLOW("SEVERE") int Sort(T *_array, size_t _size)
 		{
-			public:
-				/* ! Sorts an array using the InsertionSort method. */
-				/*!
-				 * \param _array The array to sort.
-				 * \param _size The size of the array to sort.
-				 * \return 0 on success.
-				 * \sa HeapSort ShellSort CombSort
-				 */
-				_CC_DEPRECATE_SLOW("SEVERE") int Sort(T *_array, size_t _size)
-				{
-					for (long i = 1; i < (long)_size; i++) {
-						long j = i;
-						T b = _array[i];
-						while ((j > 0) && (Compare(_array[j - 1], b) > 0))
-						{
-							_array[j] = _array[j - 1];
-							j--;
-						}
-						_array[j] = b;
-					}
-					return 0;
-				};
+		    for (long i = 1; i < (long)_size; i++) {
+			long j = i;
+			T    b = _array[i];
+			while ((j > 0) && (Compare(_array[j - 1], b) > 0))
+			{
+			    _array[j] = _array[j - 1];
+			    j--;
+			}
+			_array[j] = b;
+		    }
+
+		    return 0;
 		};
-	}
+	};
+    }
 }
 
 #endif
