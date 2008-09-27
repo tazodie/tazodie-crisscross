@@ -148,7 +148,7 @@ namespace CrissCross
 	{
 #ifdef TARGET_OS_WINDOWS
 	    m_consoleAllocated = (AllocConsole() == TRUE);
-#elif defined (TARGET_OS_MACOSX)
+#elif defined (TARGET_OS_MACOSX) && 0
 	    /* BSD-style pty code. */
 	    char        buf[64];
 	    const char *ptymajors = "pqrstuvwxyzabcdefghijklmnoABCDEFGHIJKLMNOPQRSTUVWXYZ";
