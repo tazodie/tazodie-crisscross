@@ -35,7 +35,7 @@ typedef unsigned long long cc_uint64_t;
 #ifdef TARGET_OS_WINDOWS
 typedef cc_int64_t fpos64_t;
 #elif defined (TARGET_OS_MACOSX) || defined (TARGET_OS_FREEBSD) || \
-    defined (TARGET_OS_NETBSD) || defined (TARGET_OS_OPENBSD)
+        defined (TARGET_OS_NETBSD) || defined (TARGET_OS_OPENBSD)
 typedef fpos_t fpos64_t;
 #endif
 

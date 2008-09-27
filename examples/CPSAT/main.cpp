@@ -19,26 +19,26 @@ Console *console = NULL;
 
 int RunApplication(int argc, char * *argv)
 {
-    console = new Console();
+	console = new Console();
 
-    /* Begin your application here. */
+	/* Begin your application here. */
 
-    console->SetColour(Console::FG_RED | Console::FG_INTENSITY);
-    console->WriteLine("=======================================");
-    console->WriteLine("= RIJNDAEL (AES) ENCRYPTION BENCHMARK =");
-    console->WriteLine("=======================================");
-    console->SetColour();
-    console->WriteLine();
-    rijndaelSpeed(128);
-    rijndaelSpeed(192);
-    rijndaelSpeed(256);
+	console->SetColour(Console::FG_RED | Console::FG_INTENSITY);
+	console->WriteLine("=======================================");
+	console->WriteLine("= RIJNDAEL (AES) ENCRYPTION BENCHMARK =");
+	console->WriteLine("=======================================");
+	console->SetColour();
+	console->WriteLine();
+	rijndaelSpeed(128);
+	rijndaelSpeed(192);
+	rijndaelSpeed(256);
 
-    /* End your application here. */
+	/* End your application here. */
 
 #ifdef TARGET_OS_WINDOWS
-    system("pause");
+	system("pause");
 #endif
 
-    delete console;
-    return 0;
+	delete console;
+	return 0;
 }

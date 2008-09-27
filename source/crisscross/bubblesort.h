@@ -18,43 +18,43 @@
 
 namespace CrissCross
 {
-    namespace Data
-    {
-	/* ! A BubbleSort implementation for sorting arrays. */
-	/*!
-	 * \deprecated This is an extremely slow sorting method. It is provided for educational purposes ONLY.
-	 */
-	template <class T>
-	class BubbleSort : public Sorter<T>
+	namespace Data
 	{
-	    public:
-		/* ! Sorts an array using the BubbleSort method. */
+		/* ! A BubbleSort implementation for sorting arrays. */
 		/*!
-		 * \param _array The array to sort.
-		 * \param _size The size of the array to sort.
-		 * \return 0 on success.
-		 * \sa HeapSort ShellSort CombSort
+		 * \deprecated This is an extremely slow sorting method. It is provided for educational purposes ONLY.
 		 */
-		_CC_DEPRECATE_SLOW("EXTREME") int Sort(T *_array, size_t _size)
+		template <class T>
+		class BubbleSort : public Sorter<T>
 		{
-		    for (size_t i = _size - 1; i >= 0; i--) {
-			bool flipped = false;
-			for (size_t j = 0; j < i; j++) {
-			    if (Compare(_array[j], _array[j + 1]) > 0) {
-				Swap(_array, j, j + 1);
-				flipped = true;
-			    }
-			}
+			public:
+				/* ! Sorts an array using the BubbleSort method. */
+				/*!
+				 * \param _array The array to sort.
+				 * \param _size The size of the array to sort.
+				 * \return 0 on success.
+				 * \sa HeapSort ShellSort CombSort
+				 */
+				_CC_DEPRECATE_SLOW("EXTREME") int Sort(T *_array, size_t _size)
+				{
+					for (size_t i = _size - 1; i >= 0; i--) {
+						bool flipped = false;
+						for (size_t j = 0; j < i; j++) {
+							if (Compare(_array[j], _array[j + 1]) > 0) {
+								Swap(_array, j, j + 1);
+								flipped = true;
+							}
+						}
 
-			if (!flipped || i == 0) {
-			    break;
-			}
-		    }
+						if (!flipped || i == 0) {
+							break;
+						}
+					}
 
-		    return 0;
+					return 0;
+				};
 		};
-	};
-    }
+	}
 }
 
 #endif
