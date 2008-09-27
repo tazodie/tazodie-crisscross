@@ -18,17 +18,17 @@ Console *console = NULL;
 
 int RunApplication(int argc, char * *argv)
 {
-    console = new Console();
+	console = new Console();
 
-    /* Begin your application here. */
+	/* Begin your application here. */
 
 
-    /* End your application here. */
+	/* End your application here. */
 
 #ifdef TARGET_OS_WINDOWS
-    system("pause");
+	system("pause");
 #endif
 
-    delete console;
-    return 0;
+	delete console;
+	return 0;
 }

@@ -14,83 +14,83 @@
 
 namespace CrissCross
 {
-    namespace System
-    {
-	Stopwatch::Stopwatch()
+	namespace System
 	{
+		Stopwatch::Stopwatch()
+		{
 #if defined (TARGET_OS_WINDOWS)
-	    RecalculateFrequency();
+			RecalculateFrequency();
 #elif defined (TARGET_OS_MACOSX)
-	    mach_timebase_info(&m_timebase);
+			mach_timebase_info(&m_timebase);
 #endif
 
-	    /* We start it here for static Stopwatch instances */
-	    /* where it's impractical to do an initial Start() call */
-	    Start();
-	}
+			/* We start it here for static Stopwatch instances */
+			/* where it's impractical to do an initial Start() call */
+			Start();
+		}
 
-	Stopwatch::~Stopwatch()
-	{
-	}
+		Stopwatch::~Stopwatch()
+		{
+		}
 
 #if defined (TARGET_OS_WINDOWS)
-	void Stopwatch::RecalculateFrequency()
-	{
-	    LARGE_INTEGER freq;
-	    QueryPerformanceFrequency(&freq);
-	    m_tickInterval = 1.0 / (double)freq.QuadPart;
-	}
+		void Stopwatch::RecalculateFrequency()
+		{
+			LARGE_INTEGER freq;
+			QueryPerformanceFrequency(&freq);
+			m_tickInterval = 1.0 / (double)freq.QuadPart;
+		}
 #endif
 
-	double Stopwatch::Elapsed()
-	{
+		double Stopwatch::Elapsed()
+		{
 #if defined (TARGET_OS_WINDOWS)
-	    return ((double)m_finish.QuadPart - (double)m_start.QuadPart) * m_tickInterval;
+			return ((double)m_finish.QuadPart - (double)m_start.QuadPart) * m_tickInterval;
 #elif defined (TARGET_OS_MACOSX)
-	    uint64_t elapsed = m_finish - m_start;
-	    return double( elapsed ) * (m_timebase.numer / m_timebase.denom) / 1000000000.0;
+			uint64_t elapsed = m_finish - m_start;
+			return double( elapsed ) * (m_timebase.numer / m_timebase.denom) / 1000000000.0;
 #elif defined (TARGET_OS_LINUX) || defined (TARGET_OS_FREEBSD) || \
-	    defined (TARGET_OS_NETBSD) || defined (TARGET_OS_OPENBSD)
-	    return (double)(m_finish.tv_sec - m_start.tv_sec) +
-	           ((double)(m_finish.tv_usec) - (double)(m_start.tv_usec)) / 1000000.0;
+			defined (TARGET_OS_NETBSD) || defined (TARGET_OS_OPENBSD)
+			return (double)(m_finish.tv_sec - m_start.tv_sec) +
+			       ((double)(m_finish.tv_usec) - (double)(m_start.tv_usec)) / 1000000.0;
 #elif defined (TARGET_OS_NDSFIRMWARE)
-	    return (TIMER0_DATA | (TIMER1_DATA << 16)) / 33513982.0;
+			return (TIMER0_DATA | (TIMER1_DATA << 16)) / 33513982.0;
 #endif
-	}
+		}
 
-	unsigned long Stopwatch::ElapsedMS()
-	{
+		unsigned long Stopwatch::ElapsedMS()
+		{
 #if defined (TARGET_OS_WINDOWS)
-	    return   (unsigned long)(((double)m_finish.QuadPart - (double)m_start.QuadPart) * m_tickInterval * 1000.0);
+			return   (unsigned long)(((double)m_finish.QuadPart - (double)m_start.QuadPart) * m_tickInterval * 1000.0);
 #elif defined (TARGET_OS_MACOSX)
-	    uint64_t elapsed = m_finish - m_start;
-	    return double( elapsed ) * (m_timebase.numer / m_timebase.denom) / 1000000.0;
+			uint64_t elapsed = m_finish - m_start;
+			return double( elapsed ) * (m_timebase.numer / m_timebase.denom) / 1000000.0;
 #elif defined (TARGET_OS_LINUX) || defined (TARGET_OS_FREEBSD) || \
-	    defined (TARGET_OS_NETBSD) || defined (TARGET_OS_OPENBSD)
-	    return   (unsigned long)((m_finish.tv_sec - m_start.tv_sec) * 1000 +
-	                             (m_finish.tv_usec - m_start.tv_usec) / 1000);
+			defined (TARGET_OS_NETBSD) || defined (TARGET_OS_OPENBSD)
+			return   (unsigned long)((m_finish.tv_sec - m_start.tv_sec) * 1000 +
+			                         (m_finish.tv_usec - m_start.tv_usec) / 1000);
 #elif defined (TARGET_OS_NDSFIRMWARE)
-	    return (TIMER0_DATA | (TIMER1_DATA << 16)) / 33514;
+			return (TIMER0_DATA | (TIMER1_DATA << 16)) / 33514;
 #endif
-	}
+		}
 
-	cc_uint64_t Stopwatch::Clocks()
-	{
+		cc_uint64_t Stopwatch::Clocks()
+		{
 #if defined (TARGET_OS_WINDOWS)
-	    LARGE_INTEGER start, finish;
-	    cc_int64_t    overhead;
-	    QueryPerformanceCounter(&start);
-	    QueryPerformanceCounter(&finish);
-	    overhead = finish.QuadPart - start.QuadPart;
-	    return m_finish.QuadPart - m_start.QuadPart - overhead;
+			LARGE_INTEGER start, finish;
+			cc_int64_t    overhead;
+			QueryPerformanceCounter(&start);
+			QueryPerformanceCounter(&finish);
+			overhead = finish.QuadPart - start.QuadPart;
+			return m_finish.QuadPart - m_start.QuadPart - overhead;
 #elif defined (TARGET_OS_MACOSX)
-	    return 0;
+			return 0;
 #elif defined (TARGET_OS_LINUX) || defined (TARGET_OS_FREEBSD) || \
-	    defined (TARGET_OS_NETBSD) || defined (TARGET_OS_OPENBSD)
-	    return 0;
+			defined (TARGET_OS_NETBSD) || defined (TARGET_OS_OPENBSD)
+			return 0;
 #elif defined (TARGET_OS_NDSFIRMWARE)
-	    return TIMER0_DATA | (TIMER1_DATA << 16);
+			return TIMER0_DATA | (TIMER1_DATA << 16);
 #endif
+		}
 	}
-    }
 }

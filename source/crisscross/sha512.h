@@ -21,97 +21,97 @@
 
 /* @cond */
 typedef struct {
-    unsigned int tot_len;
-    unsigned int len;
-    unsigned char block[2 * SHA512_BLOCK_SIZE];
-    cc_uint64_t h[8];
+	unsigned int tot_len;
+	unsigned int len;
+	unsigned char block[2 * SHA512_BLOCK_SIZE];
+	cc_uint64_t h[8];
 } cc_sha512_ctx;
 /* @endcond */
 
 namespace CrissCross
 {
-    namespace Crypto
-    {
-	/* ! A SHA-512 hash generator. */
-	/*!
-	 * \warning When compiled as 32-bit code, this hash is particularly slow.
-	 *              When compiled as 64-bit code, this hash type can actually be faster
-	 *              to generate than a SHA-256 hash.
-	 * \sa Hash SHA1Hash SHA256Hash TigerHash
-	 */
-	class SHA512Hash
+	namespace Crypto
 	{
-	    private:
-		mutable char *m_hashString;
-		cc_sha512_ctx  m_state;
-		unsigned char *m_hash;
-
-	    public:
-		/* ! The default constructor. */
-#if TARGET_CPU_BITS < 64
-		_CC_DEPRECATE_SLOW("MODERATE")
-#endif
-		SHA512Hash();
-
-		/* ! The destructor. */
-		~SHA512Hash();
-
-		/* ! Runs a SHA-512 hash on the data provided. */
+		/* ! A SHA-512 hash generator. */
 		/*!
-		 * \param _data The data to hash. The buffer does not need to be null
-		 *              terminated.
-		 * \param _length The data length in bytes.
-		 * \return Zero on success, nonzero on failure.
+		 * \warning When compiled as 32-bit code, this hash is particularly slow.
+		 *              When compiled as 64-bit code, this hash type can actually be faster
+		 *              to generate than a SHA-256 hash.
+		 * \sa Hash SHA1Hash SHA256Hash TigerHash
 		 */
-		int Process(const void *_data, size_t _length);
-
-		/* ! Runs a hash on the file provided. */
-		/*!
-		 * \param _reader The pre-opened CoreIOReader to run the hash on.
-		 * \return Zero on success, nonzero on failure.
-		 */
-		int Process(CrissCross::IO::CoreIOReader *_reader);
-
-		/* ! Processes a piece of the dataset. */
-		/*!
-		 * This function will process only a segment of a larger dataset. It is designed
-		 * to be called multiple times before an eventual Finalize() call.
-		 * \param _data The data segment to hash.
-		 * \param _length The length of the data segment in bytes.
-		 */
-		int ProcessBlock(const void *_data, size_t _length);
-
-		/* ! Finalizes the ProcessBlock() calls and generates the final hash value. */
-		void Finalize();
-
-		/* ! Resets the internal SHA-512 context and hash buffer. */
-		void Reset();
-
-		/* ! Converts the internal hash data into an hex string, a human readable format. */
-		/*!
-		 *      The memory location returned by this function is freed when the class
-		 *      is destructed.
-		 */
-		const char *ToString() const;
-
-		/* ! Equality operator. */
-		/*!
-		 *      Compares two instances of SHA512Hash to see if the hashes are equal.
-		 * \param _other The other instance of SHA512Hash to compare to.
-		 */
-		bool operator==(const SHA512Hash &_other) const;
-
-		/* ! Inequality operator. */
-		/*!
-		 *      Compares two instances of SHA512Hash to see if the hashes are not equal.
-		 * \param _other The other instance of SHA512Hash to compare to.
-		 */
-		inline bool operator!=(const SHA512Hash &_other) const
+		class SHA512Hash
 		{
-		    return !(*this == _other);
+			private:
+				mutable char *m_hashString;
+				cc_sha512_ctx  m_state;
+				unsigned char *m_hash;
+
+			public:
+				/* ! The default constructor. */
+#if TARGET_CPU_BITS < 64
+				_CC_DEPRECATE_SLOW("MODERATE")
+#endif
+				SHA512Hash();
+
+				/* ! The destructor. */
+				~SHA512Hash();
+
+				/* ! Runs a SHA-512 hash on the data provided. */
+				/*!
+				 * \param _data The data to hash. The buffer does not need to be null
+				 *              terminated.
+				 * \param _length The data length in bytes.
+				 * \return Zero on success, nonzero on failure.
+				 */
+				int Process(const void *_data, size_t _length);
+
+				/* ! Runs a hash on the file provided. */
+				/*!
+				 * \param _reader The pre-opened CoreIOReader to run the hash on.
+				 * \return Zero on success, nonzero on failure.
+				 */
+				int Process(CrissCross::IO::CoreIOReader *_reader);
+
+				/* ! Processes a piece of the dataset. */
+				/*!
+				 * This function will process only a segment of a larger dataset. It is designed
+				 * to be called multiple times before an eventual Finalize() call.
+				 * \param _data The data segment to hash.
+				 * \param _length The length of the data segment in bytes.
+				 */
+				int ProcessBlock(const void *_data, size_t _length);
+
+				/* ! Finalizes the ProcessBlock() calls and generates the final hash value. */
+				void Finalize();
+
+				/* ! Resets the internal SHA-512 context and hash buffer. */
+				void Reset();
+
+				/* ! Converts the internal hash data into an hex string, a human readable format. */
+				/*!
+				 *      The memory location returned by this function is freed when the class
+				 *      is destructed.
+				 */
+				const char *ToString() const;
+
+				/* ! Equality operator. */
+				/*!
+				 *      Compares two instances of SHA512Hash to see if the hashes are equal.
+				 * \param _other The other instance of SHA512Hash to compare to.
+				 */
+				bool operator==(const SHA512Hash &_other) const;
+
+				/* ! Inequality operator. */
+				/*!
+				 *      Compares two instances of SHA512Hash to see if the hashes are not equal.
+				 * \param _other The other instance of SHA512Hash to compare to.
+				 */
+				inline bool operator!=(const SHA512Hash &_other) const
+				{
+					return !(*this == _other);
+				};
 		};
-	};
-    }
+	}
 }
 
 #endif

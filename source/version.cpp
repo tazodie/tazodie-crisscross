@@ -15,31 +15,31 @@
 
 namespace CrissCross
 {
-    namespace Version
-    {
-	const char *Version()
+	namespace Version
 	{
-	    return CC_LIB_VERSION;
-	}
+		const char *Version()
+		{
+			return CC_LIB_VERSION;
+		}
 
-	int Major()
-	{
-	    return CC_LIB_VERSION_MAJOR;
-	}
+		int Major()
+		{
+			return CC_LIB_VERSION_MAJOR;
+		}
 
-	int Minor()
-	{
-	    return CC_LIB_VERSION_MINOR;
-	}
+		int Minor()
+		{
+			return CC_LIB_VERSION_MINOR;
+		}
 
-	int Revision()
-	{
-	    return CC_LIB_VERSION_REVISION;
-	}
+		int Revision()
+		{
+			return CC_LIB_VERSION_REVISION;
+		}
 
-	int Build()
-	{
-	    return CC_LIB_VERSION_BUILD;
+		int Build()
+		{
+			return CC_LIB_VERSION_BUILD;
+		}
 	}
-    }
 }
