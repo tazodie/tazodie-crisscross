@@ -20,12 +20,12 @@ namespace CrissCross
 {
 	namespace Data
 	{
-		/*! A ShellSort implementation for sorting arrays. */
+		/*! \brief A ShellSort implementation for sorting arrays. */
 		template <class T>
 		class ShellSort : public Sorter<T>
 		{
 			public:
-				/*! Sorts an array using the ShellSort method. */
+				/*! \brief Sorts an array using the ShellSort method. */
 				/*!
 				 * \param _array The array to sort.
 				 * \param _size The size of the array to sort.

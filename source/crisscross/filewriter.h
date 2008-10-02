@@ -18,27 +18,27 @@ namespace CrissCross
 {
 	namespace IO
 	{
-		/*! The file output class. */
+		/*! \brief The file output class. */
 		/*!
 		 *  Inherits CoreIO, so functions like CoreIO::Write and CoreIO::WriteLine are accessible to the programmer.
 		 */
 		class FileWriter : public CoreIOWriter
 		{
 			protected:
-				/*! The path to the file being written. */
+				/*! \brief The path to the file being written. */
 				const char *m_filePath;
 
 			public:
-				/*! The constructor. */
+				/*! \brief The constructor. */
 				FileWriter();
 
-				/*! The destructor */
+				/*! \brief The destructor */
 				/*!
 				 *  Flushes the output buffer, closes the file, and deallocates memory used by FileWriter.
 				 */
 				~FileWriter();
 
-				/*! Opens the provided file. */
+				/*! \brief Opens the provided file. */
 				/*!
 				 *  Opens the file for reading.
 				 * \param _file The path of the file to be read.
@@ -48,7 +48,7 @@ namespace CrissCross
 				 */
 				CrissCross::Errors Open(const char *_file, FileWriteMode _writeMode = CC_FILE_CREATE, LineEndingType _lnEnding = CC_LN_NATIVE);
 
-				/*! Closes the file. */
+				/*! \brief Closes the file. */
 				/*!
 				 *  Flushes the output buffer, closes the file, and deallocates memory used by FileWriter.
 				 * \return Standard CrissCross::Errors values.

@@ -21,7 +21,7 @@ namespace CrissCross
 {
 	namespace Data
 	{
-		/*! A QuickSort implementation for sorting arrays. */
+		/*! \brief A QuickSort implementation for sorting arrays. */
 		/*!
 		 * \deprecated This is a slow sorting method (worst case would be with sorting a reverse-sorted dataset). It is provided for educational purposes ONLY.
 		 */
@@ -51,7 +51,7 @@ namespace CrissCross
 
 			public:
 
-				/*! Sorts an array using the QuickSort method. */
+				/*! \brief Sorts an array using the QuickSort method. */
 				/*!
 				 * \param _array The array to sort.
 				 * \param _size The size of the array to sort.

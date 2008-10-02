@@ -40,7 +40,7 @@ void Assert(bool _condition, const char *_testcase, const char *_file, int _line
 
 namespace CrissCross {
 	namespace Debug {
-		/*! Prints a stack trace to _outputBuffer. */
+		/*! \brief Prints a stack trace to _outputBuffer. */
 		/*!
 		 * \param _outputBuffer The CoreIO output buffer to write to.
 		 */

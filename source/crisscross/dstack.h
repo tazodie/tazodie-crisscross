@@ -18,70 +18,70 @@ namespace CrissCross
 {
 	namespace Data
 	{
-		/*! A dynamic stack implementation. */
+		/*! \brief A dynamic stack implementation. */
 		template <class dataType>
 		class DStack
 		{
 			private:
-				/*! The step size for which to increase the stack size by. */
+				/*! \brief The step size for which to increase the stack size by. */
 				size_t    m_stepSize;
 
-				/*! The actual stack itself. */
+				/*! \brief The actual stack itself. */
 				dataType *m_bottom;
 
-				/*! The pointer to the current position in the stack. */
+				/*! \brief The pointer to the current position in the stack. */
 				dataType *m_top;
 
-				/*! The size of the stack. */
+				/*! \brief The size of the stack. */
 				size_t    m_size;
 
-				/*! The original size of the stack (used on an empty() call to reset things to defaults). */
+				/*! \brief The original size of the stack (used on an empty() call to reset things to defaults). */
 				size_t    m_origSize;
 
-				/*! Sets the stack size to the given size. */
+				/*! \brief Sets the stack size to the given size. */
 				/*!
 				 * \param _size The size to resize to.
 				 */
 				void setSize(size_t _size);
 
 			public:
-				/*! The constructor. */
+				/*! \brief The constructor. */
 				/*!
 				 * \param _size The step size to use.
 				 */
 				DStack(size_t _size = -1);
 
-				/*! The destructor. */
+				/*! \brief The destructor. */
 				~DStack();
 
-				/*! Increases the array size by the number in m_stepSize */
+				/*! \brief Increases the array size by the number in m_stepSize */
 				inline void grow();
 
-				/*! Pushes a value onto the stack. */
+				/*! \brief Pushes a value onto the stack. */
 				/*!
 				 * \param _val The value to put on the stack.
 				 */
 				inline void push(dataType _val);
 
-				/*! Pops a value off the stack. */
+				/*! \brief Pops a value off the stack. */
 				/*!
 				 * \return The topmost value on the stack.
 				 */
 				inline dataType pop();
 
-				/*! Returns whatever value is on the top of the stack without removing it from the stack. */
+				/*! \brief Returns whatever value is on the top of the stack without removing it from the stack. */
 				/*!
 				 * \return The topmost value on the stack.
 				 */
 				dataType const &peek();
 
-				/*! Indicates the number of items on the stack. */
+				/*! \brief Indicates the number of items on the stack. */
 				/*!
 				 * \return Number of items on the stack.
 				 */
 				size_t count() const;
 
-				/*! Empties the stack. */
+				/*! \brief Empties the stack. */
 				/*!
 				 *  If pointers are stored in the stack, they must be freed manually via a series of pop() and delete or free() calls.
 				 */

@@ -20,7 +20,7 @@ namespace CrissCross
 {
 	namespace Data
 	{
-		/*! A BubbleSort implementation for sorting arrays. */
+		/*! \brief A BubbleSort implementation for sorting arrays. */
 		/*!
 		 * \deprecated This is an extremely slow sorting method. It is provided for educational purposes ONLY.
 		 */
@@ -28,7 +28,7 @@ namespace CrissCross
 		class BubbleSort : public Sorter<T>
 		{
 			public:
-				/*! Sorts an array using the BubbleSort method. */
+				/*! \brief Sorts an array using the BubbleSort method. */
 				/*!
 				 * \param _array The array to sort.
 				 * \param _size The size of the array to sort.

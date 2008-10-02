@@ -21,12 +21,12 @@ namespace CrissCross
 {
 	namespace Data
 	{
-		/*! A very fast red-black tree implementation. */
+		/*! \brief A very fast red-black tree implementation. */
 		template <class Key, class Data>
 		class RedBlackTree
 		{
 			private:
-				/*! Private copy constructor. */
+				/*! \brief Private copy constructor. */
 				/*!
 				 * If your code needs to invoke the copy constructor, you've probably written
 				 * the code wrong. A tree copy is generally unnecessary, and in cases that it
@@ -34,7 +34,7 @@ namespace CrissCross
 				 */
 				RedBlackTree(const RedBlackTree<Key, Data> &);
 
-				/*! Private assignment operator. */
+				/*! \brief Private assignment operator. */
 				/*!
 				 * If your code needs to invoke the assignment operator, you've probably written
 				 * the code wrong. A tree copy is generally unnecessary, and in cases that it
@@ -44,13 +44,13 @@ namespace CrissCross
 
 			protected:
 
-				/*! The root node at the top of the tree. */
+				/*! \brief The root node at the top of the tree. */
 				RedBlackNode<Key, Data> *rootNode;
 
-				/*! The "null" node. Added so we don't need special cases to check for null pointers. */
+				/*! \brief The "null" node. Added so we don't need special cases to check for null pointers. */
 				RedBlackNode<Key, Data> *nullNode;
 
-				/*! The cached size() return value. Changes on each tree modification (insertions and deletions). */
+				/*! \brief The cached size() return value. Changes on each tree modification (insertions and deletions). */
 				size_t                   m_cachedSize;
 
 				void RecursiveConvertIndexToDArray(DArray <Key> *_darray, RedBlackNode<Key, Data> *_btree) const;
@@ -72,7 +72,7 @@ namespace CrissCross
 
 				RedBlackNode<Key, Data> *findNode(Key const &key) const;
 
-				/*! Verifies that a node is valid. */
+				/*! \brief Verifies that a node is valid. */
 				/*!
 				 * \param _node A node pointer.
 				 * \return True if the node is a valid node, false otherwise.
@@ -87,13 +87,13 @@ namespace CrissCross
 				typedef enum { BLACK, RED } nodeColor;
 				/*! @endcond */
 
-				/*! The constructor. */
+				/*! \brief The constructor. */
 				RedBlackTree();
 
-				/*! The destructor. */
+				/*! \brief The destructor. */
 				~RedBlackTree();
 
-				/*! Inserts data into the tree. */
+				/*! \brief Inserts data into the tree. */
 				/*!
 				 * \param _key The key of the data.
 				 * \param _rec The data to insert.
@@ -101,7 +101,7 @@ namespace CrissCross
 				 */
 				bool insert(Key const &_key, Data const &_rec);
 
-				/*! Change the data at the given node. */
+				/*! \brief Change the data at the given node. */
 				/*!
 				 * \param _key The key of the node to be modified.
 				 * \param _rec The data to insert.
@@ -109,7 +109,7 @@ namespace CrissCross
 				 */
 				bool replace(Key const &_key, Data const &_rec);
 
-				/*! Deletes a node from the tree, specified by the node's key. */
+				/*! \brief Deletes a node from the tree, specified by the node's key. */
 				/*!
 				 * \warning This won't free the memory occupied by the data, so the data must be freed separately.
 				 * \param _key The key of the node to delete.
@@ -117,7 +117,7 @@ namespace CrissCross
 				 */
 				bool erase(Key const &_key);
 
-				/*! Deletes a node from the tree, specified by the node's key and data. */
+				/*! \brief Deletes a node from the tree, specified by the node's key and data. */
 				/*!
 				 * \warning This won't free the memory occupied by the data, so the data must be freed separately.
 				 * \param _key The key of the node to delete.
@@ -126,7 +126,7 @@ namespace CrissCross
 				 */
 				bool erase(Key const &_key, Data const & _rec);
 
-				/*! Finds a node in the tree and copies the data from that node to a specified location. */
+				/*! \brief Finds a node in the tree and copies the data from that node to a specified location. */
 				/*!
 				 * \param _key The key of the node to find.
 				 * \param _data On return, will contain the data at the node. If not found, _data does not change.
@@ -134,7 +134,7 @@ namespace CrissCross
 				 */
 				bool find(Key const &_key, Data &_data) const;
 
-				/*! Finds a node in the tree and returns the data at that node. */
+				/*! \brief Finds a node in the tree and returns the data at that node. */
 				/*!
 				 * \param _key The key of the node to find.
 				 * \return The data at the node. NULL if not found.
@@ -144,7 +144,7 @@ namespace CrissCross
 				 */
 				Data find(Key const &_key) const;
 
-				/*! Empties the entire tree. */
+				/*! \brief Empties the entire tree. */
 				/*!
 				 * \warning This won't free the memory occupied by the data, so the data must be freed
 				 *     separately. The preferred way to do this is to serialize the data into a DArray
@@ -156,7 +156,7 @@ namespace CrissCross
 					killAll();
 				};
 
-				/*! Indicates the size of the tree. */
+				/*! \brief Indicates the size of the tree. */
 				/*!
 				 * \return Size of the tree.
 				 */
@@ -165,7 +165,7 @@ namespace CrissCross
 					return m_cachedSize;
 				};
 
-				/*! Finds all instances of the specified key in the tree. */
+				/*! \brief Finds all instances of the specified key in the tree. */
 				/*!
 				 * \param _key The key of the node to find.
 				 * \return A DArray containing the data with key _key.
@@ -173,28 +173,28 @@ namespace CrissCross
 				 */
 				DArray<Data> *findAll(Key const &_key) const;
 
-				/*! Tests whether a key is in the tree or not. */
+				/*! \brief Tests whether a key is in the tree or not. */
 				/*!
 				 * \param _key The key of the node to find.
 				 * \return True if the key is in the tree, false if not.
 				 */
 				bool exists(Key const &_key) const;
 
-				/*! Converts the tree data into a linearized DArray. */
+				/*! \brief Converts the tree data into a linearized DArray. */
 				/*!
 				 * \return A DArray containing the data of the tree.
 				 * \warning Delete the returned DArray when done with it.
 				 */
 				DArray <Data> *ConvertToDArray() const;
 
-				/*! Converts the tree keys into a linearized DArray. */
+				/*! \brief Converts the tree keys into a linearized DArray. */
 				/*!
 				 * \return A DArray containing the keys in the tree.
 				 * \warning Delete the returned DArray when done with it.
 				 */
 				DArray <Key> *ConvertIndexToDArray() const;
 
-				/*! Returns the memory usage of the tree and its nodes. */
+				/*! \brief Returns the memory usage of the tree and its nodes. */
 				/*!
 				 * \return Memory usage in bytes.
 				 */

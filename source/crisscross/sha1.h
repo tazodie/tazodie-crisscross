@@ -28,7 +28,7 @@ namespace CrissCross
 {
 	namespace Crypto
 	{
-		/*! A SHA-1 hash generator. */
+		/*! \brief A SHA-1 hash generator. */
 		/*!
 		 * \sa Hash SHA256Hash SHA512Hash TigerHash
 		 */
@@ -40,13 +40,13 @@ namespace CrissCross
 				unsigned char *m_hash;
 
 			public:
-				/*! The default constructor. */
+				/*! \brief The default constructor. */
 				SHA1Hash();
 
-				/*! The destructor. */
+				/*! \brief The destructor. */
 				~SHA1Hash();
 
-				/*! Runs a SHA-1 hash on the data provided. */
+				/*! \brief Runs a SHA-1 hash on the data provided. */
 				/*!
 				 * \param _data The data to hash. The buffer does not need to be null
 				 *              terminated.
@@ -55,14 +55,14 @@ namespace CrissCross
 				 */
 				int Process(const void *_data, size_t _length);
 
-				/*! Runs a hash on the file provided. */
+				/*! \brief Runs a hash on the file provided. */
 				/*!
 				 * \param _reader The pre-opened CoreIOReader to run the hash on.
 				 * \return Zero on success, nonzero on failure.
 				 */
 				int Process(CrissCross::IO::CoreIOReader *_reader);
 
-				/*! Processes a piece of the dataset. */
+				/*! \brief Processes a piece of the dataset. */
 				/*!
 				 * This function will process only a segment of a larger dataset. It is designed
 				 * to be called multiple times before an eventual Finalize() call.
@@ -71,27 +71,27 @@ namespace CrissCross
 				 */
 				int ProcessBlock(const void *_data, size_t _length);
 
-				/*! Finalizes the ProcessBlock() calls and generates the final hash value. */
+				/*! \brief Finalizes the ProcessBlock() calls and generates the final hash value. */
 				void Finalize();
 
-				/*! Resets the internal SHA-1 context and hash buffer. */
+				/*! \brief Resets the internal SHA-1 context and hash buffer. */
 				void Reset();
 
-				/*! Converts the internal hash data into an hex string, a human readable format. */
+				/*! \brief Converts the internal hash data into an hex string, a human readable format. */
 				/*!
 				 *      The memory location returned by this function is freed when the class
 				 *      is destructed.
 				 */
 				const char *ToString() const;
 
-				/*! Equality operator. */
+				/*! \brief Equality operator. */
 				/*!
 				 *      Compares two instances of SHA1Hash to see if the hashes are equal.
 				 * \param _other The other instance of SHA1Hash to compare to.
 				 */
 				bool operator==(const SHA1Hash &_other) const;
 
-				/*! Inequality operator. */
+				/*! \brief Inequality operator. */
 				/*!
 				 *      Compares two instances of SHA1Hash to see if the hashes are not equal.
 				 * \param _other The other instance of SHA1Hash to compare to.

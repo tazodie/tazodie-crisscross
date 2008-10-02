@@ -304,21 +304,21 @@ static char THIS_FILE [] = __FILE__;
 #endif
 #endif
 
-/*! The application entry point. */
+/*! \brief The application entry point. */
 extern int RunApplication(int argc, char * *argv);
-/*! An internal initialization function for the program. */
+/*! \brief An internal initialization function for the program. */
 int CrissCrossInitialize(int argc, char * *argv);
 
 /* Namespace Definitions */
 /* Primarily here for centralised documentation */
 
-/*! The CrissCross main namespace. */
+/*! \brief The CrissCross main namespace. */
 /*!
  *  All CrissCross classes and functions are kept in this namespace.
  */
 namespace CrissCross
 {
-	/*! The cryptographic routine namespace. */
+	/*! \brief The cryptographic routine namespace. */
 	/*!
 	 *      Contains a variety of hashing algorithms for general use.
 	 */
@@ -326,7 +326,7 @@ namespace CrissCross
 	{
 	}
 
-	/*! The data structure namespace. */
+	/*! \brief The data structure namespace. */
 	/*!
 	 *  Contains basic data structures to assist in sorting and searching
 	 *  for data.
@@ -335,7 +335,7 @@ namespace CrissCross
 	{
 	}
 
-	/*! The debug namespace. */
+	/*! \brief The debug namespace. */
 	/*!
 	 *  Contains classes and functions designed to assist programmers
 	 *  in debugging their software.
@@ -344,7 +344,7 @@ namespace CrissCross
 	{
 	}
 
-	/*! The input/output namespace. */
+	/*! \brief The input/output namespace. */
 	/*!
 	 *  Contains classes for console and file I/O.
 	 */
@@ -352,7 +352,7 @@ namespace CrissCross
 	{
 	}
 
-	/*! The network input/output namespace. */
+	/*! \brief The network input/output namespace. */
 	/*!
 	 *  Contains classes which enable programmers to use TCP, UDP,
 	 *  and other network protocols to transfer data.
@@ -361,7 +361,7 @@ namespace CrissCross
 	{
 	}
 
-	/*! The system call namespace. */
+	/*! \brief The system call namespace. */
 	/*!
 	 *  Contains platform-specific API call wrappers, which allow the programmer
 	 *  to write code which is cross-platform and functions identically on all
@@ -371,7 +371,7 @@ namespace CrissCross
 	{
 	}
 
-	/*! The library version namespace. */
+	/*! \brief The library version namespace. */
 	/*!
 	 *  Contains some simple functions for identifying the compiled CrissCross
 	 *  library version.

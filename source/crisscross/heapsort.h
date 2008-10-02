@@ -20,13 +20,13 @@ namespace CrissCross
 {
 	namespace Data
 	{
-		/*! A HeapSort implementation for sorting arrays. */
+		/*! \brief A HeapSort implementation for sorting arrays. */
 		template <class T>
 		class HeapSort : public Sorter<T>
 		{
 			public:
 
-				/*! Sorts an array using the HeapSort method. */
+				/*! \brief Sorts an array using the HeapSort method. */
 				/*!
 				 * \param _array The array to sort.
 				 * \param _size The size of the array to sort.
@@ -82,3 +82,4 @@ namespace CrissCross
 #endif
 
 #endif
+	

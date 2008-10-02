@@ -32,7 +32,7 @@ namespace CrissCross
 {
 	namespace Crypto
 	{
-		/*! An MD2 hash generator. */
+		/*! \brief An MD2 hash generator. */
 		/*!
 		 * \deprecated MD2 hashes are rarely used anymore because they are very slow to
 		 *              generate. The code for them is optimized for 8-bit machines and is no longer
@@ -48,13 +48,13 @@ namespace CrissCross
 				cc_md2_ctx     m_state;
 
 			public:
-				/*! The default constructor. */
+				/*! \brief The default constructor. */
 				_CC_DEPRECATE_SLOW("SEVERE") MD2Hash();
 
-				/*! The destructor. */
+				/*! \brief The destructor. */
 				~MD2Hash();
 
-				/*! Runs an MD2 hash on the data provided. */
+				/*! \brief Runs an MD2 hash on the data provided. */
 				/*!
 				 * \param _data The data to hash. The buffer does not need to be null
 				 *              terminated.
@@ -63,14 +63,14 @@ namespace CrissCross
 				 */
 				int Process(const void *_data, size_t _length);
 
-				/*! Runs a hash on the file provided. */
+				/*! \brief Runs a hash on the file provided. */
 				/*!
 				 * \param _reader The pre-opened CoreIOReader to run the hash on.
 				 * \return Zero on success, nonzero on failure.
 				 */
 				int Process(CrissCross::IO::CoreIOReader *_reader);
 
-				/*! Processes a piece of the dataset. */
+				/*! \brief Processes a piece of the dataset. */
 				/*!
 				 * This function will process only a segment of a larger dataset. It is designed
 				 * to be called multiple times before an eventual Finalize() call.
@@ -79,27 +79,27 @@ namespace CrissCross
 				 */
 				int ProcessBlock(const void *_data, size_t _length);
 
-				/*! Finalizes the ProcessBlock() calls and generates the final hash value. */
+				/*! \brief Finalizes the ProcessBlock() calls and generates the final hash value. */
 				void Finalize();
 
-				/*! Resets the internal MD2 context and hash buffer. */
+				/*! \brief Resets the internal MD2 context and hash buffer. */
 				void Reset();
 
-				/*! Converts the internal hash data into an hex string, a human readable format. */
+				/*! \brief Converts the internal hash data into an hex string, a human readable format. */
 				/*!
 				 *      The memory location returned by this function is freed when the class
 				 *      is destructed.
 				 */
 				const char *ToString() const;
 
-				/*! Equality operator. */
+				/*! \brief Equality operator. */
 				/*!
 				 *      Compares two instances of MD2Hash to see if the hashes are equal.
 				 * \param _other The other instance of MD2Hash to compare to.
 				 */
 				bool operator==(const MD2Hash &_other) const;
 
-				/*! Inequality operator. */
+				/*! \brief Inequality operator. */
 				/*!
 				 *      Compares two instances of MD2Hash to see if the hashes are not equal.
 				 * \param _other The other instance of MD2Hash to compare to.
