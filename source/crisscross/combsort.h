@@ -20,7 +20,7 @@ namespace CrissCross
 {
 	namespace Data
 	{
-		/*! A CombSort implementation for sorting arrays. */
+		/*! \brief A CombSort implementation for sorting arrays. */
 		template <class T>
 		class CombSort : public Sorter<T>
 		{
@@ -38,7 +38,7 @@ namespace CrissCross
 				};
 
 			public:
-				/*! Sorts an array using the CombSort method. */
+				/*! \brief Sorts an array using the CombSort method. */
 				/*!
 				 * \param _array The array to sort.
 				 * \param _size The size of the array to sort.

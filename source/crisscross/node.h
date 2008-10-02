@@ -30,32 +30,32 @@ namespace CrissCross
 		 *      So we no longer inherit a common node class.
 		 */
 
-		/*! A binary tree node. */
+		/*! \brief A binary tree node. */
 		template <class Key, class Data>
 		class SplayNode
 		{
 			public:
-				/*! The key for this node. */
+				/*! \brief The key for this node. */
 				Key        id;
 
-				/*! The data held at this node. */
+				/*! \brief The data held at this node. */
 				Data       data;
 
-				/*! The left branch of the tree from this node. */
+				/*! \brief The left branch of the tree from this node. */
 				SplayNode *left;
 
-				/*! The right branch of the tree from this node. */
+				/*! \brief The right branch of the tree from this node. */
 				SplayNode *right;
 
-				/*! The parent node. */
+				/*! \brief The parent node. */
 				SplayNode *parent;
 
-				/*! The constructor. */
+				/*! \brief The constructor. */
 				SplayNode() : left(NULL), right(NULL), parent(NULL)
 				{
 				}
 
-				/*! The destructor. */
+				/*! \brief The destructor. */
 				~SplayNode()
 				{
 					Dealloc(id);
@@ -63,7 +63,7 @@ namespace CrissCross
 					delete right; right = NULL;
 				}
 
-				/*! Memory usage in bytes. */
+				/*! \brief Memory usage in bytes. */
 				size_t mem_usage() const
 				{
 					size_t ret = sizeof(*this);
@@ -75,49 +75,49 @@ namespace CrissCross
 				}
 		};
 
-		/*! The current balance status of a node */
+		/*! \brief The current balance status of a node */
 		typedef enum
 		{
-			/*! The left side of the tree is heaviest. */
+			/*! \brief The left side of the tree is heaviest. */
 			LEFTHEAVY,
 
-			/*! The tree is well balanced. */
+			/*! \brief The tree is well balanced. */
 			BALANCED,
 
-			/*! The right side of the tree is heaviest. */
+			/*! \brief The right side of the tree is heaviest. */
 			RIGHTHEAVY
 		} AVLBalance;
 
-		/*! A binary tree node used for AVLTree. */
+		/*! \brief A binary tree node used for AVLTree. */
 		template <class Key, class Data>
 		class AVLNode
 		{
 			public:
 
-				/*! The left branch of the tree from this node. */
+				/*! \brief The left branch of the tree from this node. */
 				AVLNode *left;
 
-				/*! The right branch of the tree from this node. */
+				/*! \brief The right branch of the tree from this node. */
 				AVLNode *right;
 
-				/*! The parent node. */
+				/*! \brief The parent node. */
 				AVLNode *parent;
 
-				/*! The key for this node. */
+				/*! \brief The key for this node. */
 				Key      id;
 
-				/*! The data held at this node. */
+				/*! \brief The data held at this node. */
 				Data     data;
 
-				/*! The state of this part of the tree's balance. */
+				/*! \brief The state of this part of the tree's balance. */
 				char     balance;
 
-				/*! The default constructor. */
+				/*! \brief The default constructor. */
 				AVLNode() : left(NULL), right(NULL), parent(NULL), balance(BALANCED)
 				{
 				}
 
-				/*! The destructor. */
+				/*! \brief The destructor. */
 				~AVLNode()
 				{
 					Dealloc(id);
@@ -125,7 +125,7 @@ namespace CrissCross
 					delete right; right = NULL;
 				}
 
-				/*! Memory usage in bytes. */
+				/*! \brief Memory usage in bytes. */
 				size_t mem_usage() const
 				{
 					size_t ret = sizeof(*this);
@@ -140,36 +140,36 @@ namespace CrissCross
 		template <class Key, class Data>
 		class RedBlackTree;
 
-		/*! A binary tree node used for RedBlackTree. */
+		/*! \brief A binary tree node used for RedBlackTree. */
 		template <class Key, class Data>
 		class RedBlackNode
 		{
 			public:
 
-				/*! The left branch of the tree from this node. */
+				/*! \brief The left branch of the tree from this node. */
 				RedBlackNode *left;
 
-				/*! The right branch of the tree from this node. */
+				/*! \brief The right branch of the tree from this node. */
 				RedBlackNode *right;
 
-				/*! The parent node. */
+				/*! \brief The parent node. */
 				RedBlackNode *parent;
 
-				/*! The key for this node. */
+				/*! \brief The key for this node. */
 				Key           id;
 
-				/*! The data held at this node. */
+				/*! \brief The data held at this node. */
 				Data          data;
 
-				/*! The color of the node (either red or black). */
+				/*! \brief The color of the node (either red or black). */
 				char          color;
 
-				/*! The default constructor. */
+				/*! \brief The default constructor. */
 				RedBlackNode() : left(NULL), right(NULL), parent(NULL)
 				{
 				}
 
-				/*! The destructor. */
+				/*! \brief The destructor. */
 				~RedBlackNode()
 				{
 					Dealloc(id);
@@ -177,7 +177,7 @@ namespace CrissCross
 					delete right; right = NULL;
 				}
 
-				/*! Memory usage in bytes. */
+				/*! \brief Memory usage in bytes. */
 				size_t mem_usage(CrissCross::Data::RedBlackTree<Key, Data> const *_parentTree) const
 				{
 					size_t ret = sizeof(*this);

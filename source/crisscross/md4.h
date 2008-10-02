@@ -31,7 +31,7 @@ namespace CrissCross
 {
 	namespace Crypto
 	{
-		/*! An MD4 hash generator. */
+		/*! \brief An MD4 hash generator. */
 		/*!
 		 *      MD4 hashes are rarely used anymore due to the advent of MD5. MD5 was
 		 *      created because several speculated that MD4 was vulnerable to collisions
@@ -51,13 +51,13 @@ namespace CrissCross
 				cc_md4_ctx     m_state;
 
 			public:
-				/*! The default constructor. */
+				/*! \brief The default constructor. */
 				MD4Hash();
 
-				/*! The destructor. */
+				/*! \brief The destructor. */
 				~MD4Hash();
 
-				/*! Runs an MD4 hash on the data provided. */
+				/*! \brief Runs an MD4 hash on the data provided. */
 				/*!
 				 * \param _data The data to hash. The buffer does not need to be null
 				 *              terminated.
@@ -66,14 +66,14 @@ namespace CrissCross
 				 */
 				int Process(const void *_data, size_t _length);
 
-				/*! Runs a hash on the file provided. */
+				/*! \brief Runs a hash on the file provided. */
 				/*!
 				 * \param _reader The pre-opened CoreIOReader to run the hash on.
 				 * \return Zero on success, nonzero on failure.
 				 */
 				int Process(CrissCross::IO::CoreIOReader *_reader);
 
-				/*! Processes a piece of the dataset. */
+				/*! \brief Processes a piece of the dataset. */
 				/*!
 				 * This function will process only a segment of a larger dataset. It is designed
 				 * to be called multiple times before an eventual Finalize() call.
@@ -82,27 +82,27 @@ namespace CrissCross
 				 */
 				int ProcessBlock(const void *_data, size_t _length);
 
-				/*! Finalizes the ProcessBlock() calls and generates the final hash value. */
+				/*! \brief Finalizes the ProcessBlock() calls and generates the final hash value. */
 				void Finalize();
 
-				/*! Resets the internal MD4 context and hash buffer. */
+				/*! \brief Resets the internal MD4 context and hash buffer. */
 				void Reset();
 
-				/*! Converts the internal hash data into an hex string, a human readable format. */
+				/*! \brief Converts the internal hash data into an hex string, a human readable format. */
 				/*!
 				 *      The memory location returned by this function is freed when the class
 				 *      is destructed.
 				 */
 				const char *ToString() const;
 
-				/*! Equality operator. */
+				/*! \brief Equality operator. */
 				/*!
 				 *      Compares two instances of MD4Hash to see if the hashes are equal.
 				 * \param _other The other instance of MD4Hash to compare to.
 				 */
 				bool operator==(const MD4Hash &_other) const;
 
-				/*! Inequality operator. */
+				/*! \brief Inequality operator. */
 				/*!
 				 *      Compares two instances of MD4Hash to see if the hashes are not equal.
 				 * \param _other The other instance of MD4Hash to compare to.

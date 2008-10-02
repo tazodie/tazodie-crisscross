@@ -18,34 +18,34 @@ namespace CrissCross
 {
 	namespace IO
 	{
-		/*! The file input class. */
+		/*! \brief The file input class. */
 		/*!
 		 *  Inherits CoreIO, so functions like CoreIO::Read and CoreIO::ReadLine are accessible to the programmer.
 		 */
 		class FileReader : public CoreIOReader
 		{
 			protected:
-				/*! The path to the file being read. */
+				/*! \brief The path to the file being read. */
 				const char *m_filePath;
 
 			public:
-				/*! The constructor. */
+				/*! \brief The constructor. */
 				FileReader();
 
-				/*! The destructor */
+				/*! \brief The destructor */
 				/*!
 				 *  Closes the file and deallocates memory used by FileReader.
 				 */
 				~FileReader();
 
-				/*! Opens the provided file for read access. */
+				/*! \brief Opens the provided file for read access. */
 				/*!
 				 * \param _file The path of the file to be read.
 				 * \return Standard CrissCross::Errors values.
 				 */
 				CrissCross::Errors Open(const char *_file);
 
-				/*! Closes the file. */
+				/*! \brief Closes the file. */
 				/*!
 				 *  Closes the file and deallocates memory used by FileReader.
 				 * \return Standard CrissCross::Errors values.

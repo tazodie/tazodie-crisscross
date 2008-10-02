@@ -21,22 +21,22 @@ namespace CrissCross
 {
 	namespace Data
 	{
-		/*! Sorting abstract class. */
+		/*! \brief Sorting abstract class. */
 		template <class T>
 		class Sorter
 		{
 			public:
-				/*! The constructor. */
+				/*! \brief The constructor. */
 				Sorter()
 				{
 				};
 
-				/*! The destructor. */
+				/*! \brief The destructor. */
 				virtual ~Sorter()
 				{
 				};
 
-				/*! The abstract sort function. */
+				/*! \brief The abstract sort function. */
 				/*!
 				 *                  Does nothing, and cannot be called (abstract).
 				 * \param _array The array to sort.
@@ -44,7 +44,7 @@ namespace CrissCross
 				 */
 				virtual int Sort(T *_array, size_t _size) = 0;
 
-				/*! The swap function. */
+				/*! \brief The swap function. */
 				/*!
 				 *                  Will swap two items in an array.
 				 * \param _array The array to swap items in.
