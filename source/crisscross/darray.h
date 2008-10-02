@@ -21,18 +21,18 @@ namespace CrissCross
 {
 	namespace Data
 	{
-		/* ! A dynamic array implementation. */
+		/*! A dynamic array implementation. */
 		template <class T> class DArray
 		{
 			private:
-				/* ! A DStack containing indices of empty nodes in the array. */
+				/*! A DStack containing indices of empty nodes in the array. */
 				/*!
 				 *  Vastly speeds up insertions by keeping track of where empty spaces are.
 				 */
 				DStack<size_t> *m_emptyNodes;
 
 			protected:
-				/* ! The size by which to increase the size of the array when there are no more empty nodes. */
+				/*! The size by which to increase the size of the array when there are no more empty nodes. */
 				/*!
 				 *  If set to -1, it will double the size of the array each time the array grows.
 				 * \sa setStepSize
@@ -40,31 +40,31 @@ namespace CrissCross
 				 */
 				int             m_stepSize;
 
-				/* ! The current size of the array. */
+				/*! The current size of the array. */
 				/*!
 				 * \sa setSize
 				 */
 				size_t          m_arraySize;
 
-				/* ! The number of used items in the array. */
+				/*! The number of used items in the array. */
 				size_t          m_numUsed;
 
-				/* ! The actual array which stores our data. */
+				/*! The actual array which stores our data. */
 				T              *m_array;
 
-				/* ! An array to indicate which nodes in m_array are in use. */
+				/*! An array to indicate which nodes in m_array are in use. */
 				char           *m_shadow;
 
-				/* ! Increases the size of the array. */
+				/*! Increases the size of the array. */
 				inline void grow();
 
-				/* ! Rebuilds the empty node stack. */
+				/*! Rebuilds the empty node stack. */
 				void rebuildStack();
 
-				/* ! Recounts the number of used nodes. */
+				/*! Recounts the number of used nodes. */
 				void recount();
 
-				/* ! Gets the next empty node. */
+				/*! Gets the next empty node. */
 				/*!
 				 *  Typically can just pop an item off the empty_nodes stack. If
 				 *  there are no other empty nodes remaining, then it will
@@ -75,10 +75,10 @@ namespace CrissCross
 
 			public:
 
-				/* ! The default constructor. */
+				/*! The default constructor. */
 				DArray();
 
-				/* ! The secondary constructor. */
+				/*! The secondary constructor. */
 				/*!
 				 *                  Parameter _newStepSize should be larger than 1. A step size of 1 forces
 				 *                  the DArray to resize way too often. A step size of -1 is a magic value
@@ -88,16 +88,16 @@ namespace CrissCross
 				 */
 				DArray(int _newStepSize);
 
-				/* ! The destructor. */
+				/*! The destructor. */
 				~DArray();
 
-				/* ! Sets the size of the array. */
+				/*! Sets the size of the array. */
 				/*!
 				 * \param _newsize The new array size.
 				 */
 				void setSize(size_t _newsize);
 
-				/* ! Sets the step size used in Grow(). */
+				/*! Sets the step size used in Grow(). */
 				/*!
 				 *                  Parameter _newStepSize should be larger than 1. A step size of 1 forces
 				 *                  the DArray to resize way too often. A step size of -1 is a magic value
@@ -107,23 +107,23 @@ namespace CrissCross
 				 */
 				void setStepSize(int _newstepsize);
 
-				/* ! Sets the step size to double the array size when a Grow() is necessitated. */
+				/*! Sets the step size to double the array size when a Grow() is necessitated. */
 				void setStepDouble();
 
-				/* ! Gets the data at the given index. */
+				/*! Gets the data at the given index. */
 				/*!
 				 * \param _index The index of the node to get data from.
 				 * \return The data stored at the index.
 				 */
 				inline T get(size_t _index) const;
 
-				/* ! Removes the data at the given index. */
+				/*! Removes the data at the given index. */
 				/*!
 				 * \param _index The index of the node to clear.
 				 */
 				void remove(size_t _index);
 
-				/* ! Finds the data in the array. */
+				/*! Finds the data in the array. */
 				/*!
 				 *  A return value of -1 means the data couldn't be found.
 				 * \param _data The data to find.
@@ -131,14 +131,14 @@ namespace CrissCross
 				 */
 				size_t find(T const & _data);
 
-				/* ! Inserts data into the array at the first available index. */
+				/*! Inserts data into the array at the first available index. */
 				/*!
 				 * \param _newdata The data to put into the array.
 				 * \return The index of the node where the data was stored.
 				 */
 				size_t insert(T const & _newdata);
 
-				/* ! Inserts data into the array at the given index. */
+				/*! Inserts data into the array at the given index. */
 				/*!
 				 * \param _newdata The data to put into the array.
 				 * \param _index The index in the array where the data should
@@ -146,7 +146,7 @@ namespace CrissCross
 				 */
 				void insert(T const & _newdata, size_t _index);
 
-				/* ! Indicates the number of used nodes. */
+				/*! Indicates the number of used nodes. */
 				/*!
 				 * \return The number of used nodes.
 				 */
@@ -155,7 +155,7 @@ namespace CrissCross
 					return m_numUsed;
 				};
 
-				/* ! Indicates the total size of the array. */
+				/*! Indicates the total size of the array. */
 				/*!
 				 * \return The size of the array.
 				 */
@@ -164,7 +164,7 @@ namespace CrissCross
 					return m_arraySize;
 				};
 
-				/* ! Indicates whether a given index is valid. */
+				/*! Indicates whether a given index is valid. */
 				/*!
 				 *  Tests whether the index is within the bounds of the array and
 				 *  is an empty node.
@@ -176,21 +176,21 @@ namespace CrissCross
 					return (_index < m_arraySize && m_shadow[_index]);
 				};
 
-				/* ! Empties the array but does NOT free any pointers stored in the array. */
+				/*! Empties the array but does NOT free any pointers stored in the array. */
 				/*!
 				 *  The array must be iterated through and any pointers must be freed manually before calling this.
 				 */
 				void empty();
 
 #ifdef ENABLE_SORTS
-				/* ! Sorts the array using the provided method. */
+				/*! Sorts the array using the provided method. */
 				/*!
 				 * \param _sortMethod The method to sort with.
 				 * \return The number of assignments and comparisons to finish the sort.
 				 */
 				int sort(CrissCross::Data::Sorter<T> *_sortMethod);
 
-				/* ! Sorts the array using the provided method. */
+				/*! Sorts the array using the provided method. */
 				/*!
 				 * \param _sortMethod The method to sort with.
 				 * \return The number of assignments and comparisons to finish the sort.
@@ -198,21 +198,21 @@ namespace CrissCross
 				int sort(CrissCross::Data::Sorter<T> &_sortMethod);
 #endif
 
-				/* ! Gets the data at the given index. */
+				/*! Gets the data at the given index. */
 				/*!
 				 * \param _index The index of the node to get data from.
 				 * \return The data stored at the index.
 				 */
 				inline T & operator [](size_t _index);
 
-				/* ! Gets the data at the given index. */
+				/*! Gets the data at the given index. */
 				/*!
 				 * \param _index The index of the node to get data from.
 				 * \return The data stored at the index.
 				 */
 				inline T const & operator [](size_t _index) const;
 
-				/* ! Returns the memory usage of the array. */
+				/*! Returns the memory usage of the array. */
 				/*!
 				 * \return Memory usage in bytes.
 				 */
@@ -222,7 +222,7 @@ namespace CrissCross
 				 *      Deprecated Compatibility Functions
 				 *      Provided for compatibility with Tosser I
 				 */
-				/* ! @cond */
+				/*! @cond */
 				_CC_DEPRECATE_FUNCTION(insert) inline size_t PutData(T const & _rec)
 				{
 					return insert(_rec);
@@ -284,7 +284,7 @@ namespace CrissCross
 					sort(s);
 					delete s;
 				};
-				/* ! @endcond */
+				/*! @endcond */
 		};
 	}
 }

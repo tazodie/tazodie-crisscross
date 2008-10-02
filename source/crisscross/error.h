@@ -14,7 +14,7 @@
 
 namespace CrissCross
 {
-	/* ! The error types. */
+	/*! The error types. */
 	/*!
 	 *  These errors are used throughout the entire project.
 	 *  If you get an error while calling a function, find that
@@ -22,14 +22,14 @@ namespace CrissCross
 	 */
 	enum Errors
 	{
-		CC_ERR_BADPARAMETER = -1000,                  /* !< One of the parameters passed to the function was not valid. */
+		CC_ERR_BADPARAMETER = -1000,                  /*!< One of the parameters passed to the function was not valid. */
 		CC_ERR_NOT_IMPLEMENTED,
-		CC_ERR_FILE_OPEN,                             /* !< The specified file could not be opened. */
-		CC_ERR_WRITE,                                 /* !< The buffer could not be written to. */
-		CC_ERR_INTERNAL,                              /* !< A call inside the function failed. */
-		CC_ERR_INVALID_CALL = -500,                   /* !< The function call was invalid. */
-		CC_ERR_INVALID_BUFFER = -499,                 /* !< The buffer was NULL (file not opened?) */
-		CC_ERR_INCOMPATIBLE_BUFFER = -498,            /* !< The buffer was incompatible (i.e. reading unicode data on a non-unicode buffer). */
+		CC_ERR_FILE_OPEN,                             /*!< The specified file could not be opened. */
+		CC_ERR_WRITE,                                 /*!< The buffer could not be written to. */
+		CC_ERR_INTERNAL,                              /*!< A call inside the function failed. */
+		CC_ERR_INVALID_CALL = -500,                   /*!< The function call was invalid. */
+		CC_ERR_INVALID_BUFFER = -499,                 /*!< The buffer was NULL (file not opened?) */
+		CC_ERR_INCOMPATIBLE_BUFFER = -498,            /*!< The buffer was incompatible (i.e. reading unicode data on a non-unicode buffer). */
 		CC_ERR_EPERM,
 		CC_ERR_ENOENT,
 		CC_ERR_ESRCH,
@@ -167,13 +167,13 @@ namespace CrissCross
 		CC_ERR_NO_DATA,
 		CC_ERR_NO_SOCK,
 		CC_ERR_SOCK_BUSY,
-		CC_ERR_NONE = 0                               /* !< Everything is fine, nothing is ruined. */
+		CC_ERR_NONE = 0                               /*!< Everything is fine, nothing is ruined. */
 	};
 
-	/* ! Converts an errno number to a CrissCross::Errors value. */
+	/*! Converts an errno number to a CrissCross::Errors value. */
 	CrissCross::Errors GetErrorNumber(int why);
 
-	/* ! Gets the name of the CrissCross::Errors value. */
+	/*! Gets the name of the CrissCross::Errors value. */
 	const char *GetErrorDescription(CrissCross::Errors why);
 }
 

@@ -18,7 +18,7 @@ namespace CrissCross
 {
 	namespace Data
 	{
-		/* ! @cond */
+		/*! @cond */
 
 		/* These functions are designed for internal use. */
 		/* You generally shouldn't use them unless you know what you're doing. */
@@ -92,7 +92,7 @@ namespace CrissCross
 			}
 		}
 
-		/* ! @endcond */
+		/*! @endcond */
 	}
 }
 

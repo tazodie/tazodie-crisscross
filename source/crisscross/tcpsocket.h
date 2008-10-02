@@ -22,7 +22,7 @@ namespace CrissCross
 {
 	namespace Network
 	{
-		/* ! TCP/IP socket class. */
+		/*! TCP/IP socket class. */
 		/*!
 		 *  Used for two-way TCP/IP communication.
 		 */
@@ -33,14 +33,14 @@ namespace CrissCross
 				int SetAttributes(socket_t _socket);
 
 			public:
-				/* ! The default constructor. */
+				/*! The default constructor. */
 				TCPSocket();
-				/* ! The constructor for existing sockets. */
+				/*! The constructor for existing sockets. */
 				TCPSocket(socket_t _socket);
-				/* ! The destructor. */
+				/*! The destructor. */
 				~TCPSocket();
 
-				/* ! Accepts an incoming connection. Only good when listening for a connection. */
+				/*! Accepts an incoming connection. Only good when listening for a connection. */
 				/*!
 				 * \param _socket A pointer to a NULL TCPSocket pointer variable. (e.g. TCPSocket *blah = NULL; socket->Accept ( &blah ); )
 				 * \return A pointer to a newly created TCPSocket instance for the new
@@ -48,27 +48,27 @@ namespace CrissCross
 				 */
 				CrissCross::Errors Accept(TCPSocket * *_socket);
 
-				/* ! Establishes an outbound connection to the specified address and port. */
+				/*! Establishes an outbound connection to the specified address and port. */
 				/*!
 				 * \param _address The remote address to connect to. Can be a hostname, as it will be resolved by gethostbyname().
 				 * \param _port The remote port to connect to.
 				 */
 				CrissCross::Errors Connect(const char *_address, unsigned short _port);
 
-				/* ! Listens for connections on the specified port. */
+				/*! Listens for connections on the specified port. */
 				/*!
 				 *  You need to Accept() connections after calling this.
 				 * \param _port The local port to listen on.
 				 */
 				CrissCross::Errors Listen(unsigned short _port);
 
-				/* ! In asynchronous sockets, this verifies that no state changes have occurred. */
+				/*! In asynchronous sockets, this verifies that no state changes have occurred. */
 				/*!
 				 * \sa State
 				 */
 				void UpdateState();
 
-				/* ! Fetch the state of the socket. */
+				/*! Fetch the state of the socket. */
 				/*!
 				 * \return The current state of m_sock.
 				 * \sa CrissCross::Network::socketState
