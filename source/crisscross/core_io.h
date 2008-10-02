@@ -20,7 +20,7 @@ namespace CrissCross
 {
 	namespace IO
 	{
-		/* ! File write modes. */
+		/*! File write modes. */
 		/*!
 		 * Provides the choice of creating a file when opening it or appending to it.
 		 */
@@ -30,7 +30,7 @@ namespace CrissCross
 			CC_FILE_APPEND                    /*!< Write operations will append data to the end of the file. */
 		};
 
-		/* ! Line ending conventions. */
+		/*! Line ending conventions. */
 		/*!
 		 * An enumeration of different ending types.
 		 */

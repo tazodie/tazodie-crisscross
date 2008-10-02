@@ -22,7 +22,7 @@ namespace CrissCross
 {
 	namespace Data
 	{
-		/* ! Function for generic data comparison. */
+		/*! Function for generic data comparison. */
 		/*!
 		 *  Can compare any class with the less-than and greater-than operators, as well as C-style strings.
 		 * \param _first The item to compare to _second. Must have comparison operators > and < implemented.
@@ -40,7 +40,7 @@ namespace CrissCross
 				return 0;
 		}
 
-		/* ! C-style string CrissCross::Data::Compare function. */
+		/*! C-style string CrissCross::Data::Compare function. */
 		template <>
 		__inline int Compare<char *> (char * const &_first, char * const &_second)
 		{
@@ -55,7 +55,7 @@ namespace CrissCross
 			else return 0;
 		}
 
-		/* ! C-style string CrissCross::Data::Compare function. */
+		/*! C-style string CrissCross::Data::Compare function. */
 		template <>
 		__inline int Compare<const char *> (const char * const &_first, const char * const &_second)
 		{

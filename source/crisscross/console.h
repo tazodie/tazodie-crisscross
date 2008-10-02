@@ -18,7 +18,7 @@ namespace CrissCross
 {
 	namespace IO
 	{
-		/* ! The core console input/output class. */
+		/*! The core console input/output class. */
 		class Console : public CoreIOWriter, public CoreIOReader
 		{
 			protected:
@@ -33,7 +33,7 @@ namespace CrissCross
 				bool AllocateConsole();
 			public:
 
-				/* ! Flags used for describing console colour output. */
+				/*! Flags used for describing console colour output. */
 				typedef enum
 				{
 					FG_BLUE = 0x0001,           /*!< Blue Foreground */
@@ -75,7 +75,7 @@ namespace CrissCross
 
 			public:
 
-				/* ! The default constructor. */
+				/*! The default constructor. */
 				/*!
 				 * Allocates a new console for stdout and stderr output.
 				 * \param _clearOnInit If true, clears the output console if supported.
@@ -83,7 +83,7 @@ namespace CrissCross
 				 */
 				Console(bool _clearOnInit = false, bool _fillScreen = false);
 
-				/* ! The alternate constructor */
+				/*! The alternate constructor */
 				/*!
 				 * Does not allocate a new console, and instead uses the specified FILE* parameters for input/output.
 				 * \param _outputBuffer The buffer for Console output.
@@ -92,50 +92,50 @@ namespace CrissCross
 				 */
 				Console(FILE * _outputBuffer, FILE *_inputBuffer);
 
-				/* ! The destructor. */
+				/*! The destructor. */
 				~Console();
 
-				/* ! Sets the console output colour to the default. */
+				/*! Sets the console output colour to the default. */
 				void SetColour();
 
-				/* ! Sets the console output colour. */
+				/*! Sets the console output colour. */
 				/*!
 				 * Sets the console output colour using the flags specified in _flags.
 				 * \param _flags A bitmask created by OR-ing Console::ColourTypes flags.
 				 */
 				void SetColour(int _flags);
 
-				/* ! Sets the title of the terminal window. */
+				/*! Sets the title of the terminal window. */
 				/*!
 				 * Sets the console window title using the value in the _title parameter.
 				 * \param _title The title requested for the console window.
 				 */
 				void SetTitle(const char *_title);
 
-				/* ! Sets the title of the terminal window. */
+				/*! Sets the title of the terminal window. */
 				/*!
 				 * Sets the console window title using the value in the _title parameter.
 				 * \param _title The title requested for the console window.
 				 */
 				void SetTitle(std::string &_title);
 
-				/* ! Clears the console. */
+				/*! Clears the console. */
 				/*!
 				 * Clears the console output (similar to commands 'cls' on Windows and 'clear' on Linux).
 				 */
 				void Clear();
 
-				/* ! Move the cursor up a given number of lines. */
+				/*! Move the cursor up a given number of lines. */
 				/*!
 				 * Permits you to overwrite previous lines. Good for a status display.
 				 * \param _lines Number of lines to move the cursor
 				 */
 				void MoveUp(int _lines);
 
-				/* ! Reads a char from the console. */
+				/*! Reads a char from the console. */
 				char ReadChar();
 
-				/* ! Reads a char from the console. */
+				/*! Reads a char from the console. */
 				/*!
 				 *  If both _min and _max are zero, the input will be returned, no matter what the value is (no bounds checking).
 				 * \param _min The minimum input value.
@@ -143,10 +143,10 @@ namespace CrissCross
 				 */
 				char ReadChar(char _min, char _max);
 
-				/* ! Reads an integer from the console. */
+				/*! Reads an integer from the console. */
 				int ReadInt();
 
-				/* ! Reads an integer from the console. */
+				/*! Reads an integer from the console. */
 				/*!
 				 *  If both _min and _max are zero, the input will be returned, no matter what the value is (no bounds checking).
 				 * \param _min The minimum input value.
@@ -154,10 +154,10 @@ namespace CrissCross
 				 */
 				int ReadInt(int _min = 0, int _max = 0);
 
-				/* ! Reads a long integer from the console. */
+				/*! Reads a long integer from the console. */
 				long ReadLong();
 
-				/* ! Reads a long integer from the console. */
+				/*! Reads a long integer from the console. */
 				/*!
 				 *  If both _min and _max are zero, the input will be returned, no matter what the value is (no bounds checking).
 				 * \param _min The minimum input value.
@@ -165,10 +165,10 @@ namespace CrissCross
 				 */
 				long ReadLong(long _min = 0, long _max = 0);
 
-				/* ! Reads a float from the console. */
+				/*! Reads a float from the console. */
 				float ReadFloat();
 
-				/* ! Reads a float from the console. */
+				/*! Reads a float from the console. */
 				/*!
 				 *  If both _min and _max are zero, the input will be returned, no matter what the value is (no bounds checking).
 				 * \param _min The minimum input value.
@@ -176,10 +176,10 @@ namespace CrissCross
 				 */
 				float ReadFloat(float _min = 0, float _max = 0);
 
-				/* ! Reads a double from the console. */
+				/*! Reads a double from the console. */
 				double ReadDouble();
 
-				/* ! Reads a double from the console. */
+				/*! Reads a double from the console. */
 				/*!
 				 *  If both _min and _max are zero, the input will be returned, no matter what the value is (no bounds checking).
 				 * \param _min The minimum input value.
@@ -187,7 +187,7 @@ namespace CrissCross
 				 */
 				double ReadDouble(double _min = 0, double _max = 0);
 
-				/* ! Flushes the input and output buffers. */
+				/*! Flushes the input and output buffers. */
 				void Flush();
 
 			private:

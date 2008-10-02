@@ -28,7 +28,7 @@ namespace CrissCross
 {
 	namespace System
 	{
-		/* ! A timer class designed for code profiling. */
+		/*! A timer class designed for code profiling. */
 		class Stopwatch
 		{
 			protected:
@@ -52,13 +52,13 @@ namespace CrissCross
 #endif
 
 			public:
-				/* ! The constructor. */
+				/*! The constructor. */
 				Stopwatch();
 
-				/* ! The destructor. */
+				/*! The destructor. */
 				~Stopwatch();
 
-				/* ! Starts the timer counter. */
+				/*! Starts the timer counter. */
 				inline void Start()
 				{
 #if defined (TARGET_OS_WINDOWS)
@@ -79,7 +79,7 @@ namespace CrissCross
 #endif
 				};
 
-				/* ! Stops the timer counter. */
+				/*! Stops the timer counter. */
 				inline void Stop()
 				{
 #if defined (TARGET_OS_WINDOWS)
@@ -94,19 +94,19 @@ namespace CrissCross
 #endif
 				};
 
-				/* ! Indicates the number of seconds elapsed. */
+				/*! Indicates the number of seconds elapsed. */
 				/*!
 				 * \return Number of seconds elapsed between the Start() and Stop() calls.
 				 */
 				double Elapsed();
 
-				/* ! Indicates the number of milliseconds elapsed. */
+				/*! Indicates the number of milliseconds elapsed. */
 				/*!
 				 * \return Number of milliseconds elapsed between the Start() and Stop() calls.
 				 */
 				unsigned long ElapsedMS();
 
-				/* ! Indicates the number of clock cycles elapsed. NOTE: CURRENTLY ONLY IMPLEMENTED ON WINDOWS */
+				/*! Indicates the number of clock cycles elapsed. NOTE: CURRENTLY ONLY IMPLEMENTED ON WINDOWS */
 				/*!
 				 * \return Number of clock cycles elapsed between Start() and Stop() calls.
 				 */

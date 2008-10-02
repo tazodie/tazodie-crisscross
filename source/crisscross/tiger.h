@@ -18,20 +18,20 @@
 
 #define TIGER_DIGEST_SIZE 24
 
-/* !@cond */
+/*!@cond */
 typedef struct {
 	cc_uint64_t a, b, c;
 	unsigned char buf[64];
 	int count;
 	cc_uint32_t nblocks;
 } cc_tiger_ctx;
-/* !@endcond */
+/*!@endcond */
 
 namespace CrissCross
 {
 	namespace Crypto
 	{
-		/* ! A Tiger hash generator. */
+		/*! A Tiger hash generator. */
 		/*!
 		 * \warning When compiled as 32-bit code, this hash is particularly slow.
 		 *              When compiled as 64-bit code, this hash type can actually be faster
@@ -46,16 +46,16 @@ namespace CrissCross
 				cc_tiger_ctx   m_state;
 
 			public:
-				/* ! The default constructor. */
+				/*! The default constructor. */
 #if TARGET_CPU_BITS < 64
 				_CC_DEPRECATE_SLOW("MODERATE")
 #endif
 				TigerHash();
 
-				/* ! The destructor. */
+				/*! The destructor. */
 				~TigerHash();
 
-				/* ! Runs a Tiger hash on the data provided. */
+				/*! Runs a Tiger hash on the data provided. */
 				/*!
 				 * \param _data The data to hash. The buffer does not need to be null
 				 *              terminated.
@@ -64,14 +64,14 @@ namespace CrissCross
 				 */
 				int Process(const void *_data, size_t _length);
 
-				/* ! Runs a hash on the file provided. */
+				/*! Runs a hash on the file provided. */
 				/*!
 				 * \param _reader The pre-opened CoreIOReader to run the hash on.
 				 * \return Zero on success, nonzero on failure.
 				 */
 				int Process(CrissCross::IO::CoreIOReader *_reader);
 
-				/* ! Processes a piece of the dataset. */
+				/*! Processes a piece of the dataset. */
 				/*!
 				 * This function will process only a segment of a larger dataset. It is designed
 				 * to be called multiple times before an eventual Finalize() call.
@@ -80,13 +80,13 @@ namespace CrissCross
 				 */
 				int ProcessBlock(const void *_data, size_t _length);
 
-				/* ! Finalizes the ProcessBlock() calls and generates the final hash value. */
+				/*! Finalizes the ProcessBlock() calls and generates the final hash value. */
 				void Finalize();
 
-				/* ! Resets the internal Tiger context and hash buffer. */
+				/*! Resets the internal Tiger context and hash buffer. */
 				void Reset();
 
-				/* ! Converts the internal hash data into an hex string, a human readable format. */
+				/*! Converts the internal hash data into an hex string, a human readable format. */
 				/*!
 				 *      The memory location returned by this function is freed when the class
 				 *      is destructed.
@@ -96,14 +96,14 @@ namespace CrissCross
 				 */
 				const char *ToString() const;
 
-				/* ! Equality operator. */
+				/*! Equality operator. */
 				/*!
 				 *      Compares two instances of TigerHash to see if the hashes are equal.
 				 * \param _other The other instance of TigerHash to compare to.
 				 */
 				bool operator==(const TigerHash &_other) const;
 
-				/* ! Inequality operator. */
+				/*! Inequality operator. */
 				/*!
 				 *      Compares two instances of TigerHash to see if the hashes are not equal.
 				 * \param _other The other instance of TigerHash to compare to.

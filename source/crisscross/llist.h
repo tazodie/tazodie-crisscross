@@ -21,47 +21,47 @@ namespace CrissCross
 {
 	namespace Data
 	{
-		/* ! A linked list node. */
+		/*! A linked list node. */
 		template <class T> class LListNode
 		{
 			public:
-				/* ! The following node in the list. */
+				/*! The following node in the list. */
 				LListNode *m_next;
 
-				/* ! The preceding node in the list. */
+				/*! The preceding node in the list. */
 				LListNode *m_previous;
 
-				/* ! The data contained in this node. */
+				/*! The data contained in this node. */
 				T          m_data;
 
-				/* ! The default constructor. */
+				/*! The default constructor. */
 				LListNode();
 		};
 
-		/* ! A doubly-linked list implementation. */
+		/*! A doubly-linked list implementation. */
 		template <class T>
 		class LList
 		{
 			protected:
-				/* ! The first node. */
+				/*! The first node. */
 				LListNode <T> *m_first;
 
-				/* ! The last node. */
+				/*! The last node. */
 				LListNode <T> *m_last;
 
-				/* ! The last accessed node. */
+				/*! The last accessed node. */
 				/*!
 				 *  Speeds up searches and sequential access.
 				 */
 				mutable LListNode <T> *m_previous;  /* Used to get quick access */
 
-				/* ! The last accessed index. */
+				/*! The last accessed index. */
 				/*!
 				 *  Speeds up searches and sequential access.
 				 */
 				mutable size_t m_previousIndex; /* for sequential reads (common) */
 
-				/* ! The number of nodes in the list. */
+				/*! The number of nodes in the list. */
 				size_t m_numItems;
 
 			protected:
@@ -69,44 +69,44 @@ namespace CrissCross
 
 			public:
 
-				/* ! The default constructor. */
+				/*! The default constructor. */
 				LList();
 
-				/* ! The copy constructor. */
+				/*! The copy constructor. */
 				LList(const LList <T> &);
 
-				/* ! The destructor. */
+				/*! The destructor. */
 				~LList();
 
-				/* ! The implicit copy operator. */
+				/*! The implicit copy operator. */
 				LList & operator =(const LList <T> &);
 
-				/* ! Adds data at the end of the list. */
+				/*! Adds data at the end of the list. */
 				/*!
 				 * \param _newdata The data to add to the list.
 				 */
 				inline void insert(const T & _newdata);
 
-				/* ! Adds data at the end of the list. */
+				/*! Adds data at the end of the list. */
 				/*!
 				 * \param _newdata The data to add to the list.
 				 */
 				void insert_back(const T & _newdata);
 
-				/* ! Adds data at the start of the list. */
+				/*! Adds data at the start of the list. */
 				/*!
 				 * \param _newdata The data to add to the list.
 				 */
 				void insert_front(const T & _newdata);
 
-				/* ! Adds data at the specified index. */
+				/*! Adds data at the specified index. */
 				/*!
 				 * \param _newdata The data to add to the list.
 				 * \param _index The index where the node should be added.
 				 */
 				void insert_at(const T & _newdata, size_t _index);
 
-				/* ! Gets the data at the specified index. */
+				/*! Gets the data at the specified index. */
 				/*!
 				 *  WARNING: Slow unless you're sequentially iterating through.
 				 * \param _index The index of the data to fetch.
@@ -114,7 +114,7 @@ namespace CrissCross
 				 */
 				inline T const &get(size_t _index) const;
 
-				/* ! Gets the address of where the data at the specified index is stored. */
+				/*! Gets the address of where the data at the specified index is stored. */
 				/*!
 				 *  WARNING: Slow unless you're sequentially iterating through.
 				 * \param _index The index of the node to find.
@@ -122,7 +122,7 @@ namespace CrissCross
 				 */
 				inline T *getPointer(size_t _index) const;
 
-				/* ! Modifies the node at the given index. */
+				/*! Modifies the node at the given index. */
 				/*!
 				 *  This does not delete the data at the node, just the node itself.
 				 *  WARNING: Slow unless you're sequentially iterating through.
@@ -131,7 +131,7 @@ namespace CrissCross
 				 */
 				void change(T const & _rec, size_t _index);
 
-				/* ! Removes the node at the given index. */
+				/*! Removes the node at the given index. */
 				/*!
 				 *  This does not delete the data at the node, just the node itself.
 				 *  WARNING: Slow unless you're sequentially iterating through.
@@ -139,44 +139,44 @@ namespace CrissCross
 				 */
 				void remove(size_t _index);
 
-				/* ! Removes the node at the end of the list. */
+				/*! Removes the node at the end of the list. */
 				/*!
 				 *  This does not delete the data at the node, just the node itself.
 				 *  WARNING: Slow unless you're sequentially iterating through.
 				 */
 				inline void removeDataAtEnd();
 
-				/* ! Finds a node's index by searching for the given data. */
+				/*! Finds a node's index by searching for the given data. */
 				/*!
 				 * \param _data The data to find.
 				 * \return -1 if not found, otherwise returns the index.
 				 */
 				size_t find(const T & _data);
 
-				/* ! Indicates the size of the linked list. */
+				/*! Indicates the size of the linked list. */
 				/*!
 				 * \return The size of the linked list.
 				 */
 				inline size_t size() const;
 
-				/* ! Determines whether a given index is within the bounds of the list. */
+				/*! Determines whether a given index is within the bounds of the list. */
 				/*!
 				 * \param _index The index to validate.
 				 * \return True if the index is valid, false otherwise.
 				 */
 				inline bool valid(size_t _index) const;
 
-				/* ! Deletes all nodes in the list, but does not free memory allocated by data. */
+				/*! Deletes all nodes in the list, but does not free memory allocated by data. */
 				void empty();
 
-				/* ! Gets the data at the given index. */
+				/*! Gets the data at the given index. */
 				/*!
 				 * \param _index The index of the node to get data from.
 				 * \return The data stored at the index.
 				 */
 				T & operator [](size_t _index);
 
-				/* ! Gets the data at the given index. */
+				/*! Gets the data at the given index. */
 				/*!
 				 * \param _index The index of the node to get data from.
 				 * \return The data stored at the index.
@@ -184,20 +184,20 @@ namespace CrissCross
 				T const & operator [](size_t _index) const;
 
 #ifdef ENABLE_SORTS
-				/* ! Sorts the array using the provided method. */
+				/*! Sorts the array using the provided method. */
 				/*!
 				 * \param _sortMethod The method to sort with.
 				 */
 				void sort(CrissCross::Data::Sorter<T> *_sortMethod);
 
-				/* ! Sorts the array using the provided method. */
+				/*! Sorts the array using the provided method. */
 				/*!
 				 * \param _sortMethod The method to sort with.
 				 */
 				void sort(CrissCross::Data::Sorter<T> &_sortMethod);
 #endif
 
-				/* ! Returns the memory usage of the list and its nodes. */
+				/*! Returns the memory usage of the list and its nodes. */
 				/*!
 				 * \return Memory usage in bytes.
 				 */
@@ -207,7 +207,7 @@ namespace CrissCross
 				 *      Deprecated Compatibility Functions
 				 *      Provided for compatibility with Tosser I
 				 */
-				/* ! @cond */
+				/*! @cond */
 				_CC_DEPRECATE_FUNCTION(insert) inline void PutData(T const & _rec)
 				{
 					insert(_rec);
@@ -265,7 +265,7 @@ namespace CrissCross
 				{
 					return valid(_index);
 				};
-				/* ! @endcond */
+				/*! @endcond */
 		};
 	}
 }

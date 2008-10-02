@@ -16,7 +16,7 @@
 
 #define USE_FAST_ASSERT
 
-/* ! @cond */
+/*! @cond */
 
 #ifndef USE_FAST_ASSERT
 
@@ -36,11 +36,11 @@ void Assert(bool _condition, const char *_testcase, const char *_file, int _line
 }
 
 #endif
-/* ! @endcond */
+/*! @endcond */
 
 namespace CrissCross {
 	namespace Debug {
-		/* ! Prints a stack trace to _outputBuffer. */
+		/*! Prints a stack trace to _outputBuffer. */
 		/*!
 		 * \param _outputBuffer The CoreIO output buffer to write to.
 		 */
