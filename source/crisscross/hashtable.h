@@ -18,9 +18,9 @@ namespace CrissCross
 	{
 		/*! A simple HashTable. */
 		/*!
-		 *      Only accepts C-style strings as keys.
+		 * Only accepts C-style strings as keys.
 		 * \warning This class is currently not recommended for general use. It hasn't been fully
-		 *              tested yet and is only under consideration for being a future feature.
+		 *    tested yet and is only under consideration for being a future feature.
 		 */
 		template <class T>
 		class HashTable
@@ -28,15 +28,15 @@ namespace CrissCross
 			private:
 				/*! Private copy constructor. */
 				/*!
-				 *      Not yet written, so declared private for now to prevent an auto-generated
-				 *      one from performing an unexpected operation.
+				 * Not yet written, so declared private for now to prevent an auto-generated
+				 * one from performing an unexpected operation.
 				 */
 				HashTable(const HashTable<T> &);
 
 				/*! Private assignment operator. */
 				/*!
-				 *      Not yet written, so declared private for now to prevent an auto-generated
-				 *      one from performing an unexpected operation.
+				 * Not yet written, so declared private for now to prevent an auto-generated
+				 * one from performing an unexpected operation.
 				 */
 				HashTable<T> &operator =(const HashTable<T> &);
 

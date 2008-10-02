@@ -30,17 +30,17 @@ namespace CrissCross
 
 				/*! Private copy constructor. */
 				/*!
-				 *      If your code needs to invoke the copy constructor, you've probably written
-				 *      the code wrong. A tree copy is generally unnecessary, and in cases that it
-				 *      is, it can be achieved by other means.
+				 * If your code needs to invoke the copy constructor, you've probably written
+				 * the code wrong. A tree copy is generally unnecessary, and in cases that it
+				 * is, it can be achieved by other means.
 				 */
 				SplayTree(const SplayTree<Key, Data> &);
 
 				/*! Private assignment operator. */
 				/*!
-				 *      If your code needs to invoke the assignment operator, you've probably written
-				 *      the code wrong. A tree copy is generally unnecessary, and in cases that it
-				 *      is, it can be achieved by other means.
+				 * If your code needs to invoke the assignment operator, you've probably written
+				 * the code wrong. A tree copy is generally unnecessary, and in cases that it
+				 * is, it can be achieved by other means.
 				 */
 				SplayTree<Key, Data> &operator =(const SplayTree<Key, Data> &);
 
@@ -79,9 +79,9 @@ namespace CrissCross
 				/*! Empties the entire tree. */
 				/*!
 				 * \warning This won't free the memory occupied by the data, so the data must be freed
-				 *              separately. The preferred way to do this is to serialize the data into a DArray
-				 *              with ConvertToDArray() and then iterate through it to delete the data in whatever
-				 *              way is proper.
+				 *    separately. The preferred way to do this is to serialize the data into a DArray
+				 *    with ConvertToDArray() and then iterate through it to delete the data in whatever
+				 *    way is proper.
 				 */
 				void empty();
 
