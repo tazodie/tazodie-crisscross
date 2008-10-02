@@ -34,7 +34,7 @@ namespace CrissCross
 			protected:
 				/*! The size by which to increase the size of the array when there are no more empty nodes. */
 				/*!
-				 *  If set to -1, it will double the size of the array each time the array grows.
+				 * If set to -1, it will double the size of the array each time the array grows.
 				 * \sa setStepSize
 				 * \sa setStepDouble
 				 */
@@ -66,9 +66,9 @@ namespace CrissCross
 
 				/*! Gets the next empty node. */
 				/*!
-				 *  Typically can just pop an item off the empty_nodes stack. If
-				 *  there are no other empty nodes remaining, then it will
-				 *  automatically Grow() the array.
+				 * Typically can just pop an item off the empty_nodes stack. If
+				 * there are no other empty nodes remaining, then it will
+				 * automatically Grow() the array.
 				 * \return An index in m_array.
 				 */
 				size_t getNextFree();
@@ -80,10 +80,10 @@ namespace CrissCross
 
 				/*! The secondary constructor. */
 				/*!
-				 *                  Parameter _newStepSize should be larger than 1. A step size of 1 forces
-				 *                  the DArray to resize way too often. A step size of -1 is a magic value
-				 *                  which makes the DArray double in size on each grow() call (offers a pretty
-				 *                  good speedup).
+				 * Parameter _newStepSize should be larger than 1. A step size of 1 forces
+				 * the DArray to resize way too often. A step size of -1 is a magic value
+				 * which makes the DArray double in size on each grow() call (offers a pretty
+				 * good speedup).
 				 * \param _newStepSize The step size to use in grow().
 				 */
 				DArray(int _newStepSize);
@@ -99,10 +99,10 @@ namespace CrissCross
 
 				/*! Sets the step size used in Grow(). */
 				/*!
-				 *                  Parameter _newStepSize should be larger than 1. A step size of 1 forces
-				 *                  the DArray to resize way too often. A step size of -1 is a magic value
-				 *                  which makes the DArray double in size on each grow() call (offers a pretty
-				 *                  good speedup).
+				 * Parameter _newStepSize should be larger than 1. A step size of 1 forces
+				 * the DArray to resize way too often. A step size of -1 is a magic value
+				 * which makes the DArray double in size on each grow() call (offers a pretty
+				 * good speedup).
 				 * \param _newstepsize The step size to use in grow().
 				 */
 				void setStepSize(int _newstepsize);
