@@ -42,12 +42,6 @@ namespace CrissCross
 				 */
 				HashTable<T> &operator =(const HashTable<T> &);
 
-				/*! \brief When the hash table is this percent full, the table resizes to accomodate new entries. */
-				static const unsigned int HASH_TABLE_FILL_THRESHHOLD = 75;
-
-				/*! \brief When the hash table resizes, it resizes by this multiplier. */
-				static const unsigned int HASH_TABLE_SIZE_MAGNITUDE = 2;
-
 			protected:
 				typedef AVLTree<const char *, T> tree_t;
 
@@ -56,8 +50,6 @@ namespace CrissCross
 				unsigned long                    m_used;
 				mutable unsigned long            m_searches;
 				mutable unsigned long            m_hits;
-				mutable unsigned long            m_insertions;
-				mutable unsigned long            m_collisions;
 
 				size_t hash(const char * const &_key, size_t _length) const;
 
@@ -112,13 +104,22 @@ namespace CrissCross
 				 */
 				bool exists(const char * const &_key) const;
 
-				/*! \brief Indicates the size of the table. */
+				/*! \brief Indicates the number of subtrees. */
 				/*!
-				 * \return Size of the table.
+				 * \return Number of subtrees in the table.
 				 */
 				inline size_t size() const
 				{
 					return m_size;
+				};
+
+				/*! \brief Indicates the number of items in the table. */
+				/*!
+				 * \return Number of items in the table.
+				 */
+				inline size_t used() const
+				{
+					return m_used;
 				};
 
 				/*! \brief Returns the memory usage of the table. */
@@ -126,13 +127,6 @@ namespace CrissCross
 				 * \return Memory usage in bytes.
 				 */
 				size_t mem_usage() const;
-
-				/*! \brief Forces the table to increase in size. */
-				/*!
-				 *  It's highly recommended that you let the hash table manage this on its own and that
-				 *  you don't call this function unless you know what the implications are.
-				 */
-				void grow();
 
 				void print_statistics() const;
 		};
