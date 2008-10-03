@@ -241,8 +241,7 @@ namespace CrissCross
 		Data AVLTree<Key, Data>::find(Key const &_key) const
 		{
 			AVLNode<Key, Data> *p_current = findNode(_key);
-			if (!p_current) return NULL;
-
+			if (!p_current) return (Data)0;
 			return p_current->data;
 		}
 

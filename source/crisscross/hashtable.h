@@ -12,6 +12,8 @@
 #ifndef __included_cc_hashtable_h
 #define __included_cc_hashtable_h
 
+#include <crisscross/avltree.h>
+
 namespace CrissCross
 {
 	namespace Data
@@ -40,16 +42,22 @@ namespace CrissCross
 				 */
 				HashTable<T> &operator =(const HashTable<T> &);
 
-			protected:
-				T      *m_array;
-				char * *m_keys;
-				size_t  m_size;
-				size_t  m_used;
-				mutable size_t m_searches;
-				mutable size_t m_hits;
+				/*! \brief When the hash table is this percent full, the table resizes to accomodate new entries. */
+				static const unsigned int HASH_TABLE_FILL_THRESHHOLD = 75;
 
-				mutable size_t m_insertions;
-				mutable size_t m_collisions;
+				/*! \brief When the hash table resizes, it resizes by this multiplier. */
+				static const unsigned int HASH_TABLE_SIZE_MAGNITUDE = 2;
+
+			protected:
+				typedef AVLTree<const char *, T> tree_t;
+
+				tree_t                         **m_array;
+				unsigned long                    m_size;
+				unsigned long                    m_used;
+				mutable unsigned long            m_searches;
+				mutable unsigned long            m_hits;
+				mutable unsigned long            m_insertions;
+				mutable unsigned long            m_collisions;
 
 				size_t hash(const char * const &_key, size_t _length) const;
 
@@ -60,7 +68,7 @@ namespace CrissCross
 				/*!
 				 * \param _initialSize The initial size of the hash table. Minimum is 500.
 				 */
-				HashTable(size_t _initialSize = 500);
+				HashTable(size_t _initialSize = 25);
 				~HashTable();
 
 				/*! \brief Inserts data into the table. */
@@ -87,7 +95,7 @@ namespace CrissCross
 				 *                          contents of the table was anything but pointers or integers.
 				 * \sa find
 				 */
-				T const &find(const char * const & _key) const;
+				T find(const char * const & _key) const;
 
 				/*! \brief Deletes a node from the table, specified by the node's key. */
 				/*!
@@ -96,6 +104,13 @@ namespace CrissCross
 				 * \return True on success, false on failure
 				 */
 				bool erase(const char * const &_key);
+
+				/*! \brief Tests whether a key is in the table or not. */
+				/*!
+				 * \param _key The key of the node to find.
+				 * \return True if the key is in the tree, false if not.
+				 */
+				bool exists(const char * const &_key) const;
 
 				/*! \brief Indicates the size of the table. */
 				/*!
