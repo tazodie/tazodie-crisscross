@@ -25,7 +25,7 @@ int ProfileHashTable()
 	size_t             usage = 0, i;
 	for (i = 0; i < 10; i++) {
 		usage = table->mem_usage();
-		g_stdout->WriteLine("%6d items: %7d bytes (%4.2lf KB)", table->size(), usage, (double)usage / 1024.0);
+		g_stdout->WriteLine("%6d items: %7d bytes (%4.2lf KB)", table->used(), usage, (double)usage / 1024.0);
 		table->grow();
 	}
 
