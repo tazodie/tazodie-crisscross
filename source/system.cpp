@@ -115,8 +115,7 @@ namespace CrissCross
 	#elif defined (TARGET_OS_LINUX) || defined (TARGET_OS_MACOSX)
 			unsigned int sleep_time = _msec * 1000;
 
-			while (sleep_time > 1000000)
-			{
+			while (sleep_time > 1000000) {
 				usleep(1000000);
 				sleep_time -= 1000000;
 			}

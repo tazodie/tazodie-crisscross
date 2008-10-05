@@ -105,8 +105,8 @@ std::string SymbolEngine::addressToString(DWORD address)
 	IMAGEHLP_LINE
 	lineInfo = { sizeof(IMAGEHLP_LINE) };
 	if (SymGetLineFromAddr
-	                                                                                             (GetCurrentProcess(), ( DWORD )address, &dwDisplacement,
-	                                                                                             &lineInfo)) {
+	                                                                                                                                 (GetCurrentProcess(), ( DWORD )address, &dwDisplacement,
+	                                                                                                                                 &lineInfo)) {
 		const char *pDelim = strrchr(lineInfo.FileName, '\\');
 		char        temp[1024];
 		sprintf(temp, " at %s(%u)", (pDelim ? pDelim + 1 : lineInfo.FileName), lineInfo.LineNumber);
@@ -135,8 +135,7 @@ void SymbolEngine::StackTrace(PCONTEXT _pContext, CoreIOWriter * _outputBuffer)
 	                   &stackFrame,
 	                   _pContext,
 	                   NULL, ::SymFunctionTableAccess, ::SymGetModuleBase,
-	                   NULL))
-	{
+	                   NULL)) {
 		_outputBuffer->WriteLine(" 0x%08xd %s", stackFrame.AddrFrame.Offset,
 		                         addressToString(stackFrame.AddrPC.
 		                                         Offset).c_str());

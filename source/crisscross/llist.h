@@ -239,11 +239,15 @@ namespace CrissCross
 				};
 				_CC_DEPRECATE_FUNCTION_N inline void EmptyAndDelete()
 				{
-					while (valid(0)) { delete get(0); remove(0); }
+					while (valid(0)) {
+						delete get(0); remove(0);
+					}
 				};
 				_CC_DEPRECATE_FUNCTION_N inline void EmptyAndDeleteArray()
 				{
-					while (valid(0)) { delete [] get(0); remove(0); }
+					while (valid(0)) {
+						delete [] get(0); remove(0);
+					}
 				};
 				_CC_DEPRECATE_FUNCTION_N inline void Empty()
 				{

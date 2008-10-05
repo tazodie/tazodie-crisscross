@@ -37,6 +37,7 @@ namespace CrissCross
 				delete m_array[i];
 				m_array[i] = NULL;
 			}
+
 			delete [] m_array;
 			m_array = NULL;
 			m_size = 0;
@@ -54,9 +55,10 @@ namespace CrissCross
 		Data HashTable<Key, Data>::find(Key const & _key) const
 		{
 			static Data null(0);
-			size_t   index = findIndex(_key);
+			size_t      index = findIndex(_key);
 			if (!m_array[index]) return null;
-			Data ret;
+
+			Data        ret;
 			if (m_array[index]->find(_key, ret)) {
 				return ret;
 			} else {
@@ -67,8 +69,9 @@ namespace CrissCross
 		template <class Key, class Data>
 		bool HashTable<Key, Data>::exists(Key const & _key) const
 		{
-			size_t   index = findIndex(_key);
+			size_t index = findIndex(_key);
 			if (!m_array[index]) return false;
+
 			return m_array[index]->exists(_key);
 		}
 
@@ -77,6 +80,7 @@ namespace CrissCross
 		{
 			size_t index = findIndex(_key);
 			if (!m_array[index]) return false;
+
 			return m_array[index]->find(_key, _data);
 		}
 
@@ -85,6 +89,7 @@ namespace CrissCross
 		{
 			size_t index = findIndex(_key);
 			if (!m_array[index]) return false;
+
 			return m_array[index]->erase(_key);
 		}
 
@@ -95,6 +100,7 @@ namespace CrissCross
 			for (unsigned int i = 0; i < m_size; i++)
 				if (m_array[i])
 					ret += m_array[i]->mem_usage();
+
 			return ret;
 		}
 

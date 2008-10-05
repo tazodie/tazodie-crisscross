@@ -211,8 +211,7 @@ namespace CrissCross
 
 			size_t freeslot = (size_t)-2;
 
-			while ((freeslot = m_emptyNodes->pop()) != (size_t)-1)
-			{
+			while ((freeslot = m_emptyNodes->pop()) != (size_t)-1) {
 				if (m_shadow[freeslot] == 0)
 					break;
 			}

@@ -95,22 +95,22 @@ namespace CrissCross
 			public:
 
 				/*! \brief The left branch of the tree from this node. */
-				AVLNode *left;
+				AVLNode      *left;
 
 				/*! \brief The right branch of the tree from this node. */
-				AVLNode *right;
+				AVLNode      *right;
 
 				/*! \brief The parent node. */
-				AVLNode *parent;
+				AVLNode      *parent;
 
 				/*! \brief The key for this node. */
-				Key      id;
+				Key           id;
 
 				/*! \brief The data held at this node. */
-				Data     data;
+				Data          data;
 
 				/*! \brief The state of this part of the tree's balance. */
-				unsigned char balance:2;
+				unsigned char balance : 2;
 
 				/*! \brief The default constructor. */
 				AVLNode() : left(NULL), right(NULL), parent(NULL), balance(BALANCED)
@@ -130,7 +130,9 @@ namespace CrissCross
 				{
 					size_t ret = sizeof(*this);
 					if (left) ret += left->mem_usage();
+
 					if (right) ret += right->mem_usage();
+
 					return ret;
 				}
 		};
@@ -160,7 +162,7 @@ namespace CrissCross
 				Data          data;
 
 				/*! \brief The color of the node (either red or black). */
-				unsigned char color:1;
+				unsigned char color : 1;
 
 				/*! \brief The default constructor. */
 				RedBlackNode() : left(NULL), right(NULL), parent(NULL)

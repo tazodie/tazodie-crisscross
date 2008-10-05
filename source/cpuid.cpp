@@ -253,8 +253,7 @@ namespace CrissCross
 			delete [] Std;
 			delete [] Ext;
 			for (i = 0; i < MAX_PROCESSORS; i++) {
-				while (proc[i]->caches.valid(j))
-				{
+				while (proc[i]->caches.valid(j)) {
 					delete [] proc[i]->caches.get(j);
 					j++;
 				}

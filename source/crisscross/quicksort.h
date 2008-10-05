@@ -34,8 +34,7 @@ namespace CrissCross
 					if (_end > _beginning + 1) {
 						const T &piv = _array[_beginning];
 						size_t   l = _beginning + 1, r = _end;
-						while (l < r)
-						{
+						while (l < r) {
 							if (Compare(_array[l], piv) <= 0)
 								l++;
 							else

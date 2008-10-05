@@ -58,8 +58,7 @@ void ParseMemoryLeakFile(const char *_inputFilename, const char *_outputFilename
 
 	FILE                     *memoryfile = fopen(_inputFilename, "rb");
 
-	while (memoryfile && !feof(memoryfile))
-	{
+	while (memoryfile && !feof(memoryfile))	{
 		char thisline[1024];
 
 		fgets(thisline, 1024, memoryfile);
