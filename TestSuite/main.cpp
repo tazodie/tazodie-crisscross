@@ -98,9 +98,9 @@ int RunApplication(int argc, char * *argv)
 	WritePrefix("RedBlackTree<std::string, std::string>"); retval |= WriteResult(TestRedBlackTree_String());
 	WritePrefix("RedBlackTree<int, int>"); retval |= WriteResult(TestRedBlackTree_Int());
 
-	WritePrefix("HashTable<const char *>"); retval |= WriteResult(TestHashTable_CString());
-	WritePrefix("HashTable<std::string>"); retval |= WriteResult(TestHashTable_String());
-	WritePrefix("HashTable<int>"); retval |= WriteResult(TestHashTable_Int());
+	WritePrefix("HashTable<const char *, const char *>"); retval |= WriteResult(TestHashTable_CString());
+	WritePrefix("HashTable<std::string, std::string>"); retval |= WriteResult(TestHashTable_String());
+	WritePrefix("HashTable<int,int>"); retval |= WriteResult(TestHashTable_Int());
 
 	WritePrefix("BubbleSort (integer array)"); retval |= WriteResult(TestBubbleSort_IntArray());
 	WritePrefix("BubbleSort (integer DArray)"); retval |= WriteResult(TestBubbleSort_DArray());

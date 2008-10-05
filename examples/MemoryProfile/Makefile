@@ -9,7 +9,6 @@ SOURCES = \
 avltree.cpp \
 rbtree.cpp \
 splaytree.cpp \
-hashtable.cpp \
 llist.cpp \
 darray.cpp \
 header.cpp \

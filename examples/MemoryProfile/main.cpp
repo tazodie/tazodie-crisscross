@@ -14,7 +14,6 @@
 #include "avltree.h"
 #include "rbtree.h"
 #include "splaytree.h"
-#include "hashtable.h"
 #include "llist.h"
 #include "darray.h"
 
@@ -32,9 +31,6 @@ int RunApplication(int argc, char * *argv)
 	ProfileAVLTree();
 	ProfileRedBlackTree();
 	ProfileSplayTree();
-#ifndef TARGET_OS_NDSFIRMWARE
-	ProfileHashTable();
-#endif
 	ProfileLList();
 	ProfileDArray();
 

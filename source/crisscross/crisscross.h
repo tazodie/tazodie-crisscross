@@ -23,6 +23,7 @@
 #include <crisscross/darray.h>
 #include <crisscross/llist.h>
 #include <crisscross/node.h>
+#include <crisscross/hash.h>
 #include <crisscross/hashtable.h>
 #include <crisscross/splaytree.h>
 #include <crisscross/avltree.h>
