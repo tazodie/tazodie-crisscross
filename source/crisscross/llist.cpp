@@ -217,14 +217,12 @@ namespace CrissCross
 				m_previousIndex = 0;
 			}
 
-			while (index > m_previousIndex)
-			{
+			while (index > m_previousIndex)	{
 				m_previous = m_previous->m_next;
 				m_previousIndex++;
 			}
 
-			while (index < m_previousIndex)
-			{
+			while (index < m_previousIndex)	{
 				m_previous = m_previous->m_previous;
 				m_previousIndex--;
 			}
@@ -242,8 +240,7 @@ namespace CrissCross
 		template <class T> void LList <T>::empty()
 		{
 			LListNode <T> *current = m_first;
-			while (current)
-			{
+			while (current)	{
 				LListNode <T> *m_next = current->m_next;
 				delete current;
 
@@ -299,8 +296,7 @@ namespace CrissCross
 		{
 			LListNode<T> *node = m_first;
 			size_t        ret = sizeof(*this);
-			while (node)
-			{
+			while (node) {
 				ret += sizeof(*node);
 				node = node->m_next;
 			}

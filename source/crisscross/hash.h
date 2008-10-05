@@ -25,13 +25,14 @@ namespace CrissCross
 		template <class T>
 		__inline size_t Hash(T const &_data)
 		{
-			size_t hash = 0, length = sizeof(_data), i;
+			size_t      hash = 0, length = sizeof(_data), i;
 			const char *data = (char *)&_data;
 			for (i = 0; i < length; i++) {
 				hash += data[i];
 				hash += (hash << 10);
 				hash ^= (hash >> 6);
 			}
+
 			hash += (hash << 3);
 			hash ^= (hash >> 11);
 			hash += (hash << 15);
@@ -49,6 +50,7 @@ namespace CrissCross
 				hash += (hash << 10);
 				hash ^= (hash >> 6);
 			}
+
 			hash += (hash << 3);
 			hash ^= (hash >> 11);
 			hash += (hash << 15);
@@ -66,6 +68,7 @@ namespace CrissCross
 				hash += (hash << 10);
 				hash ^= (hash >> 6);
 			}
+
 			hash += (hash << 3);
 			hash ^= (hash >> 11);
 			hash += (hash << 15);

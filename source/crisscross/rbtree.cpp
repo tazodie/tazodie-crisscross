@@ -104,8 +104,7 @@ namespace CrissCross
 		void RedBlackTree<Key, Data>::insertFixup(RedBlackNode<Key, Data> * x)
 		{
 			/* check Red-Black properties */
-			while (x != rootNode && x->parent->color == RED)
-			{
+			while (x != rootNode && x->parent->color == RED) {
 				/* we have a violation */
 				if (x->parent == x->parent->parent->left) {
 					RedBlackNode<Key, Data> *y = x->parent->parent->right;
@@ -173,8 +172,7 @@ namespace CrissCross
 
 			/* find future parent */
 			current = rootNode;
-			while (current != nullNode)
-			{
+			while (current != nullNode) {
 				parent = current;
 				current = (Compare(key, current->id) <= 0) ?
 				          current->left : current->right;
@@ -214,8 +212,7 @@ namespace CrissCross
 		{
 			if (!x) return;
 
-			while (x != rootNode && x->color == BLACK)
-			{
+			while (x != rootNode && x->color == BLACK) {
 				if (x == x->parent->left) {
 					RedBlackNode<Key, Data> *w = x->parent->right;
 
@@ -286,8 +283,7 @@ namespace CrissCross
 			z = rootNode;
 			parent = 0;
 
-			while (z != nullNode)
-			{
+			while (z != nullNode) {
 				if (Compare(key, z->id) == 0)
 					break;
 				else{
@@ -391,8 +387,7 @@ namespace CrissCross
 		{
 			RedBlackNode<Key, Data> *current = rootNode;
 
-			while (current != nullNode)
-			{
+			while (current != nullNode) {
 				if (Compare(key, current->id) == 0) {
 					return current->data;
 				} else {
@@ -409,8 +404,7 @@ namespace CrissCross
 		{
 			RedBlackNode<Key, Data> *current = rootNode;
 
-			while (current != nullNode)
-			{
+			while (current != nullNode) {
 				if (Compare(key, current->id) == 0) {
 					_data = current->data;
 					return true;
@@ -428,8 +422,7 @@ namespace CrissCross
 		{
 			RedBlackNode<Key, Data> * current = rootNode;
 
-			while (current != nullNode)
-			{
+			while (current != nullNode) {
 				if (Compare(key, current->id) == 0) {
 					return current;
 				} else {

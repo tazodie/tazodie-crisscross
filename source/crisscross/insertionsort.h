@@ -40,8 +40,7 @@ namespace CrissCross
 					for (long i = 1; i < (long)_size; i++) {
 						long j = i;
 						T    b = _array[i];
-						while ((j > 0) && (Compare(_array[j - 1], b) > 0))
-						{
+						while ((j > 0) && (Compare(_array[j - 1], b) > 0)) {
 							_array[j] = _array[j - 1];
 							j--;
 						}

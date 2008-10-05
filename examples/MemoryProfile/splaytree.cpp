@@ -24,8 +24,7 @@ int ProfileSplayTree()
 
 	size_t                     usage = 0, i;
 	for (i = 0; i <= MAX_NODES; i += (i) ? i : 1) {
-		while (tree->size() < i)
-		{
+		while (tree->size() < i) {
 			size_t random = rand() * rand();
 			if (!tree->exists(random))
 				CoreAssert(tree->insert(random, 0));

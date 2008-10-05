@@ -301,8 +301,7 @@ static void DumpModuleList(HANDLE LogFile)
 
 	int          nModuleNo = 1;
 
-	while (pageNum < NumPages)
-	{
+	while (pageNum < NumPages) {
 		MEMORY_BASIC_INFORMATION MemInfo;
 		if (VirtualQuery((void *)(pageNum * PageSize), &MemInfo,
 		                 sizeof(MemInfo))) {
@@ -519,8 +518,7 @@ static void DumpStack(HANDLE LogFile, DWORD *pStack)
 
 		int     nDwordsPrinted = 0;
 
-		while (pStack + 1 <= pStackTop)
-		{
+		while (pStack + 1 <= pStackTop)	{
 			if ((Count % StackColumns) == 0) {
 				pStackStart = pStack;
 				nDwordsPrinted = 0;
@@ -532,8 +530,7 @@ static void DumpStack(HANDLE LogFile, DWORD *pStack)
 				nDwordsPrinted++;
 
 				int n = nDwordsPrinted;
-				while (n < 4)
-				{
+				while (n < 4) {
 					hprintf(LogFile, _T("         "));
 					n++;
 				}

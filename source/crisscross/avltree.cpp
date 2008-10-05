@@ -191,8 +191,7 @@ namespace CrissCross
 		AVLNode<Key, Data> *AVLTree<Key, Data>::findNode(Key const &_key) const
 		{
 			AVLNode<Key, Data> *p_current = m_root;
-			while (p_current)
-			{
+			while (p_current) {
 				if (Compare(_key, p_current->id) < 0)
 					p_current = p_current->left;
 				else if (Compare(_key, p_current->id) > 0)
@@ -242,6 +241,7 @@ namespace CrissCross
 		{
 			AVLNode<Key, Data> *p_current = findNode(_key);
 			if (!p_current) return (Data)0;
+
 			return p_current->data;
 		}
 

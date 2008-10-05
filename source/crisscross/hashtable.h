@@ -40,9 +40,9 @@ namespace CrissCross
 			protected:
 				typedef AVLTree<Key, Data> tree_t;
 
-				tree_t                         **m_array;
-				unsigned long                    m_size;
-				unsigned long                    m_used;
+				tree_t     * *m_array;
+				unsigned long m_size;
+				unsigned long m_used;
 
 				size_t findIndex(Key const &_key) const;
 

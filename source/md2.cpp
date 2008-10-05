@@ -49,7 +49,7 @@ typedef unsigned long int UINT4;
 #endif
 
 static void MD2Transform    PROTO_LIST
-                                                                                        ((unsigned char [16], unsigned char [16], const unsigned char [16]));
+                                                                                                                            ((unsigned char [16], unsigned char [16], const unsigned char [16]));
 
 /* Permutation of 0..255 constructed from the digits of pi. It gives a
  * "random" nonlinear byte substitution operation.

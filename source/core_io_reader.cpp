@@ -234,8 +234,7 @@ namespace CrissCross
 
 			static std::string buffer;
 
-			while (c != (char)EOF && c != '\n')
-			{
+			while (c != (char)EOF && c != '\n') {
 				buffer += c;
 				c = (char)fgetc(m_fileInputPointer);
 			}

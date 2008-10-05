@@ -226,8 +226,7 @@ namespace CrissCross
 			char *temp_buf = new char[m_bufferSize];
 			memset(temp_buf, 0, m_bufferSize);
 			char *p = temp_buf, *d = (char *)_data;
-			while (*d != '\x0')
-			{
+			while (*d != '\x0') {
 				if (!(*d == '\n' || *d == '\r'))
 					*p = *d;
 
@@ -249,8 +248,7 @@ namespace CrissCross
 			char *temp_buf = new char[m_bufferSize];
 			memset(temp_buf, 0, m_bufferSize);
 			char *p = temp_buf, *d = (char *)_data.c_str();
-			while (*d != '\x0')
-			{
+			while (*d != '\x0') {
 				if (!(*d == '\n' || *d == '\r'))
 					*p = *d;
 

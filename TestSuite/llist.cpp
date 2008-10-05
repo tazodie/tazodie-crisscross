@@ -51,8 +51,7 @@ int TestLList()
 	if (strcmp(llist->get(2), "four") != 0)
 		return 8;
 
-	while (llist->valid(0))
-	{
+	while (llist->valid(0))	{
 		delete [] llist->get(0);
 		llist->remove(0);
 	}
