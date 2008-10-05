@@ -18,48 +18,35 @@ using namespace CrissCross::Data;
 
 int TestHashTable_Int()
 {
-	HashTable<int>      ht;
+	HashTable<unsigned long, unsigned long> ht;
 
-	char                buffer[32];
 	const unsigned long max = 1000;
 	unsigned long       i;
 	for (i = 0; i < max; i++) {
-		sprintf(buffer, "%lu", i);
-		ht.insert(buffer, max - i);
+		ht.insert(i, max - i);
 	}
 
-	//ht.print_statistics();
-
 	for (i = 0; i < max; i += 2) {
-		sprintf(buffer, "%lu", i);
-		if (!ht.erase(buffer))
+		if (!ht.erase(i))
 			return i + 1;
 	}
 
-	//ht.print_statistics();
-
 	for (i = 0; i < max; i += 2) {
-		sprintf(buffer, "%lu", i);
-		if (ht.find(buffer) != 0)
+		if (ht.find(i) != 0)
 			return i + 1;
 	}
-
-	//ht.print_statistics();
 
 	for (i = 1; i < max; i += 2) {
-		sprintf(buffer, "%lu", i);
-		if (ht.find(buffer) != (int)(max - i))
+		if (ht.find(i) != max - i)
 			return i + 1;
 	}
-
-	//ht.print_statistics();
 
 	return 0;
 }
 
 int TestHashTable_CString()
 {
-	HashTable<const char *> ht;
+	HashTable<const char *, const char *> ht;
 
 	char                buffer1[32];
 	char                buffer2[32];
@@ -72,8 +59,6 @@ int TestHashTable_CString()
 		ht.insert(buffer1, (const char *)cc_strdup(buffer2));
 	}
 
-	//ht.print_statistics();
-
 	for (i = 0; i < max; i += 2) {
 		sprintf(buffer1, "%lu", i);
 		free((void *)ht.find(buffer1));
@@ -81,15 +66,11 @@ int TestHashTable_CString()
 			return i + 1;
 	}
 
-	//ht.print_statistics();
-
 	for (i = 0; i < max; i += 2) {
 		sprintf(buffer1, "%lu", i);
 		if (ht.find(buffer1) != 0)
 			return i + 1;
 	}
-
-	//ht.print_statistics();
 
 	for (i = 1; i < max; i += 2) {
 		sprintf(buffer1, "%lu", i);
@@ -97,8 +78,6 @@ int TestHashTable_CString()
 		if (strcmp(ht.find(buffer1),buffer2) != 0)
 			return i + 1;
 	}
-
-	//ht.print_statistics();
 
 	/* Rest of the cleanup */
 	for (i = 1; i < max; i += 2) {
@@ -113,7 +92,7 @@ int TestHashTable_CString()
 
 int TestHashTable_String()
 {
-	HashTable<std::string> ht;
+	HashTable<std::string, std::string> ht;
 
 	char                buffer1[32];
 	char                buffer2[32];
@@ -123,43 +102,35 @@ int TestHashTable_String()
 	for (i = 0; i < max; i++) {
 		sprintf(buffer1, "%lu", i);
 		sprintf(buffer2, "%lu", max - i);
-		ht.insert(buffer1, std::string(buffer2));
+		ht.insert(std::string(buffer1), std::string(buffer2));
 	}
-
-	//ht.print_statistics();
 
 	for (i = 0; i < max; i += 2) {
 		sprintf(buffer1, "%lu", i);
-		if (!ht.erase(buffer1))
+		if (!ht.erase(std::string(buffer1)))
 			return i + 1;
 	}
-
-	//ht.print_statistics();
 
 	for (i = 0; i < max; i += 2) {
 		sprintf(buffer1, "%lu", i);
-		if (ht.exists(buffer1))
+		if (ht.exists(std::string(buffer1)))
 			return i + 1;
 	}
-
-	//ht.print_statistics();
 
 	std::string rec;
 	for (i = 1; i < max; i += 2) {
 
 		sprintf(buffer1, "%lu", i);
 		sprintf(buffer2, "%lu", max - i);
-		ht.find(buffer1, rec);
-		if (rec != std::string(buffer2))
+		ht.find(std::string(buffer1), rec);
+		if (std::string(rec) != std::string(buffer2))
 			return i + 1;
 	}
-
-	//ht.print_statistics();
 
 	/* Rest of the cleanup */
 	for (i = 1; i < max; i += 2) {
 		sprintf(buffer1, "%lu", i);
-		if (!ht.erase(buffer1))
+		if (!ht.erase(std::string(buffer1)))
 			return i + 1;
 	}
 

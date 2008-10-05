@@ -19,12 +19,7 @@ namespace CrissCross
 	namespace Data
 	{
 		/*! \brief A simple HashTable. */
-		/*!
-		 * Only accepts C-style strings as keys.
-		 * \warning This class is currently not recommended for general use. It hasn't been fully
-		 *    tested yet and is only under consideration for being a future feature.
-		 */
-		template <class T>
+		template <class Key, class Data>
 		class HashTable
 		{
 			private:
@@ -33,27 +28,23 @@ namespace CrissCross
 				 * Not yet written, so declared private for now to prevent an auto-generated
 				 * one from performing an unexpected operation.
 				 */
-				HashTable(const HashTable<T> &);
+				HashTable(const HashTable<Key, Data> &);
 
 				/*! \brief Private assignment operator. */
 				/*!
 				 * Not yet written, so declared private for now to prevent an auto-generated
 				 * one from performing an unexpected operation.
 				 */
-				HashTable<T> &operator =(const HashTable<T> &);
+				HashTable<Key, Data> &operator =(const HashTable<Key, Data> &);
 
 			protected:
-				typedef AVLTree<const char *, T> tree_t;
+				typedef AVLTree<Key, Data> tree_t;
 
 				tree_t                         **m_array;
 				unsigned long                    m_size;
 				unsigned long                    m_used;
-				mutable unsigned long            m_searches;
-				mutable unsigned long            m_hits;
 
-				size_t hash(const char * const &_key, size_t _length) const;
-
-				size_t findIndex(const char * const &_key) const;
+				size_t findIndex(Key const &_key) const;
 
 			public:
 				/*! \brief The constructor. */
@@ -69,7 +60,7 @@ namespace CrissCross
 				 * \param _data The data to insert.
 				 * \return True on success, false on failure.
 				 */
-				bool insert(const char * const &_key, T const &_data);
+				bool insert(Key const &_key, Data const &_data);
 
 				/*! \brief Finds a node in the table and copies the data from that node to a specified location. */
 				/*!
@@ -77,7 +68,7 @@ namespace CrissCross
 				 * \param _data On return, will contain the data at the node. If not found, _data does not change.
 				 * \return True on success, false on failure.
 				 */
-				bool find(const char * const &_key, T &_data) const;
+				bool find(Key const &_key, Data &_data) const;
 
 				/*! \brief Finds a node in the table and returns the data at that node. */
 				/*!
@@ -87,7 +78,7 @@ namespace CrissCross
 				 *                          contents of the table was anything but pointers or integers.
 				 * \sa find
 				 */
-				T find(const char * const & _key) const;
+				Data find(Key const & _key) const;
 
 				/*! \brief Deletes a node from the table, specified by the node's key. */
 				/*!
@@ -95,14 +86,14 @@ namespace CrissCross
 				 * \param _key The key of the node to delete.
 				 * \return True on success, false on failure
 				 */
-				bool erase(const char * const &_key);
+				bool erase(Key const &_key);
 
 				/*! \brief Tests whether a key is in the table or not. */
 				/*!
 				 * \param _key The key of the node to find.
 				 * \return True if the key is in the tree, false if not.
 				 */
-				bool exists(const char * const &_key) const;
+				bool exists(Key const &_key) const;
 
 				/*! \brief Indicates the number of subtrees. */
 				/*!
@@ -127,8 +118,6 @@ namespace CrissCross
 				 * \return Memory usage in bytes.
 				 */
 				size_t mem_usage() const;
-
-				void print_statistics() const;
 		};
 	}
 }
