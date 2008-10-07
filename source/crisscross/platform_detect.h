@@ -18,12 +18,16 @@
  *  ARM processor
  * TARGET_CPU_ALPHA
  *  DEC Alpha processor
+ * TARGET_CPU_SPARC
+ *  Sun Microsystems SPARC processor
  * TARGET_CPU_X86
  *  Intel x86 processor
+ * TARGET_CPU_IA64
+ *  Intel Itanic processor
  * TARGET_CPU_X64
  *  Intel 64-bit processor
  * TARGET_CPU_PPC
- *  PowerPC processor
+ *  IBM PowerPC processor
  *
  * TARGET_OS_WINDOWS
  *  Windows
@@ -88,7 +92,7 @@
 #endif
 #endif
 
-/* Sun Sparc */
+/* Sun SPARC */
 #if !defined (PROCESSOR_DETECTED)
 #if defined (__sparc) || defined (__sparc__)
 #define PROCESSOR_DETECTED
@@ -110,7 +114,7 @@
 #endif
 #endif
 
-/* x64/AMD64 */
+/* x86_64 or AMD64 or x64 */
 #if !defined (PROCESSOR_DETECTED)
 #if defined (__x86_64__) || defined (__x86_64) || defined (__amd64) || defined (__amd64__) || defined (_AMD64_) || defined (_M_X64)
 #define PROCESSOR_DETECTED
