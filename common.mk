@@ -225,7 +225,9 @@ else
         ARCH = -march=nocona
     endif
     ifeq ($(GCC42_OR_GREATER),yes)
-        ARCH = -march=native
+        ifeq ($(GCC_ISINTEL),yes)
+	        ARCH = -march=native
+	endif
     endif
 endif
 
