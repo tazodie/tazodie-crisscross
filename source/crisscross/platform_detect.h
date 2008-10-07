@@ -16,10 +16,12 @@
  *
  * TARGET_CPU_ARM
  *  ARM processor
+ * TARGET_CPU_ALPHA
+ *  DEC Alpha processor
  * TARGET_CPU_X86
- *  x86 processor
+ *  Intel x86 processor
  * TARGET_CPU_X64
- *  64-bit processor
+ *  Intel 64-bit processor
  * TARGET_CPU_PPC
  *  PowerPC processor
  *
@@ -74,6 +76,15 @@
 #define PROCESSOR_DETECTED
 #define TARGET_CPU_ARM
 #define TARGET_LITTLE_ENDIAN
+#endif
+#endif
+
+/* DEC Alpha */
+#if !defined (PROCESSOR_DETECTED)
+#if defined (__alpha) || defined (__alpha__)
+#define PROCESSOR_DETECTED
+#define TARGET_CPU_ALPHA
+#define TARGET_LITTLE_ENDIAN /* How should bi-endianness be handled? */
 #endif
 #endif
 
@@ -198,7 +209,7 @@
 #endif
 #endif
 
-#if defined (TARGET_CPU_IA64) || defined (TARGET_CPU_X64)
+#if defined (TARGET_CPU_IA64) || defined (TARGET_CPU_X64) || defined (TARGET_CPU_ALPHA)
 #define TARGET_CPU_BITS 64
 #elif defined (TARGET_CPU_X86) || defined (TARGET_CPU_ARM)
 #define TARGET_CPU_BITS 32
