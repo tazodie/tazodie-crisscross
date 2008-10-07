@@ -88,6 +88,15 @@
 #endif
 #endif
 
+/* Sun Sparc */
+#if !defined (PROCESSOR_DETECTED)
+#if defined (__sparc) || defined (__sparc__)
+#define PROCESSOR_DETECTED
+#define TARGET_CPU_SPARC
+#define TARGET_BIG_ENDIAN
+#endif
+#endif
+
 /* PowerPC */
 #if !defined (PROCESSOR_DETECTED)
 #if defined (_ARCH_PPC) || defined (__ppc__) || defined (__ppc64__) || defined (__PPC) || defined (powerpc) || defined (__PPC__) || defined (__powerpc64__) || defined (__powerpc64)
@@ -209,9 +218,9 @@
 #endif
 #endif
 
-#if defined (TARGET_CPU_IA64) || defined (TARGET_CPU_X64) || defined (TARGET_CPU_ALPHA)
+#if defined(_LP64) || defined(__LP64__)
 #define TARGET_CPU_BITS 64
-#elif defined (TARGET_CPU_X86) || defined (TARGET_CPU_ARM)
+#else
 #define TARGET_CPU_BITS 32
 #endif
 
