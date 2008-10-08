@@ -26,7 +26,7 @@ int TestAVLTree_CString()
 		return 1;
 
 	/* If the tree is properly encapsulated, this won't cause an error on test #1. */
-	tmp = strdup("first");
+	tmp = cc_strdup("first");
 	avltree->insert(tmp, "one");
 	free(tmp); tmp = NULL;
 

@@ -49,7 +49,7 @@ void BenchmarkDArray(Sorter<char *> &sorter)
 
 		/* Load the file into the data DArray */
 		while (file.ReadLine(buffer, sizeof(buffer)))
-			data.insert(strdup(buffer));
+			data.insert(cc_strdup(buffer));
 
 		sw.Stop();
 		console->WriteLine(format, sw.Elapsed(), sw.Clocks());

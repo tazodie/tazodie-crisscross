@@ -19,10 +19,10 @@ using namespace CrissCross;
 
 int TestComparison_CString()
 {
-	char        *greaterString = strdup("beta");
-	char        *lesserString = strdup("alpha");
-	char        *dupLesserString = strdup(lesserString);
-	char * const constString = strdup(dupLesserString);
+	char        *greaterString = cc_strdup("beta");
+	char        *lesserString = cc_strdup("alpha");
+	char        *dupLesserString = cc_strdup(lesserString);
+	char * const constString = cc_strdup(dupLesserString);
 
 	if (Data::Compare(lesserString, greaterString) != -1)
 		return 1;
