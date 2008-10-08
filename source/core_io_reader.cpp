@@ -92,7 +92,7 @@ namespace CrissCross
 			return lastpos.__pos;
 #endif
 #else
-			fpos_t lastpos, endpos;
+			fpos_t lastpos;
 			lastpos = ftell(m_fileInputPointer);
 			return lastpos;
 #endif

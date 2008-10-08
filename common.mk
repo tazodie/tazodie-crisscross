@@ -55,7 +55,7 @@ GCC_APPLE    := $(shell $(CXX) -v 2>&1 | \
 GCC_MINGW    := $(shell $(CXX) -v 2>&1 | \
                     grep "mingw" )
 GCC_CYGMING  := $(shell $(CXX) -v 2>&1 | \
-                    grep "cygming" )
+                    grep "cygwin" )
 GCC_NDS      := $(shell $(CXX) -v 2>&1 | \
                     grep "devkitARM" )
 GCC_MAJOR    := $(shell $(CXX) -dumpversion 2>&1 | \
@@ -175,9 +175,9 @@ CC_BUILDSTATIC = yes
 endif
 
 ifeq ($(GCC_ISCYGMING),yes)
-FPIC =
+CYGOPTS = -DCASE_SENSITIVE_COMPARE
 else
-FPIC = -fPIC
+CYGOPTS = -fPIC -rdynamic
 endif
 
 ARCH =
@@ -254,17 +254,8 @@ endif
 
 # ARCH=-xP -funroll-loops -parallel -fp-model fast -ssp
 
-ifeq ($(CFLAGS),)
-CFLAGS = -O$(OPTLEVEL) $(TARGET_BITS) $(STDC) $(ARCH) -Wall -Wno-long-long -rdynamic -pipe -ggdb
-else
-CFLAGS += $(STDC) -rdynamic -Wall -Wno-long-long
-endif
-
-ifeq ($(CXXFLAGS),)
-CXXFLAGS = -O$(OPTLEVEL) $(TARGET_BITS) $(STDCPP) $(ARCH) -Wall -Wno-long-long -pipe -ggdb -rdynamic -fno-rtti -fno-exceptions
-else
-CXXFLAGS += $(STDCPP) -Wall -Wno-long-long -rdynamic -fno-rtti -fno-exceptions
-endif
+CFLAGS = -O$(OPTLEVEL) $(TARGET_BITS) $(STDC) $(ARCH) -pipe -Wall -Wno-long-long $(CYGOPTS) -pipe -ggdb
+CXXFLAGS = -O$(OPTLEVEL) $(TARGET_BITS) $(STDCPP) $(ARCH) -pipe -Wall -Wno-long-long -pipe -ggdb $(CYGOPTS) -fno-rtti -fno-exceptions
 
 ifneq ($(CC_BUILDSTATIC),yes)
 LIBNAME = libCrissCross-$(VERSION).so

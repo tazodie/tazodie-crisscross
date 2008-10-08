@@ -144,7 +144,7 @@ namespace CrissCross
 
 	const char *GetErrorDescription(CrissCross::Errors why)
 	{
-#ifndef TARGET_OS_WINDOWS
+#if !defined(TARGET_OS_WINDOWS) && !defined(TARGET_COMPILER_CYGWIN)
 		static char buffer[128];
 		memset(buffer, 0, sizeof(buffer));
 		strerror_r(why, buffer, 128);
