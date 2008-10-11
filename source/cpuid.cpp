@@ -253,11 +253,10 @@ namespace CrissCross
 			delete [] Std;
 			delete [] Ext;
 			for (i = 0; i < MAX_PROCESSORS; i++) {
-				while (proc[i]->caches.valid(j)) {
-					delete [] proc[i]->caches.get(j);
-					j++;
+				for (j = 0; j < proc[i]->caches.size(); j++) {
+					if (proc[i]->caches.valid(j))
+						delete [] proc[i]->caches.get(j);
 				}
-				j = 0;
 
 				CrissCross::Data::DArray<Feature *> *nodes = proc[i]->features.ConvertToDArray();
 				for (j = 0; j < nodes->size(); j++) {
