@@ -15,7 +15,7 @@ ifneq ($(CC_BUILDSTATIC),yes)
 LDFLAGS += -rdynamic
 endif
 INCLUDES += -I. -I../../source
-CXXFLAGS += $(INCLUDES)
+CXXFLAGS += $(INCLUDES) -DDISABLE_DEPRECATED_CODE
 
 ifeq ($(GCC_MAJOR),4)
 PCH = header.h
