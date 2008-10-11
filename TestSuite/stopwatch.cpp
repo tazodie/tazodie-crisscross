@@ -20,23 +20,19 @@ int TestStopwatch()
 {
 	System::Stopwatch  sw1;
 	sw1.Start();
+	System::ThreadSleep(1);
 	sw1.Stop();
-	if (!(sw1.Elapsed() < 1.0 && sw1.Elapsed() > -1.0))
+	if (!(sw1.Elapsed() < 1.0 && sw1.Elapsed() > 0.0))
 		return 1;
 
-	if (sw1.Clocks() <= 0)
-		return 2;
-
 	System::Stopwatch *sw2 = new System::Stopwatch();
-	if (!sw2) return 3;
+	if (!sw2) return 2;
 
 	sw2->Start();
+	System::ThreadSleep(1);
 	sw2->Stop();
-	if (!(sw2->Elapsed() < 1.0 && sw2->Elapsed() > -1.0))
-		return 4;
-
-	if (sw2->Clocks() <= 0)
-		return 5;
+	if (!(sw2->Elapsed() < 1.0 && sw2->Elapsed() > 0.0))
+		return 3;
 
 	delete sw2;
 
