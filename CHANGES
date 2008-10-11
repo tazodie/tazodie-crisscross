@@ -10,6 +10,7 @@ VERSION 0.7.2 (r???)
 	* A major AVLTree::findRecursive() bug (in which the result might not actually be found) has been corrected.
 	* A major RedBlackTree::findRecursive() bug (in which the result might not actually be found) has been corrected.
 	* A major SplayTree::findRecursive() bug (in which the result might not actually be found) has been corrected.
+	* Test suite is now a bit more zealous about checking everything.
 
 VERSION 0.7.1 (r768)
 	* Added Objective-C support via the NSApplicationMain entry point. Define COCOA_APPLICATION in universal_include.h to use.
