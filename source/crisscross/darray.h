@@ -212,12 +212,19 @@ namespace CrissCross
 				 */
 				inline T const & operator [](size_t _index) const;
 
-				/*! \brief Returns the memory usage of the array. */
+				/*! \brief Returns the overhead caused by the data structure. */
 				/*!
 				 * \return Memory usage in bytes.
 				 */
 				size_t mem_usage() const;
+			
+				/*! \brief Empties the array and deletes the data contained in it with the 'delete' operator. */
+				inline void flush();
+			
+				/*! \brief Empties the array and deletes the data contained in it with the 'delete []' operator. */
+				inline void flushArray();
 
+#if !defined(DISABLE_DEPRECATED_CODE)
 				/*
 				 *      Deprecated Compatibility Functions
 				 *      Provided for compatibility with Tosser I
@@ -252,8 +259,8 @@ namespace CrissCross
 				{
 					empty();
 				};
-				_CC_DEPRECATE_FUNCTION_N inline void EmptyAndDelete();
-				_CC_DEPRECATE_FUNCTION_N inline void EmptyAndDeleteArray();
+				_CC_DEPRECATE_FUNCTION(flush) inline void EmptyAndDelete();
+				_CC_DEPRECATE_FUNCTION(flushArray) inline void EmptyAndDeleteArray();
 				_CC_DEPRECATE_FUNCTION(get) inline T getData(size_t _index) const
 				{
 					return get(_index);
@@ -285,6 +292,7 @@ namespace CrissCross
 					delete s;
 				};
 				/*! @endcond */
+#endif
 		};
 	}
 }

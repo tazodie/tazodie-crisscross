@@ -331,9 +331,33 @@ namespace CrissCross
 			return sort(&_sortMethod);
 		}
 #endif
+		
+		template <class T>
+		void DArray<T>::flush()
+		{
+			for (size_t i = 0; i < m_arraySize; ++i) {
+				if (valid(i)) {
+					delete m_array[i];
+				}
+			}
+			empty();
+		}
+		
+		template <class T>
+		void DArray<T>::flushArray()
+		{
+			for (size_t i = 0; i < m_arraySize; ++i) {
+				if (valid(i)) {
+					delete [] m_array[i];
+				}
+			}
+			empty();
+		}
+		
 
 		/* BELOW ARE DEPRECATED FUNCTIONS */
-
+		
+#if !defined(DISABLE_DEPRECATED_CODE)
 		template <class T>
 		void DArray<T>::EmptyAndDelete()
 		{
@@ -364,5 +388,6 @@ namespace CrissCross
 			CoreAssert(m_shadow[index] == 1);
 			m_array[index] = _rec;
 		}
+#endif
 	}
 }

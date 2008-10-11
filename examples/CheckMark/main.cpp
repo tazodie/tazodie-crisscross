@@ -143,7 +143,7 @@ int RunApplication(int argc, char * *argv)
 	                   (unsigned long)((double)(DATASET_SIZE * MAX_RUNS) / sw.Elapsed()));
 
 
-	randomStrings.EmptyAndDeleteArray();
+	randomStrings.flushArray();
 	console->WriteLine();
 
 	/* End your application here. */

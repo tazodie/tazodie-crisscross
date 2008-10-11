@@ -12,6 +12,10 @@
 #ifndef __included_md2_test_h
 #define __included_md2_test_h
 
+#if !defined(DISABLE_DEPRECATED_CODE)
+
 int TestMD2();
+
+#endif
 
 #endif

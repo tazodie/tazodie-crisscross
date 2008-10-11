@@ -18,7 +18,7 @@ namespace CrissCross
 	{
 		/*! \brief Hash function for use in a HashTable. */
 		/*!
-		 * Can hash any base type as well as C-style strings and STL strings.
+		 * Can hash any primitive type as well as C-style strings and STL strings.
 		 * \param _data The data to hash.
 		 * \return Hash of the data provided.
 		 */

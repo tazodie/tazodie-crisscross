@@ -165,12 +165,13 @@ namespace CrissCross
 				 */
 				DArray <Key> *ConvertIndexToDArray() const;
 
-				/*! \brief Returns the memory usage of the tree and its nodes. */
+				/*! \brief Returns the overhead caused by the data structure. */
 				/*!
 				 * \return Memory usage in bytes.
 				 */
 				size_t mem_usage() const;
-
+			
+#if !defined(DISABLE_DEPRECATED_CODE)
 				/*
 				 *      Deprecated Compatibility Functions
 				 *      Provided for compatibility with Tosser I
@@ -201,6 +202,7 @@ namespace CrissCross
 					empty();
 				};
 				/*! @endcond */
+#endif
 		};
 	}
 }

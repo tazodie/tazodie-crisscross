@@ -11,8 +11,6 @@
 
 #include "header.h"
 
-/* #define ENABLE_SLOWSORTS */
-
 using namespace CrissCross::Data;
 using namespace CrissCross::IO;
 using namespace CrissCross::System;
@@ -25,14 +23,7 @@ void BenchmarkDArray(Sorter<char *> &sorter)
 	DArray<char *> data, rdata;
 	Stopwatch      sw;
 	char           buffer[512], format[64];
-
-#ifdef TARGET_OS_WINDOWS
-	sprintf(format, "%s", "%4.3lfs (%I64d clocks).");
-#elif defined (TARGET_OS_NDSFIRMWARE)
 	sprintf(format, "%s", "%4.3lfs");
-#else
-	sprintf(format, "%s", "%4.3lfs (%lld clocks).");
-#endif
 
 	FileReader     file;
 
@@ -52,7 +43,7 @@ void BenchmarkDArray(Sorter<char *> &sorter)
 			data.insert(cc_strdup(buffer));
 
 		sw.Stop();
-		console->WriteLine(format, sw.Elapsed(), sw.Clocks());
+		console->WriteLine(format, sw.Elapsed());
 
 		file.Close();
 
@@ -62,7 +53,7 @@ void BenchmarkDArray(Sorter<char *> &sorter)
 		sw.Start();
 		data.sort(sorter);
 		sw.Stop();
-		console->WriteLine(format, sw.Elapsed(), sw.Clocks());
+		console->WriteLine(format, sw.Elapsed());
 
 		/* Create a reverse-sorted DArray */
 		for (long i = (long)data.size(); i >= 0; i--) {
@@ -75,13 +66,13 @@ void BenchmarkDArray(Sorter<char *> &sorter)
 		sw.Start();
 		data.sort(sorter);
 		sw.Stop();
-		console->WriteLine(format, sw.Elapsed(), sw.Clocks());
+		console->WriteLine(format, sw.Elapsed());
 
 		console->Write("Reverse-sorted: ");
 		sw.Start();
 		rdata.sort(sorter);
 		sw.Stop();
-		console->WriteLine(format, sw.Elapsed(), sw.Clocks());
+		console->WriteLine(format, sw.Elapsed());
 
 		for (size_t i = 0; i < data.size(); i++) {
 			if (data.valid(i)) {
@@ -101,10 +92,12 @@ int RunApplication(int argc, char * *argv)
 {
 	console = new Console();
 
+#if !defined(DISABLE_DEPRECATED_CODE)
 	BubbleSort<char *>    bs;
 	QuickSort<char *>     qs;
-	HeapSort<char *>      hs;
 	InsertionSort<char *> is;
+#endif
+	HeapSort<char *>      hs;
 	CombSort<char *>      cs;
 	ShellSort<char *>     ss;
 
@@ -126,11 +119,11 @@ int RunApplication(int argc, char * *argv)
 	console->SetColour();
 	BenchmarkDArray(ss);
 	console->WriteLine();
+#if !defined(DISABLE_DEPRECATED_CODE)
 	console->SetColour(console->FG_BLUE | console->FG_INTENSITY);
 	console->WriteLine("QuickSort...");
 	console->SetColour();
 	BenchmarkDArray(qs);
-#ifdef ENABLE_SLOWSORTS
 	console->WriteLine();
 	console->SetColour(console->FG_BLUE | console->FG_INTENSITY);
 	console->WriteLine("BubbleSort...");
@@ -142,13 +135,7 @@ int RunApplication(int argc, char * *argv)
 	console->SetColour();
 	BenchmarkDArray(is);
 	console->WriteLine();
-#else
-	console->SetColour(console->FG_BLUE | console->FG_INTENSITY);
-	console->WriteLine("Skipping BubbleSort...");
-	console->WriteLine("Skipping InsertionSort...");
-	console->SetColour();
 #endif
-	console->WriteLine();
 
 #ifdef TARGET_OS_WINDOWS
 	system("pause");

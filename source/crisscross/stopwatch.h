@@ -50,7 +50,6 @@ namespace CrissCross
 #else
 #error No target OS defined (did you forget to include crisscross/universal_include.h?)
 #endif
-
 			public:
 				/*! \brief The constructor. */
 				Stopwatch();
@@ -96,21 +95,15 @@ namespace CrissCross
 
 				/*! \brief Indicates the number of seconds elapsed. */
 				/*!
-				 * \return Number of seconds elapsed between the Start() and Stop() calls.
+				 * \return Number of seconds elapsed between the most recent set of Start() and Stop() calls.
 				 */
 				double Elapsed();
 
 				/*! \brief Indicates the number of milliseconds elapsed. */
 				/*!
-				 * \return Number of milliseconds elapsed between the Start() and Stop() calls.
+				 * \return Number of milliseconds elapsed between the most recent set of Start() and Stop() calls.
 				 */
 				unsigned long ElapsedMS();
-
-				/*! \brief Indicates the number of clock cycles elapsed. NOTE: CURRENTLY ONLY IMPLEMENTED ON WINDOWS */
-				/*!
-				 * \return Number of clock cycles elapsed between Start() and Stop() calls.
-				 */
-				cc_uint64_t Clocks();
 		};
 	}
 }

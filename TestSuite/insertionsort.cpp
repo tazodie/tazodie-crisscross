@@ -13,7 +13,8 @@
 #include "testutils.h"
 #include "insertionsort.h"
 
-#include <crisscross/universal_include.h>
+#if !defined(DISABLE_DEPRECATED_CODE)
+
 #include <crisscross/darray.h>
 #include <crisscross/insertionsort.h>
 
@@ -78,3 +79,5 @@ int TestInsertionSort_LList()
 	delete llist;
 	return 0;
 }
+
+#endif

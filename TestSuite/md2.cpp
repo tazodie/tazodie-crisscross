@@ -12,6 +12,8 @@
 #include "header.h"
 #include "md2.h"
 
+#if !defined(DISABLE_DEPRECATED_CODE)
+
 using namespace CrissCross::Crypto;
 using namespace CrissCross::IO;
 
@@ -79,3 +81,5 @@ int TestMD2()
 
 	return 0;
 }
+
+#endif

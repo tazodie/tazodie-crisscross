@@ -21,6 +21,13 @@ namespace CrissCross
 	namespace Data
 	{
 		/*! \brief A CombSort implementation for sorting arrays. */
+		/*!
+		 * CombSort isn't intended for mainstream use, but it's technically very
+		 * interesting. The main reason it's interesting is that it was created
+		 * by making some relatively small changes to BubbleSort. These tiny
+		 * changes made a new algorithm that still rivals more mainstream
+		 * algorithms like HeapSort, ShellSort, and others.
+		 */
 		template <class T>
 		class CombSort : public Sorter<T>
 		{

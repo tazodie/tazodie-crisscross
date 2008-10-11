@@ -12,8 +12,12 @@
 #ifndef __included_bubblesort_test_h
 #define __included_bubblesort_test_h
 
+#if !defined(DISABLE_DEPRECATED_CODE)
+
 int TestBubbleSort_IntArray();
 int TestBubbleSort_DArray();
 int TestBubbleSort_LList();
+
+#endif
 
 #endif

@@ -73,24 +73,5 @@ namespace CrissCross
 			return (TIMER0_DATA | (TIMER1_DATA << 16)) / 33514;
 #endif
 		}
-
-		cc_uint64_t Stopwatch::Clocks()
-		{
-#if defined (TARGET_OS_WINDOWS)
-			LARGE_INTEGER start, finish;
-			cc_int64_t    overhead;
-			QueryPerformanceCounter(&start);
-			QueryPerformanceCounter(&finish);
-			overhead = finish.QuadPart - start.QuadPart;
-			return m_finish.QuadPart - m_start.QuadPart - overhead;
-#elif defined (TARGET_OS_MACOSX)
-			return 0;
-#elif defined (TARGET_OS_LINUX) || defined (TARGET_OS_FREEBSD) || \
-			defined (TARGET_OS_NETBSD) || defined (TARGET_OS_OPENBSD)
-			return 0;
-#elif defined (TARGET_OS_NDSFIRMWARE)
-			return TIMER0_DATA | (TIMER1_DATA << 16);
-#endif
-		}
 	}
 }
