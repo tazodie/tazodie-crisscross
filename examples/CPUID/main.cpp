@@ -123,6 +123,9 @@ int RunApplication(int argc, char * *argv)
 
 			}
 
+			delete featureIDs;
+			delete features;
+
 			console->WriteLine();
 			console->WriteLine();
 		}
