@@ -108,7 +108,7 @@ namespace CrissCross
 
 				/*! \brief Gets the data at the specified index. */
 				/*!
-				 *  WARNING: Slow unless you're sequentially iterating through.
+				 * \warning Slow unless you're sequentially iterating through.
 				 * \param _index The index of the data to fetch.
 				 * \return The data contained in the node at the index.
 				 */
@@ -116,7 +116,7 @@ namespace CrissCross
 
 				/*! \brief Gets the address of where the data at the specified index is stored. */
 				/*!
-				 *  WARNING: Slow unless you're sequentially iterating through.
+				 * \warning Slow unless you're sequentially iterating through.
 				 * \param _index The index of the node to find.
 				 * \return The pointer to where the data record is stored.
 				 */
@@ -125,7 +125,7 @@ namespace CrissCross
 				/*! \brief Modifies the node at the given index. */
 				/*!
 				 *  This does not delete the data at the node, just the node itself.
-				 *  WARNING: Slow unless you're sequentially iterating through.
+				 * \warning Slow unless you're sequentially iterating through.
 				 * \param _rec The new value for the given index.
 				 * \param _index The index of the node to modify.
 				 */
@@ -134,7 +134,7 @@ namespace CrissCross
 				/*! \brief Removes the node at the given index. */
 				/*!
 				 *  This does not delete the data at the node, just the node itself.
-				 *  WARNING: Slow unless you're sequentially iterating through.
+				 * \warning Slow unless you're sequentially iterating through.
 				 * \param _index The index of the node to delete.
 				 */
 				void remove(size_t _index);
@@ -142,7 +142,6 @@ namespace CrissCross
 				/*! \brief Removes the node at the end of the list. */
 				/*!
 				 *  This does not delete the data at the node, just the node itself.
-				 *  WARNING: Slow unless you're sequentially iterating through.
 				 */
 				inline void removeDataAtEnd();
 
