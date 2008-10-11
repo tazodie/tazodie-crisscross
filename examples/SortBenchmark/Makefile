@@ -22,10 +22,7 @@ PCH = header.h
 GCH = $(PCH).gch
 endif
 
-all: $(OUTDIR)/$(OUTBIN) dataset
-
-dataset:
-	bzip2 -dk dataset.bz2
+all: $(OUTDIR)/$(OUTBIN)
 
 pretty:
 	-dos2unix *.cpp *.h
@@ -44,7 +41,6 @@ ifeq ($(GCC_NDS),)
 endif
 
 clean:
-	-rm -f dataset
 	-rm -rf obj
 	-rm -f .depend
 	-rm -rf .libs
