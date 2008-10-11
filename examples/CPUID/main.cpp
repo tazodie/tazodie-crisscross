@@ -47,7 +47,7 @@ int RunApplication(int argc, char * *argv)
 	                   cpuid->CoresPerPackage(),
 	                   cpuid->LogicalPerPackage());
 
-	if (cpuid->VirtualCount() > 1) {
+	if (cpuid->CoresPerPackage() > 1 || cpuid->LogicalPerPackage() > 1) {
 		if (cpuid->CoresPerPackage() == cpuid->LogicalPerPackage())
 			console->WriteLine("This is a multi-core system.");
 		else if (cpuid->CoresPerPackage() > 1 && cpuid->LogicalPerPackage() > cpuid->CoresPerPackage())
@@ -59,6 +59,21 @@ int RunApplication(int argc, char * *argv)
 			console->WriteLine("This is a multi-processor system.");
 	} else {
 		console->WriteLine("This is a single processor system.");
+	}
+
+	/*
+	 * v32 l8 = 32/8 = 4
+	 * v4 l2 = 4/2 = 2
+	 * v2 l2 = 2/2 = 1
+	 * v1 l2 = 1/2 = 0.5
+	 */
+	double ratio = (double)cpuid->VirtualCount() / (double)cpuid->LogicalPerPackage();
+	if ((int)ratio < 1) {
+		console->WriteLine();
+		console->SetColour(console->FG_YELLOW | console->FG_INTENSITY);
+		console->WriteLine("WARNING: Expected at least 1 physical package, but detected %0.1lf. Are you\n"
+						   "running this under a hypervisor?", ratio);
+		console->SetColour();
 	}
 
 	console->WriteLine();
