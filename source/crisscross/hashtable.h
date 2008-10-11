@@ -113,7 +113,7 @@ namespace CrissCross
 					return m_used;
 				};
 
-				/*! \brief Returns the memory usage of the table. */
+				/*! \brief Returns the overhead caused by the data structure. */
 				/*!
 				 * \return Memory usage in bytes.
 				 */

@@ -22,6 +22,11 @@ namespace CrissCross
 	namespace Data
 	{
 		/*! \brief A very fast red-black tree implementation. */
+		/*!
+		 * Red-black trees are complex, but have good worst-case running time for their
+		 * operations and are efficient in practice: they can search, insert, and delete
+		 * in O(log n) time, where n is total number of elements in the tree.
+		 */
 		template <class Key, class Data>
 		class RedBlackTree
 		{
@@ -194,15 +199,16 @@ namespace CrissCross
 				 */
 				DArray <Key> *ConvertIndexToDArray() const;
 
-				/*! \brief Returns the memory usage of the tree and its nodes. */
+				/*! \brief Returns the overhead caused by the data structure. */
 				/*!
 				 * \return Memory usage in bytes.
 				 */
 				size_t mem_usage() const;
-
+			
+#if !defined(DISABLE_DEPRECATED_CODE)
 				/*
-				 *      Deprecated Compatibility Functions
-				 *      Provided for compatibility with Tosser I
+				 * Deprecated Compatibility Functions
+				 * Provided for compatibility with Tosser I
 				 */
 				/*! @cond */
 				_CC_DEPRECATE_FUNCTION(insert)  inline void     PutData(Key const &_key, Data const & _rec)
@@ -230,6 +236,7 @@ namespace CrissCross
 					empty();
 				};
 				/*! @endcond */
+#endif
 
 				template <class K, class D>
 				friend class RedBlackNode;

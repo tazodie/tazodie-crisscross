@@ -67,7 +67,9 @@ int RunApplication(int argc, char * *argv)
 	WritePrefix("Size of cc_double_t"); retval |= WriteResult(TestDatatypes_Double());
 	WritePrefix("Size of cc_ptr_t"); retval |= WriteResult(TestDatatypes_Pointer());
 
+#if !defined(DISABLE_DEPRECATED_CODE)
 	WritePrefix("MD2"); retval |= WriteResult(TestMD2());
+#endif
 	WritePrefix("MD4"); retval |= WriteResult(TestMD4());
 	WritePrefix("MD5"); retval |= WriteResult(TestMD5());
 	WritePrefix("SHA-1"); retval |= WriteResult(TestSHA1());
@@ -102,9 +104,11 @@ int RunApplication(int argc, char * *argv)
 	WritePrefix("HashTable<std::string, std::string>"); retval |= WriteResult(TestHashTable_String());
 	WritePrefix("HashTable<int,int>"); retval |= WriteResult(TestHashTable_Int());
 
+#if !defined(DISABLE_DEPRECATED_CODE)
 	WritePrefix("BubbleSort (integer array)"); retval |= WriteResult(TestBubbleSort_IntArray());
 	WritePrefix("BubbleSort (integer DArray)"); retval |= WriteResult(TestBubbleSort_DArray());
 	WritePrefix("BubbleSort (integer LList)"); retval |= WriteResult(TestBubbleSort_LList());
+#endif
 
 	WritePrefix("CombSort (integer array)"); retval |= WriteResult(TestCombSort_IntArray());
 	WritePrefix("CombSort (integer DArray)"); retval |= WriteResult(TestCombSort_DArray());
@@ -114,17 +118,21 @@ int RunApplication(int argc, char * *argv)
 	WritePrefix("HeapSort (integer DArray)"); retval |= WriteResult(TestHeapSort_DArray());
 	WritePrefix("HeapSort (integer LList)"); retval |= WriteResult(TestHeapSort_LList());
 
+#if !defined(DISABLE_DEPRECATED_CODE)
 	WritePrefix("InsertionSort (integer array)"); retval |= WriteResult(TestInsertionSort_IntArray());
 	WritePrefix("InsertionSort (integer DArray)"); retval |= WriteResult(TestInsertionSort_DArray());
 	WritePrefix("InsertionSort (integer LList)"); retval |= WriteResult(TestInsertionSort_LList());
+#endif
 
 	WritePrefix("ShellSort (integer array)"); retval |= WriteResult(TestShellSort_IntArray());
 	WritePrefix("ShellSort (integer DArray)"); retval |= WriteResult(TestShellSort_DArray());
 	WritePrefix("ShellSort (integer LList)"); retval |= WriteResult(TestShellSort_LList());
 
+#if !defined(DISABLE_DEPRECATED_CODE)
 	WritePrefix("QuickSort (integer array)"); retval |= WriteResult(TestQuickSort_IntArray());
 	WritePrefix("QuickSort (integer DArray)"); retval |= WriteResult(TestQuickSort_DArray());
 	WritePrefix("QuickSort (integer LList)"); retval |= WriteResult(TestQuickSort_LList());
+#endif
 
 	if (retval == 0) {
 		g_console->WriteLine();

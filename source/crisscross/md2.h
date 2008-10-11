@@ -32,6 +32,7 @@ namespace CrissCross
 {
 	namespace Crypto
 	{
+#if !defined(DISABLE_DEPRECATED_CODE)
 		/*! \brief An MD2 hash generator. */
 		/*!
 		 * \deprecated MD2 hashes are rarely used anymore because they are very slow to
@@ -109,6 +110,7 @@ namespace CrissCross
 					return !(*this == _other);
 				};
 		};
+#endif
 	}
 }
 

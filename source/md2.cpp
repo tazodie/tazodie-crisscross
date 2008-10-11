@@ -12,9 +12,11 @@
 #include <crisscross/universal_include.h>
 
 #ifdef ENABLE_HASHES
+#if !defined(DISABLE_DEPRECATED_CODE)
 
 #include <crisscross/core_io_reader.h>
 #include <crisscross/md2.h>
+
 
 #define MD2_CTX cc_md2_ctx
 
@@ -208,6 +210,7 @@ namespace CrissCross
 {
 	namespace Crypto
 	{
+#if !defined(DISABLE_DEPRECATED_CODE)
 		MD2Hash::MD2Hash() : m_hashString(NULL), m_hash(NULL)
 		{
 			Reset();
@@ -287,7 +290,9 @@ namespace CrissCross
 		{
 			return (memcmp(m_hash, _other.m_hash, MD2_DIGEST_LENGTH) == 0);
 		}
+#endif
 	}
 }
 
+#endif /* !defined(DISABLE_DEPRECATED_CODE) */
 #endif

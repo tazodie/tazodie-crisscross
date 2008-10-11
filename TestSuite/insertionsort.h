@@ -12,8 +12,12 @@
 #ifndef __included_insertionsort_test_h
 #define __included_insertionsort_test_h
 
+#if !defined(DISABLE_DEPRECATED_CODE)
+
 int TestInsertionSort_IntArray();
 int TestInsertionSort_DArray();
 int TestInsertionSort_LList();
+
+#endif
 
 #endif

@@ -24,13 +24,19 @@ int TestStopwatch()
 	if (!(sw1.Elapsed() < 1.0 && sw1.Elapsed() > -1.0))
 		return 1;
 
+	if (sw1.Clocks() <= 0)
+		return 2;
+
 	System::Stopwatch *sw2 = new System::Stopwatch();
-	if (!sw2) return 2;
+	if (!sw2) return 3;
 
 	sw2->Start();
 	sw2->Stop();
 	if (!(sw2->Elapsed() < 1.0 && sw2->Elapsed() > -1.0))
-		return 3;
+		return 4;
+
+	if (sw2->Clocks() <= 0)
+		return 5;
 
 	delete sw2;
 

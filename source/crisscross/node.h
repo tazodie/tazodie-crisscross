@@ -63,7 +63,10 @@ namespace CrissCross
 					delete right; right = NULL;
 				}
 
-				/*! \brief Memory usage in bytes. */
+				/*! \brief Returns the overhead caused by the node. */
+				/*!
+				 * \return Memory usage in bytes.
+				 */
 				size_t mem_usage() const
 				{
 					size_t ret = sizeof(*this);
@@ -124,8 +127,11 @@ namespace CrissCross
 					delete left; left = NULL;
 					delete right; right = NULL;
 				}
-
-				/*! \brief Memory usage in bytes. */
+			
+				/*! \brief Returns the overhead caused by the node. */
+				/*!
+				 * \return Memory usage in bytes.
+				 */
 				size_t mem_usage() const
 				{
 					size_t ret = sizeof(*this);
@@ -177,7 +183,11 @@ namespace CrissCross
 					delete right; right = NULL;
 				}
 
-				/*! \brief Memory usage in bytes. */
+			
+				/*! \brief Returns the overhead caused by the node. */
+				/*!
+				 * \return Memory usage in bytes.
+				 */
 				size_t mem_usage(CrissCross::Data::RedBlackTree<Key, Data> const *_parentTree) const
 				{
 					size_t ret = sizeof(*this);

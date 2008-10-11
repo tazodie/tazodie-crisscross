@@ -21,6 +21,10 @@ namespace CrissCross
 	namespace Data
 	{
 		/*! \brief A very fast AVL tree implementation. */
+		/*! AVL trees are quite useful for tasks that require very fast and
+		 * well-balanced trees. Due to the ruleset implemented internally,
+		 * AVL trees enforce a maximum height of 1.44*log(n).
+		 */
 		template <class Key, class Data>
 		class AVLTree
 		{
@@ -254,7 +258,7 @@ namespace CrissCross
 				/*!
 				 * \param _key The key of the node to find.
 				 * \return A DArray containing the data with key _key.
-				 * \warning Delete the returned DArray when done with it.
+				 * \warning Delete the returned DArray when done with it to avoid memory leaks.
 				 */
 				DArray<Data> *findAll(Key const &_key) const;
 
@@ -308,12 +312,13 @@ namespace CrissCross
 				 */
 				DArray <Key> *ConvertIndexToDArray() const;
 
-				/*! \brief Returns the memory usage of the tree and its nodes. */
+				/*! \brief Returns the overhead caused by the data structure. */
 				/*!
 				 * \return Memory usage in bytes.
 				 */
 				size_t mem_usage() const;
-
+			
+#if !defined(DISABLE_DEPRECATED_CODE)
 				/*
 				 *      Deprecated Compatibility Functions
 				 *      Provided for compatibility with Tosser I
@@ -323,7 +328,7 @@ namespace CrissCross
 				{
 					insert(_key, _rec);
 				};
-				_CC_DEPRECATE_FUNCTION(find)    inline Data GetData(Key const &_key)
+				_CC_DEPRECATE_FUNCTION(find)    inline Data	GetData(Key const &_key)
 				{
 					return find(_key);
 				};
@@ -344,6 +349,7 @@ namespace CrissCross
 					empty();
 				};
 				/*! @endcond */
+#endif
 		};
 	}
 }

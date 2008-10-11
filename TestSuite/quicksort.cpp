@@ -13,6 +13,8 @@
 #include "testutils.h"
 #include "quicksort.h"
 
+#if !defined(DISABLE_DEPRECATED_CODE)
+
 #include <crisscross/universal_include.h>
 #include <crisscross/darray.h>
 #include <crisscross/quicksort.h>
@@ -78,3 +80,5 @@ int TestQuickSort_LList()
 	delete llist;
 	return 0;
 }
+
+#endif
