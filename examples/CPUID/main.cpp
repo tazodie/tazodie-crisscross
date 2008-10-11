@@ -47,7 +47,7 @@ int RunApplication(int argc, char * *argv)
 	                   cpuid->CoresPerPackage(),
 	                   cpuid->LogicalPerPackage());
 
-	if (cpuid->CoresPerPackage() > 1 || cpuid->LogicalPerPackage() > 1) {
+	if (cpuid->VirtualCount() > 1 || cpuid->CoresPerPackage() > 1 || cpuid->LogicalPerPackage() > 1) {
 		if (cpuid->CoresPerPackage() == cpuid->LogicalPerPackage())
 			console->WriteLine("This is a multi-core system.");
 		else if (cpuid->CoresPerPackage() > 1 && cpuid->LogicalPerPackage() > cpuid->CoresPerPackage())

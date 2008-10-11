@@ -1,3 +1,16 @@
+VERSION 0.7.2 (r???)
+	* Fixed a few memory leaks in CPUID.
+	* Added support for DEC Alpha and Sun SPARC.
+	* Documentation is now more verbose and has been clarified in some areas.
+	* Added an optional preprocessor definition "DISABLE_DEPRECATED_CODE" to disable MD2, slow sorts, etc.
+	* CPUID test application now reports any oddities (such as: the processor is multicore but only 1 virtual processor was detected).
+	* Added 'flushArray' and 'flush' to DArray to allow for simpler deletion of contained data.
+	* Stopwatch::Clocks() removed because it was too platform-specific and only Windows seemed to have decent support.
+	* HashTable is now usable and is no longer considered experimental.
+	* A major AVLTree::findRecursive() bug (in which the result might not actually be found) has been corrected.
+	* A major RedBlackTree::findRecursive() bug (in which the result might not actually be found) has been corrected.
+	* A major SplayTree::findRecursive() bug (in which the result might not actually be found) has been corrected.
+
 VERSION 0.7.1 (r768)
 	* Added Objective-C support via the NSApplicationMain entry point. Define COCOA_APPLICATION in universal_include.h to use.
 	* In-progress connections now report EINPROGRESS instead of EWOULDBLOCK.
