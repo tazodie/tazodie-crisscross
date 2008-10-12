@@ -71,8 +71,7 @@ int TestAVLTree_String()
 {
 	AVLTree<std::string, std::string> *avltree = new AVLTree<std::string, std::string>();
 
-	if (avltree->size() != 0)
-		return 1;
+	TEST_ASSERT(avltree->size() == 0);
 
 	avltree->insert("first", "one");
 	avltree->insert("second", "two");

@@ -26,8 +26,7 @@ int TestBubbleSort_IntArray()
 	BubbleSort<int> *bs = new BubbleSort<int>();
 	bs->Sort(int_array, 10);
 	for (int i = 0; i < 10; i++) {
-		if (int_array[i] != i)
-			return i + 1;
+		TEST_ASSERT(int_array[i] == i);
 	}
 
 	delete bs;
@@ -49,8 +48,7 @@ int TestBubbleSort_DArray()
 	delete bs;
 
 	for (int i = 0; i < 5; i++) {
-		if (darray->get(i) != i)
-			return i + 1;
+		TEST_ASSERT(darray->get(i) == i);
 	}
 
 	delete darray;
@@ -72,8 +70,7 @@ int TestBubbleSort_LList()
 	delete bs;
 
 	for (int i = 0; i < 5; i++) {
-		if (llist->get(i) != i)
-			return i + 1;
+		TEST_ASSERT(llist->get(i) == i);
 	}
 
 	delete llist;

@@ -26,8 +26,7 @@ int TestInsertionSort_IntArray()
 	InsertionSort<int> *is = new InsertionSort<int>();
 	is->Sort(int_array, 10);
 	for (int i = 0; i < 10; i++) {
-		if (int_array[i] != i)
-			return i + 1;
+		TEST_ASSERT(int_array[i] == i);
 	}
 
 	delete is;
@@ -49,8 +48,7 @@ int TestInsertionSort_DArray()
 	delete is;
 
 	for (int i = 0; i < 5; i++) {
-		if (darray->get(i) != i)
-			return i + 1;
+		TEST_ASSERT(darray->get(i) == i);
 	}
 
 	delete darray;
@@ -72,8 +70,7 @@ int TestInsertionSort_LList()
 	delete is;
 
 	for (int i = 0; i < 5; i++) {
-		if (llist->get(i) != i)
-			return i + 1;
+		TEST_ASSERT(llist->get(i) == i);
 	}
 
 	delete llist;

@@ -15,6 +15,5 @@
 int TestComparison_CString();
 int TestComparison_String();
 int TestComparison_Integer();
-int TestComparison_UnsignedInteger();
 
 #endif

@@ -25,41 +25,22 @@ int TestDArray()
 	darray->insert(5);
 	darray->insert(7);
 	
-	if (darray->used() != 4)
-		return 1;
-
-	if (darray->get(0) != 1)
-		return 2;
-
-	if (darray->get(3) != 7)
-		return 3;
-
-	if (darray->get(1) != 3)
-		return 4;
-
-	if (!darray->valid(0))
-		return 5;
-		
-	if (!darray->valid(1))
-		return 6;
-		
-	if (!darray->valid(2))
-		return 7;
-		
-	if (!darray->valid(3))
-		return 8;
-		
+	TEST_ASSERT(darray->used() == 4);
+	TEST_ASSERT(darray->get(0) == 1);
+	TEST_ASSERT(darray->get(3) == 7);
+	TEST_ASSERT(darray->get(1) == 3);
+	TEST_ASSERT(darray->valid(0));
+	TEST_ASSERT(darray->valid(1));
+	TEST_ASSERT(darray->valid(2));
+	TEST_ASSERT(darray->valid(3));
+	TEST_ASSERT(!darray->valid(-1));
+	TEST_ASSERT(!darray->valid(4));
 	darray->remove(0);
-	if (darray->used() != 3)
-		return 9;
-
+	TEST_ASSERT(darray->used() == 3);
 	darray->remove(3);
-	if (darray->used() != 2)
-		return 10;
-		
+	TEST_ASSERT(darray->used() == 2);
 	darray->empty();
-	if (darray->used() != 0)
-		return 11;
+	TEST_ASSERT(darray->used() == 0);
 
 	delete darray;
 

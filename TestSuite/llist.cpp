@@ -20,56 +20,37 @@ using namespace CrissCross::Data;
 int TestLList()
 {
 	LList<char *> *llist = new LList<char *>();
-	if (!llist) return 1;
+	TEST_ASSERT(llist);
 
-	if (llist->valid(-1))
-		return 2;
-		
-	if (llist->valid(1))
-		return 3;
-		
-	if (llist->valid(0))
-		return 4;
+	TEST_ASSERT(!llist->valid(-1));
+	TEST_ASSERT(!llist->valid(1));
+	TEST_ASSERT(!llist->valid(0));
 
 	llist->insert(newStr("one"));
 	llist->insert(newStr("two"));
 	llist->insert(newStr("three"));
 	llist->insert(newStr("four"));
 
-	if (strcmp(llist->get(0), "one") != 0)
-		return 5;
-
-	if (strcmp(llist->get(2), "three") != 0)
-		return 6;
-
-	if (strcmp(llist->get(3), "four") != 0)
-		return 7;
-
-	if (strcmp(llist->get(1), "two") != 0)
-		return 8;
+	TEST_ASSERT(strcmp(llist->get(0), "one") == 0);
+	TEST_ASSERT(strcmp(llist->get(2), "three") == 0);
+	TEST_ASSERT(strcmp(llist->get(3), "four") == 0);
+	TEST_ASSERT(strcmp(llist->get(1), "two") == 0);
 
 	delete [] llist->get(1);
 	llist->remove(1);
 
-	if (strcmp(llist->get(0), "one") != 0)
-		return 9;
-
-	if (strcmp(llist->get(1), "three") != 0)
-		return 10;
-
-	if (strcmp(llist->get(2), "four") != 0)
-		return 11;
+	TEST_ASSERT(strcmp(llist->get(0), "one") == 0);
+	TEST_ASSERT(strcmp(llist->get(1), "three") == 0);
+	TEST_ASSERT(strcmp(llist->get(2), "four") == 0);
 
 	while (llist->valid(0))	{
 		delete [] llist->get(0);
 		llist->remove(0);
 	}
-	
-	if (llist->valid(-1))
-		return 12;
-		
-	if (llist->valid(1))
-		return 13;
+
+	TEST_ASSERT(!llist->valid(-1));
+	TEST_ASSERT(!llist->valid(1));
+	TEST_ASSERT(!llist->valid(0));
 	
 	delete llist;
 

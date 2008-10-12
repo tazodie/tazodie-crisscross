@@ -24,23 +24,17 @@ int TestDStack()
 		dstack->push(i);
 	}
 	
-	if (dstack->count() != 16)
-		return 1;
-
-	if (dstack->peek() != 15)
-		return 2;
+	TEST_ASSERT(dstack->count() == 16);
+	TEST_ASSERT(dstack->peek() == 15);
 
 	for (int i = 15; i > 0; i--) {
-		if (dstack->pop() != i)
-			return i + 2;
+		TEST_ASSERT(dstack->pop() == i);
 	}
 	
-	if (dstack->count() != 1)
-		return 18;
+	TEST_ASSERT(dstack->count() == 1);
 		
 	dstack->empty();
-	if (dstack->count() != 0)
-		return 19;
+	TEST_ASSERT(dstack->count() == 0);
 
 	delete dstack;
 
