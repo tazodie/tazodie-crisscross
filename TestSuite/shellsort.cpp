@@ -25,8 +25,7 @@ int TestShellSort_IntArray()
 	ShellSort<int> *ss = new ShellSort<int>();
 	ss->Sort(int_array, 10);
 	for (int i = 0; i < 10; i++) {
-		if (int_array[i] != i)
-			return i + 1;
+		TEST_ASSERT(int_array[i] == i);
 	}
 
 	delete ss;
@@ -48,8 +47,7 @@ int TestShellSort_DArray()
 	delete ss;
 
 	for (int i = 0; i < 5; i++) {
-		if (darray->get(i) != i)
-			return i + 1;
+		TEST_ASSERT(darray->get(i) == i);
 	}
 
 	delete darray;
@@ -71,8 +69,7 @@ int TestShellSort_LList()
 	delete ss;
 
 	for (int i = 0; i < 5; i++) {
-		if (llist->get(i) != i)
-			return i + 1;
+		TEST_ASSERT(llist->get(i) == i);
 	}
 
 	delete llist;

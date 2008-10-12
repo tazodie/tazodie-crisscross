@@ -27,8 +27,7 @@ int TestQuickSort_IntArray()
 	QuickSort<int> *qs = new QuickSort<int>();
 	qs->Sort(int_array, 10);
 	for (int i = 0; i < 10; i++) {
-		if (int_array[i] != i)
-			return i + 1;
+		TEST_ASSERT(int_array[i] == i);
 	}
 
 	delete qs;
@@ -50,8 +49,7 @@ int TestQuickSort_DArray()
 	delete qs;
 
 	for (int i = 0; i < 5; i++) {
-		if (darray->get(i) != i)
-			return i + 1;
+		TEST_ASSERT(darray->get(i) == i);
 	}
 
 	delete darray;
@@ -73,8 +71,7 @@ int TestQuickSort_LList()
 	delete qs;
 
 	for (int i = 0; i < 5; i++) {
-		if (llist->get(i) != i)
-			return i + 1;
+		TEST_ASSERT(llist->get(i) == i);
 	}
 
 	delete llist;

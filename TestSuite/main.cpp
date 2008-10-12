@@ -82,7 +82,6 @@ int RunApplication(int argc, char * *argv)
 	WritePrefix("char* Compare"); retval |= WriteResult(TestComparison_CString());
 	WritePrefix("std::string Compare"); retval |= WriteResult(TestComparison_String());
 	WritePrefix("Integer Compare"); retval |= WriteResult(TestComparison_Integer());
-	WritePrefix("Unsigned Integer Compare"); retval |= WriteResult(TestComparison_UnsignedInteger());
 
 	WritePrefix("LList"); retval |= WriteResult(TestLList());
 	WritePrefix("DArray"); retval |= WriteResult(TestDArray());

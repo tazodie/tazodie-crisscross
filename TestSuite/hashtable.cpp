@@ -27,18 +27,19 @@ int TestHashTable_Int()
 	}
 
 	for (i = 0; i < max; i += 2) {
-		if (!ht.erase(i))
-			return i + 1;
+		TEST_ASSERT(ht.find(i) != 0);
 	}
 
 	for (i = 0; i < max; i += 2) {
-		if (ht.find(i) != 0)
-			return i + 1;
+		TEST_ASSERT(ht.erase(i));
+	}
+
+	for (i = 0; i < max; i += 2) {
+		TEST_ASSERT(ht.find(i) == 0);
 	}
 
 	for (i = 1; i < max; i += 2) {
-		if (ht.find(i) != max - i)
-			return i + 1;
+		TEST_ASSERT(ht.find(i) == max - i);
 	}
 
 	return 0;
@@ -61,30 +62,31 @@ int TestHashTable_CString()
 
 	for (i = 0; i < max; i += 2) {
 		sprintf(buffer1, "%lu", i);
-		free((void *)ht.find(buffer1));
-		if (!ht.erase(buffer1))
-			return i + 1;
+		TEST_ASSERT(ht.find(buffer1) != 0);
 	}
 
 	for (i = 0; i < max; i += 2) {
 		sprintf(buffer1, "%lu", i);
-		if (ht.find(buffer1) != 0)
-			return i + 1;
+		free((void *)ht.find(buffer1));
+		TEST_ASSERT(ht.erase(buffer1));
+	}
+
+	for (i = 0; i < max; i += 2) {
+		sprintf(buffer1, "%lu", i);
+		TEST_ASSERT(ht.find(buffer1) == 0);
 	}
 
 	for (i = 1; i < max; i += 2) {
 		sprintf(buffer1, "%lu", i);
 		sprintf(buffer2, "%lu", max - i);
-		if (strcmp(ht.find(buffer1), buffer2) != 0)
-			return i + 1;
+		TEST_ASSERT(strcmp(ht.find(buffer1), buffer2) == 0);
 	}
 
 	/* Rest of the cleanup */
 	for (i = 1; i < max; i += 2) {
 		sprintf(buffer1, "%lu", i);
 		free((void *)ht.find(buffer1));
-		if (!ht.erase(buffer1))
-			return i + 1;
+		TEST_ASSERT(ht.erase(buffer1));
 	}
 
 	return 0;
@@ -107,30 +109,31 @@ int TestHashTable_String()
 
 	for (i = 0; i < max; i += 2) {
 		sprintf(buffer1, "%lu", i);
-		if (!ht.erase(std::string(buffer1)))
-			return i + 1;
+		TEST_ASSERT(ht.exists(std::string(buffer1)));
 	}
 
 	for (i = 0; i < max; i += 2) {
 		sprintf(buffer1, "%lu", i);
-		if (ht.exists(std::string(buffer1)))
-			return i + 1;
+		TEST_ASSERT(ht.erase(std::string(buffer1)));
+	}
+
+	for (i = 0; i < max; i += 2) {
+		sprintf(buffer1, "%lu", i);
+		TEST_ASSERT(!ht.exists(std::string(buffer1)));
 	}
 
 	std::string rec;
 	for (i = 1; i < max; i += 2) {
 		sprintf(buffer1, "%lu", i);
 		sprintf(buffer2, "%lu", max - i);
-		ht.find(std::string(buffer1), rec);
-		if (std::string(rec) != std::string(buffer2))
-			return i + 1;
+		TEST_ASSERT(ht.find(std::string(buffer1), rec));
+		TEST_ASSERT(std::string(rec) == std::string(buffer2));
 	}
 
 	/* Rest of the cleanup */
 	for (i = 1; i < max; i += 2) {
 		sprintf(buffer1, "%lu", i);
-		if (!ht.erase(std::string(buffer1)))
-			return i + 1;
+		TEST_ASSERT(ht.erase(std::string(buffer1)));
 	}
 
 	return 0;

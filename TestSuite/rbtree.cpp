@@ -22,80 +22,53 @@ int TestRedBlackTree_CString()
 	RedBlackTree<const char *, const char *> *rbtree = new RedBlackTree<const char *, const char *>();
 	char                                     *tmp;
 
-	if (rbtree->size() != 0)
-		return 1;
+	TEST_ASSERT(rbtree->size() == 0);
 
 	/* If the tree is properly encapsulated, this won't cause an error on test #1. */
 	tmp = cc_strdup("first");
 	rbtree->insert(tmp, "one");
 	free(tmp); tmp = NULL;
 
-	if (rbtree->size() != 1)
-		return 2;
+	TEST_ASSERT(rbtree->size() == 1);
 
 	rbtree->insert("second", "two");
 	rbtree->insert("third", "three");
 	rbtree->insert("fourth", "four");
 
-	if (rbtree->size() != 4)
-		return 3;
+	TEST_ASSERT(rbtree->size() == 4);
 
 	const char *res = NULL;
-	if (!rbtree->find("first", res))
-		return 4;
+	TEST_ASSERT(rbtree->find("first", res));
 
 	const char *tmp1 = "one";
-	if (Compare(res, tmp1) != 0)
-		return 5;
+	TEST_ASSERT(Compare(res, tmp1) == 0);
 
-	if (rbtree->exists("fifth"))
-		return 6;
+	TEST_ASSERT(!rbtree->exists("fifth"));
 
-	if (!rbtree->exists("second"))
-		return 7;
-
-	if (!rbtree->find("second", res))
-		return 7;
+	TEST_ASSERT(rbtree->exists("second"));
+	TEST_ASSERT(rbtree->find("second", res));
 
 	tmp1 = "two";
-	if (Compare(res, tmp1) != 0)
-		return 8;
+	TEST_ASSERT(Compare(res, tmp1) == 0);
 
-	if (rbtree->erase("fifth"))
-		return 9;
+	TEST_ASSERT(!rbtree->erase("fifth"));
+	TEST_ASSERT(rbtree->size() == 4);
 
-	if (rbtree->size() != 4)
-		return 10;
+	TEST_ASSERT(rbtree->exists("first"));
+	TEST_ASSERT(rbtree->erase("first"));
+	TEST_ASSERT(rbtree->size() == 3);
 
-	if (!rbtree->exists("first"))
-		return 11;
+	TEST_ASSERT(rbtree->exists("second"));
+	TEST_ASSERT(rbtree->erase("second"));
+	TEST_ASSERT(rbtree->size() == 2);
 
-	if (!rbtree->erase("first"))
-		return 12;
+	TEST_ASSERT(rbtree->exists("third"));
+	TEST_ASSERT(rbtree->erase("third"));
+	TEST_ASSERT(rbtree->size() == 1);
 
-	if (rbtree->size() != 3)
-		return 13;
-
-	if (!rbtree->find("second", res))
-		return 14;
-
-	if (!rbtree->erase("second"))
-		return 15;
-
-	if (!rbtree->exists("third"))
-		return 16;
-
-	if (!rbtree->erase("third"))
-		return 17;
-
-	if (!rbtree->exists("fourth"))
-		return 18;
-
-	if (!rbtree->erase("fourth"))
-		return 19;
-
-	if (rbtree->size() != 0)
-		return 20;
+	TEST_ASSERT(rbtree->exists("fourth"));
+	TEST_ASSERT(rbtree->erase("fourth"));
+	TEST_ASSERT(rbtree->size() == 0);
 
 	delete rbtree;
 	return 0;
@@ -105,8 +78,7 @@ int TestRedBlackTree_String()
 {
 	RedBlackTree<std::string, std::string> *rbtree = new RedBlackTree<std::string, std::string>();
 
-	if (rbtree->size() != 0)
-		return 1;
+	TEST_ASSERT(rbtree->size() == 0);
 
 	rbtree->insert("first", "one");
 	rbtree->insert("second", "two");
@@ -115,65 +87,36 @@ int TestRedBlackTree_String()
 
 	std::string                             res;
 
-	if (rbtree->size() != 4)
-		return 2;
+	TEST_ASSERT(rbtree->size() == 4);
 
-	if (!rbtree->find("first", res))
-		return 3;
+	TEST_ASSERT(rbtree->find("first", res));
+	TEST_ASSERT(res == "one");
+	
+	TEST_ASSERT(!rbtree->exists("fifth"));
 
-	if (res != "one")
-		return 4;
+	TEST_ASSERT(rbtree->exists("second"));
+	TEST_ASSERT(rbtree->find("second", res));
 
-	if (rbtree->exists("fifth"))
-		return 5;
+	TEST_ASSERT(res == "two");
 
-	if (!rbtree->find("second", res))
-		return 6;
+	TEST_ASSERT(!rbtree->erase("fifth"));
+	TEST_ASSERT(rbtree->size() == 4);
 
-	if (res != "two")
-		return 7;
+	TEST_ASSERT(rbtree->exists("first"));
+	TEST_ASSERT(rbtree->erase("first"));
+	TEST_ASSERT(rbtree->size() == 3);
 
-	if (rbtree->erase("fifth"))
-		return 8;
+	TEST_ASSERT(rbtree->exists("second"));
+	TEST_ASSERT(rbtree->erase("second"));
+	TEST_ASSERT(rbtree->size() == 2);
 
-	if (rbtree->size() != 4)
-		return 9;
+	TEST_ASSERT(rbtree->exists("third"));
+	TEST_ASSERT(rbtree->erase("third"));
+	TEST_ASSERT(rbtree->size() == 1);
 
-	if (!rbtree->exists("first"))
-		return 10;
-
-	if (!rbtree->erase("first"))
-		return 11;
-
-	if (rbtree->size() != 3)
-		return 12;
-
-	if (!rbtree->exists("second"))
-		return 13;
-
-	if (!rbtree->erase("second"))
-		return 14;
-
-	if (rbtree->size() != 2)
-		return 15;
-
-	if (!rbtree->exists("third"))
-		return 16;
-
-	if (!rbtree->erase("third"))
-		return 17;
-
-	if (rbtree->size() != 1)
-		return 18;
-
-	if (!rbtree->exists("fourth"))
-		return 19;
-
-	if (!rbtree->erase("fourth"))
-		return 20;
-
-	if (rbtree->size() != 0)
-		return 21;
+	TEST_ASSERT(rbtree->exists("fourth"));
+	TEST_ASSERT(rbtree->erase("fourth"));
+	TEST_ASSERT(rbtree->size() == 0);
 
 	delete rbtree;
 	return 0;
@@ -183,8 +126,7 @@ int TestRedBlackTree_Int()
 {
 	RedBlackTree<int, int> *rbtree = new RedBlackTree<int, int>();
 
-	if (rbtree->size() != 0)
-		return 1;
+	TEST_ASSERT(rbtree->size() == 0);
 
 	rbtree->insert(1, 1);
 	rbtree->insert(2, 2);
@@ -192,65 +134,34 @@ int TestRedBlackTree_Int()
 	rbtree->insert(4, 4);
 
 	int                     res;
-	if (rbtree->size() != 4)
-		return 2;
+	TEST_ASSERT(rbtree->size() == 4);
 
-	if (!rbtree->find(1, res))
-		return 3;
+	TEST_ASSERT(rbtree->find(1, res));
+	TEST_ASSERT(res == 1);
 
-	if (res != 1)
-		return 4;
+	TEST_ASSERT(!rbtree->exists(5));
 
-	if (rbtree->exists(5))
-		return 5;
+	TEST_ASSERT(rbtree->find(2, res));
+	TEST_ASSERT(res == 2);
 
-	if (!rbtree->find(2, res))
-		return 6;
+	TEST_ASSERT(!rbtree->erase(5));
+	TEST_ASSERT(rbtree->size() == 4);
 
-	if (res != 2)
-		return 7;
+	TEST_ASSERT(rbtree->exists(1));
+	TEST_ASSERT(rbtree->erase(1));
+	TEST_ASSERT(rbtree->size() == 3);
 
-	if (rbtree->erase(5))
-		return 8;
+	TEST_ASSERT(rbtree->exists(2));
+	TEST_ASSERT(rbtree->erase(2));
+	TEST_ASSERT(rbtree->size() == 2);
 
-	if (rbtree->size() != 4)
-		return 9;
+	TEST_ASSERT(rbtree->exists(3));
+	TEST_ASSERT(rbtree->erase(3));
+	TEST_ASSERT(rbtree->size() == 1);
 
-	if (!rbtree->exists(1))
-		return 10;
-
-	if (!rbtree->erase(1))
-		return 11;
-
-	if (rbtree->size() != 3)
-		return 12;
-
-	if (!rbtree->exists(2))
-		return 13;
-
-	if (!rbtree->erase(2))
-		return 14;
-
-	if (rbtree->size() != 2)
-		return 15;
-
-	if (!rbtree->exists(3))
-		return 16;
-
-	if (!rbtree->erase(3))
-		return 17;
-
-	if (rbtree->size() != 1)
-		return 18;
-
-	if (!rbtree->exists(4))
-		return 19;
-
-	if (!rbtree->erase(4))
-		return 20;
-
-	if (rbtree->size() != 0)
-		return 21;
+	TEST_ASSERT(rbtree->exists(4));
+	TEST_ASSERT(rbtree->erase(4));
+	TEST_ASSERT(rbtree->size() == 0);
 
 	delete rbtree;
 	return 0;

@@ -22,18 +22,16 @@ int TestStopwatch()
 	sw1.Start();
 	System::ThreadSleep(10);
 	sw1.Stop();
-	if (!(sw1.Elapsed() < 1.0 && sw1.Elapsed() > 0.0))
-		return 1;
+	TEST_ASSERT(sw1.Elapsed() < 1.0 && sw1.Elapsed() > 0.0);
 
 	System::Stopwatch *sw2 = new System::Stopwatch();
-	if (!sw2) return 2;
+	TEST_ASSERT(sw2);
 
 	sw2->Start();
 	System::ThreadSleep(10);
 	sw2->Stop();
-	if (!(sw2->Elapsed() < 1.0 && sw2->Elapsed() > 0.0))
-		return 3;
-
+	TEST_ASSERT(sw2->Elapsed() < 1.0 && sw2->Elapsed() > 0.0);
+	
 	delete sw2;
 
 	return 0;

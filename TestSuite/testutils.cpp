@@ -43,10 +43,6 @@ int WriteResult(int _result)
 	g_console->SetColour();
 	g_console->WriteLine(" ]");
 
-	if (_result) {
-		g_console->WriteLine("\ton internal test number %d\n", _result);
-	}
-
 	return _result;
 }
 
