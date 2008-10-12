@@ -181,7 +181,7 @@ void CrissCross::Debug::PrintStackTrace(CrissCross::IO::CoreIOWriter * _outputBu
 	std::string      bt = "";
 
 	for (i = 0; i < size; i++) {
-#if 0
+#if defined(TARGET_OS_LINUX)
 		bt += strings[i];
 		int    status;
 		/* extract the identifier from strings[i].  It's inside of parens. */
@@ -194,13 +194,24 @@ void CrissCross::Debug::PrintStackTrace(CrissCross::IO::CoreIOWriter * _outputBu
 			if (realname != NULL) {
 				bt += realname;
 			}
-
 			free(realname);
 		}
-
-#else
-		bt += "  ";
-		bt += strings[i];
+#elif defined(TARGET_OS_MACOSX)
+		char *addr = ::strstr(strings[i], "0x");
+		char *mangled = ::strchr(addr, ' ') + 1;
+		char *postmangle = ::strchr(mangled, ' ');
+		bt += addr;
+		int status;
+		if (addr && mangled) {
+			if (postmangle)
+				*postmangle = '\0';
+			char *realname = abi::__cxa_demangle(mangled, 0, 0, &status);
+			if (realname) {
+				bt += ": ";
+				bt += realname;
+			}
+			free ( realname );
+		}
 #endif
 		bt += "\n";
 	}
