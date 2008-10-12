@@ -144,8 +144,7 @@ void SymbolEngine::StackTrace(PCONTEXT _pContext, CoreIOWriter * _outputBuffer)
 #endif
 void CrissCross::Debug::PrintStackTrace(CrissCross::IO::CoreIOWriter * _outputBuffer)
 {
-#if !defined (TARGET_OS_MACOSX) && !defined (TARGET_OS_NETBSD) && !defined (TARGET_OS_FREEBSD) && !defined (TARGET_OS_OPENBSD)
-
+#if !defined (TARGET_OS_NETBSD) && !defined (TARGET_OS_FREEBSD) && !defined (TARGET_OS_OPENBSD)
 #ifdef ENABLE_SYMBOL_ENGINE
 
 	CONTEXT          context = { CONTEXT_FULL };
@@ -159,14 +158,22 @@ void CrissCross::Debug::PrintStackTrace(CrissCross::IO::CoreIOWriter * _outputBu
 	SymbolEngine::instance().StackTrace(&context, _outputBuffer);
 
 #elif defined (ENABLE_BACKTRACE)
+#if defined(TARGET_OS_MACOSX)
+	int  (*backtrace)(void **, int);
+	char **(*backtrace_symbols)(void * const *, int);
+	backtrace = (int (*) (void **, int))dlsym(RTLD_DEFAULT, "backtrace");
+	backtrace_symbols = (char **(*) (void * const *, int))dlsym(RTLD_DEFAULT, "backtrace_symbols");
+#endif
 
-	void            *array[20];
+	void            *array[256];
 	int              size;
-	char          * *strings;
+	char           **strings;
 	int              i;
 
+	memset(array,0,sizeof(void*) * 256);
+
 	/* use -rdynamic flag when compiling */
-	size = backtrace(array, 20);
+	size = backtrace(array, 256);
 	strings = backtrace_symbols(array, size);
 
 	_outputBuffer->WriteLine("Obtained %d stack frames.", size);
@@ -174,7 +181,7 @@ void CrissCross::Debug::PrintStackTrace(CrissCross::IO::CoreIOWriter * _outputBu
 	std::string      bt = "";
 
 	for (i = 0; i < size; i++) {
-#if 1
+#if 0
 		bt += strings[i];
 		int    status;
 		/* extract the identifier from strings[i].  It's inside of parens. */
@@ -202,33 +209,13 @@ void CrissCross::Debug::PrintStackTrace(CrissCross::IO::CoreIOWriter * _outputBu
 
 	free(strings);
 
-#else
+#else /* defined(ENABLE_SYMBOL_ENGINE) || defined(ENABLE_BACKTRACE) */
 	_outputBuffer->WriteLine("FAIL: backtrace() function not available.");
 #endif
-#else
-	int  (*backtraceFunction)(void * *, int);
-	void (*backtraceSymbolsFdFunction)(void * const *, int, int);
-	backtraceFunction = (int(*) (void * *, int))dlsym(RTLD_DEFAULT, "backtrace");
-	backtraceSymbolsFdFunction = (void(*) (void * const *, int, int))dlsym(RTLD_DEFAULT, "backtrace_symbols_fd");
-	if (backtraceFunction) {
-		void * addresses[256];
-		int    backtraceSize = backtraceFunction(addresses, 256);
-		if (backtraceSymbolsFdFunction)	{
-			_outputBuffer->WriteLine("Stack trace:");
-			backtraceSymbolsFdFunction(addresses, backtraceSize, 1);
-		} else {
-			_outputBuffer->WriteLine("Stack trace addresses:");
-			char lineBuffer[64];
-			for (int i = 0; i < backtraceSize; i++) {
-				sprintf(lineBuffer, "%3d: %p\n", i, addresses[i]);
-				_outputBuffer->WriteLine(lineBuffer);
-			}
-		}
-	} else {
-		_outputBuffer->WriteLine("Stack traces are not implemented for this platform.");
-	}
 
-#endif /* TARGET_OS_MACOSX */
+#else /* !defined (TARGET_OS_NETBSD) && !defined (TARGET_OS_FREEBSD) && !defined (TARGET_OS_OPENBSD) */
+	_outputBuffer->WriteLine("Stack traces are not implemented for this platform.");
+#endif
 }
 #ifndef USE_FAST_ASSERT
 void Assert(bool _condition, const char *_testcase, const char *_file, int _line)

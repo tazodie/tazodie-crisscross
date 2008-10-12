@@ -22,76 +22,46 @@ int TestAVLTree_CString()
 	AVLTree<const char *, const char *> *avltree = new AVLTree<const char *, const char *>();
 	char                                *tmp;
 
-	if (avltree->size() != 0)
-		return 1;
+	TEST_ASSERT(avltree->size() == 0);
 
 	/* If the tree is properly encapsulated, this won't cause an error on test #1. */
 	tmp = cc_strdup("first");
 	avltree->insert(tmp, "one");
 	free(tmp); tmp = NULL;
 
-	if (avltree->size() != 1)
-		return 2;
+	TEST_ASSERT(avltree->size() == 1);
 
 	avltree->insert("second", "two");
 	avltree->insert("third", "three");
 	avltree->insert("fourth", "four");
 
-	if (avltree->size() != 4)
-		return 3;
+	TEST_ASSERT(avltree->size() == 4);
 
 	const char *tmp1 = "one", *tmp2 = NULL;
-	if (!avltree->find("first", tmp2))
-		return 4;
-
-	if (Compare(tmp2, tmp1) != 0)
-		return 5;
-
-	if (avltree->exists("fifth"))
-		return 6;
-
-	if (!avltree->find("second", tmp2))
-		return 7;
+	TEST_ASSERT(avltree->find("first", tmp2));
+	TEST_ASSERT(Compare(tmp2,tmp1) == 0);
+	TEST_ASSERT(!avltree->exists("fifth"));
+	TEST_ASSERT(avltree->find("second", tmp2));
 
 	tmp1 = "two";
-	if (Compare(tmp2, tmp1) != 0)
-		return 8;
+	TEST_ASSERT(Compare(tmp2,tmp1) == 0);
+	TEST_ASSERT(!avltree->erase("fifth"));
+	TEST_ASSERT(avltree->size() == 4);
 
-	if (avltree->erase("fifth"))
-		return 9;
+	TEST_ASSERT(avltree->exists("first"));
+	TEST_ASSERT(avltree->erase("first"));
+	TEST_ASSERT(avltree->size() == 3);
+	
+	TEST_ASSERT(avltree->exists("second"));
+	TEST_ASSERT(avltree->erase("second"));
+	
+	TEST_ASSERT(avltree->exists("third"));
+	TEST_ASSERT(avltree->erase("third"));
+	
+	TEST_ASSERT(avltree->exists("fourth"));
+	TEST_ASSERT(avltree->erase("fourth"));
 
-	if (avltree->size() != 4)
-		return 10;
-
-	if (!avltree->exists("first"))
-		return 11;
-
-	if (!avltree->erase("first"))
-		return 12;
-
-	if (avltree->size() != 3)
-		return 13;
-
-	if (!avltree->exists("second"))
-		return 14;
-
-	if (!avltree->erase("second"))
-		return 15;
-
-	if (!avltree->exists("third"))
-		return 16;
-
-	if (!avltree->erase("third"))
-		return 17;
-
-	if (!avltree->exists("fourth"))
-		return 18;
-
-	if (!avltree->erase("fourth"))
-		return 19;
-
-	if (avltree->size() != 0)
-		return 20;
+	TEST_ASSERT(avltree->size() == 0);
 
 	delete avltree;
 	return 0;
@@ -109,70 +79,29 @@ int TestAVLTree_String()
 	avltree->insert("third", "three");
 	avltree->insert("fourth", "four");
 
-	if (avltree->size() != 4)
-		return 2;
+	TEST_ASSERT(avltree->size() == 4);
 
 	std::string tmp;
-	if (!avltree->find("first", tmp))
-		return 3;
+	TEST_ASSERT(avltree->find("first", tmp));
+	TEST_ASSERT(tmp == "one");
+	TEST_ASSERT(!avltree->exists("fifth"));
+	
+	TEST_ASSERT(avltree->find("second", tmp));
+	TEST_ASSERT(tmp == "two");
+	TEST_ASSERT(!avltree->exists("fifth"));
+	TEST_ASSERT(avltree->size() == 4);
 
-	if (tmp != "one")
-		return 4;
+	TEST_ASSERT(avltree->erase("first"));
+	TEST_ASSERT(avltree->size() == 3);
 
-	if (avltree->exists("fifth"))
-		return 5;
+	TEST_ASSERT(avltree->erase("second"));
+	TEST_ASSERT(avltree->size() == 2);
 
-	if (!avltree->find("second", tmp))
-		return 6;
+	TEST_ASSERT(avltree->erase("third"));
+	TEST_ASSERT(avltree->size() == 1);
 
-	if (tmp != "two")
-		return 7;
-
-	if (avltree->erase("fifth"))
-		return 8;
-
-	if (avltree->size() != 4)
-		return 9;
-
-	avltree->find("first", tmp);
-	if (tmp == "")
-		return 10;
-
-	if (!avltree->erase("first"))
-		return 11;
-
-	if (avltree->size() != 3)
-		return 12;
-
-	avltree->find("second", tmp);
-	if (tmp == "")
-		return 13;
-
-	if (!avltree->erase("second"))
-		return 14;
-
-	if (avltree->size() != 2)
-		return 15;
-
-	avltree->find("third", tmp);
-	if (tmp == "")
-		return 16;
-
-	if (!avltree->erase("third"))
-		return 17;
-
-	if (avltree->size() != 1)
-		return 18;
-
-	avltree->find("fourth", tmp);
-	if (tmp == "")
-		return 19;
-
-	if (!avltree->erase("fourth"))
-		return 20;
-
-	if (avltree->size() != 0)
-		return 21;
+	TEST_ASSERT(avltree->erase("fourth"));
+	TEST_ASSERT(avltree->size() == 0);
 
 	delete avltree;
 	return 0;
@@ -182,8 +111,7 @@ int TestAVLTree_Int()
 {
 	AVLTree<int, int> *avltree = new AVLTree<int, int>();
 
-	if (avltree->size() != 0)
-		return 1;
+	TEST_ASSERT(avltree->size() == 0);
 
 	avltree->insert(1, 1);
 	avltree->insert(2, 2);
@@ -191,65 +119,39 @@ int TestAVLTree_Int()
 	avltree->insert(4, 4);
 
 	int                tmp;
-	if (avltree->size() != 4)
-		return 2;
+	TEST_ASSERT(avltree->size() == 4);
+	
+	TEST_ASSERT(avltree->find(1, tmp));
+	TEST_ASSERT(tmp == 1);
 
-	if (!avltree->find(1, tmp))
-		return 3;
+	TEST_ASSERT(!avltree->exists(5));
 
-	if (tmp != 1)
-		return 4;
+	TEST_ASSERT(avltree->find(2, tmp));
+	TEST_ASSERT(tmp == 2);
 
-	if (avltree->exists(5))
-		return 5;
+	TEST_ASSERT(!avltree->erase(5));
 
-	if (!avltree->find(2, tmp))
-		return 6;
+	TEST_ASSERT(avltree->size() == 4);
 
-	if (tmp != 2)
-		return 7;
+	TEST_ASSERT(avltree->exists(1));
+	TEST_ASSERT(avltree->erase(1));
 
-	if (avltree->erase(5))
-		return 8;
+	TEST_ASSERT(avltree->size() == 3);
 
-	if (avltree->size() != 4)
-		return 9;
+	TEST_ASSERT(avltree->exists(2));
+	TEST_ASSERT(avltree->erase(2));
 
-	if (!avltree->exists(1))
-		return 10;
+	TEST_ASSERT(avltree->size() == 2);
 
-	if (!avltree->erase(1))
-		return 11;
+	TEST_ASSERT(avltree->exists(3));
+	TEST_ASSERT(avltree->erase(3));
 
-	if (avltree->size() != 3)
-		return 12;
+	TEST_ASSERT(avltree->size() == 1);
 
-	if (!avltree->exists(2))
-		return 13;
+	TEST_ASSERT(avltree->exists(4));
+	TEST_ASSERT(avltree->erase(4));
 
-	if (!avltree->erase(2))
-		return 14;
-
-	if (avltree->size() != 2)
-		return 15;
-
-	if (!avltree->exists(3))
-		return 16;
-
-	if (!avltree->erase(3))
-		return 17;
-
-	if (avltree->size() != 1)
-		return 18;
-
-	if (!avltree->exists(4))
-		return 19;
-
-	if (!avltree->erase(4))
-		return 20;
-
-	if (avltree->size() != 0)
-		return 21;
+	TEST_ASSERT(avltree->size() == 0);
 
 	delete avltree;
 	return 0;
