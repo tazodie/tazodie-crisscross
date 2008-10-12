@@ -1,9 +1,9 @@
 # CrissCross common makefile options.
 
-VERSION = 0.7.1
+VERSION = 0.7.2
 VERSION_MAJOR = 0
 
-OPTLEVEL = 0
+OPTLEVEL = 2
 
 # Define a custom CHOST here.
 #CHOST = i386-pc-linux-gnu
