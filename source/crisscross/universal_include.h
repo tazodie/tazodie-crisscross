@@ -39,7 +39,7 @@
 /* #  define CC_LIB_CODENAME            "Thor"          // v0.9.0 codename */
 /* #  define CC_LIB_CODENAME            "Valhalla"      // v1.0.0 codename */
 
-#define CC_LIB_VERSION             "0.7.2-rc1"
+#define CC_LIB_VERSION             "0.7.2-rc2"
 #define CC_LIB_BRANCH_AT_VERSION   "0.8.0"
 #define CC_LIB_VERSION_MAJOR       0
 #define CC_LIB_VERSION_MINOR       7
