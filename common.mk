@@ -3,7 +3,7 @@
 VERSION = 0.7.1
 VERSION_MAJOR = 0
 
-OPTLEVEL = 3
+OPTLEVEL = 0
 
 # Define a custom CHOST here.
 #CHOST = i386-pc-linux-gnu
@@ -248,7 +248,7 @@ include $(DEVKITARM)/ds_rules
 
 else
 
-LDFLAGS += -lpthread
+LDFLAGS += -lpthread -rdynamic
 
 endif
 
