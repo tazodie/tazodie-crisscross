@@ -1,3 +1,2 @@
-* Rewrite the test suite. Possible new mechanism could be using C++ exceptions. *shudder*
 * Rewrite CPUID class. It's massive, and it's messy. Refer to Linux kernel to see how it can be done better.
 
