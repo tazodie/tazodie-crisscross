@@ -34,10 +34,6 @@ main.cpp
 
 OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)
 
-ifneq ($(CC_BUILDSTATIC),yes)
-LDFLAGS += -rdynamic
-endif
-
 INCLUDES += -I. -I../source
 CXXFLAGS += $(INCLUDES)
 
