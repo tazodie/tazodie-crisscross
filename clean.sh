@@ -9,7 +9,7 @@ else
 fi
 
 echo
-read -p "Continue (Y/N)?"
+read -p "Continue (Y/N)? "
 if [ "$REPLY" == "y" ]; then
 	if [ -d .svn ]; then
 		rm -rvf `svn status --no-ignore | grep ^[I?] | sed 's/^[I?]//g' | sed 's/^[ ].//g'`
