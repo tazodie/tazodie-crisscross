@@ -18,10 +18,6 @@
  * need to familiarize ourselves with the devkitARM API for sockets first */
 #if !defined (TARGET_OS_NDSFIRMWARE)
 
-#if defined (TARGET_OS_MACOSX)
-#define _BSD_SOCKLEN_T_ int
-#endif
-
 #if defined (TARGET_OS_WINDOWS)
 typedef int socklen_t;
 #endif
