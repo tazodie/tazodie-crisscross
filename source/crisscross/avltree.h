@@ -166,8 +166,6 @@ namespace CrissCross
 				 * Get a pointer to a node with the specified key value
 				 * \param _key Identifier of node to remove
 				 * \return Address of the node. If not found, returns NULL.
-				 * \deprecated The return value of this function could be unpredictable if the
-				 *                          contents of the table was anything but pointers or integers.
 				 */
 				AVLNode<Key, Data> *findNode(Key const &_key) const;
 
@@ -248,8 +246,8 @@ namespace CrissCross
 				/*!
 				 * \param _key The key of the node to find.
 				 * \return The data at the node. NULL if not found.
-				 * \warning The return value of this function could be unpredictable if the
-				 *          contents of the table was anything but pointers or integers.
+				 * \deprecated The return value of this function could be unpredictable if the
+				 *                          contents of the table was anything but pointers or integers.
 				 * \sa find
 				 */
 				Data find(Key const &_key) const;
