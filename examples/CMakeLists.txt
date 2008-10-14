@@ -1,0 +1,6 @@
+add_subdirectory (CPSAT)
+add_subdirectory (CPUID)
+add_subdirectory (CheckMark)
+add_subdirectory (EmptyProject)
+add_subdirectory (GenPrime)
+add_subdirectory (SortBenchmark)
