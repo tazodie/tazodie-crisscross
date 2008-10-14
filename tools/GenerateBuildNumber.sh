@@ -3,7 +3,12 @@
 echo "Generating build_number.h..."
 
 if [ "$#" -lt "1" ]; then
-	echo "No path specified."
+	echo "No input path specified."
+	exit 1
+fi
+
+if [ "$#" -lt "2" ]; then
+	echo "No output path specified."
 	exit 1
 fi
 
@@ -11,6 +16,10 @@ echo "Changing directory to '$1'..."
 cd $1
 
 BUILD=`svn --xml info | tr -d '\r' | tr -d '\n' | sed -e 's/.*<entry.*revision="\([0-9]*\)".*<url>.*/\1/'`
+
+echo "Changing directory to '$2'.."
+mkdir -p $2
+cd $2
 
 if [[ "${#BUILD}" -gt "5" || "${#BUILD}" -lt "1" ]]; then
 	echo "Build number couldn't be detected, defaulting to 1!"
