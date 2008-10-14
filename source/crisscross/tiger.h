@@ -47,9 +47,6 @@ namespace CrissCross
 
 			public:
 				/*! \brief The default constructor. */
-#if TARGET_CPU_BITS < 64
-				_CC_DEPRECATE_SLOW("MODERATE")
-#endif
 				TigerHash();
 
 				/*! \brief The destructor. */
