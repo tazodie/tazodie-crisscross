@@ -1,7 +1,14 @@
+if(WIN32)
+add_custom_command(
+	OUTPUT ${CRISSCROSS_BINARY_DIR}/crisscross/build_number.h
+	COMMAND ${CRISSCROSS_SOURCE_DIR}/tools/GenerateBuildNumber.exe "${CRISSCROSS_SOURCE_DIR}/source/crisscross" "${CRISSCROSS_BINARY_DIR}/crisscross"
+)
+else(WIN32)
 add_custom_command(
 	OUTPUT ${CRISSCROSS_BINARY_DIR}/crisscross/build_number.h
 	COMMAND ${CRISSCROSS_SOURCE_DIR}/tools/GenerateBuildNumber.sh "${CRISSCROSS_SOURCE_DIR}/source/crisscross" "${CRISSCROSS_BINARY_DIR}/crisscross"
 )
+endif(WIN32)
 
 add_custom_target(BuildNumber DEPENDS ${CRISSCROSS_BINARY_DIR}/crisscross/build_number.h)
 
