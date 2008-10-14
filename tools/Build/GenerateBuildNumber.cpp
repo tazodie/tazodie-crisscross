@@ -11,29 +11,26 @@ int GetSubversionRevisionNumber ( const char *_fromFile );
 
 int main ( int argc, char **argv )
 {
-	char currentPath[2048];
+	char inputPath[2048];
+	char outputPath[2048];
 	char buildNumberPath[2048];
 	char inputEntriesFile[2048];
 	char fileBuffer[8192];
 	char temp[256];
 
-	if ( argc < 2 )
+	if ( argc < 3 )
 	{
 		fprintf ( stderr, "Not enough parameters!\n" );
 		return 1;
 	}
 
-	memset ( currentPath, 0, sizeof(currentPath) );
+	memset ( fileBuffer, 0, sizeof(fileBuffer) );
 
-	for ( int i = 1; i < argc; i++ )
-	{
-		strcat ( currentPath, argv[i] );
-		if ( i < argc - 1 )
-			strcat ( currentPath, " " );
-	}
+	strcpy ( inputPath, argv[1] );
+	strcpy ( outputPath, argv[2] );
 
-	sprintf ( buildNumberPath, "%s/build_number.h", currentPath );
-	sprintf ( inputEntriesFile, "%s/.svn/entries", currentPath );
+	sprintf ( buildNumberPath, "%s/build_number.h", outputPath );
+	sprintf ( inputEntriesFile, "%s/.svn/entries", inputPath );
 
 	sprintf ( fileBuffer, "#ifndef __included_build_number_h\n" );
 
