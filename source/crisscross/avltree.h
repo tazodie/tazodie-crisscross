@@ -250,7 +250,7 @@ namespace CrissCross
 				 *                          contents of the table was anything but pointers or integers.
 				 * \sa find
 				 */
-				Data find(Key const &_key) const;
+				_CC_DEPRECATE_FUNCTION(find) Data find(Key const &_key) const;
 
 				/*! \brief Finds all instances of the specified key in the tree. */
 				/*!

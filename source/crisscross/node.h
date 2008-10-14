@@ -186,6 +186,7 @@ namespace CrissCross
 			
 				/*! \brief Returns the overhead caused by the node. */
 				/*!
+				 * \param _parentTree The tree which contains this node instance.
 				 * \return Memory usage in bytes.
 				 */
 				size_t mem_usage(CrissCross::Data::RedBlackTree<Key, Data> const *_parentTree) const
