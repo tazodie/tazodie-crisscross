@@ -91,7 +91,8 @@ MACRO(ADD_PRECOMPILED_HEADER _targetName _input)
    	ADD_CUSTOM_TARGET(${_targetName}_gch 
 		DEPENDS	${_output} 	
 	)
-    ADD_DEPENDENCIES(${_targetName} ${_targetName}_gch )
+    ADD_DEPENDENCIES(${_targetName} ${_targetName}_gch)
+    ADD_DEPENDENCIES(${_targetName}_gch BuildNumber)
     SET_TARGET_PROPERTIES(${_targetName} 
 		PROPERTIES	
 			COMPILE_FLAGS "-include ${_name} -Winvalid-pch"
