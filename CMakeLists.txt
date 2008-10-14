@@ -30,7 +30,7 @@ IF(CMAKE_COMPILER_IS_GNUCXX)
 ENDIF(CMAKE_COMPILER_IS_GNUCXX)
 
 MACRO(ADD_PRECOMPILED_HEADER _targetName _input)
-IF(CMAKE_COMPILER_IS_GNUCXX)
+IF(CMAKE_COMPILER_IS_GNUCXX AND NOT XCODE)
 	IF(NOT CMAKE_BUILD_TYPE)
 		MESSAGE(FATAL_ERROR 
 			"This is the ADD_PRECOMPILED_HEADER macro. " 
@@ -98,7 +98,7 @@ IF(CMAKE_COMPILER_IS_GNUCXX)
 		PROPERTIES	
 			COMPILE_FLAGS "-include ${_name} -Winvalid-pch"
     )
-ENDIF(CMAKE_COMPILER_IS_GNUCXX)
+ENDIF(CMAKE_COMPILER_IS_GNUCXX AND NOT XCODE)
 ENDMACRO(ADD_PRECOMPILED_HEADER)
 
 MACRO(ADD_FLAG where flag)
@@ -173,5 +173,6 @@ add_subdirectory (TestSuite)
 add_subdirectory (examples)
 
 IF(NOT MSVC)
-	add_custom_target (check COMMAND ${CrissCross_BINARY_DIR}/TestSuite/TestSuite DEPENDS TestSuite)
+	get_target_property (tspath TestSuite LOCATION)
+	add_custom_target (check COMMAND ${tspath} DEPENDS TestSuite)
 ENDIF(NOT MSVC)
