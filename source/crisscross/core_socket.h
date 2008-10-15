@@ -100,13 +100,13 @@ namespace CrissCross
 				 *  it is automatically called in the destructor.
 				 * \return Currently always returns CC_ERR_NONE.
 				 */
-				virtual CrissCross::Errors Close();
+				virtual int Close();
 
 				/*! \brief Get the error value for the socket. */
 				/*!
 				 * \return The error value for the socket.
 				 */
-				virtual CrissCross::Errors GetError() const;
+				virtual int GetError() const;
 
 				/*! \brief Fetches the IP address of the remote host. */
 				/*!
@@ -175,7 +175,7 @@ namespace CrissCross
 				 * \return If the return value is greater than zero, it is an 'errno'
 				 *  value. If it is less than zero, it is a socketError value.
 				 */
-				virtual CrissCross::Errors Listen(unsigned short _port) = 0;
+				virtual int Listen(unsigned short _port) = 0;
 
 				/*! \brief Reads a block of data with a specified maximum size. */
 				/*!

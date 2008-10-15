@@ -49,7 +49,7 @@ namespace CrissCross
 	{
 		CoreSocket::CoreSocket()
 		{
-			CrissCross::Errors retval = __initialise_network();
+			int retval = __initialise_network();
 			m_calledInitialise = 1;
 			CoreAssert(retval == CC_ERR_NONE);
 			memset(&m_sock, 0, sizeof(socket_t));
@@ -75,9 +75,9 @@ namespace CrissCross
 				__cleanup_network();
 		}
 
-		CrissCross::Errors CoreSocket::Close()
+		int CoreSocket::Close()
 		{
-			if (m_sock == INVALID_SOCKET) return CC_ERR_ENOTSOCK;
+			if (m_sock == INVALID_SOCKET) return CC_ERR_NOT_SOCKET;
 
 			/* Close the socket. */
 #ifdef TARGET_OS_WINDOWS
@@ -150,29 +150,42 @@ namespace CrissCross
 
 		int CoreSocket::Read(std::string &_output)
 		{
-			if (m_sock == INVALID_SOCKET) return CC_ERR_ENOTSOCK;
+			if (m_sock == INVALID_SOCKET) return CC_ERR_NOT_SOCKET;
+			if (!IsReadable()) return CC_ERR_WOULD_BLOCK;
+			
+			_output = "";
+			
+			int errbefore = GetError();
 
 			char *buf = new char[m_bufferSize];
-			memset(buf, 0, m_bufferSize);
-			int   ret = 0, recvlen = 0;
-
-			recvlen = recv(m_sock, buf, m_bufferSize - 1, 0);
-			ret = errno;
-
-			_output = std::string(buf);
+			int   recvlen = 0;
+			bool  receivedData = false;
+			do {
+				memset(buf, 0, m_bufferSize);
+				recvlen = recv(m_sock, buf, 1, MSG_PEEK);
+				if (recvlen > 0) {
+					recvlen = recv(m_sock, buf, m_bufferSize - 1, 0);
+					_output += std::string(buf);
+					receivedData = true;
+				}
+			} while (recvlen > 0);
 
 			delete [] buf;
+			
+			int err = GetError();
+			
+			/* The error wasn't triggered by what we did here */
+			if (err == errbefore)
+				err = CC_ERR_NONE;
 
-			return (recvlen == 0) ? CC_ERR_NONE : errno;
+			return err;
 		}
 
 		int CoreSocket::Read(char *_output, unsigned int *_len)
 		{
 			/* Sanity checks. */
-			if (m_sock == INVALID_SOCKET) return CC_ERR_ENOTSOCK;
-
-			if (_len == NULL) return CC_ERR_BADPARAMETER;
-
+			if (m_sock == INVALID_SOCKET) return CC_ERR_NOT_SOCKET;
+			if (_len == NULL || *_len < 1) return CC_ERR_BADPARAMETER;
 			if (_output == NULL) return CC_ERR_BADPARAMETER;
 
 			/* Set up a buffer. */
@@ -191,7 +204,7 @@ namespace CrissCross
 			return CC_ERR_NONE;
 		}
 
-		CrissCross::Errors CoreSocket::GetError() const
+		int CoreSocket::GetError() const
 		{
 			CoreAssert(m_sock != 0);
 			int retval = 0;
@@ -206,16 +219,17 @@ namespace CrissCross
 			if (retval == WSAEWOULDBLOCK || retval == 0) {
 				getsockopt(m_sock, SOL_SOCKET, SO_ERROR, (char *)&ret, (socklen_t *)&retsize);
 				if (ret != 0)
-					return GetErrorNumber(ret);
+					return TranslateError(ret);
 			}
 
 #endif
-			return GetErrorNumber(retval);
+			return TranslateError(retval);
 		}
 
 		int CoreSocket::Send(const void *_data, size_t _length)
 		{
-			CoreAssert(m_sock != 0);
+			if (m_sock == INVALID_SOCKET) return CC_ERR_NOT_SOCKET;
+			if (!IsWritable()) return CC_ERR_WOULD_BLOCK;
 
 			int   sent = 0;
 #ifdef PACKET_DEBUG
@@ -232,29 +246,13 @@ namespace CrissCross
 			delete [] temp_buf;
 #endif
 			sent = send(m_sock, (const char *)_data, (int)_length, 0);
+
 			return sent;
 		}
 
 		int CoreSocket::Send(std::string _data)
 		{
-			CoreAssert(m_sock != 0);
-
-			int   sent = 0;
-#ifdef PACKET_DEBUG
-			char *temp_buf = new char[m_bufferSize];
-			memset(temp_buf, 0, m_bufferSize);
-			char *p = temp_buf, *d = (char *)_data.c_str();
-			while (*d != '\x0') {
-				if (!(*d == '\n' || *d == '\r'))
-					*p = *d;
-
-				p++; d++;
-			}
-			fprintf(stdout, "<<< '%s'\n", temp_buf);
-			delete [] temp_buf;
-#endif
-			sent = send(m_sock, _data.c_str(), (int)_data.size(), 0);
-			return sent;
+			return Send(_data.c_str(), _data.size());
 		}
 
 		bool CoreSocket::IsReadable() const
@@ -270,7 +268,7 @@ namespace CrissCross
 			FD_ZERO(&read);
 			FD_SET(m_sock, &read);
 
-			CrissCross::Errors errbefore = GetError(), errafter = CC_ERR_NONE;
+			int errbefore = GetError(), errafter;
 
 			/* Select to check if it's readable. */
 			ret = select(m_sock + 1, &read, NULL, NULL, &timeout);
@@ -280,7 +278,7 @@ namespace CrissCross
 			/* ret < 0   is error */
 			/* ret == 0  is in progress */
 			/* ret > 0   is success */
-			if (ret < 0 || (errafter && errafter != errbefore && errafter != CC_ERR_EINPROGRESS && errafter != CC_ERR_TRY_AGAIN)) {
+			if (ret < 0 || (errafter && errafter != errbefore && errafter != CC_ERR_WOULD_BLOCK && errafter != TRY_AGAIN)) {
 				/* Bugger. Operation timed out. */
 				m_state = SOCKET_STATE_ERROR;
 				return false;
@@ -305,7 +303,7 @@ namespace CrissCross
 			FD_ZERO(&write);
 			FD_SET(m_sock, &write);
 
-			CrissCross::Errors errbefore = GetError(), errafter = CC_ERR_NONE;
+			int errbefore = GetError(), errafter;
 
 			/* Select to check if it's readable. */
 			ret = select(m_sock + 1, NULL, &write, NULL, &timeout);
@@ -315,7 +313,7 @@ namespace CrissCross
 			/* ret < 0   is error */
 			/* ret == 0  is in progress */
 			/* ret > 0   is success */
-			if (ret < 0 || (errafter && errafter != errbefore && errafter != CC_ERR_EINPROGRESS && errafter != CC_ERR_TRY_AGAIN)) {
+			if (ret < 0 || (errafter && errafter != errbefore && errafter != CC_ERR_WOULD_BLOCK && errafter != TRY_AGAIN)) {
 				/* Bugger. Operation timed out. */
 				m_state = SOCKET_STATE_ERROR;
 				return false;

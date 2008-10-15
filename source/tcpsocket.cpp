@@ -51,7 +51,7 @@ namespace CrissCross
 		{
 		}
 
-		CrissCross::Errors TCPSocket::Accept(TCPSocket * *_socket)
+		int TCPSocket::Accept(TCPSocket * *_socket)
 		{
 			/* We're forced to accept any incoming connection, unfortunately. */
 			socket_t sock = accept(m_sock, 0, 0);
@@ -61,7 +61,7 @@ namespace CrissCross
 				/* Set up the typical transmission attributes. */
 				SetAttributes(sock);
 
-#if defined (ENABLE_NONBLOCKING)
+#if 0
 				unsigned long arg = 1;
 
 				/* Non-blocking I/O, if possible. Ignore any errors. */
@@ -70,7 +70,6 @@ namespace CrissCross
 #else
 				ioctl(m_sock, FIONBIO, &arg);
 #endif
-
 #endif
 
 				/* Create a new wrapper for our socket. */
@@ -88,7 +87,7 @@ namespace CrissCross
 			return CC_ERR_NO_SOCK;
 		}
 
-		CrissCross::Errors TCPSocket::Connect(const char *_address, unsigned short _port)
+		int TCPSocket::Connect(const char *_address, unsigned short _port)
 		{
 			struct sockaddr_in sin;
 			struct hostent    *host;
@@ -104,9 +103,9 @@ namespace CrissCross
 				return GetError();
 
 			/* Set up the typical transmission attributes. */
-			/* SetAttributes ( m_sock ); */
+			//SetAttributes ( m_sock );
 
-#if defined (ENABLE_NONBLOCKING)
+#if 0
 			unsigned long arg = 1;
 
 			/* Non-blocking I/O, if possible. Ignore any errors. */
@@ -115,7 +114,6 @@ namespace CrissCross
 #else
 			ioctl(m_sock, FIONBIO, &arg);
 #endif
-
 #endif
 
 			/* Resolve the IP of the host we're trying to connect to. */
@@ -130,12 +128,12 @@ namespace CrissCross
 
 			/* Attempt a connection. */
 			if (connect(m_sock, (( struct sockaddr * )&sin), sizeof(sin)) != 0) {
-				CrissCross::Errors err = GetError();
+				int err = GetError();
 
 				/* If this is a non-blocking socket, we need to handle appropriately. */
-				if (err == CC_ERR_EWOULDBLOCK || err == CC_ERR_EINPROGRESS) {
+				if (err == CC_ERR_WOULD_BLOCK) {
 					m_state = SOCKET_STATE_CONNECTING;
-					return CC_ERR_EINPROGRESS;
+					return CC_ERR_WOULD_BLOCK;
 				} else {
 					m_state = SOCKET_STATE_ERROR;
 					/* Close the connection, it failed. */
@@ -152,12 +150,12 @@ namespace CrissCross
 			return CC_ERR_NONE;
 		}
 
-		CrissCross::Errors TCPSocket::Listen(unsigned short _port)
+		int TCPSocket::Listen(unsigned short _port)
 		{
 			struct sockaddr_in sin;
 
 			/* Verify our socket isn't in use. */
-			if (m_sock != INVALID_SOCKET) return CC_ERR_SOCK_BUSY;
+			if (m_sock != INVALID_SOCKET) return CC_ERR_INVALID_CALL;
 
 			/* Set up our sockaddr_in */
 			memset(&sin, 0, sizeof(sin));
@@ -174,8 +172,8 @@ namespace CrissCross
 
 			/* Set up the typical transmission attributes. */
 			SetAttributes(m_sock);
-
-#if defined (ENABLE_NONBLOCKING)
+			
+#if 0
 			unsigned long arg = 1;
 
 			/* Non-blocking I/O, if possible. Ignore any errors. */
@@ -184,13 +182,12 @@ namespace CrissCross
 #else
 			ioctl(m_sock, FIONBIO, &arg);
 #endif
-
 #endif
 
 			/* Bind our socket to our given port number. */
 			if (bind(m_sock, (sockaddr *)&sin, sizeof(sin)) != 0) {
 				/* Bind failure, for some reason. */
-				CrissCross::Errors err = GetError();
+				int err = GetError();
 
 #ifdef TARGET_OS_WINDOWS
 				closesocket(m_sock);
@@ -232,6 +229,14 @@ namespace CrissCross
 			err = setsockopt(_socket, SOL_SOCKET, SO_LINGER,
 			                 (char *)&linger_opts, optlen);
 			if (err == -1) return errno;
+			
+			/* SO_REUSEADDR */
+#ifndef TARGET_OS_WINDOWS
+			optval = 1;
+			optlen = sizeof(optval);
+			setsockopt(_socket, SOL_SOCKET, SO_REUSEADDR, 
+			                 (char*)&optval, optlen);
+#endif
 
 			/* SO_KEEPALIVE */
 #ifdef TARGET_OS_WINDOWS

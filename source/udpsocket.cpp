@@ -45,12 +45,12 @@ namespace CrissCross
 		{
 		}
 
-		CrissCross::Errors UDPSocket::Bind(const char *_address, unsigned short _port)
+		int UDPSocket::Bind(const char *_address, unsigned short _port)
 		{
 			struct sockaddr_in sin;
 			struct hostent    *host;
 
-			if (m_sock != INVALID_SOCKET) return CC_ERR_ENOTSOCK;
+			if (m_sock != INVALID_SOCKET) return CC_ERR_NOT_SOCKET;
 
 			m_sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_IP);
 			if (m_sock == INVALID_SOCKET)
@@ -67,7 +67,7 @@ namespace CrissCross
 			sin.sin_port = htons(_port);
 
 			if (connect(m_sock, (( struct sockaddr * )&sin), sizeof(sin)) != 0) {
-				CrissCross::Errors err = GetError();
+				int err = GetError();
 
 				/* Close the connection, it failed. */
 #ifdef TARGET_OS_WINDOWS
@@ -87,11 +87,11 @@ namespace CrissCross
 			return 0;
 		}
 
-		CrissCross::Errors UDPSocket::Listen(unsigned short _port)
+		int UDPSocket::Listen(unsigned short _port)
 		{
 			struct sockaddr_in sin;
 
-			if (m_sock != INVALID_SOCKET) return CC_ERR_ENOTSOCK;
+			if (m_sock != INVALID_SOCKET) return CC_ERR_NOT_SOCKET;
 
 			memset(&sin, 0, sizeof(sin));
 
@@ -105,7 +105,7 @@ namespace CrissCross
 
 			SetAttributes(m_sock);
 
-#if defined (ENABLE_NONBLOCKING)
+#if 0
 			unsigned long arg = 1;
 #if defined (TARGET_OS_WINDOWS)
 			ioctlsocket(m_sock, FIONBIO, &arg);
@@ -115,7 +115,7 @@ namespace CrissCross
 #endif
 
 			if (bind(m_sock, (sockaddr *)&sin, sizeof(sin)) != 0) {
-				CrissCross::Errors err = GetError();
+				int err = GetError();
 
 				/* Close the connection, it failed. */
 #ifdef TARGET_OS_WINDOWS
