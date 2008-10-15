@@ -62,12 +62,6 @@ namespace CrissCross
 				 */
 				CrissCross::Errors Listen(unsigned short _port);
 
-				/*! \brief In asynchronous sockets, this verifies that no state changes have occurred. */
-				/*!
-				 * \sa State
-				 */
-				void UpdateState();
-
 				/*! \brief Fetch the state of the socket. */
 				/*!
 				 * \return The current state of m_sock.
