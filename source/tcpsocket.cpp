@@ -268,7 +268,7 @@ namespace CrissCross
 			return CC_ERR_NONE;
 		}
 
-		void TCPSocket::UpdateState()
+		socketState TCPSocket::State() const
 		{
 			/* Make sure there have been no spontaneous state changes. */
 			switch (m_state)
@@ -281,10 +281,6 @@ namespace CrissCross
 			default:
 				break;
 			}
-		}
-
-		socketState TCPSocket::State() const
-		{
 			return m_state;
 		}
 	}
