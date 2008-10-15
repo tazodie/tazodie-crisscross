@@ -29,12 +29,14 @@ IF(CMAKE_COMPILER_IS_GNUCXX)
     ENDIF(gcc_compiler_version MATCHES "4\\.[0-9]\\.[0-9]")
 ENDIF(CMAKE_COMPILER_IS_GNUCXX)
 
-MACRO(ADD_PRECOMPILED_HEADER _targetName _header _sourceFile)
+MACRO(ADD_PRECOMPILED_HEADER _targetName _header _source)
 IF(MSVC)
-	SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /Yu\"${_header}\"")
-	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Yu\"${_header}\"")
-	set_source_files_properties(_sourceFile
-		COMPILE_FLAGS "/Yc\"${_header}\""
+	GET_FILENAME_COMPONENT(_headerFile ${_header} NAME)
+	GET_FILENAME_COMPONENT(_sourceFile ${_source} NAME)
+	SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /Yu\"${_headerFile}\"")
+	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Yu\"${_headerFile}\"")
+	set_source_files_properties(_source
+		COMPILE_FLAGS "/Yc\"${_headerFile}\""
 	)
 ENDIF(MSVC)
 IF(CMAKE_COMPILER_IS_GNUCXX AND NOT XCODE)
