@@ -22,7 +22,7 @@ namespace CrissCross
 	{
 		int w;
 		const char *s;
-		CrissCross::Errors e;
+		int e;
 	};
 
 		#if defined (TARGET_OS_WINDOWS)
@@ -66,7 +66,6 @@ namespace CrissCross
 		{WSAEHOSTDOWN, "WSAEHOSTDOWN", CC_ERR_EHOSTDOWN},
 		{WSAEHOSTUNREACH, "WSAEHOSTUNREACH", CC_ERR_EHOSTUNREACH},
 		{WSAENOTEMPTY, "WSAENOTEMPTY", CC_ERR_ENOTEMPTY},
-		/*{WSAEPROCLIM, "WSAEPROCLIM", CC_ERR_EPROCLIM}, // MISSING? */
 		{WSAEUSERS, "WSAEUSERS", CC_ERR_EUSERS},
 		{WSAEDQUOT, "WSAEDQUOT", CC_ERR_EDQUOT},
 		{WSAESTALE, "WSAESTALE", CC_ERR_ESTALE},
@@ -81,26 +80,17 @@ namespace CrissCross
 	const struct tl errmap [] =
 	{
 #if !defined (TARGET_OS_NDSFIRMWARE)
+		/*
 		{NO_DATA, "NO_DATA", CC_ERR_NO_DATA},
 		{HOST_NOT_FOUND, "HOST_NOT_FOUND", CC_ERR_HOST_NOT_FOUND},
 		{NO_RECOVERY, "NO_RECOVERY", CC_ERR_NO_RECOVERY},
 		{TRY_AGAIN, "TRY_AGAIN", CC_ERR_TRY_AGAIN},
+		*/
 #endif
-		{EINTR, "EINTR", CC_ERR_EINTR},
-		{EWOULDBLOCK, "EWOULDBLOCK", CC_ERR_EWOULDBLOCK},
-		{EINPROGRESS, "EINPROGRESS", CC_ERR_EINPROGRESS},
-		{EALREADY, "EALREADY", CC_ERR_EALREADY},
-		{ENOTSOCK, "ENOTSOCK", CC_ERR_ENOTSOCK},
-		{EDESTADDRREQ, "EDESTADDRREQ", CC_ERR_EDESTADDRREQ},
-		{EMSGSIZE, "EMSGSIZE", CC_ERR_EMSGSIZE},
-		{EPROTOTYPE, "EPROTOTYPE", CC_ERR_EPROTOTYPE},
-		{ENOPROTOOPT, "ENOPROTOOPT", CC_ERR_ENOPROTOOPT},
-		{EPROTONOSUPPORT, "EPROTONOSUPPORT", CC_ERR_EPROTONOSUPPORT},
-		{ESOCKTNOSUPPORT, "ESOCKTNOSUPPORT", CC_ERR_ESOCKTNOSUPPORT},
-		{EOPNOTSUPP, "EOPNOTSUPP", CC_ERR_EOPNOTSUPP},
-		{EPFNOSUPPORT, "EPFNOSUPPORT", CC_ERR_EPFNOSUPPORT},
-		{EAFNOSUPPORT, "EAFNOSUPPORT", CC_ERR_EAFNOSUPPORT},
-		{EADDRINUSE, "EADDRINUSE", CC_ERR_EADDRINUSE},
+		{EWOULDBLOCK, "EWOULDBLOCK", CC_ERR_WOULD_BLOCK},
+		{EINPROGRESS, "EINPROGRESS", CC_ERR_WOULD_BLOCK},
+		/*
+		{EADDRINUSE, "EADDRINUSE", CC_ERR_ADDR_IN_USE},
 		{EADDRNOTAVAIL, "EADDRNOTAVAIL", CC_ERR_EADDRNOTAVAIL},
 		{ENETDOWN, "ENETDOWN", CC_ERR_ENETDOWN},
 		{ENETUNREACH, "ENETUNREACH", CC_ERR_ENETUNREACH},
@@ -119,37 +109,39 @@ namespace CrissCross
 		{EHOSTDOWN, "EHOSTDOWN", CC_ERR_EHOSTDOWN},
 		{EHOSTUNREACH, "EHOSTUNREACH", CC_ERR_EHOSTUNREACH},
 		{ENOTEMPTY, "ENOTEMPTY", CC_ERR_ENOTEMPTY},
-		/*{EPROCLIM, "EPROCLIM", CC_ERR_EPROCLIM}, // MISSING? */
 		{EUSERS, "EUSERS", CC_ERR_EUSERS},
 		{EDQUOT, "EDQUOT", CC_ERR_EDQUOT},
 		{ESTALE, "ESTALE", CC_ERR_ESTALE},
 		{EREMOTE, "EREMOTE", CC_ERR_EREMOTE},
 		{EINVAL, "EINVAL", CC_ERR_EINVAL},
 		{EFAULT, "EFAULT", CC_ERR_EFAULT},
+		*/
 		{0, "UNKNOWN_ERROR", CC_ERR_INTERNAL},
 		{0, "NO_ERROR", CC_ERR_NONE}
 	};
 		#endif
 
-	CrissCross::Errors GetErrorNumber(int why)
+	int TranslateError(int why)
 	{
 		for (int i = 0; errmap[i].s != NULL; ++i)
 			if (why == errmap[i].w)
 				return errmap[i].e;
-
-		printf("CrissCross: Error %d (%s) couldn't be mapped to a CrissCross internal error number.\n", why, strerror(why));
-
-		return CC_ERR_INTERNAL;
+		return why;
 	}
 
-	const char *GetErrorDescription(CrissCross::Errors why)
+	const char *GetErrorDescription(int why)
 	{
+		static const char *unknown = "Unknown Error";
+		
 #if !defined(TARGET_OS_WINDOWS) && !defined(TARGET_COMPILER_CYGWIN)
-		static char buffer[128];
-		memset(buffer, 0, sizeof(buffer));
-		strerror_r(why, buffer, 128);
-		if (strlen(buffer))
-			return buffer;
+		if (why >= 0)
+		{
+			static char buffer[128];
+			memset(buffer, 0, sizeof(buffer));
+			strerror_r(why, buffer, 128);
+			if (strlen(buffer))
+				return buffer;
+		}
 
 #endif
 
@@ -157,6 +149,6 @@ namespace CrissCross
 			if (why == errmap[i].e)
 				return errmap[i].s;
 
-		return NULL;
+		return unknown;
 	}
 }

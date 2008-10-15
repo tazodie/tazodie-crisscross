@@ -46,21 +46,21 @@ namespace CrissCross
 				 * \return A pointer to a newly created TCPSocket instance for the new
 				 *  connection. If no incoming connections are pending, this returns NULL.
 				 */
-				CrissCross::Errors Accept(TCPSocket * *_socket);
+				int Accept(TCPSocket * *_socket);
 
 				/*! \brief Establishes an outbound connection to the specified address and port. */
 				/*!
 				 * \param _address The remote address to connect to. Can be a hostname, as it will be resolved by gethostbyname().
 				 * \param _port The remote port to connect to.
 				 */
-				CrissCross::Errors Connect(const char *_address, unsigned short _port);
+				int Connect(const char *_address, unsigned short _port);
 
 				/*! \brief Listens for connections on the specified port. */
 				/*!
 				 *  You need to Accept() connections after calling this.
 				 * \param _port The local port to listen on.
 				 */
-				CrissCross::Errors Listen(unsigned short _port);
+				int Listen(unsigned short _port);
 
 				/*! \brief Fetch the state of the socket. */
 				/*!

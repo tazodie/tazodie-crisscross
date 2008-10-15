@@ -59,9 +59,6 @@ const int CC_LIB_VERSION_BUILD = BUILD_NUMBER;
 //#define ENABLE_CRASHREPORTS /* Enables XCrashReports on Windows. */
 /* #define DISABLE_DEPRECATED_CODE */ /* This will be enabled by default in a future release */
 
-/* Enables non-blocking sockets. */
-#define ENABLE_NONBLOCKING
-
 /* NOTE: By disabling this line, you will not be in compliance with the New BSD License. */
 /*      If you disable this line, you must display the copyright notice in the program */
 /*      elsewhere. */
