@@ -19,6 +19,7 @@
 #if !defined (TARGET_OS_NDSFIRMWARE)
 
 #if defined (TARGET_OS_WINDOWS)
+#pragma comment (lib,"ws2_32.lib")
 typedef int socklen_t;
 #endif
 
