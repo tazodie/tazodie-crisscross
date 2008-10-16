@@ -31,7 +31,7 @@ ENDIF(CMAKE_COMPILER_IS_GNUCXX)
 
 MACRO(ADD_PRECOMPILED_HEADER _targetName _header _source)
 IF(MSVC)
-	STRING(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" _headerName _header)
+	STRING(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" _headerName "${_header}")
 	SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /Yu\"${_headerName}\"")
 	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Yu\"${_headerName}\"")
 	set_source_files_properties(_source
