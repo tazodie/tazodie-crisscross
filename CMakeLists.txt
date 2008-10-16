@@ -34,7 +34,9 @@ IF(MSVC)
 	STRING(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" _headerName "${_header}")
 	SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /Yu\"${_headerName}\"")
 	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Yu\"${_headerName}\"")
-	set_source_files_properties(_source
+    GET_FILENAME_COMPONENT(_sourceFile ${_source} NAME)
+	MESSAGE(STATUS "${_sourceFile}")
+	set_source_files_properties("${_sourceFile}"
 		COMPILE_FLAGS "/Yc\"${_headerName}\""
 	)
 ENDIF(MSVC)
