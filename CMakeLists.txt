@@ -34,7 +34,7 @@ IF(MSVC)
 	STRING(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" _headerName "${_header}")
 	SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /Yu\"${_headerName}\"")
 	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Yu\"${_headerName}\"")
-    GET_FILENAME_COMPONENT(_sourceFile ${_source} NAME)
+	GET_FILENAME_COMPONENT(_sourceFile ${_source} NAME)
 	MESSAGE(STATUS "${_sourceFile}")
 	set_source_files_properties("${_sourceFile}"
 		COMPILE_FLAGS "/Yc\"${_headerName}\""
@@ -60,10 +60,8 @@ IF(CMAKE_COMPILER_IS_GNUCXX AND NOT XCODE)
 	#MAKE_DIRECTORY(${_outdir})
     
 	STRING(TOUPPER "CMAKE_CXX_FLAGS_${CMAKE_BUILD_TYPE}" _flags_var_name)
-    SET(_compile_FLAGS ${${_flags_var_name}})
-    
-    GET_DIRECTORY_PROPERTY(_directory_flags INCLUDE_DIRECTORIES)
-		
+	SET(_compile_FLAGS ${${_flags_var_name}})
+	GET_DIRECTORY_PROPERTY(_directory_flags INCLUDE_DIRECTORIES)
 
 	SET(_CMAKE_CURRENT_BINARY_DIR_included_before_path FALSE)
 	FOREACH(item ${_directory_flags})
@@ -79,35 +77,35 @@ IF(CMAKE_COMPILER_IS_GNUCXX AND NOT XCODE)
 		ENDIF(${item}  STREQUAL ${CMAKE_CURRENT_BINARY_DIR})
 	
 		LIST(APPEND _compile_FLAGS "-I${item}")
-    ENDFOREACH(item)
+	ENDFOREACH(item)
 
 	GET_DIRECTORY_PROPERTY(_directory_flags DEFINITIONS)
-    LIST(APPEND _compile_FLAGS ${_directory_flags})
+	LIST(APPEND _compile_FLAGS ${_directory_flags})
 	LIST(APPEND _compile_FLAGS ${CMAKE_CXX_FLAGS} )
 
-    SEPARATE_ARGUMENTS(_compile_FLAGS)
-    #MESSAGE("_compiler_FLAGS: ${_compiler_FLAGS}")
+	SEPARATE_ARGUMENTS(_compile_FLAGS)
+	#MESSAGE("_compiler_FLAGS: ${_compiler_FLAGS}")
 	#message(${_compile_FLAGS} )
-    #message("COMMAND ${CMAKE_CXX_COMPILER}	${_compile_FLAGS} -x c++-header -o ${_output} ${_header}")
+	#message("COMMAND ${CMAKE_CXX_COMPILER}	${_compile_FLAGS} -x c++-header -o ${_output} ${_header}")
 
-    ADD_CUSTOM_COMMAND(
-        OUTPUT ${_output} 	
+	ADD_CUSTOM_COMMAND(
+		OUTPUT ${_output} 	
 		COMMAND ${CMAKE_CXX_COMPILER}
 				${_compile_FLAGS}
 				-x c++-header
 				-o ${_output} 
 				${_header}
-        DEPENDS ${_header} ${_outdir}
+		DEPENDS ${_header} ${_outdir}
 	)
    	ADD_CUSTOM_TARGET(${_targetName}_gch 
 		DEPENDS	${_output} 	
 	)
-    ADD_DEPENDENCIES(${_targetName} ${_targetName}_gch)
-    ADD_DEPENDENCIES(${_targetName}_gch BuildNumber)
-    SET_TARGET_PROPERTIES(${_targetName} 
+	ADD_DEPENDENCIES(${_targetName} ${_targetName}_gch)
+	ADD_DEPENDENCIES(${_targetName}_gch BuildNumber)
+	SET_TARGET_PROPERTIES(${_targetName} 
 		PROPERTIES	
-			COMPILE_FLAGS "-include ${_name} -Winvalid-pch"
-    )
+		COMPILE_FLAGS "-include ${_name} -Winvalid-pch"
+	)
 ENDIF(CMAKE_COMPILER_IS_GNUCXX AND NOT XCODE)
 ENDMACRO(ADD_PRECOMPILED_HEADER)
 
