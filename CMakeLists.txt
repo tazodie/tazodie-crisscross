@@ -91,7 +91,7 @@ IF(CMAKE_COMPILER_IS_GNUCXX AND NOT XCODE)
 	SEPARATE_ARGUMENTS(_compile_FLAGS)
 	#MESSAGE("_compiler_FLAGS: ${_compiler_FLAGS}")
 	#message(${_compile_FLAGS} )
-	#message("COMMAND ${CMAKE_CXX_COMPILER}	${_compile_FLAGS} -x c++-header -o ${_output} ${_header}")
+	#message("COMMAND ${CMAKE_CXX_COMPILER} ${_compile_FLAGS} -x c++-header -o ${_output} ${_header}")
 
 	ADD_CUSTOM_COMMAND(
 		OUTPUT ${_output} 	
@@ -109,7 +109,7 @@ IF(CMAKE_COMPILER_IS_GNUCXX AND NOT XCODE)
 	ADD_DEPENDENCIES(${_targetName}_gch BuildNumber)
 	SET_TARGET_PROPERTIES(${_targetName} 
 		PROPERTIES	
-		COMPILE_FLAGS "-include ${_name} -Winvalid-pch"
+		COMPILE_FLAGS "-include ${_header} -Winvalid-pch"
 	)
 ENDIF(CMAKE_COMPILER_IS_GNUCXX AND NOT XCODE)
 ENDMACRO(ADD_PRECOMPILED_HEADER)
