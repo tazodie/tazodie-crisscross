@@ -1,4 +1,6 @@
 cmake_minimum_required (VERSION 2.4)
+cmake_policy(VERSION 2.6)
+
 project (CrissCross)
 
 set(CMAKE_BUILD_TYPE RelWithDebInfo)
@@ -68,7 +70,7 @@ IF(CMAKE_COMPILER_IS_GNUCXX AND NOT XCODE)
 		IF(${item}  STREQUAL ${_path} AND NOT _CMAKE_CURRENT_BINARY_DIR_included_before_path )
 			MESSAGE(FATAL_ERROR 
 				"This is the ADD_PRECOMPILED_HEADER macro. "
-				"CMAKE_CURREN_BINARY_DIR has to mentioned at INCLUDE_DIRECTORIES's argument list before ${_path}, where ${_name} is located"
+				"CMAKE_CURRENT_BINARY_DIR has to mentioned at INCLUDE_DIRECTORIES's argument list before ${_path}, where ${_name} is located"
 			)	
 		ENDIF(${item}  STREQUAL ${_path} AND NOT _CMAKE_CURRENT_BINARY_DIR_included_before_path )
 	
