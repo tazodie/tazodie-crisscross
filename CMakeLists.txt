@@ -48,12 +48,12 @@ IF(CMAKE_COMPILER_IS_GNUCXX AND NOT XCODE)
 		)
 	ENDIF(NOT CMAKE_BUILD_TYPE)
 
-    GET_FILENAME_COMPONENT(_name ${_input} NAME)
-	GET_FILENAME_COMPONENT(_path ${_input} PATH)
-    SET(_outdir "${CMAKE_CURRENT_BINARY_DIR}/${_name}.gch")
+	GET_FILENAME_COMPONENT(_name ${_header} NAME)
+	GET_FILENAME_COMPONENT(_path ${_header} PATH)
+	SET(_outdir "${CMAKE_CURRENT_BINARY_DIR}/${_name}.gch")
 	SET(_output "${_outdir}/${CMAKE_BUILD_TYPE}.c++")
 
-    ADD_CUSTOM_COMMAND(
+	ADD_CUSTOM_COMMAND(
 		OUTPUT ${_outdir}
 		COMMAND mkdir ${_outdir} # TODO: {CMAKE_COMMAND} -E ... 
 	)
