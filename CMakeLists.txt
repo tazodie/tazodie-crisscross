@@ -88,7 +88,7 @@ IF(CMAKE_COMPILER_IS_GNUCXX AND NOT XCODE)
     SEPARATE_ARGUMENTS(_compile_FLAGS)
     #MESSAGE("_compiler_FLAGS: ${_compiler_FLAGS}")
 	#message(${_compile_FLAGS} )
-    #message("COMMAND ${CMAKE_CXX_COMPILER}	${_compile_FLAGS} -x c++-header -o ${_output} ${_input}")
+    #message("COMMAND ${CMAKE_CXX_COMPILER}	${_compile_FLAGS} -x c++-header -o ${_output} ${_header}")
 
     ADD_CUSTOM_COMMAND(
         OUTPUT ${_output} 	
@@ -96,8 +96,8 @@ IF(CMAKE_COMPILER_IS_GNUCXX AND NOT XCODE)
 				${_compile_FLAGS}
 				-x c++-header
 				-o ${_output} 
-				${_input}
-        DEPENDS ${_input} ${_outdir}
+				${_header}
+        DEPENDS ${_header} ${_outdir}
 	)
    	ADD_CUSTOM_TARGET(${_targetName}_gch 
 		DEPENDS	${_output} 	
