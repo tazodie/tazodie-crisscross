@@ -33,7 +33,7 @@ int TestMD2()
 	teststring = "a"; length = strlen(teststring);
 	md2.Process(teststring, length);
 	TEST_ASSERT(strcmp(md2.ToString(), "32ec01ec4a6dac72c0ab96fb34c0b5d1") == 0);
-	
+
 	teststring = "abc"; length = strlen(teststring);
 	md2.Process(teststring, length);
 	TEST_ASSERT(strcmp(md2.ToString(), "da853b0d3f88d99b30283a69e6ded6bb") == 0);

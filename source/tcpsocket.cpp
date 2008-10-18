@@ -103,7 +103,7 @@ namespace CrissCross
 				return GetError();
 
 			/* Set up the typical transmission attributes. */
-			//SetAttributes ( m_sock );
+			/* SetAttributes ( m_sock ); */
 
 #if 0
 			unsigned long arg = 1;
@@ -172,7 +172,7 @@ namespace CrissCross
 
 			/* Set up the typical transmission attributes. */
 			SetAttributes(m_sock);
-			
+
 #if 0
 			unsigned long arg = 1;
 
@@ -229,13 +229,13 @@ namespace CrissCross
 			err = setsockopt(_socket, SOL_SOCKET, SO_LINGER,
 			                 (char *)&linger_opts, optlen);
 			if (err == -1) return errno;
-			
+
 			/* SO_REUSEADDR */
 #ifndef TARGET_OS_WINDOWS
 			optval = 1;
 			optlen = sizeof(optval);
-			setsockopt(_socket, SOL_SOCKET, SO_REUSEADDR, 
-			                 (char*)&optval, optlen);
+			setsockopt(_socket, SOL_SOCKET, SO_REUSEADDR,
+			           (char *)&optval, optlen);
 #endif
 
 			/* SO_KEEPALIVE */

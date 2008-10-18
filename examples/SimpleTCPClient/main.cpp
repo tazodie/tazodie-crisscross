@@ -23,14 +23,14 @@ int RunApplication(int argc, char * *argv)
 	console = new Console();
 
 	/* Begin your application here. */
-	int cc_err;
+	int         cc_err;
 
 	TCPSocket * sock = new TCPSocket();
 	console->WriteLine("Connecting...");
 	cc_err = sock->Connect("www.example.com", 80);
 	if (cc_err == CC_ERR_WOULD_BLOCK)
 		console->WriteLine("Non-blocking sockets are enabled. Waiting for connection...");
-	while(sock->State() == SOCKET_STATE_CONNECTING);
+	while (sock->State() == SOCKET_STATE_CONNECTING) ;
 	if (sock->State() != SOCKET_STATE_CONNECTED) {
 		console->WriteLine("Connection failed.");
 		return 1;
@@ -42,12 +42,11 @@ int RunApplication(int argc, char * *argv)
 		console->WriteLine("Failed.");
 	else
 		console->WriteLine("OK");
-	
-	while(sock->State() == SOCKET_STATE_CONNECTED) {
+
+	while (sock->State() == SOCKET_STATE_CONNECTED) {
 		string in;
 		cc_err = sock->Read(in);
-		if (cc_err == 0)
-		{
+		if (cc_err == 0) {
 			console->WriteLine(in);
 			break;
 		} else {
@@ -56,9 +55,9 @@ int RunApplication(int argc, char * *argv)
 			System::ThreadSleep(10);
 		}
 	}
-	
+
 	sock->Close();
-	
+
 	delete sock;
 
 	return 0;

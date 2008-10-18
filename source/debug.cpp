@@ -105,8 +105,8 @@ std::string SymbolEngine::addressToString(DWORD address)
 	IMAGEHLP_LINE
 	lineInfo = { sizeof(IMAGEHLP_LINE) };
 	if (SymGetLineFromAddr
-	                                                                                                                                 (GetCurrentProcess(), ( DWORD )address, &dwDisplacement,
-	                                                                                                                                 &lineInfo)) {
+	                                                                                                                                                   (GetCurrentProcess(), ( DWORD )address, &dwDisplacement,
+	                                                                                                                                                   &lineInfo)) {
 		const char *pDelim = strrchr(lineInfo.FileName, '\\');
 		char        temp[1024];
 		sprintf(temp, " at %s(%u)", (pDelim ? pDelim + 1 : lineInfo.FileName), lineInfo.LineNumber);
@@ -159,18 +159,18 @@ void CrissCross::Debug::PrintStackTrace(CrissCross::IO::CoreIOWriter * _outputBu
 
 #elif defined (ENABLE_BACKTRACE)
 #if defined(TARGET_OS_MACOSX)
-	int  (*backtrace)(void **, int);
-	char **(*backtrace_symbols)(void * const *, int);
-	backtrace = (int (*) (void **, int))dlsym(RTLD_DEFAULT, "backtrace");
-	backtrace_symbols = (char **(*) (void * const *, int))dlsym(RTLD_DEFAULT, "backtrace_symbols");
+	int              (*backtrace)(void * *, int);
+	char          * *(*backtrace_symbols)(void * const *, int);
+	backtrace = (int(*) (void * *, int))dlsym(RTLD_DEFAULT, "backtrace");
+	backtrace_symbols = (char * *(*)(void * const *, int))dlsym(RTLD_DEFAULT, "backtrace_symbols");
 #endif
 
 	void            *array[256];
 	int              size;
-	char           **strings;
+	char          * *strings;
 	int              i;
 
-	memset(array,0,sizeof(void*) * 256);
+	memset(array, 0, sizeof(void *) * 256);
 
 	/* use -rdynamic flag when compiling */
 	size = backtrace(array, 256);
@@ -197,11 +197,11 @@ void CrissCross::Debug::PrintStackTrace(CrissCross::IO::CoreIOWriter * _outputBu
 			free(realname);
 		}
 #elif defined(TARGET_OS_MACOSX)
-		char *addr = ::strstr(strings[i], "0x");
-		char *mangled = ::strchr(addr, ' ') + 1;
-		char *postmangle = ::strchr(mangled, ' ');
+		char  *addr = ::strstr(strings[i], "0x");
+		char  *mangled = ::strchr(addr, ' ') + 1;
+		char  *postmangle = ::strchr(mangled, ' ');
 		bt += addr;
-		int status;
+		int    status;
 		if (addr && mangled) {
 			if (postmangle)
 				*postmangle = '\0';
@@ -210,7 +210,7 @@ void CrissCross::Debug::PrintStackTrace(CrissCross::IO::CoreIOWriter * _outputBu
 				bt += ": ";
 				bt += realname;
 			}
-			free ( realname );
+			free(realname);
 		}
 #endif
 		bt += "\n";

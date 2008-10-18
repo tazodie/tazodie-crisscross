@@ -46,7 +46,7 @@ int TestSHA1()
 	SHA1Hash   otherhash;
 	otherhash.Process("cheese", 6);
 	TEST_ASSERT(otherhash != sha1 && sha1 != otherhash);
-	
+
 	otherhash.Process(teststring, length);
 	TEST_ASSERT(otherhash == sha1 && sha1 == otherhash);
 

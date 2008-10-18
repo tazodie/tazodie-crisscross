@@ -121,7 +121,7 @@ void MD4Update(MD4_CTX *context, unsigned char *input, unsigned int inputLen)
 	 */
 	if (inputLen >= partLen) {
 		memcpy
-		                                                                                                                            ((POINTER)&context->buffer[index], (POINTER)input, partLen);
+		                                                                                                                                              ((POINTER)&context->buffer[index], (POINTER)input, partLen);
 		MD4Transform(context->state, context->buffer);
 
 		for (i = partLen; i + 63 < inputLen; i += 64)
@@ -133,8 +133,8 @@ void MD4Update(MD4_CTX *context, unsigned char *input, unsigned int inputLen)
 
 	/* Buffer remaining input */
 	memcpy
-	                                                                                                                            ((POINTER)&context->buffer[index], (POINTER)&input[i],
-	                                                                                                                            inputLen - i);
+	                                                                                                                                              ((POINTER)&context->buffer[index], (POINTER)&input[i],
+	                                                                                                                                              inputLen - i);
 }
 
 /* MD4 finalization. Ends an MD4 message-digest operation, writing the

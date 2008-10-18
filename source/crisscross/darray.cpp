@@ -68,7 +68,6 @@ namespace CrissCross
 			for (size_t i = m_arraySize - 1; (int)i >= 0; i--)
 				if (m_shadow[i] == 0)
 					m_emptyNodes->push(i);
-
 		}
 
 		template <class T>
@@ -78,7 +77,6 @@ namespace CrissCross
 			for (size_t i = 0; i < m_arraySize; i++)
 				if (m_shadow[i] == 1)
 					m_numUsed++;
-
 		}
 
 		template <class T>
@@ -331,7 +329,7 @@ namespace CrissCross
 			return sort(&_sortMethod);
 		}
 #endif
-		
+
 		template <class T>
 		void DArray<T>::flush()
 		{
@@ -342,7 +340,7 @@ namespace CrissCross
 			}
 			empty();
 		}
-		
+
 		template <class T>
 		void DArray<T>::flushArray()
 		{
@@ -353,10 +351,10 @@ namespace CrissCross
 			}
 			empty();
 		}
-		
+
 
 		/* BELOW ARE DEPRECATED FUNCTIONS */
-		
+
 #if !defined(DISABLE_DEPRECATED_CODE)
 		template <class T>
 		void DArray<T>::EmptyAndDelete()

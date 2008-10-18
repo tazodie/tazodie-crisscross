@@ -153,10 +153,10 @@ namespace CrissCross
 		{
 			if (m_sock == INVALID_SOCKET) return CC_ERR_NOT_SOCKET;
 			if (!IsReadable()) return CC_ERR_WOULD_BLOCK;
-			
+
 			_output = "";
-			
-			int errbefore = GetError();
+
+			int   errbefore = GetError();
 
 			char *buf = new char[m_bufferSize];
 			int   recvlen = 0;
@@ -172,9 +172,9 @@ namespace CrissCross
 			} while (recvlen > 0);
 
 			delete [] buf;
-			
+
 			int err = GetError();
-			
+
 			/* The error wasn't triggered by what we did here */
 			if (err == errbefore)
 				err = CC_ERR_NONE;
@@ -258,9 +258,9 @@ namespace CrissCross
 
 		bool CoreSocket::IsReadable() const
 		{
-			int                ret;
-			fd_set             read;
-			struct timeval     timeout;
+			int            ret;
+			fd_set         read;
+			struct timeval timeout;
 
 			/* We only take 0.001 seconds to check */
 			timeout.tv_sec = 0;
@@ -269,7 +269,7 @@ namespace CrissCross
 			FD_ZERO(&read);
 			FD_SET(m_sock, &read);
 
-			int errbefore = GetError(), errafter;
+			int            errbefore = GetError(), errafter;
 
 			/* Select to check if it's readable. */
 			ret = select(m_sock + 1, &read, NULL, NULL, &timeout);
@@ -293,9 +293,9 @@ namespace CrissCross
 
 		bool CoreSocket::IsWritable() const
 		{
-			int                ret;
-			fd_set             write;
-			struct timeval     timeout;
+			int            ret;
+			fd_set         write;
+			struct timeval timeout;
 
 			/* We only take 0.001 seconds to check */
 			timeout.tv_sec = 0;
@@ -304,7 +304,7 @@ namespace CrissCross
 			FD_ZERO(&write);
 			FD_SET(m_sock, &write);
 
-			int errbefore = GetError(), errafter;
+			int            errbefore = GetError(), errafter;
 
 			/* Select to check if it's readable. */
 			ret = select(m_sock + 1, NULL, &write, NULL, &timeout);

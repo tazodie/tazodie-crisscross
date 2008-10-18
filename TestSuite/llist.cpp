@@ -51,7 +51,7 @@ int TestLList()
 	TEST_ASSERT(!llist->valid(-1));
 	TEST_ASSERT(!llist->valid(1));
 	TEST_ASSERT(!llist->valid(0));
-	
+
 	delete llist;
 
 	return 0;

@@ -23,16 +23,16 @@ int TestDStack()
 	for (int i = 0; i < 16; i++) {
 		dstack->push(i);
 	}
-	
+
 	TEST_ASSERT(dstack->count() == 16);
 	TEST_ASSERT(dstack->peek() == 15);
 
 	for (int i = 15; i > 0; i--) {
 		TEST_ASSERT(dstack->pop() == i);
 	}
-	
+
 	TEST_ASSERT(dstack->count() == 1);
-		
+
 	dstack->empty();
 	TEST_ASSERT(dstack->count() == 0);
 

@@ -217,10 +217,10 @@ namespace CrissCross
 				 * \return Memory usage in bytes.
 				 */
 				size_t mem_usage() const;
-			
+
 				/*! \brief Empties the array and deletes the data contained in it with the 'delete' operator. */
 				inline void flush();
-			
+
 				/*! \brief Empties the array and deletes the data contained in it with the 'delete []' operator. */
 				inline void flushArray();
 

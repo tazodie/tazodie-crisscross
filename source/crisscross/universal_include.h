@@ -56,7 +56,7 @@ const int CC_LIB_VERSION_BUILD = BUILD_NUMBER;
 #define ENABLE_CPUID
 #define ENABLE_HASHES
 #define ENABLE_SORTS
-//#define ENABLE_CRASHREPORTS /* Enables XCrashReports on Windows. */
+/* #define ENABLE_CRASHREPORTS / * Enables XCrashReports on Windows. * / */
 /* #define DISABLE_DEPRECATED_CODE */ /* This will be enabled by default in a future release */
 
 /* NOTE: By disabling this line, you will not be in compliance with the New BSD License. */
