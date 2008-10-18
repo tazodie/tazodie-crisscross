@@ -72,7 +72,7 @@ int RunApplication(int argc, char * *argv)
 		console->WriteLine();
 		console->SetColour(console->FG_YELLOW | console->FG_INTENSITY);
 		console->WriteLine("WARNING: Expected at least 1 physical package, but detected %0.1lf. Are you\n"
-						   "running this under a hypervisor?", ratio);
+		                   "running this under a hypervisor?", ratio);
 		console->SetColour();
 	}
 
@@ -120,7 +120,6 @@ int RunApplication(int argc, char * *argv)
 				if (featureIDs->valid(i))
 					if (features->get(i)->Enabled)
 						console->Write("%s ", featureIDs->get(i));
-
 			}
 
 			delete featureIDs;

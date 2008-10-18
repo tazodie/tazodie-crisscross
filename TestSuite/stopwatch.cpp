@@ -31,7 +31,7 @@ int TestStopwatch()
 	System::ThreadSleep(10);
 	sw2->Stop();
 	TEST_ASSERT(sw2->Elapsed() < 1.0 && sw2->Elapsed() > 0.0);
-	
+
 	delete sw2;
 
 	return 0;

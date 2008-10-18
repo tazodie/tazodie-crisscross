@@ -156,7 +156,6 @@ void PrecalculatePrimes()
 	for (n = 3; primeCachePtr - primeCache <= PREGEN - 2; n += 2)
 		if (isPrime(n))
 			AddPrimeToCache((prime_t)n);
-
 }
 #endif
 

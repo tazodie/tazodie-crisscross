@@ -315,7 +315,7 @@ namespace CrissCross
 				 * \return Memory usage in bytes.
 				 */
 				size_t mem_usage() const;
-			
+
 #if !defined(DISABLE_DEPRECATED_CODE)
 				/*
 				 *      Deprecated Compatibility Functions

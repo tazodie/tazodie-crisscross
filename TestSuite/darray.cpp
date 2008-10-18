@@ -24,7 +24,7 @@ int TestDArray()
 	darray->insert(3);
 	darray->insert(5);
 	darray->insert(7);
-	
+
 	TEST_ASSERT(darray->used() == 4);
 	TEST_ASSERT(darray->get(0) == 1);
 	TEST_ASSERT(darray->get(3) == 7);

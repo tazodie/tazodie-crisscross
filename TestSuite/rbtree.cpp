@@ -91,7 +91,7 @@ int TestRedBlackTree_String()
 
 	TEST_ASSERT(rbtree->find("first", res));
 	TEST_ASSERT(res == "one");
-	
+
 	TEST_ASSERT(!rbtree->exists("fifth"));
 
 	TEST_ASSERT(rbtree->exists("second"));

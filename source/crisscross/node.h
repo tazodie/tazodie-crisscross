@@ -127,7 +127,7 @@ namespace CrissCross
 					delete left; left = NULL;
 					delete right; right = NULL;
 				}
-			
+
 				/*! \brief Returns the overhead caused by the node. */
 				/*!
 				 * \return Memory usage in bytes.
@@ -183,7 +183,7 @@ namespace CrissCross
 					delete right; right = NULL;
 				}
 
-			
+
 				/*! \brief Returns the overhead caused by the node. */
 				/*!
 				 * \param _parentTree The tree which contains this node instance.
